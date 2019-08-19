@@ -4,7 +4,6 @@ import Header from './Header';
 const layoutStyle = {
   margin: 20,
   padding: 20,
-  border: '1px solid #333'
 };
 
 const Layout = props => (
@@ -14,9 +13,15 @@ const Layout = props => (
       <meta name="viewport" content="width=device-width, initial-scale=1" />
     </Head>
     <style jsx global>{`
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
       body { 
         background: #000;
         color: #fff;
+        font-family: sans-serif;
       }
       a {
         color: #fff;
