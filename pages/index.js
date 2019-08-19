@@ -12,11 +12,20 @@ const Home = () => (
       <title>Dale Campeón</title>
     </Head>
 
-    <div className='hero-cover'>
-      <div className='hero-description'>
-        <h1 className='h1'>Entrevista a nuestro "Napoléon" Marcelo Gallardo</h1>
-        <a className='btn btn-primary'>Probar Gratis</a>
-        <a className='btn btn-secondary'>Ver más</a>
+    <div className="cover">
+      <div className="container">
+        <div className="row">
+          <div className="col col-5">
+            <div className="description">
+              <h1 className="h1">
+                <span className="h1-a">Entrevista a nuestro</span>
+                <strong className="h1-b">“Napoléon”</strong>
+                <span className="h1-c">Marcelo Gallardo</span></h1>
+              <a className="btn btn-primary">Probar Gratis</a>
+              <a className="btn btn-secondary">Ver más</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -33,7 +42,7 @@ const Home = () => (
       </div>
     </div>
 
-    <div className='row'>
+    <div className='row2'>
       <Link href=''>
         <a className='card'>
           <h3>Getting Started &rarr;</h3>
@@ -55,7 +64,7 @@ const Home = () => (
     </div>
 
     <style jsx>{`
-      .hero-cover {
+      .cover {
         align-items: center;
         background-image: url(/static/napoleon.png);
         background-position: 50% 50%;
@@ -63,10 +72,39 @@ const Home = () => (
         background-size: cover;
         display: flex;
         height: 640px;
+        overflow: hidden;
+        padding-top: 104px;
       }
-      .hero-description {
-        margin-left: 100px;
-        width: 520px;
+      .description {
+      }
+      .h1 {
+        display: flex;
+        flex-direction: column;
+        font-family: 'Bebas Neue Book';
+        font-size: 62px;
+        font-weight: normal;
+        line-height: .9;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        text-align: center;
+      }
+      .h1-a {
+        position: relative;
+        z-index: 2;
+      }
+      .h1-b {
+        color: var(--red);
+        font-family: 'Bebas Neue';
+        font-size: 139px;
+        font-weight: bold;
+        margin-left: -42.5px;
+        position: relative;
+        z-index: 1;
+      }
+      .h1-c {
+        font-size: 72px;
+        margin-top: -15px;
       }
       .btn {
         border-radius: 5px;
@@ -106,7 +144,7 @@ const Home = () => (
       .title {
         text-align: center;
       }
-      .row {
+      .row2 {
         max-width: 880px;
         margin: 80px auto 40px;
         display: flex;
