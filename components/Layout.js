@@ -9,6 +9,7 @@ const Layout = props => (
       <meta name="viewport" content="initial-scale=1, width=device-width" />
       <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap-grid.min.css" />
       <link rel="stylesheet" href="/static/fonts/helvetica/stylesheet.css" />
+      <link rel="stylesheet" href="/static/fonts/helvetica-ce/stylesheet.css" />
     </Head>
     
     <style jsx global>{`
@@ -18,7 +19,13 @@ const Layout = props => (
         box-sizing: border-box;
       }
       :root {
+        /* colors */
+        --white: #fff;
         --gray: #b2b2b2;
+        --red: #ff0000;
+        /* fonts */
+        --sans-serif: 'Helvetica', sans-serif;
+        --sans-serif-condensed: 'Helvetica CE', 'Helvetica', sans-serif;
       }
       body { 
         background-color: #000;

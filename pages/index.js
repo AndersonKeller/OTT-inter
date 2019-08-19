@@ -13,11 +13,11 @@ const Home = () => (
     </Head>
 
     <div className='hero-cover'>
-      <h1 className='h1'>Entrevista a nuestro "Napoléon" Marcelo Gallardo</h1>
-      <p className='description'>
-        <a className='btn'>Probar Gratis</a>
-        <a className='btn'>Ver más</a>
-      </p>
+      <div className='hero-description'>
+        <h1 className='h1'>Entrevista a nuestro "Napoléon" Marcelo Gallardo</h1>
+        <a className='btn btn-primary'>Probar Gratis</a>
+        <a className='btn btn-secondary'>Ver más</a>
+      </div>
     </div>
 
     <div>
@@ -64,8 +64,31 @@ const Home = () => (
         display: flex;
         height: 640px;
       }
-      .hero-cover .h1 {
-        width: 50%;
+      .hero-description {
+        margin-left: 100px;
+        width: 520px;
+      }
+      .btn {
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        font-family: var(--sans-serif-condensed);
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 1.35;
+        padding: 10px 20px;
+        user-select: none;
+      }
+      .btn-primary {
+        background-color: var(--red);
+        color: var(--white);
+        margin-right: 15px;
+      }
+      .btn-secondary {
+        border: 2px solid var(--gray);
+        color: var(--gray);
+        padding-top: 8px;
+        padding-bottom: 8px;
       }
       .cards {
         display: grid;
@@ -80,8 +103,7 @@ const Home = () => (
         line-height: 1.15;
         font-size: 48px;
       }
-      .title,
-      .description {
+      .title {
         text-align: center;
       }
       .row {
