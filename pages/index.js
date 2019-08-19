@@ -148,6 +148,7 @@ const Home = () => (
         padding-bottom: 8px;
       }
       .cards {
+        margin-bottom: 55px;
         padding-left: calc((100% - 1140px) / 2 + 15px);
       }
       .h2 {
