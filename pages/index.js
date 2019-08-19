@@ -12,6 +12,7 @@ const Home = () => (
       <title>Dale Campeón</title>
     </Head>
 
+    {/* cover */}
     <div className="cover">
       <div className="container">
         <div className="row">
@@ -29,16 +30,35 @@ const Home = () => (
       </div>
     </div>
 
-    <div>
-      <h2>Platenences</h2>
+    {/* platenences */}
+    <div className="cards-container">
+      <div className="container">
+        <h2 className="h2">Platenences</h2>
+      </div>
       <div className="cards">
         { cards.map(card => {
           return (
             <div key={card}>
               <img height="256" src="/static/card.jpg" width="180" />
             </div>
-            )
-          }) }
+          )
+        }) }
+      </div>
+    </div>
+
+    {/* arts */}
+    <div className="cards-container">
+      <div className="container">
+        <h2 className="h2">Artes</h2>
+      </div>
+      <div className="cards">
+        { cards.map(card => {
+          return (
+            <div key={card}>
+              <img height="256" src="/static/card.jpg" width="180" />
+            </div>
+          )
+        }) }
       </div>
     </div>
 
@@ -72,10 +92,9 @@ const Home = () => (
         background-size: cover;
         display: flex;
         height: 640px;
+        margin-bottom: 20px;
         overflow: hidden;
         padding-top: 104px;
-      }
-      .description {
       }
       .h1 {
         display: flex;
@@ -127,6 +146,18 @@ const Home = () => (
         color: var(--gray);
         padding-top: 8px;
         padding-bottom: 8px;
+      }
+      .cards {
+        padding-left: calc((100% - 1140px) / 2 + 15px);
+      }
+      .h2 {
+        font-family: var(--sans-serif);
+        font-size: 31px;
+        font-weight: bold;
+        margin-top: 0;
+        margin-bottom: 5px;
+        margin-left: 20px;
+        text-transform: uppercase;
       }
       .cards {
         display: grid;
