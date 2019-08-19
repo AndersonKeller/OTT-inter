@@ -1,71 +1,69 @@
-import Link from 'next/link';
+import React from 'react'
+import Link from 'next/link'
+import ReactSVG from 'react-svg'
 
-const styles = {
-  container: {
-  },
-  menu: {
-    listStyle: 'none',
-  }
-}
-const linkStyle = {
-  marginRight: 15
-};
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/videos', label: 'Videos' },
+  { href: '/podcasts', label: 'Podcasts' },
+  { href: '/entrevistas', label: 'Entrevistas' },
+  { href: '/fotos', label: 'Fotos' },
+  { href: '/sorteos', label: 'Sorteos' },
+].map(link => {
+  link.key = `nav-link-${link.href}-${link.label}`
+  return link
+})
 
 const Header = () => (
+  <header>
+    <nav>
 
-  <div style={styles.container}>
-    
-    {/* logo */}
-    <Link href="/">
-      <a>Dale Campeón</a>
-    </Link>
-    
-    {/* menu */}
-    <ul style={styles.menu}>
-      <li>
+      {/* logo */}
+      <h1 className="logo">
         <Link href="/">
-          <a style={linkStyle}>Home</a>
+          <a><ReactSVG fallback="Dale Campeón" src="/static/logo.svg" /></a>
         </Link>
-      </li>
-      <li>
-        <Link href="/videos">
-          <a style={linkStyle}>Videos</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/podcasts">
-          <a style={linkStyle}>Podcasts</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/entrevistas">
-          <a style={linkStyle}>Entrevistas</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/fotos">
-          <a style={linkStyle}>Fotos</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/Sorteos">
-          <a style={linkStyle}>Sorteos</a>
-        </Link>
-      </li>
-    </ul>
+      </h1>
 
-    {/* form */}
-    <form>
-      <input placeholder="Buscar" type="search" />
-    </form>
-    
-    <style jsx>{`
-      li {
-        display: inline;
-      }
-    `}</style>
-  </div>
-  
-);
+      {/* menu */}
+      <ul>
+        {links.map(({ key, href, label }) => (
+          <li key={key}>
+            <a href={href}>{label}</a>
+          </li>
+        ))}
+      </ul>
+      
+      {/* form */}
+      <form>
+        <input placeholder="Buscar" type="search" />
+      </form>
 
-export default Header;
+      <style jsx>{`
+        .logo {
+          width: 131px;
+        }
+        nav {
+          text-align: center;
+        }
+        ul {
+          display: flex;
+          justify-content: space-between;
+        }
+        nav > ul {
+          padding: 4px 16px;
+        }
+        li {
+          display: flex;
+          padding: 6px 8px;
+        }
+        a {
+          text-decoration: none;
+          font-size: 13px;
+        }
+      `}</style>
+    </nav>
+  </header>
+)
+
+export default Header
