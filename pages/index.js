@@ -12,49 +12,61 @@ const Home = () => (
       <title>Dale Campeón</title>
     </Head>
 
-    <div className='hero'>
-      <h1 className='title'>Entrevista a nuestro "Napoléon" Marcelo Gallardo</h1>
+    <div className='hero-cover'>
+      <h1 className='h1'>Entrevista a nuestro "Napoléon" Marcelo Gallardo</h1>
       <p className='description'>
         <a className='btn'>Probar Gratis</a>
         <a className='btn'>Ver más</a>
       </p>
+    </div>
 
-      <div>
-        <h2>Platenences</h2>
-        <div className="cards">
-          { cards.map(card => {
-            return (
-              <div key={card}>
-                <img height="256" src="/static/card.jpg" width="180" />
-              </div>
-              )
-            }) }
-        </div>
-      </div>
-
-      <div className='row'>
-        <Link href=''>
-          <a className='card'>
-            <h3>Getting Started &rarr;</h3>
-            <p>Learn more about Dale on GitHub and in their examples</p>
-          </a>
-        </Link>
-        <Link href=''>
-          <a className='card'>
-            <h3>Examples &rarr;</h3>
-            <p>Find other example boilerplates on the Dale GitHub</p>
-          </a>
-        </Link>
-        <Link href=''>
-          <a className='card'>
-            <h3>Create App &rarr;</h3>
-            <p>Was this tool helpful? Let us know how we can improve it!</p>
-          </a>
-        </Link>
+    <div>
+      <h2>Platenences</h2>
+      <div className="cards">
+        { cards.map(card => {
+          return (
+            <div key={card}>
+              <img height="256" src="/static/card.jpg" width="180" />
+            </div>
+            )
+          }) }
       </div>
     </div>
 
+    <div className='row'>
+      <Link href=''>
+        <a className='card'>
+          <h3>Getting Started &rarr;</h3>
+          <p>Learn more about Dale on GitHub and in their examples</p>
+        </a>
+      </Link>
+      <Link href=''>
+        <a className='card'>
+          <h3>Examples &rarr;</h3>
+          <p>Find other example boilerplates on the Dale GitHub</p>
+        </a>
+      </Link>
+      <Link href=''>
+        <a className='card'>
+          <h3>Create App &rarr;</h3>
+          <p>Was this tool helpful? Let us know how we can improve it!</p>
+        </a>
+      </Link>
+    </div>
+
     <style jsx>{`
+      .hero-cover {
+        align-items: center;
+        background-image: url(/static/napoleon.png);
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        height: 640px;
+      }
+      .hero-cover .h1 {
+        width: 50%;
+      }
       .cards {
         display: grid;
         grid-gap: 22px;
@@ -62,13 +74,8 @@ const Home = () => (
         grid-template-columns: repeat(7, 1fr);
         overflow: hidden;
       }
-      .hero {
-        width: 100%;
-        color: #333;
-      }
       .title {
         margin: 0;
-        width: 100%;
         padding-top: 80px;
         line-height: 1.15;
         font-size: 48px;

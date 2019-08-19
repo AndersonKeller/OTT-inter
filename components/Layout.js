@@ -17,8 +17,11 @@ const Layout = props => (
       *::after {
         box-sizing: border-box;
       }
+      :root {
+        --gray: #b2b2b2;
+      }
       body { 
-        background-color: #111;
+        background-color: #000;
         color: #fff;
         font-family: sans-serif;
         margin: 0;

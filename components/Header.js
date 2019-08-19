@@ -46,18 +46,32 @@ const Header = () => (
       <button className="notifications-btn" type="button">
         <img alt="Notificações" height="27" src="/static/notification-icon.svg" width="18" />
       </button>
+      
+      {/* user */}
+      <div className="user-select">
+        <div className="avatar">
+          <img alt="Avatar" height="31" src="/static/avatar-icon.svg" width="24" />
+        </div>
+        <img alt="Select" height="9" src="/static/chevron-icon.svg" width="16" />
+      </div>
+
+      {/* gad logo */}
+      <a href="http://somosgad.com" target="_blank">
+        <img alt="GAD_" height="36" src="/static/gad-logo.svg" width="66" />
+      </a>
     </nav>
 
     <style jsx>{`
       .header {
         background-color: rgba(0, 0, 0, .57);
-        color: #b2b2b2;
+        color: var(--gray);
         font-family: 'Helvetica', sans-serif;
         font-size: 21.5px;
         font-weight: bold;
         padding: 20px 45px;
         position: fixed;
         width: 100%;
+        z-index: 10;
       }
       .nav {
         display: flex;
@@ -122,6 +136,22 @@ const Header = () => (
         margin-right: 25px;
         padding: 5px;
         vertical-align: middle;
+      }
+      .user-select {
+        align-items: center;
+        display: flex;
+        margin-right: 30px;
+      }
+      .avatar {
+        align-items: center;
+        background-color: var(--gray);
+        border-radius: 50%;
+        display: flex;
+        height: 45px;
+        justify-content: center;
+        margin-right: 7px;
+        padding: 5px;
+        width: 45px;
       }
     `}</style>
   </header>
