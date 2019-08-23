@@ -11,6 +11,8 @@ const Layout = props => (
       <link rel="stylesheet" href="/static/fonts/helvetica/stylesheet.css" />
       <link rel="stylesheet" href="/static/fonts/helvetica-ce/stylesheet.css" />
       <link rel="stylesheet" href="/static/fonts/bebas-neue/stylesheet.css" />
+      <link rel="stylesheet" type="text/css" charset="utf-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" /> 
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
     </Head>
     
     <style jsx global>{`
@@ -22,6 +24,7 @@ const Layout = props => (
       :root {
         /* colors */
         --white: #fff;
+        --black: #000;
         --gray: #b2b2b2;
         --red: #ff0000;
         
@@ -30,13 +33,16 @@ const Layout = props => (
         --sans-serif-condensed: 'Helvetica CE', 'Helvetica', sans-serif;
       }
       body { 
-        background-color: #000;
+        background-color: var(--black);
         color: #fff;
         font-family: sans-serif;
         margin: 0;
       }
       a {
         color: inherit;
+      }
+      input[type="search"]::-webkit-search-cancel-button {
+        display: none;
       }
     `}</style>
 

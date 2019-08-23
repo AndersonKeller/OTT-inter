@@ -2,9 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import Layout from '../components/layout'
-import Header from '../components/header'
-
-const cards = [0, 1, 2, 3, 4, 5, 6, 7]
+import Carousel from '../components/carousel'
 
 const Home = () => (
   <Layout>
@@ -14,7 +12,7 @@ const Home = () => (
 
     {/* cover */}
     <div className="cover">
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <div className="col col-5">
             <div className="description">
@@ -32,34 +30,18 @@ const Home = () => (
 
     {/* platenences */}
     <div className="cards-container">
-      <div className="container">
+      <div className="container-fluid">
         <h2 className="h2">Platenences</h2>
       </div>
-      <div className="cards">
-        { cards.map(card => {
-          return (
-            <div key={card}>
-              <img height="256" src="/static/card.jpg" width="180" />
-            </div>
-          )
-        }) }
-      </div>
+      <Carousel />
     </div>
 
     {/* arts */}
     <div className="cards-container">
-      <div className="container">
+      <div className="container-fluid">
         <h2 className="h2">Artes</h2>
       </div>
-      <div className="cards">
-        { cards.map(card => {
-          return (
-            <div key={card}>
-              <img height="256" src="/static/card.jpg" width="180" />
-            </div>
-          )
-        }) }
-      </div>
+      <Carousel />
     </div>
 
     <div className='row2'>
@@ -95,6 +77,7 @@ const Home = () => (
         margin-bottom: 20px;
         overflow: hidden;
         padding-top: 104px;
+        padding-left: 9%;
       }
       .h1 {
         display: flex;
@@ -106,7 +89,6 @@ const Home = () => (
         margin-top: 0;
         margin-bottom: 20px;
         text-transform: uppercase;
-        text-align: center;
       }
       .h1-a {
         position: relative;
@@ -117,7 +99,7 @@ const Home = () => (
         font-family: 'Bebas Neue';
         font-size: 139px;
         font-weight: bold;
-        margin-left: -42.5px;
+        margin-left: -50px;
         position: relative;
         z-index: 1;
       }
@@ -147,25 +129,15 @@ const Home = () => (
         padding-top: 8px;
         padding-bottom: 8px;
       }
-      .cards {
-        margin-bottom: 55px;
-        padding-left: calc((100% - 1140px) / 2 + 15px);
-      }
       .h2 {
         font-family: var(--sans-serif);
         font-size: 31px;
         font-weight: bold;
+        line-height: 1;
         margin-top: 0;
-        margin-bottom: 5px;
-        margin-left: 20px;
+        margin-bottom: 0;
+        margin-left: 9%;
         text-transform: uppercase;
-      }
-      .cards {
-        display: grid;
-        grid-gap: 22px;
-        height: 256px;
-        grid-template-columns: repeat(7, 1fr);
-        overflow: hidden;
       }
       .title {
         margin: 0;

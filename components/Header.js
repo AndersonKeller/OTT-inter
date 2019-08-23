@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import ReactSVG from 'react-svg'
+import Chevron from './icons/chevron'
 
 const links = [
   { href: '/', label: 'Home' },
@@ -52,7 +53,7 @@ const Header = () => (
         <div className="avatar">
           <img alt="Avatar" height="31" src="/static/avatar-icon.svg" width="24" />
         </div>
-        <img alt="Select" height="9" src="/static/chevron-icon.svg" width="16" />
+        <Chevron alt="Select" height="9" width="16" />
       </div>
 
       {/* gad logo */}
@@ -100,6 +101,7 @@ const Header = () => (
       .menu a {
         font-size: inherit;
         text-decoration: none;
+        transition: color .2s;
       }
       .menu a:focus,
       .menu a:hover {
