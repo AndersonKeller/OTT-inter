@@ -3,7 +3,7 @@ import Slider from 'react-slick'
 import css from 'styled-jsx/css'
 import Chevron from './icons/chevron'
 
-const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 5, 6, 7, 8, 9]
+const cards = [1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7]
 
 const arrowsStyles = css`
   .slick-prev,
@@ -57,11 +57,11 @@ export default class Carousel extends Component {
       <div className="cards">
         <div className="cards-c">
           <Slider {...settings}>
-            { cards.map(card => {
+            { cards.map((card, index) => {
               return (
-                <div className="slide" key={card}>
+                <div className="slide" key={index}>
                   <div className="card">
-                    <img height="256" src="/static/card.jpg" width="180" />
+                    <img height="256" src={`/static/cards/platenences/${card}.jpg`} width="180" />
                   </div>
                 </div>
               )
