@@ -58,9 +58,9 @@ export default class Carousel extends Component {
             { this.props.list .map((card, index) => {
               return (
                 <div className="slide" key={index}>
-                  <div className="card">
+                  <a className="card" href="javascript:null">
                     <img height="256" src={card} width="180" />
-                  </div>
+                  </a>
                 </div>
               )
             }) }
@@ -102,6 +102,9 @@ export default class Carousel extends Component {
               padding: 10px;
               white-space: normal;
               width: 200px;
+            }
+            .card {
+              display: block;
             }
             .card img {
               display: block;
