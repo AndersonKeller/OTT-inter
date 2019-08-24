@@ -58,7 +58,7 @@ export default class Carousel extends Component {
             { this.props.list .map((card, index) => {
               return (
                 <div className="slide" key={index}>
-                  <a className="card" href="javascript:null">
+                  <a className="card" href="" onClick={(event) => event.preventDefault()}>
                     <img height="256" src={card} width="180" />
                   </a>
                 </div>

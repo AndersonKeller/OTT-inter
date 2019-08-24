@@ -4,8 +4,29 @@ import Head from 'next/head'
 import Layout from '../components/layout'
 import Carousel from '../components/carousel'
 
+const CarouselSection = (props) => (
+  <div className="cards-container">
+    <div className="container-fluid">
+      <h2 className="h2">{props.title}</h2>
+    </div>
+    <Carousel list={props.list} />
+    <style jsx>{`
+      .h2 {
+        font-family: var(--sans-serif);
+        font-size: 31px;
+        font-weight: bold;
+        line-height: 1;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 9%;
+        text-transform: uppercase;
+      }
+    `}</style>
+  </div>
+)
+
 const Home = () => {
-  const cards1 = [
+  const platenences = [
     'static/cards/platenences/1.jpg',
     'static/cards/platenences/2.jpg',
     'static/cards/platenences/3.jpg',
@@ -18,18 +39,63 @@ const Home = () => {
     'static/cards/platenences/3.jpg',
     'static/cards/platenences/4.jpg',
   ]
-  const cards2 = [
-    'static/cards/artes/1.jpg',
-    'static/cards/artes/2.jpg',
-    'static/cards/artes/3.jpg',
-    'static/cards/artes/4.jpg',
-    'static/cards/artes/5.jpg',
-    'static/cards/artes/6.jpg',
-    'static/cards/artes/7.jpg',
-    'static/cards/artes/1.jpg',
-    'static/cards/artes/2.jpg',
-    'static/cards/artes/3.jpg',
-    'static/cards/artes/4.jpg',
+  const arts = [
+    'static/cards/arts/1.jpg',
+    'static/cards/arts/2.jpg',
+    'static/cards/arts/3.jpg',
+    'static/cards/arts/4.jpg',
+    'static/cards/arts/5.jpg',
+    'static/cards/arts/6.jpg',
+    'static/cards/arts/7.jpg',
+    'static/cards/arts/1.jpg',
+    'static/cards/arts/2.jpg',
+    'static/cards/arts/3.jpg',
+    'static/cards/arts/4.jpg',
+  ]
+  const podcasts = [
+    'static/cards/podcasts/1.jpg',
+    'static/cards/podcasts/2.jpg',
+    'static/cards/podcasts/3.jpg',
+    'static/cards/podcasts/4.jpg',
+    'static/cards/podcasts/5.jpg',
+    'static/cards/podcasts/6.jpg',
+    'static/cards/podcasts/7.jpg',
+  ]
+  const interviews = [
+    'static/cards/interviews/1.jpg',
+    'static/cards/interviews/2.jpg',
+    'static/cards/interviews/3.jpg',
+    'static/cards/interviews/4.jpg',
+    'static/cards/interviews/5.jpg',
+    'static/cards/interviews/6.jpg',
+    'static/cards/interviews/7.jpg',
+  ]
+  const news = [
+    'static/cards/news/1.jpg',
+    'static/cards/news/2.jpg',
+    'static/cards/news/3.jpg',
+    'static/cards/news/4.jpg',
+    'static/cards/news/5.jpg',
+    'static/cards/news/6.jpg',
+    'static/cards/news/7.jpg',
+  ]
+  const family = [
+    'static/cards/family/1.jpg',
+    'static/cards/family/2.jpg',
+    'static/cards/family/3.jpg',
+    'static/cards/family/4.jpg',
+    'static/cards/family/5.jpg',
+    'static/cards/family/6.jpg',
+    'static/cards/family/7.jpg',
+  ]
+  const children = [
+    'static/cards/children/1.jpg',
+    'static/cards/children/2.jpg',
+    'static/cards/children/3.jpg',
+    'static/cards/children/4.jpg',
+    'static/cards/children/5.jpg',
+    'static/cards/children/6.jpg',
+    'static/cards/children/7.jpg',
   ]
   return (
     <Layout>
@@ -56,41 +122,40 @@ const Home = () => {
       </div>
 
       {/* platenences */}
-      <div className="cards-container">
-        <div className="container-fluid">
-          <h2 className="h2">Platenences</h2>
-        </div>
-        <Carousel list={cards1} />
-      </div>
+      <CarouselSection title="Platenences" list={platenences} />
 
       {/* arts */}
-      <div className="cards-container">
-        <div className="container-fluid">
-          <h2 className="h2">Artes</h2>
-        </div>
-        <Carousel list={cards2} />
+      <CarouselSection title="Artes" list={arts} />
+
+      {/* features */}
+      <div className="featured">
+        
       </div>
 
-      <div className='row2'>
-        <Link href=''>
-          <a className='card'>
-            <h3>Getting Started &rarr;</h3>
-            <p>Learn more about Dale on GitHub and in their examples</p>
-          </a>
-        </Link>
-        <Link href=''>
-          <a className='card'>
-            <h3>Examples &rarr;</h3>
-            <p>Find other example boilerplates on the Dale GitHub</p>
-          </a>
-        </Link>
-        <Link href=''>
-          <a className='card'>
-            <h3>Create App &rarr;</h3>
-            <p>Was this tool helpful? Let us know how we can improve it!</p>
-          </a>
-        </Link>
+      {/* podcasts */}
+      <CarouselSection title="Podcasts" list={podcasts} />
+
+      {/* interviews */}
+      <CarouselSection title="Entrevistas" list={interviews} />
+
+      {/* features */}
+      <div className="featured">
+        
       </div>
+      
+      {/* news */}
+      <CarouselSection title="Noticias" list={news} />
+
+      {/* features */}
+      <div className="featured">
+        
+      </div>
+      
+      {/* family */}
+      <CarouselSection title="Familia" list={family} />
+      
+      {/* children */}
+      <CarouselSection title="Niños" list={children} />
 
       <style jsx>{`
         .cover {
@@ -155,54 +220,6 @@ const Home = () => {
           color: var(--gray);
           padding-top: 8px;
           padding-bottom: 8px;
-        }
-        .h2 {
-          font-family: var(--sans-serif);
-          font-size: 31px;
-          font-weight: bold;
-          line-height: 1;
-          margin-top: 0;
-          margin-bottom: 0;
-          margin-left: 9%;
-          text-transform: uppercase;
-        }
-        .title {
-          margin: 0;
-          padding-top: 80px;
-          line-height: 1.15;
-          font-size: 48px;
-        }
-        .title {
-          text-align: center;
-        }
-        .row2 {
-          max-width: 880px;
-          margin: 80px auto 40px;
-          display: flex;
-          flex-direction: row;
-          justify-content: space-around;
-        }
-        .card {
-          padding: 18px 18px 24px;
-          width: 220px;
-          text-align: left;
-          text-decoration: none;
-          color: #434343;
-          border: 1px solid #9b9b9b;
-        }
-        .card:hover {
-          border-color: #067df7;
-        }
-        .card h3 {
-          margin: 0;
-          color: #067df7;
-          font-size: 18px;
-        }
-        .card p {
-          margin: 0;
-          padding: 12px 0 0;
-          font-size: 13px;
-          color: #333;
         }
       `}</style>
     </Layout>
