@@ -1,6 +1,8 @@
 const H2 = (props) => (
-  <div className={props.className}>
-    <h2 className="h2">{props.children}</h2>
+  <>
+    <h2 className={'h2' + (props.className ? ' ' + props.className : '')}>
+      {props.children}
+    </h2>
     <style jsx>{`
       .h2 {
         font-family: var(--sans-serif);
@@ -12,6 +14,6 @@ const H2 = (props) => (
         text-transform: uppercase;
       }
     `}</style>
-  </div>
+  </>
 )
 export default H2

@@ -2,8 +2,7 @@ import Head from 'next/head'
 import Header from './header'
 
 const Layout = props => (
-  <div>
-    
+  <>
     <Head>
       <meta charset="utf-8" />
       <meta name="viewport" content="initial-scale=1, width=device-width" />
@@ -14,7 +13,10 @@ const Layout = props => (
       <link rel="stylesheet" type="text/css" charset="utf-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" /> 
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
     </Head>
-    
+    <Header closed={props.header === 'closed'} />
+    <main>
+      {props.children}
+    </main>
     <style jsx global>{`
       *,
       *::before,
@@ -35,7 +37,8 @@ const Layout = props => (
       body { 
         background-color: var(--black);
         color: #fff;
-        font-family: sans-serif;
+        font-family: var(--sans-serif);
+        font-size: 20px;
         margin: 0;
       }
       a {
@@ -44,6 +47,10 @@ const Layout = props => (
       input[type="search"]::-webkit-search-cancel-button {
         display: none;
       }
+      p {
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
       .img-fluid {
         max-width: 100%;
         height: auto;
@@ -51,15 +58,10 @@ const Layout = props => (
       .w-100 {
         width: 100%;
       }
+      .text-uppercase {
+        text-transform: uppercase;
+      }
     `}</style>
-
-    <Header />
-
-    <main>
-      {props.children}
-    </main>
-    
-  </div>
+  </>
 );
-
-export default Layout;
+export default Layout

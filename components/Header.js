@@ -14,54 +14,59 @@ const links = [
   link.key = `nav-link-${link.href}-${link.label}`
   return link
 })
+const Header = props => (
+  <>
+    <header className={"header" + (props.closed ? " header--closed" : '')}>
+      <nav className="nav">
 
-const Header = () => (
-  <header className="header">
-    <nav className="nav">
+        {/* logo */}
+        <h1 className="logo">
+          <Link href="/">
+            <a><img alt="Dale Campeón" src="/static/logo.svg" /></a>
+          </Link>
+        </h1>
 
-      {/* logo */}
-      <h1 className="logo">
-        <Link href="/">
-          <a><img alt="Dale Campeón" src="/static/logo.svg" /></a>
-        </Link>
-      </h1>
+        { ! props.closed && (
+          <>
+            {/* menu */}
+            <ul className="menu">
+              {links.map(({ key, href, label }) => (
+                <li key={key}>
+                  <a href={href}>{label}</a>
+                </li>
+              ))}
+            </ul>
 
-      {/* menu */}
-      <ul className="menu">
-        {links.map(({ key, href, label }) => (
-          <li key={key}>
-            <a href={href}>{label}</a>
-          </li>
-        ))}
-      </ul>
+            {/* form */}
+            <form method="post">
+              <button className="search-btn" type="button">
+                <img alt="Buscar" height="28" src="/static/magnify-icon.svg" width="28" />
+              </button>
+              <input className="form-control" placeholder="Buscar" type="search" />
+            </form>
 
-      {/* form */}
-      <form method="post">
-        <button className="search-btn" type="button">
-          <img alt="Buscar" height="28" src="/static/magnify-icon.svg" width="28" />
-        </button>
-        <input className="form-control" placeholder="Buscar" type="search" />
-      </form>
-      
-      {/* notifications */}
-      <button className="notifications-btn" type="button">
-        <img alt="Notificações" height="27" src="/static/notification-icon.svg" width="18" />
-      </button>
-      
-      {/* user */}
-      <div className="user-select">
-        <div className="avatar">
-          <img alt="Avatar" height="31" src="/static/avatar-icon.svg" width="24" />
-        </div>
-        <Chevron alt="Select" height="9" width="16" />
-      </div>
+            {/* notifications */}
+            <button className="notifications-btn" type="button">
+              <img alt="Notificações" height="27" src="/static/notification-icon.svg" width="18" />
+            </button>
 
-      {/* gad logo */}
-      <a href="http://somosgad.com" target="_blank">
-        <img alt="GAD_" height="36" src="/static/gad-logo.svg" width="66" />
-      </a>
-    </nav>
+            {/* user */}
+            <div className="user-select">
+              <div className="avatar">
+                <img alt="Avatar" height="31" src="/static/avatar-icon.svg" width="24" />
+              </div>
+              <Chevron alt="Select" height="9" width="16" />
+            </div>
 
+            {/* gad logo */}
+            <a href="http://somosgad.com" target="_blank">
+              <img alt="GAD_" height="36" src="/static/gad-logo.svg" width="66" />
+            </a>
+          </>
+        ) }
+
+      </nav>
+    </header>
     <style jsx>{`
       .header {
         background-color: rgba(0, 0, 0, .57);
@@ -74,9 +79,16 @@ const Header = () => (
         width: 100%;
         z-index: 10;
       }
+      .header--closed {
+        background-color: var(--black);
+        position: static;
+      }
       .nav {
         display: flex;
         align-items: center;
+      }
+      .header--closed .nav {
+        justify-content: center;
       }
       .logo {
         height: auto;
@@ -156,7 +168,6 @@ const Header = () => (
         width: 45px;
       }
     `}</style>
-  </header>
+  </>
 )
-
 export default Header

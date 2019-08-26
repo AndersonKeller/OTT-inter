@@ -5,6 +5,7 @@ import Button from '../components/button'
 import Featured from '../components/featured'
 import Card from '../components/card'
 import CarouselSection from '../components/carousel-section'
+import Link from 'next/link'
 
 const Home = _ => {
   return (
@@ -24,8 +25,12 @@ const Home = _ => {
                     <span className="h1-a">Entrevista a nuestro</span>
                     <strong className="h1-b">“Napoléon”</strong>
                     <span className="h1-c">Marcelo Gallardo</span></h1>
-                  <Button>Probar Gratis</Button>
-                  <Button color="secondary">Ver más</Button>
+                  <Link href="/subscriptor">
+                    <Button>Probar Gratis</Button>
+                  </Link>
+                  <Link href="/entrevistas">
+                    <Button color="secondary">Ver más</Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -56,7 +61,9 @@ const Home = _ => {
 
         {/* features */}
         <Featured img="/static/featured/crear.jpg">
-          <Button>Probar Gratis</Button>
+          <Link href="/subscriptor">
+            <Button>Probar Gratis</Button>
+          </Link>
           <Button color="secondary">Compra aquí</Button>
         </Featured>
 
@@ -84,7 +91,9 @@ const Home = _ => {
 
         {/* features */}
         <Featured img="/static/featured/axe.jpg">
-          <Button>Probar Gratis</Button>
+          <Link href="/subscriptor">
+            <Button>Probar Gratis</Button>
+          </Link>
           <Button color="secondary">Descubri más</Button>
         </Featured>
         
@@ -101,7 +110,9 @@ const Home = _ => {
 
         {/* features */}
         <Featured img="/static/featured/sorteos.png">
-          <Button>Probar Gratis</Button>
+          <Link href="/subscriptor">
+            <Button>Probar Gratis</Button>
+          </Link>
           <Button color="secondary">Ver más</Button>
         </Featured>
         

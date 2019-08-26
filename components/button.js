@@ -1,8 +1,12 @@
-const Button = (props) => {
-  const color = props.color || 'primary';
+import React from 'react'
+
+const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
+  const color = props.color || 'primary'
   return (
-    <span>
-      <a className={`btn btn-${color}`}>{props.children}</a>
+    <>
+      <a className={`btn btn-${color}`} href={href} onClick={onClick} ref={ref}>
+        {props.children}
+      </a>
       <style jsx>{`
         .btn {
           border-radius: 5px;
@@ -27,8 +31,7 @@ const Button = (props) => {
           padding-bottom: 8px;
         }
       `}</style>
-    </span>
+    </>
   )
-}
-
+})
 export default Button

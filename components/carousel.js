@@ -51,7 +51,6 @@ export default class Carousel extends Component {
       nextArrow: <Arrow />,
       prevArrow: <Arrow />,
     };
-    console.log(this.props.children)
     return (
       <div className="cards">
         <div className="cards-c">
