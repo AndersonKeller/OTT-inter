@@ -3,6 +3,8 @@ import Link from 'next/link'
 import Head from 'next/head'
 import Layout from '../components/layout'
 import Carousel from '../components/carousel'
+import Button from '../components/button'
+import Featured from '../components/featured'
 
 const CarouselSection = (props) => (
   <div className="cards-container">
@@ -102,62 +104,70 @@ const Home = () => {
       <Head>
         <title>Dale Campeón</title>
       </Head>
+      <div className="index">
 
-      {/* cover */}
-      <div className="cover">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col col-5">
-              <div className="description">
-                <h1 className="h1">
-                  <span className="h1-a">Entrevista a nuestro</span>
-                  <strong className="h1-b">“Napoléon”</strong>
-                  <span className="h1-c">Marcelo Gallardo</span></h1>
-                <a className="btn btn-primary">Probar Gratis</a>
-                <a className="btn btn-secondary">Ver más</a>
+        {/* cover */}
+        <div className="cover">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col col-5">
+                <div className="description">
+                  <h1 className="h1">
+                    <span className="h1-a">Entrevista a nuestro</span>
+                    <strong className="h1-b">“Napoléon”</strong>
+                    <span className="h1-c">Marcelo Gallardo</span></h1>
+                  <Button>Probar Gratis</Button>
+                  <Button color="secondary">Ver más</Button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* platenences */}
-      <CarouselSection title="Platenences" list={platenences} />
+        {/* platenences */}
+        <CarouselSection title="Platenences" list={platenences} />
 
-      {/* arts */}
-      <CarouselSection title="Artes" list={arts} />
+        {/* arts */}
+        <CarouselSection title="Artes" list={arts} />
 
-      {/* features */}
-      <div className="featured">
+        {/* features */}
+        <Featured img="/static/featured/crear.jpg">
+          <Button>Probar Gratis</Button>
+          <Button color="secondary">Compra aquí</Button>
+        </Featured>
+
+        {/* podcasts */}
+        <CarouselSection title="Podcasts" list={podcasts} />
+
+        {/* interviews */}
+        <CarouselSection title="Entrevistas" list={interviews} />
+
+        {/* features */}
+        <Featured img="/static/featured/axe.jpg">
+          <Button>Probar Gratis</Button>
+          <Button color="secondary">Descubri más</Button>
+        </Featured>
         
-      </div>
+        {/* news */}
+        <CarouselSection title="Noticias" list={news} />
 
-      {/* podcasts */}
-      <CarouselSection title="Podcasts" list={podcasts} />
-
-      {/* interviews */}
-      <CarouselSection title="Entrevistas" list={interviews} />
-
-      {/* features */}
-      <div className="featured">
+        {/* features */}
+        <Featured img="/static/featured/sorteos.png">
+          <Button>Probar Gratis</Button>
+          <Button color="secondary">Ver más</Button>
+        </Featured>
         
-      </div>
-      
-      {/* news */}
-      <CarouselSection title="Noticias" list={news} />
-
-      {/* features */}
-      <div className="featured">
+        {/* family */}
+        <CarouselSection title="Familia" list={family} />
         
-      </div>
-      
-      {/* family */}
-      <CarouselSection title="Familia" list={family} />
-      
-      {/* children */}
-      <CarouselSection title="Niños" list={children} />
+        {/* children */}
+        <CarouselSection title="Niños" list={children} />
 
+      </div>
       <style jsx>{`
+        .index {
+          padding-bottom: 55px;
+        }
         .cover {
           align-items: center;
           background-image: url(/static/napoleon.png);
@@ -198,28 +208,6 @@ const Home = () => {
         .h1-c {
           font-size: 72px;
           margin-top: -15px;
-        }
-        .btn {
-          border-radius: 5px;
-          cursor: pointer;
-          display: inline-block;
-          font-family: var(--sans-serif-condensed);
-          font-size: 20px;
-          font-weight: bold;
-          line-height: 1.35;
-          padding: 10px 20px;
-          user-select: none;
-        }
-        .btn-primary {
-          background-color: var(--red);
-          color: var(--white);
-          margin-right: 15px;
-        }
-        .btn-secondary {
-          border: 2px solid var(--gray);
-          color: var(--gray);
-          padding-top: 8px;
-          padding-bottom: 8px;
         }
       `}</style>
     </Layout>

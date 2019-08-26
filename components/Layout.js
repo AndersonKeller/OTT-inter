@@ -44,6 +44,13 @@ const Layout = props => (
       input[type="search"]::-webkit-search-cancel-button {
         display: none;
       }
+      .img-fluid {
+        max-width: 100%;
+        height: auto;
+      }
+      .w-100 {
+        width: 100%;
+      }
     `}</style>
 
     <Header />
