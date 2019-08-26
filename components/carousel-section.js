@@ -1,23 +1,17 @@
 import Carousel from '../components/carousel'
+import H2 from '../components/h2'
 
 const CarouselSection = (props) => (
-  <div className="cards-container">
+  <div className="carousel-section">
     <div className="container-fluid">
-      <h2 className="h2">{props.title}</h2>
+      <H2 className="carousel-section-title">{props.title}</H2>
     </div>
     <Carousel list={props.list}>
       {props.children}
     </Carousel>
-    <style jsx>{`
-      .h2 {
-        font-family: var(--sans-serif);
-        font-size: 31px;
-        font-weight: bold;
-        line-height: 1;
-        margin-top: 0;
-        margin-bottom: 0;
+    <style jsx global>{`
+      .carousel-section :global(.carousel-section-title) {
         margin-left: 9%;
-        text-transform: uppercase;
       }
     `}</style>
   </div>
