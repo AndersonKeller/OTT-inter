@@ -17,6 +17,9 @@ const Featured = (props) => {
           position: absolute;
           top: 75%;
         }
+        .featured-content :global(.btn) {
+          margin-right: 15px;
+        }
       `}</style>
     </div>
   )

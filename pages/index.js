@@ -156,6 +156,9 @@ const Home = _ => {
           padding-top: 104px;
           padding-left: 9%;
         }
+        .cover :global(.btn) {
+          margin-right: 15px;
+        }
         .h1 {
           display: flex;
           flex-direction: column;

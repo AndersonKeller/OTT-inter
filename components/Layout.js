@@ -4,13 +4,13 @@ import Header from './header'
 const Layout = props => (
   <>
     <Head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="initial-scale=1, width=device-width" />
-      <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap-grid.min.css" />
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="initial-scale=1, shrink-to-fit=no, width=device-width" />
+      <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap-grid.min.css" />
       <link rel="stylesheet" href="/static/fonts/helvetica/stylesheet.css" />
       <link rel="stylesheet" href="/static/fonts/helvetica-ce/stylesheet.css" />
       <link rel="stylesheet" href="/static/fonts/bebas-neue/stylesheet.css" />
-      <link rel="stylesheet" type="text/css" charset="utf-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" /> 
+      <link rel="stylesheet" type="text/css" charSet="utf-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" /> 
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
     </Head>
     <Header closed={props.header === 'closed'} />
@@ -33,12 +33,22 @@ const Layout = props => (
         /* fonts */
         --sans-serif: 'Helvetica', sans-serif;
         --sans-serif-condensed: 'Helvetica CE', 'Helvetica', sans-serif;
+
+        /* font-sizes */
+        --font-size: 20px;
+      }
+      @media (min-width: 768px) {
+      }
+      @media (min-width: 992px) {
+        :root {
+          --font-size: 20px;
+        }
       }
       body { 
         background-color: var(--black);
         color: #fff;
         font-family: var(--sans-serif);
-        font-size: 20px;
+        font-size: var(--font-size);
         margin: 0;
       }
       a {
@@ -60,6 +70,21 @@ const Layout = props => (
       }
       .text-uppercase {
         text-transform: uppercase;
+      }
+      .text-right {
+        text-align: right;
+      }
+      .no-gutters {
+        margin-right: 0;
+        margin-left: 0;
+      }
+      .no-gutters > .col,
+      .no-gutters > [class*="col-"] {
+        padding-right: 0;
+        padding-left: 0;
+      }
+      .d-block {
+        display: block;
       }
     `}</style>
   </>

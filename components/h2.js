@@ -5,13 +5,22 @@ const H2 = (props) => (
     </h2>
     <style jsx>{`
       .h2 {
+        --font-size: 31px;
         font-family: var(--sans-serif);
-        font-size: 31px;
+        font-size: var(--font-size);
         font-weight: bold;
         line-height: 1;
         margin-top: 0;
         margin-bottom: 0;
-        text-transform: uppercase;
+      }
+      @media (min-width: 768px) {
+        .h2 {
+        }
+      }
+      @media (min-width: 992px) {
+        .h2 {
+          --font-size: 31px;
+        }
       }
     `}</style>
   </>
