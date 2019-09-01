@@ -15,6 +15,7 @@ const H2 = (props) => (
       }
       @media (min-width: 768px) {
         .h2 {
+          --font-size: 22px;
         }
       }
       @media (min-width: 992px) {

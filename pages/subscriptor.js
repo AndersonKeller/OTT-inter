@@ -79,19 +79,21 @@ const SubscriptorSection = (props) => {
             background-position: ${direction === 'left' ? '50% 50%, 100% 50%' : '50% 50%, 0 50%'};
             background-repeat: no-repeat, no-repeat;
             background-size: cover, contain;
-            height: 530px;
-          }
-          .subscriptor-section--left .subscriptor-section-img-col {
-            order: 12;
+            height: 300px;
           }
           .subscriptor-section-text-col {
             padding-top: 0;
           }
-          .subscriptor-section--right .subscriptor-section-text-col {
-            padding-left: 7.5%;
-          }
           .subscriptor-section-text-col :global(.btn) {
             margin-right: 15px;
+          }
+        }
+        @media (min-width: 992px) {
+          .subscriptor-section .row {
+            height: 530px;
+          }
+          .subscriptor-section--right .subscriptor-section-text-col {
+            padding-left: 7.5%;
           }
         }
         @media (min-width: 1400px) {
