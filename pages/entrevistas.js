@@ -1,60 +1,148 @@
 import Layout from '../components/layout'
 import Button from '../components/button'
+import Link from 'next/link'
 
-const Cover = () => {
-  return (
-    <div className="cover container-fluid">
-      <div className="row align-items-center">
-        <div className="col-12 col-md-5 offset-md-1">
-          <h1>Mano a mano con Javier Pinola</h1>
-          <div>2019</div>
-          <div className="description">
-            <p>El jugador del Más Grande habló de su carrera en una entrevista exclusiva con Dale Campeón.</p>
-          </div>
-          <Button>Proba Gratis</Button>
-          <Button color="secondary">
-            <img src="/static/add-icon.svg" width="13" height="13" />
-            <span>Mi Lista</span>
-          </Button>
+const Cover = _ => (
+  <div className="cover container-fluid">
+    <div className="row align-items-center">
+      <div className="col-12 col-md-5 offset-md-1">
+        <h1>Mano a mano con Javier Pinola</h1>
+        <div>2019</div>
+        <div className="description">
+          <p>El jugador del Más Grande habló de su carrera en una entrevista exclusiva con Dale Campeón.</p>
         </div>
+        <Link href="/subscriptor">
+          <Button>Proba Gratis</Button>
+        </Link>
+        <Button color="secondary">
+          <img src="/static/add-icon.svg" width="13" height="13" />
+          <span>Mi Lista</span>
+        </Button>
       </div>
-      <style jsx>{`
-        .cover {
-          background-color: #0a0b11;
-          background-image: url(/static/interviews/gradient.png),
-                            url(/static/interviews/javier-pinola.png);
-          background-position: 50% 50%, 97.5% 50%;
-          background-repeat: no-repeat, no-repeat;
-          background-size: cover, contain;
-          font-size: 20px;
-          line-height: 1.5;
-          margin-bottom: 70px;
-        }
+    </div>
+    <style jsx>{`
+      .cover {
+        background-color: #0a0b11;
+        background-image: url(/static/interviews/gradient.png),
+                          url(/static/interviews/javier-pinola.png);
+        background-position: 50% 50%, 97.5% 50%;
+        background-repeat: no-repeat, no-repeat;
+        background-size: cover, contain;
+        font-size: 20px;
+        line-height: 1.5;
+        margin-bottom: 70px;
+      }
+      .cover .row {
+        padding-top: calc(110px + 15px);
+        padding-bottom: 15px;
+      }
+      h1 {
+        font-size: 31px;
+        line-height: normal;
+        margin-bottom: 0;
+      }
+      .description {
+        margin-bottom: 30px;
+      }
+      .cover :global(.btn-primary) {
+        margin-bottom: 15px;
+      }
+      @media (min-width: 768px) {
         .cover .row {
-          padding-top: calc(110px + 15px);
-          padding-bottom: 15px;
-        }
-        h1 {
-          font-size: 31px;
-          line-height: normal;
-          margin-bottom: 0;
+          height: 560px;
+          padding-top: 110px;
         }
         .description {
-          margin-bottom: 30px;
+          margin-bottom: 50px;
         }
         .cover :global(.btn-primary) {
+          margin-right: 15px;
+        }
+      }
+    `}</style>
+  </div>
+)
+
+const More = _ => {
+  const interviews = [
+    {
+      img: '/static/interviews/thumb1.png', 
+      title: 'Entrevista a Javier Pinola', 
+      text: 'EXCLUSIVO #DaleCampeon | Hablamos mano a mano con Javier Pinola: "Estoy muy contento con este presente. Al principio me costó adaptarme"', 
+    },
+    {
+      img: '/static/interviews/thumb2.png', 
+      title: 'Mano a mano con Javier Pinola', 
+      text: 'El jugador del Más Grande habló de su carrera en una entrevista exclusiva con Dale Campeón.', 
+    },
+    {
+      img: '/static/interviews/thumb3.png', 
+      title: 'Pinola: "Queremos seguir ganando y sumando confianza"', 
+      text: 'La palabra de Javier Pinola luego del triunfo ante San Martín. ¡Escuchalo! ', 
+    }
+  ]
+  return (
+    <div className="more container-fluid">
+      <div className="row">
+        <div className="col offset-md-1">
+          <h2 className="h2 text-uppercase">Más Entrevistas</h2>
+        </div>
+      </div>
+      <div className="cards">
+        { interviews.map((interview) => (
+          <div className="card row align-items-center">
+            <div className="col-md-4">
+              <img src={interview.img} width="390" height="220" className="img-fluid w-100 d-block" />
+            </div>
+            <div className="col-md-7">
+              <h3 className="h3">{interview.title}</h3>
+              <p>{interview.text}</p>
+            </div>
+          </div>
+        )) }
+      </div>
+      <style jsx>{`
+        .more {
+          background-color: var(--dark-gray3);
+          font-size: 20px;
+          line-height: 1.5;
+          padding-top: 30px;
+        }
+        .h2 {
+          font-size: 30px;
+          margin-top: 0;
+          margin-bottom: 30px;
+        }
+        .h3 {
+          font-size: inherit;
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+        .cards {
+          overflow: hidden;
+        }
+        .card {
+          margin-bottom: 30px;
+        }
+        .card img {
           margin-bottom: 15px;
         }
         @media (min-width: 768px) {
-          .cover .row {
-            height: 560px;
-            padding-top: 110px;
+          .more {
+            padding-top: 45px;
           }
-          .description {
-            margin-bottom: 50px;
+          .h2 {
+            font-size: 31px;
+            margin-bottom: 60px;
           }
-          .cover :global(.btn-primary) {
-            margin-right: 15px;
+          .cards {
+            padding-left: 4%;
+          }
+          .card {
+            margin-bottom: 45px;
+          }
+          .card img {
+            margin-bottom: 0;
           }
         }
       `}</style>
@@ -66,6 +154,7 @@ export default function Entrevistas() {
   return (
     <Layout>
       <Cover />
+      <More />
     </Layout>
   );
 }

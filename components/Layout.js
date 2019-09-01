@@ -34,6 +34,7 @@ const Layout = props => (
         --black: #000;
         --gray: #b2b2b2;
         --red: #ff0000;
+        --dark-gray3: #1a1a1a;
         
         /* fonts */
         --sans-serif: 'Helvetica', sans-serif;
