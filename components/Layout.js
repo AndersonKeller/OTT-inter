@@ -83,9 +83,6 @@ const Layout = props => (
         padding-right: 0;
         padding-left: 0;
       }
-      .d-block {
-        display: block;
-      }
     `}</style>
   </>
 );

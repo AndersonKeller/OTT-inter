@@ -21,7 +21,7 @@ const SubscriptorSection = (props) => {
   return (
     <div className={`subscriptor-section subscriptor-section--${direction} container-fluid text-${direction}`}>
       <div className="row align-items-center">
-        <div className="col-md-6 subscriptor-section-img-col">
+        <div className="subscriptor-section-img-col col-12 d-md-none">
           <img 
             alt={props.imgAlt} 
             className="img-fluid w-100 d-block"
@@ -30,7 +30,7 @@ const SubscriptorSection = (props) => {
             width={props.imgWidth} 
           />
         </div>
-        <div className="col-md-4 subscriptor-section-text-col offset-md-1">
+        <div className={`subscriptor-section-text-col col-md-4 offset-md-${direction === 'left' ? '1' : '7'}`}>
           {props.children}
         </div>
       </div>
@@ -45,7 +45,6 @@ const SubscriptorSection = (props) => {
         }
         .subscriptor-section-img-col::after {
           background-image: url(${props.gradientSrc});
-          background-position: 0 50%;
           background-size: cover;
           bottom: 0;
           content: '';
@@ -54,6 +53,12 @@ const SubscriptorSection = (props) => {
           right: 0;
           top: 0;
           z-index: 2;
+        }
+        .subscriptor-section--left .subscriptor-section-img-col::after {
+          background-position: 100% 50%;
+        }
+        .subscriptor-section--right .subscriptor-section-img-col::after {
+          background-position: 0 50%;
         }
         .subscriptor-section-text-col {
           padding-top: 15px;
@@ -69,28 +74,32 @@ const SubscriptorSection = (props) => {
             margin-bottom: 0;
           }
           .subscriptor-section .row {
-            background-image: url(${props.imgSrc});
-            background-position: ${direction === 'left' ? '100% 50%' : '0% 50%'};
-            background-repeat: no-repeat;
-            background-size: contain;
-            height: 560px;
-          }
-          .subscriptor-section-img-col {
-            visibility: hidden;
+            background-image: url(${props.gradientSrc}),
+                              url(${props.imgSrc});
+            background-position: ${direction === 'left' ? '50% 50%, 100% 50%' : '50% 50%, 0 50%'};
+            background-repeat: no-repeat, no-repeat;
+            background-size: cover, contain;
+            height: 530px;
           }
           .subscriptor-section--left .subscriptor-section-img-col {
             order: 12;
           }
-          .subscriptor-section-text-col :global(.btn) {
-            margin-right: 15px;
-          }
           .subscriptor-section-text-col {
             padding-top: 0;
           }
-        }
-        @media (min-width: 992px) {
+          .subscriptor-section--right .subscriptor-section-text-col {
+            padding-left: 7.5%;
+          }
           .subscriptor-section-text-col :global(.btn) {
-            margin-top: 35px;
+            margin-right: 15px;
+          }
+        }
+        @media (min-width: 1400px) {
+          .subscriptor-section .row {
+            height: 560px;
+          }
+          .subscriptor-section-text-col :global(.btn) {
+            /* margin-top: 35px; */
             margin-right: 35px;
           }
         }
@@ -123,6 +132,7 @@ export default function Subscriptor() {
 
         {/* section 2 */}
         <SubscriptorSection
+          direction="right"
           gradientSrc="/static/subscriptor/section2-gradient.png"
           imgAlt="Franco Armani con un trofeo"
           imgHeight="560"
@@ -141,6 +151,7 @@ export default function Subscriptor() {
         {/* section 3 */}
         <SubscriptorSection
           direction="left"
+          gradientSrc="/static/subscriptor/section3-gradient.png"
           imgAlt=""
           imgHeight="560"
           imgSrc="/static/subscriptor/section3-img.png"
@@ -155,46 +166,38 @@ export default function Subscriptor() {
         </SubscriptorSection>
 
         {/* section 4 */}
-        {/* <div className="section4 row no-gutters align-items-center text-right">
-          <div className="col-md-8">
-            <img 
-              src="/static/subscriptor/section4-img.png" 
-              width="870" 
-              height="560" 
-              alt="Franco Armani con un trofeo" 
-              className="img-fluid w-100 d-block"
-            />
-          </div>
-          <div className="col-md-4 section4-content">
-            <H2 className="section4-title">
-              Lleve Dále Campeón
-            </H2>
-            <SubscriptorSectionText>
-              <p>Descarga tu contenido favorita y mira sin conexión, sin gastar internet</p>
-            </SubscriptorSectionText>
-          </div>
-        </div> */}
+        <SubscriptorSection
+          direction="right"
+          gradientSrc="/static/subscriptor/section4-gradient.png"
+          imgAlt=""
+          imgHeight="560"
+          imgSrc="/static/subscriptor/section4-img.png"
+          imgWidth="870"
+        >
+          <H2>
+            Lleve Dále Campeón
+          </H2>
+          <SubscriptorSectionText>
+            <p>Descarga tu contenido favorita y mira sin conexión, sin gastar internet</p>
+          </SubscriptorSectionText>
+        </SubscriptorSection>
 
         {/* section 5 */}
-        {/* <div className="section5 row no-gutters align-items-center">
-          <div className="col-md-4 section5-content">
-            <H2 className="section5-title">
-              Sin compromiso
-            </H2>
-            <SubscriptorSectionText>
-              <p>¿No quiero mas? Usted cancela cuando quiera: en línea y con un clic</p>
-            </SubscriptorSectionText>
-          </div>
-          <div className="col-md-8">
-            <img 
-              src="/static/subscriptor/section5-img.png" 
-              width="840" 
-              height="560" 
-              alt="" 
-              className="img-fluid w-100 d-block"
-            />
-          </div>
-        </div> */}
+        <SubscriptorSection
+          direction="left"
+          gradientSrc="/static/subscriptor/section5-gradient.png"
+          imgAlt=""
+          imgHeight="560"
+          imgSrc="/static/subscriptor/section5-img.png"
+          imgWidth="870"
+        >
+          <H2>
+            Sin compromiso
+          </H2>
+          <SubscriptorSectionText>
+            <p>¿No quiero mas? Usted cancela cuando quiera: en línea y con un clic</p>
+          </SubscriptorSectionText>
+        </SubscriptorSection>
 
       </div>
       <style jsx>{`
@@ -258,46 +261,6 @@ export default function Subscriptor() {
         }
         .section1__content p {
           margin-bottom: 5px;
-        }
-        
-        /* */
-        @media (min-width: 768px) {
-          .section4 {
-            background-image: url(/static/subscriptor/section4-gradient.png),
-                              url(/static/subscriptor/section4-img.png);
-            background-repeat: no-repeat;
-            background-size: cover, contain;
-          }
-          .section4 img {
-            visibility: hidden;
-          }
-        }
-        .section4-content {
-          padding: 6.5% !important;
-          padding-left: 2% !important;
-        }
-        .section4-content :global(.section4-title) {
-          margin-bottom: 10px;
-        }
-        /* */
-        @media (min-width: 768px) {
-          .section5 {
-            background-image: url(/static/subscriptor/section5-gradient.png),
-                              url(/static/subscriptor/section5-img.png);
-            background-repeat: no-repeat;
-            background-position: 50% 50%, 100% 50%;
-            background-size: cover, contain;
-          }
-          .section5 img {
-            visibility: hidden;
-          }
-        }
-        .section5-content {
-          padding: 8.5% !important;
-          padding-right: 0% !important;
-        }
-        .section5-content :global(.section5-title) {
-          margin-bottom: 10px;
         }
       `}</style>
     </Layout>
