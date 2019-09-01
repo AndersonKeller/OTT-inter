@@ -12,7 +12,10 @@ const Cover = () => {
             <p>El jugador del Más Grande habló de su carrera en una entrevista exclusiva con Dale Campeón.</p>
           </div>
           <Button>Proba Gratis</Button>
-          <Button color="secondary">Mi Lista</Button>
+          <Button color="secondary">
+            <img src="/static/add-icon.svg" width="13" height="13" />
+            <span>Mi Lista</span>
+          </Button>
         </div>
       </div>
       <style jsx>{`
@@ -25,11 +28,11 @@ const Cover = () => {
           background-size: cover, contain;
           font-size: 20px;
           line-height: 1.5;
-          margin-bottom: 70
+          margin-bottom: 70px;
         }
         .cover .row {
-          height: 560px;
-          padding-top: 110px;
+          padding-top: calc(110px + 15px);
+          padding-bottom: 15px;
         }
         h1 {
           font-size: 31px;
@@ -37,12 +40,19 @@ const Cover = () => {
           margin-bottom: 0;
         }
         .description {
-          margin-bottom: 50px;
+          margin-bottom: 30px;
         }
         .cover :global(.btn-primary) {
           margin-bottom: 15px;
         }
         @media (min-width: 768px) {
+          .cover .row {
+            height: 560px;
+            padding-top: 110px;
+          }
+          .description {
+            margin-bottom: 50px;
+          }
           .cover :global(.btn-primary) {
             margin-right: 15px;
           }

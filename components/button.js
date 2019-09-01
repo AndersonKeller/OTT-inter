@@ -41,6 +41,9 @@ const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
         .btn-block {
           display: block;
         }
+        .btn :global(img) {
+          margin-right: 10px;
+        }
       `}</style>
     </>
   )
