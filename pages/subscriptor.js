@@ -15,6 +15,7 @@ const SubscriptorSectionText = (props) => {
     </div>
   )
 }
+
 const Prices = (props) => {
   const prices = [
     {
@@ -224,6 +225,108 @@ const SubscriptorSection = (props) => {
   )
 }
 
+const Section1 = () => {
+  return (
+    <div className="section1 container-fluid">
+      <div className="row">
+        <div className="col-md-4 offset-md-1">
+          <div className="section1__content">
+            <div className="row">
+              <div className="col-4 col-md-6">
+                <img className="section1__logo img-fluid" src="/static/river-logo.svg" width="170" height="212" alt="River Logo" />
+              </div>
+            </div>
+            <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
+            <p className="text-uppercase">Club Atlético River Plate te da la bienvenida a la plataforma de contenidos del más grande</p>
+            <p>Todo por $ 199 pesos mensuales.</p>
+          </div>
+        </div>
+      </div>
+      <style jsx>{`
+        @keyframes sliding {
+          0% {
+            transform: translateX(0)
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .subscriptor {
+          line-height: 1.5;
+        }
+        .section1 {
+          display: flex;
+          line-height: 1.5;
+          margin-bottom: 15px;
+          overflow: hidden;
+          padding-top: 30px;
+          padding-bottom: 30px;
+          position: relative;
+          z-index: 1;
+        }
+        .section1::before {
+          animation: sliding 200s linear infinite normal;
+          background-image: url(/static/subscriptor/featured-background.png);
+          background-position: 50% 0;
+          background-size: 1310px 100%;
+          content: '';
+          display: block;
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 13100px;
+          z-index: -2;
+        }
+        .section1::after {
+          background-image: url(/static/subscriptor/featured-gradient.png);
+          background-position: 50% 0;
+          background-size: cover;
+          bottom: 0;
+          content: '';
+          display: block;
+          left: 0;
+          position: absolute;
+          right: 0;
+          top: 0;
+          z-index: -1;
+        }
+        .section1 > .row {
+          width: calc(100% + 30px)
+        }
+        .section1__logo {
+          margin-bottom: 15px;
+          margin-left: 35px;
+        }
+        .section1__content :global(.section1__title) {
+          margin-bottom: 10px;
+        }
+        .section1__content p {
+          margin-bottom: 5px;
+        }
+        @media (min-width: 768px) {
+          .section1 {
+            padding-top: 60px;
+            padding-bottom: 60px;
+          }
+          .section1__logo {
+            margin-bottom: 45px;
+          }
+        }
+        @media (min-width: 992px) {
+          .section1 {
+            height: 740px;
+            padding-top: 95px;
+          }
+          .section1__logo {
+            margin-bottom: 45px;
+          }
+        }
+      `}</style>
+    </div>
+  )
+}
+
 export default function Subscriptor() {
   return (
     <Layout header="closed">
@@ -232,19 +335,7 @@ export default function Subscriptor() {
       </Head>
       <div className="subscriptor">
 
-        {/* section 1 */}
-        <div className="section1 container-fluid">
-          <div className="row">
-            <div className="col-4 offset-1">
-              <div className="section1__content">
-                <img className="section1__logo img-fluid" src="/static/river-logo.svg" width="170" height="212" alt="River Logo" />
-                <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
-                <p className="text-uppercase">Club Atlético River Plate te da la bienvenida a la plataforma de contenidos del más grande</p>
-                <p>Todo por $ 199 pesos mensuales.</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Section1 />
 
         {/* section 2 */}
         <SubscriptorSection

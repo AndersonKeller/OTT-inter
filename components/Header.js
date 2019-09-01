@@ -98,6 +98,9 @@ const Header = props => (
         min-height: 67px;
         width: 131px;
       }
+      .header--closed .logo {
+        margin-right: 0;
+      }
       .menu {
         display: flex;
         justify-content: space-between;
