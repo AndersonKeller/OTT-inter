@@ -1,12 +1,17 @@
 import Head from 'next/head'
 import Header from './header'
+import ONLINE from '../constants/constants'
 
 const Layout = props => (
   <>
     <Head>
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1, shrink-to-fit=no, width=device-width" />
-      <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap-grid.min.css" />
+      { ONLINE ? (
+        <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap-grid.min.css" />
+        ) : (
+        <link rel="stylesheet" href="/static/styles/bootstrap-grid.min.css" />
+      )}
       <link rel="stylesheet" href="/static/fonts/helvetica/stylesheet.css" />
       <link rel="stylesheet" href="/static/fonts/helvetica-ce/stylesheet.css" />
       <link rel="stylesheet" href="/static/fonts/bebas-neue/stylesheet.css" />
@@ -74,6 +79,9 @@ const Layout = props => (
       .text-right {
         text-align: right;
       }
+      .text-center {
+        text-align: center;
+      }
       .no-gutters {
         margin-right: 0;
         margin-left: 0;
@@ -82,6 +90,15 @@ const Layout = props => (
       .no-gutters > [class*="col-"] {
         padding-right: 0;
         padding-left: 0;
+      }
+      .gutter-15 {
+        margin-right: -7.5px;
+        margin-left: -7.5px;
+      }
+      .gutter-15 > .col,
+      .gutter-15 > [class*="col-"] {
+        padding-right: 7.5px;
+        padding-left: 7.5px;
       }
     `}</style>
   </>

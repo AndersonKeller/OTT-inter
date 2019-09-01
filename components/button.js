@@ -1,10 +1,12 @@
 import React from 'react'
 
 const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
+  const block = props.block ? 'btn-block' : ''
+  const className = props.className || ''
   const color = props.color || 'primary'
   return (
     <>
-      <a className={`btn btn-${color} ${props.className}`} href={href} onClick={onClick} ref={ref}>
+      <a className={`btn btn-${color} ${block} ${className}`} href={href} onClick={onClick} ref={ref}>
         {props.children}
       </a>
       <style jsx>{`
@@ -20,6 +22,11 @@ const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
           text-align: center;
           user-select: none;
         }
+        @media (min-width: 768px) {
+          .btn {
+            display: inline-block;
+          }
+        }
         .btn-primary {
           background-color: var(--red);
           color: var(--white);
@@ -31,10 +38,8 @@ const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
           padding-top: 8px;
           padding-bottom: 8px;
         }
-        @media (min-width: 768px) {
-          .btn {
-            display: inline-block;
-          }
+        .btn-block {
+          display: block;
         }
       `}</style>
     </>

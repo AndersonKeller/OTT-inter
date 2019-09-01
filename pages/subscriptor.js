@@ -15,6 +15,121 @@ const SubscriptorSectionText = (props) => {
     </div>
   )
 }
+const Prices = (props) => {
+  const prices = [
+    {
+      name: 'Grartis',
+      time: '7 días',
+      value: 0,
+    },
+    {
+      name: 'Suscripción',
+      time: '15 días',
+      value: '$0000',
+    },
+    {
+      name: 'Suscripción',
+      time: '1 mes',
+      value: '$0000',
+    },
+    {
+      name: 'Suscripción',
+      time: '6 meses',
+      value: '$0000',
+    },
+    {
+      name: 'Suscripción',
+      time: '1 año',
+      value: '$0000',
+    },
+  ]
+  return (
+    <section className="prices text-center container-fluid">
+      <header>
+        <H2>¡Sin límites! Sólo el suscriptor da un juego  n absoluto.</H2>
+        <p>Comience ahora sus 7 días gratis y aproveche todas las ventajas de ser un suscriptor de Dale Campeón.</p>
+      </header>
+      <div className="cards">
+        <div className="row justify-content-center gutter-15">
+          { prices.map((price) => (
+            <div className="col-12 col-sm-6 col-md-4 col-xl">
+              <div className="card">
+                <div className="card-heading">{price.name}</div>
+                <div className="time">{price.time}</div>
+                { price.value !== 0 && (
+                  <div className="value">{price.value}</div>
+                ) }
+                { price.value === 0 ? (
+                  <Button block>Probá Gratis</Button>
+                  ) : (
+                  <Button block color="secondary">Subscribir</Button>
+                )}
+              </div>
+            </div>
+          )) }
+        </div>
+      </div>
+      <style jsx>{`
+        .prices {
+          border-top: 1px solid #fff;
+          padding-bottom: 115px;
+        }
+        header {
+          margin-bottom: 70px;
+          padding-top: 80px;
+        }
+        .cards {
+          font-size: 31px;
+          font-weight: bold;
+          line-height: normal;
+        }
+        .card {
+          background-color: #282828;
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 15px;
+          min-height: calc(100% - 15px);
+          padding: 20px;
+          transition: background-color 1s;
+        }
+        .card:hover {
+          background-color: #1e1e1e;
+          transition: background-color .1s;
+        }
+        .time,
+        .value {
+          margin-top: 15px;
+        }
+        .card :global(.btn) {
+          margin-top: 30px;
+        }
+        @media (min-width: 768px) {
+          .prices {
+            border-top: 0;
+          }
+          .cards {
+            padding-right: 15px;
+            padding-left: 15px;
+          }
+          .card {
+            padding-right: 30px;
+            padding-left: 30px;
+          }
+          .time,
+          .value {
+            margin-top: 30px;
+          }
+          .value {
+            margin-bottom: 45px;
+          }
+          .card :global(.btn) {
+            margin-top: auto;
+          }
+        }
+      `}</style>
+    </section>
+  )
+}
 
 const SubscriptorSection = (props) => {
   const direction = props.direction || 'right'
@@ -101,7 +216,6 @@ const SubscriptorSection = (props) => {
             height: 560px;
           }
           .subscriptor-section-text-col :global(.btn) {
-            /* margin-top: 35px; */
             margin-right: 35px;
           }
         }
@@ -200,6 +314,8 @@ export default function Subscriptor() {
             <p>¿No quiero mas? Usted cancela cuando quiera: en línea y con un clic</p>
           </SubscriptorSectionText>
         </SubscriptorSection>
+
+        <Prices />
 
       </div>
       <style jsx>{`
