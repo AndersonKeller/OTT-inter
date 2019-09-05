@@ -44,14 +44,18 @@ export default function Entrevista() {
           <div className="col-12 col-lg-4">
             <div className="more">
               { interviews.map((interview) => (
-                <div className="more-card row align-items-center gutter-15">
-                  <div className="col-7">
-                    <img src={interview.img} width="220" height="123" className="img-fluid" />
-                  </div>
-                  <div className="col-4">
-                    <p><strong>{interview.title}</strong></p>
-                  </div>
-                </div>
+                <Link href="/interview">
+                  <a className="more-card">
+                    <div className="row align-items-center gutter-15">
+                      <div className="col-7">
+                        <img src={interview.img} width="220" height="123" className="img-fluid" />
+                      </div>
+                      <div className="col-4">
+                        <p><strong>{interview.title}</strong></p>
+                      </div>
+                    </div>
+                  </a>
+                </Link>
               )) }
             </div>
           </div>
@@ -95,8 +99,10 @@ export default function Entrevista() {
           line-height: 1.75;
         }
         .more-card {
+          display: block;
           padding-top: 15px;
           padding-bottom: 15px;
+          text-decoration: none;
         }
         @media (min-width: 768px) {
           .block-msg {
