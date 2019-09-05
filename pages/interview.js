@@ -103,20 +103,33 @@ export default function Entrevista() {
         }
         .more {
           font-size: 11px;
-          line-height: 1.75;
+          line-height: 1.5;
         }
         .more-card {
           display: block;
-          padding-top: 15px;
-          padding-bottom: 15px;
+          margin-bottom: 15px;
           text-decoration: none;
         }
+        .more-card p {
+          margin-bottom: 0;
+        }
         @media (min-width: 768px) {
+          .player {
+            margin-bottom: 0;
+          }
           .block-msg {
             font-size: 22px;
           }
           .text-block p + p {
             margin-top: 10px;
+          }
+          .more {
+            line-height: 1.75;
+          }
+          .more-card {
+            margin-bottom: 0;
+            padding-top: 15px;
+            padding-bottom: 15px;
           }
         }
         @media (min-width: 1200px) {
