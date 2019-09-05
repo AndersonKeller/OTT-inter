@@ -33,7 +33,7 @@ const Cover = _ => (
         margin-bottom: 70px;
       }
       .cover .row {
-        padding-top: calc(110px + 15px);
+        padding-top: calc(var(--padding-top) + 15px);
         padding-bottom: 15px;
       }
       h1 {
@@ -92,10 +92,16 @@ const More = _ => {
         { interviews.map((interview) => (
           <div className="card row align-items-center">
             <div className="col-md-4">
-              <img src={interview.img} width="390" height="220" className="img-fluid w-100 d-block" />
+              <Link href="/interview">
+                <a><img src={interview.img} width="390" height="220" className="img-fluid w-100 d-block" /></a>
+              </Link>
             </div>
             <div className="col-md-7">
-              <h3 className="h3">{interview.title}</h3>
+              <h3 className="h3">
+                <Link href="/interview">
+                  <a>{interview.title}</a>
+                </Link>
+              </h3>
               <p>{interview.text}</p>
             </div>
           </div>
@@ -113,19 +119,26 @@ const More = _ => {
           margin-top: 0;
           margin-bottom: 30px;
         }
-        .h3 {
-          font-size: inherit;
-          margin-top: 0;
-          margin-bottom: 0;
-        }
         .cards {
           overflow: hidden;
         }
         .card {
           margin-bottom: 30px;
         }
+        .card a {
+          text-decoration: none;
+        }
         .card img {
           margin-bottom: 15px;
+        }
+        .h3 {
+          font-size: inherit;
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+        .h3 a:focus,
+        .h3 a:hover {
+          text-decoration: underline;
         }
         @media (min-width: 768px) {
           .more {
@@ -152,7 +165,7 @@ const More = _ => {
 
 export default function Entrevistas() {
   return (
-    <Layout>
+    <Layout paddingTop={false}>
       <Cover />
       <More />
     </Layout>

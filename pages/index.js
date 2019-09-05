@@ -9,7 +9,7 @@ import Link from 'next/link'
 
 const Home = _ => {
   return (
-    <Layout>
+    <Layout paddingTop={false}>
       <Head>
         <title>Dale Campeón</title>
       </Head>
@@ -153,7 +153,7 @@ const Home = _ => {
           height: 640px;
           margin-bottom: 20px;
           overflow: hidden;
-          padding-top: 104px;
+          padding-top: var(--padding-top);
           padding-left: 9%;
         }
         .cover :global(.btn) {
