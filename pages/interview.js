@@ -33,7 +33,9 @@ export default function Entrevista() {
                   <p><strong>Este contenido es exclusivo para los suscriptores</strong></p>
                   <p className="d-none d-md-block"><small>Ver las novelas, series, humor, películas y dibujos cuando y donde quieras.</small></p>
                 </div>
-                <Button>Probá 7 días Gratis</Button>
+                <Link href="/subscriptor">
+                  <Button>Probá 7 días Gratis</Button>
+                </Link>
                 <div className="text-block">
                   <p><strong><span className="text-uppercase d-none d-md-inline">Pruebe 7 días gratis</span><br className="d-none d-md-inline" />
                     ¿Ya es suscriptor? <span className="text-uppercase">Haga <Link href="/login"><a>login</a></Link></span></strong></p>
