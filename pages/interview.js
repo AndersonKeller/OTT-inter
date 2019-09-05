@@ -3,11 +3,28 @@ import Button from '../components/button'
 import Link from 'next/link'
 
 export default function Entrevista() {
+  const interviews = [
+    {
+      img: '/static/interviews/thumb1.png', 
+      title: 'Entrevista a Javier Pinola', 
+      text: 'EXCLUSIVO #DaleCampeon | Hablamos mano a mano con Javier Pinola: "Estoy muy contento con este presente. Al principio me costó adaptarme"', 
+    },
+    {
+      img: '/static/interviews/thumb2.png', 
+      title: 'Mano a mano con Javier Pinola', 
+      text: 'El jugador del Más Grande habló de su carrera en una entrevista exclusiva con Dale Campeón.', 
+    },
+    {
+      img: '/static/interviews/thumb3.png', 
+      title: 'Pinola: "Queremos seguir ganando y sumando confianza"', 
+      text: 'La palabra de Javier Pinola luego del triunfo ante San Martín. ¡Escuchalo! ', 
+    }
+  ]
   return (
     <Layout>
       <div className="container-fluid">
 
-        <div className="row">
+        <div className="row align-items-center">
           <div className="col-12 col-lg-8">
             <div className="player">
               <img src="/static/interview/sample.png" width="822" height="464" className="img-fluid" />
@@ -24,14 +41,18 @@ export default function Entrevista() {
               </div>
             </div>
           </div>
-          <div className="col-4">
-            <div className="row">
-              <div className="col-7">
-                <img src="/static/interview/sample.png" width="822" height="464" className="img-fluid" />
-              </div>
-              <div className="col-5">
-                Teste
-              </div>
+          <div className="col-12 col-lg-4">
+            <div className="more">
+              { interviews.map((interview) => (
+                <div className="more-card row align-items-center gutter-15">
+                  <div className="col-7">
+                    <img src={interview.img} width="220" height="123" className="img-fluid" />
+                  </div>
+                  <div className="col-4">
+                    <p><strong>{interview.title}</strong></p>
+                  </div>
+                </div>
+              )) }
             </div>
           </div>
         </div>
@@ -68,6 +89,14 @@ export default function Entrevista() {
         }
         .text-block small {
           font-size: .9em;
+        }
+        .more {
+          font-size: 11px;
+          line-height: 1.75;
+        }
+        .more-card {
+          padding-top: 15px;
+          padding-bottom: 15px;
         }
         @media (min-width: 768px) {
           .block-msg {
