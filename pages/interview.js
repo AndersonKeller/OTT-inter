@@ -53,12 +53,15 @@ export default function Entrevista() {
           justify-content: space-around;
           content: '';
           display: flex;
+          height: 100%;
           left: 0;
+          overflow: auto;
           padding: 7.5%;
           position: absolute;
           right: 0;
           top: 0;
           z-index: 2;
+          width: 100%;
         }
         .text-block p {
           margin-bottom: 0;
