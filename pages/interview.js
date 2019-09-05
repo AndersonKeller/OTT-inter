@@ -94,6 +94,13 @@ export default function Entrevista() {
         .text-block small {
           font-size: .9em;
         }
+        .text-block a {
+          text-decoration: none;
+        }
+        .text-block a:focus,
+        .text-block a:hover {
+          text-decoration: underline;
+        }
         .more {
           font-size: 11px;
           line-height: 1.75;

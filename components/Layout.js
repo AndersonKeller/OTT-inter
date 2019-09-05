@@ -120,6 +120,9 @@ const Layout = props => {
           padding-right: 7.5px;
           padding-left: 7.5px;
         }
+        .text-decoration-none {
+          text-decoration: none;
+        }
       `}</style>
     </>
   );
