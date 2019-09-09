@@ -19,12 +19,12 @@ export default function InterviewPage() {
           </div>
         </div>
         <Description />
-        <div className="row">
-          <div className="col-12 col-md-6">
+        <div className="icons-row row">
+          <div className="col">
             <LikeNCommentBtns />
           </div>
-          <div className="col-12 col-md-6">
-
+          <div className="col text-right">
+            <SocialShareBtns />
           </div>
         </div>
         <div className="d-md-none">
@@ -34,6 +34,9 @@ export default function InterviewPage() {
       <style jsx>{`
         .row:first-child {
           margin-bottom: 15px;
+        }
+        .icons-row {
+          margin-bottom: 25px;
         }
         @media (min-width: 1200px) {
           .container-fluid {
@@ -228,25 +231,67 @@ function LikeNCommentBtns() {
         <span>2</span>
       </button>
       <style jsx>{`
-        div {
-          margin-bottom: 45px;
-        }
         button {
           background-color: transparent;
           border: 0;
           color: var(--mid-gray);
           cursor: pointer;
-          font-size: 20px;
+          font-size: 16px;
           outline: 0;
-          padding: 10px;
+          padding: 5px 10px 5px 5px;
         }
         button:focus,
         button:hover {
           color: var(--white);
         }
         img {
-          margin-right: 10px;
+          margin-right: 5px;
+          max-height: 20px;
           vertical-align: middle;
+          width: auto;
+        }
+        @media (min-width: 768px) {
+          button {
+            font-size: 20px;
+            padding: 10px;
+          }
+          img {
+            margin-right: 10px;
+            max-height: 32px;
+          }
+        }
+      `}</style>
+    </div>
+  )
+}
+function SocialShareBtns() {
+  return (
+    <div>
+      <button aria-description="Share at Instagram" className="instagram-btn" type="button">
+        <img src="/static/instagram-icon.svg" width="42" height="42" />
+      </button>
+      <button aria-description="Share at Facebook" className="facebook-btn" type="button">
+        <img src="/static/facebook-icon.svg" width="42" height="42" />
+      </button>
+      <button aria-description="Share at Twitter" className="twitter-btn" type="button">
+        <img src="/static/twitter-icon.svg" width="42" height="42" />
+      </button>
+      <style jsx>{`
+        button {
+          background-color: transparent;
+          border: 0;
+          cursor: pointer;
+          outline: 0;
+          padding: 5px;
+        }
+        img {
+          max-height: 25px;
+          width: auto;
+        }
+        @media (min-width: 768px) {
+          img {
+            max-height: 42px;
+          }
         }
       `}</style>
     </div>
