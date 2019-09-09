@@ -14,16 +14,26 @@ export default function InterviewPage() {
           <div className="col-12 col-lg-8">
             <Player />
           </div>
-          <div className="col-12 col-lg-4">
+          <div className="col-12 col-lg-4 d-none d-md-block">
             <MoreInterviewCards />
           </div>
         </div>
+        <Description />
+        <div className="d-md-none">
+          <MoreInterviewCards />
+        </div>
       </div>
       <style jsx>{`
+        .row:first-child {
+          margin-bottom: 15px;
+        }
         @media (min-width: 1200px) {
           .container-fluid {
             padding-right: 4%;
             padding-left: 4%;
+          }
+          .row:first-child {
+            margin-bottom: 60px;
           }
         }
       `}</style>
@@ -50,7 +60,6 @@ function Player() {
       </div>
       <style jsx>{`
         .player {
-          margin-bottom: 15px;
           overflow: hidden;
           position: relative;
         }
@@ -163,6 +172,32 @@ function MoreInterviewCard(props) {
             margin-bottom: 0;
             padding-top: 15px;
             padding-bottom: 15px;
+          }
+        }
+      `}</style>
+    </div>
+  )
+}
+
+function Description() {
+  return (
+    <div className="description">
+      <h1 className="h2">Mano a mano con Javier Pinola</h1>
+      <div className="year">2019</div>
+      <div className="text">
+        <p>El jugador del Más Grande habló de su carrera en una entrevista exclusiva con Dale Campeón.</p>
+      </div>
+      <style jsx>{`
+        .h2,
+        .year {
+          margin-bottom: 10px;
+        }
+        .text {
+          margin-bottom: 30px;
+        }
+        @media (min-width: 768px) {
+          .text {
+            margin-bottom: 45px;
           }
         }
       `}</style>

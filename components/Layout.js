@@ -84,24 +84,7 @@ const Layout = props => {
           margin-top: 0;
           margin-bottom: 10px;
         }
-        .img-fluid {
-          display: block;
-          height: auto;
-          max-width: 100%;
-          width: 100%;
-        }
-        .w-100 {
-          width: 100%;
-        }
-        .text-uppercase {
-          text-transform: uppercase;
-        }
-        .text-right {
-          text-align: right;
-        }
-        .text-center {
-          text-align: center;
-        }
+        /* gutters */
         .no-gutters {
           margin-right: 0;
           margin-left: 0;
@@ -119,6 +102,34 @@ const Layout = props => {
         .gutter-15 > [class*="col-"] {
           padding-right: 7.5px;
           padding-left: 7.5px;
+        }
+        /* headings */
+        .h2 {
+          font-family: var(--sans-serif);
+          font-size: 31px;
+          font-weight: bold;
+          line-height: 1;
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+        /* helpers */
+        .img-fluid {
+          display: block;
+          height: auto;
+          max-width: 100%;
+          width: 100%;
+        }
+        .w-100 {
+          width: 100%;
+        }
+        .text-uppercase {
+          text-transform: uppercase;
+        }
+        .text-right {
+          text-align: right;
+        }
+        .text-center {
+          text-align: center;
         }
         .text-decoration-none {
           text-decoration: none;
