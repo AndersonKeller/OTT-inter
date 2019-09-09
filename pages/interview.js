@@ -19,6 +19,14 @@ export default function InterviewPage() {
           </div>
         </div>
         <Description />
+        <div className="row">
+          <div className="col-12 col-md-6">
+            <LikeNCommentBtns />
+          </div>
+          <div className="col-12 col-md-6">
+
+          </div>
+        </div>
         <div className="d-md-none">
           <MoreInterviewCards />
         </div>
@@ -193,12 +201,52 @@ function Description() {
           margin-bottom: 10px;
         }
         .text {
-          margin-bottom: 30px;
+          margin-bottom: 20px;
         }
         @media (min-width: 768px) {
-          .text {
-            margin-bottom: 45px;
+          .description {
+            margin-left: 10px;
           }
+          .text {
+            margin-bottom: 35px;
+          }
+        }
+      `}</style>
+    </div>
+  )
+}
+
+function LikeNCommentBtns() {
+  return (
+    <div>
+      <button className="like-btn" type="button">
+        <img src="/static/like-icon.svg" width="35" height="30" />
+        <span>62</span>
+      </button>
+      <button className="comment-btn" type="button">
+        <img src="/static/comment-icon.svg" width="36" height="32" />
+        <span>2</span>
+      </button>
+      <style jsx>{`
+        div {
+          margin-bottom: 45px;
+        }
+        button {
+          background-color: transparent;
+          border: 0;
+          color: var(--mid-gray);
+          cursor: pointer;
+          font-size: 20px;
+          outline: 0;
+          padding: 10px;
+        }
+        button:focus,
+        button:hover {
+          color: var(--white);
+        }
+        img {
+          margin-right: 10px;
+          vertical-align: middle;
         }
       `}</style>
     </div>

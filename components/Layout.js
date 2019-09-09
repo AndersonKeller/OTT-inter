@@ -39,10 +39,11 @@ const Layout = props => {
         :root {
           /* colors */
           --white: #fff;
-          --black: #000;
           --gray: #b2b2b2;
-          --red: #ff0000;
+          --mid-gray: #4d4d4d;
           --dark-gray3: #1a1a1a;
+          --black: #000;
+          --red: #ff0000;
           
           /* fonts */
           --sans-serif: 'Helvetica', sans-serif;
