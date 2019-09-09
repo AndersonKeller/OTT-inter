@@ -40,6 +40,7 @@ const Layout = props => {
           /* colors */
           --white: #fff;
           --gray: #b2b2b2;
+          --gray2: #808080;
           --mid-gray: #4d4d4d;
           --dark-gray3: #1a1a1a;
           --black: #000;

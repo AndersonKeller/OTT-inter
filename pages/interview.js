@@ -2,6 +2,9 @@ import Layout from '../components/layout'
 import Button from '../components/button'
 import Link from 'next/link'
 import Head from 'next/head'
+import Card from '../components/card'
+import CarouselSection from '../components/carousel-section'
+import { useState } from 'react'
 
 export default function InterviewPage() {
   return (
@@ -31,6 +34,8 @@ export default function InterviewPage() {
           <MoreInterviewCards />
         </div>
       </div>
+      <CarouselSection2 />
+      <Comments />
       <style jsx>{`
         .row:first-child {
           margin-bottom: 15px;
@@ -220,13 +225,17 @@ function Description() {
 }
 
 function LikeNCommentBtns() {
+  const [like, setLike] = useState(false);
+  async function handleLike() {
+    setLike( ! like);
+  }
   return (
     <div>
-      <button className="like-btn" type="button">
+      <button className={`like-btn ${like ? 'liked' : ''}`} onClick={_ => handleLike()} type="button">
         <img src="/static/like-icon.svg" width="35" height="30" />
         <span>62</span>
       </button>
-      <button className="comment-btn" type="button">
+      <button className="comment-btn" type="button" onClick={_ => { document.location.hash = 'comments' }}>
         <img src="/static/comment-icon.svg" width="36" height="32" />
         <span>2</span>
       </button>
@@ -243,6 +252,9 @@ function LikeNCommentBtns() {
         button:focus,
         button:hover {
           color: var(--white);
+        }
+        .liked {
+          color: red !important;
         }
         img {
           margin-right: 5px;
@@ -264,6 +276,7 @@ function LikeNCommentBtns() {
     </div>
   )
 }
+
 function SocialShareBtns() {
   return (
     <div>
@@ -292,6 +305,156 @@ function SocialShareBtns() {
           img {
             max-height: 42px;
           }
+        }
+      `}</style>
+    </div>
+  )
+}
+
+function CarouselSection2() {
+  return (
+    <aside className="carousel-section">
+      <CarouselSection title="Platenences">
+        <Card src="/static/cards/platenences/1.jpg" />
+        <Card src="/static/cards/platenences/2.jpg" />
+        <Card src="/static/cards/platenences/3.jpg" />
+        <Card src="/static/cards/platenences/4.jpg" />
+        <Card src="/static/cards/platenences/5.jpg" />
+        <Card src="/static/cards/platenences/6.jpg" />
+        <Card src="/static/cards/platenences/7.jpg" />
+      </CarouselSection>
+      <div className="text-center">
+        <Link href="entrevistas">
+          <Button className="text-uppercase" color="secondary">Más Entrevistas</Button>
+        </Link>
+      </div>
+      <style jsx>{`
+        .carousel-section {
+          background-color: var(--dark-gray3);
+          margin-bottom: 30px;
+          padding-top: 30px;
+          padding-bottom: 45px;
+        }
+        @media (min-width: 768px) {
+          .carousel-section {
+            margin-bottom: 60px;
+          }
+        }
+      `}</style>
+    </aside>
+  )
+}
+
+function Comments() {
+  const recent = [
+    {
+      name: 'Your name here',
+      message: 'Lorem Ipsum Dolor',
+    },
+    {
+      name: 'Your name here',
+      message: 'Lorem Ipsum Dolor',
+    },
+  ]
+  const popular = [
+    {
+      name: 'Your name here',
+      message: 'Lorem Ipsum Dolor',
+    },
+    {
+      name: 'Your name here',
+      message: 'Lorem Ipsum Dolor',
+    },
+  ]
+  return (
+    <section className="comments container" id="comments">
+      <header>
+        <h2 className="h2">Comentarios</h2>
+        <div className="text">
+          <p>Los comentarios son responsabilidad exclusiva de los autores y no representan la opinión de este sitio. Si encuentra algo que viole los términos de uso, denuncie. Lea <strong>las preguntas más frecuentes</strong> para saber qué es inapropiado o ilegal.</p>
+        </div>
+        <div className="blocked">
+          <p><strong>Este contenido ya no recibe más comentarios.</strong></p>
+        </div>
+      </header>
+      <div className="row">
+        <div className="col">
+          <button type="button">Recientes</button>
+        </div>
+        <div className="col">
+          <button type="button">Populares</button>
+        </div>
+      </div>
+      <div>
+        <div id="recents">
+          { recent.map((comment) => {
+            return (
+              <Comment comment={comment} />
+            )
+          }) }
+        </div>
+        <div className="d-none" id="popular">
+          { popular.map((comment) => {
+            return (
+              <Comment comment={comment} />
+            )
+          }) }
+        </div>
+      </div>
+      <style jsx>{`
+        .comments {
+          margin-bottom: 75px;
+          max-width: 960px;
+        }
+        header {
+          font-size: 11px;
+          line-height: 1.75;
+        }
+        .h2 {
+          margin-bottom: 30px;
+        }
+        .text,
+        .blocked {
+          margin-bottom: 15px;
+        }
+        @media (min-width: 768px) {
+          .text,
+          .blocked {
+            margin-bottom: 45px;
+          }
+        }
+      `}</style>
+    </section>
+  )
+}
+
+function Comment(props) {
+  return (
+    <div className="comment">
+      <img className="avatar" src="/static/comment-avatar-icon.svg" width="71" height="71" />
+      <h4 className="name">{props.comment.name}</h4>
+      <div className="text">
+        <p>{props.comment.message}</p>
+      </div>
+      <style jsx>{`
+        .comment {
+          border-bottom: 2px solid rgba(128, 128, 128, .25);
+          font-size: 15px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+        }
+        .avatar {
+          float: left;
+          margin-right: 15px;
+        }
+        .name {
+          font-size: 20px;
+          font-weight: normal;
+          margin-top: 10px;
+          margin-bottom: 5px;
+        }
+        .text {
+          color: var(--gray2);
         }
       `}</style>
     </div>

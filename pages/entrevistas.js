@@ -14,7 +14,7 @@ const Cover = _ => (
         <Link href="/subscriptor">
           <Button>Proba Gratis</Button>
         </Link>
-        <Button color="secondary">
+        <Button color="secondary" outline>
           <img src="/static/add-icon.svg" width="13" height="13" />
           <span>Mi Lista</span>
         </Button>

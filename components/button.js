@@ -4,9 +4,10 @@ const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
   const block = props.block ? 'btn-block' : ''
   const className = props.className || ''
   const color = props.color || 'primary'
+  const outline = props.outline ? 'btn-outline' : ''
   return (
     <>
-      <a className={`btn btn-${color} ${block} ${className}`} href={href} onClick={onClick} ref={ref}>
+      <a className={`btn btn-${color} ${block} ${outline} ${className}`} href={href} onClick={onClick} ref={ref}>
         {props.children}
       </a>
       <style jsx>{`
@@ -33,6 +34,11 @@ const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
           /* margin-right: 15px; */
         }
         .btn-secondary {
+          background-color: var(--mid-gray);
+          color: var(--white);
+        }
+        .btn-secondary.btn-outline {
+          background-color: transparent;
           border: 2px solid var(--gray);
           color: var(--gray);
           padding-top: 8px;

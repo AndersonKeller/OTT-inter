@@ -29,7 +29,7 @@ const Home = _ => {
                     <Button>Probar Gratis</Button>
                   </Link>
                   <Link href="/entrevistas">
-                    <Button color="secondary">Ver más</Button>
+                    <Button color="secondary" outline>Ver más</Button>
                   </Link>
                 </div>
               </div>
@@ -64,7 +64,7 @@ const Home = _ => {
           <Link href="/subscriptor">
             <Button>Probar Gratis</Button>
           </Link>
-          <Button color="secondary">Compra aquí</Button>
+          <Button color="secondary" outline>Compra aquí</Button>
         </Featured>
 
         {/* podcasts */}
@@ -94,7 +94,7 @@ const Home = _ => {
           <Link href="/subscriptor">
             <Button>Probar Gratis</Button>
           </Link>
-          <Button color="secondary">Descubri más</Button>
+          <Button color="secondary" outline>Descubri más</Button>
         </Featured>
         
         {/* news */}
@@ -113,7 +113,7 @@ const Home = _ => {
           <Link href="/subscriptor">
             <Button>Probar Gratis</Button>
           </Link>
-          <Button color="secondary">Ver más</Button>
+          <Button color="secondary" outline>Ver más</Button>
         </Featured>
         
         {/* family */}

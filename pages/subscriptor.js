@@ -63,7 +63,7 @@ const Prices = (props) => {
                 { price.value === 0 ? (
                   <Button block>Probá Gratis</Button>
                   ) : (
-                  <Button block color="secondary">Subscribir</Button>
+                  <Button block color="secondary" outline>Subscribir</Button>
                 )}
               </div>
             </div>
