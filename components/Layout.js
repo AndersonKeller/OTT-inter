@@ -15,10 +15,25 @@ const Layout = props => {
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1, shrink-to-fit=no, width=device-width" />
-        { ONLINE ? (
+        {/* { ONLINE ? (
           <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap-grid.min.css" />
           ) : (
           <link rel="stylesheet" href="/static/styles/bootstrap-grid.min.css" />
+        )} */}
+        { ONLINE ? (
+          <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+          />
+          ) : (
+          <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+          />
         )}
         <link rel="stylesheet" href="/static/fonts/helvetica/stylesheet.css" />
         <link rel="stylesheet" href="/static/fonts/helvetica-ce/stylesheet.css" />
@@ -135,6 +150,9 @@ const Layout = props => {
         }
         .text-decoration-none {
           text-decoration: none;
+        }
+        .btn-block {
+          width: 100%;
         }
       `}</style>
     </>

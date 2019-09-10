@@ -5,6 +5,7 @@ import Head from 'next/head'
 import Card from '../components/card'
 import CarouselSection from '../components/carousel-section'
 import { useState } from 'react'
+import { Nav, Tabs, Tab, Row, Col } from 'react-bootstrap'
 
 export default function InterviewPage() {
   return (
@@ -147,8 +148,8 @@ function MoreInterviewCards() {
   ]
   return (
     <div>
-      { moreInterviews.map((interview) => (
-        <MoreInterviewCard interview={interview} />
+      { moreInterviews.map((interview, index) => (
+        <MoreInterviewCard interview={interview} key={index} />
       )) }
     </div>
   )
@@ -231,7 +232,7 @@ function LikeNCommentBtns() {
   }
   return (
     <div>
-      <button className={`like-btn ${like ? 'liked' : ''}`} onClick={_ => handleLike()} type="button">
+      <button className={`like-btn ${like ? 'liked' : ''}`} onClick={(e) => handleLike(e)} type="button">
         <img src="/static/like-icon.svg" width="35" height="30" />
         <span>62</span>
       </button>
@@ -280,13 +281,13 @@ function LikeNCommentBtns() {
 function SocialShareBtns() {
   return (
     <div>
-      <button aria-description="Share at Instagram" className="instagram-btn" type="button">
+      <button aria-label="Share at Instagram" className="instagram-btn" type="button">
         <img src="/static/instagram-icon.svg" width="42" height="42" />
       </button>
-      <button aria-description="Share at Facebook" className="facebook-btn" type="button">
+      <button aria-label="Share at Facebook" className="facebook-btn" type="button">
         <img src="/static/facebook-icon.svg" width="42" height="42" />
       </button>
-      <button aria-description="Share at Twitter" className="twitter-btn" type="button">
+      <button aria-label="Share at Twitter" className="twitter-btn" type="button">
         <img src="/static/twitter-icon.svg" width="42" height="42" />
       </button>
       <style jsx>{`
@@ -346,26 +347,6 @@ function CarouselSection2() {
 }
 
 function Comments() {
-  const recent = [
-    {
-      name: 'Your name here',
-      message: 'Lorem Ipsum Dolor',
-    },
-    {
-      name: 'Your name here',
-      message: 'Lorem Ipsum Dolor',
-    },
-  ]
-  const popular = [
-    {
-      name: 'Your name here',
-      message: 'Lorem Ipsum Dolor',
-    },
-    {
-      name: 'Your name here',
-      message: 'Lorem Ipsum Dolor',
-    },
-  ]
   return (
     <section className="comments container" id="comments">
       <header>
@@ -377,33 +358,12 @@ function Comments() {
           <p><strong>Este contenido ya no recibe más comentarios.</strong></p>
         </div>
       </header>
-      <div className="row">
-        <div className="col">
-          <button type="button">Recientes</button>
-        </div>
-        <div className="col">
-          <button type="button">Populares</button>
-        </div>
-      </div>
-      <div>
-        <div id="recents">
-          { recent.map((comment) => {
-            return (
-              <Comment comment={comment} />
-            )
-          }) }
-        </div>
-        <div className="d-none" id="popular">
-          { popular.map((comment) => {
-            return (
-              <Comment comment={comment} />
-            )
-          }) }
-        </div>
-      </div>
+
+      <CommentTabs />
+
       <style jsx>{`
         .comments {
-          margin-bottom: 75px;
+          margin-bottom: 30px;
           max-width: 960px;
         }
         header {
@@ -418,6 +378,9 @@ function Comments() {
           margin-bottom: 15px;
         }
         @media (min-width: 768px) {
+          .comments {
+            margin-bottom: 75px;
+          }
           .text,
           .blocked {
             margin-bottom: 45px;
@@ -458,5 +421,121 @@ function Comment(props) {
         }
       `}</style>
     </div>
+  )
+}
+
+function CommentTabs(props)
+{
+  const comments = [
+    {
+      name: 'Your name here',
+      message: 'Lorem Ipsum Dolor',
+    },
+    {
+      name: 'Your name here',
+      message: 'Lorem Ipsum Dolor',
+    },
+  ]
+  const tabs = [
+    {
+      name: 'Recientes',
+      slug: 'recents',
+      content: comments,
+    },
+    {
+      name: 'Populares',
+      slug: 'popular',
+      content: comments,
+    }
+  ]
+  function handleTab(k, e) {
+    const tabBar = document.querySelector('#tab-bar');
+    const tabItem = document.querySelector('#comment-tabs-tab-' + k).parentElement;
+    const key = tabItem.attributes['data-key'].value
+    const position = key * 100
+    tabBar.style.transform = `translateX(${position}%)`;
+    setKey(k)
+  }
+  const [key, setKey] = useState('recents');
+  return (
+    <Tab.Container activeKey={key} id="comment-tabs" onSelect={(k, e) => handleTab(k, e)}>
+      <div className="nav-tabs-container">
+        <Nav variant="tabs">
+          { tabs.map((tab, index) => {
+            return (
+              <Nav.Item data-key={index} key={index}>
+                <Nav.Link eventKey={tab.slug}>{tab.name}</Nav.Link>
+              </Nav.Item>
+            )
+          }) }
+          <div className="tab-bar" id="tab-bar"></div>
+        </Nav>
+      </div>
+      <Tab.Content>
+        { tabs.map((tab, index) => {
+          return (
+            <Tab.Pane eventKey={tab.slug} key={index}>
+              { tab.content.map((comment, contentIndex) => {
+                return <Comment comment={comment} key={contentIndex} />
+              }) }
+            </Tab.Pane>
+          )
+        }) }
+      </Tab.Content>
+      <style jsx global>{`
+        .nav-tabs-container {
+          overflow: auto;
+          margin-right: -15px;
+          margin-left: -15px;
+          padding-right: 15px;
+          padding-left: 15px;
+          white-space: nowrap;
+        }
+        .nav-tabs {
+          border-bottom: 0;
+          display: inline-flex;
+          flex-wrap: nowrap;
+          min-width: 100%;
+          padding-bottom: 5px;
+          position: relative;
+          text-align: center;
+          text-transform: uppercase;
+        }
+        .nav-tabs .nav-item {
+          flex-grow: 1;
+          margin-bottom: 0;
+        }
+        .nav-tabs .nav-link {
+          background-color: transparent !important;
+          border: 1px solid rgba(128, 128, 128, .5) !important;
+          border-radius: 0;
+          color: var(--white) !important;
+          font-size: 11px;
+          font-weight: bold;
+          line-height: 1.63;
+          padding: 15px;
+          transition: background-color .15s;
+        }
+        .nav-tabs .nav-link:focus,
+        .nav-tabs .nav-link:hover {
+          background-color: rgba(255, 255, 255, .04) !important;
+        }
+        .nav-tabs .tab-bar {
+          bottom: 2px;
+          position: absolute;
+          transition: transform .250s;
+          width: ${100 / tabs.length}%;
+        }
+        .nav-tabs .tab-bar::before {
+          background-color: var(--gray);
+          content: '';
+          display: block;
+          height: 5px;
+          margin-right: auto;
+          margin-left: auto;
+          width: 53.125%;
+        }
+      `}</style>
+    </Tab.Container>
   )
 }
