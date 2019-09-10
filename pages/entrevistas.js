@@ -57,6 +57,7 @@ const Cover = _ => (
         }
         .cover :global(.btn-primary) {
           margin-right: 15px;
+          margin-bottom: 0;
         }
       }
     `}</style>
@@ -90,7 +91,7 @@ const More = _ => {
       </div>
       <div className="cards">
         { interviews.map((interview) => (
-          <div className="card row align-items-center">
+          <div className="interview-card row align-items-center">
             <div className="col-md-4">
               <Link href="/interview">
                 <a><img src={interview.img} width="390" height="220" className="img-fluid w-100 d-block" /></a>
@@ -122,13 +123,13 @@ const More = _ => {
         .cards {
           overflow: hidden;
         }
-        .card {
+        .interview-card {
           margin-bottom: 30px;
         }
-        .card a {
+        .interview-card a {
           text-decoration: none;
         }
-        .card img {
+        .interview-card img {
           margin-bottom: 15px;
         }
         .h3 {
@@ -151,10 +152,10 @@ const More = _ => {
           .cards {
             padding-left: 4%;
           }
-          .card {
+          .interview-card {
             margin-bottom: 45px;
           }
-          .card img {
+          .interview-card img {
             margin-bottom: 0;
           }
         }

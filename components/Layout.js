@@ -151,9 +151,6 @@ const Layout = props => {
         .text-decoration-none {
           text-decoration: none;
         }
-        .btn-block {
-          width: 100%;
-        }
       `}</style>
     </>
   );

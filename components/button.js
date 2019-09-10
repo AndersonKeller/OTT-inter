@@ -12,6 +12,7 @@ const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
       </a>
       <style jsx>{`
         .btn {
+          border: 0;
           border-radius: 5px;
           cursor: pointer;
           display: block;

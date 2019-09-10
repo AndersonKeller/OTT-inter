@@ -58,7 +58,7 @@ export default class Carousel extends Component {
             { this.props.list && this.props.list.map((card, index) => {
               return (
                 <div className="slide" key={index}>
-                  <a className="card" href="" onClick={(event) => event.preventDefault()}>
+                  <a className="carousel-card" href="" onClick={(event) => event.preventDefault()}>
                     <img height="256" src={card} width="180" />
                   </a>
                 </div>
@@ -67,7 +67,7 @@ export default class Carousel extends Component {
             { ! this.props.list && this.props.children.map((card, index) => {
               return (
                 <div className="slide" key={index}>
-                  <a className="card" href="" onClick={(event) => event.preventDefault()}>
+                  <a className="carousel-card" href="" onClick={(event) => event.preventDefault()}>
                     {card}
                   </a>
                 </div>
@@ -112,10 +112,10 @@ export default class Carousel extends Component {
               white-space: normal;
               width: 200px;
             }
-            .card {
+            .carousel-card {
               display: block;
             }
-            .card img {
+            .carousel-card img {
               display: block;
               height: auto;
               width: 100%;
