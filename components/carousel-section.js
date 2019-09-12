@@ -3,10 +3,11 @@ import H2 from '../components/h2'
 
 const CarouselSection = (props) => {
   const { color = 'black' } = props
+  const { uppercase = true } = props
   return (
     <div className="carousel-section">
       <div className="container-fluid">
-        <H2 className="carousel-section-title text-uppercase">{props.title}</H2>
+        <H2 className={`carousel-section-title ${uppercase ? 'text-uppercase' : ''}`}>{props.title}</H2>
       </div>
       <Carousel color={color} list={props.list}>
         {props.children}

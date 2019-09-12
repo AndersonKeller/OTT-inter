@@ -3,10 +3,9 @@ import Head from 'next/head'
 import Link from 'next/link'
 import BlockedPlayer from '../components/blocked-player'
 import Button from '../components/button'
-import Card from '../components/card'
-import CarouselSection from '../components/carousel-section'
 import CommentSection from '../components/comment-section'
 import Layout from '../components/layout'
+import MoreContentCarousel from '../components/more-content-carousel'
 import VideoDescription from '../components/video-description'
 
 export default function VideosPage() {
@@ -15,6 +14,15 @@ export default function VideosPage() {
     year: '2018',
     description: 'El Club Más Grande por su gente. El Club Más Grande por sus ídolos. El Club Más Grande por su gloria. ¡Feliz cumpleaños, River!',
   }
+  const moreContent = [
+    '/static/videos/more/1.png',
+    '/static/videos/more/2.png',
+    '/static/videos/more/3.png',
+    '/static/videos/more/4.png',
+    '/static/videos/more/5.png',
+    '/static/videos/more/6.png',
+    '/static/videos/more/7.png',
+  ]
   return (
     <Layout>
       <Head>
@@ -36,7 +44,12 @@ export default function VideosPage() {
           </div>
         </div>
       </div>
-      <CarouselSection2 />
+      <MoreContentCarousel
+        content={moreContent}
+        title="Recomendados"
+        uppercase={false}
+        variant="videos"
+      />
       <CommentSection />
       <style jsx>{`
         .row:first-child {
@@ -281,39 +294,5 @@ function SocialShareBtns() {
         }
       `}</style>
     </div>
-  )
-}
-
-function CarouselSection2() {
-  return (
-    <aside className="carousel-section">
-      <CarouselSection color="gray" title="Platenences">
-        <Card src="/static/cards/platenences/1.jpg" />
-        <Card src="/static/cards/platenences/2.jpg" />
-        <Card src="/static/cards/platenences/3.jpg" />
-        <Card src="/static/cards/platenences/4.jpg" />
-        <Card src="/static/cards/platenences/5.jpg" />
-        <Card src="/static/cards/platenences/6.jpg" />
-        <Card src="/static/cards/platenences/7.jpg" />
-      </CarouselSection>
-      <div className="text-center">
-        <Link href="entrevistas">
-          <Button className="text-uppercase" color="secondary">Más Entrevistas</Button>
-        </Link>
-      </div>
-      <style jsx>{`
-        .carousel-section {
-          background-color: var(--dark-gray3);
-          margin-bottom: 30px;
-          padding-top: 30px;
-          padding-bottom: 45px;
-        }
-        @media (min-width: 768px) {
-          .carousel-section {
-            margin-bottom: 60px;
-          }
-        }
-      `}</style>
-    </aside>
   )
 }

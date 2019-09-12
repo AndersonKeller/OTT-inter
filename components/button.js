@@ -30,7 +30,7 @@ const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
           }
         }
         .btn-primary {
-          background-color: var(--red);
+          background-color: var(--red) !important;
           color: var(--white);
           /* margin-right: 15px; */
         }

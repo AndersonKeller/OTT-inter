@@ -2,11 +2,9 @@ import { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import BlockedPlayer from '../components/blocked-player'
-import Button from '../components/button'
-import Card from '../components/card'
-import CarouselSection from '../components/carousel-section'
 import CommentSection from '../components/comment-section'
 import Layout from '../components/layout'
+import MoreContentCarousel from '../components/more-content-carousel'
 import VideoDescription from '../components/video-description'
 
 export default function InterviewPage() {
@@ -15,6 +13,15 @@ export default function InterviewPage() {
     year: '2019',
     description: 'El jugador del Más Grande habló de su carrera en una entrevista exclusiva con Dale Campeón.',
   }
+  const moreContent = [
+    '/static/interview/more/1.png',
+    '/static/interview/more/2.png',
+    '/static/interview/more/3.png',
+    '/static/interview/more/4.png',
+    '/static/interview/more/5.png',
+    '/static/interview/more/6.png',
+    '/static/interview/more/7.png',
+  ]
   return (
     <Layout>
       <Head>
@@ -42,7 +49,11 @@ export default function InterviewPage() {
           <MoreInterviewCards />
         </div>
       </div>
-      <CarouselSection2 />
+      <MoreContentCarousel
+        content={moreContent}
+        title="Platenences"
+        variant="interview"
+      />
       <CommentSection />
       <style jsx>{`
         .row:first-child {
@@ -116,6 +127,10 @@ function MoreInterviewCard(props) {
         .more-card a {
           display: block;
           text-decoration: none;
+        }
+        .more-card a:focus,
+        .more-card a:hover {
+          color: var(--white);
         }
         .more-card p {
           margin-bottom: 0;
@@ -217,39 +232,5 @@ function SocialShareBtns() {
         }
       `}</style>
     </div>
-  )
-}
-
-function CarouselSection2() {
-  return (
-    <aside className="carousel-section">
-      <CarouselSection color="gray" title="Platenences">
-        <Card src="/static/cards/platenences/1.jpg" />
-        <Card src="/static/cards/platenences/2.jpg" />
-        <Card src="/static/cards/platenences/3.jpg" />
-        <Card src="/static/cards/platenences/4.jpg" />
-        <Card src="/static/cards/platenences/5.jpg" />
-        <Card src="/static/cards/platenences/6.jpg" />
-        <Card src="/static/cards/platenences/7.jpg" />
-      </CarouselSection>
-      <div className="text-center">
-        <Link href="entrevistas">
-          <Button className="text-uppercase" color="secondary">Más Entrevistas</Button>
-        </Link>
-      </div>
-      <style jsx>{`
-        .carousel-section {
-          background-color: var(--dark-gray3);
-          margin-bottom: 30px;
-          padding-top: 30px;
-          padding-bottom: 45px;
-        }
-        @media (min-width: 768px) {
-          .carousel-section {
-            margin-bottom: 60px;
-          }
-        }
-      `}</style>
-    </aside>
   )
 }

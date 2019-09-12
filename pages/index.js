@@ -39,7 +39,7 @@ const Home = _ => {
 
         {/* platenences */}
         <CarouselSection title="Platenences">
-          <Card src="/static/cards/platenences/1.jpg" />
+          <Card src="/static/cards/platenences/1.png" />
           <Card src="/static/cards/platenences/2.jpg" />
           <Card src="/static/cards/platenences/3.jpg" />
           <Card src="/static/cards/platenences/4.jpg" />
