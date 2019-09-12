@@ -14,6 +14,7 @@ const links = [
   link.key = `nav-link-${link.href}-${link.label}`
   return link
 })
+
 const Header = props => (
   <>
     <header className={"header" + (props.closed ? " header--closed" : '')}>
@@ -51,12 +52,14 @@ const Header = props => (
             </button>
 
             {/* user */}
-            <div className="user-select d-none d-md-block">
-              <div className="avatar">
-                <img alt="Avatar" height="31" src="/static/avatar-icon.svg" width="24" />
+            <Link href={{ pathname: '/', query: { login: true } }}>
+              <div className="user-select d-none d-md-flex">
+                <div className="avatar">
+                  <img alt="Avatar" height="31" src="/static/avatar-icon.svg" width="24" />
+                </div>
+                <Chevron alt="Select" height="9" width="16" />
               </div>
-              <Chevron alt="Select" height="9" width="16" />
-            </div>
+            </Link>
 
             {/* gad logo */}
             <a className="signature d-none d-md-inline" href="http://somosgad.com" target="_blank">
@@ -111,7 +114,13 @@ const Header = props => (
       }
       .menu li {
         display: flex;
-        padding: 10px 20px;
+        padding: 10px;
+      }
+      @media (min-width: 1367px) {
+        .menu li {
+          padding-right: 20px;
+          padding-left: 20px;
+        }
       }
       .menu a {
         font-size: inherit;
