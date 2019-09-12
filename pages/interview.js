@@ -1,11 +1,11 @@
-import Layout from '../components/layout'
-import Button from '../components/button'
-import Link from 'next/link'
+import { useState } from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
+import { Nav, Tab } from 'react-bootstrap'
+import Button from '../components/button'
 import Card from '../components/card'
 import CarouselSection from '../components/carousel-section'
-import { useState } from 'react'
-import { Nav, Tabs, Tab, Row, Col } from 'react-bootstrap'
+import Layout from '../components/layout'
 
 export default function InterviewPage() {
   return (
