@@ -1,5 +1,4 @@
 # Dale Campeón
-
 Built with Next.js.
 
 ## Install
@@ -10,4 +9,9 @@ yarn
 ## Develop
 ```sh
 yarn dev
+```
+
+## Testing deploy
+```sh
+now
 ```
