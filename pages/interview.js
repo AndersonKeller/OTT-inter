@@ -6,8 +6,14 @@ import Button from '../components/button'
 import Card from '../components/card'
 import CarouselSection from '../components/carousel-section'
 import Layout from '../components/layout'
+import VideoDescription from '../components/video-description'
 
 export default function InterviewPage() {
+  const video = {
+    title: 'Mano a mano con Javier Pinola',
+    year: '2019',
+    description: 'El jugador del Más Grande habló de su carrera en una entrevista exclusiva con Dale Campeón.',
+  }
   return (
     <Layout>
       <Head>
@@ -22,7 +28,7 @@ export default function InterviewPage() {
             <MoreInterviewCards />
           </div>
         </div>
-        <Description />
+        <VideoDescription video={video} />
         <div className="icons-row row">
           <div className="col">
             <LikeNCommentBtns />
@@ -189,35 +195,6 @@ function MoreInterviewCard(props) {
             margin-bottom: 0;
             padding-top: 15px;
             padding-bottom: 15px;
-          }
-        }
-      `}</style>
-    </div>
-  )
-}
-
-function Description() {
-  return (
-    <div className="description">
-      <h1 className="h2">Mano a mano con Javier Pinola</h1>
-      <div className="year">2019</div>
-      <div className="text">
-        <p>El jugador del Más Grande habló de su carrera en una entrevista exclusiva con Dale Campeón.</p>
-      </div>
-      <style jsx>{`
-        .h2,
-        .year {
-          margin-bottom: 10px;
-        }
-        .text {
-          margin-bottom: 20px;
-        }
-        @media (min-width: 768px) {
-          .description {
-            margin-left: 10px;
-          }
-          .text {
-            margin-bottom: 35px;
           }
         }
       `}</style>
