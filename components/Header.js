@@ -125,11 +125,13 @@ const Header = props => (
       .form-control {
         background-color: transparent;
         border: 0;
+        display: inline-block;
         color: #fff;
         font-family: inherit;
         font-size: inherit;
         font-weight: inherit;
         outline: 0;
+        padding: 0;
         vertical-align: middle;
         width: 95px;
       }
