@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import BlockedPlayer from '../components/blocked-player'
 import Button from '../components/button'
 import Card from '../components/card'
 import CarouselSection from '../components/carousel-section'
@@ -22,7 +23,7 @@ export default function VideosPage() {
       <div className="container-fluid">
         <div className="row">
           <div className="col-10 offset-1">
-            <Player />
+            <BlockedPlayer image="/static/videos/player-image.png" />
           </div>
         </div>
         <VideoDescription video={video} />
