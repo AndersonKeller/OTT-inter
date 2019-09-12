@@ -315,7 +315,7 @@ function SocialShareBtns() {
 function CarouselSection2() {
   return (
     <aside className="carousel-section">
-      <CarouselSection title="Platenences">
+      <CarouselSection color="gray" title="Platenences">
         <Card src="/static/cards/platenences/1.jpg" />
         <Card src="/static/cards/platenences/2.jpg" />
         <Card src="/static/cards/platenences/3.jpg" />

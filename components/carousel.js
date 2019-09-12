@@ -52,7 +52,7 @@ export default class Carousel extends Component {
       prevArrow: <Arrow />,
     };
     return (
-      <div className="cards">
+      <div className={`cards cards--${this.props.color}`}>
         <div className="cards-c">
           <Slider {...settings}>
             { this.props.list && this.props.list.map((card, index) => {
@@ -92,12 +92,20 @@ export default class Carousel extends Component {
               width: 9%;
               z-index: 2;
             }
-            .cards::before {
+            .cards::after {
+              right: 0;
+            }
+            .cards.cards--black::before {
               background-image: linear-gradient(to right, var(--black), rgba(0, 0, 0, 0));
             }
-            .cards::after {
+            .cards.cards--black::after {
               background-image: linear-gradient(to left, var(--black), rgba(0, 0, 0, 0));
-              right: 0;
+            }
+            .cards.cards--gray::before {
+              background-image: linear-gradient(to right, var(--dark-gray3), rgba(26, 26, 26, 0));
+            }
+            .cards.cards--gray::after {
+              background-image: linear-gradient(to left, var(--dark-gray3), rgba(26, 26, 26, 0));
             }
             .cards-c {
               font-size: 0;
