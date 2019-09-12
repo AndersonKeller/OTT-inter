@@ -1,10 +1,10 @@
-export default function Description(props) {
+export default function MediaDescription(props) {
   return (
     <div className="description">
-      <h1 className="h2">{props.video.title}</h1>
-      <div className="year">{props.video.year}</div>
+      <h1 className="h2">{props.media.title}</h1>
+      <div className="year">{props.media.year}</div>
       <div className="text">
-        <p>{props.video.description}</p>
+        <p>{props.media.description}</p>
       </div>
       <style jsx>{`
         .h2,

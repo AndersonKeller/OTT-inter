@@ -4,8 +4,21 @@ import Card from '../components/card'
 import CarouselSection from '../components/carousel-section'
 
 export default function MoreContentCarousel(props) {
-  const variantName = props.variant === 'interview' ? 'Entrevistas' : 'Videos'
-  const variantLink = props.variant === 'interview' ? 'entrevistas' : 'videos'
+  let variantName, variantLink
+  switch (props.variant) {
+    case 'interview':
+      variantName = 'Entrevistas'
+      variantLink = 'entrevistas'
+      break;
+    case 'videos':
+      variantName = 'Videos'
+      variantLink = 'videos'
+      break;
+    default:
+      variantName = 'Podcasts'
+      variantLink = 'podcasts'
+      break;
+  }
   return (
     <aside className="carousel-section">
       <CarouselSection color="gray" title={props.title} uppercase={props.uppercase}>
