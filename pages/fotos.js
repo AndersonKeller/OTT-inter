@@ -1,9 +1,15 @@
+import Head from 'next/head'
 import Layout from '../components/layout'
 
 export default function Fotos() {
   return (
     <Layout>
-      <p>This is the fotos page</p>
+      <Head>
+        <title>Fotos &lt; Dale Campeón</title>
+      </Head>
+      <div className="container-fluid">
+        <p>Under construction</p>
+      </div>
     </Layout>
   );
 }

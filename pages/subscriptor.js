@@ -331,7 +331,7 @@ export default function Subscriptor() {
   return (
     <Layout header="closed">
       <Head>
-        <title>Subscriptor</title>
+        <title>Subscriptor &lt; Dale Campeón</title>
       </Head>
       <div className="subscriptor">
 

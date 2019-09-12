@@ -25,7 +25,7 @@ export default function VideosPage() {
   return (
     <Layout>
       <Head>
-        <title>Videos</title>
+        <title>Videos &lt; Dale Campeón</title>
       </Head>
       <div className="container-fluid">
         <div className="row">

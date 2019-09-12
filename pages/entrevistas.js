@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Layout from '../components/layout'
 import Button from '../components/button'
 import Link from 'next/link'
@@ -167,6 +168,9 @@ const More = _ => {
 export default function Entrevistas() {
   return (
     <Layout paddingTop={false}>
+      <Head>
+        <title>Entrevistas &lt; Dale Campeón</title>
+      </Head>
       <Cover />
       <More />
     </Layout>

@@ -25,7 +25,7 @@ export default function PodcastsPage() {
   return (
     <Layout>
       <Head>
-        <title>Podcasts</title>
+        <title>Podcasts &lt; Dale Campeón</title>
       </Head>
       <div className="container-fluid">
         <div className="row">

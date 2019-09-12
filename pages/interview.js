@@ -26,7 +26,7 @@ export default function InterviewPage() {
   return (
     <Layout>
       <Head>
-        <title>Entrevista</title>
+        <title>Entrevista &lt; Dale Campeón</title>
       </Head>
       <div className="container-fluid">
         <div className="row align-items-center">
