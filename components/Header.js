@@ -29,7 +29,7 @@ const Header = props => (
         { ! props.closed && (
           <>
             {/* menu */}
-            <ul className="menu">
+            <ul className="menu d-none d-md-flex">
               {links.map(({ key, href, label }) => (
                 <li key={key}>
                   <a href={href}>{label}</a>
@@ -38,7 +38,7 @@ const Header = props => (
             </ul>
 
             {/* form */}
-            <form method="post">
+            <form className="d-none d-md-block" method="post">
               <button className="search-btn" type="button">
                 <img alt="Buscar" height="28" src="/static/magnify-icon.svg" width="28" />
               </button>
@@ -46,12 +46,12 @@ const Header = props => (
             </form>
 
             {/* notifications */}
-            <button className="notifications-btn" type="button">
+            <button className="notifications-btn d-none d-md-inline-block" type="button">
               <img alt="Notificações" height="27" src="/static/notification-icon.svg" width="18" />
             </button>
 
             {/* user */}
-            <div className="user-select">
+            <div className="user-select d-none d-md-block">
               <div className="avatar">
                 <img alt="Avatar" height="31" src="/static/avatar-icon.svg" width="24" />
               </div>
@@ -59,7 +59,7 @@ const Header = props => (
             </div>
 
             {/* gad logo */}
-            <a href="http://somosgad.com" target="_blank">
+            <a className="signature d-none d-md-inline" href="http://somosgad.com" target="_blank">
               <img alt="GAD_" height="36" src="/static/gad-logo.svg" width="66" />
             </a>
           </>
@@ -102,7 +102,7 @@ const Header = props => (
         margin-right: 0;
       }
       .menu {
-        display: flex;
+        display: none;
         justify-content: space-between;
         margin-top: 0;
         margin-right: auto;
