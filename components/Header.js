@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, { useState, useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ReactSVG from 'react-svg'
 
 import UserContext from '../components/UserContext'
@@ -22,14 +22,16 @@ const Header = props => {
   const [ username, setUsername ] = useState('')
   const { user, signOut } = useContext(UserContext)
 
+  useEffect(() => {
+    if (username && !user)
+      signIn(username)
+    else if (user && !username)
+      signOut()
+  })
+
   const toogleAuth = e => {
     e.preventDefault()
-    if ( ! user) {
-      setUsername('testuser')
-      signIn(username)
-    } else {
-      signOut()
-    }
+    setUsername( ! user ? 'testuser' : null)
   }
 
   return (
