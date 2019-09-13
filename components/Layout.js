@@ -40,6 +40,7 @@ const Layout = props => {
         <link rel="stylesheet" href="/static/fonts/bebas-neue/stylesheet.css" />
         <link rel="stylesheet" type="text/css" charSet="utf-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" /> 
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
+        <script src="https://player.vimeo.com/api/player.js"></script>
       </Head>
       <Header closed={props.header === 'closed'} />
       <main className={ ! paddingTop ? 'no-padding' : ''}>

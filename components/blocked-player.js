@@ -1,23 +1,39 @@
+import { useState } from 'react'
 import Link from 'next/link'
 import Button from '../components/button'
 
 export default function BlockedPlayer(props) {
+  const [ video, setVideo ] = useState(false)
+  const showVideo = () => {
+    setVideo(true)
+  }
   return (
     <div className="player">
-      <img src={props.image} width="822" height="464" className="img-fluid" />
-      <div className="block-msg text-center">
-        <div className="text-block">
-          <p><strong>Este contenido es exclusivo para los suscriptores</strong></p>
-          <p className="d-none d-md-block"><small>Ver las novelas, series, humor, películas y dibujos cuando y donde quieras.</small></p>
-        </div>
-        <Link href="/subscriptor">
-          <Button>Probá 7 días Gratis</Button>
-        </Link>
-        <div className="text-block">
-          <p><strong><span className="text-uppercase d-none d-md-inline">Pruebe 7 días gratis</span><br className="d-none d-md-inline" />
-            ¿Ya es suscriptor? <span className="text-uppercase">Haga <Link href="/login"><a>login</a></Link></span></strong></p>
-        </div>
-      </div>
+      {video ? (
+        <>
+          <div style={{padding:'56.44% 0 0 0',position:'relative'}}><iframe src="https://player.vimeo.com/video/330250376?autoplay=1&amp;loop=1&amp;color=ff0000&amp;title=0&amp;byline=0&amp;portrait=0"
+            style={{position:'absolute',top:0,left:0,width:'100%',height:'100%'}}
+            frameBorder="0" allow="autoplay; fullscreen" allowFullScreen></iframe></div>
+        </>
+      ) : (
+        <>
+          <img src={props.image} width="822" height="464" className="img-fluid" />
+          <div className="block-msg text-center">
+            <div className="text-block">
+              <p><strong>Este contenido es exclusivo para los suscriptores</strong></p>
+              <p className="d-none d-md-block"><small>Ver las novelas, series, humor, películas y dibujos cuando y donde quieras.</small></p>
+            </div>
+            {/* <Link href="/subscriptor">
+              <Button>Probá Gratis</Button>
+            </Link> */}
+            <Button onClick={(e) => showVideo(e)}>Probá Gratis</Button>
+            <div className="text-block">
+              <p><strong><span className="text-uppercase d-none d-md-inline">Pruebe gratis</span><br className="d-none d-md-inline" />
+                ¿Ya es suscriptor? <span className="text-uppercase">Haga <Link href="/login"><a>login</a></Link></span></strong></p>
+            </div>
+          </div>
+        </>
+      )}
       <style jsx>{`
         .player {
           overflow: hidden;
@@ -49,6 +65,7 @@ export default function BlockedPlayer(props) {
           font-size: .9em;
         }
         .text-block a {
+          color: var(--white);
           text-decoration: none;
         }
         .text-block a:focus,
