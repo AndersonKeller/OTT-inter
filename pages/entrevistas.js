@@ -1,7 +1,9 @@
 import Head from 'next/head'
-import Layout from '../components/layout'
-import Button from '../components/button'
 import Link from 'next/link'
+
+import Button from '../components/button'
+import Layout from '../components/layout'
+import MiLista from '../components/mi-lista'
 
 const Cover = _ => (
   <div className="cover container-fluid">
@@ -15,10 +17,7 @@ const Cover = _ => (
         <Link href="/subscriptor">
           <Button>Proba Gratis</Button>
         </Link>
-        <Button color="secondary" outline>
-          <img src="/static/add-icon.svg" width="13" height="13" />
-          <span>Mi Lista</span>
-        </Button>
+        <MiLista />
       </div>
     </div>
     <style jsx>{`

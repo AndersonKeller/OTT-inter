@@ -1,15 +1,20 @@
 import Head from 'next/head'
 import Link from 'next/link'
 
-import React from 'react'
+import React, { useContext } from 'react'
 
 import Button from '../components/button'
 import Card from '../components/card'
 import CarouselSection from '../components/carousel-section'
 import Featured from '../components/featured'
 import Layout from '../components/layout'
+import MiLista from '../components/mi-lista'
+import UserContext from '../components/UserContext'
 
 const Home = _ => {
+
+  const { user } = useContext(UserContext)
+
   return (
     <Layout paddingTop={false}>
       <Head>
@@ -27,13 +32,24 @@ const Home = _ => {
                     <span className="h1-a">Entrevista a nuestro</span>
                     <strong className="h1-b">“Napoléon”</strong>
                     <span className="h1-c">Marcelo Gallardo</span></h1>
-                  <Link href="/subscriptor">
-                    <Button>Probar Gratis</Button>
-                  </Link>
-                  <Link href="/entrevistas">
-                    <Button color="secondary" outline>Ver más</Button>
-                  </Link>
-                </div>
+                  {!user ? (
+                    <>
+                      <Link href="/subscriptor">
+                        <Button>Probar Gratis</Button>
+                      </Link>
+                      <Link href="/entrevistas">
+                        <Button color="secondary" outline>Ver más</Button>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link href="/entrevistas">
+                        <Button>Ver más</Button>
+                      </Link>
+                      <MiLista />
+                    </>
+                  )}
+                  </div>
               </div>
             </div>
           </div>
