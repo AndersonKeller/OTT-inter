@@ -77,13 +77,22 @@ const Home = _ => {
           <Card href="/videos" src="/static/cards/arts/7.jpg" />
         </CarouselSection>
 
-        {/* features */}
-        <Featured img="/static/featured/crear.jpg">
-          <Link href="/subscriptor">
-            <Button>Probar Gratis</Button>
-          </Link>
-          <Button color="secondary" outline>Compra aquí</Button>
-        </Featured>
+        {/* featured */}
+        {!user ? (
+          <Featured img="/static/featured/crear.jpg">
+            <Link href="/subscriptor">
+              <Button>Probar Gratis</Button>
+            </Link>
+            <Button color="secondary" outline>Compra aquí</Button>
+          </Featured>
+        ) : (
+          <Featured img="/static/logged-banner1.png">
+            <Link href="/videos">
+              <Button>Ver más</Button>
+            </Link>
+            <MiLista />
+          </Featured>
+        )}
 
         {/* podcasts */}
         <CarouselSection title="Podcasts">
@@ -108,12 +117,21 @@ const Home = _ => {
         </CarouselSection>
 
         {/* features */}
-        <Featured img="/static/featured/axe.jpg">
-          <Link href="/subscriptor">
-            <Button>Probar Gratis</Button>
-          </Link>
-          <Button color="secondary" outline>Descubri más</Button>
-        </Featured>
+        {!user ? (
+          <Featured img="/static/featured/axe.jpg">
+            <Link href="/subscriptor">
+              <Button>Probar Gratis</Button>
+            </Link>
+            <Button color="secondary" outline>Descubri más</Button>
+          </Featured>
+        ) : (
+          <Featured img="/static/logged-banner2.png">
+            <Link href="/videos">
+              <Button>Ver más</Button>
+            </Link>
+            <MiLista color="white" />
+          </Featured>
+        )}
         
         {/* news */}
         <CarouselSection title="Noticias">
@@ -127,14 +145,23 @@ const Home = _ => {
         </CarouselSection>
 
         {/* features */}
-        <Featured img="/static/featured/sorteos.png">
-          <Link href="/subscriptor">
-            <Button>Probar Gratis</Button>
-          </Link>
-          <Link href="/sorteos">
-            <Button color="secondary" outline>Ver más</Button>
-          </Link>
-        </Featured>
+        {!user ? (
+          <Featured img="/static/featured/sorteos.png">
+            <Link href="/subscriptor">
+              <Button>Probar Gratis</Button>
+            </Link>
+            <Link href="/sorteos">
+              <Button color="secondary" outline>Ver más</Button>
+            </Link>
+          </Featured>
+        ) : (
+          <Featured img="/static/logged-banner3.png">
+            <Link href="/videos">
+              <Button>Ver más</Button>
+            </Link>
+            <MiLista />
+          </Featured>
+        )}
         
         {/* family */}
         <CarouselSection title="Familia">
@@ -146,6 +173,15 @@ const Home = _ => {
           <Card href="/videos" src="/static/cards/family/6.png" />
           <Card href="/videos" src="/static/cards/family/7.png" />
         </CarouselSection>
+        
+        {user && (
+          <Featured img="/static/logged-banner4.png">
+            <Link href="/videos">
+              <Button>Ver más</Button>
+            </Link>
+            <MiLista color="white" />
+          </Featured>
+        )}
         
         {/* children */}
         <CarouselSection title="Niños">
