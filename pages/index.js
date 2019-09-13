@@ -1,11 +1,13 @@
 import Head from 'next/head'
 import Link from 'next/link'
+
 import React from 'react'
-import Layout from '../components/layout'
+
 import Button from '../components/button'
-import Featured from '../components/featured'
 import Card from '../components/card'
 import CarouselSection from '../components/carousel-section'
+import Featured from '../components/featured'
+import Layout from '../components/layout'
 
 const Home = _ => {
   return (

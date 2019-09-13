@@ -1,21 +1,38 @@
-import React from 'react'
 import Link from 'next/link'
+import React, { useState, useContext } from 'react'
 import ReactSVG from 'react-svg'
+
+import UserContext from '../components/UserContext'
 import Chevron from './icons/chevron'
 
-const links = [
-  { href: '/', label: 'Home' },
-  { href: '/videos', label: 'Videos' },
-  { href: '/podcasts', label: 'Podcasts' },
-  { href: '/entrevistas', label: 'Entrevistas' },
-  { href: '/fotos', label: 'Fotos' },
-  { href: '/sorteos', label: 'Sorteos' },
-].map(link => {
-  link.key = `nav-link-${link.href}-${link.label}`
-  return link
-})
+const Header = props => {
 
-const Header = props => (
+  const links = [
+    { href: '/', label: 'Home' },
+    { href: '/videos', label: 'Videos' },
+    { href: '/podcasts', label: 'Podcasts' },
+    { href: '/entrevistas', label: 'Entrevistas' },
+    { href: '/fotos', label: 'Fotos' },
+    { href: '/sorteos', label: 'Sorteos' },
+  ].map(link => {
+    link.key = `nav-link-${link.href}-${link.label}`
+    return link
+  })
+  const { signIn } = useContext(UserContext)
+  const [ username, setUsername ] = useState('')
+  const { user, signOut } = useContext(UserContext)
+
+  const toogleAuth = e => {
+    e.preventDefault()
+    if ( ! user) {
+      setUsername('testuser')
+      signIn(username)
+    } else {
+      signOut()
+    }
+  }
+
+  return (
   <>
     <header className={"header" + (props.closed ? " header--closed" : '')}>
       <nav className="nav">
@@ -36,6 +53,9 @@ const Header = props => (
                   <a href={href}>{label}</a>
                 </li>
               ))}
+              {user && (
+                <li>Más</li>
+              )}
             </ul>
 
             {/* form */}
@@ -52,14 +72,12 @@ const Header = props => (
             </button>
 
             {/* user */}
-            <Link href={{ pathname: '/', query: { login: true } }}>
-              <div className="user-select d-none d-md-flex">
-                <div className="avatar">
-                  <img alt="Avatar" height="31" src="/static/avatar-icon.svg" width="24" />
-                </div>
-                <Chevron alt="Select" height="9" width="16" />
+            <div className="user-select d-none d-md-flex" onClick={(e) => toogleAuth(e)}>
+              <div className="avatar">
+                <img alt="Avatar" height="31" src="/static/avatar-icon.svg" width="24" />
               </div>
-            </Link>
+              <Chevron alt="Select" height="9" width="16" />
+            </div>
 
             {/* gad logo */}
             <a className="signature d-none d-md-inline" href="http://somosgad.com" target="_blank">
@@ -184,4 +202,6 @@ const Header = props => (
     `}</style>
   </>
 )
+}
+
 export default Header
