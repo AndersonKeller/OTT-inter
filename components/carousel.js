@@ -67,9 +67,7 @@ export default class Carousel extends Component {
             { ! this.props.list && this.props.children.map((card, index) => {
               return (
                 <div className="slide" key={index}>
-                  <a className="carousel-card" href="" onClick={(event) => event.preventDefault()}>
-                    {card}
-                  </a>
+                  {card}
                 </div>
               )
             }) }

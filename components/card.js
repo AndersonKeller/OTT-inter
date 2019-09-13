@@ -1,15 +1,18 @@
+import Link from 'next/link'
+
 const Card = (props) => {
   return (
-    <div>
-      <img height="256" src={props.src} width="180" />
-      <style jsx>{`
-        img {
-          display: block;
-          height: auto;
-          width: 100%;
-        }
-      `}</style>
-    </div>
+    <Link href={props.href || null}>
+      <a className="d-block carousel-card">
+        <img className="img-fluid" height="256" src={props.src} width="180" />
+        <style jsx>{`
+          .carousel-card {
+            display: block;
+          }
+        `}</style>
+      </a>
+    </Link>
   )
 }
+
 export default Card

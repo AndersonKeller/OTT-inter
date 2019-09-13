@@ -20,35 +20,35 @@ const Prices = (props) => {
   const prices = [
     {
       name: 'Grartis',
-      time: '7 días',
+      time: '',
       value: 0,
     },
     {
       name: 'Suscripción',
-      time: '15 días',
-      value: '$0000',
+      time: '1 mes',
+      value: '$99',
     },
     {
       name: 'Suscripción',
-      time: '1 mes',
-      value: '$0000',
+      time: '3 mes',
+      value: '$297',
     },
     {
       name: 'Suscripción',
       time: '6 meses',
-      value: '$0000',
+      value: '$594',
     },
     {
       name: 'Suscripción',
       time: '1 año',
-      value: '$0000',
+      value: '$1188',
     },
   ]
   return (
     <section className="prices text-center container-fluid">
       <header>
         <H2>¡Sin límites! Sólo el suscriptor da un juego  n absoluto.</H2>
-        <p>Comience ahora sus 7 días gratis y aproveche todas las ventajas de ser un suscriptor de Dale Campeón.</p>
+        <p>Comience ahora sus días gratis y aproveche todas las ventajas de ser un suscriptor de Dale Campeón.</p>
       </header>
       <div className="cards">
         <div className="row justify-content-center gutter-15">
@@ -352,7 +352,7 @@ export default function Subscriptor() {
           <SubscriptorSectionText>
             <p>Vea dónde y cuando quiera, incluso 24 horas antes de pasar a la TV</p>
           </SubscriptorSectionText>
-          <Button>Probá 7 días Gratis</Button>
+          <Button>Probá Gratis</Button>
         </SubscriptorSection>
 
         {/* section 3 */}

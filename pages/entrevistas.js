@@ -128,6 +128,7 @@ const More = _ => {
           margin-bottom: 30px;
         }
         .interview-card a {
+          color: var(--white);
           text-decoration: none;
         }
         .interview-card img {
