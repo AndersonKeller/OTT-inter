@@ -52,7 +52,7 @@ export default function InterviewPage() {
       </div>
       <MoreContentCarousel
         content={moreContent}
-        title="Platenences"
+        title="Platences"
         variant="interview"
       />
       <CommentSection />
