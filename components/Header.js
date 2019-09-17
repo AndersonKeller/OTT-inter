@@ -19,7 +19,7 @@ const Header = props => {
     link.key = `nav-link-${link.href}-${link.label}`
     return link
   })
-  
+
   const { signIn } = useContext(UserContext)
   const [ username, setUsername ] = useState('')
   const { user, signOut } = useContext(UserContext)
@@ -43,15 +43,14 @@ const Header = props => {
     scrolled: scrolled,
   })
 
-  const handleScroll = () => { 
-    if (document.documentElement.scrollTop > 1) {
-      setScrolled(true)
-    } else {
-      setScrolled(false)
-    }
-  }
-
   useEffect(() => {
+    const handleScroll = () => { 
+      if (window.pageYOffset > 1) {
+        setScrolled(true)
+      } else {
+        setScrolled(false)
+      }
+    }
     window.addEventListener('scroll', handleScroll)
     return () => {
       window.removeEventListener('scroll', handleScroll)
@@ -59,7 +58,6 @@ const Header = props => {
   })
 
   return (
-  <>
     <header className={classes}>
       <nav className="nav">
 
@@ -113,124 +111,122 @@ const Header = props => {
         ) }
 
       </nav>
-    </header>
-    <style jsx>{`
-      .header {
-        color: var(--gray);
-        font-family: 'Helvetica', sans-serif;
-        font-size: 21.5px;
-        font-weight: bold;
-        padding: 20px 45px;
-        position: fixed;
-        transition: background-color .2s;
-        width: 100%;
-        z-index: 10;
-      }
-      .header.closed {
-        background-color: var(--black);
-        position: static;
-      }
-      .header.scrolled {
-        background-color: rgba(0, 0, 0, .57);
-      }
-      .nav {
-        display: flex;
-        align-items: center;
-      }
-      .header.closed .nav {
-        justify-content: center;
-      }
-      .logo {
-        height: auto;
-        margin-top: 0;
-        margin-right: 30px;
-        margin-bottom: 0;
-        min-height: 67px;
-        width: 131px;
-      }
-      .header.closed .logo {
-        margin-right: 0;
-      }
-      .menu {
-        display: none;
-        justify-content: space-between;
-        margin-top: 0;
-        margin-right: auto;
-        margin-bottom: 0;
-        padding-left: 0;
-      }
-      .menu li {
-        display: flex;
-        padding: 10px;
-      }
-      @media (min-width: 1367px) {
-        .menu li {
-          padding-right: 20px;
-          padding-left: 20px;
+      <style jsx>{`
+        .header {
+          color: var(--gray);
+          font-family: 'Helvetica', sans-serif;
+          font-size: 21.5px;
+          font-weight: bold;
+          padding: 20px 45px;
+          position: fixed;
+          transition: background-color .2s;
+          width: 100%;
+          z-index: 10;
         }
-      }
-      .menu a {
-        font-size: inherit;
-        text-decoration: none;
-        transition: color .2s;
-      }
-      .menu a:focus,
-      .menu a:hover {
-        color: #fff;
-      }
-      .form-control {
-        background-color: transparent;
-        border: 0;
-        display: inline-block;
-        color: #fff;
-        font-family: inherit;
-        font-size: inherit;
-        font-weight: inherit;
-        outline: 0;
-        padding: 0;
-        vertical-align: middle;
-        width: 95px;
-      }
-      .form-control::placeholder {
-        color: #b2b2b2;
-      }
-      .search-btn {
-        background-color: transparent;
-        border: 0;
-        cursor: pointer;
-        margin-right: 10px;
-        outline: 0;
-        padding: 5px;
-        vertical-align: middle;
-      }
-      .notifications-btn {
-        background-color: transparent;
-        border: 0;
-        cursor: pointer;
-        outline: 0;
-        margin-right: 25px;
-        padding: 5px;
-        vertical-align: middle;
-      }
-      .user-select {
-        align-items: center;
-        display: flex;
-        margin-right: 30px;
-      }
-      .avatar {
-        align-items: center;
-        background-color: var(--gray);
-        border-radius: 50%;
-        display: flex;
-        height: 45px;
-        justify-content: center;
-        margin-right: 7px;
-        padding: 5px;
-        width: 45px;
-      }
-    `}</style>
-  </>
-)
+        .header.closed {
+          background-color: var(--black);
+          position: static;
+        }
+        .header.scrolled {
+          background-color: rgba(0, 0, 0, .57);
+        }
+        .nav {
+          display: flex;
+          align-items: center;
+        }
+        .header.closed .nav {
+          justify-content: center;
+        }
+        .logo {
+          height: auto;
+          margin-top: 0;
+          margin-right: 30px;
+          margin-bottom: 0;
+          min-height: 67px;
+          width: 131px;
+        }
+        .header.closed .logo {
+          margin-right: 0;
+        }
+        .menu {
+          display: none;
+          justify-content: space-between;
+          margin-top: 0;
+          margin-right: auto;
+          margin-bottom: 0;
+          padding-left: 0;
+        }
+        .menu li {
+          display: flex;
+          padding: 10px;
+        }
+        @media (min-width: 1367px) {
+          .menu li {
+            padding-right: 20px;
+            padding-left: 20px;
+          }
+        }
+        .menu a {
+          font-size: inherit;
+          text-decoration: none;
+          transition: color .2s;
+        }
+        .menu a:focus,
+        .menu a:hover {
+          color: #fff;
+        }
+        .form-control {
+          background-color: transparent;
+          border: 0;
+          display: inline-block;
+          color: #fff;
+          font-family: inherit;
+          font-size: inherit;
+          font-weight: inherit;
+          outline: 0;
+          padding: 0;
+          vertical-align: middle;
+          width: 95px;
+        }
+        .form-control::placeholder {
+          color: #b2b2b2;
+        }
+        .search-btn {
+          background-color: transparent;
+          border: 0;
+          cursor: pointer;
+          margin-right: 10px;
+          outline: 0;
+          padding: 5px;
+          vertical-align: middle;
+        }
+        .notifications-btn {
+          background-color: transparent;
+          border: 0;
+          cursor: pointer;
+          outline: 0;
+          margin-right: 25px;
+          padding: 5px;
+          vertical-align: middle;
+        }
+        .user-select {
+          align-items: center;
+          display: flex;
+          margin-right: 30px;
+        }
+        .avatar {
+          align-items: center;
+          background-color: var(--gray);
+          border-radius: 50%;
+          display: flex;
+          height: 45px;
+          justify-content: center;
+          margin-right: 7px;
+          padding: 5px;
+          width: 45px;
+        }
+      `}</style>
+    </header>
+  )
 }
-
 export default Header
