@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "classnames": "^2.2.6",
     "glamor": "^2.20.40",
     "next": "9.0.3",
     "next-redirect": "^1.0.1",

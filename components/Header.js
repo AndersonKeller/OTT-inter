@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
 import ReactSVG from 'react-svg'
@@ -18,6 +19,7 @@ const Header = props => {
     link.key = `nav-link-${link.href}-${link.label}`
     return link
   })
+  
   const { signIn } = useContext(UserContext)
   const [ username, setUsername ] = useState('')
   const { user, signOut } = useContext(UserContext)
@@ -34,9 +36,31 @@ const Header = props => {
     setUsername( ! user ? 'testuser' : null)
   }
 
+  const [ scrolled, setScrolled ] = useState()
+  
+  const classes = classNames('header', {
+    closed: props.closed,
+    scrolled: scrolled,
+  })
+
+  const handleScroll = () => { 
+    if (document.documentElement.scrollTop > 1) {
+      setScrolled(true)
+    } else {
+      setScrolled(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  })
+
   return (
   <>
-    <header className={"header" + (props.closed ? " header--closed" : '')}>
+    <header className={classes}>
       <nav className="nav">
 
         {/* logo */}
@@ -92,25 +116,28 @@ const Header = props => {
     </header>
     <style jsx>{`
       .header {
-        background-color: rgba(0, 0, 0, .57);
         color: var(--gray);
         font-family: 'Helvetica', sans-serif;
         font-size: 21.5px;
         font-weight: bold;
         padding: 20px 45px;
         position: fixed;
+        transition: background-color .2s;
         width: 100%;
         z-index: 10;
       }
-      .header--closed {
+      .header.closed {
         background-color: var(--black);
         position: static;
+      }
+      .header.scrolled {
+        background-color: rgba(0, 0, 0, .57);
       }
       .nav {
         display: flex;
         align-items: center;
       }
-      .header--closed .nav {
+      .header.closed .nav {
         justify-content: center;
       }
       .logo {
@@ -121,7 +148,7 @@ const Header = props => {
         min-height: 67px;
         width: 131px;
       }
-      .header--closed .logo {
+      .header.closed .logo {
         margin-right: 0;
       }
       .menu {
