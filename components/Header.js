@@ -37,12 +37,6 @@ const Header = props => {
   }
 
   const [ scrolled, setScrolled ] = useState()
-  
-  const classes = classNames('header', {
-    closed: props.closed,
-    scrolled: scrolled,
-  })
-
   useEffect(() => {
     const handleScroll = () => { 
       if (window.pageYOffset > 1) {
@@ -55,6 +49,11 @@ const Header = props => {
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
+  })
+
+  const classes = classNames('header', {
+    closed: props.closed,
+    scrolled: scrolled,
   })
 
   return (
