@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
-import NavDropdown from 'react-bootstrap/NavDropdown'
+import Dropdown from 'react-bootstrap/Dropdown'
 import ReactSVG from 'react-svg'
 
 import UserContext from '../components/UserContext'
@@ -90,11 +90,24 @@ const Header = (props) => {
                   visibility === 'private' && user) && (
                   <li key={i}>
                     { dropdown ? (
-                      <NavDropdown id="basic-nav-dropdown" title={label}>
-                        { dropdown.map(({ label, href }, k) => (
-                          <NavDropdown.Item href={href} key={k}>{label}</NavDropdown.Item>
-                        )) }
-                      </NavDropdown>
+                      <Dropdown>
+                        <Dropdown.Toggle id={`dropdown-custom-${i}`}>
+                          {label}
+                          <Chevron
+                            alt="Select"
+                            className="chevron"
+                            dir="bottom"
+                            height="9"
+                            inline
+                            width="16"
+                          />
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          { dropdown.map(({ label, href }, k) => (
+                            <Dropdown.Item href={href} key={k}>{label}</Dropdown.Item>
+                          )) }
+                        </Dropdown.Menu>
+                      </Dropdown>
                     ) : (
                       <a href={href}>{label}</a>
                     ) }
@@ -193,21 +206,40 @@ const Header = (props) => {
           }
         }
         .menu a,
-        .menu :global(.nav-link) {
+        .menu :global(.dropdown-toggle) {
+          background-color: transparent;
+          border: 0;
+          color: inherit;
+          display: block;
           font-size: inherit;
+          font-weight: inherit;
           padding: 0;
           text-decoration: none;
           transition: color .2s;
         }
         .menu a:focus,
         .menu a:hover,
-        .menu :global(.nav-link):focus,
-        .menu :global(.nav-link):hover {
+        .menu :global(.dropdown-toggle):focus,
+        .menu :global(.dropdown-toggle):hover {
+          background-color: transparent;
+          box-shadow: none !important;
           color: #fff;
         }
-        /* .menu :global(.dropdown-toggle::after) {
-          border: 0;
-        } */
+        .menu :global(.dropdown-toggle::after) {
+          display: none;
+        }
+        .menu :global(.dropdown-toggle) :global(.chevron) {
+          display: inline-block;
+          line-height: 1;
+          margin-left: 10px;
+        }
+        .menu :global(.dropdown-toggle) :global(.chevron) :global(path) {
+          fill: var(--gray);
+        }
+        .menu :global(.dropdown-toggle):focus :global(.chevron) :global(path),
+        .menu :global(.dropdown-toggle):hover :global(.chevron) :global(path) {
+          fill: var(--white);
+        }
         .menu :global(.dropdown-menu) {
           background-color: rgba(var(--gray3-rgb), .9);
           border: 0;
