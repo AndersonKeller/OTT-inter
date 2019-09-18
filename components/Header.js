@@ -21,19 +21,15 @@ const Header = props => {
   })
 
   const { signIn } = useContext(UserContext)
-  const [ username, setUsername ] = useState('')
   const { user, signOut } = useContext(UserContext)
 
-  useEffect(() => {
-    if (username && !user)
-      signIn(username)
-    else if (user && !username)
-      signOut()
-  })
-
-  const toogleAuth = e => {
+  const toogleAuth = (e) => {
     e.preventDefault()
-    setUsername( ! user ? 'testuser' : null)
+    if (user) {
+      signOut()
+    } else {
+      signIn('test_user')
+    }
   }
 
   const [ scrolled, setScrolled ] = useState()
@@ -95,11 +91,16 @@ const Header = props => {
             </button>
 
             {/* user */}
-            <div className="user-select d-none d-md-flex" onClick={(e) => toogleAuth(e)}>
+            <div className="user-select d-none d-md-flex">
               <div className="avatar">
                 <img alt="Avatar" height="31" src="/static/avatar-icon.svg" width="24" />
               </div>
               <Chevron alt="Select" height="9" width="16" />
+              <div className="temporary-dropdown">
+                <button onClick={(e) => toogleAuth(e)} style={{fontSize: 16}}>
+                  {user ? 'Sair' : 'Entrar'}
+                </button>
+              </div>
             </div>
 
             {/* gad logo */}
@@ -212,6 +213,17 @@ const Header = props => {
           align-items: center;
           display: flex;
           margin-right: 30px;
+          position: relative;
+        }
+        .user-select:hover .temporary-dropdown {
+          display: block;
+        }
+        .temporary-dropdown {
+          display: none;
+          right: 0;
+          padding-top: 15px;
+          position: absolute;
+          top: 100%;
         }
         .avatar {
           align-items: center;

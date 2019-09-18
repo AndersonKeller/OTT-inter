@@ -28,7 +28,7 @@ class MyApp extends App {
         user: username
       },
       () => {
-        // Router.push('/')
+        Router.push('/', '#logged')
       }
     )
   }
@@ -39,7 +39,7 @@ class MyApp extends App {
       user: null
     })
     // Router.push('/signin')
-    // Router.push('/')
+    location.href = location.protocol + '//' + location.host + location.pathname
   }
   
   render() {
