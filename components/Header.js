@@ -1,28 +1,43 @@
 import classNames from 'classnames'
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
+import NavDropdown from 'react-bootstrap/NavDropdown'
 import ReactSVG from 'react-svg'
 
 import UserContext from '../components/UserContext'
 import Chevron from './icons/chevron'
 
-const Header = props => {
+const Header = (props) => {
 
-  const links = [
-    { href: '/', label: 'Home' },
-    { href: '/videos', label: 'Videos' },
-    { href: '/podcasts', label: 'Podcasts' },
-    { href: '/entrevistas', label: 'Entrevistas' },
-    { href: '/fotos', label: 'Fotos' },
-    { href: '/sorteos', label: 'Sorteos' },
-  ].map(link => {
-    link.key = `nav-link-${link.href}-${link.label}`
-    return link
-  })
+  // menu
+  const menu = [
+    { label: 'Home', href: '/' },
+    { label: 'Videos', href: '/videos' },
+    { label: 'Podcasts', href: '/podcasts' },
+    { label: 'Entrevistas', href: '/entrevistas' },
+    { label: 'Fotos', href: '/fotos' },
+    { label: 'Sorteos', href: '/sorteos', visibility: 'publicOnly' },
+    {
+      label: 'Más',
+      dropdown: [
+        { label: 'Sorteos', href: '/sorteos' },
+        { label: 'Historia del Club', href: '/historia-del-club' },
+        { label: 'Infantil', href: '/infantil' },
+        { label: 'Variedades', href: '/variedades' },
+        { label: 'Realities', href: '/realities' },
+        { label: 'Noticias', href: '/noticias' },
+        { label: 'Otros deportes', href: '/otros-deportes' },
+        { label: 'Especiales', href: '/especiales' },
+        { label: 'Salud y Bienestar', href: '/salud-y-bienestar' },
+      ],
+      visibility: 'private',
+    },
+  ]
 
-  const { signIn } = useContext(UserContext)
-  const { user, signOut } = useContext(UserContext)
+  // user context
+  const { user, signIn, signOut } = useContext(UserContext)
 
+  // auth
   const toogleAuth = (e) => {
     e.preventDefault()
     if (user) {
@@ -32,9 +47,10 @@ const Header = props => {
     }
   }
 
+  // scrolled state
   const [ scrolled, setScrolled ] = useState()
   useEffect(() => {
-    const handleScroll = () => { 
+    const handleScroll = () => {
       if (window.pageYOffset > 1) {
         setScrolled(true)
       } else {
@@ -47,6 +63,7 @@ const Header = props => {
     }
   })
 
+  // classes
   const classes = classNames('header', {
     closed: props.closed,
     scrolled: scrolled,
@@ -67,14 +84,23 @@ const Header = props => {
           <>
             {/* menu */}
             <ul className="menu d-none d-md-flex">
-              {links.map(({ key, href, label }) => (
-                <li key={key}>
-                  <a href={href}>{label}</a>
-                </li>
-              ))}
-              {user && (
-                <li>Más</li>
-              )}
+              { menu.map(({ label, href, visibility, dropdown }, i) => {
+                return ( ! visibility ||
+                  visibility === 'publicOnly' && ! user ||
+                  visibility === 'private' && user) && (
+                  <li key={i}>
+                    { dropdown ? (
+                      <NavDropdown id="basic-nav-dropdown" title={label}>
+                        { dropdown.map(({ label, href }, k) => (
+                          <NavDropdown.Item href={href} key={k}>{label}</NavDropdown.Item>
+                        )) }
+                      </NavDropdown>
+                    ) : (
+                      <a href={href}>{label}</a>
+                    ) }
+                  </li>
+                )
+              }) }
             </ul>
 
             {/* form */}
@@ -166,14 +192,47 @@ const Header = props => {
             padding-left: 20px;
           }
         }
-        .menu a {
+        .menu a,
+        .menu :global(.nav-link) {
           font-size: inherit;
+          padding: 0;
           text-decoration: none;
           transition: color .2s;
         }
         .menu a:focus,
-        .menu a:hover {
+        .menu a:hover,
+        .menu :global(.nav-link):focus,
+        .menu :global(.nav-link):hover {
           color: #fff;
+        }
+        /* .menu :global(.dropdown-toggle::after) {
+          border: 0;
+        } */
+        .menu :global(.dropdown-menu) {
+          background-color: rgba(var(--gray3-rgb), .9);
+          border: 0;
+          border-radius: 0;
+          color: inherit;
+          font-size: inherit;
+          left: 50% !important;
+          margin-top: 37px;
+          padding-top: 0;
+          padding-bottom: 0;
+          text-align: center;
+          transform: translate3d(-50%, 32px, 0) !important;
+        }
+        .menu :global(.dropdown-item) {
+          border: .1px solid transparent;
+          box-shadow: 0 0 1px var(--black);
+          color: inherit;
+          font-weight: inherit;
+          padding: .33rem 1rem;
+          transition: color .2s;
+        }
+        .menu :global(.dropdown-item):focus,
+        .menu :global(.dropdown-item):hover {
+          background-color: transparent;
+          color: var(--white);
         }
         .form-control {
           background-color: transparent;

@@ -57,9 +57,12 @@ const Layout = props => {
           --white: #fff;
           --gray: #b2b2b2;
           --gray2: #808080;
+          --gray3: #333;
+          --gray3-rgb: 51, 51, 51;
           --mid-gray: #4d4d4d;
           --dark-gray3: #1a1a1a;
           --black: #000;
+          --black-rgb: 0, 0, 0;
           --red: #ff0000;
           
           /* fonts */
