@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Nav, Tab } from 'react-bootstrap'
 
 export default function CommentSection() {
+  return null
   return (
     <section className="comments container" id="comments">
       <header>
