@@ -4,7 +4,7 @@ import Router from 'next/router'
 import UserContext from '../components/UserContext'
 
 class MyApp extends App {
-  
+
   state = {
     user: null
   }
@@ -28,7 +28,7 @@ class MyApp extends App {
         user: username
       },
       () => {
-        Router.push('/', '#logged')
+        // Router.push('/', '#logged')
       }
     )
   }
@@ -39,9 +39,9 @@ class MyApp extends App {
       user: null
     })
     // Router.push('/signin')
-    location.href = location.protocol + '//' + location.host + location.pathname
+    // location.href = location.protocol + '//' + location.host + location.pathname
   }
-  
+
   render() {
     const { Component, pageProps } = this.props
 

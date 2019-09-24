@@ -38,7 +38,7 @@ const Layout = props => {
         <link rel="stylesheet" href="/static/fonts/helvetica/stylesheet.css" />
         <link rel="stylesheet" href="/static/fonts/helvetica-ce/stylesheet.css" />
         <link rel="stylesheet" href="/static/fonts/bebas-neue/stylesheet.css" />
-        <link rel="stylesheet" type="text/css" charSet="utf-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" /> 
+        <link rel="stylesheet" type="text/css" charSet="utf-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
         <script src="https://player.vimeo.com/api/player.js"></script>
       </Head>
@@ -64,7 +64,8 @@ const Layout = props => {
           --black: #000;
           --black-rgb: 0, 0, 0;
           --red: #ff0000;
-          
+          --dark-red: #e50000;
+
           /* fonts */
           --sans-serif: 'Helvetica', sans-serif;
           --sans-serif-condensed: 'Helvetica CE', 'Helvetica', sans-serif;
@@ -82,7 +83,7 @@ const Layout = props => {
             --font-size: 20px;
           }
         }
-        body { 
+        body {
           background-color: var(--black);
           color: #fff;
           font-family: var(--sans-serif);

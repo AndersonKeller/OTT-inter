@@ -24,8 +24,10 @@ export default function Entrevistas() {
       <div className="container-fluid">
         <div className="row">
           <div className="col-10 offset-1">
-            <h1 className="h2">Entrevistas</h1>
-            <div className="interview-cards row">
+            <header>
+              <h1 className="h2">Entrevistas</h1>
+            </header>
+            <div className="interview-cards row gutter-15">
               { interviews.map((text, index) => (
                 <div className="col-2" key={index}>
                   <Link href="/entrevistas-interna1">
@@ -41,6 +43,9 @@ export default function Entrevistas() {
         </div>
       </div>
       <style jsx>{`
+        header {
+          padding-top: 60px;
+        }
         .h2 {
           margin-bottom: 30px;
         }
@@ -51,7 +56,7 @@ export default function Entrevistas() {
           display: block;
           font-size: 16px;
           line-height: 1;
-          margin-bottom: 15px;
+          margin-bottom: 30px;
           text-decoration: none;
         }
         .interview-card:focus,
@@ -60,16 +65,21 @@ export default function Entrevistas() {
         }
         .interview-card img {
           margin-bottom: 10px;
+          transition: opacity .2s;
         }
         .interview-card-label {
-          opacity: .66;
+          opacity: .4;
           padding-right: 5%;
           padding-left: 5%;
           transition: opacity .2s;
         }
         .interview-card:focus .interview-card-label,
         .interview-card:hover .interview-card-label {
-          opacity: 1;
+          opacity: .5;
+        }
+        .interview-card:focus img,
+        .interview-card:hover img {
+          opacity: .75;
         }
       `}</style>
     </Layout>

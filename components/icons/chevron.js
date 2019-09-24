@@ -26,7 +26,13 @@ export default function Chevron(props) {
     },
   })
   return props.inline ? (
-    <ReactSVG className={props.className} fallback={props.alt} src="/static/chevron-icon.svg" {...styles} />
+    <ReactSVG
+      className={props.className}
+      fallback={props.alt}
+      src="/static/chevron-icon.svg"
+      {...styles}
+      wrapper="span"
+    />
   ) : (
     <img alt={props.alt} height={props.height} src="/static/chevron-icon.svg" width={props.width} />
   );
