@@ -20,16 +20,15 @@ class MyApp extends App {
     }
   }
 
-  signIn = (username) => {
-    localStorage.setItem('user', username)
-
+  signIn = (user) => {
+    localStorage.setItem('user', user)
     this.setState(
       {
-        user: username
+        user: user
       },
-      () => {
-        // Router.push('/', '#logged')
-      }
+      // _ => {
+      //   Router.push('/', '#logged')
+      // }
     )
   }
 

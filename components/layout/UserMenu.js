@@ -11,12 +11,16 @@ export default _ => {
     if (user) {
       signOut()
     } else {
-      signIn('test_user')
+      const fakeUser = {
+        name: 'Pablo Capriorni',
+        email: 'pablocapriorni@gmail.com',
+      }
+      signIn(fakeUser)
     }
   }
   return (
-    <div className="user-select d-none d-md-flex">
-      <Dropdown alignRight>
+    <div className={`user-select d-none d-md-flex ${user ? 'logged' : ''}`}>
+      <Dropdown alignRight drop="down" flip={false}>
         <Dropdown.Toggle id={`dropdown-custom-user`}>
           <span className="avatar">
             <img alt="Avatar" height="31" src="/static/avatar-icon.svg" width="24" />
@@ -33,12 +37,11 @@ export default _ => {
         <Dropdown.Menu>
           { user ? (
             <>
-              <div>
-                Pablo Capriorni<br />
-                pablocapriorni@gmail.com<br />
-                Suscriptor
-              </div>
-              <Dropdown.Divider />
+              <Dropdown.Header>
+                <div className="user-name">{ user.name }</div>
+                <div className="user-email">{ user.email }</div>
+                <div className="suscriptor">Suscriptor</div>
+              </Dropdown.Header>
               <Dropdown.Item href="">Mi Lista</Dropdown.Item>
               <Dropdown.Item href="">Mi Cuenta</Dropdown.Item>
               <Dropdown.Item href="">Configuración</Dropdown.Item>
@@ -114,19 +117,18 @@ export default _ => {
           border-radius: 5px;
           margin-top: 5px;
           max-width: unset;
-          overflow: hidden;
           padding-top: 5px;
           padding-bottom: 0;
         }
         .user-select :global(.dropdown-menu)::before {
           border: 13px solid transparent;
           border-top: 0;
-          border-bottom-color: var(--gray2);
+          border-bottom: 12px solid var(--gray2);
+          bottom: 100%;
           content: '';
           display: block;
           position: absolute;
           right: 10px;
-          top: -10px;
         }
         .user-select :global(.dropdown-item) {
           color: var(--white);
@@ -189,6 +191,39 @@ export default _ => {
         .user-select :global(.dropdown-item-style3):focus,
         .user-select :global(.dropdown-item-style3):hover {
           background-color: var(--gray3-darken);
+        }
+        .user-select.logged :global(.dropdown-menu) {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+        .user-select.logged :global(.dropdown-menu)::before {
+          border-bottom-color: var(--red);
+        }
+        .user-select.logged :global(.dropdown-header) {
+          background-color: var(--red);
+          border-radius: 5px;
+          color: var(--white);
+          line-height: 1;
+          padding: 15px 30px;
+          text-align: center;
+        }
+        .user-select.logged :global(.dropdown-header) .user-name {
+          font-family: var(--sans-serif-condensed);
+          font-size: 20px;
+          font-weight: bold;
+          line-height: 1;
+          margin-bottom: 5px;
+        }
+        .user-select.logged :global(.dropdown-header) .user-email {
+          font-size: 12px;
+          margin-bottom: 30px;
+        }
+        .user-select.logged :global(.dropdown-header) .suscriptor {
+          color: var(--black);
+          font-family: var(--sans-serif-condensed);
+          font-weight: bold;
+          font-size: 14px;
+          text-transform: uppercase;
         }
       `}</style>
     </div>
