@@ -54,17 +54,19 @@ const Layout = props => {
         }
         :root {
           /* colors */
-          --white: #fff;
-          --gray: #b2b2b2;
-          --gray2: #808080;
-          --gray3: #333;
-          --gray3-rgb: 51, 51, 51;
-          --mid-gray: #4d4d4d;
-          --dark-gray3: #1a1a1a;
-          --black: #000;
-          --black-rgb: 0, 0, 0;
-          --red: #ff0000;
-          --dark-red: #e50000;
+          --white:        #fff;
+          --light-gray:   #c4c4c4;
+          --gray:         #b2b2b2;
+          --gray2:        #808080;
+          --gray3:        #333;
+          --gray3-rgb:    51, 51, 51;
+          --gray3-darken: #282828;
+          --mid-gray:     #4d4d4d;
+          --dark-gray3:   #1a1a1a;
+          --black:        #000;
+          --black-rgb:    0, 0, 0;
+          --red:          #ff0000;
+          --dark-red:     #e50000;
 
           /* fonts */
           --sans-serif: 'Helvetica', sans-serif;

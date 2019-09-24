@@ -53,8 +53,18 @@ export default _ => {
                 <Dropdown.Item className="dropdown-item-style2" href="/subscriptor">Suscripción</Dropdown.Item>
               </Link>
               <Dropdown.Divider />
-              <Dropdown.Item href="">Ajustes</Dropdown.Item>
-              <Dropdown.Item href="">Ayuda</Dropdown.Item>
+              <Dropdown.Item className="dropdown-item-style3" href="/ajustes">
+                <span className="icon">
+                  <img height="26" src="/static/icons/settings.svg" width="26" />
+                </span>
+                <span>Ajustes</span>
+              </Dropdown.Item>
+              <Dropdown.Item className="dropdown-item-style3" href="/ayuda">
+                <span className="icon">
+                  <img height="24" src="/static/icons/help.svg" width="24" />
+                </span>
+                <span>Ayuda</span>
+              </Dropdown.Item>
             </>
           ) }
         </Dropdown.Menu>
@@ -106,8 +116,7 @@ export default _ => {
           max-width: unset;
           overflow: hidden;
           padding-top: 5px;
-          padding-bottom: 5px;
-          text-align: center;
+          padding-bottom: 0;
         }
         .user-select :global(.dropdown-menu)::before {
           border: 13px solid transparent;
@@ -133,6 +142,7 @@ export default _ => {
           margin-top: 10px;
           margin-bottom: 10px;
           outline: 0;
+          text-align: center;
           transition: background-color .2s;
         }
         .user-select :global(.dropdown-item-style1):focus,
@@ -149,6 +159,7 @@ export default _ => {
           margin: 10px 40px 15px;
           padding-right: 25px;
           padding-left: 25px;
+          text-align: center;
           transition: background-color .2s;
           width: auto;
         }
@@ -162,6 +173,22 @@ export default _ => {
         }
         .user-select :global(.dropdown-divider) ~ :global(.dropdown-item) {
           background-color: var(--gray3);
+        }
+        .user-select :global(.dropdown-item-style3) {
+          background-color: var(--gray3);
+          color: var(--light-gray);
+          padding: 10px 35px;
+          transition: background-color .2s;
+        }
+        .user-select :global(.dropdown-item-style3) .icon {
+          display: inline-block;
+          margin-right: 30px;
+          text-align: center;
+          width: 26px;
+        }
+        .user-select :global(.dropdown-item-style3):focus,
+        .user-select :global(.dropdown-item-style3):hover {
+          background-color: var(--gray3-darken);
         }
       `}</style>
     </div>
