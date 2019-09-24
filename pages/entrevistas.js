@@ -27,7 +27,7 @@ export default function Entrevistas() {
             <h1 className="h2">Entrevistas</h1>
             <div className="interview-cards row">
               { interviews.map((text, index) => (
-                <div className="col-2">
+                <div className="col-2" key={index}>
                   <Link href="/entrevistas-interna1">
                     <a className="interview-card text-center">
                       <img className="img-fluid" src={`/static/cards/interviews/${index % 7 + 1}.jpg`} />
