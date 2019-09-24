@@ -18,12 +18,20 @@ export default _ => {
       signIn(fakeUser)
     }
   }
+  const loggedMenu = [
+    { slug: 'add', label: 'Mi Lista', href: '/mi-lista' },
+    { slug: 'user', label: 'Mi Cuenta', href: '/mi-cuenta' },
+    { slug: 'settings', label: 'Configuración', href: '/mi-cuenta' },
+    { slug: 'help', label: 'Ayuda', href: '/ayuda' },
+    { slug: 'info', label: 'Soporte', href: '/soporte' },
+    { slug: 'logout', label: 'Salir', href: '/logout', onClick: toogleAuth, },
+  ]
   return (
     <div className={`user-select d-none d-md-flex ${user ? 'logged' : ''}`}>
       <Dropdown alignRight drop="down" flip={false}>
         <Dropdown.Toggle id={`dropdown-custom-user`}>
           <span className="avatar">
-            <img alt="Avatar" height="31" src="/static/avatar-icon.svg" width="24" />
+            <img alt="Avatar" height="31" src="/static/icons/user.svg" width="24" />
           </span>
           <Chevron
             alt=""
@@ -34,43 +42,41 @@ export default _ => {
             width="16"
           />
         </Dropdown.Toggle>
-        <Dropdown.Menu>
-          { user ? (
-            <>
-              <Dropdown.Header>
-                <div className="user-name">{ user.name }</div>
-                <div className="user-email">{ user.email }</div>
-                <div className="suscriptor">Suscriptor</div>
-              </Dropdown.Header>
-              <Dropdown.Item href="">Mi Lista</Dropdown.Item>
-              <Dropdown.Item href="">Mi Cuenta</Dropdown.Item>
-              <Dropdown.Item href="">Configuración</Dropdown.Item>
-              <Dropdown.Item href="">Ayuda</Dropdown.Item>
-              <Dropdown.Item href="">Soporte</Dropdown.Item>
-              <Dropdown.Item onClick={(e) => toogleAuth(e)}>Salir</Dropdown.Item>
-            </>
-          ) : (
-            <>
-              <Dropdown.Item as="button" className="dropdown-item-style1" onClick={(e) => toogleAuth(e)}>Entrar</Dropdown.Item>
-              <Link href="/subscriptor">
-                <Dropdown.Item className="dropdown-item-style2" href="/subscriptor">Suscripción</Dropdown.Item>
-              </Link>
-              <Dropdown.Divider />
-              <Dropdown.Item className="dropdown-item-style3" href="/ajustes">
-                <span className="icon">
-                  <img height="26" src="/static/icons/settings.svg" width="26" />
-                </span>
-                <span>Ajustes</span>
+        { user ? (
+          <Dropdown.Menu>
+            <Dropdown.Header>
+              <div className="user-name">{ user.name }</div>
+              <div className="user-email">{ user.email }</div>
+              <div className="suscriptor">Suscriptor</div>
+            </Dropdown.Header>
+            { loggedMenu.map((item, i) => (
+              <Dropdown.Item className="dropdown-item-style3" href={item.href} key={i} onClick={item.onClick}>
+                <span className="icon"><img className={`img-fluid ${item.slug}`} src={`/static/icons/${item.slug}.svg`} /></span>
+                <span>{item.label}</span>
               </Dropdown.Item>
-              <Dropdown.Item className="dropdown-item-style3" href="/ayuda">
-                <span className="icon">
-                  <img height="24" src="/static/icons/help.svg" width="24" />
-                </span>
-                <span>Ayuda</span>
-              </Dropdown.Item>
-            </>
-          ) }
-        </Dropdown.Menu>
+            )) }
+          </Dropdown.Menu>
+        ) : (
+          <Dropdown.Menu>
+            <Dropdown.Item as="button" className="dropdown-item-style1" onClick={(e) => toogleAuth(e)}>Entrar</Dropdown.Item>
+            <Link href="/subscriptor">
+              <Dropdown.Item className="dropdown-item-style2" href="/subscriptor">Suscripción</Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            <Dropdown.Item className="dropdown-item-style3" href="/ajustes">
+              <span className="icon">
+                <img height="26" src="/static/icons/settings.svg" width="26" />
+              </span>
+              <span>Ajustes</span>
+            </Dropdown.Item>
+            <Dropdown.Item className="dropdown-item-style3" href="/ayuda">
+              <span className="icon">
+                <img height="24" src="/static/icons/help.svg" width="24" />
+              </span>
+              <span>Ayuda</span>
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        ) }
       </Dropdown>
       <style jsx>{`
         .user-select {
@@ -176,25 +182,60 @@ export default _ => {
         .user-select :global(.dropdown-divider) ~ :global(.dropdown-item) {
           background-color: var(--gray3);
         }
+
+        /* item style 3 */
+
         .user-select :global(.dropdown-item-style3) {
           background-color: var(--gray3);
           color: var(--light-gray);
-          padding: 10px 35px;
+          padding: 10px 30px;
           transition: background-color .2s;
         }
         .user-select :global(.dropdown-item-style3) .icon {
           display: inline-block;
-          margin-right: 30px;
-          text-align: center;
+          margin-right: 15px;
+          vertical-align: middle;
+          width: 30px;
+        }
+        .user-select :global(.dropdown-item-style3) .icon img {
+          margin-right: auto;
+          margin-left: auto;
+        }
+        .user-select :global(.dropdown-item-style3) .icon .add {
+          height: 20px;
+          width: 20px;
+        }
+        .user-select :global(.dropdown-item-style3) .icon .user {
+          height: 20px;
+          width: 15px;
+        }
+        .user-select :global(.dropdown-item-style3) .icon .settings {
+          height: 26px;
           width: 26px;
+        }
+        .user-select :global(.dropdown-item-style3) .icon .help {
+          height: 24px;
+          width: 24px;
+        }
+        .user-select :global(.dropdown-item-style3) .icon .info {
+          height: 27px;
+          width: 27px;
+        }
+        .user-select :global(.dropdown-item-style3) .icon .logout {
+          height: 19px;
+          width: 19px;
         }
         .user-select :global(.dropdown-item-style3):focus,
         .user-select :global(.dropdown-item-style3):hover {
           background-color: var(--gray3-darken);
         }
+
+        /* logged styles */
+
         .user-select.logged :global(.dropdown-menu) {
+          background-color: var(--gray3);
           padding-top: 0;
-          padding-bottom: 0;
+          padding-bottom: 5px;
         }
         .user-select.logged :global(.dropdown-menu)::before {
           border-bottom-color: var(--red);
