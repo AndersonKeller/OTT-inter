@@ -11,10 +11,10 @@ export default function LikeNCommentBtns() {
         <img src="/static/like-icon.svg" width="35" height="30" />
         <span>62</span>
       </button>
-      <button className="comment-btn" type="button" onClick={_ => { document.location.hash = 'comments' }}>
+      {/* <button className="comment-btn" type="button" onClick={_ => { document.location.hash = 'comments' }}>
         <img src="/static/comment-icon.svg" width="36" height="32" />
         <span>2</span>
-      </button>
+      </button> */}
       <style jsx>{`
         button {
           background-color: transparent;
