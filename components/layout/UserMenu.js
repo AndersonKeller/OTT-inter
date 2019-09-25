@@ -1,6 +1,8 @@
 import Link from 'next/link'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 import Chevron from '../icons/chevron'
 import UserContext from '../UserContext'
 
@@ -17,6 +19,7 @@ export default _ => {
       }
       signIn(fakeUser)
     }
+    handleClose()
   }
   const loggedMenu = [
     { slug: 'add', label: 'Mi Lista', href: '/mi-lista' },
@@ -26,8 +29,12 @@ export default _ => {
     { slug: 'info', label: 'Soporte', href: '/soporte' },
     { slug: 'logout', label: 'Salir', href: '/logout', onClick: toogleAuth, },
   ]
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
   return (
     <div className={`user-select d-none d-md-flex ${user ? 'logged' : ''}`}>
+
       <Dropdown alignRight drop="down" flip={false}>
         <Dropdown.Toggle id={`dropdown-custom-user`}>
           <span className="avatar">
@@ -58,7 +65,7 @@ export default _ => {
           </Dropdown.Menu>
         ) : (
           <Dropdown.Menu>
-            <Dropdown.Item as="button" className="dropdown-item-style1" onClick={(e) => toogleAuth(e)}>Entrar</Dropdown.Item>
+            <Dropdown.Item as="button" className="dropdown-item-style1" onClick={handleShow}>Entrar</Dropdown.Item>
             <Link href="/subscriptor">
               <Dropdown.Item className="dropdown-item-style2" href="/subscriptor">Suscripción</Dropdown.Item>
             </Link>
@@ -78,7 +85,57 @@ export default _ => {
           </Dropdown.Menu>
         ) }
       </Dropdown>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <img alt="Dale Campeón" height="64" src="/static/logo.svg" width="131" />
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Una sola cuenta para todos los productos RIVER PLATE</p>
+          <label for="email">E-mail</label>
+          <input id="email" type="email" />
+          <div className="text-center">¿Olvidó su nombre de usuario?</div>
+          <label for="clave">Clave</label>
+          <input id="clave" type="password" />
+          <div className="text-center">¿Olvidó su clave?</div>
+          <Button variant="primary" onClick={toogleAuth}>Entrar</Button>
+          <div>¿Ya es suscriptor? <a onClick={toogleAuth}>HAGA LOGIN</a></div>
+          <div>o entre con</div>
+          <Button variant="primary" onClick={toogleAuth}>Facebook</Button>
+          <Button variant="primary" onClick={toogleAuth}>Google</Button>
+        </Modal.Body>
+      </Modal>
+
       <style jsx>{`
+        /* modal */
+        :global(.modal) {
+          align-items: center;
+          color: var(--black);
+          text-align: center;
+        }
+        :global(.modal-open) :global(.modal) {
+          display: flex !important;
+        }
+        :global(.modal-dialog) {
+          max-width: 325px;
+        }
+        :global(.modal-header) {
+          background-color: var(--dark-gray3);
+          border-radius: 0;
+          justify-content: center;
+          padding: 10px;
+          position: relative;
+        }
+        :global(.modal-header) :global(.close) {
+          position: absolute;
+          right: 20px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        /* user */
         .user-select {
           align-items: center;
           display: flex;

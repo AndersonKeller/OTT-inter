@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import ONLINE from '../constants/constants'
-import Header from './header'
+import Header from './layout/Header'
 import Footer from './layout/Footer'
 
 const Layout = props => {

@@ -4,9 +4,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import ReactSVG from 'react-svg'
 
-import UserContext from '../components/UserContext'
-import UserMenu from '../components/layout/UserMenu'
-import Chevron from './icons/chevron'
+import UserContext from '../UserContext'
+import UserMenu from './UserMenu'
+import Chevron from '../icons/chevron'
 
 const Header = (props) => {
 
