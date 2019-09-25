@@ -19,7 +19,7 @@ const SubscriptorSectionText = (props) => {
 const Prices = (props) => {
   const prices = [
     {
-      name: 'Grartis',
+      name: 'Gratis',
       time: '',
       value: 0,
     },
