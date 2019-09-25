@@ -123,18 +123,27 @@ export default _ => {
         /* modal */
         :global(.modal-backdrop.show) {
           opacity: .68;
-          /* opacity: .95; */
         }
         :global(.modal) {
           align-items: center;
           color: var(--gray4);
+          padding-top: .5rem;
+          padding-bottom: .5rem;
           text-align: center;
+        }
+        @media (min-width: 768px) {
+          :global(.modal) {
+            padding-top: 1.75rem;
+            padding-bottom: 1.75rem;
+          }
         }
         :global(.modal-open) :global(.modal) {
           display: flex !important;
         }
         :global(.modal-dialog) {
           box-shadow: 0 2px 6px var(--black);
+          margin-top: auto;
+          margin-bottom: auto;
           max-width: 325px;
         }
         :global(.modal-content) {
