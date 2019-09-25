@@ -23,37 +23,7 @@ const Home = _ => {
       <div className="index">
 
         {/* cover */}
-        <div className="cover">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col col-5">
-                <div className="description">
-                  <h1 className="h1">
-                    <span className="h1-a">Entrevista a nuestro</span>
-                    <strong className="h1-b">“Napoléon”</strong>
-                    <span className="h1-c">Marcelo Gallardo</span></h1>
-                  {!user ? (
-                    <>
-                      <Link href="/subscriptor">
-                        <Button>Probar Gratis</Button>
-                      </Link>
-                      <Link href="/entrevistas">
-                        <Button color="secondary" outline>Ver más</Button>
-                      </Link>
-                    </>
-                  ) : (
-                    <>
-                      <Link href="/entrevistas">
-                        <Button>Ver más</Button>
-                      </Link>
-                      <MiLista />
-                    </>
-                  )}
-                  </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Cover />
 
         {/* platenences */}
         <CarouselSection title="Platences">
@@ -132,7 +102,7 @@ const Home = _ => {
             <MiLista color="white" />
           </Featured>
         )}
-        
+
         {/* news */}
         <CarouselSection title="Noticias">
           <Card href="/videos" src="/static/cards/news/1.jpg" />
@@ -162,7 +132,7 @@ const Home = _ => {
             <MiLista />
           </Featured>
         )}
-        
+
         {/* family */}
         <CarouselSection title="Familia">
           <Card href="/videos" src="/static/cards/family/1.png" />
@@ -173,7 +143,7 @@ const Home = _ => {
           <Card href="/videos" src="/static/cards/family/6.png" />
           <Card href="/videos" src="/static/cards/family/7.png" />
         </CarouselSection>
-        
+
         {user && (
           <Featured img="/static/logged-banner4.png">
             <Link href="/videos">
@@ -182,7 +152,7 @@ const Home = _ => {
             <MiLista color="white" />
           </Featured>
         )}
-        
+
         {/* children */}
         <CarouselSection title="Niños">
           <Card href="/videos" src="/static/cards/children/1.png" />
@@ -192,13 +162,54 @@ const Home = _ => {
           <Card href="/videos" src="/static/cards/children/5.png" />
           <Card href="/videos" src="/static/cards/children/6.png" />
           <Card href="/videos" src="/static/cards/children/7.png" />
-        </CarouselSection>  
+        </CarouselSection>
 
       </div>
       <style jsx>{`
         .index {
           padding-bottom: 55px;
         }
+      `}</style>
+    </Layout>
+  )
+}
+
+export default Home
+
+const Cover = _ => {
+  const { user } = useContext(UserContext)
+  return (
+    <div className="cover">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col col-5">
+            <div className="description">
+              <h1 className="h1">
+                <span className="h1-a">Entrevista a nuestro</span>
+                <strong className="h1-b">“Napoléon”</strong>
+                <span className="h1-c">Marcelo Gallardo</span></h1>
+              { ! user ? (
+                <>
+                  <Link href="/subscriptor">
+                    <Button>Probar Gratis</Button>
+                  </Link>
+                  <Link href="/entrevistas">
+                    <Button color="secondary" outline>Ver más</Button>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/entrevistas">
+                    <Button>Ver más</Button>
+                  </Link>
+                  <MiLista />
+                </>
+              )}
+              </div>
+          </div>
+        </div>
+      </div>
+      <style jsx>{`
         .cover {
           align-items: center;
           background-image: url(/static/napoleon.png);
@@ -221,7 +232,7 @@ const Home = _ => {
           font-family: 'Bebas Neue Book';
           font-size: 62px;
           font-weight: normal;
-          line-height: .9;
+          line-height: .98;
           margin-top: 0;
           margin-bottom: 20px;
           text-transform: uppercase;
@@ -244,7 +255,6 @@ const Home = _ => {
           margin-top: -15px;
         }
       `}</style>
-    </Layout>
+    </div>
   )
 }
-export default Home
