@@ -10,8 +10,9 @@ class MyApp extends App {
   }
 
   componentDidMount = () => {
-    const user = localStorage.getItem('user')
-    if (user) {
+    const userString = localStorage.getItem('user')
+    if (userString) {
+      const user = JSON.parse(userString)
       this.setState({
         user
       })
@@ -21,7 +22,7 @@ class MyApp extends App {
   }
 
   signIn = (user) => {
-    localStorage.setItem('user', user)
+    localStorage.setItem('user', JSON.stringify(user))
     this.setState(
       {
         user: user
