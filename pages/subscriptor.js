@@ -52,8 +52,8 @@ const Prices = (props) => {
       </header>
       <div className="cards">
         <div className="row justify-content-center gutter-15">
-          { prices.map((price) => (
-            <div className="col-12 col-sm-6 col-md-4 col-xl">
+          { prices.map((price, index) => (
+            <div className="col-12 col-sm-6 col-md-4 col-xl" key={index}>
               <div className={`card ${price.value === 0 ? 'card--free' : ''}`}>
                 <div className="card-heading">{price.name}</div>
                 <div className="time">{price.time}</div>

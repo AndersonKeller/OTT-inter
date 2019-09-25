@@ -1,6 +1,7 @@
 import Head from 'next/head'
-import Header from './header'
 import ONLINE from '../constants/constants'
+import Header from './header'
+import Footer from './layout/Footer'
 
 const Layout = props => {
   var paddingTop
@@ -46,6 +47,7 @@ const Layout = props => {
       <main className={ ! paddingTop ? 'no-padding' : ''}>
         {props.children}
       </main>
+      <Footer />
       <style jsx global>{`
         *,
         *::before,
@@ -85,14 +87,24 @@ const Layout = props => {
             --font-size: 20px;
           }
         }
+        html {
+          height: 100%;
+        }
         body {
           background-color: var(--black);
           color: #fff;
           font-family: var(--sans-serif);
           font-size: var(--font-size);
+          height: 100%;
           margin: 0;
         }
+        #__next {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+        }
         main {
+          margin-bottom: auto;
           padding-top: var(--padding-top);
         }
         main.no-padding {
@@ -154,6 +166,14 @@ const Layout = props => {
         }
         .text-center {
           text-align: center;
+        }
+        @media (min-width: 768px) {
+          .text-md-left {
+            text-align: left;
+          }
+          .text-md-right {
+            text-align: right;
+          }
         }
         .text-decoration-none {
           text-decoration: none;
