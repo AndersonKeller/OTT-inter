@@ -60,6 +60,7 @@ const Layout = props => {
           --light-gray:   #c4c4c4;
           --gray:         #b2b2b2;
           --gray2:        #808080;
+          --gray2-rgb:    128, 128, 128;
           --gray3:        #333;
           --gray3-rgb:    51, 51, 51;
           --gray3-darken: #282828;
@@ -69,6 +70,7 @@ const Layout = props => {
           --black-rgb:    0, 0, 0;
           --red:          #ff0000;
           --dark-red:     #e50000;
+          --gray4:        #666;
 
           /* fonts */
           --sans-serif: 'Helvetica', sans-serif;
@@ -177,6 +179,9 @@ const Layout = props => {
         }
         .text-decoration-none {
           text-decoration: none;
+        }
+        .bold {
+          font-weight: bold;
         }
       `}</style>
     </>

@@ -6,7 +6,8 @@ const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
   const color = props.color || 'primary'
   const outline = props.outline ? 'btn-outline' : ''
   const textColor = props.textColor ? 'btn--color-white' : ''
-  const classNames = `btn btn-${color} ${block} ${outline} ${className} ${textColor}`
+  const size = props.size === 'sm' ? 'btn-sm' : ''
+  const classNames = `btn btn-${color} ${block} ${outline} ${className} ${textColor} ${size}`
   return (
     <>
       <a className={classNames} href={href} onClick={onClick} ref={ref}>
@@ -33,8 +34,12 @@ const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
         }
         .btn-primary {
           background-color: var(--red) !important;
-          color: var(--white);
+          color: var(--white) !important;
           /* margin-right: 15px; */
+        }
+        .btn-primary:focus,
+        .btn-primary:hover {
+          background-color: var(--dark-red) !important;
         }
         .btn-secondary {
           background-color: var(--mid-gray);
@@ -55,6 +60,11 @@ const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
         }
         .btn :global(img) {
           margin-right: 10px;
+        }
+        .btn-sm {
+          line-height: 1.75;
+          padding-top: 0;
+          padding-bottom: 0;
         }
       `}</style>
     </>
