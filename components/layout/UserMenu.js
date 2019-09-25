@@ -30,7 +30,7 @@ export default _ => {
     { slug: 'info', label: 'Soporte', href: '/soporte' },
     { slug: 'logout', label: 'Salir', href: '/logout', onClick: toogleAuth, },
   ]
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   return (
