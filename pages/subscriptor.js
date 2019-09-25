@@ -138,12 +138,12 @@ const SubscriptorSection = (props) => {
     <div className={`subscriptor-section subscriptor-section--${direction} container-fluid text-${direction}`}>
       <div className="row align-items-center">
         <div className="subscriptor-section-img-col col-12 d-md-none">
-          <img 
-            alt={props.imgAlt} 
+          <img
+            alt={props.imgAlt}
             className="img-fluid w-100 d-block"
             height={props.imgHeight}
-            src={props.imgSrc} 
-            width={props.imgWidth} 
+            src={props.imgSrc}
+            width={props.imgWidth}
           />
         </div>
         <div className={`subscriptor-section-text-col col-md-4 offset-md-${direction === 'left' ? '1' : '7'}`}>
@@ -238,7 +238,7 @@ const Section1 = () => {
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
             <p className="text-uppercase">Club Atlético River Plate te da la bienvenida a la plataforma de contenidos del más grande</p>
-            <p>Todo por $ 199 pesos mensuales.</p>
+            <p>Todo por $ 99 pesos mensuales.</p>
           </div>
         </div>
       </div>
