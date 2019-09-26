@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import ONLINE from '../../constants/constants'
+import { GRAY3, ONLINE } from '../../constants/constants'
 import Header from './Header'
 import Footer from './Footer'
 
@@ -56,7 +56,7 @@ const Layout = props => {
           --gray:         #b2b2b2;
           --gray2:        #808080;
           --gray2-rgb:    128, 128, 128;
-          --gray3:        #333;
+          --gray3:        ${GRAY3};
           --gray3-rgb:    51, 51, 51;
           --gray3-darken: #282828;
           --mid-gray:     #4d4d4d;

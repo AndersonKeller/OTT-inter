@@ -1,3 +1,8 @@
+// etc
 const ONLINE = false
 
-export default ONLINE
+// colors
+const GRAY3 = '#333'
+
+// export
+export { GRAY3, ONLINE }

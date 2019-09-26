@@ -1,7 +1,9 @@
 import classNames from 'classnames'
+import Color from 'color'
 import React, { useContext, useEffect, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 
+import { GRAY3 } from '../../constants/constants'
 import ActiveLink from '../ActiveLink'
 import UserContext from '../UserContext'
 import Chevron from '../icons/chevron'
@@ -20,8 +22,8 @@ const Header = (props) => {
     {
       label: 'Más',
       dropdown: [
-        { label: 'Fotos', href: '/fotos' },
-        { label: 'Sorteos', href: '/sorteos' },
+        { label: 'Fotos', href: '/c/[slug]', as: '/c/fotos', },
+        { label: 'Sorteos', href: '/c/[slug]', as: '/c/sorteos', },
         { label: 'Historia del Club', href: '/historia-del-club' },
         { label: 'Infantil', href: '/infantil' },
         { label: 'Variedades', href: '/variedades' },
@@ -100,8 +102,10 @@ const Header = (props) => {
                           />
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                          { dropdown.map(({ label, href }, k) => (
-                            <Dropdown.Item href={href} key={k}>{label}</Dropdown.Item>
+                          { dropdown.map(({ label, href, as }, k) => (
+                            <ActiveLink as={as} href={href}>
+                              <Dropdown.Item href={as} key={k}>{label}</Dropdown.Item>
+                            </ActiveLink>
                           )) }
                         </Dropdown.Menu>
                       </Dropdown>
@@ -235,7 +239,7 @@ const Header = (props) => {
           fill: var(--white);
         }
         .menu :global(.dropdown-menu) {
-          background-color: rgba(var(--gray3-rgb), .9);
+          background-color: transparent;
           border: 0;
           border-radius: 0;
           color: inherit;
@@ -248,16 +252,21 @@ const Header = (props) => {
           transform: translate3d(-50%, 32px, 0) !important;
         }
         .menu :global(.dropdown-item) {
+          background-color: rgba(var(--gray3-rgb), .9);
           border: .1px solid transparent;
           box-shadow: 0 0 1px var(--black);
           color: inherit;
           font-weight: inherit;
           padding: .33rem 1rem;
-          transition: color .2s;
+          transition: background-color .2s, color .2s;
         }
         .menu :global(.dropdown-item):focus,
         .menu :global(.dropdown-item):hover {
-          background-color: transparent;
+          background-color: ${Color(GRAY3).darken(.3).fade(.1)};
+        }
+        .menu :global(.dropdown-item):focus,
+        .menu :global(.dropdown-item):hover,
+        .menu :global(.dropdown-item.active) {
           color: var(--white);
         }
         .form-control {

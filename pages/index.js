@@ -120,7 +120,7 @@ const Home = _ => {
             <Link href="/subscriptor">
               <Button>Probar Gratis</Button>
             </Link>
-            <Link href="/sorteos">
+            <Link as="/c/sorteos" href="/c/[slug]">
               <Button color="secondary" outline>Ver más</Button>
             </Link>
           </Featured>
