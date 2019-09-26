@@ -19,13 +19,13 @@ const Category = props => {
             <header>
               <h1 className="h2">{props.title}</h1>
             </header>
-            <div className="interview-cards row gutter-15">
+            <div className="media-cards row gutter-15">
               { props.medias.map((media, index) => (
                 <div className="col-2" key={index}>
                   <Link href="/entrevistas-interna1">
-                    <a className="interview-card text-center">
+                    <a className="media-card text-center">
                       <img className="img-fluid" src={`/static/cards/interviews/${media.id}.jpg`} />
-                      <div className="interview-card-label">{media.label}</div>
+                      <div className="media-card-label">{media.label}</div>
                     </a>
                   </Link>
                 </div>
@@ -41,36 +41,36 @@ const Category = props => {
         .h2 {
           margin-bottom: 30px;
         }
-        .interview-cards {
+        .media-cards {
           margin-bottom: 100px;
         }
-        .interview-card {
+        .media-card {
           display: block;
           font-size: 16px;
           line-height: 1;
           margin-bottom: 30px;
           text-decoration: none;
         }
-        .interview-card:focus,
-        .interview-card:hover {
+        .media-card:focus,
+        .media-card:hover {
           color: var(--white);
         }
-        .interview-card img {
+        .media-card img {
           margin-bottom: 10px;
           transition: opacity .2s;
         }
-        .interview-card-label {
+        .media-card-label {
           opacity: .4;
           padding-right: 5%;
           padding-left: 5%;
           transition: opacity .2s;
         }
-        .interview-card:focus .interview-card-label,
-        .interview-card:hover .interview-card-label {
+        .media-card:focus .media-card-label,
+        .media-card:hover .media-card-label {
           opacity: .5;
         }
-        .interview-card:focus img,
-        .interview-card:hover img {
+        .media-card:focus img,
+        .media-card:hover img {
           opacity: .75;
         }
       `}</style>
