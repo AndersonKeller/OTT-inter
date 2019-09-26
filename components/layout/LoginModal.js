@@ -148,15 +148,22 @@ export default (props) => {
         }
         .login-modal .close {
           margin: 0;
+          opacity: 1;
           outline: 0;
           padding: 15px;
           position: absolute;
           right: 0;
           top: 50%;
+          transition: opacity 150ms;
           transform: translateY(-50%);
+          will-change: opacity;
         }
         .login-modal .close img {
           display: block;
+        }
+        .login-modal .close:focus,
+        .login-modal .close:hover {
+          opacity: .33;
         }
         .login-modal .modal-body {
           padding: 15px 25px 20px;
@@ -206,7 +213,7 @@ export default (props) => {
           font-family: sans-serif;
           font-size: 16px;
           line-height: 22px;
-          transition: background-color .2s;
+          transition: background-color 150ms;
         }
         .login-modal .social .icon {
           display: inline-block;
@@ -222,7 +229,7 @@ export default (props) => {
         }
         .login-modal .social rect,
         .login-modal .social path {
-          transition: fill .2s;
+          transition: fill 150ms;
         }
         .login-modal .facebook {
           background-color: ${facebookColor} !important;
