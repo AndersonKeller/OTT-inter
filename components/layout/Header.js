@@ -15,8 +15,8 @@ const Header = (props) => {
     { label: 'Videos', href: '/videos' },
     { label: 'Podcasts', href: '/podcasts' },
     { label: 'Entrevistas', href: '/entrevistas' },
-    { label: 'Fotos', href: '/category?title=Fotos', visibility: 'publicOnly' },
-    { label: 'Sorteos', href: '/category?title=Sorteos', visibility: 'publicOnly' },
+    { label: 'Fotos', href: '/c/[slug]', as: '/c/fotos', visibility: 'publicOnly' },
+    { label: 'Sorteos', href: '/c/[slug]', as: '/c/sorteos', visibility: 'publicOnly' },
     {
       label: 'Más',
       dropdown: [
@@ -81,7 +81,7 @@ const Header = (props) => {
 
             {/* menu */}
             <ul className="menu d-none d-md-flex">
-              { menu.map(({ label, href, visibility, dropdown }, i) => {
+              { menu.map(({ label, href, as, visibility, dropdown }, i) => {
                 return ( ! visibility ||
                   visibility === 'publicOnly' && ! user ||
                   visibility === 'private' && user) && (
@@ -106,7 +106,7 @@ const Header = (props) => {
                         </Dropdown.Menu>
                       </Dropdown>
                     ) : (
-                      <ActiveLink href={href}>
+                      <ActiveLink as={as} href={href}>
                         <a>{label}</a>
                       </ActiveLink>
                     ) }

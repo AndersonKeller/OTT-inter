@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import shuffle from 'shuffle-array'
 
-import Layout from '../components/layout/Layout'
+import Layout from '../../components/layout/Layout'
 
 export default _ => {
   const router = useRouter()
@@ -21,13 +21,13 @@ export default _ => {
   return (
     <Layout>
       <Head>
-        <title>{router.query.title} &lt; Dale Campeón</title>
+        <title>{router.query.slug} &lt; Dale Campeón</title>
       </Head>
       <div className="container-fluid">
         <div className="row">
           <div className="col-10 offset-1">
             <header>
-              <h1 className="h2">{router.query.title}</h1>
+              <h1 className="h2">{router.query.slug}</h1>
             </header>
             <div className="interview-cards row gutter-15">
               { interviews.map((text, index) => (
