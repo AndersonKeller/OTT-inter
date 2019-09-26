@@ -2,10 +2,14 @@ import Modal from 'react-bootstrap/Modal'
 import Button from '../button'
 
 export default (props) => {
+  const show = true || props.show
   return (
-    <Modal show={props.show} onHide={props.handleClose}>
-      <Modal.Header closeButton>
+    <Modal show={show} onHide={props.handleClose}>
+      <Modal.Header>
         <Modal.Title>
+          <button className="close" type="button">
+            <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23" />
+          </button>
           <img alt="Dale Campeón" height="64" src="/static/logo.svg" width="131" />
         </Modal.Title>
       </Modal.Header>
@@ -70,12 +74,17 @@ export default (props) => {
           padding: 10px;
           position: relative;
         }
-        :global(.modal-header) :global(.close) {
+        :global(.modal-header) .close {
+          margin: 0;
           outline: 0;
+          padding: 15px;
           position: absolute;
-          right: 20px;
+          right: 0;
           top: 50%;
           transform: translateY(-50%);
+        }
+        :global(.modal-header) .close img {
+          display: block;
         }
         :global(.modal-body) {
           padding: 15px 25px 20px;
