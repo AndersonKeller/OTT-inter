@@ -35,7 +35,7 @@ export default _ => {
   return (
     <div className={`user-select d-none d-md-flex ${user ? 'logged' : ''}`}>
 
-      <Dropdown alignRight drop="down" flip={false}>
+      <Dropdown alignRight drop="down" flip={undefined}>
         <Dropdown.Toggle id={`dropdown-custom-user`}>
           <span className="avatar">
             <img alt="Avatar" height="31" src="/static/icons/user.svg" width="24" />

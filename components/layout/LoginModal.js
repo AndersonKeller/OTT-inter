@@ -1,4 +1,5 @@
 import Color from 'color'
+import { useEffect } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import ReactSVG from 'react-svg'
 import Button from '../button'
@@ -34,9 +35,20 @@ const Label = (props) => {
 }
 
 const Input = (props) => {
+  let _input
+  useEffect(() => {
+    if (props.autofocus)
+      _input.focus();
+  })
   return (
     <>
-      <input className="form-control" id={props.id} type={props.type} />
+      <input
+        autofocus={props.autofocus && "true"}
+        className="form-control"
+        id={props.id}
+        ref={c => (_input = c)}
+        type={props.type}
+      />
       <style jsx>{`
         .form-control {
           border-color: rgba(var(--gray2-rgb), .55);
@@ -84,7 +96,7 @@ export default (props) => {
         <form method="post">
           <FormGroup>
             <Label for="email">E-mail</Label>
-            <Input id="email" type="email" />
+            <Input autofocus id="email" type="email" />
             <FormText>
               <a href="#">¿Olvidó su nombre de usuario?</a>
             </FormText>
