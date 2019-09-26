@@ -15,8 +15,8 @@ const Header = (props) => {
     { label: 'Videos', href: '/videos' },
     { label: 'Podcasts', href: '/podcasts' },
     { label: 'Entrevistas', href: '/entrevistas' },
-    { label: 'Fotos', href: '/fotos', visibility: 'publicOnly' },
-    { label: 'Sorteos', href: '/sorteos', visibility: 'publicOnly' },
+    { label: 'Fotos', href: '/category?title=Fotos', visibility: 'publicOnly' },
+    { label: 'Sorteos', href: '/category?title=Sorteos', visibility: 'publicOnly' },
     {
       label: 'Más',
       dropdown: [
