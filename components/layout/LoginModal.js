@@ -1,5 +1,5 @@
 import Color from 'color'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import ReactSVG from 'react-svg'
 import Button from '../button'
@@ -35,10 +35,10 @@ const Label = (props) => {
 }
 
 const Input = (props) => {
-  let _input
-  useEffect(() => {
+  let inputRef = useRef()
+  useEffect(_ => {
     if (props.autofocus)
-      _input.focus();
+      inputRef.current.focus();
   })
   return (
     <>
@@ -46,7 +46,7 @@ const Input = (props) => {
         autofocus={props.autofocus && "true"}
         className="form-control"
         id={props.id}
-        ref={c => (_input = c)}
+        ref={inputRef}
         type={props.type}
       />
       <style jsx>{`
