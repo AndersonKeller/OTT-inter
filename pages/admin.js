@@ -2,7 +2,7 @@
 import Head from 'next/head'
 import redirect from 'next-redirect'
 
-import Layout from '../components/layout'
+import Layout from '../components/layout/Layout'
 
 const Admin = _ => (
   <Layout>

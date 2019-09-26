@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 import Button from '../components/button'
-import Layout from '../components/layout'
+import Layout from '../components/layout/Layout'
 import MiLista from '../components/mi-lista'
 
 const Cover = _ => (

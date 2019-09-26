@@ -7,7 +7,7 @@ import Button from '../components/button'
 import Card from '../components/card'
 import CarouselSection from '../components/carousel-section'
 import Featured from '../components/featured'
-import Layout from '../components/layout'
+import Layout from '../components/layout/Layout'
 import MiLista from '../components/mi-lista'
 import UserContext from '../components/UserContext'
 

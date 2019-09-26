@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import BlockedPlayer from '../components/blocked-player'
 import CommentSection from '../components/comment-section'
-import Layout from '../components/layout'
+import Layout from '../components/layout/Layout'
 import LikeNCommentsBtns from '../components/like-n-comments-btns'
 import MediaDescription from '../components/media-description'
 import MoreContentCarousel from '../components/more-content-carousel'
@@ -80,19 +80,19 @@ export default function InterviewPage() {
 function MoreInterviewCards() {
   const moreInterviews = [
     {
-      img: '/static/interviews/thumb1.png', 
-      title: 'Entrevista a Javier Pinola', 
-      text: 'EXCLUSIVO #DaleCampeon | Hablamos mano a mano con Javier Pinola: "Estoy muy contento con este presente. Al principio me costó adaptarme"', 
+      img: '/static/interviews/thumb1.png',
+      title: 'Entrevista a Javier Pinola',
+      text: 'EXCLUSIVO #DaleCampeon | Hablamos mano a mano con Javier Pinola: "Estoy muy contento con este presente. Al principio me costó adaptarme"',
     },
     {
-      img: '/static/interviews/thumb2.png', 
-      title: 'Mano a mano con Javier Pinola', 
-      text: 'El jugador del Más Grande habló de su carrera en una entrevista exclusiva con Dale Campeón.', 
+      img: '/static/interviews/thumb2.png',
+      title: 'Mano a mano con Javier Pinola',
+      text: 'El jugador del Más Grande habló de su carrera en una entrevista exclusiva con Dale Campeón.',
     },
     {
-      img: '/static/interviews/thumb3.png', 
-      title: 'Pinola: "Queremos seguir ganando y sumando confianza"', 
-      text: 'La palabra de Javier Pinola luego del triunfo ante San Martín. ¡Escuchalo! ', 
+      img: '/static/interviews/thumb3.png',
+      title: 'Pinola: "Queremos seguir ganando y sumando confianza"',
+      text: 'La palabra de Javier Pinola luego del triunfo ante San Martín. ¡Escuchalo! ',
     }
   ]
   return (

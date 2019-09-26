@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import ONLINE from '../constants/constants'
-import Header from './layout/Header'
-import Footer from './layout/Footer'
+import ONLINE from '../../constants/constants'
+import Header from './Header'
+import Footer from './Footer'
 
 const Layout = props => {
   var paddingTop

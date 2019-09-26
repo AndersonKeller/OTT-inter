@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import shuffle from 'shuffle-array'
 
-import Layout from '../components/layout'
+import Layout from '../components/layout/Layout'
 
 export default function Entrevistas() {
   let interviews = [

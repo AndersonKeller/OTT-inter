@@ -1,4 +1,4 @@
-import Layout from '../components/layout'
+import Layout from '../components/layout/Layout'
 import Head from 'next/head'
 import H2 from '../components/h2'
 import Button from '../components/button'
