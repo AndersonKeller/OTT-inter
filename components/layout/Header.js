@@ -71,13 +71,14 @@ const Header = (props) => {
           </ActiveLink>
         </h1>
 
-        {/* club logo */}
-        <div className="club-logo">
-          <img alt="by River Plate" height="44" src="/static/logos/club.svg" width="35" />
-        </div>
-
         { ! props.closed && (
           <>
+
+            {/* club logo */}
+            <div className="club-logo">
+              <img alt="by River Plate" height="44" src="/static/logos/club.svg" width="35" />
+            </div>
+
             {/* menu */}
             <ul className="menu d-none d-md-flex">
               { menu.map(({ label, href, visibility, dropdown }, i) => {
@@ -134,6 +135,7 @@ const Header = (props) => {
             <a className="signature d-none d-md-inline" href="http://somosgad.com" target="_blank">
               <img alt="GAD_" height="36" src="/static/logos/gad.svg" width="66" />
             </a>
+
           </>
         ) }
 
