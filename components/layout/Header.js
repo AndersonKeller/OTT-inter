@@ -67,7 +67,7 @@ const Header = (props) => {
         {/* logo */}
         <h1 className="logo">
           <Link href="/">
-            <a><img alt="Dale Campeón" src="/static/logo.svg" /></a>
+            <a><img alt="Dale Campeón" className="img-fluid" height="44" src="/static/logo.svg" width="90" /></a>
           </Link>
         </h1>
 
@@ -162,8 +162,8 @@ const Header = (props) => {
           margin-top: 0;
           margin-right: 30px;
           margin-bottom: 0;
-          min-height: 67px;
-          width: 131px;
+          min-height: 44px;
+          width: 90px;
         }
         .header.closed .logo {
           margin-right: 0;
