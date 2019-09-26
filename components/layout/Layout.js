@@ -75,7 +75,7 @@ const Layout = props => {
           --font-size: 20px;
 
           /* others */
-          --padding-top: 110px;
+          --padding-top: 75px;
         }
         @media (min-width: 768px) {
         }

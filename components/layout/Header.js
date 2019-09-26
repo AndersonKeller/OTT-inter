@@ -1,12 +1,11 @@
 import classNames from 'classnames'
-import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
-import ReactSVG from 'react-svg'
 
+import ActiveLink from '../ActiveLink'
 import UserContext from '../UserContext'
-import UserMenu from './UserMenu'
 import Chevron from '../icons/chevron'
+import UserMenu from './UserMenu'
 
 const Header = (props) => {
 
@@ -37,7 +36,7 @@ const Header = (props) => {
   ]
 
   // user context
-  const { user, signIn, signOut } = useContext(UserContext)
+  const { user } = useContext(UserContext)
 
   // scrolled state
   const [ scrolled, setScrolled ] = useState()
@@ -67,9 +66,9 @@ const Header = (props) => {
 
         {/* logo */}
         <h1 className="logo">
-          <Link href="/">
+          <ActiveLink href="/">
             <a><img alt="Dale Campeón" className="img-fluid" height="44" src="/static/logos/dale.svg" width="90" /></a>
-          </Link>
+          </ActiveLink>
         </h1>
 
         {/* club logo */}
@@ -106,7 +105,9 @@ const Header = (props) => {
                         </Dropdown.Menu>
                       </Dropdown>
                     ) : (
-                      <a href={href}>{label}</a>
+                      <ActiveLink href={href}>
+                        <a>{label}</a>
+                      </ActiveLink>
                     ) }
                   </li>
                 )
@@ -209,6 +210,7 @@ const Header = (props) => {
         }
         .menu a:focus,
         .menu a:hover,
+        .menu a.active,
         .menu :global(.dropdown-toggle):focus,
         .menu :global(.dropdown-toggle):hover {
           background-color: transparent;
