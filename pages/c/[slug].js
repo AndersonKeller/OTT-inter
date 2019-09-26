@@ -1,3 +1,4 @@
+import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -5,37 +6,26 @@ import shuffle from 'shuffle-array'
 
 import Layout from '../../components/layout/Layout'
 
-export default _ => {
+const Category = props => {
   const router = useRouter()
-  let interviews = [
-    'Lorem ipsum dolor sit amet',
-    'Consectetur adipiscing elit',
-    'Sed maximus quam elementum',
-    'Ullamcorper purus in',
-    'Gravida quam',
-    'Quisque scelerisque suscipit',
-    'Nec aliquet sem gravida at',
-  ]
-  for (let i = 0; i < 3; i++) interviews = [...interviews, ...interviews];
-  interviews = shuffle(interviews)
   return (
     <Layout>
       <Head>
-        <title>{router.query.slug} &lt; Dale Campeón</title>
+        <title>{props.title} &lt; Dale Campeón</title>
       </Head>
       <div className="container-fluid">
         <div className="row">
           <div className="col-10 offset-1">
             <header>
-              <h1 className="h2">{router.query.slug}</h1>
+              <h1 className="h2">{props.title}</h1>
             </header>
             <div className="interview-cards row gutter-15">
-              { interviews.map((text, index) => (
+              { props.medias.map((media, index) => (
                 <div className="col-2" key={index}>
                   <Link href="/entrevistas-interna1">
                     <a className="interview-card text-center">
-                      <img className="img-fluid" src={`/static/cards/interviews/${index % 7 + 1}.jpg`} />
-                      <div className="interview-card-label">{text}</div>
+                      <img className="img-fluid" src={`/static/cards/interviews/${media.id}.jpg`} />
+                      <div className="interview-card-label">{media.label}</div>
                     </a>
                   </Link>
                 </div>
@@ -87,3 +77,36 @@ export default _ => {
     </Layout>
   );
 }
+
+Category.getInitialProps = async (context) => {
+  // const res = await fetch('https://api.tvmaze.com/search/shows?q=batman')
+  // const data = await res.json()
+  // console.log(`Show data fetched. Count: ${data.length}`)
+  // const show = data.map(entry => entry.show)
+
+  const ids = shuffle([1,2,3,4,5,6,7])
+  let medias = [
+    {id: ids[0], label: 'Lorem ipsum dolor sit amet'},
+    {id: ids[1], label: 'Consectetur adipiscing elit'},
+    {id: ids[2], label: 'Sed maximus quam elementum'},
+    {id: ids[3], label: 'Ullamcorper purus in'},
+    {id: ids[4], label: 'Gravida quam'},
+    {id: ids[5], label: 'Quisque scelerisque suscipit'},
+    {id: ids[6], label: 'Nec aliquet sem gravida at'},
+  ]
+  medias = shuffle(medias)
+  for (let i = 0; i < 3; i++) medias = [...medias, ...medias];
+  const titles = {
+    'fotos': 'Fotos',
+    'sorteos': 'Sorteos',
+  }
+  const { slug } = context.query;
+  const title = titles[slug]
+
+  return {
+    medias: medias,
+    title: title,
+  }
+}
+
+export default Category
