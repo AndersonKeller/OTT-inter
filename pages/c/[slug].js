@@ -103,10 +103,7 @@ Category.getInitialProps = async (context) => {
   const { slug } = context.query;
   const title = titles[slug]
 
-  return {
-    medias: medias,
-    title: title,
-  }
+  return { medias, title }
 }
 
 export default Category
