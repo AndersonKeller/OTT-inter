@@ -8,11 +8,18 @@ const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
   const textColor = props.textColor ? 'btn--color-white' : ''
   const size = props.size === 'sm' ? 'btn-sm' : ''
   const classNames = `btn btn-${color} ${block} ${outline} ${className} ${textColor} ${size}`
+  const type = props.type
   return (
     <>
-      <a className={classNames} href={href} onClick={onClick} ref={ref}>
-        {props.children}
-      </a>
+      { ['button', 'submit'].includes(type) ? (
+        <button className={classNames} href={href} onClick={onClick} ref={ref} type={type}>
+          {props.children}
+        </button>
+      ) : (
+        <a className={classNames} href={href} onClick={onClick} ref={ref}>
+          {props.children}
+        </a>
+      ) }
       <style jsx>{`
         .btn {
           border: 0;

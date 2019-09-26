@@ -96,14 +96,14 @@ export default (props) => {
               <a href="#">¿Olvidó su clave?</a>
             </FormText>
           </FormGroup>
-          <Button block className="enter-btn" onClick={props.toogleAuth} size="sm">Entrar</Button>
+          <Button block className="enter-btn" onClick={props.toogleAuth} size="sm" type="submit">Entrar</Button>
           <div className="already-subscriptor">¿Ya es suscriptor? <a className="bold text-uppercase" href="#" onClick={props.toogleAuth}>Haga Login</a></div>
           <div className="or-enter-with">o entre con</div>
-          <Button className="social facebook" onClick={props.toogleAuth}>
+          <Button className="social facebook" onClick={props.toogleAuth} type="button">
             <ReactSVG className="icon" src="/static/icons/facebook.svg" />
             Facebook
           </Button>
-          <Button className="social google" onClick={props.toogleAuth}>
+          <Button className="social google" onClick={props.toogleAuth} type="button">
             <ReactSVG className="icon" src="/static/icons/google.svg" />
             Google
           </Button>
