@@ -86,7 +86,7 @@ export default (props) => {
           <button className="close" onClick={props.handleClose} type="button">
             <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23" />
           </button>
-          <img alt="Dale Campeón" height="64" src="/static/logo.svg" width="131" />
+          <img alt="Dale Campeón" height="64" src="/static/logos/dale.svg" width="131" />
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

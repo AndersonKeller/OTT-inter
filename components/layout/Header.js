@@ -67,9 +67,14 @@ const Header = (props) => {
         {/* logo */}
         <h1 className="logo">
           <Link href="/">
-            <a><img alt="Dale Campeón" className="img-fluid" height="44" src="/static/logo.svg" width="90" /></a>
+            <a><img alt="Dale Campeón" className="img-fluid" height="44" src="/static/logos/dale.svg" width="90" /></a>
           </Link>
         </h1>
+
+        {/* club logo */}
+        <div className="club-logo">
+          <img alt="by River Plate" height="44" src="/static/logos/club.svg" width="35" />
+        </div>
 
         { ! props.closed && (
           <>
@@ -125,7 +130,7 @@ const Header = (props) => {
 
             {/* gad logo */}
             <a className="signature d-none d-md-inline" href="http://somosgad.com" target="_blank">
-              <img alt="GAD_" height="36" src="/static/gad-logo.svg" width="66" />
+              <img alt="GAD_" height="36" src="/static/logos/gad.svg" width="66" />
             </a>
           </>
         ) }
@@ -167,6 +172,9 @@ const Header = (props) => {
         }
         .header.closed .logo {
           margin-right: 0;
+        }
+        .club-logo {
+          margin-right: 20px;
         }
         .menu {
           display: none;

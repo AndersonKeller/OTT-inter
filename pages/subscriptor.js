@@ -236,7 +236,7 @@ const Section1 = () => {
           <div className="section1__content">
             <div className="row">
               <div className="col-4 col-md-6">
-                <img className="section1__logo img-fluid" src="/static/river-logo.svg" width="170" height="212" alt="River Logo" />
+                <img className="section1__logo img-fluid" src="/static/logos/river.svg" width="170" height="212" alt="River Logo" />
               </div>
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
