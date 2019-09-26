@@ -240,11 +240,11 @@ export default (props) => {
         }
         .login-modal .facebook:focus,
         .login-modal .facebook:hover {
-          background-color: ${Color(facebookColor).darken(.3)} !important;
+          background-color: ${Color(facebookColor).darken(.2)} !important;
         }
         .login-modal .facebook:focus .cls-1,
         .login-modal .facebook:hover .cls-1 {
-          fill: ${Color(facebookColor).darken(.3)};
+          fill: ${Color(facebookColor).darken(.2)};
         }
         .login-modal .google {
           background-color: ${Color(googleColor)} !important;
@@ -254,11 +254,11 @@ export default (props) => {
         }
         .login-modal .google:focus,
         .login-modal .google:hover {
-          background-color: ${Color(googleColor).darken(.3)} !important;
+          background-color: ${Color(googleColor).darken(.2)} !important;
         }
         .login-modal .google:focus .cls-3,
         .login-modal .google:hover .cls-3 {
-          fill: ${Color(googleColor).darken(.3)};
+          fill: ${Color(googleColor).darken(.2)};
         }
         @media (min-width: 768px) {
           .login-modal .facebook {
