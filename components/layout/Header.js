@@ -16,11 +16,12 @@ const Header = (props) => {
     { label: 'Videos', href: '/videos' },
     { label: 'Podcasts', href: '/podcasts' },
     { label: 'Entrevistas', href: '/entrevistas' },
-    { label: 'Fotos', href: '/fotos' },
+    { label: 'Fotos', href: '/fotos', visibility: 'publicOnly' },
     { label: 'Sorteos', href: '/sorteos', visibility: 'publicOnly' },
     {
       label: 'Más',
       dropdown: [
+        { label: 'Fotos', href: '/fotos' },
         { label: 'Sorteos', href: '/sorteos' },
         { label: 'Historia del Club', href: '/historia-del-club' },
         { label: 'Infantil', href: '/infantil' },
@@ -142,7 +143,7 @@ const Header = (props) => {
           font-family: 'Helvetica', sans-serif;
           font-size: 21.5px;
           font-weight: bold;
-          padding: 20px 45px;
+          padding: 10px 30px 10px 45px;
           position: fixed;
           transition: background-color .2s;
           width: 100%;
@@ -186,7 +187,7 @@ const Header = (props) => {
         }
         .menu li {
           display: flex;
-          padding: 10px;
+          padding: 5px 15px;
         }
         @media (min-width: 1367px) {
           .menu li {
@@ -236,7 +237,7 @@ const Header = (props) => {
           color: inherit;
           font-size: inherit;
           left: 50% !important;
-          margin-top: 37px;
+          margin-top: 22px;
           padding-top: 0;
           padding-bottom: 0;
           text-align: center;
@@ -275,7 +276,7 @@ const Header = (props) => {
           background-color: transparent;
           border: 0;
           cursor: pointer;
-          margin-right: 10px;
+          margin-right: 5px;
           outline: 0;
           padding: 5px;
           vertical-align: middle;
