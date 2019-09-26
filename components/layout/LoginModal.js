@@ -1,6 +1,67 @@
 import Modal from 'react-bootstrap/Modal'
 import Button from '../button'
 
+const FormGroup = (props) => {
+  return (
+    <div className="form-group">
+      {props.children}
+      <style jsx>{`
+        .form-group {
+          font-size: 16px;
+          line-height: 1;
+          text-align: left;
+        }
+      `}</style>
+    </div>
+  )
+}
+
+const Label = (props) => {
+  return (
+    <>
+      <label for={props.for}>{props.children}</label>
+      <style jsx>{`
+        label {
+          cursor: pointer;
+          margin-bottom: 5px;
+          margin-left: 30px;
+        }
+      `}</style>
+    </>
+  )
+}
+
+const Input = (props) => {
+  return (
+    <>
+      <input className="form-control" id={props.id} type={props.type} />
+      <style jsx>{`
+        .form-control {
+          border-color: rgba(var(--gray2-rgb), .55);
+          border-width: 2px;
+          color: inherit;
+        }
+      `}</style>
+    </>
+  )
+}
+
+const FormText = (props) => {
+  return (
+    <div className="form-text text-center">
+      {props.children}
+      <style jsx>{`
+        .form-text {
+          font-size: 14px;
+        }
+        .form-text :global(a) {
+          color: inherit;
+        }
+      `}</style>
+    </div>
+  )
+}
+
 export default (props) => {
   const show = true || props.show
   return (
@@ -17,25 +78,27 @@ export default (props) => {
         <div className="intro-text">
           <p>Una sola cuenta para todos los productos RIVER PLATE</p>
         </div>
-        <div className="form-group">
-          <label for="email">E-mail</label>
-          <input className="form-control" id="email" type="email" />
-          <div className="form-text text-center">
-            <a href="#">¿Olvidó su nombre de usuario?</a>
-          </div>
-        </div>
-        <div className="form-group">
-          <label for="clave">Clave</label>
-          <input className="form-control" id="clave" type="password" />
-          <div className="form-text text-center">
-            <a href="#">¿Olvidó su clave?</a>
-          </div>
-        </div>
-        <Button block className="enter-btn" onClick={props.toogleAuth} size="sm">Entrar</Button>
-        <div className="already-subscriptor">¿Ya es suscriptor? <a className="bold text-uppercase" href="#" onClick={props.toogleAuth}>Haga Login</a></div>
-        <div className="or-enter-with">o entre con</div>
-        <Button onClick={props.toogleAuth}>Facebook</Button>
-        <Button onClick={props.toogleAuth}>Google</Button>
+        <form method="post">
+          <FormGroup>
+            <Label for="email">E-mail</Label>
+            <Input id="email" type="email" />
+            <FormText>
+              <a href="#">¿Olvidó su nombre de usuario?</a>
+            </FormText>
+          </FormGroup>
+          <FormGroup>
+            <Label for="clave">Clave</Label>
+            <Input id="clave" type="password" />
+            <FormText>
+              <a href="#">¿Olvidó su clave?</a>
+            </FormText>
+          </FormGroup>
+          <Button block className="enter-btn" onClick={props.toogleAuth} size="sm">Entrar</Button>
+          <div className="already-subscriptor">¿Ya es suscriptor? <a className="bold text-uppercase" href="#" onClick={props.toogleAuth}>Haga Login</a></div>
+          <div className="or-enter-with">o entre con</div>
+          <Button onClick={props.toogleAuth}>Facebook</Button>
+          <Button onClick={props.toogleAuth}>Google</Button>
+        </form>
       </Modal.Body>
       <style jsx>{`
         :global(.modal-backdrop.show) {
@@ -98,27 +161,6 @@ export default (props) => {
         .intro-text *:last-child {
           margin-bottom: 0;
         }
-        .form-group {
-          font-size: 16px;
-          line-height: 1;
-          text-align: left;
-        }
-        .form-group label {
-          cursor: pointer;
-          margin-bottom: 5px;
-          margin-left: 30px;
-        }
-        .form-control {
-          border-color: rgba(var(--gray2-rgb), .55);
-          border-width: 2px;
-          color: inherit;
-        }
-        .form-text {
-          font-size: 14px;
-        }
-        .form-text a {
-          color: inherit;
-        }
         :global(.enter-btn) {
           margin-top: 30px;
           margin-bottom: 10px;
@@ -138,7 +180,7 @@ export default (props) => {
         }
         .or-enter-with::before,
         .or-enter-with::after {
-          border-top: 1px solid rgba(var(--gray2-rgb), .55);
+          border-top: 2px solid rgba(var(--gray2-rgb), .55);
           content: '';
           display: block;
           margin-right: -5px;
