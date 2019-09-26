@@ -16,11 +16,6 @@ const Layout = props => {
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1, shrink-to-fit=no, width=device-width" />
-        {/* { ONLINE ? (
-          <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap-grid.min.css" />
-          ) : (
-          <link rel="stylesheet" href="/static/styles/bootstrap-grid.min.css" />
-        )} */}
         { ONLINE ? (
           <link
             rel="stylesheet"

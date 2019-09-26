@@ -1,4 +1,6 @@
+import Color from 'color'
 import Modal from 'react-bootstrap/Modal'
+import ReactSVG from 'react-svg'
 import Button from '../button'
 
 const FormGroup = (props) => {
@@ -63,12 +65,13 @@ const FormText = (props) => {
 }
 
 export default (props) => {
-  const show = true || props.show
+  const facebookColor = '#3B5990'
+  const googleColor = '#D44639'
   return (
-    <Modal show={show} onHide={props.handleClose}>
+    <Modal className="login-modal" onHide={props.handleClose} show={props.show}>
       <Modal.Header>
         <Modal.Title>
-          <button className="close" type="button">
+          <button className="close" onClick={props.handleClose} type="button">
             <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23" />
           </button>
           <img alt="Dale Campeón" height="64" src="/static/logo.svg" width="131" />
@@ -96,15 +99,21 @@ export default (props) => {
           <Button block className="enter-btn" onClick={props.toogleAuth} size="sm">Entrar</Button>
           <div className="already-subscriptor">¿Ya es suscriptor? <a className="bold text-uppercase" href="#" onClick={props.toogleAuth}>Haga Login</a></div>
           <div className="or-enter-with">o entre con</div>
-          <Button onClick={props.toogleAuth}>Facebook</Button>
-          <Button onClick={props.toogleAuth}>Google</Button>
+          <Button className="social facebook" onClick={props.toogleAuth}>
+            <ReactSVG className="icon" src="/static/icons/facebook.svg" />
+            Facebook
+          </Button>
+          <Button className="social google" onClick={props.toogleAuth}>
+            <ReactSVG className="icon" src="/static/icons/google.svg" />
+            Google
+          </Button>
         </form>
       </Modal.Body>
-      <style jsx>{`
-        :global(.modal-backdrop.show) {
+      <style jsx global>{`
+        .modal-backdrop.show {
           opacity: .68;
         }
-        :global(.modal) {
+        .login-modal {
           align-items: center;
           color: var(--gray4);
           padding-top: .5rem;
@@ -112,32 +121,32 @@ export default (props) => {
           text-align: center;
         }
         @media (min-width: 768px) {
-          :global(.modal) {
+          .login-modal {
             padding-top: 1.75rem;
             padding-bottom: 1.75rem;
           }
         }
-        :global(.modal-open) :global(.modal) {
+        .modal-open .login-modal {
           display: flex !important;
         }
-        :global(.modal-dialog) {
+        .login-modal .modal-dialog {
           box-shadow: 0 2px 6px var(--black);
           margin-top: auto;
           margin-bottom: auto;
           max-width: 325px;
         }
-        :global(.modal-content) {
+        .login-modal .modal-content {
           border: 0;
           border-radius: 0;
         }
-        :global(.modal-header) {
+        .login-modal .modal-header {
           background-color: var(--dark-gray3);
           border-radius: 0;
           justify-content: center;
           padding: 10px;
           position: relative;
         }
-        :global(.modal-header) .close {
+        .login-modal .close {
           margin: 0;
           outline: 0;
           padding: 15px;
@@ -146,40 +155,40 @@ export default (props) => {
           top: 50%;
           transform: translateY(-50%);
         }
-        :global(.modal-header) .close img {
+        .login-modal .close img {
           display: block;
         }
-        :global(.modal-body) {
+        .login-modal .modal-body {
           padding: 15px 25px 20px;
         }
-        .intro-text {
+        .login-modal .intro-text {
           font-size: 18px;
           line-height: 1.2;
           margin-bottom: 5px;
           padding: 0 15%;
         }
-        .intro-text *:last-child {
+        .login-modal .intro-text *:last-child {
           margin-bottom: 0;
         }
-        :global(.enter-btn) {
+        .login-modal .enter-btn {
           margin-top: 30px;
           margin-bottom: 10px;
         }
-        .already-subscriptor {
+        .login-modal .already-subscriptor {
           font-size: 16px;
           margin-bottom: 20px;
         }
-        .already-subscriptor a {
+        .login-modal .already-subscriptor a {
           color: inherit;
         }
-        .or-enter-with {
+        .login-modal .or-enter-with {
           align-items: center;
           display: flex;
           font-size: 18px;
           margin-bottom: 20px;
         }
-        .or-enter-with::before,
-        .or-enter-with::after {
+        .login-modal .or-enter-with::before,
+        .login-modal .or-enter-with::after {
           border-top: 2px solid rgba(var(--gray2-rgb), .55);
           content: '';
           display: block;
@@ -187,11 +196,68 @@ export default (props) => {
           margin-left: -5px;
           flex-grow: 1;
         }
-        .or-enter-with::before {
+        .login-modal .or-enter-with::before {
           margin-right: 15px;
         }
-        .or-enter-with::after {
+        .login-modal .or-enter-with::after {
           margin-left: 15px;
+        }
+        .login-modal .social {
+          font-family: sans-serif;
+          font-size: 16px;
+          line-height: 22px;
+          transition: background-color .2s;
+        }
+        .login-modal .social .icon {
+          display: inline-block;
+          height: 22px;
+          margin-top: -2px;
+          margin-right: 5px;
+          margin-left: -10px;
+          vertical-align: middle;
+          width: 22px;
+        }
+        .login-modal .social svg {
+          display: block;
+        }
+        .login-modal .social rect,
+        .login-modal .social path {
+          transition: fill .2s;
+        }
+        .login-modal .facebook {
+          background-color: ${facebookColor} !important;
+          margin-bottom: 5px;
+        }
+        .login-modal .facebook .cls-1 {
+          fill: ${Color(facebookColor)};
+        }
+        .login-modal .facebook:focus,
+        .login-modal .facebook:hover {
+          background-color: ${Color(facebookColor).darken(.3)} !important;
+        }
+        .login-modal .facebook:focus .cls-1,
+        .login-modal .facebook:hover .cls-1 {
+          fill: ${Color(facebookColor).darken(.3)};
+        }
+        .login-modal .google {
+          background-color: ${Color(googleColor)} !important;
+        }
+        .login-modal .google .cls-3 {
+          fill: ${Color(googleColor)};
+        }
+        .login-modal .google:focus,
+        .login-modal .google:hover {
+          background-color: ${Color(googleColor).darken(.3)} !important;
+        }
+        .login-modal .google:focus .cls-3,
+        .login-modal .google:hover .cls-3 {
+          fill: ${Color(googleColor).darken(.3)};
+        }
+        @media (min-width: 768px) {
+          .login-modal .facebook {
+            margin-right: 5px;
+            margin-bottom: 0;
+          }
         }
       `}</style>
     </Modal>

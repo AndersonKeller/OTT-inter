@@ -86,7 +86,7 @@ export default _ => {
         ) }
       </Dropdown>
 
-      <LoginModal onHide={handleClose} show={show} toogleAuth={toogleAuth} />
+      <LoginModal handleClose={handleClose} show={show} toogleAuth={toogleAuth} />
 
       <style jsx>{`
         .user-select {

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
+    "color": "^3.1.2",
     "glamor": "^2.20.40",
     "next": "9.0.3",
     "next-images": "^1.2.0",
