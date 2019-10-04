@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-unfetch'
+import Error from 'next/error'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -6,7 +7,10 @@ import shuffle from 'shuffle-array'
 
 import Layout from '../../components/layout/Layout'
 
-const Category = props => {
+const Category = ({ errorCode, ...props }) => {
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
+  }
   const router = useRouter()
   return (
     <Layout>
@@ -102,8 +106,9 @@ Category.getInitialProps = async (context) => {
   }
   const { slug } = context.query;
   const title = titles[slug]
+  const errorCode = ! title ? 404 : false
 
-  return { medias, title }
+  return { errorCode, medias, title }
 }
 
 export default Category
