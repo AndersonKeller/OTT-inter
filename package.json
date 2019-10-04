@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
     "classnames": "^2.2.6",
     "color": "^3.1.2",
     "glamor": "^2.20.40",
@@ -16,11 +17,15 @@
     "next-images": "^1.2.0",
     "next-redirect": "^1.0.1",
     "now": "^16.3.0",
+    "nprogress": "^0.2.0",
     "react": "16.9.0",
     "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "16.9.0",
     "react-slick": "^0.25.2",
     "react-svg": "^10.0.18",
     "shuffle-array": "^1.0.1"
+  },
+  "devDependencies": {
+    "next-compose": "^0.0.2"
   }
 }

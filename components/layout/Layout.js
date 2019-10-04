@@ -89,7 +89,7 @@ const Layout = props => {
         }
         body {
           background-color: var(--black);
-          color: #fff;
+          color: var(--white);
           font-family: var(--sans-serif);
           font-size: var(--font-size);
           height: 100%;
@@ -99,6 +99,16 @@ const Layout = props => {
           display: flex;
           flex-direction: column;
           height: 100%;
+        }
+        #nprogress .bar {
+          background: var(--red);
+        }
+        #nprogress .peg {
+          box-shadow: 0 0 10px var(--red), 0 0 5px var(--red);
+        }
+        #nprogress .spinner-icon {
+          border-top-color: var(--red);
+          border-left-color: var(--red);
         }
         main {
           margin-bottom: auto;
