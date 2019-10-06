@@ -2,6 +2,7 @@ import Layout from '../components/layout/Layout'
 import Head from 'next/head'
 import H2 from '../components/h2'
 import Button from '../components/button'
+import { STATIC_SUFFIX } from '../constants/constants'
 
 const SubscriptorSectionText = (props) => {
   return (
@@ -236,7 +237,7 @@ const Section1 = () => {
           <div className="section1__content">
             <div className="row">
               <div className="col-4 col-md-6">
-                <img className="section1__logo img-fluid" src="/static/logos/club.svg" width="170" height="212" alt="River Logo" />
+                <img className="section1__logo img-fluid" src={`/static/${STATIC_SUFFIX}/logos/club.svg`} width${STATIC_SUFFIX}/="170" height="212" alt="River Logo" />
               </div>
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>

@@ -1,8 +1,7 @@
-// etc
-const ONLINE = false
-
 // colors
 const GRAY3 = '#333'
 
-// export
-export { GRAY3, ONLINE }
+const ONLINE = process.env.NODE_ENV === 'production'
+const STATIC_SUFFIX = process.env.TENANT
+
+export { GRAY3, ONLINE, STATIC_SUFFIX }

@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import ReactSVG from 'react-svg'
 import Button from '../button'
+import { STATIC_SUFFIX } from '../../constants/constants'
 
 const FormGroup = (props) => {
   return (
@@ -86,7 +87,7 @@ export default (props) => {
           <button className="close" onClick={props.handleClose} type="button">
             <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23" />
           </button>
-          <img alt="Dale Campeón" height="64" src="/static/logos/dale.svg" width="131" />
+          <img alt="Dale Campeón" height="64" src={`/static/${STATIC_SUFFIX}/logos/dale.svg`} width="131" />
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
