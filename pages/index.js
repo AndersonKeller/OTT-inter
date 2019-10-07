@@ -10,7 +10,7 @@ import Featured from '../components/featured'
 import Layout from '../components/layout/Layout'
 import MiLista from '../components/mi-lista'
 import UserContext from '../components/UserContext'
-import { APP_NAME } from '../constants/constants'
+import { APP_NAME, STATIC_SUFFIX } from '../constants/constants'
 
 const Home = _ => {
 
@@ -187,8 +187,16 @@ const Cover = _ => {
             <div className="description">
               <h1 className="h1">
                 <span className="h1-a">Entrevista a nuestro</span>
-                <strong className="h1-b">“Napoléon”</strong>
-                <span className="h1-c">Marcelo Gallardo</span></h1>
+                <strong className="h1-b">{
+                  process.env.TENANT === 'dalecampeon' ?
+                  `“Napoléon”` :
+                  `Comandante`
+                }</strong>
+                <span className="h1-c">{
+                  process.env.TENANT === 'dalecampeon' ?
+                  'Marcelo Gallardo' :
+                  'Mario Salas'
+                }</span></h1>
               { ! user ? (
                 <>
                   <Link href="/subscriptor">
@@ -213,7 +221,7 @@ const Cover = _ => {
       <style jsx>{`
         .cover {
           align-items: center;
-          background-image: url(/static/napoleon.png);
+          background-image: url(/static/${STATIC_SUFFIX}/cover.png);
           background-position: 50% 50%;
           background-repeat: no-repeat;
           background-size: cover;
