@@ -13,13 +13,11 @@ dotenvLoad()
 
 const withNextEnv = nextEnv();
 
-// etc
-
 // next config
 const nextConfig = {
   env: {
-    TENANT: process.env.TENANT,
-  },
+    NEXT_PUBLIC_TENANT: "dalecampeon"
+  }
 };
 
 module.exports = withPlugins([

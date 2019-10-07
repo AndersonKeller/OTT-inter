@@ -1,0 +1,14 @@
+{
+  "build": {
+    "env": {
+      "NEXT_SERVER_TENANT": "dalecampeon",
+      "NEXT_PUBLIC_TENANT": "dalecampeon",
+      "NEXT_STATIC_TENANT": "dalecampeon"
+    }
+  },
+  "env": {
+    "NEXT_SERVER_TENANT": "dalecacique",
+    "NEXT_PUBLIC_TENANT": "dalecacique",
+    "NEXT_STATIC_TENANT": "dalecacique"
+  }
+}
