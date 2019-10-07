@@ -32,11 +32,11 @@ app.prepare().then(() => {
 
     if (argv.hostname === 'dalecampeon' ||
       ['dalecampeon.com', 'dalecampeon.now.sh'].includes(req.headers.host)) {
-      process.env.TENANT = 'riverplate'
+      process.env.TENANT = argv.hostname
 
     } else if (argv.hostname === 'dalecacique' ||
       ['dalecacique.com', 'dalecacique.now.sh'].includes(req.headers.host)) {
-      process.env.TENANT = 'colocolo'
+      process.env.TENANT = argv.hostname
     }
 
     handleNextRequests(req, res)
