@@ -8,6 +8,8 @@ if (dev && ! process.argv[2]) {
   throw new Error("Shouldn't run dev without --riverplate or --colocolo flag")
 }
 
+console.log('Running server.js')
+
 const app = next({ dev })
 const handleNextRequests = app.getRequestHandler()
 
