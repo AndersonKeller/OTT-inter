@@ -184,14 +184,12 @@ const Header = (props) => {
           margin-right: 0;
         }
         .club-logo {
-          margin-right: 20px;
+          margin-right: 30px;
         }
         .menu {
           display: none;
           justify-content: space-between;
-          margin-top: 0;
-          margin-right: auto;
-          margin-bottom: 0;
+          margin: 0 auto 0 -15px;
           padding-left: 0;
         }
         .menu li {
