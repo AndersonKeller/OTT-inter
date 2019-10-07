@@ -137,7 +137,7 @@ const Header = (props) => {
 
             {/* gad logo */}
             <a className="signature d-none d-md-inline" href="http://somosgad.com" target="_blank">
-              <img alt="GAD_" height="36" src="/static/logos/gad.svg" width="66" />
+              <img alt="GAD_" height="27" src="/static/logos/gad.svg" width="50" />
             </a>
 
           </>
