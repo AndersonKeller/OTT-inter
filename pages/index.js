@@ -220,7 +220,7 @@ const Cover = _ => {
           display: flex;
           height: 640px;
           margin-bottom: 20px;
-          min-height: 100vh;
+          min-height: 90vh;
           overflow: hidden;
           padding-top: var(--padding-top);
           padding-left: 9%;

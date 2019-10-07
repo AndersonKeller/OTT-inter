@@ -151,10 +151,11 @@ const Header = (props) => {
           /* font-size: 21.5px; */
           font-size: 16px;
           font-weight: bold;
+          min-width: 100%;
           padding: 10px 30px 10px 45px;
           position: fixed;
           transition: background-color .2s;
-          width: 100%;
+          width: 90%;
           z-index: 10;
         }
         .header.closed {
