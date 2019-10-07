@@ -1,14 +1,27 @@
-
 const next = require('next')
 const http = require('http')
+const yargs = require('yargs')
+const hostnames = ['dalecampeon', 'dalecacique']
+const hostnameList = hostnames.join(' or ')
+const argv = yargs
+  .option('hostname', {
+    description: `Define the hostname (${hostnameList})`,
+    alias: 'H',
+    type: 'string',
+  })
+  .help()
+  .alias('help', 'h')
+  .argv
 
-const dev = process.env.NODE_ENV !== 'production'
-
-if (dev && ! process.argv[2]) {
-  throw new Error("Shouldn't run dev without --riverplate or --colocolo flag")
+if ( ! argv.hostname) {
+  throw new Error("Hostname undefined, please provide a --hostname or -H value")
 }
 
-console.log('Running server.js')
+if ( ! hostnames.includes(argv.hostname)) {
+  throw new Error(`Hostname invalid, must be ${hostnameList}`)
+}
+
+const dev = process.env.NODE_ENV !== 'production'
 
 const app = next({ dev })
 const handleNextRequests = app.getRequestHandler()
@@ -16,12 +29,14 @@ const handleNextRequests = app.getRequestHandler()
 app.prepare().then(() => {
   const server = new http.Server((req, res) => {
     // app.setAssetPrefix('')
-    if (['dalecampeon.com', 'dalecampeon.now.sh'].includes(req.headers.host) || process.argv[2] === '--riverplate') {
+
+    if (argv.hostname === 'dalecampeon' ||
+      ['dalecampeon.com', 'dalecampeon.now.sh'].includes(req.headers.host)) {
       process.env.TENANT = 'riverplate'
-    } else if (['dalecacique.com', 'dalecacique.now.sh'].includes(req.headers.host) || process.argv[2] === '--colocolo') {
+
+    } else if (argv.hostname === 'dalecacique' ||
+      ['dalecacique.com', 'dalecacique.now.sh'].includes(req.headers.host)) {
       process.env.TENANT = 'colocolo'
-    } else {
-      throw new Error("Tenant unknown")
     }
 
     handleNextRequests(req, res)
