@@ -148,7 +148,8 @@ const Header = (props) => {
         .header {
           color: var(--gray);
           font-family: 'Helvetica', sans-serif;
-          font-size: 21.5px;
+          /* font-size: 21.5px; */
+          font-size: 16px;
           font-weight: bold;
           padding: 10px 30px 10px 45px;
           position: fixed;
