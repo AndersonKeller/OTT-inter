@@ -1,18 +1,29 @@
-const compose = require('next-compose')
+console.log('next.config.js')
 
+// composer
+const withPlugins = require('next-compose-plugins')
+
+// plugins
 const withCSS = require('@zeit/next-css')
 const withImages = require('next-images')
+const nextEnv = require('next-env')
+const dotenvLoad = require('dotenv-load')
 
-const cssConfig = {/** css config here */}
-const imagesConfig = {/** images config here */}
+dotenvLoad()
 
-module.exports = compose([
-  [withCSS, cssConfig],
-  [withImages, imagesConfig],
-  {
-    webpack: (config) => {
-      /**some special code */
-      return config
-    }
-  }
-])
+const withNextEnv = nextEnv();
+
+// etc
+
+// next config
+const nextConfig = {
+  env: {
+    TENANT: process.env.TENANT,
+  },
+};
+
+module.exports = withPlugins([
+  [withCSS],
+  [withImages],
+  [withNextEnv],
+], nextConfig)
