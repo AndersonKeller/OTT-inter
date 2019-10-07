@@ -3,7 +3,7 @@ import Color from 'color'
 import React, { useContext, useEffect, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 
-import { GRAY3, STATIC_SUFFIX } from '../../constants/constants'
+import { APP_NAME, GRAY3, STATIC_SUFFIX } from '../../constants/constants'
 import ActiveLink from '../ActiveLink'
 import UserContext from '../UserContext'
 import Chevron from '../icons/chevron'
@@ -69,7 +69,7 @@ const Header = (props) => {
         {/* logo */}
         <h1 className="logo">
           <ActiveLink href="/">
-            <a><img alt="Dale Campeón" className="img-fluid" height="44" src={`/static/${STATIC_SUFFIX}/logos/dale.svg`} width="90" /></a>
+            <a><img alt={APP_NAME} className="img-fluid" height="44" src={`/static/${STATIC_SUFFIX}/logos/dale.svg`} width="90" /></a>
           </ActiveLink>
         </h1>
 

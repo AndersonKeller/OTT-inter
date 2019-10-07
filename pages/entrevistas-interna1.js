@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Button from '../components/button'
 import Layout from '../components/layout/Layout'
 import MiLista from '../components/mi-lista'
+import { APP_NAME } from '../constants/constants'
 
 const Cover = _ => (
   <div className="cover container-fluid">
@@ -12,7 +13,7 @@ const Cover = _ => (
         <h1>Mano a mano con Javier Pinola</h1>
         <div>2019</div>
         <div className="description">
-          <p>El jugador del Más Grande habló de su carrera en una entrevista exclusiva con Dale Campeón.</p>
+          <p>El jugador del Más Grande habló de su carrera en una entrevista exclusiva con {APP_NAME}.</p>
         </div>
         <Link href="/subscriptor">
           <Button>Proba Gratis</Button>
@@ -74,7 +75,7 @@ const More = _ => {
     {
       img: '/static/interviews/thumb2.png',
       title: 'Mano a mano con Javier Pinola',
-      text: 'El jugador del Más Grande habló de su carrera en una entrevista exclusiva con Dale Campeón.',
+      text: `El jugador del Más Grande habló de su carrera en una entrevista exclusiva con ${APP_NAME}.`,
     },
     {
       img: '/static/interviews/thumb3.png',
@@ -169,7 +170,7 @@ export default function Entrevistas() {
   return (
     <Layout paddingTop={false}>
       <Head>
-        <title>Entrevistas &lt; Dale Campeón</title>
+        <title>Entrevistas &lt; {APP_NAME}</title>
       </Head>
       <Cover />
       <More />

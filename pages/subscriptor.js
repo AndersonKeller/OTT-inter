@@ -2,7 +2,7 @@ import Layout from '../components/layout/Layout'
 import Head from 'next/head'
 import H2 from '../components/h2'
 import Button from '../components/button'
-import { STATIC_SUFFIX } from '../constants/constants'
+import { STATIC_SUFFIX, APP_NAME } from '../constants/constants'
 
 const SubscriptorSectionText = (props) => {
   return (
@@ -49,7 +49,7 @@ const Prices = (props) => {
     <section className="prices text-center container-fluid">
       <header>
         <H2>¡Sin límites! Sólo el suscriptor da un juego  n absoluto.</H2>
-        <p>Comience ahora sus días gratis y aproveche todas las ventajas de ser un suscriptor de Dale Campeón.</p>
+        <p>Comience ahora sus días gratis y aproveche todas las ventajas de ser un suscriptor de {APP_NAME}.</p>
       </header>
       <div className="cards">
         <div className="row justify-content-center gutter-15">
@@ -335,7 +335,7 @@ export default function Subscriptor() {
   return (
     <Layout header="closed">
       <Head>
-        <title>Subscriptor &lt; Dale Campeón</title>
+        <title>Subscriptor &lt; {APP_NAME}</title>
       </Head>
       <div className="subscriptor">
 
@@ -351,7 +351,7 @@ export default function Subscriptor() {
           imgWidth="870"
         >
           <H2>
-            Franco Armani en <span className="text-uppercase">Dale Campeón</span>!
+            Franco Armani en <span className="text-uppercase">{APP_NAME}</span>!
           </H2>
           <SubscriptorSectionText>
             <p>Vea dónde y cuando quiera, incluso 24 horas antes de pasar a la TV</p>

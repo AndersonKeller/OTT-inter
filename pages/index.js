@@ -10,6 +10,7 @@ import Featured from '../components/featured'
 import Layout from '../components/layout/Layout'
 import MiLista from '../components/mi-lista'
 import UserContext from '../components/UserContext'
+import { APP_NAME } from '../constants/constants'
 
 const Home = _ => {
 
@@ -18,7 +19,7 @@ const Home = _ => {
   return (
     <Layout paddingTop={false}>
       <Head>
-        <title>Dale Campeón</title>
+        <title>{APP_NAME}</title>
       </Head>
       <div className="index">
 
@@ -219,6 +220,7 @@ const Cover = _ => {
           display: flex;
           height: 640px;
           margin-bottom: 20px;
+          min-height: 100vh;
           overflow: hidden;
           padding-top: var(--padding-top);
           padding-left: 9%;

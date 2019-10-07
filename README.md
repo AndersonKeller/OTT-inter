@@ -1,4 +1,4 @@
-# Dale Campeón
+# Dale
 Built with Next.js.
 
 ## Install

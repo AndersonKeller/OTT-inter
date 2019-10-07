@@ -6,6 +6,7 @@ import LikeNCommentsBtns from '../components/like-n-comments-btns'
 import MediaDescription from '../components/media-description'
 import MoreContentCarousel from '../components/more-content-carousel'
 import SocialShareBtns from '../components/social-share-btns'
+import { APP_NAME } from '../constants/constants'
 
 export default function PodcastsPage() {
   const media = {
@@ -25,7 +26,7 @@ export default function PodcastsPage() {
   return (
     <Layout>
       <Head>
-        <title>Podcasts &lt; Dale Campeón</title>
+        <title>Podcasts &lt; {APP_NAME}</title>
       </Head>
       <div className="container-fluid">
         <div className="row">

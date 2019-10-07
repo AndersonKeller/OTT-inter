@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import shuffle from 'shuffle-array'
 
 import Layout from '../../components/layout/Layout'
+import { APP_NAME } from '../../constants/constants'
 
 const Category = ({ errorCode, ...props }) => {
   if (errorCode) {
@@ -15,7 +16,7 @@ const Category = ({ errorCode, ...props }) => {
   return (
     <Layout>
       <Head>
-        <title>{props.title} &lt; Dale Campeón</title>
+        <title>{props.title} &lt; {APP_NAME}</title>
       </Head>
       <div className="container-fluid">
         <div className="row">

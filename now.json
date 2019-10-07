@@ -1,7 +1,8 @@
 {
   "build": {
     "env": {
-      "TENANT": "dalecampeon"
+      "APP_NAME": "Dale Cacique",
+      "TENANT": "dalecique"
     }
   }
 }

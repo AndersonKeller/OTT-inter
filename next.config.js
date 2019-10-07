@@ -1,5 +1,3 @@
-console.log('next.config.js')
-
 // composer
 const withPlugins = require('next-compose-plugins')
 
@@ -16,6 +14,7 @@ const withNextEnv = nextEnv();
 // next config
 const nextConfig = {
   env: {
+    APP_NAME: process.env.APP_NAME,
     TENANT: process.env.TENANT,
   },
 };
