@@ -16,12 +16,12 @@ const withNextEnv = nextEnv();
 // next config
 const nextConfig = {
   env: {
-    NEXT_PUBLIC_TENANT: "dalecampeon"
-  }
+    TENANT: process.env.TENANT,
+  },
 };
 
 module.exports = withPlugins([
   [withCSS],
   [withImages],
-  [withNextEnv],
+  withNextEnv,
 ], nextConfig)

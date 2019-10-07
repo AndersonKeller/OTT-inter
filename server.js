@@ -1,6 +1,6 @@
 const next = require('next')
 const http = require('http')
-const yargs = require('yargs')
+/* const yargs = require('yargs')
 const hostnames = ['dalecampeon', 'dalecacique']
 const hostnameList = hostnames.join(' or ')
 const argv = yargs
@@ -19,7 +19,7 @@ if ( ! argv.hostname) {
 
 if ( ! hostnames.includes(argv.hostname)) {
   throw new Error(`Hostname invalid, must be ${hostnameList}`)
-}
+} */
 
 const dev = process.env.NODE_ENV !== 'production'
 
@@ -30,14 +30,14 @@ app.prepare().then(() => {
   const server = new http.Server((req, res) => {
     // app.setAssetPrefix('')
 
-    if (argv.hostname === 'dalecampeon' ||
+    /* if (argv.hostname === 'dalecampeon' ||
       ['dalecampeon.com', 'dalecampeon.now.sh'].includes(req.headers.host)) {
       process.env.TENANT = argv.hostname
 
     } else if (argv.hostname === 'dalecacique' ||
       ['dalecacique.com', 'dalecacique.now.sh'].includes(req.headers.host)) {
       process.env.TENANT = argv.hostname
-    }
+    } */
 
     handleNextRequests(req, res)
   })
