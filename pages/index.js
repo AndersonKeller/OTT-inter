@@ -51,7 +51,7 @@ const Home = _ => {
 
         {/* featured */}
         {!user ? (
-          <Featured img="/static/featured/crear.jpg">
+          <Featured img={`${STATIC_PATH}/featured/crear.png`}>
             <Link href="/subscriptor">
               <Button>Probar Gratis</Button>
             </Link>
@@ -68,13 +68,13 @@ const Home = _ => {
 
         {/* podcasts */}
         <CarouselSection title="Podcasts">
-          <Card href="/podcasts" src="/static/cards/podcasts/1.jpg" />
-          <Card href="/podcasts" src="/static/cards/podcasts/2.jpg" />
-          <Card href="/podcasts" src="/static/cards/podcasts/3.jpg" />
-          <Card href="/podcasts" src="/static/cards/podcasts/4.jpg" />
-          <Card href="/podcasts" src="/static/cards/podcasts/5.jpg" />
-          <Card href="/podcasts" src="/static/cards/podcasts/6.jpg" />
-          <Card href="/podcasts" src="/static/cards/podcasts/7.jpg" />
+          <Card href="/podcasts" src={`${STATIC_PATH}/cards/podcasts/1.png`} />
+          <Card href="/podcasts" src={`${STATIC_PATH}/cards/podcasts/2.png`} />
+          <Card href="/podcasts" src={`${STATIC_PATH}/cards/podcasts/3.png`} />
+          <Card href="/podcasts" src={`${STATIC_PATH}/cards/podcasts/4.png`} />
+          <Card href="/podcasts" src={`${STATIC_PATH}/cards/podcasts/5.png`} />
+          <Card href="/podcasts" src={`${STATIC_PATH}/cards/podcasts/6.png`} />
+          <Card href="/podcasts" src={`${STATIC_PATH}/cards/podcasts/7.png`} />
         </CarouselSection>
 
         {/* interviews */}
