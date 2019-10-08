@@ -30,23 +30,23 @@ const Home = _ => {
         {/* platenences */}
         <CarouselSection title={TENANT === 'dalecampeon' ? 'Platences' : 'Albos'}>
           <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/1.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/2.jpg`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/3.jpg`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/4.jpg`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/5.jpg`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/6.jpg`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/7.jpg`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/2.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/3.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/4.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/5.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/6.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/7.png`} />
         </CarouselSection>
 
         {/* arts */}
         <CarouselSection title="Artes">
-          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/1.jpg`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/2.jpg`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/3.jpg`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/4.jpg`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/5.jpg`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/6.jpg`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/7.jpg`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/1.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/2.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/3.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/4.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/5.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/6.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/7.png`} />
         </CarouselSection>
 
         {/* featured */}
