@@ -146,6 +146,7 @@ const Header = (props) => {
       </nav>
       <style jsx>{`
         .header {
+          box-shadow: 0 0 5px rgba(var(--black-rgb), 0);
           color: var(--gray);
           font-family: 'Helvetica', sans-serif;
           /* font-size: 21.5px; */
@@ -154,7 +155,7 @@ const Header = (props) => {
           min-width: 100%;
           padding: 10px 30px 10px 45px;
           position: fixed;
-          transition: background-color .2s;
+          transition: background-color .6s, box-shadow .6s;
           width: 90%;
           z-index: 10;
         }
@@ -163,7 +164,9 @@ const Header = (props) => {
           position: static;
         }
         .header.scrolled {
-          background-color: rgba(0, 0, 0, .57);
+          background-color: rgba(var(--black-rgb), .9);
+          box-shadow: 0 0 5px rgba(var(--black-rgb), .9);
+          transition: background-color .3s, box-shadow .3s;
         }
         .nav {
           display: flex;
