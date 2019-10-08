@@ -137,13 +137,13 @@ const Home = _ => {
 
         {/* family */}
         <CarouselSection title="Familia">
-          <Card href="/videos" src="/static/cards/family/1.png" />
-          <Card href="/videos" src="/static/cards/family/2.png" />
-          <Card href="/videos" src="/static/cards/family/3.png" />
-          <Card href="/videos" src="/static/cards/family/4.png" />
-          <Card href="/videos" src="/static/cards/family/5.png" />
-          <Card href="/videos" src="/static/cards/family/6.png" />
-          <Card href="/videos" src="/static/cards/family/7.png" />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/family/1.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/family/2.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/family/3.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/family/4.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/family/5.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/family/6.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/family/7.png`} />
         </CarouselSection>
 
         {user && (
@@ -157,13 +157,13 @@ const Home = _ => {
 
         {/* children */}
         <CarouselSection title="Niños">
-          <Card href="/videos" src="/static/cards/children/1.png" />
-          <Card href="/videos" src="/static/cards/children/2.png" />
-          <Card href="/videos" src="/static/cards/children/3.png" />
-          <Card href="/videos" src="/static/cards/children/4.png" />
-          <Card href="/videos" src="/static/cards/children/5.png" />
-          <Card href="/videos" src="/static/cards/children/6.png" />
-          <Card href="/videos" src="/static/cards/children/7.png" />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/children/1.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/children/2.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/children/3.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/children/4.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/children/5.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/children/6.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/children/7.png`} />
         </CarouselSection>
 
       </div>
