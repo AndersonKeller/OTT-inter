@@ -153,7 +153,8 @@ const Header = (props) => {
           font-size: 16px;
           font-weight: bold;
           min-width: 100%;
-          padding: 15px 30px 20px 30px;
+          padding: 15px 30px;
+          padding-bottom: 20px;
           position: fixed;
           transition: background-color .6s, box-shadow .6s;
           width: 90%;
@@ -179,11 +180,14 @@ const Header = (props) => {
           display: flex;
           height: auto;
           justify-content: center;
-          margin-top: 0;
+          margin: -10px;
           margin-right: 30px;
-          margin-bottom: 0;
-          height: 55px;
-          width: 110px;
+          height: 75px;
+          width: 130px;
+        }
+        .logo a {
+          display: block;
+          padding: 10px;
         }
         .header.closed .logo {
           margin-right: 0;
@@ -198,17 +202,17 @@ const Header = (props) => {
         .menu {
           display: none;
           justify-content: space-between;
-          margin: 0 auto 0 -15px;
+          margin: 0 auto;
+          margin-left: -15px;
           padding-left: 0;
         }
         .menu li {
           display: flex;
-          padding: 5px 15px;
         }
         @media (min-width: 1367px) {
           .menu li {
-            padding-right: 20px;
-            padding-left: 20px;
+            padding-right: 15px;
+            padding-left: 15px;
           }
         }
         .menu a,
@@ -219,7 +223,7 @@ const Header = (props) => {
           display: block;
           font-size: inherit;
           font-weight: inherit;
-          padding: 0;
+          padding: 5px 10px;
           text-decoration: none;
           transition: color .2s;
         }
