@@ -90,7 +90,7 @@ const Home = _ => {
 
         {/* features */}
         {!user ? (
-          <Featured img="/static/featured/axe.jpg">
+          <Featured img={`${STATIC_PATH}/featured/sponsored-or-generic.png`}>
             <Link href="/subscriptor">
               <Button>Probar Gratis</Button>
             </Link>
@@ -107,13 +107,13 @@ const Home = _ => {
 
         {/* news */}
         <CarouselSection title="Noticias">
-          <Card href="/videos" src="/static/cards/news/1.jpg" />
-          <Card href="/videos" src="/static/cards/news/2.jpg" />
-          <Card href="/videos" src="/static/cards/news/3.jpg" />
-          <Card href="/videos" src="/static/cards/news/4.jpg" />
-          <Card href="/videos" src="/static/cards/news/5.jpg" />
-          <Card href="/videos" src="/static/cards/news/6.jpg" />
-          <Card href="/videos" src="/static/cards/news/7.jpg" />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/news/1.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/news/2.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/news/3.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/news/4.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/news/5.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/news/6.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/news/7.png`} />
         </CarouselSection>
 
         {/* features */}
