@@ -79,13 +79,13 @@ const Home = _ => {
 
         {/* interviews */}
         <CarouselSection title="Entrevistas">
-          <Card href="/entrevistas" src="/static/cards/interviews/1.jpg" />
-          <Card href="/entrevistas" src="/static/cards/interviews/2.jpg" />
-          <Card href="/entrevistas" src="/static/cards/interviews/3.jpg" />
-          <Card href="/entrevistas" src="/static/cards/interviews/4.jpg" />
-          <Card href="/entrevistas" src="/static/cards/interviews/5.jpg" />
-          <Card href="/entrevistas" src="/static/cards/interviews/6.jpg" />
-          <Card href="/entrevistas" src="/static/cards/interviews/7.jpg" />
+          <Card href="/entrevistas" src={`${STATIC_PATH}/cards/interviews/1.png`} />
+          <Card href="/entrevistas" src={`${STATIC_PATH}/cards/interviews/2.png`} />
+          <Card href="/entrevistas" src={`${STATIC_PATH}/cards/interviews/3.png`} />
+          <Card href="/entrevistas" src={`${STATIC_PATH}/cards/interviews/4.png`} />
+          <Card href="/entrevistas" src={`${STATIC_PATH}/cards/interviews/5.png`} />
+          <Card href="/entrevistas" src={`${STATIC_PATH}/cards/interviews/6.png`} />
+          <Card href="/entrevistas" src={`${STATIC_PATH}/cards/interviews/7.png`} />
         </CarouselSection>
 
         {/* features */}
