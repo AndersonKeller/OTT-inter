@@ -118,7 +118,7 @@ const Home = _ => {
 
         {/* features */}
         {!user ? (
-          <Featured img="/static/featured/sorteos.png">
+          <Featured img={`${STATIC_PATH}/featured/sorteos.png`}>
             <Link href="/subscriptor">
               <Button>Probar Gratis</Button>
             </Link>
