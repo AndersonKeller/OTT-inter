@@ -69,7 +69,7 @@ const Header = (props) => {
         {/* logo */}
         <h1 className="logo">
           <ActiveLink href="/">
-            <a><img alt={APP_NAME} className="img-fluid" height="44" src={`${STATIC_PATH}/logos/dale.svg`} width="90" /></a>
+            <a><img alt={APP_NAME} className="img-fluid" src={`${STATIC_PATH}/logos/dale.svg`} /></a>
           </ActiveLink>
         </h1>
 
@@ -78,7 +78,7 @@ const Header = (props) => {
 
             {/* club logo */}
             <div className="club-logo">
-              <img alt="by River Plate" height="44" src={`${STATIC_PATH}/logos/club.svg`} width="35" />
+              <img alt="by River Plate" className="img-fluid" src={`${STATIC_PATH}/logos/club.svg`} />
             </div>
 
             {/* menu */}
@@ -153,7 +153,7 @@ const Header = (props) => {
           font-size: 16px;
           font-weight: bold;
           min-width: 100%;
-          padding: 10px 30px 10px 45px;
+          padding: 15px 30px 20px 30px;
           position: fixed;
           transition: background-color .6s, box-shadow .6s;
           width: 90%;
@@ -176,18 +176,24 @@ const Header = (props) => {
           justify-content: center;
         }
         .logo {
+          display: flex;
           height: auto;
+          justify-content: center;
           margin-top: 0;
           margin-right: 30px;
           margin-bottom: 0;
-          min-height: 44px;
-          width: 90px;
+          height: 55px;
+          width: 110px;
         }
         .header.closed .logo {
           margin-right: 0;
         }
         .club-logo {
+          display: flex;
+          height: 45px;
+          justify-content: center;
           margin-right: 30px;
+          width: 45px;
         }
         .menu {
           display: none;
