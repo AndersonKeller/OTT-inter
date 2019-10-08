@@ -10,11 +10,12 @@ import Featured from '../components/featured'
 import Layout from '../components/layout/Layout'
 import MiLista from '../components/mi-lista'
 import UserContext from '../components/UserContext'
-import { APP_NAME, STATIC_SUFFIX } from '../constants/constants'
+import { APP_NAME, STATIC_PATH, TENANT } from '../constants/constants'
 
 const Home = _ => {
 
   const { user } = useContext(UserContext)
+  const supportersSlug = TENANT === 'dalecampeon' ? 'platences' : 'albos'
 
   return (
     <Layout paddingTop={false}>
@@ -27,25 +28,25 @@ const Home = _ => {
         <Cover />
 
         {/* platenences */}
-        <CarouselSection title="Platences">
-          <Card href="/videos" src="/static/cards/platenences/1.png" />
-          <Card href="/videos" src="/static/cards/platenences/2.jpg" />
-          <Card href="/videos" src="/static/cards/platenences/3.jpg" />
-          <Card href="/videos" src="/static/cards/platenences/4.jpg" />
-          <Card href="/videos" src="/static/cards/platenences/5.jpg" />
-          <Card href="/videos" src="/static/cards/platenences/6.jpg" />
-          <Card href="/videos" src="/static/cards/platenences/7.jpg" />
+        <CarouselSection title={TENANT === 'dalecampeon' ? 'Platences' : 'Albos'}>
+          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/1.png`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/2.jpg`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/3.jpg`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/4.jpg`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/5.jpg`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/6.jpg`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/7.jpg`} />
         </CarouselSection>
 
         {/* arts */}
         <CarouselSection title="Artes">
-          <Card href="/videos" src="/static/cards/arts/1.jpg" />
-          <Card href="/videos" src="/static/cards/arts/2.jpg" />
-          <Card href="/videos" src="/static/cards/arts/3.jpg" />
-          <Card href="/videos" src="/static/cards/arts/4.jpg" />
-          <Card href="/videos" src="/static/cards/arts/5.jpg" />
-          <Card href="/videos" src="/static/cards/arts/6.jpg" />
-          <Card href="/videos" src="/static/cards/arts/7.jpg" />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/1.jpg`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/2.jpg`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/3.jpg`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/4.jpg`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/5.jpg`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/6.jpg`} />
+          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/7.jpg`} />
         </CarouselSection>
 
         {/* featured */}
@@ -221,7 +222,7 @@ const Cover = _ => {
       <style jsx>{`
         .cover {
           align-items: center;
-          background-image: url(/static/${STATIC_SUFFIX}/cover.png);
+          background-image: url(${STATIC_PATH}/cover.png);
           background-position: 50% 50%;
           background-repeat: no-repeat;
           background-size: cover;
