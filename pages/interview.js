@@ -7,13 +7,13 @@ import LikeNCommentsBtns from '../components/like-n-comments-btns'
 import MediaDescription from '../components/media-description'
 import MoreContentCarousel from '../components/more-content-carousel'
 import SocialShareBtns from '../components/social-share-btns'
-import { APP_NAME } from '../constants/constants'
+import { CONFIG } from '../config'
 
 export default function InterviewPage() {
   const media = {
     title: 'Mano a mano con Javier Pinola',
     year: '2019',
-    description: `El jugador del Más Grande habló de su carrera en una entrevista exclusiva con ${APP_NAME}.`,
+    description: `El jugador del Más Grande habló de su carrera en una entrevista exclusiva con ${CONFIG.appName}.`,
   }
   const moreContent = [
     '/static/interview/more/1.png',
@@ -27,7 +27,7 @@ export default function InterviewPage() {
   return (
     <Layout>
       <Head>
-        <title>Entrevista &lt; {APP_NAME}</title>
+        <title>Entrevista &lt; {CONFIG.appName}</title>
       </Head>
       <div className="container-fluid">
         <div className="row align-items-center">
@@ -88,7 +88,7 @@ function MoreInterviewCards() {
     {
       img: '/static/interviews/thumb2.png',
       title: 'Mano a mano con Javier Pinola',
-      text: `El jugador del Más Grande habló de su carrera en una entrevista exclusiva con ${APP_NAME}.`,
+      text: `El jugador del Más Grande habló de su carrera en una entrevista exclusiva con ${CONFIG.appName}.`,
     },
     {
       img: '/static/interviews/thumb3.png',

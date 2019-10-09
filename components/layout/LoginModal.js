@@ -3,7 +3,8 @@ import { useEffect, useRef } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import ReactSVG from 'react-svg'
 import Button from '../button'
-import { APP_NAME, STATIC_PATH } from '../../constants/constants'
+import { STATIC_PATH } from '../../constants/constants'
+import { CONFIG } from '../../config'
 
 const FormGroup = (props) => {
   return (
@@ -87,12 +88,12 @@ export default (props) => {
           <button className="close" onClick={props.handleClose} type="button">
             <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23" />
           </button>
-          <img alt={APP_NAME} height="64" src={`${STATIC_PATH}/logos/dale.svg`} width="131" />
+          <img alt={CONFIG.appName} height="64" src={`${STATIC_PATH}/logos/dale.svg`} width="131" />
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="intro-text">
-          <p>Una sola cuenta para todos los productos RIVER PLATE</p>
+          <p>Una sola cuenta para todos los productos <span className="text-uppercase">{CONFIG.clubName}</span></p>
         </div>
         <form method="post">
           <FormGroup>

@@ -6,11 +6,11 @@ import LikeNCommentsBtns from '../components/like-n-comments-btns'
 import MediaDescription from '../components/media-description'
 import MoreContentCarousel from '../components/more-content-carousel'
 import SocialShareBtns from '../components/social-share-btns'
-import { APP_NAME } from '../constants/constants'
+import { CONFIG } from '../config'
 
 export default function PodcastsPage() {
   const media = {
-    title: '¡River Plate celebra su cuarta Copa Libertadores!',
+    title: `¡${CONFIG.clubName} celebra su cuarta Copa Libertadores!`,
     year: 'PODCAST # 10 - 2018',
     description: 'El papel de los jugadores y más en nuestro análisis de la gran final.',
   }
@@ -26,7 +26,7 @@ export default function PodcastsPage() {
   return (
     <Layout>
       <Head>
-        <title>Podcasts &lt; {APP_NAME}</title>
+        <title>Podcasts &lt; {CONFIG.appName}</title>
       </Head>
       <div className="container-fluid">
         <div className="row">

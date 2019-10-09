@@ -6,13 +6,13 @@ import LikeNCommentsBtns from '../components/like-n-comments-btns'
 import MediaDescription from '../components/media-description'
 import MoreContentCarousel from '../components/more-content-carousel'
 import SocialShareBtns from '../components/social-share-btns'
-import { APP_NAME } from '../constants/constants'
+import { CONFIG } from '../config'
 
 export default function VideosPage() {
   const media = {
-    title: 'Una noche en el Museo River. #117AñosDeHistoria',
+    title: `Una noche en el Museo ${CONFIG.shortClubName}. #117AñosDeHistoria`,
     year: '2018',
-    description: 'El Club Más Grande por su gente. El Club Más Grande por sus ídolos. El Club Más Grande por su gloria. ¡Feliz cumpleaños, River!',
+    description: `El Club Más Grande por su gente. El Club Más Grande por sus ídolos. El Club Más Grande por su gloria. ¡Feliz cumpleaños, ${CONFIG.shortClubName}!`,
   }
   const moreContent = [
     '/static/videos/more/1.png',
@@ -26,7 +26,7 @@ export default function VideosPage() {
   return (
     <Layout>
       <Head>
-        <title>Videos &lt; {APP_NAME}</title>
+        <title>Videos &lt; {CONFIG.appName}</title>
       </Head>
       <div className="container-fluid">
         <div className="row">

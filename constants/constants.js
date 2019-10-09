@@ -1,14 +1,15 @@
-if ( ! process.env.APP_NAME) {
-  throw new Error("App name undefined")
-}
-const APP_NAME = process.env.APP_NAME
-
+// @ts-check
 if ( ! process.env.TENANT) {
   throw new Error("Tenant undefined")
 }
-const TENANT = process.env.TENANT
-const STATIC_PATH = `/static/${TENANT}`
-const GRAY3 = '#333'
-const ONLINE = process.env.NODE_ENV === 'production'
 
-export { APP_NAME, GRAY3, ONLINE, STATIC_PATH, TENANT }
+/**
+ * @constant
+ * @type {string}
+ * @returns {string} "dalecampeon", "dalecacique" etc.
+ */
+export const TENANT = process.env.TENANT
+
+export const STATIC_PATH = `/static/${TENANT}`
+export const GRAY3 = '#333'
+export const ONLINE = process.env.NODE_ENV === 'production'

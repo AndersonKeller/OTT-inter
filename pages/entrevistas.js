@@ -3,7 +3,7 @@ import Link from 'next/link'
 import shuffle from 'shuffle-array'
 
 import Layout from '../components/layout/Layout'
-import { APP_NAME } from '../constants/constants'
+import { CONFIG } from '../config'
 
 export default function Entrevistas() {
   let interviews = [
@@ -20,7 +20,7 @@ export default function Entrevistas() {
   return (
     <Layout>
       <Head>
-        <title>Entrevistas &lt; {APP_NAME}</title>
+        <title>Entrevistas &lt; {CONFIG.appName}</title>
       </Head>
       <div className="container-fluid">
         <div className="row">

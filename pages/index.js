@@ -10,7 +10,8 @@ import Featured from '../components/featured'
 import Layout from '../components/layout/Layout'
 import MiLista from '../components/mi-lista'
 import UserContext from '../components/UserContext'
-import { APP_NAME, STATIC_PATH, TENANT } from '../constants/constants'
+import { STATIC_PATH, TENANT } from '../constants/constants'
+import { CONFIG } from '../config'
 
 const Home = _ => {
 
@@ -20,7 +21,7 @@ const Home = _ => {
   return (
     <Layout paddingTop={false}>
       <Head>
-        <title>{APP_NAME}</title>
+        <title>{CONFIG.appName}</title>
       </Head>
       <div className="index">
 

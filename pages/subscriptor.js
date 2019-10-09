@@ -2,7 +2,8 @@ import Layout from '../components/layout/Layout'
 import Head from 'next/head'
 import H2 from '../components/h2'
 import Button from '../components/button'
-import { STATIC_PATH, APP_NAME } from '../constants/constants'
+import { STATIC_PATH } from '../constants/constants'
+import { CONFIG } from '../config'
 
 const SubscriptorSectionText = (props) => {
   return (
@@ -49,7 +50,7 @@ const Prices = (props) => {
     <section className="prices text-center container-fluid">
       <header>
         <H2>¡Sin límites! Sólo el suscriptor da un juego  n absoluto.</H2>
-        <p>Comience ahora sus días gratis y aproveche todas las ventajas de ser un suscriptor de {APP_NAME}.</p>
+        <p>Comience ahora sus días gratis y aproveche todas las ventajas de ser un suscriptor de {CONFIG.appName}.</p>
       </header>
       <div className="cards">
         <div className="row justify-content-center gutter-15">
@@ -237,11 +238,11 @@ const Section1 = () => {
           <div className="section1__content">
             <div className="row">
               <div className="col-4 col-md-6">
-                <img className="section1__logo img-fluid" src={`${STATIC_PATH}/logos/club.svg`} width="170" height="212" alt="River Logo" />
+                <img className="section1__logo img-fluid" src={`${STATIC_PATH}/logos/club.svg`} width="170" height="212" alt={`${CONFIG.clubName} Logo`} />
               </div>
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
-            <p className="text-uppercase">Club Atlético River Plate te da la bienvenida a la plataforma de contenidos del más grande</p>
+            <p className="text-uppercase">{CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos del más grande</p>
             <p>Todo por $ 99 pesos mensuales.</p>
           </div>
         </div>
@@ -335,7 +336,7 @@ export default function Subscriptor() {
   return (
     <Layout header="closed">
       <Head>
-        <title>Subscriptor &lt; {APP_NAME}</title>
+        <title>Subscriptor &lt; {CONFIG.appName}</title>
       </Head>
       <div className="subscriptor">
 
@@ -351,7 +352,7 @@ export default function Subscriptor() {
           imgWidth="870"
         >
           <H2>
-            Franco Armani en <span className="text-uppercase">{APP_NAME}</span>!
+            Franco Armani en <span className="text-uppercase">{CONFIG.appName}</span>!
           </H2>
           <SubscriptorSectionText>
             <p>Vea dónde y cuando quiera, incluso 24 horas antes de pasar a la TV</p>

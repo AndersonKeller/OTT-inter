@@ -3,11 +3,12 @@ import Color from 'color'
 import React, { useContext, useEffect, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 
-import { APP_NAME, GRAY3, STATIC_PATH } from '../../constants/constants'
+import { GRAY3, STATIC_PATH } from '../../constants/constants'
 import ActiveLink from '../ActiveLink'
 import UserContext from '../UserContext'
 import Chevron from '../icons/chevron'
 import UserMenu from './UserMenu'
+import { CONFIG } from '../../config'
 
 const Header = (props) => {
 
@@ -69,7 +70,7 @@ const Header = (props) => {
         {/* logo */}
         <h1 className="logo">
           <ActiveLink href="/">
-            <a><img alt={APP_NAME} className="img-fluid" src={`${STATIC_PATH}/logos/dale.svg`} /></a>
+            <a><img alt={CONFIG.appName} className="img-fluid" src={`${STATIC_PATH}/logos/dale.svg`} /></a>
           </ActiveLink>
         </h1>
 
@@ -78,7 +79,7 @@ const Header = (props) => {
 
             {/* club logo */}
             <div className="club-logo">
-              <img alt="by River Plate" className="img-fluid" src={`${STATIC_PATH}/logos/club.svg`} />
+              <img alt={`by ${CONFIG.clubName}`} className="img-fluid" src={`${STATIC_PATH}/logos/club.svg`} />
             </div>
 
             {/* menu */}

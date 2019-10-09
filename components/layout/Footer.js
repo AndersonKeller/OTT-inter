@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { APP_NAME } from '../../constants/constants'
+import { CONFIG } from '../../config'
 
 export default _ => {
   return (
@@ -9,7 +9,7 @@ export default _ => {
           <div className="col-12 col-lg-8 offset-lg-2">
             <div className="row">
               <div className="col-12 col-md-9 text-md-left">
-                <p>{APP_NAME} @ 2019 <a href="//www.somosgad.com/" target="_blank">GAD_</a> - Todos los direichos reservados - <Link href="/politica-de-privacidad"><a>Política de Privacidad</a></Link></p>
+                <p>{CONFIG.appName} @ 2019 <a href="//www.somosgad.com/" target="_blank">GAD_</a> - Todos los direichos reservados - <Link href="/politica-de-privacidad"><a>Política de Privacidad</a></Link></p>
               </div>
               <div className="col-12 col-md-3 text-md-right">
                 <p><Link href="/terminos-y-politicas"><a>Términos y políticas</a></Link></p>
