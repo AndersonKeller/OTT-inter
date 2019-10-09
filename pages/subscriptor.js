@@ -5,6 +5,98 @@ import Button from '../components/button'
 import { STATIC_PATH } from '../constants/constants'
 import { CONFIG } from '../config'
 
+export default function Subscriptor() {
+  return (
+    <Layout header="closed">
+      <Head>
+        <title>Subscriptor &lt; {CONFIG.appName}</title>
+      </Head>
+      <div className="subscriptor">
+
+        {/* section 1 */}
+        <Section1 />
+
+        {/* section 2 */}
+        <SubscriptorSection
+          direction="right"
+          gradientSrc="/static/subscriptor/section2-gradient.png"
+          imgAlt="Franco Armani con un trofeo"
+          imgHeight="560"
+          imgSrc="/static/subscriptor/section2-img.png"
+          imgWidth="870"
+        >
+          <H2>
+            Franco Armani en <span className="text-uppercase">{CONFIG.appName}</span>!
+          </H2>
+          <SubscriptorSectionText>
+            <p>Vea dónde y cuando quiera, incluso 24 horas antes de pasar a la TV</p>
+          </SubscriptorSectionText>
+          <Button>Probá Gratis</Button>
+        </SubscriptorSection>
+
+        {/* section 3 */}
+        <SubscriptorSection
+          direction="left"
+          gradientSrc="/static/subscriptor/section3-gradient.png"
+          imgAlt=""
+          imgHeight="560"
+          imgSrc="/static/subscriptor/section3-img.png"
+          imgWidth="840"
+        >
+          <H2>
+            El mejor contenido
+          </H2>
+          <SubscriptorSectionText>
+            <p>Sucesos como The Handmaid's Tale y clásicos, como Dexter y House</p>
+          </SubscriptorSectionText>
+        </SubscriptorSection>
+
+        {/* section 4 */}
+        <SubscriptorSection
+          direction="right"
+          gradientSrc="/static/subscriptor/section4-gradient.png"
+          imgAlt=""
+          imgHeight="560"
+          imgSrc="/static/subscriptor/section4-img.png"
+          imgWidth="870"
+        >
+          <H2>
+            Lleve Dále Campeón
+          </H2>
+          <SubscriptorSectionText>
+            <p>Descarga tu contenido favorita y mira sin conexión, sin gastar internet</p>
+          </SubscriptorSectionText>
+        </SubscriptorSection>
+
+        {/* section 5 */}
+        <SubscriptorSection
+          direction="left"
+          gradientSrc="/static/subscriptor/section5-gradient.png"
+          imgAlt=""
+          imgHeight="560"
+          imgSrc="/static/subscriptor/section5-img.png"
+          imgWidth="870"
+        >
+          <H2>
+            Sin compromiso
+          </H2>
+          <SubscriptorSectionText>
+            <p>¿No quiero mas? Usted cancela cuando quiera: en línea y con un clic</p>
+          </SubscriptorSectionText>
+        </SubscriptorSection>
+
+        <Prices />
+
+      </div>
+      <style jsx>{`
+        .subscriptor {
+          line-height: 1.5;
+        }
+      `}</style>
+    </Layout>
+  );
+}
+
 const SubscriptorSectionText = (props) => {
   return (
     <div className="subscriptor-section-text">
@@ -271,7 +363,7 @@ const Section1 = () => {
         }
         .section1::before {
           animation: sliding 200s linear infinite normal;
-          background-image: url(/static/subscriptor/featured-background.png);
+          background-image: url(${STATIC_PATH}/subscriptor/featured-background.png);
           background-position: 50% 0;
           background-size: 1310px 100%;
           content: '';
@@ -330,153 +422,4 @@ const Section1 = () => {
       `}</style>
     </div>
   )
-}
-
-export default function Subscriptor() {
-  return (
-    <Layout header="closed">
-      <Head>
-        <title>Subscriptor &lt; {CONFIG.appName}</title>
-      </Head>
-      <div className="subscriptor">
-
-        <Section1 />
-
-        {/* section 2 */}
-        <SubscriptorSection
-          direction="right"
-          gradientSrc="/static/subscriptor/section2-gradient.png"
-          imgAlt="Franco Armani con un trofeo"
-          imgHeight="560"
-          imgSrc="/static/subscriptor/section2-img.png"
-          imgWidth="870"
-        >
-          <H2>
-            Franco Armani en <span className="text-uppercase">{CONFIG.appName}</span>!
-          </H2>
-          <SubscriptorSectionText>
-            <p>Vea dónde y cuando quiera, incluso 24 horas antes de pasar a la TV</p>
-          </SubscriptorSectionText>
-          <Button>Probá Gratis</Button>
-        </SubscriptorSection>
-
-        {/* section 3 */}
-        <SubscriptorSection
-          direction="left"
-          gradientSrc="/static/subscriptor/section3-gradient.png"
-          imgAlt=""
-          imgHeight="560"
-          imgSrc="/static/subscriptor/section3-img.png"
-          imgWidth="840"
-        >
-          <H2>
-            El mejor contenido
-          </H2>
-          <SubscriptorSectionText>
-            <p>Sucesos como The Handmaid's Tale y clásicos, como Dexter y House</p>
-          </SubscriptorSectionText>
-        </SubscriptorSection>
-
-        {/* section 4 */}
-        <SubscriptorSection
-          direction="right"
-          gradientSrc="/static/subscriptor/section4-gradient.png"
-          imgAlt=""
-          imgHeight="560"
-          imgSrc="/static/subscriptor/section4-img.png"
-          imgWidth="870"
-        >
-          <H2>
-            Lleve Dále Campeón
-          </H2>
-          <SubscriptorSectionText>
-            <p>Descarga tu contenido favorita y mira sin conexión, sin gastar internet</p>
-          </SubscriptorSectionText>
-        </SubscriptorSection>
-
-        {/* section 5 */}
-        <SubscriptorSection
-          direction="left"
-          gradientSrc="/static/subscriptor/section5-gradient.png"
-          imgAlt=""
-          imgHeight="560"
-          imgSrc="/static/subscriptor/section5-img.png"
-          imgWidth="870"
-        >
-          <H2>
-            Sin compromiso
-          </H2>
-          <SubscriptorSectionText>
-            <p>¿No quiero mas? Usted cancela cuando quiera: en línea y con un clic</p>
-          </SubscriptorSectionText>
-        </SubscriptorSection>
-
-        <Prices />
-
-      </div>
-      <style jsx>{`
-        @keyframes sliding {
-          0% {
-            transform: translateX(0)
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        .subscriptor {
-          line-height: 1.5;
-        }
-        .section1 {
-          display: flex;
-          height: 740px;
-          line-height: 1.5;
-          margin-bottom: 15px;
-          overflow: hidden;
-          padding-top: 95px;
-          position: relative;
-          z-index: 1;
-        }
-        .section1::before {
-          animation: sliding 200s linear infinite normal;
-          background-image: url(/static/subscriptor/featured-background.png);
-          background-position: 50% 0;
-          background-size: 1310px 100%;
-          content: '';
-          display: block;
-          height: 100%;
-          left: 0;
-          position: absolute;
-          top: 0;
-          width: 13100px;
-          z-index: -2;
-        }
-        .section1::after {
-          background-image: url(/static/subscriptor/featured-gradient.png);
-          background-position: 50% 0;
-          background-size: cover;
-          bottom: 0;
-          content: '';
-          display: block;
-          left: 0;
-          position: absolute;
-          right: 0;
-          top: 0;
-          z-index: -1;
-        }
-        .section1 > .row {
-          width: calc(100% + 30px)
-        }
-        .section1__logo {
-          margin-bottom: 45px;
-          margin-left: 35px;
-        }
-        .section1__content :global(.section1__title) {
-          margin-bottom: 10px;
-        }
-        .section1__content p {
-          margin-bottom: 5px;
-        }
-      `}</style>
-    </Layout>
-  );
 }
