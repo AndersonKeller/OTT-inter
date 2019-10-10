@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { GRAY3, ONLINE } from '../../constants/constants'
 import Header from './Header'
 import Footer from './Footer'
+import { CONFIG } from '../../config'
 
 const Layout = props => {
   var paddingTop
@@ -63,7 +64,7 @@ const Layout = props => {
           --dark-gray3:   #1a1a1a;
           --black:        #000;
           --black-rgb:    0, 0, 0;
-          --red:          #ff0000;
+          --red:          ${CONFIG.color};
           --dark-red:     #e50000;
           --gray4:        #666;
 

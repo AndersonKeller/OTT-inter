@@ -4,13 +4,15 @@
     "clubName": "Colo-Colo",
     "fullClubName": "Club Social y Deportivo Colo-Colo",
     "shortClubName": "Colo-Colo",
-    "supportersAKA": "Albos"
+    "supportersAKA": "Albos",
+    "color": "#e12213"
   },
   "dalecampeon": {
     "appName": "Dale Campeón",
     "clubName": "River Plate",
     "fullClubName": "Club Atlético River Plate",
     "shortClubName": "River",
-    "supportersAKA": "Platences"
+    "supportersAKA": "Platences",
+    "color": "#ff0000"
   }
 }
