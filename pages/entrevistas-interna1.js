@@ -35,12 +35,11 @@ const Cover = _ => (
     <style jsx>{`
       .cover {
         background-color: #0a0b11;
-        background-position: 50% 50%, 97.5% 50%;
+        background-position: 50% 50%, 100% 50%;
         background-repeat: no-repeat, no-repeat;
         background-size: cover, contain;
         font-size: 20px;
         line-height: 1.5;
-        margin-bottom: 70px;
       }
       .cover .row {
         padding-top: calc(var(--padding-top) + 15px);
