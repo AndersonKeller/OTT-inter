@@ -17,7 +17,7 @@ const Header = (props) => {
     { label: 'Home', href: '/' },
     { label: 'Videos', href: '/media-inside-2-public' },
     { label: 'Podcasts', href: '/podcasts' },
-    { label: 'Entrevistas', href: '/entrevistas' },
+    { label: 'Entrevistas', href: '/c/[slug]', as: '/c/entrevistas' },
     { label: 'Fotos', href: '/c/[slug]', as: '/c/fotos', visibility: 'publicOnly' },
     { label: 'Sorteos', href: '/c/[slug]', as: '/c/sorteos', visibility: 'publicOnly' },
     {

@@ -79,13 +79,13 @@ const Home = _ => {
 
         {/* interviews */}
         <CarouselSection title="Entrevistas">
-          <Card href="/entrevistas" src={`${STATIC_PATH}/cards/interviews/1.png`} />
-          <Card href="/entrevistas" src={`${STATIC_PATH}/cards/interviews/2.png`} />
-          <Card href="/entrevistas" src={`${STATIC_PATH}/cards/interviews/3.png`} />
-          <Card href="/entrevistas" src={`${STATIC_PATH}/cards/interviews/4.png`} />
-          <Card href="/entrevistas" src={`${STATIC_PATH}/cards/interviews/5.png`} />
-          <Card href="/entrevistas" src={`${STATIC_PATH}/cards/interviews/6.png`} />
-          <Card href="/entrevistas" src={`${STATIC_PATH}/cards/interviews/7.png`} />
+          <Card as="/c/entrevistas" href="/c/[slug]" src={`${STATIC_PATH}/cards/interviews/1.png`} />
+          <Card as="/c/entrevistas" href="/c/[slug]" src={`${STATIC_PATH}/cards/interviews/2.png`} />
+          <Card as="/c/entrevistas" href="/c/[slug]" src={`${STATIC_PATH}/cards/interviews/3.png`} />
+          <Card as="/c/entrevistas" href="/c/[slug]" src={`${STATIC_PATH}/cards/interviews/4.png`} />
+          <Card as="/c/entrevistas" href="/c/[slug]" src={`${STATIC_PATH}/cards/interviews/5.png`} />
+          <Card as="/c/entrevistas" href="/c/[slug]" src={`${STATIC_PATH}/cards/interviews/6.png`} />
+          <Card as="/c/entrevistas" href="/c/[slug]" src={`${STATIC_PATH}/cards/interviews/7.png`} />
         </CarouselSection>
 
         {/* features */}
@@ -203,13 +203,13 @@ const Cover = _ => {
                   <Link href="/subscriptor">
                     <Button>Probar Gratis</Button>
                   </Link>
-                  <Link href="/entrevistas">
+                  <Link as="/c/entrevistas" href="/c/[slug]">
                     <Button color="secondary" outline>Ver más</Button>
                   </Link>
                 </>
               ) : (
                 <>
-                  <Link href="/entrevistas">
+                  <Link as="/c/entrevistas" href="/c/[slug]">
                     <Button>Ver más</Button>
                   </Link>
                   <MiLista />

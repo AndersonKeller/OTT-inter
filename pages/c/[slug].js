@@ -7,6 +7,7 @@ import shuffle from 'shuffle-array'
 
 import Layout from '../../components/layout/Layout'
 import { CONFIG } from '../../config'
+import { STATIC_PATH } from '../../constants/constants'
 
 const Category = ({ errorCode, ...props }) => {
   if (errorCode) {
@@ -29,7 +30,7 @@ const Category = ({ errorCode, ...props }) => {
                 <div className="col-2" key={index}>
                   <Link href="/media-inside-1">
                     <a className="media-card text-center">
-                      <img className="img-fluid" src={`/static/cards/interviews/${media.id}.jpg`} />
+                      <img className="img-fluid" src={`${STATIC_PATH}/cards/interviews/${media.id}.png`} />
                       <div className="media-card-label">{media.label}</div>
                     </a>
                   </Link>
@@ -102,6 +103,7 @@ Category.getInitialProps = async (context) => {
   medias = shuffle(medias)
   for (let i = 0; i < 3; i++) medias = [...medias, ...medias];
   const titles = {
+    'entrevistas': 'Entrevistas',
     'fotos': 'Fotos',
     'sorteos': 'Sorteos',
   }
