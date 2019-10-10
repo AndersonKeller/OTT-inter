@@ -27,7 +27,7 @@ const Category = ({ errorCode, ...props }) => {
             <div className="media-cards row gutter-15">
               { props.medias.map((media, index) => (
                 <div className="col-2" key={index}>
-                  <Link href="/entrevistas-interna1">
+                  <Link href="/media-inside-1">
                     <a className="media-card text-center">
                       <img className="img-fluid" src={`/static/cards/interviews/${media.id}.jpg`} />
                       <div className="media-card-label">{media.label}</div>

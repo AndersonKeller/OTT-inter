@@ -31,7 +31,7 @@ export default function Entrevistas() {
             <div className="interview-cards row gutter-15">
               { interviews.map((text, index) => (
                 <div className="col-2" key={index}>
-                  <Link href="/entrevistas-interna1">
+                  <Link href="/media-inside-1">
                     <a className="interview-card text-center">
                       <img className="img-fluid" src={`/static/cards/interviews/${index % 7 + 1}.jpg`} />
                       <div className="interview-card-label">{text}</div>
