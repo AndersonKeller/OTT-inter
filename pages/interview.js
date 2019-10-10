@@ -54,7 +54,7 @@ export default function InterviewPage() {
       </div>
       <MoreContentCarousel
         content={moreContent}
-        title="Platences"
+        title={CONFIG.supportersAKA}
         variant="interview"
       />
       <CommentSection />

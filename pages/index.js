@@ -16,7 +16,6 @@ import { CONFIG } from '../config'
 const Home = _ => {
 
   const { user } = useContext(UserContext)
-  const supportersSlug = TENANT === 'dalecampeon' ? 'platences' : 'albos'
 
   return (
     <Layout paddingTop={false}>
@@ -29,14 +28,14 @@ const Home = _ => {
         <Cover />
 
         {/* platenences */}
-        <CarouselSection title={TENANT === 'dalecampeon' ? 'Platences' : 'Albos'}>
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/${supportersSlug}/1.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/${supportersSlug}/2.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/${supportersSlug}/3.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/${supportersSlug}/4.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/${supportersSlug}/5.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/${supportersSlug}/6.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/${supportersSlug}/7.png`} />
+        <CarouselSection title={CONFIG.supportersAKA}>
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/supporters/1.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/supporters/2.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/supporters/3.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/supporters/4.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/supporters/5.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/supporters/6.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/supporters/7.png`} />
         </CarouselSection>
 
         {/* arts */}

@@ -10,7 +10,8 @@ import tenantsConfigs from './config.json'
  * @property {string} appName - the Dale's app name.
  * @property {string} clubName - the club's name.
  * @property {string} fullClubName - the full club's name / registered etc.
- * @property {string} shortClubName - the club's nickname or short name
+ * @property {string} shortClubName - the club's nickname or short name.
+ * @property {string} supportersAKA - how the supporters are called.
  */
 /** @type {AppsConfig} */
 export const CONFIG = tenantsConfigs[TENANT]
