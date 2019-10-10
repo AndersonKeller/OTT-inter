@@ -58,7 +58,7 @@ const Home = _ => {
             <Button color="secondary" outline>Compra aquí</Button>
           </Featured>
         ) : (
-          <Featured img="/static/logged-banner1.png">
+          <Featured img={`${STATIC_PATH}/logged-banner1.png`}>
             <Link href="/media-inside-2-public">
               <Button>Ver más</Button>
             </Link>
@@ -97,7 +97,7 @@ const Home = _ => {
             <Button color="secondary" outline>Descubri más</Button>
           </Featured>
         ) : (
-          <Featured img="/static/logged-banner2.png">
+          <Featured img={`${STATIC_PATH}/logged-banner2.png`}>
             <Link href="/media-inside-2-public">
               <Button>Ver más</Button>
             </Link>
@@ -127,7 +127,7 @@ const Home = _ => {
             </Link>
           </Featured>
         ) : (
-          <Featured img="/static/logged-banner3.png">
+          <Featured img={`${STATIC_PATH}/logged-banner3.png`}>
             <Link href="/media-inside-2-public">
               <Button>Ver más</Button>
             </Link>
@@ -147,7 +147,7 @@ const Home = _ => {
         </CarouselSection>
 
         {user && (
-          <Featured img="/static/logged-banner4.png">
+          <Featured img={`${STATIC_PATH}/logged-banner4.png`}>
             <Link href="/media-inside-2-public">
               <Button>Ver más</Button>
             </Link>
