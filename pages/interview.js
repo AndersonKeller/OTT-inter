@@ -8,6 +8,7 @@ import MediaDescription from '../components/media-description'
 import MoreContentCarousel from '../components/more-content-carousel'
 import SocialShareBtns from '../components/social-share-btns'
 import { CONFIG } from '../config'
+import { STATIC_PATH } from '../constants/constants'
 
 export default function InterviewPage() {
   const media = {
@@ -16,13 +17,13 @@ export default function InterviewPage() {
     description: `El jugador del Más Grande habló de su carrera en una entrevista exclusiva con ${CONFIG.appName}.`,
   }
   const moreContent = [
-    '/static/interview/more/1.png',
-    '/static/interview/more/2.png',
-    '/static/interview/more/3.png',
-    '/static/interview/more/4.png',
-    '/static/interview/more/5.png',
-    '/static/interview/more/6.png',
-    '/static/interview/more/7.png',
+    `${STATIC_PATH}/cards/interviews/8.png`,
+    `${STATIC_PATH}/cards/interviews/9.png`,
+    `${STATIC_PATH}/cards/interviews/10.png`,
+    `${STATIC_PATH}/cards/interviews/11.png`,
+    `${STATIC_PATH}/cards/interviews/12.png`,
+    `${STATIC_PATH}/cards/interviews/13.png`,
+    `${STATIC_PATH}/cards/interviews/14.png`,
   ]
   return (
     <Layout>

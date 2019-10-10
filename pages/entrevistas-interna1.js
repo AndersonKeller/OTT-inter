@@ -5,15 +5,26 @@ import Button from '../components/button'
 import Layout from '../components/layout/Layout'
 import MiLista from '../components/mi-lista'
 import { CONFIG } from '../config'
+import { TENANT, STATIC_PATH } from '../constants/constants'
 
 const Cover = _ => (
-  <div className="cover container-fluid">
+  <div className="cover container-fluid" style={{
+    backgroundImage: [
+      'url(/static/inside-cover-gradient.png)',
+      `url(${STATIC_PATH}/inside-cover.png)`,
+    ],
+  }}>
     <div className="row align-items-center">
       <div className="col-12 col-md-5 offset-md-1">
-        <h1>Mano a mano con Javier Pinola</h1>
+        <h1>Mano a mano con {TENANT === 'dalecampeon' ? 'Javier Pinola' : 'Esteban Paredes'}</h1>
         <div>2019</div>
         <div className="description">
-          <p>El jugador del Más Grande habló de su carrera en una entrevista exclusiva con {CONFIG.appName}.</p>
+          {TENANT === 'dalecampeon' ? (
+            <p>El jugador del Más Grande habló de su carrera en una entrevista exclusiva con {CONFIG.appName}.</p>
+          ) : (
+            <p>El capitán albo tuvo un mano a mano con {CONFIG.appName},
+            donde contó sobre todo lo que rodea al delantero albo.</p>
+          )}
         </div>
         <Link href="/subscriptor">
           <Button>Proba Gratis</Button>
@@ -24,8 +35,6 @@ const Cover = _ => (
     <style jsx>{`
       .cover {
         background-color: #0a0b11;
-        background-image: url(/static/interviews/gradient.png),
-                          url(/static/interviews/javier-pinola.png);
         background-position: 50% 50%, 97.5% 50%;
         background-repeat: no-repeat, no-repeat;
         background-size: cover, contain;
@@ -91,8 +100,8 @@ const More = _ => {
         </div>
       </div>
       <div className="cards">
-        { interviews.map((interview) => (
-          <div className="interview-card row align-items-center">
+        { interviews.map((interview, i) => (
+          <div className="interview-card row align-items-center" key={i}>
             <div className="col-md-4">
               <Link href="/interview">
                 <a><img src={interview.img} width="390" height="220" className="img-fluid w-100 d-block" /></a>
