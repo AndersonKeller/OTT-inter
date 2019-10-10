@@ -2,10 +2,12 @@ import Layout from '../components/layout/Layout'
 import Head from 'next/head'
 import H2 from '../components/h2'
 import Button from '../components/button'
-import { STATIC_PATH } from '../constants/constants'
+import { STATIC_PATH, TENANT } from '../constants/constants'
 import { CONFIG } from '../config'
 
 export default function Subscriptor() {
+  const playersName = TENANT === 'dalecampeon' ? 'Franco Armani' : 'Valdivia'
+  const section2Alt = TENANT === 'dalecampeon' ? `${playersName} con un trofeo` : `${playersName} chutando`
   return (
     <Layout header="closed">
       <Head>
@@ -20,13 +22,13 @@ export default function Subscriptor() {
         <SubscriptorSection
           direction="right"
           gradientSrc="/static/subscriptor/section2-gradient.png"
-          imgAlt="Franco Armani con un trofeo"
+          imgAlt={section2Alt}
           imgHeight="560"
-          imgSrc="/static/subscriptor/section2-img.png"
+          imgSrc={`${STATIC_PATH}/subscriptor/section2-img.png`}
           imgWidth="870"
         >
           <H2>
-            Franco Armani en <span className="text-uppercase">{CONFIG.appName}</span>!
+            {playersName} en <span className="text-uppercase">{CONFIG.appName}</span>!
           </H2>
           <SubscriptorSectionText>
             <p>Vea dónde y cuando quiera, incluso 24 horas antes de pasar a la TV</p>
@@ -40,14 +42,18 @@ export default function Subscriptor() {
           gradientSrc="/static/subscriptor/section3-gradient.png"
           imgAlt=""
           imgHeight="560"
-          imgSrc="/static/subscriptor/section3-img.png"
+          imgSrc={`${STATIC_PATH}/subscriptor/section3-img.png`}
           imgWidth="840"
         >
           <H2>
             El mejor contenido
           </H2>
           <SubscriptorSectionText>
-            <p>Sucesos como The Handmaid's Tale y clásicos, como Dexter y House</p>
+            {TENANT === 'dalecampeon' ? (
+              <p>Sucesos como The Handmaid's Tale y clásicos, como Dexter y House</p>
+            ) : (
+              <p>Mati Zaldivia: mi vida en el Albo</p>
+            )}
           </SubscriptorSectionText>
         </SubscriptorSection>
 
@@ -57,11 +63,11 @@ export default function Subscriptor() {
           gradientSrc="/static/subscriptor/section4-gradient.png"
           imgAlt=""
           imgHeight="560"
-          imgSrc="/static/subscriptor/section4-img.png"
+          imgSrc={`${STATIC_PATH}/subscriptor/section4-img.png`}
           imgWidth="870"
         >
           <H2>
-            Lleve Dále Campeón
+            Lleve {CONFIG.appName}
           </H2>
           <SubscriptorSectionText>
             <p>Descarga tu contenido favorita y mira sin conexión, sin gastar internet</p>
@@ -74,7 +80,7 @@ export default function Subscriptor() {
           gradientSrc="/static/subscriptor/section5-gradient.png"
           imgAlt=""
           imgHeight="560"
-          imgSrc="/static/subscriptor/section5-img.png"
+          imgSrc={`${STATIC_PATH}/subscriptor/section5-img.png`}
           imgWidth="870"
         >
           <H2>
