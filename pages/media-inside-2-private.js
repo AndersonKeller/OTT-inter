@@ -8,13 +8,13 @@ import MediaDescription from '../components/media-description'
 import MoreContentCarousel from '../components/more-content-carousel'
 import SocialShareBtns from '../components/social-share-btns'
 import { CONFIG } from '../config'
-import { STATIC_PATH } from '../constants/constants'
+import { STATIC_PATH, TENANT } from '../constants/constants'
 
 export default function InterviewPage() {
   const media = {
-    title: 'Mano a mano con Javier Pinola',
+    title: `Mano a mano con ${TENANT === 'dalecampeon' ? 'Javier Pinola' : 'Esteban Paredes'}`,
     year: '2019',
-    description: `El jugador del Más Grande habló de su carrera en una entrevista exclusiva con ${CONFIG.appName}.`,
+    description: TENANT === 'dalecampeon' ? `El jugador del Más Grande habló de su carrera en una entrevista exclusiva con ${CONFIG.appName}.` : `El capitán albo tuvo un mano a mano con Dale Cacique, donde contó sobre todo lo que rodea al delantero albo: El retiro, el torneo local, la copa sudamericana y Copa América.`,
   }
   const moreContent = [
     `${STATIC_PATH}/cards/interviews/8.png`,
@@ -33,7 +33,7 @@ export default function InterviewPage() {
       <div className="container-fluid">
         <div className="row align-items-center">
           <div className="col-12 col-lg-8">
-            <BlockedPlayer image="/static/interview/sample.png" />
+            <BlockedPlayer image={`${STATIC_PATH}/blurred-sample.png`} />
           </div>
           <div className="col-12 col-lg-4 d-none d-md-block">
             <MoreInterviewCards />
@@ -80,26 +80,47 @@ export default function InterviewPage() {
 }
 
 function MoreInterviewCards() {
-  const moreInterviews = [
-    {
-      img: '/static/interviews/thumb1.png',
-      title: 'Entrevista a Javier Pinola',
-      text: 'EXCLUSIVO #DaleCampeon | Hablamos mano a mano con Javier Pinola: "Estoy muy contento con este presente. Al principio me costó adaptarme"',
-    },
-    {
-      img: '/static/interviews/thumb2.png',
-      title: 'Mano a mano con Javier Pinola',
-      text: `El jugador del Más Grande habló de su carrera en una entrevista exclusiva con ${CONFIG.appName}.`,
-    },
-    {
-      img: '/static/interviews/thumb3.png',
-      title: 'Pinola: "Queremos seguir ganando y sumando confianza"',
-      text: 'La palabra de Javier Pinola luego del triunfo ante San Martín. ¡Escuchalo! ',
-    }
-  ]
+  let interviews
+  if (TENANT === 'dalecampeon') {
+    interviews = [
+      {
+        img: `${STATIC_PATH}/hthumbs/1.png`,
+        title: 'Entrevista a Javier Pinola',
+        text: 'EXCLUSIVO #DaleCampeon | Hablamos mano a mano con Javier Pinola: "Estoy muy contento con este presente. Al principio me costó adaptarme"',
+      },
+      {
+        img: `${STATIC_PATH}/hthumbs/2.png`,
+        title: 'Mano a mano con Javier Pinola',
+        text: `El jugador del Más Grande habló de su carrera en una entrevista exclusiva con ${CONFIG.appName}.`,
+      },
+      {
+        img: `${STATIC_PATH}/hthumbs/3.png`,
+        title: 'Pinola: "Queremos seguir ganando y sumando confianza"',
+        text: 'La palabra de Javier Pinola luego del triunfo ante San Martín. ¡Escuchalo! ',
+      }
+    ]
+  } else {
+    interviews = [
+      {
+        img: `${STATIC_PATH}/hthumbs/1.png`,
+        title: 'Héroes Anónimos: Juan Melgarejo',
+        text: `Juan Melgarejo, ha pasado por varias etapas dentro de ${CONFIG.appName}. Partió en Operaciones, luego trabajó de junior, hasta que un día apoyó en la Utilería del Fútbol Joven y nunca más abandonó el costado de una cancha. Esta es su historia #94AñosColoColo`,
+      },
+      {
+        img: `${STATIC_PATH}/hthumbs/2.png`,
+        title: 'Banini, la mejor del año',
+        text: `Estefanía Banini, la 10 de ${CONFIG.appName} Femenino, "la Messi" como le llaman, fue elegida como la mejor del Fútbol Femenino, en la premiación que realiza año a año el Círculo de Periodistas Deportivos.`,
+      },
+      {
+        img: `${STATIC_PATH}/hthumbs/3.png`,
+        title: '¿Qué tipo de entrenamiento es éste?',
+        text: 'Nuestro Primer Equipo compartió y practicó junto a un club deportivo de no videntes.',
+      }
+    ]
+  }
   return (
     <div>
-      { moreInterviews.map((interview, index) => (
+      { interviews.map((interview, index) => (
         <MoreInterviewCard interview={interview} key={index} />
       )) }
     </div>
@@ -109,7 +130,7 @@ function MoreInterviewCards() {
 function MoreInterviewCard(props) {
   return (
     <div className="more-card">
-      <Link href="/interview">
+      <Link href="/media-inside-2-private">
         <a>
           <div className="row align-items-center gutter-15">
             <div className="col-7">

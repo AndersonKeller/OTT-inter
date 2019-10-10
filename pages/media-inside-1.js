@@ -123,13 +123,13 @@ const More = _ => {
         { interviews.map((interview, i) => (
           <div className="interview-card row align-items-center" key={i}>
             <div className="col-md-4">
-              <Link href="/interview">
+              <Link href="/media-inside-2-private">
                 <a><img src={interview.img} width="390" height="220" className="img-fluid w-100 d-block" /></a>
               </Link>
             </div>
             <div className="col-md-7">
               <h3 className="h3">
-                <Link href="/interview">
+                <Link href="/media-inside-2-private">
                   <a>{interview.title}</a>
                 </Link>
               </h3>
