@@ -74,23 +74,44 @@ const Cover = _ => (
 )
 
 const More = _ => {
-  const interviews = [
-    {
-      img: '/static/interviews/thumb1.png',
-      title: 'Entrevista a Javier Pinola',
-      text: 'EXCLUSIVO #DaleCampeon | Hablamos mano a mano con Javier Pinola: "Estoy muy contento con este presente. Al principio me costó adaptarme"',
-    },
-    {
-      img: '/static/interviews/thumb2.png',
-      title: 'Mano a mano con Javier Pinola',
-      text: `El jugador del Más Grande habló de su carrera en una entrevista exclusiva con ${CONFIG.appName}.`,
-    },
-    {
-      img: '/static/interviews/thumb3.png',
-      title: 'Pinola: "Queremos seguir ganando y sumando confianza"',
-      text: 'La palabra de Javier Pinola luego del triunfo ante San Martín. ¡Escuchalo! ',
-    }
-  ]
+  let interviews
+  if (TENANT === 'dalecampeon') {
+    interviews = [
+      {
+        img: `${STATIC_PATH}/hthumbs/1.png`,
+        title: 'Entrevista a Javier Pinola',
+        text: 'EXCLUSIVO #DaleCampeon | Hablamos mano a mano con Javier Pinola: "Estoy muy contento con este presente. Al principio me costó adaptarme"',
+      },
+      {
+        img: `${STATIC_PATH}/hthumbs/2.png`,
+        title: 'Mano a mano con Javier Pinola',
+        text: `El jugador del Más Grande habló de su carrera en una entrevista exclusiva con ${CONFIG.appName}.`,
+      },
+      {
+        img: `${STATIC_PATH}/hthumbs/3.png`,
+        title: 'Pinola: "Queremos seguir ganando y sumando confianza"',
+        text: 'La palabra de Javier Pinola luego del triunfo ante San Martín. ¡Escuchalo! ',
+      }
+    ]
+  } else {
+    interviews = [
+      {
+        img: `${STATIC_PATH}/hthumbs/1.png`,
+        title: 'Héroes Anónimos: Juan Melgarejo',
+        text: `Juan Melgarejo, ha pasado por varias etapas dentro de ${CONFIG.appName}. Partió en Operaciones, luego trabajó de junior, hasta que un día apoyó en la Utilería del Fútbol Joven y nunca más abandonó el costado de una cancha. Esta es su historia #94AñosColoColo`,
+      },
+      {
+        img: `${STATIC_PATH}/hthumbs/2.png`,
+        title: 'Banini, la mejor del año',
+        text: `Estefanía Banini, la 10 de ${CONFIG.appName} Femenino, "la Messi" como le llaman, fue elegida como la mejor del Fútbol Femenino, en la premiación que realiza año a año el Círculo de Periodistas Deportivos.`,
+      },
+      {
+        img: `${STATIC_PATH}/hthumbs/3.png`,
+        title: '¿Qué tipo de entrenamiento es éste?',
+        text: 'Nuestro Primer Equipo compartió y practicó junto a un club deportivo de no videntes.',
+      }
+    ]
+  }
   return (
     <div className="more container-fluid">
       <div className="row">
