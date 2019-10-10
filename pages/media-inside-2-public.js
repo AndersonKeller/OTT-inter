@@ -7,12 +7,22 @@ import MediaDescription from '../components/media-description'
 import MoreContentCarousel from '../components/more-content-carousel'
 import SocialShareBtns from '../components/social-share-btns'
 import { CONFIG } from '../config'
+import { TENANT } from '../constants/constants'
 
-export default function VideosPage() {
-  const media = {
-    title: `Una noche en el Museo ${CONFIG.shortClubName}. #117AñosDeHistoria`,
-    year: '2018',
-    description: `El Club Más Grande por su gente. El Club Más Grande por sus ídolos. El Club Más Grande por su gloria. ¡Feliz cumpleaños, ${CONFIG.shortClubName}!`,
+export default _ => {
+  let media
+  if (TENANT === 'dalecampeon') {
+    media = {
+      title: `Una noche en el Museo ${CONFIG.shortClubName}. #117AñosDeHistoria`,
+      year: '2018',
+      description: `El Club Más Grande por su gente. El Club Más Grande por sus ídolos. El Club Más Grande por su gloria. ¡Feliz cumpleaños, ${CONFIG.shortClubName}!`,
+    }
+  } else {
+    media = {
+      title: `La Ruca te está llamando`,
+      year: '2018',
+      description: `Cuando ella llama no hay nada más importante.`,
+    }
   }
   const moreContent = [
     '/static/videos/more/1.png',
