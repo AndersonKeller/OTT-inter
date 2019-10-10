@@ -7,6 +7,7 @@ import MediaDescription from '../components/media-description'
 import MoreContentCarousel from '../components/more-content-carousel'
 import SocialShareBtns from '../components/social-share-btns'
 import { CONFIG } from '../config'
+import { STATIC_PATH } from '../constants/constants'
 
 export default function PodcastsPage() {
   const media = {
@@ -15,13 +16,13 @@ export default function PodcastsPage() {
     description: 'El papel de los jugadores y más en nuestro análisis de la gran final.',
   }
   const moreContent = [
-    '/static/cards/podcasts/1.jpg',
-    '/static/cards/podcasts/2.jpg',
-    '/static/cards/podcasts/3.jpg',
-    '/static/cards/podcasts/4.jpg',
-    '/static/cards/podcasts/5.jpg',
-    '/static/cards/podcasts/6.jpg',
-    '/static/cards/podcasts/7.jpg',
+    `${STATIC_PATH}/cards/podcasts/1.png`,
+    `${STATIC_PATH}/cards/podcasts/2.png`,
+    `${STATIC_PATH}/cards/podcasts/3.png`,
+    `${STATIC_PATH}/cards/podcasts/4.png`,
+    `${STATIC_PATH}/cards/podcasts/5.png`,
+    `${STATIC_PATH}/cards/podcasts/6.png`,
+    `${STATIC_PATH}/cards/podcasts/7.png`,
   ]
   return (
     <Layout>
