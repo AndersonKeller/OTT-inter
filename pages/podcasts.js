@@ -7,13 +7,22 @@ import MediaDescription from '../components/media-description'
 import MoreContentCarousel from '../components/more-content-carousel'
 import SocialShareBtns from '../components/social-share-btns'
 import { CONFIG } from '../config'
-import { STATIC_PATH } from '../constants/constants'
+import { STATIC_PATH, TENANT } from '../constants/constants'
 
 export default function PodcastsPage() {
-  const media = {
-    title: `¡${CONFIG.clubName} celebra su cuarta Copa Libertadores!`,
-    year: 'PODCAST # 10 - 2018',
-    description: 'El papel de los jugadores y más en nuestro análisis de la gran final.',
+  let media
+  if (TENANT === 'dalecampeon') {
+    media = {
+      title: `¡${CONFIG.clubName} celebra su cuarta Copa Libertadores!`,
+      year: 'PODCAST # 10 - 2018',
+      description: 'El papel de los jugadores y más en nuestro análisis de la gran final.',
+    }
+  } else {
+    media = {
+      title: `Revive el triunfo del Cacique ante Ñublense, al estilo #DaleCacique`,
+      year: 'PODCAST # 25 - 2016',
+      description: 'Escucha el relato de Danilo Quinteros para el triunfo de Colo Colo 2-1 ante Ñublense, por los 16os de final de Copa Chile.',
+    }
   }
   const moreContent = [
     `${STATIC_PATH}/cards/podcasts/1.png`,
@@ -32,7 +41,7 @@ export default function PodcastsPage() {
       <div className="container-fluid">
         <div className="row">
           <div className="col-8 offset-2">
-            <BlockedPlayer image="/static/podcasts/sample-player.png" />
+            <BlockedPlayer image={`${STATIC_PATH}/sample-player.png`} />
           </div>
         </div>
         <MediaDescription media={media} />
