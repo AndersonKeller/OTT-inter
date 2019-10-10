@@ -15,7 +15,7 @@ const Header = (props) => {
   // menu
   const menu = [
     { label: 'Home', href: '/' },
-    { label: 'Videos', href: '/videos' },
+    { label: 'Videos', href: '/media-inside-2-public' },
     { label: 'Podcasts', href: '/podcasts' },
     { label: 'Entrevistas', href: '/entrevistas' },
     { label: 'Fotos', href: '/c/[slug]', as: '/c/fotos', visibility: 'publicOnly' },

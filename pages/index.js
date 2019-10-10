@@ -30,24 +30,24 @@ const Home = _ => {
 
         {/* platenences */}
         <CarouselSection title={TENANT === 'dalecampeon' ? 'Platences' : 'Albos'}>
-          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/1.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/2.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/3.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/4.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/5.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/6.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/${supportersSlug}/7.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/${supportersSlug}/1.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/${supportersSlug}/2.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/${supportersSlug}/3.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/${supportersSlug}/4.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/${supportersSlug}/5.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/${supportersSlug}/6.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/${supportersSlug}/7.png`} />
         </CarouselSection>
 
         {/* arts */}
         <CarouselSection title="Artes">
-          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/1.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/2.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/3.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/4.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/5.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/6.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/arts/7.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/arts/1.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/arts/2.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/arts/3.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/arts/4.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/arts/5.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/arts/6.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/arts/7.png`} />
         </CarouselSection>
 
         {/* featured */}
@@ -60,7 +60,7 @@ const Home = _ => {
           </Featured>
         ) : (
           <Featured img="/static/logged-banner1.png">
-            <Link href="/videos">
+            <Link href="/media-inside-2-public">
               <Button>Ver más</Button>
             </Link>
             <MiLista />
@@ -99,7 +99,7 @@ const Home = _ => {
           </Featured>
         ) : (
           <Featured img="/static/logged-banner2.png">
-            <Link href="/videos">
+            <Link href="/media-inside-2-public">
               <Button>Ver más</Button>
             </Link>
             <MiLista color="white" />
@@ -108,13 +108,13 @@ const Home = _ => {
 
         {/* news */}
         <CarouselSection title="Noticias">
-          <Card href="/videos" src={`${STATIC_PATH}/cards/news/1.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/news/2.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/news/3.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/news/4.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/news/5.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/news/6.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/news/7.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/news/1.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/news/2.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/news/3.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/news/4.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/news/5.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/news/6.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/news/7.png`} />
         </CarouselSection>
 
         {/* features */}
@@ -129,7 +129,7 @@ const Home = _ => {
           </Featured>
         ) : (
           <Featured img="/static/logged-banner3.png">
-            <Link href="/videos">
+            <Link href="/media-inside-2-public">
               <Button>Ver más</Button>
             </Link>
             <MiLista />
@@ -138,18 +138,18 @@ const Home = _ => {
 
         {/* family */}
         <CarouselSection title="Familia">
-          <Card href="/videos" src={`${STATIC_PATH}/cards/family/1.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/family/2.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/family/3.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/family/4.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/family/5.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/family/6.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/family/7.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/family/1.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/family/2.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/family/3.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/family/4.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/family/5.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/family/6.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/family/7.png`} />
         </CarouselSection>
 
         {user && (
           <Featured img="/static/logged-banner4.png">
-            <Link href="/videos">
+            <Link href="/media-inside-2-public">
               <Button>Ver más</Button>
             </Link>
             <MiLista color="white" />
@@ -158,13 +158,13 @@ const Home = _ => {
 
         {/* children */}
         <CarouselSection title="Niños">
-          <Card href="/videos" src={`${STATIC_PATH}/cards/children/1.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/children/2.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/children/3.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/children/4.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/children/5.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/children/6.png`} />
-          <Card href="/videos" src={`${STATIC_PATH}/cards/children/7.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/children/1.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/children/2.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/children/3.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/children/4.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/children/5.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/children/6.png`} />
+          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/children/7.png`} />
         </CarouselSection>
 
       </div>
