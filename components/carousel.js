@@ -6,7 +6,7 @@ import Chevron from './icons/chevron'
 const arrowsStyles = css`
   .slick-prev,
   .slick-next {
-    z-index: 9999;
+    z-index: 3;
     width: 47px;
     height: 27px;
     transition: opacity .2s;
@@ -43,7 +43,7 @@ export default class Carousel extends Component {
   render() {
     const settings = {
       draggable: false,
-      dots: true,
+      dots: false,
       infinite: false,
       speed: 500,
       slidesToShow: 6,
