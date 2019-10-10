@@ -7,7 +7,7 @@ import MediaDescription from '../components/media-description'
 import MoreContentCarousel from '../components/more-content-carousel'
 import SocialShareBtns from '../components/social-share-btns'
 import { CONFIG } from '../config'
-import { TENANT } from '../constants/constants'
+import { TENANT, STATIC_PATH } from '../constants/constants'
 
 export default _ => {
   let media
@@ -25,13 +25,13 @@ export default _ => {
     }
   }
   const moreContent = [
-    '/static/videos/more/1.png',
-    '/static/videos/more/2.png',
-    '/static/videos/more/3.png',
-    '/static/videos/more/4.png',
-    '/static/videos/more/5.png',
-    '/static/videos/more/6.png',
-    '/static/videos/more/7.png',
+    `${STATIC_PATH}/cards/videos/1.png`,
+    `${STATIC_PATH}/cards/videos/2.png`,
+    `${STATIC_PATH}/cards/videos/3.png`,
+    `${STATIC_PATH}/cards/videos/4.png`,
+    `${STATIC_PATH}/cards/videos/5.png`,
+    `${STATIC_PATH}/cards/videos/6.png`,
+    `${STATIC_PATH}/cards/videos/7.png`,
   ]
   return (
     <Layout>
