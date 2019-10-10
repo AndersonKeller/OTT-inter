@@ -253,7 +253,7 @@ const Cover = _ => {
           z-index: 2;
         }
         .h1-b {
-          color: var(--red);
+          color: var(--primary);
           font-family: 'Bebas Neue';
           font-size: 139px;
           font-weight: bold;

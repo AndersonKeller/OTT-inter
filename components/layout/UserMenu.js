@@ -168,7 +168,7 @@ export default _ => {
           background-color: rgba(var(--black-rgb), .2);
         }
         .user-select :global(.dropdown-item-style2) {
-          background-color: var(--red);
+          background-color: var(--primary);
           border-radius: 5px;
           font-family: var(--sans-serif-condensed);
           font-size: 20px;
@@ -183,7 +183,7 @@ export default _ => {
         }
         .user-select :global(.dropdown-item-style2):focus,
         .user-select :global(.dropdown-item-style2):hover {
-          background-color: var(--dark-red);
+          background-color: var(--primary-hover);
         }
         .user-select :global(.dropdown-divider) {
           border-top: 0;
@@ -248,10 +248,10 @@ export default _ => {
           padding-bottom: 5px;
         }
         .user-select.logged :global(.dropdown-menu)::before {
-          border-bottom-color: var(--red);
+          border-bottom-color: var(--primary);
         }
         .user-select.logged :global(.dropdown-header) {
-          background-color: var(--red);
+          background-color: var(--primary);
           border-radius: 5px;
           color: var(--white);
           line-height: 1;

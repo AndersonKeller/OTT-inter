@@ -40,13 +40,13 @@ const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
           }
         }
         .btn-primary {
-          background-color: var(--red) !important;
+          background-color: var(--primary) !important;
           color: var(--white) !important;
           /* margin-right: 15px; */
         }
         .btn-primary:focus,
         .btn-primary:hover {
-          background-color: var(--dark-red) !important;
+          background-color: var(--primary-hover) !important;
         }
         .btn-secondary {
           background-color: var(--mid-gray);

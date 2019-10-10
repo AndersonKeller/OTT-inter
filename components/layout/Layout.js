@@ -1,3 +1,4 @@
+import Color from 'color'
 import Head from 'next/head'
 import { GRAY3, ONLINE } from '../../constants/constants'
 import Header from './Header'
@@ -52,21 +53,21 @@ const Layout = props => {
         }
         :root {
           /* colors */
-          --white:        #fff;
-          --light-gray:   #c4c4c4;
-          --gray:         #b2b2b2;
-          --gray2:        #808080;
-          --gray2-rgb:    128, 128, 128;
-          --gray3:        ${GRAY3};
-          --gray3-rgb:    51, 51, 51;
-          --gray3-darken: #282828;
-          --mid-gray:     #4d4d4d;
-          --dark-gray3:   #1a1a1a;
-          --black:        #000;
-          --black-rgb:    0, 0, 0;
-          --red:          ${CONFIG.color};
-          --dark-red:     #e50000;
-          --gray4:        #666;
+          --white:         #fff;
+          --light-gray:    #c4c4c4;
+          --gray:          #b2b2b2;
+          --gray2:         #808080;
+          --gray2-rgb:     128, 128, 128;
+          --gray3:         ${GRAY3};
+          --gray3-rgb:     51, 51, 51;
+          --gray3-darken:  #282828;
+          --mid-gray:      #4d4d4d;
+          --dark-gray3:    #1a1a1a;
+          --black:         #000;
+          --black-rgb:     0, 0, 0;
+          --primary:       ${CONFIG.color};
+          --primary-hover: ${Color(CONFIG.color).darken(.2)};
+          --gray4:         #666;
 
           /* fonts */
           --sans-serif: 'Helvetica', sans-serif;
@@ -102,14 +103,14 @@ const Layout = props => {
           height: 100%;
         }
         #nprogress .bar {
-          background: var(--red);
+          background: var(--primary);
         }
         #nprogress .peg {
-          box-shadow: 0 0 10px var(--red), 0 0 5px var(--red);
+          box-shadow: 0 0 10px var(--primary), 0 0 5px var(--primary);
         }
         #nprogress .spinner-icon {
-          border-top-color: var(--red);
-          border-left-color: var(--red);
+          border-top-color: var(--primary);
+          border-left-color: var(--primary);
         }
         main {
           margin-bottom: auto;
