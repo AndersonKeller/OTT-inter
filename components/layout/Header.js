@@ -210,12 +210,6 @@ const Header = (props) => {
         .menu li {
           display: flex;
         }
-        @media (min-width: 1367px) {
-          .menu li {
-            padding-right: 15px;
-            padding-left: 15px;
-          }
-        }
         .menu a,
         .menu :global(.dropdown-toggle) {
           background-color: transparent;
