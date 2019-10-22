@@ -1,10 +1,11 @@
 import Color from 'color'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import ReactSVG from 'react-svg'
 import Button from '../button'
 import { STATIC_PATH } from '../../constants/constants'
 import { CONFIG } from '../../config'
+import { Tab } from 'react-bootstrap'
 
 const FormGroup = (props) => {
   return (
@@ -78,50 +79,147 @@ const FormText = (props) => {
   )
 }
 
-export default (props) => {
+export default ({ handleClose, show, toggleAuth, ...props}) => {
   const facebookColor = '#3B5990'
   const googleColor = '#D44639'
+  const [tab, setTab] = useState('login')
   return (
-    <Modal className="login-modal" onHide={props.handleClose} show={props.show}>
+    <Modal className="login-modal" onHide={handleClose} show={show}>
       <Modal.Header>
         <Modal.Title>
-          <button className="close" onClick={props.handleClose} type="button">
-            <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23" />
-          </button>
+          { tab === 'password' || tab === 'register' ? (
+            <button className="back" onClick={_ => setTab('login')} type="button">
+              <img alt="Volver" height="23" src="/static/icons/back.svg" width="23" />
+            </button>
+          ) : (
+            <button className="close" onClick={handleClose} type="button">
+              <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23" />
+            </button>
+          )}
           <img alt={CONFIG.appName} height="64" src={`${STATIC_PATH}/logos/dale.svg`} width="131" />
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="intro-text">
-          <p>Una sola cuenta para todos los productos <span className="text-uppercase">{CONFIG.clubName}</span></p>
-        </div>
-        <form method="post">
-          <FormGroup>
-            <Label for="email">E-mail</Label>
-            <Input autofocus id="email" type="email" />
-            <FormText>
-              <a href="#">¿Olvidó su nombre de usuario?</a>
-            </FormText>
-          </FormGroup>
-          <FormGroup>
-            <Label for="clave">Clave</Label>
-            <Input id="clave" type="password" />
-            <FormText>
-              <a href="#">¿Olvidó su clave?</a>
-            </FormText>
-          </FormGroup>
-          <Button block className="enter-btn" onClick={props.toogleAuth} size="sm" type="submit">Entrar</Button>
-          <div className="already-subscriptor">¿Ya es suscriptor? <a className="bold text-uppercase" href="#" onClick={props.toogleAuth}>Haga Login</a></div>
-          <div className="or-enter-with">o entre con</div>
-          <Button className="social facebook" onClick={props.toogleAuth} type="button">
-            <ReactSVG className="icon" src="/static/icons/facebook.svg" />
-            Facebook
-          </Button>
-          <Button className="social google" onClick={props.toogleAuth} type="button">
-            <ReactSVG className="icon" src="/static/icons/google.svg" />
-            Google
-          </Button>
-        </form>
+        <Tab.Container activeKey={tab} id="user-modal-tabs" onSelect={k => setTab(k)}>
+          <Tab.Content>
+
+            {/* login */}
+            <Tab.Pane eventKey="login">
+              <div className="intro-text">
+                <p>Una sola cuenta para todos los productos <span className="text-uppercase">{CONFIG.clubName}</span></p>
+              </div>
+              <form method="post">
+                <FormGroup>
+                  <Label for="email">E-mail</Label>
+                  <Input autofocus id="email" type="email" />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="clave">Clave</Label>
+                  <Input id="clave" type="password" />
+                  <FormText>
+                    <a href="#" onClick={_ => setTab('password')}>¿Olvidó su clave?</a>
+                  </FormText>
+                </FormGroup>
+                <Button block className="enter-btn" onClick={toggleAuth} size="sm" type="submit">Entrar</Button>
+                <div className="already-subscriptor">
+                  ¿No es suscriptor? <a className="bold text-uppercase" href="#" onClick={_ => setTab('register')}>Regístrate!</a>
+                </div>
+                <div className="or-enter-with">o entre con</div>
+                <Button className="social facebook" onClick={toggleAuth} type="button">
+                  <ReactSVG className="icon" src="/static/icons/facebook.svg" />
+                  Facebook
+                </Button>
+                <Button className="social google" onClick={toggleAuth} type="button">
+                  <ReactSVG className="icon" src="/static/icons/google.svg" />
+                  Google
+                </Button>
+              </form>
+            </Tab.Pane>
+
+            {/* password recovery */}
+            <Tab.Pane eventKey="password">
+              <div className="intro-text" style={{ marginBottom: 15 }}>
+                <p>¿Olvidó su clave?</p>
+              </div>
+              <form method="post">
+                <FormGroup>
+                  <Label for="email2">E-mail</Label>
+                  <Input autofocus id="email2" type="email" />
+                </FormGroup>
+                <Button block className="enter-btn" onClick={e => { e.preventDefault(); alert('pã');}} size="sm" type="submit">
+                  Enviar Recuperación
+                </Button>
+              </form>
+            </Tab.Pane>
+
+            {/* register */}
+            <Tab.Pane eventKey="register">
+              <div className="intro-text">
+                <p>Una sola cuenta para todos los productos <span className="text-uppercase">{CONFIG.clubName}</span></p>
+              </div>
+              <form method="post">
+                <FormGroup>
+                  <Label for="name">Nombre</Label>
+                  <Input autofocus id="name" type="text" />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="lastname">Apellido</Label>
+                  <Input id="lastname" type="text" />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="email">E-mail</Label>
+                  <Input id="email" type="email" />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="password">Clave</Label>
+                  <Input id="password" type="password" />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="password_confirmation">Confirmación de Clave</Label>
+                  <Input id="password_confirmation" type="password" />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="address">Dirección</Label>
+                  <Input id="address" type="text" />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="city">Ciudad</Label>
+                  <Input id="city" type="text" />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="country">País</Label>
+                  <Input id="country" type="text" />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="document">Documento</Label>
+                  <Input id="document" type="text" />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="genre">Género</Label>
+                  <Input id="genre" type="text" />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="payment">Meios de Pagamento</Label>
+                  <Input id="payment" type="text" />
+                </FormGroup>
+                <Button block className="enter-btn" onClick={toggleAuth} size="sm" type="submit">Registrar</Button>
+                <div className="already-subscriptor">
+                  ¿Ya es suscriptor? <a className="bold text-uppercase" href="#" onClick={_ => setTab('login')}>Haga Login</a>
+                </div>
+                <div className="or-enter-with">o entre con</div>
+                <Button className="social facebook" onClick={toggleAuth} type="button">
+                  <ReactSVG className="icon" src="/static/icons/facebook.svg" />
+                  Facebook
+                </Button>
+                <Button className="social google" onClick={toggleAuth} type="button">
+                  <ReactSVG className="icon" src="/static/icons/google.svg" />
+                  Google
+                </Button>
+              </form>
+            </Tab.Pane>
+
+          </Tab.Content>
+        </Tab.Container>
       </Modal.Body>
       <style jsx global>{`
         .modal-backdrop.show {
@@ -149,6 +247,11 @@ export default (props) => {
           margin-bottom: auto;
           max-width: 325px;
         }
+        @media (min-width: 768px) {
+          .login-modal .modal-dialog {
+            min-width: 325px;
+          }
+        }
         .login-modal .modal-content {
           border: 0;
           border-radius: 0;
@@ -160,7 +263,10 @@ export default (props) => {
           padding: 10px;
           position: relative;
         }
+        .login-modal .back,
         .login-modal .close {
+          background-color: transparent;
+          border: 0;
           margin: 0;
           opacity: 1;
           outline: 0;
@@ -172,9 +278,12 @@ export default (props) => {
           transform: translateY(-50%);
           will-change: opacity;
         }
+        .login-modal .back img,
         .login-modal .close img {
           display: block;
         }
+        .login-modal .back:focus,
+        .login-modal .back:hover,
         .login-modal .close:focus,
         .login-modal .close:hover {
           opacity: .33;

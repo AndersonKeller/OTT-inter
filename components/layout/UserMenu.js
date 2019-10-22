@@ -8,7 +8,7 @@ import LoginModal from './LoginModal'
 
 export default _ => {
   const { signIn, signOut, user } = useContext(UserContext)
-  const toogleAuth = (e) => {
+  const toggleAuth = (e) => {
     e.preventDefault()
     if (user) {
       signOut()
@@ -27,7 +27,7 @@ export default _ => {
     { slug: 'settings', label: 'Configuración', href: '/mi-cuenta' },
     { slug: 'help', label: 'Ayuda', href: '/ayuda' },
     { slug: 'info', label: 'Soporte', href: '/soporte' },
-    { slug: 'logout', label: 'Salir', href: '/logout', onClick: toogleAuth, },
+    { slug: 'logout', label: 'Salir', href: '/logout', onClick: toggleAuth, },
   ]
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
@@ -86,7 +86,7 @@ export default _ => {
         ) }
       </Dropdown>
 
-      <LoginModal handleClose={handleClose} show={show} toogleAuth={toogleAuth} />
+      <LoginModal handleClose={handleClose} show={show} toggleAuth={toggleAuth} />
 
       <style jsx>{`
         .user-select {
