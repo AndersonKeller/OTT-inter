@@ -1,46 +1,61 @@
 import Color from 'color'
 import Head from 'next/head'
-import { GRAY3, ONLINE } from '../../constants/constants'
+import { GRAY3, IS_PRODUCTION } from '../../constants/constants'
 import Header from './Header'
 import Footer from './Footer'
 import { CONFIG } from '../../config'
 
-const Layout = props => {
-  var paddingTop
-  if (props.header === 'closed')
+const Layout = ({ header, paddingTop, ...props }) => {
+
+  if (header === 'closed') {
     paddingTop = false
-  else if (props.paddingTop !== undefined)
-    paddingTop = props.paddingTop
-  else
+  } else if (paddingTop !== undefined) {
+    paddingTop = paddingTop
+  } else {
     paddingTop = true
+  }
+
+  if ( ! IS_PRODUCTION) {
+    import('bootstrap/dist/css/bootstrap.min.css')
+    import('slick-carousel/slick/slick.css')
+  }
+
   return (
     <>
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1, shrink-to-fit=no, width=device-width" />
-        { ONLINE ? (
+        { IS_PRODUCTION && (
+          <>
+            <link
+              crossOrigin="anonymous"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+              rel="stylesheet"
+              />
+            <link
+              charSet="utf-8"
+              href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+              rel="stylesheet"
+              type="text/css"
+            />
+          </>
+        ) }
+        { IS_PRODUCTION ? (
           <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
             rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-            crossOrigin="anonymous"
+            type="text/css"
           />
-          ) : (
-          <link
-            rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-            crossOrigin="anonymous"
-          />
-        )}
+        ) : (
+          <link href="/static/slick-theme.min.css" rel="stylesheet" />
+        ) }
         <link rel="stylesheet" href="/static/fonts/helvetica/stylesheet.css" />
         <link rel="stylesheet" href="/static/fonts/helvetica-ce/stylesheet.css" />
         <link rel="stylesheet" href="/static/fonts/bebas-neue/stylesheet.css" />
-        <link rel="stylesheet" type="text/css" charSet="utf-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
         <script src="https://player.vimeo.com/api/player.js"></script>
       </Head>
-      <Header closed={props.header === 'closed'} />
+      <Header closed={header === 'closed'} />
       <main className={ ! paddingTop ? 'no-padding' : ''}>
         {props.children}
       </main>
@@ -194,4 +209,5 @@ const Layout = props => {
     </>
   );
 }
+
 export default Layout
