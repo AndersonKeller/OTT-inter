@@ -37,20 +37,21 @@ const Label = (props) => {
   )
 }
 
-const Input = (props) => {
-  let inputRef = useRef()
+const Input = ({ autofocus, id, required, type, ...props }) => {
+  const inputRef = useRef()
   useEffect(_ => {
-    if (props.autofocus)
+    if (autofocus)
       inputRef.current.focus();
   })
   return (
     <>
       <input
-        autofocus={props.autofocus && "true"}
+        autofocus={autofocus && "true"}
         className="form-control"
-        id={props.id}
+        id={id}
         ref={inputRef}
-        type={props.type}
+        required={required}
+        type={type}
       />
       <style jsx>{`
         .form-control {
@@ -111,16 +112,16 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
               <form method="post">
                 <FormGroup>
                   <Label for="email">E-mail</Label>
-                  <Input autofocus id="email" type="email" />
+                  <Input autofocus id="email" required type="email" />
                 </FormGroup>
                 <FormGroup>
                   <Label for="clave">Clave</Label>
-                  <Input id="clave" type="password" />
+                  <Input id="clave" required type="password" />
                   <FormText>
                     <a href="#" onClick={_ => setTab('password')}>¿Olvidó su clave?</a>
                   </FormText>
                 </FormGroup>
-                <Button block className="enter-btn" onClick={toggleAuth} size="sm" type="submit">Entrar</Button>
+                <Button block className="enter-btn" size="sm" type="submit">Entrar</Button>
                 <div className="already-subscriptor">
                   ¿No es suscriptor? <a className="bold text-uppercase" href="#" onClick={_ => setTab('register')}>Regístrate!</a>
                 </div>
