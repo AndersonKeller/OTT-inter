@@ -41,6 +41,7 @@ const Label = ({ children, htmlFor, ...props }) => {
 }
 
 const Input = ({ autoFocus, id, onChange, required, type, value }) => {
+  // autofocus is bugging if has states/onChanges
   const inputRef = useRef()
   useEffect(_ => {
     if (autoFocus) {
@@ -86,25 +87,37 @@ const FormText = (props) => {
   )
 }
 
-const LoginTab = ({setTab, toggleAuth}) => {
+const LoginTab = ({handleClose, setTab, toggleAuth}) => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
+  const [ error, setError ] = useState('')
   const { signIn } = useContext(UserContext)
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const tokenResponse = await api.post(`${baseURL}/oauth/token`, {
-      grant_type: 'password',
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
-      username: email,
-      password: password,
-      scope: '',
-    })
-    const { access_token } = tokenResponse.data
-    setAccessToken(access_token)
-    const userResponse = await api.get('/user')
-    signIn(userResponse.data, tokenResponse.data)
+    try {
+      const tokenResponse = await api.post(`${baseURL}/oauth/token`, {
+        grant_type: 'password',
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET,
+        username: email,
+        password,
+        scope: '',
+      })
+      const { access_token, } = tokenResponse.data
+      setAccessToken(access_token)
+      const userResponse = await api.get('/user')
+      signIn(userResponse.data, tokenResponse.data)
+      handleClose()
+    } catch (error) {
+      if (error.response) {
+        const { message } = error.response.data
+        setError(message)
+      } else {
+        setError('An error has occurred!')
+        console.log('error', error)
+      }
+    }
   }
   return (
     <div>
@@ -114,7 +127,10 @@ const LoginTab = ({setTab, toggleAuth}) => {
       <form onSubmit={handleSubmit} method="post">
         <FormGroup>
           <Label hmtlFor="email">E-mail</Label>
-          <Input autoFocus id="email" onChange={e => setEmail(e.target.value)} required type="email" value={email} />
+          <Input id="email" onChange={e => setEmail(e.target.value)} required type="email" value={email} />
+          {error && (
+            <div className="invalid-feedback">{error}</div>
+          )}
         </FormGroup>
         <FormGroup>
           <Label hmtlFor="clave">Clave</Label>
@@ -168,7 +184,7 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
 
             {/* login */}
             <Tab.Pane eventKey="login">
-              <LoginTab setTab={setTab} toggleAuth={toggleAuth} />
+              <LoginTab handleClose={handleClose} setTab={setTab} toggleAuth={toggleAuth} />
             </Tab.Pane>
 
             {/* password recovery */}

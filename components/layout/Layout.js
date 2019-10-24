@@ -205,6 +205,10 @@ const Layout = ({ header, paddingTop, ...props }) => {
         .bold {
           font-weight: bold;
         }
+        .invalid-feedback {
+          display: block;
+          font-size: 14px;
+        }
       `}</style>
     </>
   );
