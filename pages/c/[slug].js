@@ -9,7 +9,7 @@ import shuffle from 'shuffle-array'
 import Layout from '../../components/layout/Layout'
 import { CONFIG } from '../../config'
 import { STATIC_PATH } from '../../constants/constants'
-import api from '../../services/api'
+import { api } from '../../services/api'
 
 const Category = ({ errorCode, medias, title, ...props }) => {
 

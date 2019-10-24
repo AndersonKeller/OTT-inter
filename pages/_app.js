@@ -3,8 +3,9 @@ import App from 'next/app'
 import Head from 'next/head'
 import Router from 'next/router'
 import NProgress from 'nprogress'
-import NProgressCSS from 'nprogress/nprogress.css'
+import 'nprogress/nprogress.css'
 import UserContext from '../components/UserContext'
+import { setAccessToken, removeAccessToken } from '../services/auth'
 
 Router.events.on('routeChangeStart', url => {
   console.log(`Loading: ${url}`)
@@ -31,23 +32,40 @@ class MyApp extends App {
     }
   }
 
-  signIn = (user) => {
+  signIn = (user, tokenResponse) => {
+
+    const { token_type, expires_in, access_token, refresh_token } = tokenResponse
+
+    setAccessToken(access_token)
+
+    localStorage.setItem('token_type', token_type)
+    localStorage.setItem('expires_in', expires_in)
+    localStorage.setItem('refresh_token', refresh_token)
     localStorage.setItem('user', JSON.stringify(user))
+
     this.setState(
       {
         user: user
       },
-      // _ => {
-      //   Router.push('/', '#logged')
-      // }
+      /* _ => {
+        Router.push('/', '#logged')
+      } */
     )
   }
 
-  signOut = () => {
+  signOut = _ => {
+
+    removeAccessToken()
+
+    localStorage.removeItem('token_type')
+    localStorage.removeItem('expires_in')
+    localStorage.removeItem('refresh_token')
     localStorage.removeItem('user')
+
     this.setState({
       user: null
     })
+
     // Router.push('/signin')
     // location.href = location.protocol + '//' + location.host + location.pathname
   }

@@ -17,7 +17,7 @@ export default _ => {
         name: 'Pablo Capriorni',
         email: 'pablocapriorni@gmail.com',
       }
-      signIn(fakeUser)
+      signIn(fakeUser, null)
     }
     handleClose()
   }

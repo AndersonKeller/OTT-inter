@@ -48,7 +48,7 @@ const Layout = ({ header, paddingTop, ...props }) => {
             type="text/css"
           />
         ) : (
-          <link href="/static/slick-theme.min.css" rel="stylesheet" />
+          <link href="/static/slick-theme.css" rel="stylesheet" />
         ) }
         <link rel="stylesheet" href="/static/fonts/helvetica/stylesheet.css" />
         <link rel="stylesheet" href="/static/fonts/helvetica-ce/stylesheet.css" />

@@ -104,8 +104,8 @@ const Header = (props) => {
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                           { dropdown.map(({ label, href, as }, k) => (
-                            <ActiveLink as={as} href={href}>
-                              <Dropdown.Item href={as} key={k}>{label}</Dropdown.Item>
+                            <ActiveLink as={as} href={href} key={k}>
+                              <Dropdown.Item href={as}>{label}</Dropdown.Item>
                             </ActiveLink>
                           )) }
                         </Dropdown.Menu>

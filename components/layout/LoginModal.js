@@ -1,11 +1,14 @@
 import Color from 'color'
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import ReactSVG from 'react-svg'
 import Button from '../button'
 import { STATIC_PATH } from '../../constants/constants'
 import { CONFIG } from '../../config'
 import { Tab } from 'react-bootstrap'
+import { api, baseURL } from '../../services/api'
+import { setAccessToken } from '../../services/auth'
+import UserContext from '../UserContext'
 
 const FormGroup = (props) => {
   return (
@@ -22,10 +25,10 @@ const FormGroup = (props) => {
   )
 }
 
-const Label = (props) => {
+const Label = ({ children, htmlFor, ...props }) => {
   return (
     <>
-      <label for={props.for}>{props.children}</label>
+      <label htmlFor={htmlFor}>{children}</label>
       <style jsx>{`
         label {
           cursor: pointer;
@@ -84,6 +87,24 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
   const facebookColor = '#3B5990'
   const googleColor = '#D44639'
   const [tab, setTab] = useState('login')
+  const { signIn } = useContext(UserContext)
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const tokenResponse = await api.post(`${baseURL}/oauth/token`, {
+      grant_type: 'password',
+      client_id: 2,
+      client_secret: 'OumWnkaEQNwkEHUdM9R9uSh6XcQnVrOglrxWNExL',
+      username: 'dev@somosgad.com',
+      password: '123456',
+      scope: '',
+    })
+    const { access_token } = tokenResponse.data
+    setAccessToken(access_token)
+    const userResponse = await api.get('/user')
+    signIn(userResponse.data, tokenResponse.data)
+  }
+
   return (
     <Modal className="login-modal" onHide={handleClose} show={show}>
       <Modal.Header>
@@ -109,13 +130,13 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
               <div className="intro-text">
                 <p>Una sola cuenta para todos los productos <span className="text-uppercase">{CONFIG.clubName}</span></p>
               </div>
-              <form method="post">
+              <form onSubmit={handleSubmit} method="post">
                 <FormGroup>
-                  <Label for="email">E-mail</Label>
+                  <Label hmtlFor="email">E-mail</Label>
                   <Input autofocus id="email" required type="email" />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="clave">Clave</Label>
+                  <Label hmtlFor="clave">Clave</Label>
                   <Input id="clave" required type="password" />
                   <FormText>
                     <a href="#" onClick={_ => setTab('password')}>¿Olvidó su clave?</a>
@@ -144,7 +165,7 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
               </div>
               <form method="post">
                 <FormGroup>
-                  <Label for="email2">E-mail</Label>
+                  <Label hmtlFor="email2">E-mail</Label>
                   <Input autofocus id="email2" type="email" />
                 </FormGroup>
                 <Button block className="enter-btn" onClick={e => { e.preventDefault(); alert('pã');}} size="sm" type="submit">
@@ -160,47 +181,47 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
               </div>
               <form method="post">
                 <FormGroup>
-                  <Label for="name">Nombre</Label>
+                  <Label hmtlFor="name">Nombre</Label>
                   <Input autofocus id="name" type="text" />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="lastname">Apellido</Label>
+                  <Label hmtlFor="lastname">Apellido</Label>
                   <Input id="lastname" type="text" />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="email">E-mail</Label>
+                  <Label hmtlFor="email">E-mail</Label>
                   <Input id="email" type="email" />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="password">Clave</Label>
+                  <Label hmtlFor="password">Clave</Label>
                   <Input id="password" type="password" />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="password_confirmation">Confirmación de Clave</Label>
+                  <Label hmtlFor="password_confirmation">Confirmación de Clave</Label>
                   <Input id="password_confirmation" type="password" />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="address">Dirección</Label>
+                  <Label hmtlFor="address">Dirección</Label>
                   <Input id="address" type="text" />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="city">Ciudad</Label>
+                  <Label hmtlFor="city">Ciudad</Label>
                   <Input id="city" type="text" />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="country">País</Label>
+                  <Label hmtlFor="country">País</Label>
                   <Input id="country" type="text" />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="document">Documento</Label>
+                  <Label hmtlFor="document">Documento</Label>
                   <Input id="document" type="text" />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="genre">Género</Label>
+                  <Label hmtlFor="genre">Género</Label>
                   <Input id="genre" type="text" />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="payment">Meios de Pagamento</Label>
+                  <Label hmtlFor="payment">Meios de Pagamento</Label>
                   <Input id="payment" type="text" />
                 </FormGroup>
                 <Button block className="enter-btn" onClick={toggleAuth} size="sm" type="submit">Registrar</Button>
