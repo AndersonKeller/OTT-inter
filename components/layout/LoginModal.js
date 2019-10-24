@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import ReactSVG from 'react-svg'
 import Button from '../button'
-import { STATIC_PATH } from '../../constants/constants'
+import { STATIC_PATH, CLIENT_SECRET, CLIENT_ID } from '../../constants/constants'
 import { CONFIG } from '../../config'
 import { Tab } from 'react-bootstrap'
 import { api, baseURL } from '../../services/api'
@@ -40,21 +40,24 @@ const Label = ({ children, htmlFor, ...props }) => {
   )
 }
 
-const Input = ({ autofocus, id, required, type, ...props }) => {
+const Input = ({ autoFocus, id, onChange, required, type, value }) => {
   const inputRef = useRef()
   useEffect(_ => {
-    if (autofocus)
+    if (autoFocus) {
       inputRef.current.focus();
+    }
   })
   return (
     <>
       <input
-        autofocus={autofocus && "true"}
+        autoFocus={autoFocus && "true"}
         className="form-control"
         id={id}
+        onChange={onChange}
         ref={inputRef}
         required={required}
         type={type}
+        value={value}
       />
       <style jsx>{`
         .form-control {
@@ -83,20 +86,19 @@ const FormText = (props) => {
   )
 }
 
-export default ({ handleClose, show, toggleAuth, ...props}) => {
-  const facebookColor = '#3B5990'
-  const googleColor = '#D44639'
-  const [tab, setTab] = useState('login')
+const LoginTab = ({setTab, toggleAuth}) => {
+  const [ email, setEmail ] = useState('')
+  const [ password, setPassword ] = useState('')
   const { signIn } = useContext(UserContext)
 
   async function handleSubmit(e) {
     e.preventDefault();
     const tokenResponse = await api.post(`${baseURL}/oauth/token`, {
       grant_type: 'password',
-      client_id: 2,
-      client_secret: 'OumWnkaEQNwkEHUdM9R9uSh6XcQnVrOglrxWNExL',
-      username: 'dev@somosgad.com',
-      password: '123456',
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      username: email,
+      password: password,
       scope: '',
     })
     const { access_token } = tokenResponse.data
@@ -104,6 +106,45 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
     const userResponse = await api.get('/user')
     signIn(userResponse.data, tokenResponse.data)
   }
+  return (
+    <div>
+      <div className="intro-text">
+        <p>Una sola cuenta para todos los productos <span className="text-uppercase">{CONFIG.clubName}</span></p>
+      </div>
+      <form onSubmit={handleSubmit} method="post">
+        <FormGroup>
+          <Label hmtlFor="email">E-mail</Label>
+          <Input autoFocus id="email" onChange={e => setEmail(e.target.value)} required type="email" value={email} />
+        </FormGroup>
+        <FormGroup>
+          <Label hmtlFor="clave">Clave</Label>
+          <Input id="clave" onChange={e => setPassword(e.target.value)} required type="password" value={password} />
+          <FormText>
+            <a href="#" onClick={_ => setTab('password')}>¿Olvidó su clave?</a>
+          </FormText>
+        </FormGroup>
+        <Button block className="enter-btn" size="sm" type="submit">Entrar</Button>
+        <div className="already-subscriptor">
+          ¿No es suscriptor? <a className="bold text-uppercase" href="#" onClick={_ => setTab('register')}>Regístrate!</a>
+        </div>
+        <div className="or-enter-with">o entre con</div>
+        <Button className="social facebook" onClick={toggleAuth} type="button">
+          <ReactSVG className="icon" src="/static/icons/facebook.svg" />
+          Facebook
+        </Button>
+        <Button className="social google" onClick={toggleAuth} type="button">
+          <ReactSVG className="icon" src="/static/icons/google.svg" />
+          Google
+        </Button>
+      </form>
+    </div>
+  )
+}
+
+export default ({ handleClose, show, toggleAuth, ...props}) => {
+  const facebookColor = '#3B5990'
+  const googleColor = '#D44639'
+  const [ tab, setTab ] = useState('login')
 
   return (
     <Modal className="login-modal" onHide={handleClose} show={show}>
@@ -127,35 +168,7 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
 
             {/* login */}
             <Tab.Pane eventKey="login">
-              <div className="intro-text">
-                <p>Una sola cuenta para todos los productos <span className="text-uppercase">{CONFIG.clubName}</span></p>
-              </div>
-              <form onSubmit={handleSubmit} method="post">
-                <FormGroup>
-                  <Label hmtlFor="email">E-mail</Label>
-                  <Input autofocus id="email" required type="email" />
-                </FormGroup>
-                <FormGroup>
-                  <Label hmtlFor="clave">Clave</Label>
-                  <Input id="clave" required type="password" />
-                  <FormText>
-                    <a href="#" onClick={_ => setTab('password')}>¿Olvidó su clave?</a>
-                  </FormText>
-                </FormGroup>
-                <Button block className="enter-btn" size="sm" type="submit">Entrar</Button>
-                <div className="already-subscriptor">
-                  ¿No es suscriptor? <a className="bold text-uppercase" href="#" onClick={_ => setTab('register')}>Regístrate!</a>
-                </div>
-                <div className="or-enter-with">o entre con</div>
-                <Button className="social facebook" onClick={toggleAuth} type="button">
-                  <ReactSVG className="icon" src="/static/icons/facebook.svg" />
-                  Facebook
-                </Button>
-                <Button className="social google" onClick={toggleAuth} type="button">
-                  <ReactSVG className="icon" src="/static/icons/google.svg" />
-                  Google
-                </Button>
-              </form>
+              <LoginTab setTab={setTab} toggleAuth={toggleAuth} />
             </Tab.Pane>
 
             {/* password recovery */}
@@ -166,7 +179,7 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
               <form method="post">
                 <FormGroup>
                   <Label hmtlFor="email2">E-mail</Label>
-                  <Input autofocus id="email2" type="email" />
+                  <Input autoFocus id="email2" type="email" />
                 </FormGroup>
                 <Button block className="enter-btn" onClick={e => { e.preventDefault(); alert('pã');}} size="sm" type="submit">
                   Enviar Recuperación
@@ -182,7 +195,7 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
               <form method="post">
                 <FormGroup>
                   <Label hmtlFor="name">Nombre</Label>
-                  <Input autofocus id="name" type="text" />
+                  <Input autoFocus id="name" type="text" />
                 </FormGroup>
                 <FormGroup>
                   <Label hmtlFor="lastname">Apellido</Label>

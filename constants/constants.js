@@ -14,3 +14,5 @@ export const STATIC_PATH = `/static/${TENANT}`
 export const GRAY3 = '#333'
 export const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 export const ONLINE = process.env.NODE_ENV === 'production'
+export const CLIENT_SECRET = 'OumWnkaEQNwkEHUdM9R9uSh6XcQnVrOglrxWNExL'
+export const CLIENT_ID = 2
