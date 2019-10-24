@@ -33,7 +33,6 @@ export default function Subscriptor() {
           <SubscriptorSectionText>
             <p>Vea dónde y cuando quiera, incluso 24 horas antes de pasar a la TV</p>
           </SubscriptorSectionText>
-          <Button>Probá Gratis</Button>
         </SubscriptorSection>
 
         {/* section 3 */}
@@ -118,11 +117,6 @@ const SubscriptorSectionText = (props) => {
 
 const Prices = (props) => {
   const prices = [
-    {
-      name: 'Gratis',
-      time: '',
-      value: 0,
-    },
     {
       name: 'Suscripción',
       time: '1 mes',
