@@ -15,7 +15,7 @@ yarn dev
 ```sh
 now
 # or
-now --name=somosgad-dalecacique
+now --name=dalecacique
 # or
-now --name=somosgad-dalecampeon
+now --name=dalecampeon
 ```
