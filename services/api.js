@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { getAccessToken } from './auth'
 
-export const baseURL = 'http://127.0.0.1:8000'
+export const baseURL = IS_PRODUCTION ? 'http://127.0.0.1:8000' : 'http://dale.sa-east-1.elasticbeanstalk.com'
 
 export const api = axios.create({
   baseURL: `${baseURL}/api`
