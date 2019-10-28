@@ -6,6 +6,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import UserContext from '../components/UserContext'
 import { setAccessToken, removeAccessToken } from '../services/auth'
+import Layout from '../components/layout/Layout'
 
 Router.events.on('routeChangeStart', url => {
   console.log(`Loading: ${url}`)
@@ -17,16 +18,32 @@ Router.events.on('routeChangeError', () => NProgress.done())
 class MyApp extends App {
 
   state = {
-    user: null
+    user: null,
   }
 
-  componentDidMount = () => {
+  static async getInitialProps({ Component, router, ctx }) {
+    let layoutPropsTasks = { }, pagePropsTasks = { }
+    if (Layout.getInitialProps) {
+      layoutPropsTasks = Layout.getInitialProps(ctx)
+    }
+    if (Component.getInitialProps) {
+      pagePropsTasks = Component.getInitialProps(ctx)
+    }
+    const [ layoutProps, pageProps ] = await Promise.all([
+      layoutPropsTasks,
+      pagePropsTasks,
+    ]);
+    return { layoutProps, pageProps }
+  }
+
+  componentDidMount = async x_ => {
     const userString = localStorage.getItem('user')
     if (userString) {
       const user = JSON.parse(userString)
-      this.setState({
-        user
-      })
+      this.setState(prev => ({
+        ...prev,
+        user,
+      }))
     } else {
       // Router.push('/')
     }
@@ -71,13 +88,12 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props
-
+    const { Component, layoutProps, pageProps } = this.props
     return <UserContext.Provider value={{ user: this.state.user, signIn: this.signIn, signOut: this.signOut }}>
       <Head>
         {/* <link rel='stylesheet' type='text/css' href='/static/nprogress.css' /> */}
       </Head>
-      <Component {...pageProps} />
+      <Component layoutProps={layoutProps} {...pageProps} />
     </UserContext.Provider>
   }
 }

@@ -9,7 +9,7 @@ import SocialShareBtns from '../components/social-share-btns'
 import { CONFIG } from '../config'
 import { STATIC_PATH, TENANT } from '../constants/constants'
 
-export default function PodcastsPage() {
+export default function PodcastsPage({ layoutProps }) {
   let media
   if (TENANT === 'dalecampeon') {
     media = {
@@ -34,7 +34,7 @@ export default function PodcastsPage() {
     `${STATIC_PATH}/cards/podcasts/7.png`,
   ]
   return (
-    <Layout>
+    <Layout {...layoutProps}>
       <Head>
         <title>Podcasts &lt; {CONFIG.appName}</title>
       </Head>

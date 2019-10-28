@@ -10,7 +10,7 @@ import SocialShareBtns from '../components/social-share-btns'
 import { CONFIG } from '../config'
 import { STATIC_PATH, TENANT } from '../constants/constants'
 
-export default function InterviewPage() {
+export default function InterviewPage({ layoutProps }) {
   const media = {
     title: `Mano a mano con ${TENANT === 'dalecampeon' ? 'Javier Pinola' : 'Esteban Paredes'}`,
     year: '2019',
@@ -26,7 +26,7 @@ export default function InterviewPage() {
     `${STATIC_PATH}/cards/interviews/14.png`,
   ]
   return (
-    <Layout>
+    <Layout {...layoutProps}>
       <Head>
         <title>Entrevista &lt; {CONFIG.appName}</title>
       </Head>

@@ -195,9 +195,9 @@ const More = _ => {
   );
 }
 
-export default function Entrevistas() {
+export default function Entrevistas({ layoutProps }) {
   return (
-    <Layout paddingTop={false}>
+    <Layout {...layoutProps} paddingTop={false}>
       <Head>
         <title>Entrevistas &lt; {CONFIG.appName}</title>
       </Head>

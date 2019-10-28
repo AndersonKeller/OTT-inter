@@ -4,8 +4,8 @@ import redirect from 'next-redirect'
 
 import Layout from '../components/layout/Layout'
 
-const Admin = _ => (
-  <Layout>
+const Admin = ({ layoutProps }) => (
+  <Layout {...layoutProps}>
     <Head>
       <title>Redirecting...</title>
     </Head>

@@ -5,11 +5,11 @@ import Button from '../components/button'
 import { STATIC_PATH, TENANT } from '../constants/constants'
 import { CONFIG } from '../config'
 
-export default function Subscriptor() {
+export default function Subscriptor({ layoutProps }) {
   const playersName = TENANT === 'dalecampeon' ? 'Franco Armani' : 'Valdivia'
   const section2Alt = TENANT === 'dalecampeon' ? `${playersName} con un trofeo` : `${playersName} chutando`
   return (
-    <Layout header="closed">
+    <Layout {...layoutProps} header="closed">
       <Head>
         <title>Subscriptor &lt; {CONFIG.appName}</title>
       </Head>

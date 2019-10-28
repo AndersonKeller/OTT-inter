@@ -13,12 +13,12 @@ import UserContext from '../components/UserContext'
 import { STATIC_PATH, TENANT } from '../constants/constants'
 import { CONFIG } from '../config'
 
-const Home = _ => {
+const Home = ({ layoutProps }) => {
 
   const { user } = useContext(UserContext)
 
   return (
-    <Layout paddingTop={false}>
+    <Layout {...layoutProps} paddingTop={false}>
       <Head>
         <title>{CONFIG.appName}</title>
       </Head>

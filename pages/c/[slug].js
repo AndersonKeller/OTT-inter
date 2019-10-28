@@ -11,7 +11,7 @@ import { CONFIG } from '../../config'
 import { STATIC_PATH } from '../../constants/constants'
 import { api } from '../../services/api'
 
-const Category = ({ errorCode, medias, title, ...props }) => {
+const Category = ({ errorCode, layoutProps, medias, title, ...props }) => {
 
   if (errorCode) {
     return <Error statusCode={errorCode} />
@@ -20,7 +20,7 @@ const Category = ({ errorCode, medias, title, ...props }) => {
   // const router = useRouter()
 
   return (
-    <Layout>
+    <Layout {...layoutProps}>
       <Head>
         <title>{title} &lt; {CONFIG.appName}</title>
       </Head>
@@ -115,13 +115,14 @@ Category.getInitialProps = async (context) => {
   const titles = {
     'entrevistas': 'Entrevistas',
     'fotos': 'Fotos',
+    'players': 'Players',
     'sorteos': 'Sorteos',
   }
   const { slug } = context.query;
   const title = titles[slug]
   const errorCode = ! title ? 404 : false
 
-  if (title == 'Sorteos') {
+  if (title == 'Sorteos' || title == 'Entrevistas' || title == 'Players') {
     const response = await api.get('/movies')
     medias = response.data
   }

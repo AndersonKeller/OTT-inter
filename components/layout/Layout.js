@@ -4,8 +4,9 @@ import { GRAY3, IS_PRODUCTION } from '../../constants/constants'
 import Header from './Header'
 import Footer from './Footer'
 import { CONFIG } from '../../config'
+import loadCategories from '../../lib/load-categories'
 
-const Layout = ({ header, paddingTop, ...props }) => {
+const Layout = ({ categories, header, paddingTop, ...props }) => {
 
   if (header === 'closed') {
     paddingTop = false
@@ -55,11 +56,15 @@ const Layout = ({ header, paddingTop, ...props }) => {
         <link rel="stylesheet" href="/static/fonts/bebas-neue/stylesheet.css" />
         <script src="https://player.vimeo.com/api/player.js"></script>
       </Head>
-      <Header closed={header === 'closed'} />
+
+      <Header categories={categories} closed={header === 'closed'} />
+
       <main className={ ! paddingTop ? 'no-padding' : ''}>
         {props.children}
       </main>
+
       <Footer />
+
       <style jsx global>{`
         *,
         *::before,
@@ -212,6 +217,11 @@ const Layout = ({ header, paddingTop, ...props }) => {
       `}</style>
     </>
   );
+}
+
+Layout.getInitialProps = async _ => {
+  const categories = await loadCategories()
+  return { categories }
 }
 
 export default Layout

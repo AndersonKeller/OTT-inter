@@ -10,14 +10,14 @@ import Chevron from '../icons/chevron'
 import UserMenu from './UserMenu'
 import { CONFIG } from '../../config'
 
-const Header = (props) => {
+const Header = ({ categories, closed, ...props }) => {
 
   // menu
-  const menu = [
+  let menu = [
     { label: 'Home', href: '/' },
     { label: 'Videos', href: '/media-inside-2-public' },
     { label: 'Podcasts', href: '/podcasts' },
-    { label: 'Entrevistas', href: '/c/[slug]', as: '/c/entrevistas' },
+    // { label: 'Entrevistas', href: '/c/[slug]', as: '/c/entrevistas' },
     { label: 'Fotos', href: '/c/[slug]', as: '/c/fotos', visibility: 'publicOnly' },
     { label: 'Sorteos', href: '/c/[slug]', as: '/c/sorteos', visibility: 'publicOnly' },
     {
@@ -37,6 +37,9 @@ const Header = (props) => {
       visibility: 'private',
     },
   ]
+  categories.forEach(category => {
+    menu.push({ label: category.name, href: '/c/[slug]', as: `/c/${category.slug}`})
+  });
 
   // user context
   const { user } = useContext(UserContext)
@@ -59,7 +62,7 @@ const Header = (props) => {
 
   // classes
   const classes = classNames('header', {
-    closed: props.closed,
+    closed: closed,
     scrolled: scrolled,
   })
 
@@ -74,7 +77,7 @@ const Header = (props) => {
           </ActiveLink>
         </h1>
 
-        { ! props.closed && (
+        { ! closed && (
           <>
 
             {/* club logo */}
