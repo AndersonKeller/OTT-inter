@@ -123,8 +123,12 @@ Category.getInitialProps = async (context) => {
   const errorCode = ! title ? 404 : false
 
   if (title == 'Sorteos' || title == 'Entrevistas' || title == 'Players') {
-    const response = await api.get('/movies')
-    medias = response.data
+    try {
+      const response = await api.get(`/movies/category/${slug}`)
+      medias = response.data
+    } catch (error) {
+      medias = []
+    }
   }
 
   return { errorCode, medias, title }
