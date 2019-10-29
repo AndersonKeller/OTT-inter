@@ -17,28 +17,27 @@ const Header = ({ categories, closed, ...props }) => {
     { label: 'Home', href: '/' },
     { label: 'Videos', href: '/media-inside-2-public' },
     { label: 'Podcasts', href: '/podcasts' },
-    // { label: 'Entrevistas', href: '/c/[slug]', as: '/c/entrevistas' },
-    { label: 'Fotos', href: '/c/[slug]', as: '/c/fotos', visibility: 'publicOnly' },
-    { label: 'Sorteos', href: '/c/[slug]', as: '/c/sorteos', visibility: 'publicOnly' },
-    {
-      label: 'Más',
-      dropdown: [
-        { label: 'Fotos', href: '/c/[slug]', as: '/c/fotos', },
-        { label: 'Sorteos', href: '/c/[slug]', as: '/c/sorteos', },
-        { label: 'Historia del Club', href: '/historia-del-club' },
-        { label: 'Infantil', href: '/infantil' },
-        { label: 'Variedades', href: '/variedades' },
-        { label: 'Realities', href: '/realities' },
-        { label: 'Noticias', href: '/noticias' },
-        { label: 'Otros deportes', href: '/otros-deportes' },
-        { label: 'Especiales', href: '/especiales' },
-        { label: 'Salud y Bienestar', href: '/salud-y-bienestar' },
-      ],
-      visibility: 'private',
-    },
   ]
-  categories.forEach(category => {
-    menu.push({ label: category.name, href: '/c/[slug]', as: `/c/${category.slug}`})
+  categories.map(category => {
+    let dropdown
+    if (category.children) {
+      dropdown = []
+      category.children.map(subcategory => {
+        dropdown.push({
+          as: `/c/${subcategory.slug}`,
+          href: '/c/[slug]',
+          label: subcategory.name,
+          visibility: subcategory.private ? 'private' : 'public',
+        })
+      })
+    }
+    menu.push({
+      as: `/c/${category.slug}`,
+      dropdown: dropdown,
+      href: '/c/[slug]',
+      label: category.name,
+      visibility: category.private ? 'private' : 'public',
+    })
   });
 
   // user context
