@@ -82,7 +82,9 @@ const Header = ({ categories, closed, ...props }) => {
 
             {/* club logo */}
             <div className="club-logo">
-              <img alt={`by ${CONFIG.clubName}`} className="img-fluid" src={`${STATIC_PATH}/logos/club.svg`} />
+              <a href={CONFIG.site} target="_blank">
+                <img alt={`by ${CONFIG.clubName}`} className="img-fluid" src={`${STATIC_PATH}/logos/club.svg`} />
+              </a>
             </div>
 
             {/* menu */}
@@ -202,6 +204,9 @@ const Header = ({ categories, closed, ...props }) => {
           justify-content: center;
           margin-right: 30px;
           width: 45px;
+        }
+        .club-logo a {
+          display: flex;
         }
         .menu {
           display: none;
