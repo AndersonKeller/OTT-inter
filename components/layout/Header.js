@@ -90,10 +90,11 @@ const Header = ({ categories, closed, ...props }) => {
             <ul className="menu d-none d-md-flex">
               { menu.map(({ label, href, as, visibility, dropdown }, i) => {
                 return ( ! visibility ||
+                  visibility === 'public' ||
                   visibility === 'publicOnly' && ! user ||
                   visibility === 'private' && user) && (
                   <li key={i}>
-                    { dropdown ? (
+                    { dropdown && dropdown.length ? (
                       <Dropdown>
                         <Dropdown.Toggle id={`dropdown-custom-${i}`}>
                           {label}
