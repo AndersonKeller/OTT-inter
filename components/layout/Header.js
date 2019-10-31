@@ -10,15 +10,11 @@ import Chevron from '../icons/chevron'
 import UserMenu from './UserMenu'
 import { CONFIG } from '../../config'
 
-const Header = ({ categories, closed, ...props }) => {
+const Header = ({ menus, closed, ...props }) => {
 
   // menu
-  let menu = [
-    { label: 'Home', href: '/' },
-    { label: 'Videos', href: '/media-inside-2-public' },
-    { label: 'Podcasts', href: '/podcasts' },
-  ]
-  categories.map(category => {
+  let menu = []
+  menus.map(category => {
     let dropdown
     if (category.children) {
       dropdown = []
@@ -32,9 +28,8 @@ const Header = ({ categories, closed, ...props }) => {
       })
     }
     menu.push({
-      as: `/c/${category.slug}`,
       dropdown: dropdown,
-      href: '/c/[slug]',
+      href: `${category.link}`,
       label: category.name,
       visibility: category.private ? 'private' : 'public',
     })

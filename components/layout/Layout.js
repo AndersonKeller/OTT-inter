@@ -4,9 +4,9 @@ import { GRAY3, IS_PRODUCTION } from '../../constants/constants'
 import Header from './Header'
 import Footer from './Footer'
 import { CONFIG } from '../../config'
-import loadCategories from '../../lib/load-categories'
+import loadMenus from '../../lib/load-menus'
 
-const Layout = ({ categories, header, paddingTop, ...props }) => {
+const Layout = ({ menus, header, paddingTop, ...props }) => {
 
   if (header === 'closed') {
     paddingTop = false
@@ -57,7 +57,7 @@ const Layout = ({ categories, header, paddingTop, ...props }) => {
         <script src="https://player.vimeo.com/api/player.js"></script>
       </Head>
 
-      <Header categories={categories} closed={header === 'closed'} />
+      <Header menus={menus} closed={header === 'closed'} />
 
       <main className={ ! paddingTop ? 'no-padding' : ''}>
         {props.children}
@@ -220,8 +220,8 @@ const Layout = ({ categories, header, paddingTop, ...props }) => {
 }
 
 Layout.getInitialProps = async _ => {
-  const categories = await loadCategories()
-  return { categories }
+  const menus = await loadMenus()
+  return { menus }
 }
 
 export default Layout
