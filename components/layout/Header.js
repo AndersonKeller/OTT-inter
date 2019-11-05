@@ -12,27 +12,42 @@ import { CONFIG } from '../../config'
 
 const Header = ({ menus, closed, ...props }) => {
 
+  function createMenuItem(menuItem) {
+    // define href
+    let as_href,
+      href
+    if (menuItem.link_type_id === 1) {
+      href = menuItem.link
+    } else if (menuItem.link_type_id === 2) {
+      href = '/c/[slug]'
+      as_href = `/c/${menuItem.category && menuItem.category.slug}`
+    }
+    return {
+      as: as_href,
+      href: href,
+      label: menuItem.name,
+      visibility: menuItem.private ? 'private' : 'public',
+    }
+  }
+
   // menu
   let menu = []
-  menus.map(category => {
+  menus.map(menuItem => {
+    // create dropdown menus
     let dropdown
-    if (category.children) {
+    if (menuItem.children && menuItem.link_type_id === 3) {
       dropdown = []
-      category.children.map(subcategory => {
-        dropdown.push({
-          as: `/c/${subcategory.slug}`,
-          href: '/c/[slug]',
-          label: subcategory.name,
-          visibility: subcategory.private ? 'private' : 'public',
-        })
+      menuItem.children.map(item => {
+        const submenuItem = createMenuItem(item)
+        dropdown.push(submenuItem)
       })
     }
-    menu.push({
+    let myItem = createMenuItem(menuItem)
+    myItem = {
       dropdown: dropdown,
-      href: `${category.link}`,
-      label: category.name,
-      visibility: category.private ? 'private' : 'public',
-    })
+      ...myItem,
+    }
+    menu.push(myItem)
   });
 
   // user context
