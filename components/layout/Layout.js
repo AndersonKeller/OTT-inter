@@ -117,6 +117,9 @@ const Layout = ({ menus, header, paddingTop, ...props }) => {
           height: 100%;
           margin: 0;
         }
+        strong {
+          font-weight: bold;
+        }
         #__next {
           display: flex;
           flex-direction: column;
