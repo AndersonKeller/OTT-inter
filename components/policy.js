@@ -3,14 +3,21 @@
 const Policy = ({title, policy, ...props}) => (
         <div className="legal-wrapper">
         <div className="policy container">
-            <h3 className="h3 text-uppercase">{ title }</h3>
+            <h3 className="h3 text-uppercase legal-title">{ title }</h3>
             <div className="legal-text">
                 <div dangerouslySetInnerHTML={ { __html: policy } }></div>
             </div>
         </div>
       <style jsx>{`
+        .legal-wrapper { 
+           background-color: white; 
+           min-height: 500px;  
+        }
 
-      .legal-wrapper { background-color: white; min-height: 500px;  }
+        .legal-title {
+            padding-top: 10px; 
+        }
+
        .policy {
            background-color: #fff ;
        }
@@ -30,6 +37,7 @@ const Policy = ({title, policy, ...props}) => (
            line-height: 28px;
            margin: 0 0 16px;
            word-break: break-word;
+           padding-bottom: 10px;
        }
       `}</style>
         </div>
