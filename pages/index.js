@@ -14,9 +14,22 @@ import { STATIC_PATH, TENANT } from '../constants/constants'
 import { CONFIG } from '../config'
 import { api } from '../services/api'
 
-const Home = ({ layoutProps, platences }) => {
+const HomeCarouselSection = ({data}) => (
+  <>
+    {data && (
+      <CarouselSection title={data.name}>
+        {data.movies.length &&
+          data.movies.map(item => (
+            <Card href="/media-inside-1" src={item.thumbnail_url} />
+          ))
+        }
+      </CarouselSection>
+    )}
+  </>
+)
+
+const Home = ({ layoutProps, platences, arts }) => {
   const { user } = useContext(UserContext)
-  console.log(platences)
   return (
     <Layout {...layoutProps} paddingTop={false}>
       <Head>
@@ -28,26 +41,10 @@ const Home = ({ layoutProps, platences }) => {
         <Cover />
 
         {/* platenences */}
-        {platences && (
-          <CarouselSection title={platences.name}>
-            {platences.movies.length &&
-              platences.movies.map(item => (
-                <Card href="/media-inside-1" src={item.thumbnail_url} />
-              ))
-            }
-          </CarouselSection>
-        )}
+        <HomeCarouselSection data={platences} />
 
         {/* arts */}
-        <CarouselSection title="Artes">
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/arts/1.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/arts/2.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/arts/3.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/arts/4.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/arts/5.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/arts/6.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/arts/7.png`} />
-        </CarouselSection>
+        <HomeCarouselSection data={arts} />
 
         {/* featured */}
         {!user ? (
@@ -178,15 +175,17 @@ const Home = ({ layoutProps, platences }) => {
 
 Home.getInitialProps = async () => {
   const errorCode = 1 ? false : 404
-  let platences = []
+  let platences = [],
+    arts = []
   try {
-    const response = await api.get(`/category/platences`)
-    platences = response.data
-    console.log(platences)
+    const platencesResponse = await api.get(`/category/platences`)
+    platences = platencesResponse.data
+    const artsResponse = await api.get(`/category/artes`)
+    arts = artsResponse.data
   } catch (error) {
-    console.log('error')
+    console.error('error', error)
   }
-  return { errorCode, platences }
+  return { errorCode, platences, arts }
 }
 
 export default Home
