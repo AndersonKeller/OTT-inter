@@ -117,12 +117,13 @@ Category.getInitialProps = async (context) => {
     'fotos': 'Fotos',
     'players': 'Players',
     'sorteos': 'Sorteos',
+    'platences': 'Platences',
   }
   const { slug } = context.query;
   const title = titles[slug]
   const errorCode = ! title ? 404 : false
 
-  if (title == 'Sorteos' || title == 'Entrevistas' || title == 'Players') {
+  if (['Sorteos', 'Entrevistas', 'Platences', 'Players'].includes(title)) {
     try {
       const response = await api.get(`/movies/category/${slug}`)
       medias = response.data

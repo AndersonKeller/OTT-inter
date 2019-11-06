@@ -12,11 +12,11 @@ import MiLista from '../components/mi-lista'
 import UserContext from '../components/UserContext'
 import { STATIC_PATH, TENANT } from '../constants/constants'
 import { CONFIG } from '../config'
+import { api } from '../services/api'
 
-const Home = ({ layoutProps }) => {
-
+const Home = ({ layoutProps, platences }) => {
   const { user } = useContext(UserContext)
-
+  console.log(platences)
   return (
     <Layout {...layoutProps} paddingTop={false}>
       <Head>
@@ -28,15 +28,15 @@ const Home = ({ layoutProps }) => {
         <Cover />
 
         {/* platenences */}
-        <CarouselSection title={CONFIG.supportersAKA}>
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/supporters/1.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/supporters/2.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/supporters/3.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/supporters/4.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/supporters/5.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/supporters/6.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/supporters/7.png`} />
-        </CarouselSection>
+        {platences && (
+          <CarouselSection title={platences.name}>
+            {platences.movies.length &&
+              platences.movies.map(item => (
+                <Card href="/media-inside-1" src={item.thumbnail_url} />
+              ))
+            }
+          </CarouselSection>
+        )}
 
         {/* arts */}
         <CarouselSection title="Artes">
@@ -174,6 +174,19 @@ const Home = ({ layoutProps }) => {
       `}</style>
     </Layout>
   )
+}
+
+Home.getInitialProps = async () => {
+  const errorCode = 1 ? false : 404
+  let platences = []
+  try {
+    const response = await api.get(`/category/platences`)
+    platences = response.data
+    console.log(platences)
+  } catch (error) {
+    console.log('error')
+  }
+  return { errorCode, platences }
 }
 
 export default Home
