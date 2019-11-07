@@ -16,19 +16,27 @@ import { api } from '../services/api'
 
 const HomeCarouselSection = ({data}) => (
   <>
-    {data && (
+    {data && data.name && (
       <CarouselSection title={data.name}>
         {data.movies.length &&
           data.movies.map(item => (
-            <Card href="/media-inside-1" src={item.thumbnail_url} />
+            <>
+              <Card href="/media-inside-1" src={item.thumbnail_url} />
+              {/* <Card
+                as="/c/entrevistas"
+                href="/c/[slug]"
+                src={`${STATIC_PATH}/cards/interviews/1.png`}
+              /> */}
+            </>
           ))
         }
       </CarouselSection>
     )}
+
   </>
 )
 
-const Home = ({ layoutProps, platences, arts, podcasts }) => {
+const Home = ({ layoutProps, platences, arts, podcasts, interviews }) => {
   const { user } = useContext(UserContext)
   return (
     <Layout {...layoutProps} paddingTop={false}>
@@ -67,15 +75,7 @@ const Home = ({ layoutProps, platences, arts, podcasts }) => {
         <HomeCarouselSection data={podcasts} />
 
         {/* interviews */}
-        <CarouselSection title="Entrevistas">
-          <Card as="/c/entrevistas" href="/c/[slug]" src={`${STATIC_PATH}/cards/interviews/1.png`} />
-          <Card as="/c/entrevistas" href="/c/[slug]" src={`${STATIC_PATH}/cards/interviews/2.png`} />
-          <Card as="/c/entrevistas" href="/c/[slug]" src={`${STATIC_PATH}/cards/interviews/3.png`} />
-          <Card as="/c/entrevistas" href="/c/[slug]" src={`${STATIC_PATH}/cards/interviews/4.png`} />
-          <Card as="/c/entrevistas" href="/c/[slug]" src={`${STATIC_PATH}/cards/interviews/5.png`} />
-          <Card as="/c/entrevistas" href="/c/[slug]" src={`${STATIC_PATH}/cards/interviews/6.png`} />
-          <Card as="/c/entrevistas" href="/c/[slug]" src={`${STATIC_PATH}/cards/interviews/7.png`} />
-        </CarouselSection>
+        <HomeCarouselSection data={interviews} />
 
         {/* features */}
         {!user ? (
@@ -169,7 +169,8 @@ Home.getInitialProps = async () => {
   const errorCode = 1 ? false : 404
   let platences = [],
     arts = [],
-    podcasts = []
+    podcasts = [],
+    interviews = []
   try {
     const platencesResponse = await api.get(`/category/platences`)
     platences = platencesResponse.data
@@ -177,10 +178,12 @@ Home.getInitialProps = async () => {
     arts = artsResponse.data
     const podcastsResponse = await api.get(`/category/podcasts`)
     podcasts = podcastsResponse.data
+    const interviewsResponse = await api.get(`/category/entrevistas`)
+    interviews = interviewsResponse.data
   } catch (error) {
     console.error('error', error)
   }
-  return { errorCode, platences, arts, podcasts }
+  return { errorCode, platences, arts, podcasts, interviews }
 }
 
 export default Home

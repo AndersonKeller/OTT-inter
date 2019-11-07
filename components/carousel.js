@@ -76,6 +76,9 @@ export default class Carousel extends Component {
             .slick-list {
               overflow: visible;
             }
+            .slick-track {
+              margin-left: 0;
+            }
             .cards {
               margin-bottom: 55px;
               overflow: hidden;
