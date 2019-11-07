@@ -64,7 +64,7 @@ export default class Carousel extends Component {
                 </div>
               )
             }) }
-            { ! this.props.list && this.props.children.map((card, index) => {
+            { ! this.props.list && React.Children.map(this.props.children, (card, index) => {
               return (
                 <div className="slide" key={index}>
                   {card}

@@ -36,7 +36,7 @@ const HomeCarouselSection = ({data}) => (
   </>
 )
 
-const Home = ({ layoutProps, platences, arts, podcasts, interviews }) => {
+const Home = ({ layoutProps, platences, arts, podcasts, interviews, news, family, children }) => {
   const { user } = useContext(UserContext)
   return (
     <Layout {...layoutProps} paddingTop={false}>
@@ -95,15 +95,7 @@ const Home = ({ layoutProps, platences, arts, podcasts, interviews }) => {
         )}
 
         {/* news */}
-        <CarouselSection title="Noticias">
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/news/1.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/news/2.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/news/3.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/news/4.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/news/5.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/news/6.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/news/7.png`} />
-        </CarouselSection>
+        <HomeCarouselSection data={news} />
 
         {/* features */}
         {!user ? (
@@ -125,15 +117,7 @@ const Home = ({ layoutProps, platences, arts, podcasts, interviews }) => {
         )}
 
         {/* family */}
-        <CarouselSection title="Familia">
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/family/1.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/family/2.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/family/3.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/family/4.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/family/5.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/family/6.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/family/7.png`} />
-        </CarouselSection>
+        <HomeCarouselSection data={family} />
 
         {user && (
           <Featured img={`${STATIC_PATH}/logged-banner4.png`}>
@@ -145,15 +129,7 @@ const Home = ({ layoutProps, platences, arts, podcasts, interviews }) => {
         )}
 
         {/* children */}
-        <CarouselSection title="Niños">
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/children/1.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/children/2.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/children/3.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/children/4.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/children/5.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/children/6.png`} />
-          <Card href="/media-inside-2-public" src={`${STATIC_PATH}/cards/children/7.png`} />
-        </CarouselSection>
+        <HomeCarouselSection data={children} />
 
       </div>
       <style jsx>{`
@@ -170,7 +146,10 @@ Home.getInitialProps = async () => {
   let platences = [],
     arts = [],
     podcasts = [],
-    interviews = []
+    interviews = [],
+    news = [],
+    family = [],
+    children = []
   try {
     const platencesResponse = await api.get(`/category/platences`)
     platences = platencesResponse.data
@@ -180,10 +159,16 @@ Home.getInitialProps = async () => {
     podcasts = podcastsResponse.data
     const interviewsResponse = await api.get(`/category/entrevistas`)
     interviews = interviewsResponse.data
+    const newsResponse = await api.get(`/category/noticias`)
+    news = newsResponse.data
+    const familyResponse = await api.get(`/category/familia`)
+    family = familyResponse.data
+    const childrenResponse = await api.get(`/category/ninos`)
+    children = childrenResponse.data
   } catch (error) {
-    console.error('error', error)
+    console.error('We have an error')
   }
-  return { errorCode, platences, arts, podcasts, interviews }
+  return { errorCode, platences, arts, podcasts, news, family, children }
 }
 
 export default Home
