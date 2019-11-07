@@ -28,7 +28,7 @@ const HomeCarouselSection = ({data}) => (
   </>
 )
 
-const Home = ({ layoutProps, platences, arts }) => {
+const Home = ({ layoutProps, platences, arts, podcasts }) => {
   const { user } = useContext(UserContext)
   return (
     <Layout {...layoutProps} paddingTop={false}>
@@ -64,15 +64,7 @@ const Home = ({ layoutProps, platences, arts }) => {
         )}
 
         {/* podcasts */}
-        <CarouselSection title="Podcasts">
-          <Card href="/podcasts" src={`${STATIC_PATH}/cards/podcasts/1.png`} />
-          <Card href="/podcasts" src={`${STATIC_PATH}/cards/podcasts/2.png`} />
-          <Card href="/podcasts" src={`${STATIC_PATH}/cards/podcasts/3.png`} />
-          <Card href="/podcasts" src={`${STATIC_PATH}/cards/podcasts/4.png`} />
-          <Card href="/podcasts" src={`${STATIC_PATH}/cards/podcasts/5.png`} />
-          <Card href="/podcasts" src={`${STATIC_PATH}/cards/podcasts/6.png`} />
-          <Card href="/podcasts" src={`${STATIC_PATH}/cards/podcasts/7.png`} />
-        </CarouselSection>
+        <HomeCarouselSection data={podcasts} />
 
         {/* interviews */}
         <CarouselSection title="Entrevistas">
@@ -176,16 +168,19 @@ const Home = ({ layoutProps, platences, arts }) => {
 Home.getInitialProps = async () => {
   const errorCode = 1 ? false : 404
   let platences = [],
-    arts = []
+    arts = [],
+    podcasts = []
   try {
     const platencesResponse = await api.get(`/category/platences`)
     platences = platencesResponse.data
     const artsResponse = await api.get(`/category/artes`)
     arts = artsResponse.data
+    const podcastsResponse = await api.get(`/category/podcasts`)
+    podcasts = podcastsResponse.data
   } catch (error) {
     console.error('error', error)
   }
-  return { errorCode, platences, arts }
+  return { errorCode, platences, arts, podcasts }
 }
 
 export default Home
