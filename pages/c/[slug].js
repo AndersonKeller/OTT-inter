@@ -11,7 +11,7 @@ import { CONFIG } from '../../config'
 import { STATIC_PATH } from '../../constants/constants'
 import { api } from '../../services/api'
 
-const Category = ({ errorCode, layoutProps, medias, title, ...props }) => {
+const Category = ({ category, errorCode, layoutProps, medias, ...props }) => {
 
   if (errorCode) {
     return <Error statusCode={errorCode} />
@@ -22,13 +22,13 @@ const Category = ({ errorCode, layoutProps, medias, title, ...props }) => {
   return (
     <Layout {...layoutProps}>
       <Head>
-        <title>{title} &lt; {CONFIG.appName}</title>
+        <title>{category.name} &lt; {CONFIG.appName}</title>
       </Head>
       <div className="container-fluid">
         <div className="row">
           <div className="col-10 offset-1">
             <header>
-              <h1 className="h2">{title}</h1>
+              <h1 className="h2">{category.name}</h1>
             </header>
             { medias.length ? (
               <div className="media-cards row gutter-15">
@@ -36,7 +36,7 @@ const Category = ({ errorCode, layoutProps, medias, title, ...props }) => {
                   <div className="col-2" key={index}>
                     <Link href="/media-inside-1">
                       <a className="media-card text-center">
-                        <img className="img-fluid" src={media.thumbnail} />
+                        <img className="img-fluid" src={media.thumbnail_url} />
                         <div className="media-card-label">{media.title}</div>
                       </a>
                     </Link>
@@ -44,7 +44,9 @@ const Category = ({ errorCode, layoutProps, medias, title, ...props }) => {
                 )) }
               </div>
             ) : (
-              <div>Nada</div>
+              <div>
+                <p>No se encontraron registros.</p>
+              </div>
             )}
           </div>
         </div>
@@ -94,45 +96,16 @@ const Category = ({ errorCode, layoutProps, medias, title, ...props }) => {
 }
 
 Category.getInitialProps = async (context) => {
-  // const res = await fetch('https://api.tvmaze.com/search/shows?q=batman')
-  // const data = await res.json()
-  // console.log(`Show data fetched. Count: ${data.length}`)
-  // const show = data.map(entry => entry.show)
-
-  const ids = shuffle([1,2,3,4,5,6,7])
-
-  let medias = [
-    {id: ids[0], thumbnail: `${STATIC_PATH}/cards/interviews/${ids[0]}.png`, title: 'Lorem ipsum dolor sit amet'},
-    {id: ids[1], thumbnail: `${STATIC_PATH}/cards/interviews/${ids[1]}.png`, title: 'Consectetur adipiscing elit'},
-    {id: ids[2], thumbnail: `${STATIC_PATH}/cards/interviews/${ids[2]}.png`, title: 'Sed maximus quam elementum'},
-    {id: ids[3], thumbnail: `${STATIC_PATH}/cards/interviews/${ids[3]}.png`, title: 'Ullamcorper purus in'},
-    {id: ids[4], thumbnail: `${STATIC_PATH}/cards/interviews/${ids[4]}.png`, title: 'Gravida quam'},
-    {id: ids[5], thumbnail: `${STATIC_PATH}/cards/interviews/${ids[5]}.png`, title: 'Quisque scelerisque suscipit'},
-    {id: ids[6], thumbnail: `${STATIC_PATH}/cards/interviews/${ids[6]}.png`, title: 'Nec aliquet sem gravida at'},
-  ]
-  medias = shuffle(medias)
-  for (let i = 0; i < 3; i++) medias = [...medias, ...medias];
-  const titles = {
-    'entrevistas': 'Entrevistas',
-    'fotos': 'Fotos',
-    'players': 'Players',
-    'sorteos': 'Sorteos',
-    'platences': 'Platences',
-  }
   const { slug } = context.query;
-  const title = titles[slug]
-  const errorCode = ! title ? 404 : false
-
-  if (['Sorteos', 'Entrevistas', 'Platences', 'Players'].includes(title)) {
-    try {
-      const response = await api.get(`/movies/category/${slug}`)
-      medias = response.data
-    } catch (error) {
-      medias = []
-    }
+  let category, medias = [], errorCode = false
+  try {
+    const response = await api.get(`/category/${slug}`)
+    category = response.data
+    medias = category.movies
+  } catch (error) {
+    errorCode = 404
   }
-
-  return { errorCode, medias, title }
+  return { category, errorCode, medias }
 }
 
 export default Category
