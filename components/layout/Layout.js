@@ -6,7 +6,7 @@ import Footer from './Footer'
 import { CONFIG } from '../../config'
 import loadMenus from '../../lib/load-menus'
 
-const Layout = ({ menus, header, paddingTop, ...props }) => {
+const Layout = ({ children, error, menus, header, paddingTop, ...props }) => {
 
   if (header === 'closed') {
     paddingTop = false
@@ -60,7 +60,7 @@ const Layout = ({ menus, header, paddingTop, ...props }) => {
       <Header menus={menus} closed={header === 'closed'} />
 
       <main className={ ! paddingTop ? 'no-padding' : ''}>
-        {props.children}
+        {children}
       </main>
 
       <Footer />
@@ -223,8 +223,12 @@ const Layout = ({ menus, header, paddingTop, ...props }) => {
 }
 
 Layout.getInitialProps = async _ => {
-  const menus = await loadMenus()
-  return { menus }
+  try {
+    const menus = await loadMenus()
+    return { menus }
+  } catch (error) {
+    return { error }
+  }
 }
 
 export default Layout

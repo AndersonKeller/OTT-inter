@@ -32,7 +32,6 @@ const HomeCarouselSection = ({data}) => (
         }
       </CarouselSection>
     )}
-
   </>
 )
 
@@ -141,34 +140,38 @@ const Home = ({ layoutProps, platences, arts, podcasts, interviews, news, family
   )
 }
 
-Home.getInitialProps = async () => {
-  const errorCode = 1 ? false : 404
-  let platences = [],
-    arts = [],
-    podcasts = [],
-    interviews = [],
-    news = [],
-    family = [],
-    children = []
+Home.getInitialProps = async _ => {
   try {
-    const platencesResponse = await api.get(`/category/platences`)
-    platences = platencesResponse.data
-    const artsResponse = await api.get(`/category/artes`)
-    arts = artsResponse.data
-    const podcastsResponse = await api.get(`/category/podcasts`)
-    podcasts = podcastsResponse.data
-    const interviewsResponse = await api.get(`/category/entrevistas`)
-    interviews = interviewsResponse.data
-    const newsResponse = await api.get(`/category/noticias`)
-    news = newsResponse.data
-    const familyResponse = await api.get(`/category/familia`)
-    family = familyResponse.data
-    const childrenResponse = await api.get(`/category/ninos`)
-    children = childrenResponse.data
+    const [
+      {data: platences},
+      {data: arts},
+      {data: podcasts},
+      {data: interviews},
+      {data: news},
+      {data: family},
+      {data: children},
+    ] = await Promise.all([
+      api.get(`/category/platences`),
+      api.get(`/category/artes`),
+      api.get(`/category/podcasts`),
+      api.get(`/category/entrevistas`),
+      api.get(`/category/noticias`),
+      api.get(`/category/familia`),
+      api.get(`/category/ninos`),
+    ])
+    return {
+      platences,
+      arts,
+      podcasts,
+      interviews,
+      news,
+      family,
+      children,
+    }
   } catch (error) {
-    console.error('We have an error')
+    const errorCode = 404
+    return { errorCode }
   }
-  return { errorCode, platences, arts, podcasts, news, family, children }
 }
 
 export default Home

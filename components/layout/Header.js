@@ -31,24 +31,27 @@ const Header = ({ menus, closed, ...props }) => {
   }
 
   // menu
-  let menu = []
-  menus.map(menuItem => {
-    // create dropdown menus
-    let dropdown
-    if (menuItem.children && menuItem.link_type_id === 3) {
-      dropdown = []
-      menuItem.children.map(item => {
-        const submenuItem = createMenuItem(item)
-        dropdown.push(submenuItem)
-      })
-    }
-    let myItem = createMenuItem(menuItem)
-    myItem = {
-      dropdown: dropdown,
-      ...myItem,
-    }
-    menu.push(myItem)
-  });
+  let menu = null
+  if (menus) {
+    menu = []
+    menus.map(menuItem => {
+      // create dropdown menus
+      let dropdown
+      if (menuItem.children && menuItem.link_type_id === 3) {
+        dropdown = []
+        menuItem.children.map(item => {
+          const submenuItem = createMenuItem(item)
+          dropdown.push(submenuItem)
+        })
+      }
+      let myItem = createMenuItem(menuItem)
+      myItem = {
+        dropdown: dropdown,
+        ...myItem,
+      }
+      menu.push(myItem)
+    });
+  }
 
   // user context
   const { user } = useContext(UserContext)
@@ -98,45 +101,51 @@ const Header = ({ menus, closed, ...props }) => {
 
             {/* menu */}
             <ul className="menu d-none d-md-flex">
-              { menu.map(({ label, href, as, visibility, dropdown }, i) => {
-                return ( ! visibility ||
-                  visibility === 'public' ||
-                  visibility === 'publicOnly' && ! user ||
-                  visibility === 'private' && user) && (
-                  <li key={i}>
-                    { dropdown && dropdown.length ? (
-                      <Dropdown>
-                        <Dropdown.Toggle id={`dropdown-custom-${i}`}>
-                          {label}
-                          <Chevron
-                            alt=""
-                            className="chevron"
-                            dir="bottom"
-                            height="9"
-                            inline
-                            width="16"
-                          />
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          { dropdown.map(({ label, href, as }, k) => (
-                            <ActiveLink as={as} href={href} key={k}>
-                              <Dropdown.Item href={as}>{label}</Dropdown.Item>
-                            </ActiveLink>
-                          )) }
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    ) : (
-                      <ActiveLink as={as} href={href}>
-                        <a>{label}</a>
-                      </ActiveLink>
-                    ) }
-                  </li>
-                )
-              }) }
+              { menu ? (
+                <>
+                  { menu.map(({ label, href, as, visibility, dropdown }, i) => {
+                    return ( ! visibility ||
+                      visibility === 'public' ||
+                      visibility === 'publicOnly' && ! user ||
+                      visibility === 'private' && user) && (
+                      <li key={i}>
+                        { dropdown && dropdown.length ? (
+                          <Dropdown>
+                            <Dropdown.Toggle id={`dropdown-custom-${i}`}>
+                              {label}
+                              <Chevron
+                                alt=""
+                                className="chevron"
+                                dir="bottom"
+                                height="9"
+                                inline
+                                width="16"
+                              />
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                              { dropdown.map(({ label, href, as }, k) => (
+                                <ActiveLink as={as} href={href} key={k}>
+                                  <Dropdown.Item href={as}>{label}</Dropdown.Item>
+                                </ActiveLink>
+                              )) }
+                            </Dropdown.Menu>
+                          </Dropdown>
+                        ) : (
+                          <ActiveLink as={as} href={href}>
+                            <a>{label}</a>
+                          </ActiveLink>
+                        ) }
+                      </li>
+                    )
+                  }) }
+                </>
+              ) : (
+                <li>No se pueden cargar los menús</li>
+              ) }
             </ul>
 
             {/* form */}
-            <form className="d-none d-md-block" method="post">
+            <form className="d-none d-md-block search-form" method="post">
               <button className="search-btn" type="button">
                 <img alt="Buscar" height="28" src="/static/magnify-icon.svg" width="28" />
               </button>
@@ -310,6 +319,9 @@ const Header = ({ menus, closed, ...props }) => {
         }
         .form-control::placeholder {
           color: #b2b2b2;
+        }
+        .search-form {
+          margin-left: auto;
         }
         .search-btn {
           background-color: transparent;
