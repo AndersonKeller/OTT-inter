@@ -48,7 +48,7 @@ const Cover = ({media}) => {
   <div className="cover container-fluid" style={{
     backgroundImage: [
       'url(/static/inside-cover-gradient.png)',
-      `url(${STATIC_PATH}/inside-cover.png)`,
+      `url(${media.poster_url})`,
     ],
   }}>
     <div className="row align-items-center">
