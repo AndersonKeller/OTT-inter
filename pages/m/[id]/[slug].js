@@ -1,13 +1,50 @@
+import Error from 'next/error'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useContext } from 'react'
 
-import Button from '../components/button'
-import Layout from '../components/layout/Layout'
-import MiLista from '../components/mi-lista'
-import { CONFIG } from '../config'
-import { TENANT, STATIC_PATH } from '../constants/constants'
+import Button from '../../../components/button'
+import Layout from '../../../components/layout/Layout'
+import MiLista from '../../../components/mi-lista'
+import UserContext from '../../../components/UserContext'
+import { CONFIG } from '../../../config'
+import { TENANT, STATIC_PATH } from '../../../constants/constants'
+import { api } from '../../../services/api'
 
-const Cover = _ => (
+function MediaPage1({ category, errorCode, layoutProps, media }) {
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
+  }
+  return (
+    <Layout {...layoutProps} paddingTop={false}>
+      <Head>
+        <title>{media.title} &lt; {CONFIG.appName}</title>
+      </Head>
+      <Cover {...{media}} />
+      <More {...{category}} />
+    </Layout>
+  );
+}
+
+MediaPage1.getInitialProps = async (context) => {
+  const {id, slug} = context.query;
+  try {
+    const response = await api.get(`/movie/${id}/category/${slug}`)
+    const {category, movie} = response.data
+    return { category, media: movie }
+  } catch (error) {
+    const errorCode = 404
+    return { errorCode }
+  }
+}
+
+const Cover = ({media}) => {
+  const { user } = useContext(UserContext)
+  if (TENANT === 'dalecacique') {
+    media.title = 'Mano a mano con Esteban Paredes'
+    media.detail = `El capitán albo tuvo un mano a mano con ${CONFIG.appName}, donde contó sobre todo lo que rodea al delantero albo.`
+  }
+  return (
   <div className="cover container-fluid" style={{
     backgroundImage: [
       'url(/static/inside-cover-gradient.png)',
@@ -16,17 +53,18 @@ const Cover = _ => (
   }}>
     <div className="row align-items-center">
       <div className="col-12 col-md-5 offset-md-1">
-        <h1>Mano a mano con {TENANT === 'dalecampeon' ? 'Javier Pinola' : 'Esteban Paredes'}</h1>
-        <div>2019</div>
-        <div className="description">
-          {TENANT === 'dalecampeon' ? (
-            <p>El jugador del Más Grande habló de su carrera en una entrevista exclusiva con {CONFIG.appName}.</p>
-          ) : (
-            <p>El capitán albo tuvo un mano a mano con {CONFIG.appName},
-            donde contó sobre todo lo que rodea al delantero albo.</p>
+        <div className="info">
+          <h1>{media.title}</h1>
+          {media.publish_year && (
+            <div className="year">{media.publish_year}</div>
+          )}
+          {media.detail && (
+            <div className="description">
+              <p>{media.detail}</p>
+            </div>
           )}
         </div>
-        <Link href="/subscriptor">
+        <Link href={`/media-inside-2-${user ? 'private' : 'public'}`}>
           <Button>Proba Gratis</Button>
         </Link>
         <MiLista />
@@ -50,7 +88,7 @@ const Cover = _ => (
         line-height: normal;
         margin-bottom: 0;
       }
-      .description {
+      .info {
         margin-bottom: 30px;
       }
       .cover :global(.btn-primary) {
@@ -61,7 +99,7 @@ const Cover = _ => (
           height: 560px;
           padding-top: 110px;
         }
-        .description {
+        .info {
           margin-bottom: 50px;
         }
         .cover :global(.btn-primary) {
@@ -71,44 +109,30 @@ const Cover = _ => (
       }
     `}</style>
   </div>
-)
+)}
 
-const More = _ => {
-  let interviews
-  if (TENANT === 'dalecampeon') {
-    interviews = [
-      {
-        img: `${STATIC_PATH}/hthumbs/1.png`,
-        title: 'Entrevista a Javier Pinola',
-        text: 'EXCLUSIVO #DaleCampeon | Hablamos mano a mano con Javier Pinola: "Estoy muy contento con este presente. Al principio me costó adaptarme"',
-      },
-      {
-        img: `${STATIC_PATH}/hthumbs/2.png`,
-        title: 'Mano a mano con Javier Pinola',
-        text: `El jugador del Más Grande habló de su carrera en una entrevista exclusiva con ${CONFIG.appName}.`,
-      },
-      {
-        img: `${STATIC_PATH}/hthumbs/3.png`,
-        title: 'Pinola: "Queremos seguir ganando y sumando confianza"',
-        text: 'La palabra de Javier Pinola luego del triunfo ante San Martín. ¡Escuchalo! ',
-      }
-    ]
-  } else {
-    interviews = [
+const More = ({category}) => {
+  let medias = category.movies
+  medias = medias.map(media => {
+    media.img = `${STATIC_PATH}/hthumbs/1.png`
+    return media
+  })
+  if (TENANT !== 'dalecampeon') {
+    medias = [
       {
         img: `${STATIC_PATH}/hthumbs/1.png`,
         title: 'Héroes Anónimos: Juan Melgarejo',
-        text: `Juan Melgarejo, ha pasado por varias etapas dentro de ${CONFIG.appName}. Partió en Operaciones, luego trabajó de junior, hasta que un día apoyó en la Utilería del Fútbol Joven y nunca más abandonó el costado de una cancha. Esta es su historia #94AñosColoColo`,
+        description: `Juan Melgarejo, ha pasado por varias etapas dentro de ${CONFIG.appName}. Partió en Operaciones, luego trabajó de junior, hasta que un día apoyó en la Utilería del Fútbol Joven y nunca más abandonó el costado de una cancha. Esta es su historia #94AñosColoColo`,
       },
       {
         img: `${STATIC_PATH}/hthumbs/2.png`,
         title: 'Banini, la mejor del año',
-        text: `Estefanía Banini, la 10 de ${CONFIG.appName} Femenino, "la Messi" como le llaman, fue elegida como la mejor del Fútbol Femenino, en la premiación que realiza año a año el Círculo de Periodistas Deportivos.`,
+        description: `Estefanía Banini, la 10 de ${CONFIG.appName} Femenino, "la Messi" como le llaman, fue elegida como la mejor del Fútbol Femenino, en la premiación que realiza año a año el Círculo de Periodistas Deportivos.`,
       },
       {
         img: `${STATIC_PATH}/hthumbs/3.png`,
         title: '¿Qué tipo de entrenamiento es éste?',
-        text: 'Nuestro Primer Equipo compartió y practicó junto a un club deportivo de no videntes.',
+        description: 'Nuestro Primer Equipo compartió y practicó junto a un club deportivo de no videntes.',
       }
     ]
   }
@@ -116,24 +140,26 @@ const More = _ => {
     <div className="more container-fluid">
       <div className="row">
         <div className="col offset-md-1">
-          <h2 className="h2 text-uppercase">Más Entrevistas</h2>
+          <h2 className="h2 text-uppercase">Más {category.name}</h2>
         </div>
       </div>
       <div className="cards">
-        { interviews.map((interview, i) => (
+        { medias.map((media, i) => (
           <div className="interview-card row align-items-center" key={i}>
             <div className="col-md-4">
-              <Link href="/media-inside-2-private">
-                <a><img src={interview.img} width="390" height="220" className="img-fluid w-100 d-block" /></a>
+              <Link as={`/m/${media.id}/${category.slug}`} href="/m/[id]/[slug]">
+                <a><img src={media.img} width="390" height="220" className="img-fluid w-100 d-block" /></a>
               </Link>
             </div>
             <div className="col-md-7">
               <h3 className="h3">
-                <Link href="/media-inside-2-private">
-                  <a>{interview.title}</a>
+                <Link as={`/m/${media.id}/${category.slug}`} href="/m/[id]/[slug]">
+                  <a>{media.title}</a>
                 </Link>
               </h3>
-              <p>{interview.text}</p>
+              {media.detail && (
+                <p>{media.detail}</p>
+              )}
             </div>
           </div>
         )) }
@@ -195,14 +221,4 @@ const More = _ => {
   );
 }
 
-export default function Entrevistas({ layoutProps }) {
-  return (
-    <Layout {...layoutProps} paddingTop={false}>
-      <Head>
-        <title>Entrevistas &lt; {CONFIG.appName}</title>
-      </Head>
-      <Cover />
-      <More />
-    </Layout>
-  );
-}
+export default MediaPage1

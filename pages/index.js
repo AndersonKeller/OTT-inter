@@ -20,14 +20,11 @@ const HomeCarouselSection = ({data}) => (
       <CarouselSection title={data.name}>
         {data.movies.length &&
           data.movies.map(item => (
-            <>
-              <Card href="/media-inside-1" src={item.thumbnail_url} />
-              {/* <Card
-                as="/c/entrevistas"
-                href="/c/[slug]"
-                src={`${STATIC_PATH}/cards/interviews/1.png`}
-              /> */}
-            </>
+            <Card
+              as={`/m/${item.id}/${data.slug}`}
+              href="/m/[id]/[slug]"
+              src={item.thumbnail_url}
+            />
           ))
         }
       </CarouselSection>
