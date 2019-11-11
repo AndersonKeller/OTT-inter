@@ -111,6 +111,62 @@ const Cover = ({media}) => {
   </div>
 )}
 
+const HMediaCard = ({category, media}) => (
+  <div className="h-media-card row align-items-center">
+    <div className="col-md-4">
+      <Link as={`/m/${media.id}/${category.slug}`} href="/m/[id]/[slug]">
+        <a>
+          <img
+            className="img-fluid w-100 d-block"
+            height="220"
+            src={media.thumbnail2_url ? media.thumbnail2_url : 'http://placehold.jp/390x220.png'}
+            width="390"
+          />
+        </a>
+      </Link>
+    </div>
+    <div className="col-md-7">
+      <h3 className="h3">
+        <Link as={`/m/${media.id}/${category.slug}`} href="/m/[id]/[slug]">
+          <a>{media.title}</a>
+        </Link>
+      </h3>
+      {media.detail && (
+        <p>{media.detail}</p>
+      )}
+    </div>
+    <style jsx>{`
+      .h-media-card {
+        margin-bottom: 30px;
+      }
+      .h-media-card a {
+        color: var(--white);
+        text-decoration: none;
+      }
+      .h-media-card img {
+        margin-bottom: 15px;
+      }
+      .h3 {
+        font-size: inherit;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .h3 a:focus,
+      .h3 a:hover {
+        text-decoration: underline;
+      }
+      @media (min-width: 768px) {
+        .h-media-card {
+          margin-bottom: 45px;
+        }
+        .h-media-card img {
+          margin-bottom: 0;
+        }
+      }
+    `}</style>
+  </div>
+)
+
 const More = ({category}) => {
   let medias = category.movies
   medias = medias.map(media => {
@@ -145,23 +201,7 @@ const More = ({category}) => {
       </div>
       <div className="cards">
         { medias.map((media, i) => (
-          <div className="interview-card row align-items-center" key={i}>
-            <div className="col-md-4">
-              <Link as={`/m/${media.id}/${category.slug}`} href="/m/[id]/[slug]">
-                <a><img src={media.img} width="390" height="220" className="img-fluid w-100 d-block" /></a>
-              </Link>
-            </div>
-            <div className="col-md-7">
-              <h3 className="h3">
-                <Link as={`/m/${media.id}/${category.slug}`} href="/m/[id]/[slug]">
-                  <a>{media.title}</a>
-                </Link>
-              </h3>
-              {media.detail && (
-                <p>{media.detail}</p>
-              )}
-            </div>
-          </div>
+          <HMediaCard key={i} {...{category, media}} />
         )) }
       </div>
       <style jsx>{`
@@ -179,25 +219,6 @@ const More = ({category}) => {
         .cards {
           overflow: hidden;
         }
-        .interview-card {
-          margin-bottom: 30px;
-        }
-        .interview-card a {
-          color: var(--white);
-          text-decoration: none;
-        }
-        .interview-card img {
-          margin-bottom: 15px;
-        }
-        .h3 {
-          font-size: inherit;
-          margin-top: 0;
-          margin-bottom: 0;
-        }
-        .h3 a:focus,
-        .h3 a:hover {
-          text-decoration: underline;
-        }
         @media (min-width: 768px) {
           .more {
             padding-top: 45px;
@@ -208,12 +229,6 @@ const More = ({category}) => {
           }
           .cards {
             padding-left: 4%;
-          }
-          .interview-card {
-            margin-bottom: 45px;
-          }
-          .interview-card img {
-            margin-bottom: 0;
           }
         }
       `}</style>
