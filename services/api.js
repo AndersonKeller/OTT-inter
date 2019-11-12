@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { getAccessToken } from './auth'
-import { IS_PRODUCTION } from '../constants/constants'
+import { API_URL } from '../constants/constants'
 
-export const baseURL = IS_PRODUCTION ? 'https://admin.dalecampeon.net' : 'http://127.0.0.1:8000'
+export const baseURL = API_URL
 
 export const api = axios.create({
   baseURL: `${baseURL}/api`
