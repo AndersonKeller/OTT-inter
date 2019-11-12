@@ -145,11 +145,11 @@ const Header = ({ menus, closed, ...props }) => {
             </ul>
 
             {/* form */}
-            <form className="d-none d-md-block search-form" method="post">
-              <button className="search-btn" type="button">
+            <form className="d-none d-md-block search-form" method="get" action="/movies">
+              <button className="search-btn" type="submit">
                 <img alt="Buscar" height="28" src="/static/magnify-icon.svg" width="28" />
               </button>
-              <input className="form-control" placeholder="Buscar" type="search" />
+              <input className="form-control" name="search" placeholder="Buscar" type="search" />
             </form>
 
             {/* notifications */}
@@ -317,6 +317,17 @@ const Header = ({ menus, closed, ...props }) => {
           vertical-align: middle;
           width: 95px;
         }
+        input[type=search] {
+          padding: 0px 10px;
+          margin-right: 10px;
+          width: 10vw;
+          transition: ease-in-out 0.7s;
+        }
+        input[type=search]:focus {
+          width: 20vw !important;
+          transition: ease-in-out 0.7s;
+          box-shadow: 0 0 0 0.1rem rgba(255, 0, 0, 0.26);
+        }
         .form-control::placeholder {
           color: #b2b2b2;
         }
@@ -331,6 +342,9 @@ const Header = ({ menus, closed, ...props }) => {
           outline: 0;
           padding: 5px;
           vertical-align: middle;
+        }
+        .search-btn:hover {
+          filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
         }
         .notifications-btn {
           background-color: transparent;
