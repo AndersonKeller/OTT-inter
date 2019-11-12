@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
+const Button = React.forwardRef(({ children, href, onClick, type, ...props}, ref) => {
   const block = props.block ? 'btn-block' : ''
   const className = props.className || ''
   const color = props.color || 'primary'
@@ -8,16 +8,15 @@ const Button = React.forwardRef(({ onClick, href, ...props}, ref) => {
   const textColor = props.textColor ? 'btn--color-white' : ''
   const size = props.size === 'sm' ? 'btn-sm' : ''
   const classNames = `btn btn-${color} ${block} ${outline} ${className} ${textColor} ${size}`
-  const type = props.type
   return (
     <>
       { ['button', 'submit'].includes(type) ? (
-        <button className={classNames} href={href} onClick={onClick} ref={ref} type={type}>
-          {props.children}
+        <button className={classNames} {...{href, onClick, ref, type}}>
+          {children}
         </button>
       ) : (
-        <a className={classNames} href={href} onClick={onClick} ref={ref}>
-          {props.children}
+        <a className={classNames} {...{href, onClick, ref}}>
+          {children}
         </a>
       ) }
       <style jsx>{`

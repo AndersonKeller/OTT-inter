@@ -11,7 +11,7 @@ import { CONFIG } from '../../../config'
 import { TENANT, STATIC_PATH } from '../../../constants/constants'
 import { api } from '../../../services/api'
 
-function MediaPage1({ category, errorCode, layoutProps, media }) {
+function MediaPage1({ category, errorCode, layoutProps, media, related }) {
   if (errorCode) {
     return <Error statusCode={errorCode} />
   }
@@ -20,8 +20,8 @@ function MediaPage1({ category, errorCode, layoutProps, media }) {
       <Head>
         <title>{media.title} &lt; {CONFIG.appName}</title>
       </Head>
-      <Cover {...{media}} />
-      <More {...{category}} />
+      <Cover {...{category, media}} />
+      <More {...{category, related}} />
     </Layout>
   );
 }
@@ -30,15 +30,15 @@ MediaPage1.getInitialProps = async (context) => {
   const {id, slug} = context.query;
   try {
     const response = await api.get(`/movie/${id}/category/${slug}`)
-    const {category, movie} = response.data
-    return { category, media: movie }
+    const {category, movie, related} = response.data
+    return { category, media: movie, related }
   } catch (error) {
     const errorCode = 404
     return { errorCode }
   }
 }
 
-const Cover = ({media}) => {
+const Cover = ({category, media}) => {
   const { user } = useContext(UserContext)
   if (TENANT === 'dalecacique') {
     media.title = 'Mano a mano con Esteban Paredes'
@@ -64,7 +64,11 @@ const Cover = ({media}) => {
             </div>
           )}
         </div>
-        <Link href={`/media-inside-2-${user ? 'private' : 'public'}`}>
+        <Link
+          as={`/m/${media.id}/${category.slug}/watch`}
+          href="/m/[id]/[slug]/watch"
+          passHref
+        >
           <Button>Proba Gratis</Button>
         </Link>
         <MiLista />
@@ -167,28 +171,24 @@ const HMediaCard = ({category, media}) => (
   </div>
 )
 
-const More = ({category}) => {
-  let medias = category.movies
-  medias = medias.map(media => {
-    media.img = `${STATIC_PATH}/hthumbs/1.png`
-    return media
-  })
+const More = ({category, related}) => {
+  let medias = related
   if (TENANT !== 'dalecampeon') {
     medias = [
       {
-        img: `${STATIC_PATH}/hthumbs/1.png`,
+        thumbnail2_url: `${STATIC_PATH}/hthumbs/1.png`,
         title: 'Héroes Anónimos: Juan Melgarejo',
-        description: `Juan Melgarejo, ha pasado por varias etapas dentro de ${CONFIG.appName}. Partió en Operaciones, luego trabajó de junior, hasta que un día apoyó en la Utilería del Fútbol Joven y nunca más abandonó el costado de una cancha. Esta es su historia #94AñosColoColo`,
+        detail: `Juan Melgarejo, ha pasado por varias etapas dentro de ${CONFIG.appName}. Partió en Operaciones, luego trabajó de junior, hasta que un día apoyó en la Utilería del Fútbol Joven y nunca más abandonó el costado de una cancha. Esta es su historia #94AñosColoColo`,
       },
       {
-        img: `${STATIC_PATH}/hthumbs/2.png`,
+        thumbnail2_url: `${STATIC_PATH}/hthumbs/2.png`,
         title: 'Banini, la mejor del año',
-        description: `Estefanía Banini, la 10 de ${CONFIG.appName} Femenino, "la Messi" como le llaman, fue elegida como la mejor del Fútbol Femenino, en la premiación que realiza año a año el Círculo de Periodistas Deportivos.`,
+        detail: `Estefanía Banini, la 10 de ${CONFIG.appName} Femenino, "la Messi" como le llaman, fue elegida como la mejor del Fútbol Femenino, en la premiación que realiza año a año el Círculo de Periodistas Deportivos.`,
       },
       {
-        img: `${STATIC_PATH}/hthumbs/3.png`,
+        thumbnail2_url: `${STATIC_PATH}/hthumbs/3.png`,
         title: '¿Qué tipo de entrenamiento es éste?',
-        description: 'Nuestro Primer Equipo compartió y practicó junto a un club deportivo de no videntes.',
+        detail: 'Nuestro Primer Equipo compartió y practicó junto a un club deportivo de no videntes.',
       }
     ]
   }

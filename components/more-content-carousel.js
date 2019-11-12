@@ -3,32 +3,26 @@ import Button from '../components/button'
 import Card from '../components/card'
 import CarouselSection from '../components/carousel-section'
 
-export default function MoreContentCarousel(props) {
-  let variantName, variantLink
-  switch (props.variant) {
-    case 'interview':
-      variantName = 'Entrevistas'
-      variantLink = 'entrevistas'
-      break;
-    case 'videos':
-      variantName = 'Videos'
-      variantLink = 'videos'
-      break;
-    default:
-      variantName = 'Podcasts'
-      variantLink = 'podcasts'
-      break;
-  }
+export default function MoreContentCarousel({category, uppercase}) {
   return (
     <aside className="carousel-section">
-      <CarouselSection color="gray" title={props.title} uppercase={props.uppercase}>
-        { props.content.map((src, i) => (
-          <Card key={i} src={src} />
-        ))}
-      </CarouselSection>
+      {category && category.name && (
+        <CarouselSection color="gray" title={category.name} {...{uppercase}}>
+          {category.movies.length &&
+            category.movies.map((item, key) => (
+              <Card
+                as={`/m/${item.id}/${category.slug}`}
+                href="/m/[id]/[slug]"
+                {...{key}}
+                src={item.thumbnail_url}
+              />
+            ))
+          }
+        </CarouselSection>
+      )}
       <div className="text-center">
-        <Link href={variantLink}>
-          <Button className="text-uppercase" color="secondary">{`Más ${variantName}`}</Button>
+        <Link as={`/c/${category.slug}`} href={'/c/[slug]'} passHref>
+          <Button className="text-uppercase" color="secondary">{`Más ${category.name}`}</Button>
         </Link>
       </div>
       <style jsx>{`

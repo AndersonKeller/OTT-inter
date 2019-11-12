@@ -19,10 +19,11 @@ const HomeCarouselSection = ({data}) => (
     {data && data.name && (
       <CarouselSection title={data.name}>
         {data.movies.length &&
-          data.movies.map(item => (
+          data.movies.map((item, key) => (
             <Card
               as={`/m/${item.id}/${data.slug}`}
               href="/m/[id]/[slug]"
+              {...{key}}
               src={item.thumbnail_url}
             />
           ))
@@ -60,7 +61,7 @@ const Home = ({ layoutProps, platences, arts, podcasts, interviews, news, family
           </Featured>
         ) : (
           <Featured img={`${STATIC_PATH}/logged-banner1.png`}>
-            <Link href="/media-inside-2-public">
+            <Link href="/media-inside-2-public" passHref>
               <Button>Ver más</Button>
             </Link>
             <MiLista />
@@ -195,16 +196,16 @@ const Cover = _ => {
                 }</span></h1>
               { ! user ? (
                 <>
-                  <Link href="/subscriptor">
+                  <Link href="/subscriptor" passHref>
                     <Button>Probar Gratis</Button>
                   </Link>
-                  <Link as="/c/entrevistas" href="/c/[slug]">
+                  <Link as="/c/entrevistas" href="/c/[slug]" passHref>
                     <Button color="secondary" outline>Ver más</Button>
                   </Link>
                 </>
               ) : (
                 <>
-                  <Link as="/c/entrevistas" href="/c/[slug]">
+                  <Link as="/c/entrevistas" href="/c/[slug]" passHref>
                     <Button>Ver más</Button>
                   </Link>
                   <MiLista />
