@@ -38,7 +38,11 @@ export default _ => {
       <Dropdown alignRight drop="down" flip={undefined}>
         <Dropdown.Toggle id={`dropdown-custom-user`}>
           <span className="avatar">
-            <img alt="Avatar" height="31" src="/static/icons/user.svg" width="24" />
+            <img alt="Avatar" 
+            height={ (user && user.cropped_image_url) ? "45" : "30" } 
+            width={ (user && user.cropped_image_url) ? "45" : "30" } 
+            src={ (user && user.cropped_image_url)? user.cropped_image_url : "/static/icons/user.svg" } 
+            class={ (user && user.cropped_image_url)? "rounded-circle" : null } />
           </span>
           <Chevron
             alt=""
@@ -113,6 +117,11 @@ export default _ => {
           margin-right: 10px;
           padding: 5px;
           width: 45px;
+        }
+        .avatar-image {
+          height: 40px;
+          width: 40px;
+          border-radius: 50%;
         }
         .user-select :global(.dropdown-toggle) :global(.chevron) {
           line-height: 1;
