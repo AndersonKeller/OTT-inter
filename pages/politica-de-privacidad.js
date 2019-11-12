@@ -21,7 +21,6 @@ PrivacyPolicy.getInitialProps = async function() {
 
     const title = "Política de Privacidad";
 
-    console.log(data.privacy_policy.privacy_pol);
     return { title: title, privacy: data.privacy_policy.privacy_pol}  ; 
 }
 

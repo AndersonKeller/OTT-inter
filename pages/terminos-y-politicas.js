@@ -22,7 +22,6 @@ TermsAndPolitics.getInitialProps = async function() {
 
     const title = "Términos y políticas";
 
-    console.log(data.privacy_policy);
     return { title: title, privacy: data.privacy_policy.terms_condition}  ; 
 }
 
