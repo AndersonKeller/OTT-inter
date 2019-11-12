@@ -15,6 +15,7 @@ const withNextEnv = nextEnv();
 const nextConfig = {
   env: {
     TENANT: process.env.TENANT,
+    API_URL: process.env.API_URL
   },
 };
 
