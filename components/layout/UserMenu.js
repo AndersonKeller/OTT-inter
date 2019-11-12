@@ -38,11 +38,11 @@ export default _ => {
       <Dropdown alignRight drop="down" flip={undefined}>
         <Dropdown.Toggle id={`dropdown-custom-user`}>
           <span className="avatar">
-            <img alt="Avatar" 
-            height={ (user && user.cropped_image_url) ? "45" : "30" } 
-            width={ (user && user.cropped_image_url) ? "45" : "30" } 
-            src={ (user && user.cropped_image_url)? user.cropped_image_url : "/static/icons/user.svg" } 
-            class={ (user && user.cropped_image_url)? "rounded-circle" : null } />
+            <img alt="Avatar"
+            height={ (user && user.cropped_image_url) ? "45" : "30" }
+            width={ (user && user.cropped_image_url) ? "45" : "30" }
+            src={ (user && user.cropped_image_url)? user.cropped_image_url : "/static/icons/user.svg" }
+            className={ (user && user.cropped_image_url)? "rounded-circle" : null } />
           </span>
           <Chevron
             alt=""
