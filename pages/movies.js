@@ -15,12 +15,13 @@ const MoviesPage = ({errorCode, allMedia, layoutProps}) => {
   const [medias,setMedias] = useState([]);
   const [loading,setLoading] = useState(true);
   const [error,setError] = useState(false);
-  var search = router.query.search
+  const [search,setSearchValue] = useState(router.query.search)
 
   if (errorCode)
     return <Error statusCode={errorCode} />
 
   const fetchData = async() => {
+    console.log('fetch')
     try {
       setMedias(search ? (await api.get(`/search/${search}`)).data : allMedia);
     } catch (e) {
@@ -29,7 +30,9 @@ const MoviesPage = ({errorCode, allMedia, layoutProps}) => {
     setLoading(false)
   }
 
-  useEffect(() => {fetchData()}, [])
+  useEffect(async () => {
+    await fetchData()
+  }, [search])
 
   return (
     <Layout {...layoutProps}>

@@ -9,6 +9,7 @@ import UserContext from '../UserContext'
 import Chevron from '../icons/chevron'
 import UserMenu from './UserMenu'
 import { CONFIG } from '../../config'
+import Router from 'next/router'
 
 const Header = ({ menus, closed, ...props }) => {
 
@@ -78,6 +79,16 @@ const Header = ({ menus, closed, ...props }) => {
     scrolled: scrolled,
   })
 
+  // submit
+  const [ searchValue, setSearchField ] = useState('')
+  const handleSearch = (e) => {
+    e.preventDefault()
+    Router.push({
+      pathname: '/movies',
+      query: { search: searchValue },
+    })
+  }
+
   return (
     <header className={classes}>
       <nav className="nav">
@@ -145,11 +156,23 @@ const Header = ({ menus, closed, ...props }) => {
             </ul>
 
             {/* form */}
-            <form className="d-none d-md-block search-form" method="get" action="/movies">
+            <form
+              action="/movies"
+              className="d-none d-md-block search-form"
+              method="get"
+              onSubmit={(e) => handleSearch(e)}
+            >
               <button className="search-btn" type="submit">
                 <img alt="Buscar" height="28" src="/static/magnify-icon.svg" width="28" />
               </button>
-              <input className="form-control" name="search" placeholder="Buscar" type="search" />
+              <input
+                className="form-control"
+                name="search"
+                onChange={e => setSearchField(e.target.value)}
+                placeholder="Buscar"
+                type="search"
+                value={searchValue}
+              />
             </form>
 
             {/* notifications */}
