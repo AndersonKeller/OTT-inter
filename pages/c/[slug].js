@@ -10,6 +10,7 @@ import Layout from '../../components/layout/Layout'
 import { CONFIG } from '../../config'
 import { STATIC_PATH } from '../../constants/constants'
 import { api } from '../../services/api'
+import MediaCard from '../../components/MediaCard/MediaCard'
 
 const Category = ({ category, errorCode, layoutProps, medias, ...props }) => {
 
@@ -32,14 +33,9 @@ const Category = ({ category, errorCode, layoutProps, medias, ...props }) => {
             </header>
             { medias.length ? (
               <div className="media-cards row gutter-15">
-                { medias.map((media, index) => (
-                  <div className="col-2" key={index}>
-                    <Link href="/media-inside-1">
-                      <a className="media-card text-center">
-                        <img className="img-fluid" src={media.thumbnail_url} />
-                        <div className="media-card-label">{media.title}</div>
-                      </a>
-                    </Link>
+                { medias.map((media, key) => (
+                  <div className="col-2" {...{key}}>
+                    <MediaCard {...{category, media}} />
                   </div>
                 )) }
               </div>
@@ -60,35 +56,6 @@ const Category = ({ category, errorCode, layoutProps, medias, ...props }) => {
         }
         .media-cards {
           margin-bottom: 100px;
-        }
-        .media-card {
-          display: block;
-          font-size: 16px;
-          line-height: 1;
-          margin-bottom: 30px;
-          text-decoration: none;
-        }
-        .media-card:focus,
-        .media-card:hover {
-          color: var(--white);
-        }
-        .media-card img {
-          margin-bottom: 10px;
-          transition: opacity .2s;
-        }
-        .media-card-label {
-          opacity: .4;
-          padding-right: 5%;
-          padding-left: 5%;
-          transition: opacity .2s;
-        }
-        .media-card:focus .media-card-label,
-        .media-card:hover .media-card-label {
-          opacity: .5;
-        }
-        .media-card:focus img,
-        .media-card:hover img {
-          opacity: .75;
         }
       `}</style>
     </Layout>

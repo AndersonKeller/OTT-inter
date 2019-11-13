@@ -8,6 +8,7 @@ import ClipLoader from 'react-spinners/ClipLoader'
 import Layout from '../components/layout/Layout'
 import { CONFIG } from '../config'
 import { api } from '../services/api'
+import MediaCard from '../components/MediaCard/MediaCard'
 
 const MoviesPage = ({layoutProps}) => {
 
@@ -60,14 +61,9 @@ const MoviesPage = ({layoutProps}) => {
             </div>
             { ! loading && (
               <div className="media-cards row gutter-15">
-                { medias.map((media, index) => (
-                  <div className="col-2" key={index}>
-                    <Link href="/media-inside-1">
-                      <a className="media-card text-center">
-                        <img className="img-fluid" src={media.thumbnail} />
-                        <div className="media-card-label">{media.title}</div>
-                      </a>
-                    </Link>
+                { medias.map((media, key) => (
+                  <div className="col-2" {...{key}}>
+                    <MediaCard {...{category: {slug: 'movies'}, media}} />
                   </div>
                 )) }
               </div>
@@ -86,35 +82,6 @@ const MoviesPage = ({layoutProps}) => {
         }
         .media-cards {
           margin-bottom: 100px;
-        }
-        .media-card {
-          display: block;
-          font-size: 16px;
-          line-height: 1;
-          margin-bottom: 30px;
-          text-decoration: none;
-        }
-        .media-card:focus,
-        .media-card:hover {
-          color: var(--white);
-        }
-        .media-card img {
-          margin-bottom: 10px;
-          transition: opacity .2s;
-        }
-        .media-card-label {
-          opacity: .4;
-          padding-right: 5%;
-          padding-left: 5%;
-          transition: opacity .2s;
-        }
-        .media-card:focus .media-card-label,
-        .media-card:hover .media-card-label {
-          opacity: .5;
-        }
-        .media-card:focus img,
-        .media-card:hover img {
-          opacity: .75;
         }
       `}</style>
     </Layout>
