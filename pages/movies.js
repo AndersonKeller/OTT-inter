@@ -34,10 +34,12 @@ const MoviesPage = ({errorCode, allMedia, layoutProps}) => {
     fetchData()
   }, [search])
 
+  const title = search ? `Búsqueda para "${search}"` : 'Búsqueda'
+
   return (
     <Layout {...layoutProps}>
       <Head>
-        <title>{search} &lt; {CONFIG.appName}</title>
+        <title>{title} &lt; {CONFIG.appName}</title>
       </Head>
       <div className="container-fluid">
         <div className="row">
