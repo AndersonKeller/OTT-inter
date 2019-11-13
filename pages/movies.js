@@ -15,23 +15,23 @@ const MoviesPage = ({errorCode, allMedia, layoutProps}) => {
   const [medias,setMedias] = useState([]);
   const [loading,setLoading] = useState(true);
   const [error,setError] = useState(false);
-  const [search,setSearchValue] = useState(router.query.search)
+  const search = router.query.search
 
   if (errorCode)
     return <Error statusCode={errorCode} />
 
-  const fetchData = async() => {
-    console.log('fetch')
-    try {
-      setMedias(search ? (await api.get(`/search/${search}`)).data : allMedia);
-    } catch (e) {
-      setError(500)
+  useEffect(_ => {
+    const fetchData = async _ => {
+      try {
+        setLoading(true)
+        const {data: searchedMedia} = await api.get(`/search/${search}`)
+        setMedias(search ? searchedMedia : allMedia);
+        setLoading(false)
+      } catch (e) {
+        setError(500)
+      }
     }
-    setLoading(false)
-  }
-
-  useEffect(async () => {
-    await fetchData()
+    fetchData()
   }, [search])
 
   return (
@@ -45,8 +45,11 @@ const MoviesPage = ({errorCode, allMedia, layoutProps}) => {
 
             <header>
               <h1 className="h2">Videos</h1>
-              {error ? <h1 className="h6">{error} | Incapaz de buscar</h1> :
-              search && !loading && <h1 className="h4">{medias.length} resultados para "{search}"</h1>}
+              {error ? (
+                <h1 className="h6">{error} | Incapaz de buscar</h1>
+              ) : search && !loading && (
+                <h1 className="h4">{medias.length} resultados para "{search}"</h1>
+              )}
             </header>
             <div>
               <ClipLoader
@@ -56,7 +59,7 @@ const MoviesPage = ({errorCode, allMedia, layoutProps}) => {
                 loading={loading}
               />
             </div>
-            { (
+            { ! loading && (
               <div className="media-cards row gutter-15">
                 { medias.map((media, index) => (
                   <div className="col-2" key={index}>
@@ -70,6 +73,7 @@ const MoviesPage = ({errorCode, allMedia, layoutProps}) => {
                 )) }
               </div>
             )}
+
           </div>
         </div>
       </div>
