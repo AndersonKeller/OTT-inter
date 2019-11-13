@@ -9,23 +9,20 @@ import Layout from '../components/layout/Layout'
 import { CONFIG } from '../config'
 import { api } from '../services/api'
 
-const MoviesPage = ({errorCode, allMedia, layoutProps}) => {
+const MoviesPage = ({layoutProps}) => {
 
   const router = useRouter()
-  const [medias,setMedias] = useState([]);
+  const [medias,setMedias] = useState();
   const [loading,setLoading] = useState(true);
   const [error,setError] = useState(false);
   const search = router.query.search
-
-  if (errorCode)
-    return <Error statusCode={errorCode} />
 
   useEffect(_ => {
     const fetchData = async _ => {
       try {
         setLoading(true)
-        const {data: searchedMedia} = await api.get(`/search/${search}`)
-        setMedias(search ? searchedMedia : allMedia);
+        const {data: medias} = await api.get(search ? `/search/${search}` : '/movies')
+        setMedias(medias);
         setLoading(false)
       } catch (e) {
         setError(500)
@@ -122,18 +119,6 @@ const MoviesPage = ({errorCode, allMedia, layoutProps}) => {
       `}</style>
     </Layout>
   );
-}
-
-MoviesPage.getInitialProps = async (context) => {
-  var allMedia = [], errorCode = false
-  try {
-    const response = await api.get(`/movies`)
-    allMedia = response.data
-    // medias = category.movies
-  } catch (error) {
-    // errorCode = 404
-  }
-  return { errorCode, allMedia }
 }
 
 export default MoviesPage
