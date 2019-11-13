@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "build": "next build",
     "dev": "node server.js",
     "dev:dalecampeon": "cross-env TENANT=dalecampeon yarn dev",
     "dev:dalecacique": "cross-env TENANT=dalecacique yarn dev",
-    "build": "next build",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build",
+    "docz:serve": "docz build && docz serve",
     "start": "cross-env NODE_ENV=production node server.js"
   },
   "dependencies": {
@@ -26,9 +29,9 @@
     "next-redirect": "^1.0.1",
     "now": "^16.4.1",
     "nprogress": "^0.2.0",
-    "react": "16.9.0",
+    "react": "^16.11.0",
     "react-bootstrap": "^1.0.0-beta.12",
-    "react-dom": "16.9.0",
+    "react-dom": "^16.11.0",
     "react-slick": "^0.25.2",
     "react-spinners": "^0.6.1",
     "react-svg": "^10.0.18",
@@ -36,5 +39,7 @@
     "slick-carousel": "^1.8.1",
     "yargs": "^14.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "docz": "^2.0.0-rc.73"
+  }
 }
