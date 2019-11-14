@@ -157,6 +157,120 @@ const LoginTab = ({handleClose, setTab, toggleAuth}) => {
   )
 }
 
+const RegisterTab = ({handleClose, setTab, toggleAuth})  => {
+  const [name,setName] = useState('')
+  const [email,setEmail] = useState('')
+  const [password,setPassword] = useState('')
+  const [ error, setError ] = useState('')
+  const { signIn } = useContext(UserContext)
+
+  const handleRegSubmit = async (e)  => {
+    e.preventDefault();
+    try {
+      console.log('data:',name);
+      const tokenResponse = await api.post('/register', {
+        name,
+        email,
+        password,
+      })
+
+      tokenResponse.data.token_type = 'tk_type'
+      tokenResponse.data.expires_in = 'expires_in'
+      tokenResponse.data.refresh_token = 'refresh_token'
+      const { user } = tokenResponse.data
+      signIn(user, tokenResponse.data)
+      handleClose()
+    } catch (error) {
+      if (error.response) {
+        setError(error.response.data)
+      } else {
+        setError('An error has occurred!')
+        console.log('error', error)
+      }
+    }
+  }
+
+  return (
+  <div>
+    <div className="intro-text">
+      <p>Una sola cuenta para todos los productos <span className="text-uppercase">{CONFIG.clubName}</span></p>
+    </div>
+  <form method="post" onSubmit={handleRegSubmit}>
+    {error && (
+      <div className="invalid-feedback">{error.message}</div>
+    )}
+    <FormGroup>
+      <Label hmtlFor="name">Nombre</Label>
+      <Input id="name" type="text" onChange={e => setName(e.target.value)} value={name} />
+      {error && error.errors && (
+        <div className="invalid-feedback">{error.errors.name}</div>
+      )}
+    </FormGroup>
+    {/* <FormGroup>
+      <Label hmtlFor="lastname">Apellido</Label>
+      <Input id="lastname" type="text" />
+    </FormGroup> */}
+    <FormGroup>
+      <Label hmtlFor="reg_email">E-mail</Label>
+      <Input id="reg_email" type="email" onChange={e => setEmail(e.target.value)} value={email} />
+      {error && error.errors && (
+        <div className="invalid-feedback">{error.errors.email}</div>
+      )}
+    </FormGroup>
+    <FormGroup>
+      <Label hmtlFor="reg_password">Clave</Label>
+      <Input id="reg_password" type="password" onChange={e => setPassword(e.target.value)} value={password} />
+      {error && error.errors &&  (
+        <div className="invalid-feedback">{error.errors.password}</div>
+      )}
+    </FormGroup>
+    {/* <FormGroup>
+      <Label hmtlFor="password_confirmation">Confirmación de Clave</Label>
+      <Input id="password_confirmation" type="password" />
+    </FormGroup>
+    <FormGroup>
+      <Label hmtlFor="address">Dirección</Label>
+      <Input id="address" type="text" />
+    </FormGroup>
+    <FormGroup>
+      <Label hmtlFor="city">Ciudad</Label>
+      <Input id="city" type="text" />
+    </FormGroup>
+    <FormGroup>
+      <Label hmtlFor="country">País</Label>
+      <Input id="country" type="text" />
+    </FormGroup>
+    <FormGroup>
+      <Label hmtlFor="document">Documento</Label>
+      <Input id="document" type="text" />
+    </FormGroup>
+    <FormGroup>
+      <Label hmtlFor="genre">Género</Label>
+      <Input id="genre" type="text" />
+    </FormGroup>
+    <FormGroup>
+      <Label hmtlFor="payment">Meios de Pagamento</Label>
+      <Input id="payment" type="text" />
+    </FormGroup> */}
+    <Button block className="enter-btn" size="sm" type="submit">Registrar</Button>
+    <div className="already-subscriptor">
+      ¿Ya es suscriptor?
+      <a className="bold text-uppercase" href="#" onClick={_ => setTab('login')}>Haga Login</a>
+    </div>
+    <div className="or-enter-with">o entre con</div>
+    <Button className="social facebook" onClick={toggleAuth} type="button">
+      <ReactSVG className="icon" src="/static/icons/facebook.svg" />
+      Facebook
+    </Button>
+    <Button className="social google" onClick={toggleAuth} type="button">
+      <ReactSVG className="icon" src="/static/icons/google.svg" />
+      Google
+    </Button>
+  </form>
+  </div>
+  )
+}
+
 export default ({ handleClose, show, toggleAuth, ...props}) => {
   const facebookColor = '#3B5990'
   const googleColor = '#D44639'
@@ -205,68 +319,7 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
 
             {/* register */}
             <Tab.Pane eventKey="register">
-              <div className="intro-text">
-                <p>Una sola cuenta para todos los productos <span className="text-uppercase">{CONFIG.clubName}</span></p>
-              </div>
-              <form method="post">
-                <FormGroup>
-                  <Label hmtlFor="name">Nombre</Label>
-                  <Input autoFocus id="name" type="text" />
-                </FormGroup>
-                <FormGroup>
-                  <Label hmtlFor="lastname">Apellido</Label>
-                  <Input id="lastname" type="text" />
-                </FormGroup>
-                <FormGroup>
-                  <Label hmtlFor="email">E-mail</Label>
-                  <Input id="email" type="email" />
-                </FormGroup>
-                <FormGroup>
-                  <Label hmtlFor="password">Clave</Label>
-                  <Input id="password" type="password" />
-                </FormGroup>
-                <FormGroup>
-                  <Label hmtlFor="password_confirmation">Confirmación de Clave</Label>
-                  <Input id="password_confirmation" type="password" />
-                </FormGroup>
-                <FormGroup>
-                  <Label hmtlFor="address">Dirección</Label>
-                  <Input id="address" type="text" />
-                </FormGroup>
-                <FormGroup>
-                  <Label hmtlFor="city">Ciudad</Label>
-                  <Input id="city" type="text" />
-                </FormGroup>
-                <FormGroup>
-                  <Label hmtlFor="country">País</Label>
-                  <Input id="country" type="text" />
-                </FormGroup>
-                <FormGroup>
-                  <Label hmtlFor="document">Documento</Label>
-                  <Input id="document" type="text" />
-                </FormGroup>
-                <FormGroup>
-                  <Label hmtlFor="genre">Género</Label>
-                  <Input id="genre" type="text" />
-                </FormGroup>
-                <FormGroup>
-                  <Label hmtlFor="payment">Meios de Pagamento</Label>
-                  <Input id="payment" type="text" />
-                </FormGroup>
-                <Button block className="enter-btn" onClick={toggleAuth} size="sm" type="submit">Registrar</Button>
-                <div className="already-subscriptor">
-                  ¿Ya es suscriptor? <a className="bold text-uppercase" href="#" onClick={_ => setTab('login')}>Haga Login</a>
-                </div>
-                <div className="or-enter-with">o entre con</div>
-                <Button className="social facebook" onClick={toggleAuth} type="button">
-                  <ReactSVG className="icon" src="/static/icons/facebook.svg" />
-                  Facebook
-                </Button>
-                <Button className="social google" onClick={toggleAuth} type="button">
-                  <ReactSVG className="icon" src="/static/icons/google.svg" />
-                  Google
-                </Button>
-              </form>
+              <RegisterTab handleClose={handleClose} setTab={setTab} toggleAuth={toggleAuth}></RegisterTab>
             </Tab.Pane>
 
           </Tab.Content>

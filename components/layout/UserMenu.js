@@ -5,13 +5,22 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import Chevron from '../icons/chevron'
 import UserContext from '../UserContext'
 import LoginModal from './LoginModal'
+import { api } from '../../services/api'
+import { getAccessToken } from '../../services/auth'
 
 export default _ => {
   const { signIn, signOut, user } = useContext(UserContext)
-  const toggleAuth = (e) => {
+  const toggleAuth = async (e) => {
     e.preventDefault()
     if (user) {
-      signOut()
+      try {
+        await api.post('/logout',{
+          headers:{'Accept': 'application/json','Authorization': getAccessToken}
+        });
+        signOut()
+      }catch(error){
+        console.log('logout Error')
+      }
     } else {
       const fakeUser = {
         name: 'Pablo Capriorni',
