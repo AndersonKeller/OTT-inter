@@ -39,7 +39,5 @@
     "slick-carousel": "^1.8.1",
     "yargs": "^14.2.0"
   },
-  "devDependencies": {
-    "docz": "^2.0.0-rc.73"
-  }
+  "devDependencies": {}
 }
