@@ -1,32 +1,64 @@
+// next imports
 import Head from 'next/head'
 import Link from 'next/link'
 
-import React, { useContext } from 'react'
+// react imports
+import React, { useContext, useEffect, useState } from 'react'
 
+// app imports
 import Button from '../components/button'
 import Card from '../components/card'
 import CarouselSection from '../components/carousel-section'
 import Featured from '../components/featured'
 import Layout from '../components/layout/Layout'
+import Loading from '../components/Loading/Loading'
 import MiLista from '../components/mi-lista'
 import UserContext from '../components/UserContext'
 import { STATIC_PATH, TENANT } from '../constants/constants'
 import { CONFIG } from '../config'
 import { api } from '../services/api'
 
-const HomeCarouselSection = ({data}) => {
+// carousel sections
+const HomeCarouselSection = ({ category: categorySlug }) => {
+  const [items, setItems] = useState()
+  const [error, setError] = useState()
+  const [loading, setLoading] = useState(false)
+
+  // fetch data
+  useEffect(_ => {
+    async function fetchData() {
+      try {
+        setLoading(true)
+        const {data} = await api.get(`/category/${categorySlug}`)
+        setItems(data)
+      } catch (error) {
+        setError(true)
+      }
+      setLoading(false)
+    }
+    fetchData()
+  }, [categorySlug])
+
+  // return
   return (
-    <>
-      {data && data.name && (
-        <CarouselSection title={data.name}>
-          {data.movies.length &&
-            data.movies.map((item, key) => (
+    <div>
+
+      {/* loading */}
+      <div className="text-center">
+        <Loading loadingState={loading} />
+      </div>
+
+      {/* items */}
+      {!loading && items && items.name && (
+        <CarouselSection title={items.name}>
+          {items.movies.length &&
+            items.movies.map((item, key) => (
               <Card
-                as={`/media/${item.id}` + (data ? `?category=${data.slug}` : '')}
+                as={`/media/${item.id}` + (items ? `?category=${items.slug}` : '')}
                 href={{
                   pathname: "/media/[id]",
                   query: {
-                    category: (data ? data.slug : null),
+                    category: (items ? items.slug : null),
                     id: item.id,
                   },
                 }}
@@ -37,11 +69,17 @@ const HomeCarouselSection = ({data}) => {
           }
         </CarouselSection>
       )}
-    </>
+
+      {/* error */}
+      {error && (
+        <div className="text-center">Error</div>
+      )}
+
+    </div>
   )
 }
 
-const Home = ({ layoutProps, supporters, arts, podcasts, interviews, news, family, children }) => {
+const Home = ({ layoutProps }) => {
   const { user } = useContext(UserContext)
   return (
     <Layout {...layoutProps} paddingTop={false}>
@@ -54,10 +92,10 @@ const Home = ({ layoutProps, supporters, arts, podcasts, interviews, news, famil
         <Cover />
 
         {/* supporters */}
-        <HomeCarouselSection data={supporters} />
+        <HomeCarouselSection category="supporters" />
 
         {/* arts */}
-        <HomeCarouselSection data={arts} />
+        <HomeCarouselSection category="arts" />
 
         {/* featured */}
         {!user ? (
@@ -77,10 +115,10 @@ const Home = ({ layoutProps, supporters, arts, podcasts, interviews, news, famil
         )}
 
         {/* podcasts */}
-        <HomeCarouselSection data={podcasts} />
+        <HomeCarouselSection category="podcasts" />
 
         {/* interviews */}
-        <HomeCarouselSection data={interviews} />
+        <HomeCarouselSection category="interviews" />
 
         {/* features */}
         {!user ? (
@@ -100,7 +138,7 @@ const Home = ({ layoutProps, supporters, arts, podcasts, interviews, news, famil
         )}
 
         {/* news */}
-        <HomeCarouselSection data={news} />
+        <HomeCarouselSection category="news" />
 
         {/* features */}
         {!user ? (
@@ -122,7 +160,7 @@ const Home = ({ layoutProps, supporters, arts, podcasts, interviews, news, famil
         )}
 
         {/* family */}
-        <HomeCarouselSection data={family} />
+        <HomeCarouselSection category="family" />
 
         {user && (
           <Featured img={`${STATIC_PATH}/logged-banner4.png`}>
@@ -134,7 +172,7 @@ const Home = ({ layoutProps, supporters, arts, podcasts, interviews, news, famil
         )}
 
         {/* children */}
-        <HomeCarouselSection data={children} />
+        <HomeCarouselSection category="children" />
 
       </div>
       <style jsx>{`
@@ -146,39 +184,9 @@ const Home = ({ layoutProps, supporters, arts, podcasts, interviews, news, famil
   )
 }
 
-Home.getInitialProps = async _ => {
-  try {
-    const [
-      {data: supporters},
-      {data: arts},
-      {data: podcasts},
-      {data: interviews},
-      {data: news},
-      {data: family},
-      {data: children},
-    ] = await Promise.all([
-      api.get(`/category/supporters`),
-      api.get(`/category/artes`),
-      api.get(`/category/podcasts`),
-      api.get(`/category/entrevistas`),
-      api.get(`/category/noticias`),
-      api.get(`/category/familia`),
-      api.get(`/category/ninos`),
-    ])
-    return {
-      supporters,
-      arts,
-      podcasts,
-      interviews,
-      news,
-      family,
-      children,
-    }
-  } catch (error) {
-    const errorCode = 404
-    return { errorCode }
-  }
-}
+/* Home.getInitialProps = async _ => {
+  return {}
+} */
 
 export default Home
 
