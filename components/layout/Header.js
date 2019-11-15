@@ -58,17 +58,16 @@ const Header = ({ menus, closed, ...props }) => {
   const { user } = useContext(UserContext)
 
   // scrolled state
-  const [ scrolled, setScrolled ] = useState()
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.pageYOffset > 1) {
-        setScrolled(true)
-      } else {
-        setScrolled(false)
-      }
+  const hasScrolled = _ => {
+    return typeof window !== 'undefined' ? window.pageYOffset > 1 : false
+  }
+  const [ scrolled, setScrolled ] = useState(hasScrolled())
+  useEffect(_ => {
+    const handleScroll = _ => {
+      setScrolled(hasScrolled())
     }
     window.addEventListener('scroll', handleScroll)
-    return () => {
+    return _ => {
       window.removeEventListener('scroll', handleScroll)
     }
   })
