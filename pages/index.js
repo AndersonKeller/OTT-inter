@@ -39,7 +39,7 @@ const HomeCarouselSection = ({data}) => (
   </>
 )
 
-const Home = ({ layoutProps, platences, arts, podcasts, interviews, news, family, children }) => {
+const Home = ({ layoutProps, supporters, arts, podcasts, interviews, news, family, children }) => {
   const { user } = useContext(UserContext)
   return (
     <Layout {...layoutProps} paddingTop={false}>
@@ -51,8 +51,8 @@ const Home = ({ layoutProps, platences, arts, podcasts, interviews, news, family
         {/* cover */}
         <Cover />
 
-        {/* platenences */}
-        <HomeCarouselSection data={platences} />
+        {/* supporters */}
+        <HomeCarouselSection data={supporters} />
 
         {/* arts */}
         <HomeCarouselSection data={arts} />
@@ -147,7 +147,7 @@ const Home = ({ layoutProps, platences, arts, podcasts, interviews, news, family
 Home.getInitialProps = async _ => {
   try {
     const [
-      {data: platences},
+      {data: supporters},
       {data: arts},
       {data: podcasts},
       {data: interviews},
@@ -155,7 +155,7 @@ Home.getInitialProps = async _ => {
       {data: family},
       {data: children},
     ] = await Promise.all([
-      api.get(`/category/platences`),
+      api.get(`/category/supporters`),
       api.get(`/category/artes`),
       api.get(`/category/podcasts`),
       api.get(`/category/entrevistas`),
@@ -164,7 +164,7 @@ Home.getInitialProps = async _ => {
       api.get(`/category/ninos`),
     ])
     return {
-      platences,
+      supporters,
       arts,
       podcasts,
       interviews,
