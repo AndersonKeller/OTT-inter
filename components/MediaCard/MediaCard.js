@@ -1,11 +1,20 @@
 import Link from 'next/link'
 
-const MediaCard = ({category: {slug}, media: {id, thumbnail_url, title}}) => {
+const MediaCard = ({
+  category = null,
+  media: {id, thumbnail_url, title}
+}) => {
   if (!thumbnail_url)
     thumbnail_url = 'http://placehold.jp/180x256.png'
   return (
     <div>
-      <Link as={`/m/${id}/${slug}`} href="/m/[id]/[slug]">
+      <Link
+        as={`/m/${id}${category ? `?category=${category.slug}` : ''}`}
+        href={{ pathname: "/m/[id]", query: {
+          category: category ? category.slug : null,
+          ...{id}}
+        }}
+      >
         <a className="media-card text-center">
           <img className="img-fluid" src={thumbnail_url} />
           <div className="media-card-label">{title}</div>

@@ -1,16 +1,21 @@
+// next imports
 import Error from 'next/error'
 import Head from 'next/head'
 import Link from 'next/link'
+
+// react imports
 import { useContext } from 'react'
 
-import Button from '../../../components/button'
-import Layout from '../../../components/layout/Layout'
-import MiLista from '../../../components/mi-lista'
-import UserContext from '../../../components/UserContext'
-import { CONFIG } from '../../../config'
-import { TENANT, STATIC_PATH } from '../../../constants/constants'
-import { api } from '../../../services/api'
+// app imports
+import Button from '../../components/button'
+import Layout from '../../components/layout/Layout'
+import MiLista from '../../components/mi-lista'
+import UserContext from '../../components/UserContext'
+import { CONFIG } from '../../config'
+import { TENANT, STATIC_PATH } from '../../constants/constants'
+import { api } from '../../services/api'
 
+// page
 function MediaPage1({ category, errorCode, layoutProps, media, related }) {
   if (errorCode) {
     return <Error statusCode={errorCode} />
@@ -26,10 +31,11 @@ function MediaPage1({ category, errorCode, layoutProps, media, related }) {
   );
 }
 
+// initial props
 MediaPage1.getInitialProps = async (context) => {
-  const {id, slug} = context.query;
+  const { id, category: slug } = context.query;
   try {
-    const response = await api.get(`/movie/${id}/category/${slug}`)
+    const response = await api.get(`/movie/${id}${slug ? `/category/${slug}` : ''}`)
     const {category, movie, related} = response.data
     return { category, media: movie, related }
   } catch (error) {
@@ -38,6 +44,7 @@ MediaPage1.getInitialProps = async (context) => {
   }
 }
 
+// cover
 const Cover = ({category, media}) => {
   const { user } = useContext(UserContext)
   if (TENANT === 'dalecacique') {
@@ -115,6 +122,7 @@ const Cover = ({category, media}) => {
   </div>
 )}
 
+// individual more card
 const HMediaCard = ({category, media}) => (
   <div className="h-media-card row align-items-center">
     <div className="col-md-4">
@@ -171,6 +179,7 @@ const HMediaCard = ({category, media}) => (
   </div>
 )
 
+// more cards
 const More = ({category, related}) => {
   let medias = related
   if (TENANT !== 'dalecampeon') {
@@ -236,4 +245,5 @@ const More = ({category, related}) => {
   );
 }
 
+// export
 export default MediaPage1

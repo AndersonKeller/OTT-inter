@@ -63,7 +63,7 @@ const MoviesPage = ({layoutProps}) => {
               <div className="media-cards row gutter-15">
                 { medias.map((media, key) => (
                   <div className="col-2" {...{key}}>
-                    <MediaCard {...{category: {slug: 'movies'}, media}} />
+                    <MediaCard {...{media}} />
                   </div>
                 )) }
               </div>
