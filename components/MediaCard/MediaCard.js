@@ -9,10 +9,13 @@ const MediaCard = ({
   return (
     <div>
       <Link
-        as={`/m/${id}${category ? `?category=${category.slug}` : ''}`}
-        href={{ pathname: "/m/[id]", query: {
-          category: category ? category.slug : null,
-          ...{id}}
+        as={`/m/${id}` + (category ? `?category=${category.slug}` : '')}
+        href={{
+          pathname: "/m/[id]",
+          query: {
+            category: (category ? category.slug : null),
+            ...{id},
+          },
         }}
       >
         <a className="media-card text-center">

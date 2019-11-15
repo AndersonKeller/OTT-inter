@@ -1,15 +1,20 @@
-import Error from 'next/error'
+// next imports
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
+
+// react imports
 import { useEffect, useState } from 'react'
+
+// custom
 import ClipLoader from 'react-spinners/ClipLoader'
 
+// app imports
 import Layout from '../components/layout/Layout'
 import { CONFIG } from '../config'
 import { api } from '../services/api'
 import MediaCard from '../components/MediaCard/MediaCard'
 
+// movies page
 const MoviesPage = ({layoutProps}) => {
 
   const router = useRouter()

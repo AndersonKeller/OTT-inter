@@ -11,8 +11,14 @@ export default function MoreContentCarousel({category, uppercase}) {
           {category.movies.length &&
             category.movies.map((item, key) => (
               <Card
-                as={`/m/${item.id}/${category.slug}`}
-                href="/m/[id]/[slug]"
+                as={`/m/${item.id}` + (category ? `?category=${category.slug}` : '')}
+                href={{
+                  pathname: "/m/[id]",
+                  query: {
+                    category: (category ? category.slug : null),
+                    id: item.id,
+                  },
+                }}
                 {...{key}}
                 src={item.thumbnail_url}
               />

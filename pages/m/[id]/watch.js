@@ -2,17 +2,18 @@
 import Head from 'next/head'
 import Link from 'next/link'
 
-import BlockedPlayer from '../../../../components/blocked-player'
-import CommentSection from '../../../../components/comment-section'
-import Layout from '../../../../components/layout/Layout'
-import LikeNCommentsBtns from '../../../../components/like-n-comments-btns'
-import MediaDescription from '../../../../components/media-description'
-import MoreContentCarousel from '../../../../components/more-content-carousel'
-import SocialShareBtns from '../../../../components/social-share-btns'
-// import UserContext from '../../../../components/UserContext'
-import { CONFIG } from '../../../../config'
-import { STATIC_PATH, TENANT } from '../../../../constants/constants'
-import { api } from '../../../../services/api'
+// app imports
+import BlockedPlayer from '../../../components/blocked-player'
+import CommentSection from '../../../components/comment-section'
+import Layout from '../../../components/layout/Layout'
+import LikeNCommentsBtns from '../../../components/like-n-comments-btns'
+import MediaDescription from '../../../components/media-description'
+import MoreContentCarousel from '../../../components/more-content-carousel'
+import SocialShareBtns from '../../../components/social-share-btns'
+// import UserContext from '../../../components/UserContext'
+import { CONFIG } from '../../../config'
+import { STATIC_PATH, TENANT } from '../../../constants/constants'
+import { api } from '../../../services/api'
 
 export default function WatchPage({ errorCode, category, media, related, layoutProps }) {
   if (errorCode) {
@@ -36,7 +37,7 @@ export default function WatchPage({ errorCode, category, media, related, layoutP
             <BlockedPlayer image={`${STATIC_PATH}/blurred-sample.png`} />
           </div>
           <div className="col-12 col-lg-4 d-none d-md-block">
-            <Related {...{categorySlug: category.slug, medias: related}} />
+            <Related {...{category, medias: related}} />
           </div>
         </div>
         <MediaDescription {...{media}} />
@@ -49,7 +50,7 @@ export default function WatchPage({ errorCode, category, media, related, layoutP
           </div>
         </div>
         <div className="d-md-none">
-          <Related {...{categorySlug: category.slug, medias: related}} />
+          <Related {...{category, medias: related}} />
         </div>
       </div>
       <MoreContentCarousel {...{category}} />
@@ -76,7 +77,7 @@ export default function WatchPage({ errorCode, category, media, related, layoutP
 }
 
 WatchPage.getInitialProps = async (context) => {
-  const {id, slug} = context.query;
+  const {id, category: slug} = context.query;
   try {
     const response = await api.get(`/movie/${id}/category/${slug}`)
     const { category, movie, related } = response.data
@@ -87,39 +88,29 @@ WatchPage.getInitialProps = async (context) => {
   }
 }
 
-function Related({categorySlug, medias}) {
-  if (TENANT !== 'dalecampeon') {
-    medias = [
-      {
-        thumbnail2_url: `${STATIC_PATH}/hthumbs/1.png`,
-        title: 'Héroes Anónimos: Juan Melgarejo',
-        detail: `Juan Melgarejo, ha pasado por varias etapas dentro de ${CONFIG.appName}. Partió en Operaciones, luego trabajó de junior, hasta que un día apoyó en la Utilería del Fútbol Joven y nunca más abandonó el costado de una cancha. Esta es su historia #94AñosColoColo`,
-      },
-      {
-        thumbnail2_url: `${STATIC_PATH}/hthumbs/2.png`,
-        title: 'Banini, la mejor del año',
-        detail: `Estefanía Banini, la 10 de ${CONFIG.appName} Femenino, "la Messi" como le llaman, fue elegida como la mejor del Fútbol Femenino, en la premiación que realiza año a año el Círculo de Periodistas Deportivos.`,
-      },
-      {
-        thumbnail2_url: `${STATIC_PATH}/hthumbs/3.png`,
-        title: '¿Qué tipo de entrenamiento es éste?',
-        detail: 'Nuestro Primer Equipo compartió y practicó junto a un club deportivo de no videntes.',
-      }
-    ]
-  }
+function Related({category, medias}) {
   return (
     <div>
       { medias.map((media, key) => (
-        <RelatedVideo {...{categorySlug, media, key}} />
+        <RelatedVideo {...{category, media, key}} />
       )) }
     </div>
   )
 }
 
-function RelatedVideo({categorySlug, media: {id, thumbnail2_url, title}}) {
+function RelatedVideo({category = null, media: {id, thumbnail2_url, title}}) {
   return (
     <div className="more-card">
-      <Link as={`/m/${id}/${categorySlug}/watch`} href="/m/[id]/[slug]/watch">
+      <Link
+        as={`/m/${id}/watch`}
+        href={{
+          pathname: '/m/[id]/watch',
+          query: {
+            category: (category ? category.slug : null),
+            id: id,
+          },
+        }}
+      >
         <a>
           <div className="row align-items-center gutter-15">
             <div className="col-7">

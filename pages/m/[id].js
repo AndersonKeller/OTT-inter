@@ -35,8 +35,8 @@ function MediaPage1({ category, errorCode, layoutProps, media, related }) {
 MediaPage1.getInitialProps = async (context) => {
   const { id, category: slug } = context.query;
   try {
-    const response = await api.get(`/movie/${id}${slug ? `/category/${slug}` : ''}`)
-    const {category, movie, related} = response.data
+    const response = await api.get(`/movie/${id}` + (slug ? `/category/${slug}` : ''))
+    const { category, movie, related } = response.data
     return { category, media: movie, related }
   } catch (error) {
     const errorCode = 404
@@ -72,8 +72,14 @@ const Cover = ({category, media}) => {
           )}
         </div>
         <Link
-          as={`/m/${media.id}/${category.slug}/watch`}
-          href="/m/[id]/[slug]/watch"
+          as={`/m/${media.id}/watch`}
+          href={{
+            pathname: '/m/[id]/watch',
+            query: {
+              category: (category ? category.slug : null),
+              id: media.id,
+            },
+          }}
           passHref
         >
           <Button>Proba Gratis</Button>
@@ -126,7 +132,17 @@ const Cover = ({category, media}) => {
 const HMediaCard = ({category, media}) => (
   <div className="h-media-card row align-items-center">
     <div className="col-md-4">
-      <Link as={`/m/${media.id}/${category.slug}`} href="/m/[id]/[slug]">
+      
+      <Link
+        as={`/m/${media.id}` + (category ? `?category=${category.slug}` : '')}
+        href={{
+          pathname: "/m/[id]",
+          query: {
+            category: (category ? category.slug : null),
+            id: media.id,
+          },
+        }}
+      >
         <a>
           <img
             className="img-fluid w-100 d-block"
@@ -139,7 +155,16 @@ const HMediaCard = ({category, media}) => (
     </div>
     <div className="col-md-7">
       <h3 className="h3">
-        <Link as={`/m/${media.id}/${category.slug}`} href="/m/[id]/[slug]">
+        <Link
+          as={`/m/${media.id}` + (category ? `?category=${category.slug}` : '')}
+          href={{
+            pathname: "/m/[id]",
+            query: {
+              category: (category ? category.slug : null),
+              id: media.id,
+            },
+          }}
+        >
           <a>{media.title}</a>
         </Link>
       </h3>
