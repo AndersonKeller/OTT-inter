@@ -27,7 +27,7 @@ export default function MoreContentCarousel({category, uppercase}) {
         </CarouselSection>
       )}
       <div className="text-center">
-        <Link as={`/c/${category.slug}`} href={'/c/[slug]'} passHref>
+        <Link as={`/category/${category.slug}`} href={'/category/[slug]'} passHref>
           <Button className="text-uppercase" color="secondary">{`Más ${category.name}`}</Button>
         </Link>
       </div>

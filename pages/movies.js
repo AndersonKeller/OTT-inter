@@ -5,22 +5,20 @@ import { useRouter } from 'next/router'
 // react imports
 import { useEffect, useState } from 'react'
 
-// custom
-import ClipLoader from 'react-spinners/ClipLoader'
-
 // app imports
 import Layout from '../components/layout/Layout'
 import { CONFIG } from '../config'
 import { api } from '../services/api'
+import Loading from '../components/Loading/Loading'
 import MediaCard from '../components/MediaCard/MediaCard'
 
 // movies page
 const MoviesPage = ({layoutProps}) => {
 
   const router = useRouter()
-  const [medias,setMedias] = useState();
-  const [loading,setLoading] = useState(true);
-  const [error,setError] = useState(false);
+  const [medias, setMedias] = useState();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const search = router.query.search
 
   useEffect(_ => {
@@ -56,14 +54,7 @@ const MoviesPage = ({layoutProps}) => {
                 <h1 className="h4">{medias.length} resultados para "{search}"</h1>
               )}
             </header>
-            <div>
-              <ClipLoader
-                sizeUnit={"px"}
-                size={80}
-                color={'#ff0000'}
-                loading={loading}
-              />
-            </div>
+            <Loading loadingState={loading} />
             { ! loading && (
               <div className="media-cards row gutter-15">
                 { medias.map((media, key) => (

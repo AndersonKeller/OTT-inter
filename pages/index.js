@@ -14,30 +14,32 @@ import { STATIC_PATH, TENANT } from '../constants/constants'
 import { CONFIG } from '../config'
 import { api } from '../services/api'
 
-const HomeCarouselSection = ({data}) => (
-  <>
-    {data && data.name && (
-      <CarouselSection title={data.name}>
-        {data.movies.length &&
-          data.movies.map((item, key) => (
-            <Card
-              as={`/media/${item.id}` + (data ? `?category=${data.slug}` : '')}
-              href={{
-                pathname: "/media/[id]",
-                query: {
-                  category: (data ? data.slug : null),
-                  id: item.id,
-                },
-              }}
-              {...{key}}
-              src={item.thumbnail_url}
-            />
-          ))
-        }
-      </CarouselSection>
-    )}
-  </>
-)
+const HomeCarouselSection = ({data}) => {
+  return (
+    <>
+      {data && data.name && (
+        <CarouselSection title={data.name}>
+          {data.movies.length &&
+            data.movies.map((item, key) => (
+              <Card
+                as={`/media/${item.id}` + (data ? `?category=${data.slug}` : '')}
+                href={{
+                  pathname: "/media/[id]",
+                  query: {
+                    category: (data ? data.slug : null),
+                    id: item.id,
+                  },
+                }}
+                {...{key}}
+                src={item.thumbnail_url}
+              />
+            ))
+          }
+        </CarouselSection>
+      )}
+    </>
+  )
+}
 
 const Home = ({ layoutProps, supporters, arts, podcasts, interviews, news, family, children }) => {
   const { user } = useContext(UserContext)
@@ -106,7 +108,7 @@ const Home = ({ layoutProps, supporters, arts, podcasts, interviews, news, famil
             <Link href="/subscriptor">
               <Button>Probar Gratis</Button>
             </Link>
-            <Link as="/c/sorteos" href="/c/[slug]">
+            <Link as="/category/sorteos" href="/category/[slug]">
               <Button color="secondary" outline>Ver más</Button>
             </Link>
           </Featured>
@@ -205,13 +207,13 @@ const Cover = _ => {
                   <Link href="/subscriptor" passHref>
                     <Button>Probar Gratis</Button>
                   </Link>
-                  <Link as="/c/entrevistas" href="/c/[slug]" passHref>
+                  <Link as="/category/entrevistas" href="/category/[slug]" passHref>
                     <Button color="secondary" outline>Ver más</Button>
                   </Link>
                 </>
               ) : (
                 <>
-                  <Link as="/c/entrevistas" href="/c/[slug]" passHref>
+                  <Link as="/category/entrevistas" href="/category/[slug]" passHref>
                     <Button>Ver más</Button>
                   </Link>
                   <MiLista />

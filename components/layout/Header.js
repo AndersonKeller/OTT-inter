@@ -20,8 +20,8 @@ const Header = ({ menus, closed, ...props }) => {
     if (menuItem.link_type_id === 1) {
       href = menuItem.link
     } else if (menuItem.link_type_id === 2) {
-      href = '/c/[slug]'
-      as_href = `/c/${menuItem.category && menuItem.category.slug}`
+      href = '/category/[slug]'
+      as_href = `/category/${menuItem.category && menuItem.category.slug}`
     }
     return {
       as: as_href,
