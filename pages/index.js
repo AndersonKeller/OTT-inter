@@ -21,9 +21,9 @@ const HomeCarouselSection = ({data}) => (
         {data.movies.length &&
           data.movies.map((item, key) => (
             <Card
-              as={`/m/${item.id}` + (data ? `?category=${data.slug}` : '')}
+              as={`/media/${item.id}` + (data ? `?category=${data.slug}` : '')}
               href={{
-                pathname: "/m/[id]",
+                pathname: "/media/[id]",
                 query: {
                   category: (data ? data.slug : null),
                   id: item.id,

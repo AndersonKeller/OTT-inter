@@ -9,9 +9,9 @@ const MediaCard = ({
   return (
     <div>
       <Link
-        as={`/m/${id}` + (category ? `?category=${category.slug}` : '')}
+        as={`/media/${id}` + (category ? `?category=${category.slug}` : '')}
         href={{
-          pathname: "/m/[id]",
+          pathname: "/media/[id]",
           query: {
             category: (category ? category.slug : null),
             ...{id},

@@ -102,9 +102,9 @@ function RelatedVideo({category = null, media: {id, thumbnail2_url, title}}) {
   return (
     <div className="more-card">
       <Link
-        as={`/m/${id}/watch`}
+        as={`/media/${id}/watch`}
         href={{
-          pathname: '/m/[id]/watch',
+          pathname: '/media/[id]/watch',
           query: {
             category: (category ? category.slug : null),
             id: id,

@@ -72,9 +72,9 @@ const Cover = ({category, media}) => {
           )}
         </div>
         <Link
-          as={`/m/${media.id}/watch`}
+          as={`/media/${media.id}/watch`}
           href={{
-            pathname: '/m/[id]/watch',
+            pathname: '/media/[id]/watch',
             query: {
               category: (category ? category.slug : null),
               id: media.id,
@@ -134,9 +134,9 @@ const HMediaCard = ({category, media}) => (
     <div className="col-md-4">
       
       <Link
-        as={`/m/${media.id}` + (category ? `?category=${category.slug}` : '')}
+        as={`/media/${media.id}` + (category ? `?category=${category.slug}` : '')}
         href={{
-          pathname: "/m/[id]",
+          pathname: "/media/[id]",
           query: {
             category: (category ? category.slug : null),
             id: media.id,
@@ -156,9 +156,9 @@ const HMediaCard = ({category, media}) => (
     <div className="col-md-7">
       <h3 className="h3">
         <Link
-          as={`/m/${media.id}` + (category ? `?category=${category.slug}` : '')}
+          as={`/media/${media.id}` + (category ? `?category=${category.slug}` : '')}
           href={{
-            pathname: "/m/[id]",
+            pathname: "/media/[id]",
             query: {
               category: (category ? category.slug : null),
               id: media.id,
