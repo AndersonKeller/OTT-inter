@@ -42,39 +42,46 @@ const HomeCarouselSection = ({ category: categorySlug }) => {
   // return
   return (
     <div>
+      <div className="section">
 
-      {/* loading */}
-      <div className="text-center">
-        <Loading loadingState={loading} />
+        {/* loading */}
+        <div className="text-center">
+          <Loading loadingState={loading} />
+        </div>
+
+        {/* items */}
+        {!loading && items && items.name && (
+          <CarouselSection title={items.name}>
+            {items.movies.length &&
+              items.movies.map((item, key) => (
+                <Card
+                  as={`/media/${item.id}` + (items ? `?category=${items.slug}` : '')}
+                  href={{
+                    pathname: "/media/[id]",
+                    query: {
+                      category: (items ? items.slug : null),
+                      id: item.id,
+                    },
+                  }}
+                  {...{key}}
+                  src={item.thumbnail_url}
+                />
+              ))
+            }
+          </CarouselSection>
+        )}
+
+        {/* error */}
+        {error && (
+          <div className="text-center">Error</div>
+        )}
+
       </div>
-
-      {/* items */}
-      {!loading && items && items.name && (
-        <CarouselSection title={items.name}>
-          {items.movies.length &&
-            items.movies.map((item, key) => (
-              <Card
-                as={`/media/${item.id}` + (items ? `?category=${items.slug}` : '')}
-                href={{
-                  pathname: "/media/[id]",
-                  query: {
-                    category: (items ? items.slug : null),
-                    id: item.id,
-                  },
-                }}
-                {...{key}}
-                src={item.thumbnail_url}
-              />
-            ))
-          }
-        </CarouselSection>
-      )}
-
-      {/* error */}
-      {error && (
-        <div className="text-center">Error</div>
-      )}
-
+      <style jsx>{`
+        .section {
+          margin-bottom: 55px;
+        }
+      `}</style>
     </div>
   )
 }
