@@ -33,9 +33,9 @@ function MediaPage1({ category, errorCode, layoutProps, media, related }) {
 
 // initial props
 MediaPage1.getInitialProps = async (context) => {
-  const { id, category: slug } = context.query;
+  const { slug, category: categorySlug } = context.query;
   try {
-    const response = await api.get(`/movie/${id}` + (slug ? `/category/${slug}` : ''))
+    const response = await api.get(`/movie/${slug}` + (categorySlug ? `/category/${categorySlug}` : ''))
     const { category, movie, related } = response.data
     return { category, media: movie, related }
   } catch (error) {
@@ -132,7 +132,7 @@ const Cover = ({category, media}) => {
 const HMediaCard = ({category, media}) => (
   <div className="h-media-card row align-items-center">
     <div className="col-md-4">
-      
+
       <Link
         as={`/media/${media.id}` + (category ? `?category=${category.slug}` : '')}
         href={{

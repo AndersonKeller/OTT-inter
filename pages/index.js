@@ -20,7 +20,7 @@ import { api } from '../services/api'
 
 // carousel sections
 const HomeCarouselSection = ({ category: categorySlug }) => {
-  const [items, setItems] = useState()
+  const [category, setCategory] = useState()
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
 
@@ -30,7 +30,7 @@ const HomeCarouselSection = ({ category: categorySlug }) => {
       try {
         setLoading(true)
         const {data} = await api.get(`/category/${categorySlug}`)
-        setItems(data)
+        setCategory(data)
       } catch (error) {
         setError(true)
       }
@@ -49,22 +49,22 @@ const HomeCarouselSection = ({ category: categorySlug }) => {
           <Loading loadingState={loading} />
         </div>
 
-        {/* items */}
-        {!loading && items && items.name && (
-          <CarouselSection title={items.name}>
-            {items.movies.length &&
-              items.movies.map((item, key) => (
+        {/* category */}
+        {!loading && category && category.name && (
+          <CarouselSection title={category.name}>
+            {category.movies.length &&
+              category.movies.map((media, key) => (
                 <Card
-                  as={`/media/${item.id}` + (items ? `?category=${items.slug}` : '')}
+                  as={`/media/${media.slug}` + (category ? `?category=${category.slug}` : '')}
                   href={{
                     pathname: "/media/[id]",
                     query: {
-                      category: (items ? items.slug : null),
-                      id: item.id,
+                      category: (category ? category.slug : null),
+                      slug: media.slug,
                     },
                   }}
                   {...{key}}
-                  src={item.thumbnail_url}
+                  src={media.thumbnail_url}
                 />
               ))
             }
