@@ -1,7 +1,6 @@
 // next imports
 import Error from 'next/error'
 import Head from 'next/head'
-import Link from 'next/link'
 
 // react imports
 import { useContext } from 'react'
@@ -9,10 +8,10 @@ import { useContext } from 'react'
 // app imports
 import Button from '../../components/button'
 import Layout from '../../components/layout/Layout'
+import MediaLink from '../../components/MediaLink/MediaLink'
 import MiLista from '../../components/mi-lista'
 import UserContext from '../../components/UserContext'
 import { CONFIG } from '../../config'
-import { TENANT, STATIC_PATH } from '../../constants/constants'
 import { api } from '../../services/api'
 
 // page
@@ -67,19 +66,9 @@ const Cover = ({category, media}) => {
               </div>
             )}
           </div>
-          <Link
-            as={`/media/${media.slug}/watch`}
-            href={{
-              pathname: '/media/[slug]/watch',
-              query: {
-                category: (category ? category.slug : null),
-                slug: media.slug,
-              },
-            }}
-            passHref
-          >
+          <MediaLink {...{category, media}} watch>
             <Button>Proba Gratis</Button>
-          </Link>
+          </MediaLink>
           <MiLista />
         </div>
       </div>
@@ -130,16 +119,7 @@ const HMediaCard = ({category, media}) => (
   <div className="h-media-card row align-items-center">
     <div className="col-md-4">
 
-      <Link
-        as={`/media/${media.slug}` + (category ? `?category=${category.slug}` : '')}
-        href={{
-          pathname: "/media/[slug]",
-          query: {
-            category: (category ? category.slug : null),
-            slug: media.slug,
-          },
-        }}
-      >
+      <MediaLink {...{category, media}}>
         <a>
           <img
             className="img-fluid w-100 d-block"
@@ -148,22 +128,13 @@ const HMediaCard = ({category, media}) => (
             width="390"
           />
         </a>
-      </Link>
+      </MediaLink>
     </div>
     <div className="col-md-7">
       <h3 className="h3">
-        <Link
-          as={`/media/${media.slug}` + (category ? `?category=${category.slug}` : '')}
-          href={{
-            pathname: "/media/[slug]",
-            query: {
-              category: (category ? category.slug : null),
-              slug: media.slug,
-            },
-          }}
-        >
+        <MediaLink {...{category, media}}>
           <a>{media.title}</a>
-        </Link>
+        </MediaLink>
       </h3>
       {media.detail && (
         <p>{media.detail}</p>

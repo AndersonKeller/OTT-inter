@@ -11,18 +11,7 @@ export default function MoreContentCarousel({category, uppercase}) {
           <CarouselSection color="gray" title={category.name} {...{uppercase}}>
             {category.movies.length &&
               category.movies.map((item, key) => (
-                <Card
-                  as={`/media/${item.id}` + (category ? `?category=${category.slug}` : '')}
-                  href={{
-                    pathname: "/media/[id]",
-                    query: {
-                      category: (category ? category.slug : null),
-                      id: item.id,
-                    },
-                  }}
-                  {...{key}}
-                  src={item.thumbnail_url}
-                />
+                <Card {...{category, key, media: item}} />
               ))
             }
           </CarouselSection>

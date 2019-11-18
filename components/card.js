@@ -1,17 +1,17 @@
-import Link from 'next/link'
+import MediaLink from './MediaLink/MediaLink'
 
-const Card = (props) => {
+const Card = ({category, media}) => {
   return (
-    <Link as={props.as || null} href={props.href || null}>
+    <MediaLink {...{category, media}}>
       <a className="d-block carousel-card">
-        <img className="img-fluid" height="256" src={props.src} width="180" />
+        <img className="img-fluid" height="256" src={media.thumbnail_url} width="180" />
         <style jsx>{`
           .carousel-card {
             display: block;
           }
         `}</style>
       </a>
-    </Link>
+    </MediaLink>
   )
 }
 

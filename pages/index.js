@@ -54,18 +54,7 @@ const HomeCarouselSection = ({ category: categorySlug }) => {
           <CarouselSection title={category.name}>
             {category.movies.length &&
               category.movies.map((media, key) => (
-                <Card
-                  as={`/media/${media.slug}` + (category ? `?category=${category.slug}` : '')}
-                  href={{
-                    pathname: "/media/[id]",
-                    query: {
-                      category: (category ? category.slug : null),
-                      slug: media.slug,
-                    },
-                  }}
-                  {...{key}}
-                  src={media.thumbnail_url}
-                />
+                <Card {...{category, key, media}} />
               ))
             }
           </CarouselSection>

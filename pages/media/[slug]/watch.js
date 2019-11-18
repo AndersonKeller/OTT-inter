@@ -1,6 +1,5 @@
 // import { useContext } from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 
 // app imports
 import BlockedPlayer from '../../../components/blocked-player'
@@ -14,17 +13,11 @@ import SocialShareBtns from '../../../components/social-share-btns'
 import { CONFIG } from '../../../config'
 import { STATIC_PATH, TENANT } from '../../../constants/constants'
 import { api } from '../../../services/api'
+import MediaLink from '../../../components/MediaLink/MediaLink'
 
 export default function WatchPage({ errorCode, category, media, related, layoutProps }) {
   if (errorCode) {
     return <Error statusCode={errorCode} />
-  }
-  if (TENANT === 'dalecacique') {
-    media = {
-      title: `Mano a mano con Esteban Paredes`,
-      publish_year: '2019',
-      detail: `El capitán albo tuvo un mano a mano con Dale Cacique, donde contó sobre todo lo que rodea al delantero albo: El retiro, el torneo local, la copa sudamericana y Copa América.`,
-    }
   }
   return (
     <Layout {...layoutProps}>
@@ -98,34 +91,25 @@ function Related({category, medias}) {
   )
 }
 
-function RelatedVideo({category = null, media: {id, thumbnail2_url, title}}) {
+function RelatedVideo({category = null, media}) {
   return (
     <div className="more-card">
-      <Link
-        as={`/media/${id}/watch`}
-        href={{
-          pathname: '/media/[id]/watch',
-          query: {
-            category: (category ? category.slug : null),
-            id: id,
-          },
-        }}
-      >
+      <MediaLink {...{category, media}} watch>
         <a>
           <div className="row align-items-center gutter-15">
             <div className="col-7">
               <img
                 className="img-fluid"
                 height="123"
-                src={thumbnail2_url ? thumbnail2_url : 'http://placehold.jp/220x123.png'} width="220"
+                src={media.thumbnail2_url ? media.thumbnail2_url : 'http://placehold.jp/220x123.png'} width="220"
               />
             </div>
             <div className="col-4">
-              <p><strong>{title}</strong></p>
+              <p><strong>{media.title}</strong></p>
             </div>
           </div>
         </a>
-      </Link>
+      </MediaLink>
       <style jsx>{`
         .more-card {
           font-size: 11px;

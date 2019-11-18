@@ -1,28 +1,20 @@
-import Link from 'next/link'
+import MediaLink from "../MediaLink/MediaLink"
 
 const MediaCard = ({
   category = null,
-  media: {id, thumbnail_url, title}
+  media,
 }) => {
-  if (!thumbnail_url)
-    thumbnail_url = 'http://placehold.jp/180x256.png'
+  if (!media.thumbnail_url) {
+    media.thumbnail_url = 'http://placehold.jp/180x256.png'
+  }
   return (
     <div>
-      <Link
-        as={`/media/${id}` + (category ? `?category=${category.slug}` : '')}
-        href={{
-          pathname: "/media/[id]",
-          query: {
-            category: (category ? category.slug : null),
-            ...{id},
-          },
-        }}
-      >
+      <MediaLink {...{category, media}}>
         <a className="media-card text-center">
-          <img className="img-fluid" src={thumbnail_url} />
-          <div className="media-card-label">{title}</div>
+          <img className="img-fluid" src={media.thumbnail_url} />
+          <div className="media-card-label">{media.title}</div>
         </a>
-      </Link>
+      </MediaLink>
       <style jsx>{`
         .media-card {
           display: block;
