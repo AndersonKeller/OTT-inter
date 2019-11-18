@@ -11,6 +11,11 @@ yarn
 yarn dev
 ```
 
+## Docs
+```sh
+yarn docz:dev
+```
+
 ## Testing deploy
 ```sh
 now --name=dalecacique
