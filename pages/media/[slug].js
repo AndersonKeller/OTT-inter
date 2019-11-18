@@ -47,86 +47,83 @@ MediaPage1.getInitialProps = async (context) => {
 // cover
 const Cover = ({category, media}) => {
   const { user } = useContext(UserContext)
-  if (TENANT === 'dalecacique') {
-    media.title = 'Mano a mano con Esteban Paredes'
-    media.detail = `El capitán albo tuvo un mano a mano con ${CONFIG.appName}, donde contó sobre todo lo que rodea al delantero albo.`
-  }
-  return (
-  <div className="cover container-fluid" style={{
-    backgroundImage: [
-      'url(/static/inside-cover-gradient.png)',
-      `url(${media.poster_url})`,
-    ],
-  }}>
-    <div className="row align-items-center">
-      <div className="col-12 col-md-5 offset-md-1">
-        <div className="info">
-          <h1>{media.title}</h1>
-          {media.publish_year && (
-            <div className="year">{media.publish_year}</div>
-          )}
-          {media.detail && (
-            <div className="description">
-              <p>{media.detail}</p>
-            </div>
-          )}
+    return (
+    <div className="cover container-fluid" style={{
+      backgroundImage: [
+        'url(/static/inside-cover-gradient.png)',
+        `url(${media.poster_url})`,
+      ],
+    }}>
+      <div className="row align-items-center">
+        <div className="col-12 col-md-5 offset-md-1">
+          <div className="info">
+            <h1>{media.title}</h1>
+            {media.publish_year && (
+              <div className="year">{media.publish_year}</div>
+            )}
+            {media.detail && (
+              <div className="description">
+                <p>{media.detail}</p>
+              </div>
+            )}
+          </div>
+          <Link
+            as={`/media/${media.slug}/watch`}
+            href={{
+              pathname: '/media/[slug]/watch',
+              query: {
+                category: (category ? category.slug : null),
+                slug: media.slug,
+              },
+            }}
+            passHref
+          >
+            <Button>Proba Gratis</Button>
+          </Link>
+          <MiLista />
         </div>
-        <Link
-          as={`/media/${media.id}/watch`}
-          href={{
-            pathname: '/media/[id]/watch',
-            query: {
-              category: (category ? category.slug : null),
-              id: media.id,
-            },
-          }}
-          passHref
-        >
-          <Button>Proba Gratis</Button>
-        </Link>
-        <MiLista />
       </div>
-    </div>
-    <style jsx>{`
-      .cover {
-        background-color: #0a0b11;
-        background-position: 50% 50%, 100% 50%;
-        background-repeat: no-repeat, no-repeat;
-        background-size: cover, contain;
-        font-size: 20px;
-        line-height: 1.5;
-      }
-      .cover .row {
-        padding-top: calc(var(--padding-top) + 15px);
-        padding-bottom: 15px;
-      }
-      h1 {
-        font-size: 31px;
-        line-height: normal;
-        margin-bottom: 0;
-      }
-      .info {
-        margin-bottom: 30px;
-      }
-      .cover :global(.btn-primary) {
-        margin-bottom: 15px;
-      }
-      @media (min-width: 768px) {
+      <style jsx>{`
+        .cover {
+          background-color: #0a0b11;
+          background-position: 50% 50%, 100% 50%;
+          background-repeat: no-repeat, no-repeat;
+          background-size: cover, contain;
+          font-size: 20px;
+          line-height: 1.5;
+        }
         .cover .row {
-          height: 560px;
-          padding-top: 110px;
+          padding-top: calc(var(--padding-top) + 15px);
+          padding-bottom: 15px;
         }
-        .info {
-          margin-bottom: 50px;
-        }
-        .cover :global(.btn-primary) {
-          margin-right: 15px;
+        h1 {
+          font-size: 31px;
+          line-height: normal;
           margin-bottom: 0;
         }
-      }
-    `}</style>
-  </div>
-)}
+        .info {
+          margin-bottom: 30px;
+        }
+        .cover :global(.btn-primary) {
+          margin-bottom: 15px;
+        }
+        @media (min-width: 768px) {
+          .cover .row {
+            height: 560px;
+            padding-top: 110px;
+          }
+          .info {
+            margin-bottom: 50px;
+          }
+          .cover :global(.btn-primary) {
+            margin-right: 15px;
+            margin-bottom: 0;
+          }
+        }
+      `}</style>
+    </div>
+  )
+}
 
 // individual more card
 const HMediaCard = ({category, media}) => (
@@ -134,12 +131,12 @@ const HMediaCard = ({category, media}) => (
     <div className="col-md-4">
 
       <Link
-        as={`/media/${media.id}` + (category ? `?category=${category.slug}` : '')}
+        as={`/media/${media.slug}` + (category ? `?category=${category.slug}` : '')}
         href={{
-          pathname: "/media/[id]",
+          pathname: "/media/[slug]",
           query: {
             category: (category ? category.slug : null),
-            id: media.id,
+            slug: media.slug,
           },
         }}
       >
@@ -156,12 +153,12 @@ const HMediaCard = ({category, media}) => (
     <div className="col-md-7">
       <h3 className="h3">
         <Link
-          as={`/media/${media.id}` + (category ? `?category=${category.slug}` : '')}
+          as={`/media/${media.slug}` + (category ? `?category=${category.slug}` : '')}
           href={{
-            pathname: "/media/[id]",
+            pathname: "/media/[slug]",
             query: {
               category: (category ? category.slug : null),
-              id: media.id,
+              slug: media.slug,
             },
           }}
         >
@@ -207,25 +204,6 @@ const HMediaCard = ({category, media}) => (
 // more cards
 const More = ({category, related}) => {
   let medias = related
-  if (TENANT !== 'dalecampeon') {
-    medias = [
-      {
-        thumbnail2_url: `${STATIC_PATH}/hthumbs/1.png`,
-        title: 'Héroes Anónimos: Juan Melgarejo',
-        detail: `Juan Melgarejo, ha pasado por varias etapas dentro de ${CONFIG.appName}. Partió en Operaciones, luego trabajó de junior, hasta que un día apoyó en la Utilería del Fútbol Joven y nunca más abandonó el costado de una cancha. Esta es su historia #94AñosColoColo`,
-      },
-      {
-        thumbnail2_url: `${STATIC_PATH}/hthumbs/2.png`,
-        title: 'Banini, la mejor del año',
-        detail: `Estefanía Banini, la 10 de ${CONFIG.appName} Femenino, "la Messi" como le llaman, fue elegida como la mejor del Fútbol Femenino, en la premiación que realiza año a año el Círculo de Periodistas Deportivos.`,
-      },
-      {
-        thumbnail2_url: `${STATIC_PATH}/hthumbs/3.png`,
-        title: '¿Qué tipo de entrenamiento es éste?',
-        detail: 'Nuestro Primer Equipo compartió y practicó junto a un club deportivo de no videntes.',
-      }
-    ]
-  }
   return (
     <div className="more container-fluid">
       <div className="row">
