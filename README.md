@@ -1,5 +1,5 @@
 # Dale
-Built with Next.js.
+Built with [Next.js](https://nextjs.org/).
 
 ## Install
 ```sh
@@ -13,9 +13,20 @@ yarn dev
 
 ## Testing deploy
 ```sh
-now
-# or
 now --name=dalecacique
 # or
 now --name=dalecampeon
 ```
+
+## Info
+
+### 1. Installing packages shows unmet peer dependencies for bootstrap
+
+When running `yarn` or `yarn install`, it may show you these warnings:
+
+```sh
+warning " > bootstrap@4.3.1" has unmet peer dependency "jquery@1.9.1 - 3".
+warning " > bootstrap@4.3.1" has unmet peer dependency "popper.js@^1.14.7".
+```
+
+Don't worry, we're just using `bootstrap` to import styles for `react-bootstrap`, so it's not necessary to install these unmet peer dependencies.
