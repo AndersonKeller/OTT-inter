@@ -5,7 +5,7 @@ import ReactSVG from 'react-svg'
 import Button from '../button'
 import { STATIC_PATH, CLIENT_SECRET, CLIENT_ID } from '../../constants/constants'
 import { CONFIG } from '../../config'
-import { Tab } from 'react-bootstrap'
+import { Tab, Form } from 'react-bootstrap'
 import { api, baseURL } from '../../services/api'
 import { setAccessToken } from '../../services/auth'
 import UserContext from '../UserContext'
@@ -40,7 +40,7 @@ const Label = ({ children, htmlFor, ...props }) => {
   )
 }
 
-const Input = ({ autoFocus, id, onChange, required, type, value }) => {
+const Input = ({ autoFocus, id, onChange, required, type, value, placeholder }) => {
   // autofocus is bugging if has states/onChanges
   const inputRef = useRef()
   useEffect(_ => {
@@ -54,6 +54,7 @@ const Input = ({ autoFocus, id, onChange, required, type, value }) => {
         autoFocus={autoFocus && "true"}
         className="form-control"
         id={id}
+        placeholder={placeholder}
         onChange={onChange}
         ref={inputRef}
         required={required}
@@ -161,25 +162,27 @@ const RegisterTab = ({handleClose, setTab, toggleAuth})  => {
   const [name,setName] = useState('')
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
-  const [ error, setError ] = useState('')
+  const [error, setError] = useState('')
+  const [emailSent, setEmailSent] = useState(false)
   const { signIn } = useContext(UserContext)
 
-  const handleRegSubmit = async (e)  => {
+  const handleSubmit = async e  => {
     e.preventDefault();
     try {
-      console.log('data:',name);
+      // console.log('data:',name);
       const tokenResponse = await api.post('/register', {
         name,
         email,
         password,
       })
 
-      tokenResponse.data.token_type = 'tk_type'
-      tokenResponse.data.expires_in = 'expires_in'
-      tokenResponse.data.refresh_token = 'refresh_token'
-      const { user } = tokenResponse.data
-      signIn(user, tokenResponse.data)
-      handleClose()
+      // tokenResponse.data.token_type = 'tk_type'
+      // tokenResponse.data.expires_in = 'expires_in'
+      // tokenResponse.data.refresh_token = 'refresh_token'
+      // const { user } = tokenResponse.data
+      // signIn(user, tokenResponse.data)
+      // handleClose()
+      setEmailSent(true)
     } catch (error) {
       if (error.response) {
         setError(error.response.data)
@@ -191,83 +194,128 @@ const RegisterTab = ({handleClose, setTab, toggleAuth})  => {
   }
 
   return (
-  <div>
+  <>
     <div className="intro-text">
       <p>Una sola cuenta para todos los productos <span className="text-uppercase">{CONFIG.clubName}</span></p>
     </div>
-  <form method="post" onSubmit={handleRegSubmit}>
-    {error && (
-      <div className="invalid-feedback">{error.message}</div>
-    )}
-    <FormGroup>
-      <Label hmtlFor="name">Nombre</Label>
-      <Input id="name" type="text" onChange={e => setName(e.target.value)} value={name} />
-      {error && error.errors && (
-        <div className="invalid-feedback">{error.errors.name}</div>
-      )}
-    </FormGroup>
+    {! emailSent ?
+    <form method="post" onSubmit={handleSubmit}>
+      {error && <div className="invalid-feedback">{error.message}</div>}
+      <FormGroup>
+        {/* <Label hmtlFor="name">Nombre</Label> */}
+        <Input id="name" type="text" placeholder="Nombre" onChange={e => setName(e.target.value)} value={name} />
+        {error && error.errors && (
+          <div className="invalid-feedback">{error.errors.name}</div>
+        )}
+      </FormGroup>
+
+      {/* <FormGroup>
+        <Label hmtlFor="lastname">Apellido</Label>
+        <Input id="lastname" type="text" />
+      </FormGroup> */}
+
+      <FormGroup>
+        {/* <Label hmtlFor="reg_email">E-mail</Label> */}
+        <Input id="reg_email" type="email" placeholder="E-mail" onChange={e => setEmail(e.target.value)} value={email} />
+        {error && error.errors && (
+          <div className="invalid-feedback">{error.errors.email}</div>
+        )}
+      </FormGroup>
+      <FormGroup>
+        {/* <Label hmtlFor="reg_password">Clave</Label> */}
+        <Input id="reg_password" type="password" placeholder="Clave"  onChange={e => setPassword(e.target.value)} value={password} />
+        {error && error.errors &&  (
+          <div className="invalid-feedback">{error.errors.password}</div>
+        )}
+      </FormGroup>
+      {/* <FormGroup>
+        <Label hmtlFor="password_confirmation">Confirmación de Clave</Label>
+        <Input id="password_confirmation" type="password" />
+      </FormGroup>
+      <FormGroup>
+        <Label hmtlFor="address">Dirección</Label>
+        <Input id="address" type="text" />
+      </FormGroup>
+      <FormGroup>
+        <Label hmtlFor="city">Ciudad</Label>
+        <Input id="city" type="text" />
+      </FormGroup>
+      <FormGroup>
+        <Label hmtlFor="country">País</Label>
+        <Input id="country" type="text" />
+      </FormGroup>
+      <FormGroup>
+        <Label hmtlFor="document">Documento</Label>
+        <Input id="document" type="text" />
+      </FormGroup> */}
+
+      {/* <FormGroup>
+        <Form.Label className="radio-label" as="legend" style={{paddingRight:'25px'}}>Género</Form.Label>
+        <Form.Check type="radio" label="Hombre" name="genre" inline />
+        <Form.Check type="radio" label="Mujer" name="genre" inline />
+      </FormGroup> */}
+
     {/* <FormGroup>
-      <Label hmtlFor="lastname">Apellido</Label>
-      <Input id="lastname" type="text" />
-    </FormGroup> */}
-    <FormGroup>
-      <Label hmtlFor="reg_email">E-mail</Label>
-      <Input id="reg_email" type="email" onChange={e => setEmail(e.target.value)} value={email} />
-      {error && error.errors && (
-        <div className="invalid-feedback">{error.errors.email}</div>
-      )}
-    </FormGroup>
-    <FormGroup>
-      <Label hmtlFor="reg_password">Clave</Label>
-      <Input id="reg_password" type="password" onChange={e => setPassword(e.target.value)} value={password} />
-      {error && error.errors &&  (
-        <div className="invalid-feedback">{error.errors.password}</div>
-      )}
-    </FormGroup>
-    {/* <FormGroup>
-      <Label hmtlFor="password_confirmation">Confirmación de Clave</Label>
-      <Input id="password_confirmation" type="password" />
-    </FormGroup>
-    <FormGroup>
-      <Label hmtlFor="address">Dirección</Label>
-      <Input id="address" type="text" />
-    </FormGroup>
-    <FormGroup>
-      <Label hmtlFor="city">Ciudad</Label>
-      <Input id="city" type="text" />
-    </FormGroup>
-    <FormGroup>
-      <Label hmtlFor="country">País</Label>
-      <Input id="country" type="text" />
-    </FormGroup>
-    <FormGroup>
-      <Label hmtlFor="document">Documento</Label>
-      <Input id="document" type="text" />
-    </FormGroup>
-    <FormGroup>
-      <Label hmtlFor="genre">Género</Label>
-      <Input id="genre" type="text" />
-    </FormGroup>
-    <FormGroup>
-      <Label hmtlFor="payment">Meios de Pagamento</Label>
-      <Input id="payment" type="text" />
-    </FormGroup> */}
-    <Button block className="enter-btn" size="sm" type="submit">Registrar</Button>
-    <div className="already-subscriptor">
-      ¿Ya es suscriptor?
-      <a className="bold text-uppercase" href="#" onClick={_ => setTab('login')}>Haga Login</a>
-    </div>
-    <div className="or-enter-with">o entre con</div>
-    <Button className="social facebook" onClick={toggleAuth} type="button">
-      <ReactSVG className="icon" src="/static/icons/facebook.svg" />
-      Facebook
-    </Button>
-    <Button className="social google" onClick={toggleAuth} type="button">
-      <ReactSVG className="icon" src="/static/icons/google.svg" />
-      Google
-    </Button>
-  </form>
-  </div>
+        <Label hmtlFor="payment">Meios de Pagamento</Label>
+        <Input id="payment" type="text" />
+      </FormGroup> */}
+      <Button block className="enter-btn" size="sm" type="submit">Registrar</Button>
+      <div className="already-subscriptor">
+        ¿Ya es suscriptor?
+        <a className="bold text-uppercase" href="#" onClick={_ => setTab('login')}> Haga Login</a>
+      </div>
+      <div className="or-enter-with">o entre con</div>
+      <Button className="social facebook" onClick={toggleAuth} type="button">
+        <ReactSVG className="icon" src="/static/icons/facebook.svg" />
+        Facebook
+      </Button>
+      <Button className="social google" onClick={toggleAuth} type="button">
+        <ReactSVG className="icon" src="/static/icons/google.svg" />
+        Google
+      </Button>
+    </form>
+    :
+    <p>
+      Acceda al correo electrónico registrado para confirmar su cuenta.
+      <div><a className="bold text-uppercase" href="#" onClick={_ => setTab('login')}>Haga Login</a></div>
+    </p>}
+
+    {/* <style jsx>{`
+    .label-radio {
+      padding-right: 5px;
+    }
+  `}</style> */}
+  </>
+  )
+}
+
+const PasswordTab = ({handleClose, setTab, toggleAuth}) => {
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    try{
+
+    }catch(error){
+
+    }
+  }
+
+  return (
+    <>
+      <div className="intro-text" style={{ marginBottom: 15 }}>
+        <p>¿Olvidó su clave?</p>
+      </div>
+      <form method="post" onSubmit={handleSubmit}>
+        <FormGroup>
+          <Label hmtlFor="email2">E-mail</Label>
+          <Input autoFocus id="email2" type="email" />
+        </FormGroup>
+        <Button block className="enter-btn" onClick={e => { e.preventDefault(); alert('pã');}} size="sm" type="submit">
+          Enviar Recuperación
+        </Button>
+      </form>
+    </>
   )
 }
 
@@ -275,6 +323,7 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
   const facebookColor = '#3B5990'
   const googleColor = '#D44639'
   const [ tab, setTab ] = useState('login')
+
 
   return (
     <Modal className="login-modal" onHide={handleClose} show={show}>
@@ -303,23 +352,12 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
 
             {/* password recovery */}
             <Tab.Pane eventKey="password">
-              <div className="intro-text" style={{ marginBottom: 15 }}>
-                <p>¿Olvidó su clave?</p>
-              </div>
-              <form method="post">
-                <FormGroup>
-                  <Label hmtlFor="email2">E-mail</Label>
-                  <Input autoFocus id="email2" type="email" />
-                </FormGroup>
-                <Button block className="enter-btn" onClick={e => { e.preventDefault(); alert('pã');}} size="sm" type="submit">
-                  Enviar Recuperación
-                </Button>
-              </form>
+              <PasswordTab />
             </Tab.Pane>
 
             {/* register */}
             <Tab.Pane eventKey="register">
-              <RegisterTab handleClose={handleClose} setTab={setTab} toggleAuth={toggleAuth}></RegisterTab>
+              <RegisterTab handleClose={handleClose} setTab={setTab} toggleAuth={toggleAuth} />
             </Tab.Pane>
 
           </Tab.Content>
