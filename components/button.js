@@ -1,21 +1,42 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import UserContext from './UserContext'
+import { WHITE } from '../constants/colors'
+import Color from 'color'
+import classNames from 'classnames'
 
-const Button = React.forwardRef(({ children, href, onClick, type, ...props}, ref) => {
-  const block = props.block ? 'btn-block' : ''
-  const className = props.className || ''
-  const color = props.color || 'primary'
-  const outline = props.outline ? 'btn-outline' : ''
+const Button = React.forwardRef(({
+  block,
+  children,
+  className = '',
+  color = 'primary',
+  href,
+  onClick,
+  outline,
+  type,
+  ...props
+}, ref) => {
   const textColor = props.textColor ? 'btn--color-white' : ''
   const size = props.size === 'sm' ? 'btn-sm' : ''
-  const classNames = `btn btn-${color} ${block} ${outline} ${className} ${textColor} ${size}`
+  const { user } = useContext(UserContext)
+  const classes = classNames([
+    'btn',
+    `btn-${color}`,
+    {'btn-block': block},
+    {'btn-outline': outline},
+    className,
+    textColor,
+    size,
+    {'logged': user},
+  ])
+
   return (
     <>
       { ['button', 'submit'].includes(type) ? (
-        <button className={classNames} {...{href, onClick, ref, type}}>
+        <button className={classes} {...{href, onClick, ref, type}}>
           {children}
         </button>
       ) : (
-        <a className={classNames} {...{href, onClick, ref}}>
+        <a className={classes} {...{href, onClick, ref}}>
           {children}
         </a>
       ) }
@@ -41,11 +62,21 @@ const Button = React.forwardRef(({ children, href, onClick, type, ...props}, ref
         .btn-primary {
           background-color: var(--primary) !important;
           color: var(--white) !important;
-          /* margin-right: 15px; */
         }
         .btn-primary:focus,
         .btn-primary:hover {
           background-color: var(--primary-hover) !important;
+        }
+        .btn-primary.logged {
+          background-color: var(--white) !important;
+          border: 2px solid var(--white);
+          color: var(--black) !important;
+          padding-top: 8px;
+          padding-bottom: 8px;
+        }
+        .btn-primary.logged:focus,
+        .btn-primary.logged:hover {
+          background-color: ${Color(WHITE).darken(.35)} !important;
         }
         .btn-secondary {
           background-color: var(--mid-gray);
@@ -76,4 +107,5 @@ const Button = React.forwardRef(({ children, href, onClick, type, ...props}, ref
     </>
   )
 })
+
 export default Button

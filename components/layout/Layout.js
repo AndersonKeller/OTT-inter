@@ -1,10 +1,12 @@
 import Color from 'color'
 import Head from 'next/head'
-import { GRAY3, IS_PRODUCTION } from '../../constants/constants'
+import { GRAY3 } from '../../constants/colors'
+import { IS_PRODUCTION } from '../../constants/constants'
 import Header from './Header'
 import Footer from './Footer'
 import { CONFIG } from '../../config'
 import loadMenus from '../../lib/load-menus'
+import { WHITE } from '../../constants/colors'
 
 const Layout = ({ children, error, menus, header, paddingTop, ...props }) => {
 
@@ -73,7 +75,7 @@ const Layout = ({ children, error, menus, header, paddingTop, ...props }) => {
         }
         :root {
           /* colors */
-          --white:         #fff;
+          --white:         ${WHITE};
           --light-gray:    #c4c4c4;
           --gray:          #b2b2b2;
           --gray2:         #808080;
