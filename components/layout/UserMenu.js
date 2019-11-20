@@ -46,13 +46,9 @@ export default _ => {
 
       <Dropdown alignRight drop="down" flip={undefined}>
         <Dropdown.Toggle id={`dropdown-custom-user`}>
-          <span className="avatar">
-            <img alt="Avatar"
-            height={ (user && user.cropped_image_url) ? "45" : "30" }
-            width={ (user && user.cropped_image_url) ? "45" : "30" }
-            src={ (user && user.cropped_image_url)? user.cropped_image_url : "/static/icons/user.svg" }
-            className={ (user && user.cropped_image_url)? "rounded-circle" : null } />
-          </span>
+
+          <Avatar image={user && user.cropped_image_url ? user.cropped_image_url : null} />
+
           <Chevron
             alt=""
             className="chevron d-none d-md-inline"
@@ -125,26 +121,6 @@ export default _ => {
             padding-right: 15px;
             padding-left: 15px;
           }
-        }
-        .avatar {
-          align-items: center;
-          background-color: var(--gray);
-          border-radius: 50%;
-          display: flex;
-          height: 45px;
-          justify-content: center;
-          padding: 5px;
-          width: 45px;
-        }
-        @media (min-width: 768px) {
-          .avatar {
-            margin-right: 10px;
-          }
-        }
-        .avatar-image {
-          height: 40px;
-          width: 40px;
-          border-radius: 50%;
         }
         .user-select :global(.dropdown-toggle) :global(.chevron) {
           line-height: 1;
@@ -310,5 +286,36 @@ export default _ => {
         }
       `}</style>
     </div>
+  )
+}
+
+const Avatar = ({ image }) => {
+  return (
+    <span className="avatar">
+      <img alt="Avatar"
+        className={ image ? "rounded-circle" : null }
+        height={ image ? "45" : "30" }
+        src={ image || "/static/icons/user.svg" }
+        width={ image ? "45" : "30" }
+      />
+      <style jsx>{`
+        .avatar {
+          align-items: center;
+          background-color: var(--white);
+          border-radius: 50%;
+          display: flex;
+          height: 45px;
+          justify-content: center;
+          padding: 5px;
+          width: 45px;
+        }
+        @media (min-width: 768px) {
+          .avatar {
+            background-color: var(--gray);
+            margin-right: 10px;
+          }
+        }
+      `}</style>
+    </span>
   )
 }
