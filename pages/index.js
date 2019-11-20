@@ -18,63 +18,7 @@ import { STATIC_PATH, TENANT } from '../constants/constants'
 import { CONFIG } from '../config'
 import { api } from '../services/api'
 
-// carousel sections
-const HomeCarouselSection = ({ category: categorySlug }) => {
-  const [category, setCategory] = useState()
-  const [error, setError] = useState()
-  const [loading, setLoading] = useState(false)
-
-  // fetch data
-  useEffect(_ => {
-    async function fetchData() {
-      try {
-        setLoading(true)
-        const {data} = await api.get(`/category/${categorySlug}`)
-        setCategory(data)
-      } catch (error) {
-        setError(true)
-      }
-      setLoading(false)
-    }
-    fetchData()
-  }, [categorySlug])
-
-  // return
-  return (
-    <div>
-      <div className="section">
-
-        {/* loading */}
-        <div className="text-center">
-          <Loading loadingState={loading} />
-        </div>
-
-        {/* category */}
-        {!loading && category && category.name && (
-          <CarouselSection title={category.name}>
-            {category.movies.length &&
-              category.movies.map((media, key) => (
-                <Card {...{category, key, media}} />
-              ))
-            }
-          </CarouselSection>
-        )}
-
-        {/* error */}
-        {error && (
-          <div className="text-center">Error</div>
-        )}
-
-      </div>
-      <style jsx>{`
-        .section {
-          margin-bottom: 55px;
-        }
-      `}</style>
-    </div>
-  )
-}
-
+// home page
 const Home = ({ layoutProps }) => {
   const { user } = useContext(UserContext)
   return (
@@ -272,6 +216,63 @@ const Cover = _ => {
         .h1-c {
           font-size: 72px;
           margin-top: -15px;
+        }
+      `}</style>
+    </div>
+  )
+}
+
+// carousel sections
+const HomeCarouselSection = ({ category: categorySlug }) => {
+  const [category, setCategory] = useState()
+  const [error, setError] = useState()
+  const [loading, setLoading] = useState(false)
+
+  // fetch data
+  useEffect(_ => {
+    async function fetchData() {
+      try {
+        setLoading(true)
+        const {data} = await api.get(`/category/${categorySlug}`)
+        setCategory(data)
+      } catch (error) {
+        setError(true)
+      }
+      setLoading(false)
+    }
+    fetchData()
+  }, [categorySlug])
+
+  // return
+  return (
+    <div>
+      <div className="section">
+
+        {/* loading */}
+        <div className="text-center">
+          <Loading loadingState={loading} />
+        </div>
+
+        {/* category */}
+        {!loading && category && category.name && (
+          <CarouselSection title={category.name}>
+            {category.movies.length &&
+              category.movies.map((media, key) => (
+                <Card {...{category, key, media}} />
+              ))
+            }
+          </CarouselSection>
+        )}
+
+        {/* error */}
+        {error && (
+          <div className="text-center">Error</div>
+        )}
+
+      </div>
+      <style jsx>{`
+        .section {
+          margin-bottom: 55px;
         }
       `}</style>
     </div>
