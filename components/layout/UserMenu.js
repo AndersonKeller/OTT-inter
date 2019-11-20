@@ -301,6 +301,7 @@ const Avatar = ({ image }) => {
       )}
       <style jsx>{`
         .avatar {
+          background-clip: padding-box;
           background-color: var(--white);
           border-radius: 50%;
           height: 30px;
