@@ -130,13 +130,14 @@ const Home = ({ layoutProps }) => {
 
 export default Home
 
+// cover
 const Cover = _ => {
   const { user } = useContext(UserContext)
   return (
     <div className="cover">
       <div className="container-fluid">
         <div className="row">
-          <div className="col col-5">
+          <div className="col col-8 col-md-5">
             <div className="description">
               <h1 className="h1">
                 <span className="h1-a">Entrevista a nuestro</span>
@@ -193,12 +194,17 @@ const Cover = _ => {
           display: flex;
           flex-direction: column;
           font-family: 'Bebas Neue Book';
-          font-size: 62px;
+          font-size: 31px;
           font-weight: normal;
           line-height: .98;
           margin-top: 0;
           margin-bottom: 20px;
           text-transform: uppercase;
+        }
+        @media (min-width: 768px) {
+          .h1 {
+            font-size: 62px;
+          }
         }
         .h1-a {
           position: relative;
@@ -207,15 +213,15 @@ const Cover = _ => {
         .h1-b {
           color: var(--primary);
           font-family: 'Bebas Neue';
-          font-size: 139px;
+          font-size: 2.24em; /* 139px */
           font-weight: bold;
           margin-left: -50px;
           position: relative;
           z-index: 1;
         }
         .h1-c {
-          font-size: 72px;
-          margin-top: -15px;
+          font-size: 1.16em;
+          margin-top: -.20em; /* -15px */
         }
       `}</style>
     </div>
