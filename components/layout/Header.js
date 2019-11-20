@@ -108,8 +108,7 @@ const Header = ({ menus, closed, ...props }) => {
           font-size: 16px;
           font-weight: bold;
           min-width: 100%;
-          padding: 15px;
-          padding-bottom: 20px;
+          padding: 10px;
           position: fixed;
           transition: background-color .6s, box-shadow .6s;
           width: 90%;
@@ -117,8 +116,7 @@ const Header = ({ menus, closed, ...props }) => {
         }
         @media (min-width: 768px) {
           .header {
-            padding-right: 30px;
-            padding-left: 30px;
+            padding: 15px 30px 20px 30px;
           }
         }
         .header.closed {
@@ -206,17 +204,19 @@ const ClubLogo = _ => {
       <style jsx>{`
         .club-logo {
           display: flex;
-          height: 55px;
+          height: 45px;
           padding: 5px;
           justify-content: center;
-          width: 55px;
+          width: 45px;
         }
         .club-logo a {
           display: flex;
         }
         @media (min-width: 768px) {
           .club-logo {
+            height: 55px;
             margin-right: 25px;
+            width: 55px;
           }
         }
       `}</style>

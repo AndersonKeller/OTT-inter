@@ -292,27 +292,39 @@ export default _ => {
 const Avatar = ({ image }) => {
   return (
     <span className="avatar">
-      <img alt="Avatar"
-        className={ image ? "rounded-circle" : null }
-        height={ image ? "45" : "30" }
-        src={ image || "/static/icons/user.svg" }
-        width={ image ? "45" : "30" }
-      />
+      { ! image ? (
+        <span className="empty-img">
+          <img alt="Avatar" className="img-fluid" height="20" src="/static/icons/user.svg" width="20" />
+        </span>
+      ) : (
+        <img alt="Avatar" className="img-fluid" height="30" src={image} width="30" />
+      )}
       <style jsx>{`
         .avatar {
-          align-items: center;
           background-color: var(--white);
           border-radius: 50%;
+          height: 30px;
+          margin: 2.5px;
+          overflow: hidden;
+          width: 30px;
+        }
+        .empty-img {
+          align-items: center;
           display: flex;
-          height: 45px;
+          height: 100%;
           justify-content: center;
-          padding: 5px;
-          width: 45px;
+          padding: 17.5%;
+          width: 100%;
+        }
+        .empty-img img {
+          max-height: 100%;
         }
         @media (min-width: 768px) {
           .avatar {
             background-color: var(--gray);
+            height: 45px;
             margin-right: 10px;
+            width: 45px;
           }
         }
       `}</style>
