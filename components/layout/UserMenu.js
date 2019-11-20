@@ -42,7 +42,7 @@ export default _ => {
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   return (
-    <div className={`user-select d-none d-md-flex ${user ? 'logged' : ''}`}>
+    <div className={`user-select ${user ? 'logged' : ''}`}>
 
       <Dropdown alignRight drop="down" flip={undefined}>
         <Dropdown.Toggle id={`dropdown-custom-user`}>
@@ -55,7 +55,7 @@ export default _ => {
           </span>
           <Chevron
             alt=""
-            className="chevron"
+            className="chevron d-none d-md-inline"
             dir="bottom"
             height="9"
             inline
@@ -105,8 +105,12 @@ export default _ => {
         .user-select {
           align-items: center;
           display: flex;
-          margin-right: 15px;
           position: relative;
+        }
+        @media (min-width: 768px) {
+          .user-select {
+            margin-right: 15px;
+          }
         }
         .user-select :global(.dropdown-toggle) {
           align-items: center;
@@ -114,7 +118,13 @@ export default _ => {
           border: 0;
           box-shadow: none !important;
           display: flex;
-          padding: 5px 15px;
+          padding: 5px;
+        }
+        @media (min-width: 768px) {
+          .user-select :global(.dropdown-toggle) {
+            padding-right: 15px;
+            padding-left: 15px;
+          }
         }
         .avatar {
           align-items: center;
@@ -123,9 +133,13 @@ export default _ => {
           display: flex;
           height: 45px;
           justify-content: center;
-          margin-right: 10px;
           padding: 5px;
           width: 45px;
+        }
+        @media (min-width: 768px) {
+          .avatar {
+            margin-right: 10px;
+          }
         }
         .avatar-image {
           height: 40px;

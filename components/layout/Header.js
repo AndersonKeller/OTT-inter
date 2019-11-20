@@ -14,50 +14,6 @@ import Router from 'next/router'
 
 const Header = ({ menus, closed, ...props }) => {
 
-  function createMenuItem(menuItem) {
-    // define href
-    let as_href,
-      href
-    if (menuItem.link_type_id === 1) {
-      href = menuItem.link
-    } else if (menuItem.link_type_id === 2) {
-      href = '/category/[slug]'
-      as_href = `/category/${menuItem.category && menuItem.category.slug}`
-    }
-    return {
-      as: as_href,
-      href: href,
-      label: menuItem.name,
-      visibility: menuItem.private ? 'private' : 'public',
-    }
-  }
-
-  // menu
-  let menu = null
-  if (menus) {
-    menu = []
-    menus.map(menuItem => {
-      // create dropdown menus
-      let dropdown
-      if (menuItem.children && menuItem.link_type_id === 3) {
-        dropdown = []
-        menuItem.children.map(item => {
-          const submenuItem = createMenuItem(item)
-          dropdown.push(submenuItem)
-        })
-      }
-      let myItem = createMenuItem(menuItem)
-      myItem = {
-        dropdown: dropdown,
-        ...myItem,
-      }
-      menu.push(myItem)
-    });
-  }
-
-  // user context
-  const { user } = useContext(UserContext)
-
   // scrolled state
   const hasScrolled = _ => {
     return typeof window !== 'undefined' ? window.pageYOffset > 1 : false
@@ -93,72 +49,23 @@ const Header = ({ menus, closed, ...props }) => {
     <header className={classes}>
       <nav className="nav">
 
+        {/* club logo */}
+        { ! closed && (
+          <ClubLogo />
+        ) }
+
         {/* logo */}
-        <h1 className="logo">
-          <ActiveLink href="/">
-            <a><img alt={CONFIG.appName} className="img-fluid" src={`${STATIC_PATH}/logos/dale.svg`} /></a>
-          </ActiveLink>
-        </h1>
+        <Logo />
 
         { ! closed && (
           <>
-
-            {/* club logo */}
-            <div className="club-logo">
-              <a href={CONFIG.site} target="_blank">
-                <img alt={`by ${CONFIG.clubName}`} className="img-fluid" src={`${STATIC_PATH}/logos/club.svg`} />
-              </a>
-            </div>
-
             {/* menu */}
-            <ul className="menu d-none d-md-flex">
-              { menu ? (
-                <>
-                  { menu.map(({ label, href, as, visibility, dropdown }, i) => {
-                    return ( ! visibility ||
-                      visibility === 'public' ||
-                      visibility === 'publicOnly' && ! user ||
-                      visibility === 'private' && user) && (
-                      <li key={i}>
-                        { dropdown && dropdown.length ? (
-                          <Dropdown>
-                            <Dropdown.Toggle id={`dropdown-custom-${i}`}>
-                              {label}
-                              <Chevron
-                                alt=""
-                                className="chevron"
-                                dir="bottom"
-                                height="9"
-                                inline
-                                width="16"
-                              />
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                              { dropdown.map(({ label, href, as }, k) => (
-                                <ActiveLink as={as} href={href} key={k}>
-                                  <Dropdown.Item href={as}>{label}</Dropdown.Item>
-                                </ActiveLink>
-                              )) }
-                            </Dropdown.Menu>
-                          </Dropdown>
-                        ) : (
-                          <ActiveLink as={as} href={href}>
-                            <a>{label}</a>
-                          </ActiveLink>
-                        ) }
-                      </li>
-                    )
-                  }) }
-                </>
-              ) : (
-                <li>No se pueden cargar los menús</li>
-              ) }
-            </ul>
+            <DesktopMenu data={menus} />
 
             {/* form */}
             <form
               action="/movies"
-              className="d-none d-md-block search-form"
+              className="d-none d-lg-block search-form"
               method="get"
               onSubmit={(e) => handleSearch(e)}
             >
@@ -201,12 +108,18 @@ const Header = ({ menus, closed, ...props }) => {
           font-size: 16px;
           font-weight: bold;
           min-width: 100%;
-          padding: 15px 30px;
+          padding: 15px;
           padding-bottom: 20px;
           position: fixed;
           transition: background-color .6s, box-shadow .6s;
           width: 90%;
           z-index: 10;
+        }
+        @media (min-width: 768px) {
+          .header {
+            padding-right: 30px;
+            padding-left: 30px;
+          }
         }
         .header.closed {
           background-color: var(--black);
@@ -220,36 +133,218 @@ const Header = ({ menus, closed, ...props }) => {
         .nav {
           display: flex;
           align-items: center;
+          justify-content: space-between;
         }
         .header.closed .nav {
           justify-content: center;
         }
+        .header.closed :global(.logo) {
+          margin-right: 0;
+        }
+        .form-control {
+          background-color: transparent;
+          border: 0;
+          display: inline-block;
+          color: #fff;
+          font-family: inherit;
+          font-size: inherit;
+          font-weight: inherit;
+          outline: 0;
+          padding: 0;
+          vertical-align: middle;
+          width: 95px;
+        }
+        input[type=search] {
+          padding: 0px 10px;
+          margin-right: 10px;
+          width: 10vw;
+          transition: ease-in-out 0.7s;
+        }
+        input[type=search]:focus {
+          width: 20vw !important;
+          transition: ease-in-out 0.7s;
+          box-shadow: 0 0 0 0.1rem rgba(255, 0, 0, 0.26);
+        }
+        .form-control::placeholder {
+          color: #b2b2b2;
+        }
+        .search-form {
+          margin-left: auto;
+        }
+        .search-btn {
+          background-color: transparent;
+          border: 0;
+          cursor: pointer;
+          margin-right: 5px;
+          outline: 0;
+          padding: 5px;
+          vertical-align: middle;
+        }
+        .search-btn:hover {
+          filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+        }
+        .notifications-btn {
+          background-color: transparent;
+          border: 0;
+          cursor: pointer;
+          outline: 0;
+          margin-right: 10px;
+          padding: 5px;
+          vertical-align: middle;
+        }
+      `}</style>
+    </header>
+  )
+}
+
+const ClubLogo = _ => {
+  return (
+    <div className="club-logo">
+      <a href={CONFIG.site} target="_blank">
+        <img alt={`by ${CONFIG.clubName}`} className="img-fluid" src={`${STATIC_PATH}/logos/club.svg`} />
+      </a>
+      <style jsx>{`
+        .club-logo {
+          display: flex;
+          height: 55px;
+          padding: 5px;
+          justify-content: center;
+          width: 55px;
+        }
+        .club-logo a {
+          display: flex;
+        }
+        @media (min-width: 768px) {
+          .club-logo {
+            margin-right: 25px;
+          }
+        }
+      `}</style>
+    </div>
+  )
+}
+
+const Logo = _ => {
+  return (
+    <h1 className="logo">
+      <ActiveLink href="/">
+        <a>
+          <img alt={CONFIG.appName} className="img-fluid" src={`${STATIC_PATH}/logos/dale.svg`} />
+        </a>
+      </ActiveLink>
+      <style jsx>{`
         .logo {
           display: flex;
           height: auto;
           justify-content: center;
-          margin: -10px;
-          margin-right: 30px;
+          margin-top: -10px;
+          margin-bottom: -10px;
+          margin-right: 0;
           height: 75px;
           width: 130px;
+        }
+        @media (min-width: 768px) {
+          .logo {
+            margin-right: 25px;
+            margin-left: -10px;
+            order: -1;
+          }
         }
         .logo a {
           display: block;
           padding: 10px;
         }
-        .header.closed .logo {
-          margin-right: 0;
-        }
-        .club-logo {
-          display: flex;
-          height: 45px;
-          justify-content: center;
-          margin-right: 30px;
-          width: 45px;
-        }
-        .club-logo a {
-          display: flex;
-        }
+      `}</style>
+    </h1>
+  )
+}
+
+const DesktopMenu = ({ data: menus }) => {
+
+  function createMenuItem(menuItem) {
+    let as_href,
+      href
+    if (menuItem.link_type_id === 1) {
+      href = menuItem.link
+    } else if (menuItem.link_type_id === 2) {
+      href = '/category/[slug]'
+      as_href = `/category/${menuItem.category && menuItem.category.slug}`
+    }
+    return {
+      as: as_href,
+      href: href,
+      label: menuItem.name,
+      visibility: menuItem.private ? 'private' : 'public',
+    }
+  }
+
+  let menu = null
+  if (menus) {
+    menu = []
+    menus.map(menuItem => {
+      let dropdown
+      if (menuItem.children && menuItem.link_type_id === 3) {
+        dropdown = []
+        menuItem.children.map(item => {
+          const submenuItem = createMenuItem(item)
+          dropdown.push(submenuItem)
+        })
+      }
+      let myItem = createMenuItem(menuItem)
+      myItem = {
+        dropdown: dropdown,
+        ...myItem,
+      }
+      menu.push(myItem)
+    });
+  }
+
+  const { user } = useContext(UserContext)
+
+  return (
+    <ul className="menu d-none d-md-flex">
+      { menu ? (
+        <>
+          { menu.map(({ label, href, as, visibility, dropdown }, i) => {
+            return ( ! visibility ||
+              visibility === 'public' ||
+              visibility === 'publicOnly' && ! user ||
+              visibility === 'private' && user) && (
+              <li key={i}>
+                { dropdown && dropdown.length ? (
+                  <Dropdown>
+                    <Dropdown.Toggle id={`dropdown-custom-${i}`}>
+                      {label}
+                      <Chevron
+                        alt=""
+                        className="chevron"
+                        dir="bottom"
+                        height="9"
+                        inline
+                        width="16"
+                      />
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      { dropdown.map(({ label, href, as }, k) => (
+                        <ActiveLink as={as} href={href} key={k}>
+                          <Dropdown.Item href={as}>{label}</Dropdown.Item>
+                        </ActiveLink>
+                      )) }
+                    </Dropdown.Menu>
+                  </Dropdown>
+                ) : (
+                  <ActiveLink as={as} href={href}>
+                    <a>{label}</a>
+                  </ActiveLink>
+                ) }
+              </li>
+            )
+          }) }
+        </>
+      ) : (
+        <li>No se pueden cargar los menús</li>
+      ) }
+      <style jsx>{`
         .menu {
           display: none;
           justify-content: space-between;
@@ -327,59 +422,8 @@ const Header = ({ menus, closed, ...props }) => {
         .menu :global(.dropdown-item.active) {
           color: var(--white);
         }
-        .form-control {
-          background-color: transparent;
-          border: 0;
-          display: inline-block;
-          color: #fff;
-          font-family: inherit;
-          font-size: inherit;
-          font-weight: inherit;
-          outline: 0;
-          padding: 0;
-          vertical-align: middle;
-          width: 95px;
-        }
-        input[type=search] {
-          padding: 0px 10px;
-          margin-right: 10px;
-          width: 10vw;
-          transition: ease-in-out 0.7s;
-        }
-        input[type=search]:focus {
-          width: 20vw !important;
-          transition: ease-in-out 0.7s;
-          box-shadow: 0 0 0 0.1rem rgba(255, 0, 0, 0.26);
-        }
-        .form-control::placeholder {
-          color: #b2b2b2;
-        }
-        .search-form {
-          margin-left: auto;
-        }
-        .search-btn {
-          background-color: transparent;
-          border: 0;
-          cursor: pointer;
-          margin-right: 5px;
-          outline: 0;
-          padding: 5px;
-          vertical-align: middle;
-        }
-        .search-btn:hover {
-          filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
-        }
-        .notifications-btn {
-          background-color: transparent;
-          border: 0;
-          cursor: pointer;
-          outline: 0;
-          margin-right: 10px;
-          padding: 5px;
-          vertical-align: middle;
-        }
       `}</style>
-    </header>
+    </ul>
   )
 }
 
