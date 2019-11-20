@@ -324,7 +324,6 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
   const googleColor = '#D44639'
   const [ tab, setTab ] = useState('login')
 
-
   return (
     <Modal className="login-modal" onHide={handleClose} show={show}>
       <Modal.Header>

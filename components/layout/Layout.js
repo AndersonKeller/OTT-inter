@@ -8,21 +8,15 @@ import { CONFIG } from '../../config'
 import loadMenus from '../../lib/load-menus'
 import { WHITE } from '../../constants/colors'
 
-const Layout = ({ children, error, menus, header, paddingTop, ...props }) => {
+const Layout = ({ children, error, menus, header, paddingTop = true }) => {
 
   if (header === 'closed') {
     paddingTop = false
-  } else if (paddingTop !== undefined) {
-    paddingTop = paddingTop
-  } else {
-    paddingTop = true
   }
-
   if ( ! IS_PRODUCTION) {
     import('bootstrap/dist/css/bootstrap.min.css')
     import('slick-carousel/slick/slick.css')
   }
-
   return (
     <>
       <Head>
@@ -59,7 +53,7 @@ const Layout = ({ children, error, menus, header, paddingTop, ...props }) => {
         <script src="https://player.vimeo.com/api/player.js"></script>
       </Head>
 
-      <Header menus={menus} closed={header === 'closed'} />
+      <Header closed={header === 'closed'} {...{menus}} />
 
       <main className={ ! paddingTop ? 'no-padding' : ''}>
         {children}
@@ -89,7 +83,7 @@ const Layout = ({ children, error, menus, header, paddingTop, ...props }) => {
           --black-rgb:     0, 0, 0;
           --primary:       ${CONFIG.color};
           --primary-hover: ${Color(CONFIG.color).darken(.2)};
-          --gray4:         #666;
+          --gray4:         #666; /* 656565 */
 
           /* fonts */
           --sans-serif: 'Helvetica', sans-serif;

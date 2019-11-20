@@ -57,3 +57,13 @@ import Color from 'color'
 
 Color('#D44639').darken(.2)
 ```
+
+### SVGs
+
+For svgs where you need to interact changin color etc., use the package [react-svg](https://github.com/tanem/react-svg)
+
+```js
+import ReactSVG from 'react-svg'
+
+<ReactSVG src="/static/icons/facebook.svg" />
+```
