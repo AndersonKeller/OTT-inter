@@ -93,9 +93,12 @@ const Layout = ({ children, error, menus, header, paddingTop = true }) => {
           --font-size: 20px;
 
           /* others */
-          --padding-top: 90px;
+          --padding-top: 75px;
         }
         @media (min-width: 768px) {
+          :root {
+            --padding-top: 95px;
+          }
         }
         @media (min-width: 992px) {
           :root {
@@ -157,6 +160,15 @@ const Layout = ({ children, error, menus, header, paddingTop = true }) => {
         .no-gutters > [class*="col-"] {
           padding-right: 0;
           padding-left: 0;
+        }
+        .gutter-10 {
+          margin-right: -5px;
+          margin-left: -5px;
+        }
+        .gutter-10 > .col,
+        .gutter-10 > [class*="col-"] {
+          padding-right: 5px;
+          padding-left: 5px;
         }
         .gutter-15 {
           margin-right: -7.5px;
