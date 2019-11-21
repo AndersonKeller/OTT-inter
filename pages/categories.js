@@ -7,6 +7,7 @@ import Layout from '../components/layout/Layout'
 import Loading from '../components/Loading/Loading'
 import { CONFIG } from '../config'
 import { api } from '../services/api'
+import CategoryLink from '../components/CategoryLink/CategoryLink'
 
 function CategoriesPage({ layoutProps }) {
 
@@ -37,7 +38,7 @@ function CategoriesPage({ layoutProps }) {
         {categories && (
           <div className="cards row gutter-10">
             {categories.map((category, key) => (
-              <div className="col-6" {...{key}}>
+              <div className="col-6 col-lg-4 col-xl-3" {...{key}}>
                 <CategoryCard {...{category}} />
               </div>
             ))}
@@ -50,7 +51,7 @@ function CategoriesPage({ layoutProps }) {
         }
         @media (min-width: 768px) {
           .cards {
-            font-size: 24px;
+            font-size: 22px;
           }
         }
       `}</style>
@@ -66,13 +67,19 @@ export default CategoriesPage
 
 const CategoryCard = ({category}) => {
   return (
-    <div className="category-card">
-      <div className="inner">
-        {category.name}
-      </div>
+    <div>
+      <CategoryLink {...{category}}>
+        <a className="category-card">
+          <span className="inner">
+            {category.name}
+          </span>
+        </a>
+      </CategoryLink>
       <style jsx>{`
         .category-card {
           background-color: var(--dark-gray3);
+          color: var(--white);
+          display: block;
           margin-bottom: 10px;
           position: relative;
         }
