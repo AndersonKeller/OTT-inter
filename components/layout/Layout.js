@@ -78,7 +78,7 @@ const Layout = ({ children, error, menus, header, paddingTop = true }) => {
           --gray3-rgb:     51, 51, 51;
           --gray3-darken:  #282828;
           --mid-gray:      #4d4d4d;
-          --dark-gray3:    #1a1a1a;
+          --dark-gray3:    ${Color(GRAY3).darken(.5)};
           --black:         #000;
           --black-rgb:     0, 0, 0;
           --primary:       ${CONFIG.color};

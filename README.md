@@ -52,11 +52,18 @@ classNames('foo', 'bar'); // => 'foo bar'
 ```
 
 ### Color
+
+There are much color manipulation you can do. See [color](https://github.com/Qix-/color).
+
 ```js
 import Color from 'color'
 
 Color('#D44639').darken(.2)
 ```
+
+### Placeholders
+
+If anytime you need an image placeholder, feel free to use the [http://placehold.jp/](http://placehold.jp/) website. You can call a images like: [http://placehold.jp/390x220.png](http://placehold.jp/390x220.png)
 
 ### SVGs
 

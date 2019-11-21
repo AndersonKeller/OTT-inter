@@ -1,4 +1,5 @@
 // other imports
+import Color from 'color'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 
@@ -8,17 +9,23 @@ import Loading from '../components/Loading/Loading'
 import { CONFIG } from '../config'
 import { api } from '../services/api'
 import CategoryLink from '../components/CategoryLink/CategoryLink'
+import { BLACK } from '../constants/colors'
 
 function CategoriesPage({ layoutProps }) {
 
   const [loading,setLoading] = useState()
   const [categories,setCategories] = useState()
+  const [error,setError] = useState()
 
   useEffect(_ => {
     async function fetchData() {
       setLoading(true)
-      const {data} = await api.get('/categories')
-      setCategories(data)
+      try {
+        const {data} = await api.get('/categories')
+        setCategories(data)
+      } catch(e) {
+        setError(true)
+      }
       setLoading(false)
     }
     fetchData()
@@ -43,6 +50,9 @@ function CategoriesPage({ layoutProps }) {
               </div>
             ))}
           </div>
+        )}
+        {error && (
+          <p>Incapaz de cargar categorías</p>
         )}
       </div>
       <style jsx>{`
@@ -69,7 +79,11 @@ const CategoryCard = ({category}) => {
       </CategoryLink>
       <style jsx>{`
         .category-card {
-          background-color: var(--dark-gray3);
+          background-color: var(--gray2);
+          background-image: url(${category.image_url});
+          background-position: 50% 50%;
+          background-repeat: no-repeat;
+          background-size: cover;
           color: var(--white);
           display: block;
           font-size: 14px;
@@ -83,14 +97,22 @@ const CategoryCard = ({category}) => {
         }
         .inner {
           align-items: center;
+          background-color: ${Color(BLACK).fade(.15)};
           bottom: 0;
           display: flex;
           left: 0;
           justify-content: center;
+          outline: 0;
           overflow: hidden;
           position: absolute;
           right: 0;
           top: 0;
+          transition: background-color .2s;
+          z-index: 2;
+        }
+        .category-card:focus .inner,
+        .category-card:hover .inner {
+          background-color: ${Color(BLACK).fade(.4)};
         }
         @media (min-width: 768px) {
           .category-card {
