@@ -10,7 +10,7 @@ import Layout from '../components/layout/Layout'
 import { CONFIG } from '../config'
 import { api } from '../services/api'
 import Loading from '../components/Loading/Loading'
-import MediaCard from '../components/MediaCard/MediaCard'
+import MediaList from '../components/MediaList/MediaList'
 
 // movies page
 const MoviesPage = ({layoutProps}) => {
@@ -56,19 +56,12 @@ const MoviesPage = ({layoutProps}) => {
             </header>
             <Loading loadingState={loading} />
             { ! loading && (
-              <div className="media-cards row gutter-15">
-                { medias.map((media, key) => (
-                  <div className="col-4 col-md-2" {...{key}}>
-                    <MediaCard {...{media}} />
-                  </div>
-                )) }
-              </div>
+              <MediaList {...{medias}} />
             )}
 
           </div>
         </div>
       </div>
-
       <style jsx>{`
         header {
           padding-top: 15px;
@@ -76,14 +69,9 @@ const MoviesPage = ({layoutProps}) => {
         .h2 {
           margin-bottom: 30px;
         }
-        .media-cards {
-        }
         @media (min-width: 768px) {
           header {
             padding-top: 30px;
-          }
-          .media-cards {
-            margin-bottom: 45px;
           }
         }
       `}</style>

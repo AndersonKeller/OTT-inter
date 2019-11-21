@@ -1,23 +1,16 @@
-import fetch from 'isomorphic-unfetch'
 import Error from 'next/error'
 import Head from 'next/head'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useEffect, useState} from 'react'
-import shuffle from 'shuffle-array'
 
 import Layout from '../../components/layout/Layout'
 import { CONFIG } from '../../config'
-import { STATIC_PATH } from '../../constants/constants'
 import { api } from '../../services/api'
-import MediaCard from '../../components/MediaCard/MediaCard'
+import MediaList from '../../components/MediaList/MediaList'
 
-const Category = ({ category, errorCode, layoutProps, medias, ...props }) => {
+const Category = ({ category, errorCode, layoutProps, medias }) => {
 
   if (errorCode) {
     return <Error statusCode={errorCode} />
   }
-
   // const router = useRouter()
 
   return (
@@ -27,35 +20,33 @@ const Category = ({ category, errorCode, layoutProps, medias, ...props }) => {
       </Head>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-10 offset-1">
+          <div className="col-md-10 offset-md-1">
+
             <header>
               <h1 className="h2">{category.name}</h1>
             </header>
             { medias.length ? (
-              <div className="media-cards row gutter-15">
-                { medias.map((media, key) => (
-                  <div className="col-2" {...{key}}>
-                    <MediaCard {...{category, media}} />
-                  </div>
-                )) }
-              </div>
+              <MediaList {...{category, medias}} />
             ) : (
               <div>
                 <p>No se encontraron registros.</p>
               </div>
             )}
+
           </div>
         </div>
       </div>
       <style jsx>{`
         header {
-          padding-top: 60px;
+          padding-top: 15px;
         }
         .h2 {
           margin-bottom: 30px;
         }
-        .media-cards {
-          margin-bottom: 100px;
+        @media (min-width: 768px) {
+          header {
+            padding-top: 30px;
+          }
         }
       `}</style>
     </Layout>
