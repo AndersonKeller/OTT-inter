@@ -44,7 +44,7 @@ const MoviesPage = ({layoutProps}) => {
       </Head>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-10 offset-1">
+          <div className="col-md-10 offset-md-1">
 
             <header>
               <h1 className="h2">Videos</h1>
@@ -58,7 +58,7 @@ const MoviesPage = ({layoutProps}) => {
             { ! loading && (
               <div className="media-cards row gutter-15">
                 { medias.map((media, key) => (
-                  <div className="col-2" {...{key}}>
+                  <div className="col-4 col-md-2" {...{key}}>
                     <MediaCard {...{media}} />
                   </div>
                 )) }
@@ -71,13 +71,20 @@ const MoviesPage = ({layoutProps}) => {
 
       <style jsx>{`
         header {
-          padding-top: 60px;
+          padding-top: 15px;
         }
         .h2 {
           margin-bottom: 30px;
         }
         .media-cards {
-          margin-bottom: 100px;
+        }
+        @media (min-width: 768px) {
+          header {
+            padding-top: 30px;
+          }
+          .media-cards {
+            margin-bottom: 45px;
+          }
         }
       `}</style>
     </Layout>
