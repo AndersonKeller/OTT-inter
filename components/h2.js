@@ -5,7 +5,7 @@ const H2 = (props) => (
     </h2>
     <style jsx>{`
       .h2 {
-        --font-size: 31px;
+        --font-size: 24px;
         font-family: var(--sans-serif);
         font-size: var(--font-size);
         font-weight: bold;

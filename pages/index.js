@@ -116,8 +116,10 @@ const Home = ({ layoutProps }) => {
 
       </div>
       <style jsx>{`
-        .index {
-          padding-bottom: 55px;
+        @media (min-width: 768px) {
+          .index {
+            padding-bottom: 30px;
+          }
         }
       `}</style>
     </Layout>
@@ -278,7 +280,12 @@ const HomeCarouselSection = ({ category: categorySlug }) => {
       </div>
       <style jsx>{`
         .section {
-          margin-bottom: 55px;
+          margin-bottom: 25px;
+        }
+        @media (min-width: 768px) {
+          .section {
+            margin-bottom: 55px;
+          }
         }
       `}</style>
     </div>

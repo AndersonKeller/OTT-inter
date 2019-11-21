@@ -42,29 +42,31 @@ function Arrow(props) {
 export default class Carousel extends Component {
   render() {
     const settings = {
-      draggable: false,
       dots: false,
+      draggable: false,
       infinite: false,
-      speed: 500,
-      slidesToShow: 6,
-      slidesToScroll: 6,
+      mobileFirst: true, /* seems to not be working (?) */
       nextArrow: <Arrow />,
       prevArrow: <Arrow />,
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            arrows: false,
+            slidesToScroll: 3,
+            slidesToShow: 3,
+          },
+        },
+      ],
+      slidesToScroll: 6,
+      slidesToShow: 6,
+      speed: 500,
     };
     return (
       <div className={`cards cards--${this.props.color}`}>
-        <div className="cards-c">
+        <div className="cards-container">
           <Slider {...settings}>
-            { this.props.list && this.props.list.map((card, index) => {
-              return (
-                <div className="slide" key={index}>
-                  <a className="carousel-card" href="" onClick={(event) => event.preventDefault()}>
-                    <img height="256" src={card} width="180" />
-                  </a>
-                </div>
-              )
-            }) }
-            { ! this.props.list && React.Children.map(this.props.children, (card, index) => {
+            { React.Children.map(this.props.children, (card, index) => {
               return (
                 <div className="slide" key={index}>
                   {card}
@@ -80,7 +82,7 @@ export default class Carousel extends Component {
               margin-left: 0;
             }
             .cards {
-              // margin-bottom: 55px;
+              /* margin-bottom: 55px; */
               overflow: hidden;
               position: relative;
             }
@@ -108,7 +110,7 @@ export default class Carousel extends Component {
             .cards.cards--gray::after {
               background-image: linear-gradient(to left, var(--dark-gray3), rgba(26, 26, 26, 0));
             }
-            .cards-c {
+            .cards-container {
               font-size: 0;
               margin-right: calc(9% - 10px);
               margin-left: calc(9% - 10px);
@@ -117,17 +119,14 @@ export default class Carousel extends Component {
             .slide {
               display: inline-block;
               font-size: 1rem;
-              padding: 10px;
+              padding: 5px;
               white-space: normal;
               width: 200px;
             }
-            .carousel-card {
-              display: block;
-            }
-            .carousel-card img {
-              display: block;
-              height: auto;
-              width: 100%;
+            @media (min-width: 768px) {
+            .slide {
+                padding: 10px;
+              }
             }
           `}</style>
         </div>

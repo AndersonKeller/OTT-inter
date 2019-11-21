@@ -114,8 +114,8 @@ const TermsAndPoliciesBar = _ => {
       <style jsx>{`
         .terms-and-policies-bar {
           font-size: 13px;
-          padding-top: 20px;
-          padding-bottom: 20px;
+          padding-top: 15px;
+          padding-bottom: 5px;
           text-align: center;
         }
         .terms-and-policies-bar a {
@@ -138,8 +138,7 @@ const TermsAndPoliciesBar = _ => {
         }
         @media (min-width: 768px) {
           .terms-and-policies-bar {
-            padding-right: 5px;
-            padding-left: 5px;
+            padding: 20px 5px;
           }
           .terms-and-policies-bar p {
             margin-bottom: 0;
