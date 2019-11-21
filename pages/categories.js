@@ -43,7 +43,7 @@ function CategoriesPage({ layoutProps }) {
           </div>
         )}
         {categories && (
-          <div className="cards row gutter-10">
+          <div className="cards row gutter-15">
             {categories.map((category, key) => (
               <div className="col-6 col-lg-4 col-xl-3" {...{key}}>
                 <CategoryCard {...{category}} />
@@ -87,7 +87,7 @@ const CategoryCard = ({category}) => {
           color: var(--white);
           display: block;
           font-size: 14px;
-          margin-bottom: 10px;
+          margin-bottom: 15px;
           position: relative;
         }
         .category-card::before {
