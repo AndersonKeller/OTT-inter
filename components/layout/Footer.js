@@ -14,7 +14,7 @@ export default function Footer() {
       <NavFooter className="d-md-none" />
       <TermsAndPoliciesBar />
       <style jsx>{`
-        .footer{
+        .footer {
           padding-bottom: 65px;
         }
         @media (min-width: 768px) {
@@ -32,7 +32,7 @@ const NavFooter = ({className}) => {
   const menu = [
     { icon: 'home', label: 'Inicio', href: '/', },
     // { icon: 'live', label: 'Ahora', },
-    { icon: 'categories', label: 'Categorias', href: '/categories', },
+    { icon: 'categories', label: 'Categorías', href: '/categories', },
     { icon: 'downloads', label: 'Descargas', href: '/downloads', },
     { icon: 'search', label: 'Buscar', href: '/movies', },
     // { icon: 'scan', label: 'Escanear', },

@@ -27,7 +27,7 @@ function CategoriesPage({ layoutProps }) {
   return (
     <Layout {...layoutProps}>
       <Head>
-        <title>Categories &lt; {CONFIG.appName}</title>
+        <title>Categorías &lt; {CONFIG.appName}</title>
       </Head>
       <div className="container-fluid">
         { ! loading && (
@@ -46,14 +46,6 @@ function CategoriesPage({ layoutProps }) {
         )}
       </div>
       <style jsx>{`
-        .cards {
-          font-size: 14px;
-        }
-        @media (min-width: 768px) {
-          .cards {
-            font-size: 22px;
-          }
-        }
       `}</style>
     </Layout>
   )
@@ -80,6 +72,7 @@ const CategoryCard = ({category}) => {
           background-color: var(--dark-gray3);
           color: var(--white);
           display: block;
+          font-size: 14px;
           margin-bottom: 10px;
           position: relative;
         }
@@ -101,7 +94,7 @@ const CategoryCard = ({category}) => {
         }
         @media (min-width: 768px) {
           .category-card {
-            font-size: 24px;
+            font-size: 22px;
           }
         }
       `}</style>
