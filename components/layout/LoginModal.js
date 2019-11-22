@@ -111,9 +111,17 @@ const LoginTab = ({handleClose, setTab, toggleAuth}) => {
       signIn(userResponse.data, tokenResponse.data)
       handleClose()
     } catch (error) {
+      console.table(error.response.status)
       if (error.response) {
-        const { message } = error.response.data
-        setError(message)
+        const { data, status } = error.response
+
+        data.message =
+          status == 400 ? 'Correo electrónico o contraseña incorrectos. Inténtalo de nuevo' :
+          status == 403 ? 'Tu dirección de correo electrónico no está verificada' : data.message
+
+        setError(data.message);
+        // const { message } = error.response.data
+        // setError(message)
       } else {
         setError('An error has occurred!')
         console.log('error', error)
@@ -126,16 +134,14 @@ const LoginTab = ({handleClose, setTab, toggleAuth}) => {
         <p>Una sola cuenta para todos los productos <span className="text-uppercase">{CONFIG.clubName}</span></p>
       </div>
       <form onSubmit={handleSubmit} method="post">
+      {error && <div className="invalid-feedback">{error}</div>}
         <FormGroup>
-          <Label hmtlFor="email">E-mail</Label>
-          <Input id="email" onChange={e => setEmail(e.target.value)} required type="email" value={email} />
-          {error && (
-            <div className="invalid-feedback">{error}</div>
-          )}
+          {/* <Label hmtlFor="email">E-mail</Label> */}
+          <Input id="email" placeholder="E-mail" onChange={e => setEmail(e.target.value)} required type="email" value={email} />
         </FormGroup>
         <FormGroup>
-          <Label hmtlFor="clave">Clave</Label>
-          <Input id="clave" onChange={e => setPassword(e.target.value)} required type="password" value={password} />
+          {/* <Label hmtlFor="clave">Clave</Label> */}
+          <Input id="clave" placeholder="Clave" onChange={e => setPassword(e.target.value)} required type="password" value={password} />
           <FormText>
             <a href="#" onClick={_ => setTab('password')}>¿Olvidó su clave?</a>
           </FormText>
@@ -144,7 +150,7 @@ const LoginTab = ({handleClose, setTab, toggleAuth}) => {
         <div className="already-subscriptor">
           ¿No es suscriptor? <a className="bold text-uppercase" href="#" onClick={_ => setTab('register')}>Regístrate!</a>
         </div>
-        <div className="or-enter-with">o entre con</div>
+        {/* <div className="or-enter-with">o entre con</div>
         <Button className="social facebook" onClick={toggleAuth} type="button">
           <ReactSVG className="icon" src="/static/icons/facebook.svg" />
           Facebook
@@ -152,7 +158,7 @@ const LoginTab = ({handleClose, setTab, toggleAuth}) => {
         <Button className="social google" onClick={toggleAuth} type="button">
           <ReactSVG className="icon" src="/static/icons/google.svg" />
           Google
-        </Button>
+        </Button> */}
       </form>
     </div>
   )
@@ -204,9 +210,7 @@ const RegisterTab = ({handleClose, setTab, toggleAuth})  => {
       <FormGroup>
         {/* <Label hmtlFor="name">Nombre</Label> */}
         <Input id="name" type="text" placeholder="Nombre" onChange={e => setName(e.target.value)} value={name} />
-        {error && error.errors && (
-          <div className="invalid-feedback">{error.errors.name}</div>
-        )}
+        {error && error.errors && (<div className="invalid-feedback">{error.errors.name}</div>)}
       </FormGroup>
 
       {/* <FormGroup>
@@ -217,9 +221,7 @@ const RegisterTab = ({handleClose, setTab, toggleAuth})  => {
       <FormGroup>
         {/* <Label hmtlFor="reg_email">E-mail</Label> */}
         <Input id="reg_email" type="email" placeholder="E-mail" onChange={e => setEmail(e.target.value)} value={email} />
-        {error && error.errors && (
-          <div className="invalid-feedback">{error.errors.email}</div>
-        )}
+        {error && error.errors && (<div className="invalid-feedback">{error.errors.email}</div>)}
       </FormGroup>
       <FormGroup>
         {/* <Label hmtlFor="reg_password">Clave</Label> */}
@@ -264,7 +266,7 @@ const RegisterTab = ({handleClose, setTab, toggleAuth})  => {
         ¿Ya es suscriptor?
         <a className="bold text-uppercase" href="#" onClick={_ => setTab('login')}> Haga Login</a>
       </div>
-      <div className="or-enter-with">o entre con</div>
+      {/* <div className="or-enter-with">o entre con</div>
       <Button className="social facebook" onClick={toggleAuth} type="button">
         <ReactSVG className="icon" src="/static/icons/facebook.svg" />
         Facebook
@@ -272,7 +274,7 @@ const RegisterTab = ({handleClose, setTab, toggleAuth})  => {
       <Button className="social google" onClick={toggleAuth} type="button">
         <ReactSVG className="icon" src="/static/icons/google.svg" />
         Google
-      </Button>
+      </Button> */}
     </form>
     :
     <p>
