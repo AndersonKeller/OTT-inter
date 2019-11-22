@@ -5,42 +5,29 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import Chevron from '../icons/chevron'
 import UserContext from '../UserContext'
 import LoginModal from './LoginModal'
-import { api } from '../../services/api'
-import { getAccessToken } from '../../services/auth'
 
 export default _ => {
-  const { signIn, signOut, user } = useContext(UserContext)
-  const toggleAuth = async (e) => {
+  const { signOut, user } = useContext(UserContext)
+
+  const logout = (e) => {
     e.preventDefault()
-    if (user) {
-      try {
-        await api.post('/logout',{
-          headers:{'Accept': 'application/json','Authorization': getAccessToken}
-        });
-        signOut()
-      }catch(error){
-        console.log('logout Error')
-      }
-    } else {
-      const fakeUser = {
-        name: 'Pablo Capriorni',
-        email: 'pablocapriorni@gmail.com',
-      }
-      signIn(fakeUser, null)
-    }
+    signOut()
     handleClose()
   }
+
   const loggedMenu = [
     { slug: 'add', label: 'Mi Lista', href: '/mi-lista' },
     { slug: 'user', label: 'Mi Cuenta', href: '/mi-cuenta' },
     { slug: 'settings', label: 'Configuración', href: '/mi-cuenta' },
     { slug: 'help', label: 'Ayuda', href: '/ayuda' },
     { slug: 'info', label: 'Soporte', href: '/soporte' },
-    { slug: 'logout', label: 'Salir', href: '/logout', onClick: toggleAuth, },
+    { slug: 'logout', label: 'Salir', href: '/logout', onClick: logout, },
   ]
+
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+
   return (
     <div className={`user-select ${user ? 'logged' : ''}`}>
 
@@ -95,7 +82,7 @@ export default _ => {
         ) }
       </Dropdown>
 
-      <LoginModal handleClose={handleClose} show={show} toggleAuth={toggleAuth} />
+      <LoginModal {...{handleClose, show}} />
 
       <style jsx>{`
         .user-select {

@@ -88,7 +88,7 @@ const FormText = (props) => {
   )
 }
 
-const LoginTab = ({handleClose, setTab, toggleAuth}) => {
+const LoginTab = ({handleClose, setTab}) => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ error, setError ] = useState('')
@@ -164,7 +164,7 @@ const LoginTab = ({handleClose, setTab, toggleAuth}) => {
   )
 }
 
-const RegisterTab = ({handleClose, setTab, toggleAuth})  => {
+const RegisterTab = ({handleClose, setTab})  => {
   const [name,setName] = useState('')
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
@@ -291,7 +291,7 @@ const RegisterTab = ({handleClose, setTab, toggleAuth})  => {
   )
 }
 
-const PasswordTab = ({handleClose, setTab, toggleAuth}) => {
+const PasswordTab = ({handleClose, setTab}) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -321,7 +321,7 @@ const PasswordTab = ({handleClose, setTab, toggleAuth}) => {
   )
 }
 
-export default ({ handleClose, show, toggleAuth, ...props}) => {
+export default ({ handleClose, show }) => {
   const facebookColor = '#3B5990'
   const googleColor = '#D44639'
   const [ tab, setTab ] = useState('login')
@@ -348,7 +348,7 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
 
             {/* login */}
             <Tab.Pane eventKey="login">
-              <LoginTab handleClose={handleClose} setTab={setTab} toggleAuth={toggleAuth} />
+              <LoginTab {...{handleClose, setTab}} />
             </Tab.Pane>
 
             {/* password recovery */}
@@ -358,7 +358,7 @@ export default ({ handleClose, show, toggleAuth, ...props}) => {
 
             {/* register */}
             <Tab.Pane eventKey="register">
-              <RegisterTab handleClose={handleClose} setTab={setTab} toggleAuth={toggleAuth} />
+              <RegisterTab {...{handleClose, setTab}} />
             </Tab.Pane>
 
           </Tab.Content>

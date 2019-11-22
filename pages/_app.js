@@ -5,8 +5,9 @@ import Router from 'next/router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import UserContext from '../components/UserContext'
-import { setAccessToken, removeAccessToken } from '../services/auth'
+import { getAccessToken, setAccessToken, removeAccessToken } from '../services/auth'
 import Layout from '../components/layout/Layout'
+import { api } from '../services/api'
 
 Router.events.on('routeChangeStart', url => {
   console.log(`Loading: ${url}`)
@@ -70,15 +71,20 @@ class MyApp extends App {
     )
   }
 
-  signOut = _ => {
+  signOut = async _ => {
 
-    removeAccessToken()
+    api.post('logout').then((response) => {
+      console.log('Logout successfully', response)
+      removeAccessToken()
+      localStorage.removeItem('token_type')
+      localStorage.removeItem('expires_in')
+      localStorage.removeItem('refresh_token')
 
-    localStorage.removeItem('token_type')
-    localStorage.removeItem('expires_in')
-    localStorage.removeItem('refresh_token')
+    }).catch((error) => {
+      console.log("Couldn't logout", error)
+    })
+
     localStorage.removeItem('user')
-
     this.setState({
       user: null
     })
