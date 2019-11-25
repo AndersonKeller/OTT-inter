@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { createContext, useState } from 'react'
 
 export const AuthModalContext = createContext()
@@ -5,14 +6,16 @@ export const AuthModalContext = createContext()
 export function AuthModalProvider({ children }) {
 
   const allowedTabs = ['login', 'password', 'register']
-  const [ show, setShow ] = useState(false)
-  const [ tab, setTab ] = useState('login')
+  const router = useRouter()
+  const { modal } = router.query
+  const shouldAutoOpen = allowedTabs.includes(modal)
+  const [ show, setShow ] = useState(shouldAutoOpen ? true : false)
+  const [ tab, setTab ] = useState(shouldAutoOpen ? modal : 'login')
   const [ tabsHistory, setTabHistory ] = useState([])
 
   function backTab() {
     if (tabsHistory.length <= 1) {
       throw "can't back tab 'cause there are no more tabs on history"
-      return false
     }
     const newTab = tabsHistory[tabsHistory.length - 2]
     setTab(newTab)
@@ -48,7 +51,6 @@ export function AuthModalProvider({ children }) {
   function validateTab(tabName) {
     if ( ! allowedTabs.includes(tabName)) {
       throw 'unknown tab'
-      return false
     }
     return true
   }

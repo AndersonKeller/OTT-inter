@@ -126,10 +126,6 @@ const Home = ({ layoutProps }) => {
   )
 }
 
-/* Home.getInitialProps = async _ => {
-  return {}
-} */
-
 export default Home
 
 // cover
@@ -144,14 +140,10 @@ const Cover = _ => {
               <h1 className="h1">
                 <span className="h1-a">Entrevista a nuestro</span>
                 <strong className="h1-b">{
-                  process.env.TENANT === 'dalecampeon' ?
-                  `“Napoléon”` :
-                  `Comandante`
+                  TENANT === 'dalecampeon' ? `“Napoléon”` : `Comandante`
                 }</strong>
                 <span className="h1-c">{
-                  process.env.TENANT === 'dalecampeon' ?
-                  'Marcelo Gallardo' :
-                  'Mario Salas'
+                  TENANT === 'dalecampeon' ? 'Marcelo Gallardo' : 'Mario Salas'
                 }</span></h1>
               { ! user ? (
                 <>
