@@ -346,6 +346,12 @@ const LoginTab = ({handleClose, setTab}) => {
       }
     }
   }
+
+  function goToRegister(e) {
+    e.preventDefault()
+    setTab('register')
+  }
+
   return (
     <div>
       <div className="intro-text">
@@ -366,7 +372,9 @@ const LoginTab = ({handleClose, setTab}) => {
         </FormGroup>
         <Button block className="enter-btn" size="sm" type="submit">Entrar</Button>
         <div className="already-subscriptor">
-          ¿No es suscriptor? <a className="bold text-uppercase" href="#" onClick={_ => setTab('register')}>Regístrate!</a>
+          <span>¿No es suscriptor?</span>
+          &nbsp;
+          <a className="bold text-uppercase" href="#" onClick={goToRegister}>Regístrate!</a>
         </div>
         {/* <div className="or-enter-with">o entre con</div>
         <Button className="social facebook" onClick={toggleAuth} type="button">
@@ -415,6 +423,11 @@ const RegisterTab = ({handleClose, setTab})  => {
         console.log('error', error)
       }
     }
+  }
+
+  function goToLogin(e) {
+    e.preventDefault()
+    setTab('login')
   }
 
   return (
@@ -481,8 +494,9 @@ const RegisterTab = ({handleClose, setTab})  => {
       </FormGroup> */}
       <Button block className="enter-btn" size="sm" type="submit">Registrar</Button>
       <div className="already-subscriptor">
-        ¿Ya es suscriptor?
-        <a className="bold text-uppercase" href="#" onClick={_ => setTab('login')}> Haga Login</a>
+        <span>¿Ya es suscriptor?</span>
+        &nbsp;
+        <a className="bold text-uppercase" href="#" onClick={goToLogin}>Haga Login</a>
       </div>
       {/* <div className="or-enter-with">o entre con</div>
       <Button className="social facebook" onClick={toggleAuth} type="button">
@@ -497,7 +511,7 @@ const RegisterTab = ({handleClose, setTab})  => {
     :
     <p>
       Acceda al correo electrónico registrado para confirmar su cuenta.
-      <div><a className="bold text-uppercase" href="#" onClick={_ => setTab('login')}>Haga Login</a></div>
+      <div><a className="bold text-uppercase" href="#" onClick={goToLogin}>Haga Login</a></div>
     </p>}
 
     {/* <style jsx>{`
