@@ -12,14 +12,13 @@ import UserContext from '../UserContext'
 import { AuthModalContext } from '../../contexts/AuthModalContext'
 
 export default function AuthModal() {
-  const { closeAuthModal, show } = useContext(AuthModalContext)
-  const handleClose = closeAuthModal
+  const { closeAuthModal, onHide, show } = useContext(AuthModalContext)
   const facebookColor = '#3B5990'
   const googleColor = '#D44639'
   const [ tab, setTab ] = useState('login')
 
   return (
-    <Modal className="login-modal" onHide={handleClose} {...{show}}>
+    <Modal className="login-modal" {...{onHide, show}}>
       <Modal.Header>
         <Modal.Title>
           { tab === 'password' || tab === 'register' ? (
@@ -27,7 +26,7 @@ export default function AuthModal() {
               <img alt="Volver" height="23" src="/static/icons/back.svg" width="23" />
             </button>
           ) : (
-            <button className="close" onClick={handleClose} type="button">
+            <button className="close" onClick={closeAuthModal} type="button">
               <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23" />
             </button>
           )}
@@ -40,7 +39,7 @@ export default function AuthModal() {
 
             {/* login */}
             <Tab.Pane eventKey="login">
-              <LoginTab {...{handleClose, setTab}} />
+              <LoginTab {...{handleClose: closeAuthModal, setTab}} />
             </Tab.Pane>
 
             {/* password recovery */}
@@ -50,7 +49,7 @@ export default function AuthModal() {
 
             {/* register */}
             <Tab.Pane eventKey="register">
-              <RegisterTab {...{handleClose, setTab}} />
+              <RegisterTab {...{handleClose: closeAuthModal, setTab}} />
             </Tab.Pane>
 
           </Tab.Content>

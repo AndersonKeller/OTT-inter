@@ -11,13 +11,17 @@ export function AuthModalProvider({ children }) {
     setShow(false)
   }
 
+  function onHide() {
+    setShow(false)
+  }
+
   function openAuthModal(e) {
     e.preventDefault()
     setShow(true)
   }
 
   return (
-    <AuthModalContext.Provider value={{...{closeAuthModal, openAuthModal, show}}}>
+    <AuthModalContext.Provider value={{...{closeAuthModal, onHide, openAuthModal, show}}}>
       {children}
     </AuthModalContext.Provider>
   )
