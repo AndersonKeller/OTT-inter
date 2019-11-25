@@ -4,15 +4,14 @@ import Dropdown from 'react-bootstrap/Dropdown'
 
 import Chevron from '../icons/chevron'
 import UserContext from '../UserContext'
-import LoginModal from './LoginModal'
 
-export default _ => {
+export default ({ authModalControls }) => {
   const { signOut, user } = useContext(UserContext)
 
   const logout = (e) => {
     e.preventDefault()
     signOut()
-    handleClose()
+    authModalControls.handleClose()
   }
 
   const loggedMenu = [
@@ -24,9 +23,10 @@ export default _ => {
     { slug: 'logout', label: 'Salir', href: '/logout', onClick: logout, },
   ]
 
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
+  function openAuthModal(e) {
+    e.preventDefault()
+    authModalControls.handleShow()
+  }
 
   return (
     <div className={`user-select ${user ? 'logged' : ''}`}>
@@ -61,7 +61,7 @@ export default _ => {
           </Dropdown.Menu>
         ) : (
           <Dropdown.Menu>
-            <Dropdown.Item as="button" className="dropdown-item-style1" onClick={handleShow}>Entrar</Dropdown.Item>
+            <Dropdown.Item as="button" className="dropdown-item-style1" onClick={openAuthModal}>Entrar</Dropdown.Item>
             <Link href="/subscriptor">
               <Dropdown.Item className="dropdown-item-style2" href="/subscriptor">Suscripción</Dropdown.Item>
             </Link>
@@ -81,8 +81,6 @@ export default _ => {
           </Dropdown.Menu>
         ) }
       </Dropdown>
-
-      <LoginModal {...{handleClose, show}} />
 
       <style jsx>{`
         .user-select {

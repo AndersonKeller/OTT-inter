@@ -1,5 +1,13 @@
-import Color from 'color'
+// react imports
+import { useState } from 'react'
+
+// next imports
 import Head from 'next/head'
+
+// other imports
+import Color from 'color'
+
+// app imports
 import { GRAY3 } from '../../constants/colors'
 import { IS_PRODUCTION } from '../../constants/constants'
 import Header from './Header'
@@ -7,7 +15,9 @@ import Footer from './Footer'
 import { CONFIG } from '../../config'
 import loadMenus from '../../lib/load-menus'
 import { WHITE } from '../../constants/colors'
+import AuthModal from './AuthModal'
 
+// layout
 const Layout = ({ children, error, menus, header, paddingTop = true }) => {
 
   if (header === 'closed') {
@@ -17,6 +27,11 @@ const Layout = ({ children, error, menus, header, paddingTop = true }) => {
     import('bootstrap/dist/css/bootstrap.min.css')
     import('slick-carousel/slick/slick.css')
   }
+
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+
   return (
     <>
       <Head>
@@ -53,13 +68,23 @@ const Layout = ({ children, error, menus, header, paddingTop = true }) => {
         <script src="https://player.vimeo.com/api/player.js"></script>
       </Head>
 
-      <Header closed={header === 'closed'} {...{menus}} />
+      <Header {...{
+        closed: header === 'closed',
+        menus,
+        authModalControls: {
+          handleClose,
+          handleShow,
+          show,
+        },
+      }} />
 
       <main className={ ! paddingTop ? 'no-padding' : ''}>
         {children}
       </main>
 
       <Footer />
+
+      <AuthModal {...{handleClose, show}} />
 
       <style jsx global>{`
         *,
