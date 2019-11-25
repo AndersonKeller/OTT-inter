@@ -9,8 +9,11 @@ import { Tab, Form } from 'react-bootstrap'
 import { api, baseURL } from '../../services/api'
 import { setAccessToken } from '../../services/auth'
 import UserContext from '../UserContext'
+import { AuthModalContext } from '../../contexts/AuthModalContext'
 
-export default ({ handleClose, show }) => {
+export default function AuthModal() {
+  const { closeAuthModal, show } = useContext(AuthModalContext)
+  const handleClose = closeAuthModal
   const facebookColor = '#3B5990'
   const googleColor = '#D44639'
   const [ tab, setTab ] = useState('login')

@@ -29,11 +29,6 @@ const Layout = ({ children, error, menus, header, paddingTop = true }) => {
     import('slick-carousel/slick/slick.css')
   }
 
-  const { closeAuthModal, openAuthModal, show } = useContext(AuthModalContext)
-
-  const handleClose = closeAuthModal
-  const handleShow = openAuthModal
-
   return (
     <>
       <Head>
@@ -70,15 +65,7 @@ const Layout = ({ children, error, menus, header, paddingTop = true }) => {
         <script src="https://player.vimeo.com/api/player.js"></script>
       </Head>
 
-      <Header {...{
-        closed: header === 'closed',
-        menus,
-        authModalControls: {
-          handleClose,
-          handleShow,
-          show,
-        },
-      }} />
+      <Header {...{closed: header === 'closed', menus}} />
 
       <main className={ ! paddingTop ? 'no-padding' : ''}>
         {children}
@@ -86,7 +73,7 @@ const Layout = ({ children, error, menus, header, paddingTop = true }) => {
 
       <Footer />
 
-      <AuthModal {...{handleClose, show}} />
+      <AuthModal />
 
       <style jsx global>{`
         *,

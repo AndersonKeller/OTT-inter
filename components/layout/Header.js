@@ -12,7 +12,7 @@ import UserMenu from './UserMenu'
 import { CONFIG } from '../../config'
 import Router from 'next/router'
 
-const Header = ({ authModalControls, closed, menus }) => {
+const Header = ({ closed, menus }) => {
 
   // scrolled state
   const hasScrolled = _ => {
@@ -88,7 +88,7 @@ const Header = ({ authModalControls, closed, menus }) => {
             </button>
 
             {/* user */}
-            <UserMenu {...{authModalControls}} />
+            <UserMenu />
 
             {/* gad logo */}
             <a className="signature d-none d-md-inline" href="http://somosgad.com" target="_blank">

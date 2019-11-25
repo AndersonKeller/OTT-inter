@@ -6,14 +6,14 @@ import Chevron from '../icons/chevron'
 import UserContext from '../UserContext'
 import { AuthModalContext } from '../../contexts/AuthModalContext'
 
-export default ({ authModalControls }) => {
+export default ({}) => {
   const { signOut, user } = useContext(UserContext)
-  const { openAuthModal } = useContext(AuthModalContext)
+  const { closeAuthModal, openAuthModal } = useContext(AuthModalContext)
 
   const logout = (e) => {
     e.preventDefault()
     signOut()
-    authModalControls.handleClose()
+    closeAuthModal()
   }
 
   const loggedMenu = [
