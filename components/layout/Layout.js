@@ -1,6 +1,3 @@
-// react imports
-import { useState, useContext } from 'react'
-
 // next imports
 import Head from 'next/head'
 
@@ -16,7 +13,6 @@ import { CONFIG } from '../../config'
 import loadMenus from '../../lib/load-menus'
 import { WHITE } from '../../constants/colors'
 import AuthModal from './AuthModal'
-import { AuthModalContext } from '../../contexts/AuthModalContext'
 
 // layout
 const Layout = ({ children, error, menus, header, paddingTop = true }) => {

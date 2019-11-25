@@ -12,20 +12,34 @@ import UserContext from '../UserContext'
 import { AuthModalContext } from '../../contexts/AuthModalContext'
 
 export default function AuthModal() {
-  const { closeAuthModal, onHide, show, tab, setTab } = useContext(AuthModalContext)
+  const { closeAuthModal, initialTab, show, tab, setTab } = useContext(AuthModalContext)
   const facebookColor = '#3B5990'
   const googleColor = '#D44639'
+
+  function back(e) {
+    e.preventDefault()
+    setTab(initialTab)
+  }
+
+  function close(e) {
+    e.preventDefault()
+    closeAuthModal()
+  }
+
+  function onHide() {
+    closeAuthModal()
+  }
 
   return (
     <Modal className="login-modal" {...{onHide, show}}>
       <Modal.Header>
         <Modal.Title>
-          { tab === 'password' || tab === 'register' ? (
-            <button className="back" onClick={_ => setTab('login')} type="button">
+          { tab !== initialTab ? (
+            <button className="back" onClick={back} type="button">
               <img alt="Volver" height="23" src="/static/icons/back.svg" width="23" />
             </button>
           ) : (
-            <button className="close" onClick={closeAuthModal} type="button">
+            <button className="close" onClick={close} type="button">
               <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23" />
             </button>
           )}
@@ -346,6 +360,11 @@ const LoginTab = ({handleClose, setTab}) => {
     }
   }
 
+  function goToPasswordRecovery(e) {
+    e.preventDefault()
+    setTab('password')
+  }
+
   function goToRegister(e) {
     e.preventDefault()
     setTab('register')
@@ -366,7 +385,7 @@ const LoginTab = ({handleClose, setTab}) => {
           {/* <Label hmtlFor="clave">Clave</Label> */}
           <Input id="clave" placeholder="Clave" onChange={e => setPassword(e.target.value)} required type="password" value={password} />
           <FormText>
-            <a href="#" onClick={_ => setTab('password')}>¿Olvidó su clave?</a>
+            <a href="#" onClick={goToPasswordRecovery}>¿Olvidó su clave?</a>
           </FormText>
         </FormGroup>
         <Button block className="enter-btn" size="sm" type="submit">Entrar</Button>
