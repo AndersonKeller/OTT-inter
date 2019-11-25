@@ -25,6 +25,11 @@ export default ({}) => {
     { slug: 'logout', label: 'Salir', href: '/logout', onClick: logout, },
   ]
 
+  function enter(e) {
+    e.preventDefault()
+    openAuthModal()
+  }
+
   return (
     <div className={`user-select ${user ? 'logged' : ''}`}>
 
@@ -58,7 +63,7 @@ export default ({}) => {
           </Dropdown.Menu>
         ) : (
           <Dropdown.Menu>
-            <Dropdown.Item as="button" className="dropdown-item-style1" onClick={openAuthModal}>Entrar</Dropdown.Item>
+            <Dropdown.Item as="button" className="dropdown-item-style1" onClick={enter}>Entrar</Dropdown.Item>
             <Link href="/subscriptor">
               <Dropdown.Item className="dropdown-item-style2" href="/subscriptor">Suscripción</Dropdown.Item>
             </Link>

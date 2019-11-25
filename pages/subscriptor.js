@@ -144,6 +144,11 @@ const Prices = (props) => {
 
   const { openAuthModal } = useContext(AuthModalContext)
 
+  function register(e) {
+    e.preventDefault()
+    openAuthModal('register')
+  }
+
   return (
     <section className="prices text-center container-fluid">
       <header>
@@ -161,9 +166,9 @@ const Prices = (props) => {
                   <div className="value">{price.value}</div>
                 ) }
                 { price.value === 0 ? (
-                  <Button block onClick={openAuthModal}>Probá Gratis</Button>
+                  <Button block onClick={register}>Probá Gratis</Button>
                   ) : (
-                  <Button block color="secondary" onClick={openAuthModal} outline>Subscribir</Button>
+                  <Button block color="secondary" onClick={register} outline>Subscribir</Button>
                 )}
               </div>
             </div>

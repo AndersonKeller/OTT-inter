@@ -12,10 +12,9 @@ import UserContext from '../UserContext'
 import { AuthModalContext } from '../../contexts/AuthModalContext'
 
 export default function AuthModal() {
-  const { closeAuthModal, onHide, show } = useContext(AuthModalContext)
+  const { closeAuthModal, onHide, show, tab, setTab } = useContext(AuthModalContext)
   const facebookColor = '#3B5990'
   const googleColor = '#D44639'
-  const [ tab, setTab ] = useState('login')
 
   return (
     <Modal className="login-modal" {...{onHide, show}}>

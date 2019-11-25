@@ -4,7 +4,8 @@ export const AuthModalContext = createContext()
 
 export function AuthModalProvider({ children }) {
 
-  const [show, setShow] = useState(false)
+  const [ show, setShow ] = useState(false)
+  const [ tab, setTab ] = useState('login')
 
   function closeAuthModal(e) {
     e.preventDefault()
@@ -15,13 +16,15 @@ export function AuthModalProvider({ children }) {
     setShow(false)
   }
 
-  function openAuthModal(e) {
-    e.preventDefault()
+  function openAuthModal(wishedTab = 'login') {
+    if (tab !== wishedTab) {
+      setTab(wishedTab)
+    }
     setShow(true)
   }
 
   return (
-    <AuthModalContext.Provider value={{...{closeAuthModal, onHide, openAuthModal, show}}}>
+    <AuthModalContext.Provider value={{...{closeAuthModal, onHide, openAuthModal, setTab, show, tab }}}>
       {children}
     </AuthModalContext.Provider>
   )
