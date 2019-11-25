@@ -6,6 +6,7 @@ import { STATIC_PATH, TENANT } from '../constants/constants'
 import { CONFIG } from '../config'
 import { useContext } from 'react'
 import { AuthModalContext } from '../contexts/AuthModalContext'
+import UserContext from '../components/UserContext'
 
 export default function Subscriptor({ layoutProps }) {
   const playersName = TENANT === 'dalecampeon' ? 'Franco Armani' : 'Valdivia'
@@ -144,6 +145,8 @@ const Prices = (props) => {
 
   const { openAuthModal } = useContext(AuthModalContext)
 
+  const { user } = useContext(UserContext)
+
   function register(e) {
     e.preventDefault()
     openAuthModal('register')
@@ -165,12 +168,16 @@ const Prices = (props) => {
                 { price.value !== 0 && (
                   <div className="value">{price.value}</div>
                 ) }
-                { price.value === 0 ? (
-                  <Button block onClick={register}>Probá Gratis</Button>
-                  ) : (
-                  <Button block color="secondary" onClick={register} outline>Subscribir</Button>
-                )}
-              </div>
+                { ! user && (
+                  <>
+                    { price.value === 0 ? (
+                      <Button block onClick={register}>Probá Gratis</Button>
+                    ) : (
+                      <Button block color="secondary" onClick={register} outline>Subscribir</Button>
+                    )}
+                  </>
+                ) }
+                </div>
             </div>
           )) }
         </div>
