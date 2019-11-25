@@ -1,5 +1,5 @@
 // react imports
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 
 // next imports
 import Head from 'next/head'
@@ -16,6 +16,7 @@ import { CONFIG } from '../../config'
 import loadMenus from '../../lib/load-menus'
 import { WHITE } from '../../constants/colors'
 import AuthModal from './AuthModal'
+import { AuthModalContext } from '../../contexts/AuthModalContext'
 
 // layout
 const Layout = ({ children, error, menus, header, paddingTop = true }) => {
@@ -28,9 +29,10 @@ const Layout = ({ children, error, menus, header, paddingTop = true }) => {
     import('slick-carousel/slick/slick.css')
   }
 
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
+  const { closeAuthModal, openAuthModal, show } = useContext(AuthModalContext)
+
+  const handleClose = closeAuthModal
+  const handleShow = openAuthModal
 
   return (
     <>

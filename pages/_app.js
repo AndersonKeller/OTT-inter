@@ -1,13 +1,13 @@
 import React from 'react'
 import App from 'next/app'
-import Head from 'next/head'
 import Router from 'next/router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import UserContext from '../components/UserContext'
-import { getAccessToken, setAccessToken, removeAccessToken } from '../services/auth'
+import { setAccessToken, removeAccessToken } from '../services/auth'
 import Layout from '../components/layout/Layout'
 import { api } from '../services/api'
+import { AuthModalProvider } from '../contexts/AuthModalContext'
 
 Router.events.on('routeChangeStart', url => {
   console.log(`Loading: ${url}`)
@@ -96,10 +96,9 @@ class MyApp extends App {
   render() {
     const { Component, layoutProps, pageProps } = this.props
     return <UserContext.Provider value={{ user: this.state.user, signIn: this.signIn, signOut: this.signOut }}>
-      <Head>
-        {/* <link rel='stylesheet' type='text/css' href='/static/nprogress.css' /> */}
-      </Head>
-      <Component layoutProps={layoutProps} {...pageProps} />
+      <AuthModalProvider>
+        <Component layoutProps={layoutProps} {...pageProps} />
+      </AuthModalProvider>
     </UserContext.Provider>
   }
 }

@@ -4,10 +4,13 @@ import H2 from '../components/h2'
 import Button from '../components/button'
 import { STATIC_PATH, TENANT } from '../constants/constants'
 import { CONFIG } from '../config'
+import { useContext } from 'react'
+import { AuthModalContext } from '../contexts/AuthModalContext'
 
 export default function Subscriptor({ layoutProps }) {
   const playersName = TENANT === 'dalecampeon' ? 'Franco Armani' : 'Valdivia'
   const section2Alt = TENANT === 'dalecampeon' ? `${playersName} con un trofeo` : `${playersName} chutando`
+
   return (
     <Layout {...layoutProps} header="closed">
       <Head>
@@ -138,6 +141,9 @@ const Prices = (props) => {
       value: '$1188',
     },
   ]
+
+  const { openAuthModal } = useContext(AuthModalContext)
+
   return (
     <section className="prices text-center container-fluid">
       <header>
@@ -155,9 +161,9 @@ const Prices = (props) => {
                   <div className="value">{price.value}</div>
                 ) }
                 { price.value === 0 ? (
-                  <Button block>Probá Gratis</Button>
+                  <Button block onClick={openAuthModal}>Probá Gratis</Button>
                   ) : (
-                  <Button block color="secondary" outline>Subscribir</Button>
+                  <Button block color="secondary" onClick={openAuthModal} outline>Subscribir</Button>
                 )}
               </div>
             </div>

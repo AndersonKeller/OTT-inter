@@ -4,9 +4,11 @@ import Dropdown from 'react-bootstrap/Dropdown'
 
 import Chevron from '../icons/chevron'
 import UserContext from '../UserContext'
+import { AuthModalContext } from '../../contexts/AuthModalContext'
 
 export default ({ authModalControls }) => {
   const { signOut, user } = useContext(UserContext)
+  const { openAuthModal } = useContext(AuthModalContext)
 
   const logout = (e) => {
     e.preventDefault()
@@ -22,11 +24,6 @@ export default ({ authModalControls }) => {
     { slug: 'info', label: 'Soporte', href: '/soporte' },
     { slug: 'logout', label: 'Salir', href: '/logout', onClick: logout, },
   ]
-
-  function openAuthModal(e) {
-    e.preventDefault()
-    authModalControls.handleShow()
-  }
 
   return (
     <div className={`user-select ${user ? 'logged' : ''}`}>
