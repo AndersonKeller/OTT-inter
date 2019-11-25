@@ -12,13 +12,13 @@ import UserContext from '../UserContext'
 import { AuthModalContext } from '../../contexts/AuthModalContext'
 
 export default function AuthModal() {
-  const { closeAuthModal, initialTab, show, tab, setTab } = useContext(AuthModalContext)
+  const { backTab, changeTab, closeAuthModal, show, tab, tabsHistory } = useContext(AuthModalContext)
   const facebookColor = '#3B5990'
   const googleColor = '#D44639'
 
   function back(e) {
     e.preventDefault()
-    setTab(initialTab)
+    backTab()
   }
 
   function close(e) {
@@ -30,11 +30,15 @@ export default function AuthModal() {
     closeAuthModal()
   }
 
+  function onSelect(e) {
+    return changeTab(e)
+  }
+
   return (
     <Modal className="login-modal" {...{onHide, show}}>
       <Modal.Header>
         <Modal.Title>
-          { tab !== initialTab ? (
+          { tabsHistory.length > 1 ? (
             <button className="back" onClick={back} type="button">
               <img alt="Volver" height="23" src="/static/icons/back.svg" width="23" />
             </button>
@@ -47,12 +51,12 @@ export default function AuthModal() {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Tab.Container activeKey={tab} id="user-modal-tabs" onSelect={k => setTab(k)}>
+        <Tab.Container activeKey={tab} id="user-modal-tabs" {...{onSelect}}>
           <Tab.Content>
 
             {/* login */}
             <Tab.Pane eventKey="login">
-              <LoginTab {...{handleClose: closeAuthModal, setTab}} />
+              <LoginTab {...{handleClose: closeAuthModal, changeTab}} />
             </Tab.Pane>
 
             {/* password recovery */}
@@ -62,7 +66,7 @@ export default function AuthModal() {
 
             {/* register */}
             <Tab.Pane eventKey="register">
-              <RegisterTab {...{handleClose: closeAuthModal, setTab}} />
+              <RegisterTab {...{handleClose: closeAuthModal, changeTab}} />
             </Tab.Pane>
 
           </Tab.Content>
@@ -319,7 +323,7 @@ const FormText = (props) => {
   )
 }
 
-const LoginTab = ({handleClose, setTab}) => {
+const LoginTab = ({handleClose, changeTab}) => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ error, setError ] = useState('')
@@ -362,12 +366,12 @@ const LoginTab = ({handleClose, setTab}) => {
 
   function goToPasswordRecovery(e) {
     e.preventDefault()
-    setTab('password')
+    changeTab('password')
   }
 
   function goToRegister(e) {
     e.preventDefault()
-    setTab('register')
+    changeTab('register')
   }
 
   return (
@@ -408,7 +412,7 @@ const LoginTab = ({handleClose, setTab}) => {
   )
 }
 
-const RegisterTab = ({handleClose, setTab})  => {
+const RegisterTab = ({handleClose, changeTab})  => {
   const [name,setName] = useState('')
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
@@ -445,7 +449,7 @@ const RegisterTab = ({handleClose, setTab})  => {
 
   function goToLogin(e) {
     e.preventDefault()
-    setTab('login')
+    changeTab('login')
   }
 
   return (
@@ -541,7 +545,7 @@ const RegisterTab = ({handleClose, setTab})  => {
   )
 }
 
-const PasswordTab = ({handleClose, setTab}) => {
+const PasswordTab = ({handleClose, changeTab}) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
