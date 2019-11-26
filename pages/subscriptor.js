@@ -119,7 +119,7 @@ const SubscriptorSectionText = (props) => {
   )
 }
 
-const Prices = (props) => {
+const Prices = () => {
   const prices = [
     {
       name: 'Suscripción',
@@ -185,7 +185,11 @@ const Prices = (props) => {
       <style jsx>{`
         .prices {
           border-top: 1px solid #fff;
-          padding-bottom: 115px;
+        }
+        @media (min-width: 768px) {
+          .prices {
+            padding-bottom: 115px;
+        }
         }
         header {
           margin-bottom: 70px;
