@@ -16,7 +16,7 @@ import MiLista from '../components/mi-lista'
 import UserContext from '../components/UserContext'
 import { STATIC_PATH, TENANT } from '../constants/constants'
 import { CONFIG } from '../config'
-import { api } from '../services/api'
+import api from '../services/api'
 
 // home page
 const Home = ({ layoutProps }) => {
@@ -231,8 +231,8 @@ const HomeCarouselSection = ({ category: categorySlug }) => {
   // fetch data
   useEffect(_ => {
     async function fetchData() {
+      setLoading(true)
       try {
-        setLoading(true)
         const {data} = await api.get(`/category/${categorySlug}`)
         setCategory(data)
       } catch (error) {

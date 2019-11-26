@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import Layout from '../components/layout/Layout'
 import Loading from '../components/Loading/Loading'
 import { CONFIG } from '../config'
-import { api } from '../services/api'
+import api from '../services/api'
 import CategoryLink from '../components/CategoryLink/CategoryLink'
 import { BLACK } from '../constants/colors'
 

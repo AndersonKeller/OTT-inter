@@ -2,8 +2,8 @@
 import Head from 'next/head'
 import Layout from '../components/layout/Layout'
 import { CONFIG } from '../config'
-import Policy from '../components/policy' 
-import { api } from '../services/api'
+import Policy from '../components/policy'
+import api from '../services/api'
 
 const TermsAndPolitics = ({ layoutProps, ...props }) => (
     <div>
@@ -22,7 +22,7 @@ TermsAndPolitics.getInitialProps = async function() {
 
     const title = "Términos y políticas";
 
-    return { title: title, privacy: data.privacy_policy.terms_condition}  ; 
+    return { title: title, privacy: data.privacy_policy.terms_condition}  ;
 }
 
-export default TermsAndPolitics 
+export default TermsAndPolitics

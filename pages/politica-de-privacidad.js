@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import Layout from '../components/layout/Layout'
 import { CONFIG } from '../config'
-import Policy from '../components/policy' 
-import { api } from '../services/api'
+import Policy from '../components/policy'
+import api from '../services/api'
 
 const PrivacyPolicy = ({ layoutProps, ...props }) => (
     <div>
@@ -21,7 +21,7 @@ PrivacyPolicy.getInitialProps = async function() {
 
     const title = "Política de Privacidad";
 
-    return { title: title, privacy: data.privacy_policy.privacy_pol}  ; 
+    return { title: title, privacy: data.privacy_policy.privacy_pol}  ;
 }
 
 export default PrivacyPolicy

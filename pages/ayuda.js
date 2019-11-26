@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Layout from '../components/layout/Layout'
 import { CONFIG } from '../config'
-import { api } from '../services/api'
+import api from '../services/api'
 import { Accordion, Card } from 'react-bootstrap'
 
 const Help = ({ layoutProps, title, faqs, ...props }) => {
@@ -57,7 +57,7 @@ const Help = ({ layoutProps, title, faqs, ...props }) => {
             }
             .faqs-wrapper {
                 background-color: white;
-                min-height: 500px;         
+                min-height: 500px;
             }
             .faqs-text {
                 color: black;

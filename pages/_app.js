@@ -6,7 +6,7 @@ import 'nprogress/nprogress.css'
 import UserContext from '../components/UserContext'
 import { setAccessToken, removeAccessToken } from '../services/auth'
 import Layout from '../components/layout/Layout'
-import { api } from '../services/api'
+import api from '../services/api'
 import { AuthModalProvider } from '../contexts/AuthModalContext'
 
 Router.events.on('routeChangeStart', url => {

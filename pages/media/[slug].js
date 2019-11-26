@@ -12,7 +12,7 @@ import MediaLink from '../../components/MediaLink/MediaLink'
 import MiLista from '../../components/mi-lista'
 import UserContext from '../../components/UserContext'
 import { CONFIG } from '../../config'
-import { api } from '../../services/api'
+import api from '../../services/api'
 
 // page
 function MediaPage1({ category, errorCode, layoutProps, media, related }) {

@@ -4,9 +4,11 @@ import H2 from '../components/h2'
 import Button from '../components/button'
 import { STATIC_PATH, TENANT } from '../constants/constants'
 import { CONFIG } from '../config'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AuthModalContext } from '../contexts/AuthModalContext'
 import UserContext from '../components/UserContext'
+import Loading from '../components/Loading/Loading'
+import api from '../services/api'
 
 export default function Subscriptor({ layoutProps }) {
   const playersName = TENANT === 'dalecampeon' ? 'Franco Armani' : 'Valdivia'
@@ -94,7 +96,7 @@ export default function Subscriptor({ layoutProps }) {
           </SubscriptorSectionText>
         </SubscriptorSection>
 
-        <Prices />
+        <Packages />
 
       </div>
       <style jsx>{`
@@ -119,33 +121,27 @@ const SubscriptorSectionText = (props) => {
   )
 }
 
-const Prices = () => {
-  const prices = [
-    {
-      name: 'Suscripción',
-      time: '1 mes',
-      value: '$99',
-    },
-    {
-      name: 'Suscripción',
-      time: '3 mes',
-      value: '$297',
-    },
-    {
-      name: 'Suscripción',
-      time: '6 meses',
-      value: '$594',
-    },
-    {
-      name: 'Suscripción',
-      time: '1 año',
-      value: '$1188',
-    },
-  ]
+const Packages = () => {
 
   const { openAuthModal } = useContext(AuthModalContext)
-
   const { user } = useContext(UserContext)
+  const [ packages, setPackages ] = useState()
+  const [ error, setError ] = useState()
+  const [ loading, setLoading ] = useState(false)
+
+  useEffect(_ => {
+    async function fetchData() {
+      setLoading(true)
+      try {
+        const {data} = await api.get('/packages')
+        setPackages(data)
+      } catch (error) {
+        setError(true)
+      }
+      setLoading(false)
+    }
+    fetchData()
+  }, [])
 
   function register(e) {
     e.preventDefault()
@@ -158,28 +154,53 @@ const Prices = () => {
         <H2>¡Sin límites! Sólo el suscriptor da un juego  n absoluto.</H2>
         <p>Comience ahora sus días gratis y aproveche todas las ventajas de ser un suscriptor de {CONFIG.appName}.</p>
       </header>
-      <div className="cards">
-        <div className="row justify-content-center gutter-15">
-          { prices.map((price, index) => (
-            <div className="col-12 col-sm-6 col-md-4 col-xl" key={index}>
-              <div className={`card ${price.value === 0 ? 'card--free' : ''}`}>
-                <div className="card-heading">{price.name}</div>
-                <div className="time">{price.time}</div>
-                { price.value !== 0 && (
-                  <div className="value">{price.value}</div>
-                ) }
-                { ! user && (
-                  <>
-                    { price.value === 0 ? (
-                      <Button block onClick={register}>Probá Gratis</Button>
-                    ) : (
-                      <Button block color="secondary" onClick={register} outline>Subscribir</Button>
-                    )}
-                  </>
-                ) }
+      <div className="entries row">
+        <div className="col-md-10 offset-md-1 col-lg-12 offset-lg-0 col-xl-10 offset-xl-1">
+
+          {/* loading */}
+          <Loading loadingState={loading} />
+
+          {/* prices */}
+          { packages && (
+            <div>
+              { packages.length ? (
+                <div className="cards">
+                  <div className="row justify-content-center gutter-15">
+                    { packages.map((price, key) => (
+                      <div className="col-12 col-sm-6 col-lg-3" {...{key}}>
+                        <div className={`card ${price.amount === 0 ? 'card--free' : ''}`}>
+                          <div className="card-heading">Suscripción</div>
+                          <div className="time">{price.name}</div>
+                          { price.amount !== 0 && (
+                            <div className="value">
+                              { (price.currency === 'usd' ? '$' : '') + price.amount }
+                            </div>
+                          ) }
+                          { ! user && (
+                            <>
+                              { price.amount === 0 ? (
+                                <Button block onClick={register}>Probá Gratis</Button>
+                              ) : (
+                                <Button block color="secondary" onClick={register} outline>Subscribir</Button>
+                              ) }
+                            </>
+                          ) }
+                          </div>
+                      </div>
+                    )) }
+                  </div>
                 </div>
+              ) : (
+                <p>No hay paquetes definidos.</p>
+              ) }
             </div>
-          )) }
+          ) }
+
+          {/* error */}
+          { error && (
+            <p>No se pudieron obtener los paquetes.</p>
+          ) }
+
         </div>
       </div>
       <style jsx>{`
@@ -188,7 +209,7 @@ const Prices = () => {
         }
         @media (min-width: 768px) {
           .prices {
-            padding-bottom: 115px;
+            padding-bottom: 95px;
         }
         }
         header {
@@ -231,10 +252,6 @@ const Prices = () => {
             padding-right: 15px;
             padding-left: 15px;
           }
-          .card {
-            padding-right: 30px;
-            padding-left: 30px;
-          }
           .time,
           .value {
             margin-top: 30px;
@@ -244,6 +261,12 @@ const Prices = () => {
           }
           .card :global(.btn) {
             margin-top: auto;
+          }
+        }
+        @media (min-width: 1200px) {
+          .card {
+            padding-right: 30px;
+            padding-left: 30px;
           }
         }
       `}</style>

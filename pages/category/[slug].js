@@ -3,7 +3,7 @@ import Head from 'next/head'
 
 import Layout from '../../components/layout/Layout'
 import { CONFIG } from '../../config'
-import { api } from '../../services/api'
+import api from '../../services/api'
 import MediaList from '../../components/MediaList/MediaList'
 
 const Category = ({ category, errorCode, layoutProps, medias }) => {

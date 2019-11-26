@@ -12,7 +12,7 @@ import SocialShareBtns from '../../../components/social-share-btns'
 // import UserContext from '../../../components/UserContext'
 import { CONFIG } from '../../../config'
 import { STATIC_PATH, TENANT } from '../../../constants/constants'
-import { api } from '../../../services/api'
+import api from '../../../services/api'
 import MediaLink from '../../../components/MediaLink/MediaLink'
 
 export default function WatchPage({ errorCode, category, media, related, layoutProps }) {

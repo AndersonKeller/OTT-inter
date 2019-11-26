@@ -4,7 +4,7 @@ import { API_URL } from '../constants/constants'
 
 export const baseURL = API_URL
 
-export const api = axios.create({
+const api = axios.create({
   baseURL: `${baseURL}/api`
 })
 
@@ -16,3 +16,5 @@ api.interceptors.request.use(async config => {
   }
   return config
 })
+
+export default api
