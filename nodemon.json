@@ -1,0 +1,17 @@
+{
+  "ignore": [
+    ".docz",
+    ".git",
+    ".next",
+    "components",
+    "config",
+    "constants",
+    "contexts",
+    "lib",
+    "node_modules",
+    "pages",
+    "services",
+    "static"
+  ],
+  "verbose": true
+}
