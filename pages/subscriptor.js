@@ -181,7 +181,7 @@ const Packages = () => {
                               { price.amount === 0 ? (
                                 <Button block onClick={register}>Probá Gratis</Button>
                               ) : (
-                                <Button block color="secondary" onClick={register} outline>Subscribir</Button>
+                                <Button block color="secondary" onClick={register} outline>Suscribir</Button>
                               ) }
                             </>
                           ) }
