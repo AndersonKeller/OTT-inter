@@ -3,39 +3,46 @@ import Head from 'next/head'
 import Router, { useRouter } from 'next/router'
 
 // react imports
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 
 // app imports
 import Layout from '../../components/layout/Layout'
 import { CONFIG } from '../../config'
 import { api } from '../../services/api'
 import Loading from '../../components/Loading/Loading'
+import { AuthModalContext } from '../../contexts/AuthModalContext'
 
 const CheckEmail = ({layoutProps, userMenuProps}) => {
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const { closeAuthModal, openAuthModal, setTab } = useContext(AuthModalContext)
   const router = useRouter();
   const verify = router.query.apiurl;
 
   const fetchData = async _ => {
     console.table(userMenuProps);
     try {
-      let data = await api.get('',{baseURL: decodeURI(verify)});
-      // console.log(teste);
-      const { status } = data
+      const { status } = await api.get('',{baseURL: decodeURI(verify)})
 
       if(status == 200 ){
         setLoading(false)
-        // return redirect();
-        Router.push('/')
+        setTimeout(() => {
+          openAuthModal('login')
+        }, 2000);
       }else{
-        // Router.push('/')
         setLoading(false)
-        setError('Email not verified')
+        setError('Email could not be verified')
+        setTimeout(() => {
+          Router.push('/')
+        }, 2000);
       }
     } catch (e) {
       setLoading(false)
       setError('Link Expired')
+      setTimeout(() => {
+        Router.push('/')
+      }, 2000);
     }
   }
 
@@ -54,13 +61,9 @@ const CheckEmail = ({layoutProps, userMenuProps}) => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-10 offset-md-1">
-
-            {/* <header> */}
-              <h1 className="h2">Email Verification</h1>
-            {/* </header> */}
+            <h1 className="h2">Verificacion de email</h1>
             <Loading loadingState={loading} />
             {<h1 className="h6">Problem: </h1> && error}
-
           </div>
         </div>
       </div>

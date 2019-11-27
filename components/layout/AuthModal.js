@@ -5,7 +5,7 @@ import ReactSVG from 'react-svg'
 import Button from '../button'
 import { STATIC_PATH, CLIENT_SECRET, CLIENT_ID } from '../../constants/constants'
 import { CONFIG } from '../../config'
-import { Tab, Form } from 'react-bootstrap'
+import { Tab, Form, Spinner } from 'react-bootstrap'
 import { api, baseURL } from '../../services/api'
 import { setAccessToken } from '../../services/auth'
 import UserContext from '../UserContext'
@@ -275,7 +275,7 @@ const Label = ({ children, htmlFor, ...props }) => {
   )
 }
 
-const Input = ({ autoFocus, id, onChange, required, type, value, placeholder }) => {
+const Input = ({ autoFocus, id, onChange, required, type, value, placeholder, autoComplete }) => {
   // autofocus is bugging if has states/onChanges
   const inputRef = useRef()
   useEffect(_ => {
@@ -295,6 +295,7 @@ const Input = ({ autoFocus, id, onChange, required, type, value, placeholder }) 
         required={required}
         type={type}
         value={value}
+        autoComplete={autoComplete}
       />
       <style jsx>{`
         .form-control {
@@ -383,11 +384,11 @@ const LoginTab = ({handleClose, changeTab}) => {
       {error && <div className="invalid-feedback">{error}</div>}
         <FormGroup>
           {/* <Label hmtlFor="email">E-mail</Label> */}
-          <Input id="email" placeholder="E-mail" onChange={e => setEmail(e.target.value)} required type="email" value={email} />
+          <Input id="email" autoComplete="username" placeholder="E-mail" onChange={e => setEmail(e.target.value)} required type="email" value={email} />
         </FormGroup>
         <FormGroup>
           {/* <Label hmtlFor="clave">Clave</Label> */}
-          <Input id="clave" placeholder="Clave" onChange={e => setPassword(e.target.value)} required type="password" value={password} />
+          <Input id="clave" autoComplete="current-password" placeholder="Clave" onChange={e => setPassword(e.target.value)} required type="password" value={password} />
           <FormText>
             <a href="#" onClick={goToPasswordRecovery}>¿Olvidó su clave?</a>
           </FormText>
@@ -545,32 +546,70 @@ const RegisterTab = ({handleClose, changeTab})  => {
   )
 }
 
-const PasswordTab = ({handleClose, changeTab}) => {
+const PasswordTab = ({handleClose, setTab}) => {
+
+  const [email,setEmail] = useState('')
+  const [emailSent, setEmailSent] = useState(false)
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState(false)
+  const [isLoading, setLoading] = useState(false)
 
   const handleSubmit = async e => {
-    e.preventDefault();
+    e.preventDefault()
+    setLoading(true)
 
     try{
-
+      let { data } = await api.post('/forgot', {
+        email
+      })
+      console.table(data)
+      setEmailSent(true)
+      setMessage(data.message)
+      setLoading(false)
     }catch(error){
-
+      console.table(error)
+      if (error.response) {
+        const { data, status } = error.response
+        if(data) setError(data)
+      } else {
+        setError({message: 'An error has occurred!'})
+        console.log('error', error)
+      }
+      setLoading(false)
     }
   }
 
   return (
     <>
-      <div className="intro-text" style={{ marginBottom: 15 }}>
-        <p>¿Olvidó su clave?</p>
-      </div>
-      <form method="post" onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label hmtlFor="email2">E-mail</Label>
-          <Input autoFocus id="email2" type="email" />
-        </FormGroup>
-        <Button block className="enter-btn" onClick={e => { e.preventDefault(); alert('pã');}} size="sm" type="submit">
-          Enviar Recuperación
-        </Button>
-      </form>
+      {emailSent ?
+        <p>
+          {message}
+          {/* Acceda al correo electrónico registrado para para recuperar tu clave. */}
+        </p>
+      :
+        <div>
+          <div className="intro-text" style={{ marginBottom: 15 }}>
+            <p>¿Olvidó su clave?</p>
+          </div>
+          <form method="post" onSubmit={handleSubmit}>
+            <FormGroup>
+              <Input id="email_recover" placeholder="E-mail" autoFocus onChange={e => setEmail(e.target.value)} value={email}  type="email" />
+              {error && <div className="invalid-feedback">{error.message}</div>}
+            </FormGroup>
+            <Button block className="enter-btn" size="sm" type="submit">
+              {/* {isLoading ? 'Loading…' : 'Enviar Recuperación'} */}
+              {isLoading && <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />}
+              {'  Enviar Recuperación'}
+            </Button>
+          </form>
+        </div>
+      }
     </>
   )
 }

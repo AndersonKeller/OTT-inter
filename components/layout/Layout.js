@@ -235,6 +235,9 @@ const Layout = ({ children, error, menus, header, paddingTop = true }) => {
           display: block;
           font-size: 14px;
         }
+        .valid-feedback {
+          display: block;
+        }
       `}</style>
     </>
   );

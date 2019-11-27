@@ -9,9 +9,9 @@ export const api = axios.create({
 })
 
 api.interceptors.request.use(async config => {
+  config.headers.Accept = 'application/json'
   const accessToken = getAccessToken()
   if (accessToken) {
-    config.headers.Accept = 'application/json'
     config.headers.Authorization = `Bearer ${accessToken}`
   }
   return config
