@@ -19,6 +19,7 @@ import UserContext from '../../UserContext'
 import FormGroup from './FormGroup'
 import LoginTab from './LoginTab'
 import Input from './Input'
+import RegisterTab from './RegisterTab'
 
 export default function AuthModal() {
   const { backTab, changeTab, closeAuthModal, show, tab, tabsHistory } = useContext(AuthModalContext)
@@ -66,22 +67,15 @@ export default function AuthModal() {
         )}
         <Tab.Container activeKey={tab} id="user-modal-tabs" {...{onSelect}}>
           <Tab.Content>
-
-            {/* login */}
             <Tab.Pane eventKey="login">
               <LoginTab {...{changeTab, setLoading}} />
             </Tab.Pane>
-
-            {/* password recovery */}
             <Tab.Pane eventKey="password">
               <PasswordTab />
             </Tab.Pane>
-
-            {/* register */}
             <Tab.Pane eventKey="register">
-              <RegisterTab {...{handleClose: closeAuthModal, changeTab}} />
+              <RegisterTab {...{changeTab, setLoading}} />
             </Tab.Pane>
-
           </Tab.Content>
         </Tab.Container>
       </Modal.Body>
@@ -263,8 +257,10 @@ export default function AuthModal() {
 }
 
 const ModalLoading = _ => (
-  <div className="modal-loading">
-    <Loading />
+  <>
+    <div className="modal-loading">
+      <Loading />
+    </div>
     <style jsx>{`
       .modal-loading {
         background-color: ${Color(WHITE).fade(.2)};
@@ -279,121 +275,8 @@ const ModalLoading = _ => (
         width: 100%;
       }
     `}</style>
-  </div>
-)
-
-const Label = ({ children, htmlFor, ...props }) => {
-  return (
-    <>
-      <label htmlFor={htmlFor}>{children}</label>
-      <style jsx>{`
-        label {
-          cursor: pointer;
-          margin-bottom: 5px;
-          margin-left: 30px;
-        }
-      `}</style>
-    </>
-  )
-}
-
-const RegisterTab = ({handleClose, changeTab})  => {
-  const [name,setName] = useState('')
-  const [email,setEmail] = useState('')
-  const [password,setPassword] = useState('')
-  const [error, setError] = useState('')
-  const { signIn } = useContext(UserContext)
-
-  const handleSubmit = async e  => {
-    e.preventDefault();
-    try {
-      const tokenResponse = await api.post('/register', {
-        client_id: CLIENT_ID,
-        client_secret: CLIENT_SECRET,
-        name,
-        email,
-        password,
-      })
-      const { access_token, } = tokenResponse.data
-      setAccessToken(access_token)
-      const userResponse = await api.get('/user')
-      signIn(userResponse.data, tokenResponse.data)
-      handleClose()
-      Router.push('/register/confirm')
-    } catch (error) {
-      if (error.response) {
-        setError(error.response.data)
-      } else {
-        setError('An error has occurred!')
-        console.log('error', error)
-      }
-    }
-  }
-
-  function goToLogin(e) {
-    e.preventDefault()
-    changeTab('login')
-  }
-
-  return (
-  <>
-    <div className="intro-text">
-      <p>Una sola cuenta para todos los productos <span className="text-uppercase">{CONFIG.clubName}</span></p>
-    </div>
-    <form method="post" onSubmit={handleSubmit}>
-
-      {error && <div className="invalid-feedback">{error.message}</div>}
-
-      <FormGroup>
-        {/* <Label hmtlFor="name">Nombre</Label> */}
-        <Input id="name" type="text" placeholder="Nombre" onChange={e => setName(e.target.value)} value={name} />
-        {error && error.errors && (<div className="invalid-feedback">{error.errors.name}</div>)}
-      </FormGroup>
-
-      <FormGroup>
-        {/* <Label hmtlFor="reg_email">E-mail</Label> */}
-        <Input id="reg_email" type="email" placeholder="E-mail" onChange={e => setEmail(e.target.value)} value={email} />
-        {error && error.errors && (<div className="invalid-feedback">{error.errors.email}</div>)}
-      </FormGroup>
-
-      <FormGroup>
-        {/* <Label hmtlFor="reg_password">Clave</Label> */}
-        <Input id="reg_password" type="password" placeholder="Clave"  onChange={e => setPassword(e.target.value)} value={password} />
-        {error && error.errors &&  (
-          <div className="invalid-feedback">{error.errors.password}</div>
-        )}
-      </FormGroup>
-
-      {/* <FormGroup>
-        <Label hmtlFor="password_confirmation">Confirmación de Clave</Label>
-        <Input id="password_confirmation" type="password" />
-      </FormGroup> */}
-
-      <Button block className="enter-btn" size="sm" type="submit">Registrar</Button>
-      <div className="already-subscriptor">
-        <span>¿Ya es suscriptor?</span>
-        &nbsp;
-        <a className="bold text-uppercase" href="#" onClick={goToLogin}>Haga Login</a>
-      </div>
-      {/* <div className="or-enter-with">o entre con</div>
-      <Button className="social facebook" onClick={toggleAuth} type="button">
-        <ReactSVG className="icon" src="/static/icons/facebook.svg" />
-        Facebook
-      </Button>
-      <Button className="social google" onClick={toggleAuth} type="button">
-        <ReactSVG className="icon" src="/static/icons/google.svg" />
-        Google
-      </Button> */}
-    </form>
-
-    {/* <style jsx>{`
-    .label-radio {
-      padding-right: 5px;
-    }
-  `}</style> */}
   </>
-  )
-}
+)
 
 const PasswordTab = ({handleClose, setTab}) => {
 

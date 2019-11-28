@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 
-const Input = ({ autoFocus, id, onChange, required, type, value, placeholder, autoComplete }) => {
+const Input = ({ autoFocus, id, onChange, required, type = "text", value, placeholder, autoComplete }) => {
   // autofocus is bugging if has states/onChanges
   const inputRef = useRef()
   useEffect(_ => {

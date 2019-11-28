@@ -71,11 +71,9 @@ const LoginTab = ({ changeTab, setLoading }) => {
       <form method="post"onSubmit={handleSubmit}>
       {error && <div className="invalid-feedback">{error}</div>}
         <FormGroup>
-          {/* <Label hmtlFor="email">E-mail</Label> */}
           <Input id="email" autoComplete="username" placeholder="E-mail" onChange={e => setEmail(e.target.value)} required type="email" value={email} />
         </FormGroup>
         <FormGroup>
-          {/* <Label hmtlFor="clave">Clave</Label> */}
           <Input id="clave" autoComplete="current-password" placeholder="Clave" onChange={e => setPassword(e.target.value)} required type="password" value={password} />
           <FormText>
             <a href="#" onClick={goToPasswordRecovery}>¿Olvidó su clave?</a>
