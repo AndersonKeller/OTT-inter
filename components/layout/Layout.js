@@ -12,7 +12,7 @@ import Footer from './Footer'
 import { CONFIG } from '../../config'
 import loadMenus from '../../lib/load-menus'
 import { WHITE } from '../../constants/colors'
-import AuthModal from './AuthModal'
+import AuthModal from './AuthModal/AuthModal'
 
 // layout
 const Layout = ({

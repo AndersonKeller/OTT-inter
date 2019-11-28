@@ -1,21 +1,24 @@
 import Color from 'color'
+import Router from 'next/router'
 import { useContext, useEffect, useRef, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
-import ReactSVG from 'react-svg'
-import Button from '../button'
-import { STATIC_PATH, CLIENT_SECRET, CLIENT_ID } from '../../constants/constants'
-import { CONFIG } from '../../config'
 import { Tab, Form, Spinner } from 'react-bootstrap'
-import api, { baseURL } from '../../services/api'
-import { setAccessToken } from '../../services/auth'
-import UserContext from '../UserContext'
-import { AuthModalContext } from '../../contexts/AuthModalContext'
-import Router from 'next/router'
-import FormGroup from './AuthModal/FormGroup'
-import LoginTab from './AuthModal/LoginTab'
-import Input from './AuthModal/Input'
-import Loading from '../Loading/Loading'
-import { WHITE } from '../../constants/colors'
+// import ReactSVG from 'react-svg'
+
+import { CONFIG } from '../../../config'
+import { WHITE } from '../../../constants/colors'
+import { STATIC_PATH, CLIENT_SECRET, CLIENT_ID } from '../../../constants/constants'
+import { AuthModalContext } from '../../../contexts/AuthModalContext'
+import api, { baseURL } from '../../../services/api'
+import { setAccessToken } from '../../../services/auth'
+
+import Button from '../../button'
+import Loading from '../../Loading/Loading'
+import UserContext from '../../UserContext'
+
+import FormGroup from './FormGroup'
+import LoginTab from './LoginTab'
+import Input from './Input'
 
 export default function AuthModal() {
   const { backTab, changeTab, closeAuthModal, show, tab, tabsHistory } = useContext(AuthModalContext)
