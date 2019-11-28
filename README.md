@@ -59,6 +59,8 @@ There are much color manipulation you can do. See [color](https://github.com/Qix
 import Color from 'color'
 
 Color('#D44639').darken(.2)
+Color('#D44639').fade(.2)
+
 ```
 
 ### Placeholders

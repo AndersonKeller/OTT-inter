@@ -11,11 +11,17 @@ import { setAccessToken } from '../../services/auth'
 import UserContext from '../UserContext'
 import { AuthModalContext } from '../../contexts/AuthModalContext'
 import Router from 'next/router'
+import FormGroup from './AuthModal/FormGroup'
+import LoginTab from './AuthModal/LoginTab'
+import Input from './AuthModal/Input'
+import Loading from '../Loading/Loading'
+import { WHITE } from '../../constants/colors'
 
 export default function AuthModal() {
   const { backTab, changeTab, closeAuthModal, show, tab, tabsHistory } = useContext(AuthModalContext)
   const facebookColor = '#3B5990'
   const googleColor = '#D44639'
+  const [ loading, setLoading ] = useState()
 
   function back(e) {
     e.preventDefault()
@@ -36,15 +42,15 @@ export default function AuthModal() {
   }
 
   return (
-    <Modal className="login-modal" {...{onHide, show}}>
+    <Modal backdrop={loading ? 'static' : true} className="login-modal" {...{onHide, show}}>
       <Modal.Header>
         <Modal.Title>
           { tabsHistory.length > 1 ? (
-            <button className="back" onClick={back} type="button">
+            <button className="back" disabled={loading} onClick={back} type="button">
               <img alt="Volver" height="23" src="/static/icons/back.svg" width="23" />
             </button>
           ) : (
-            <button className="close" onClick={close} type="button">
+            <button className="close" disabled={loading} onClick={close} type="button">
               <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23" />
             </button>
           )}
@@ -52,12 +58,15 @@ export default function AuthModal() {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        { loading && (
+          <ModalLoading />
+        )}
         <Tab.Container activeKey={tab} id="user-modal-tabs" {...{onSelect}}>
           <Tab.Content>
 
             {/* login */}
             <Tab.Pane eventKey="login">
-              <LoginTab {...{handleClose: closeAuthModal, changeTab}} />
+              <LoginTab {...{changeTab, setLoading}} />
             </Tab.Pane>
 
             {/* password recovery */}
@@ -129,6 +138,10 @@ export default function AuthModal() {
           transition: opacity 150ms;
           transform: translateY(-50%);
           will-change: opacity;
+        }
+        .login-modal .back[disabled],
+        .login-modal .close[disabled] {
+          cursor: not-allowed;
         }
         .login-modal .back img,
         .login-modal .close img {
@@ -246,20 +259,25 @@ export default function AuthModal() {
   )
 }
 
-const FormGroup = (props) => {
-  return (
-    <div className="form-group">
-      {props.children}
-      <style jsx>{`
-        .form-group {
-          font-size: 16px;
-          line-height: 1;
-          text-align: left;
-        }
-      `}</style>
-    </div>
-  )
-}
+const ModalLoading = _ => (
+  <div className="modal-loading">
+    <Loading />
+    <style jsx>{`
+      .modal-loading {
+        background-color: ${Color(WHITE).fade(.2)};
+        align-items: center;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        left: 0;
+        padding-bottom: 10%;
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+    `}</style>
+  </div>
+)
 
 const Label = ({ children, htmlFor, ...props }) => {
   return (
@@ -273,144 +291,6 @@ const Label = ({ children, htmlFor, ...props }) => {
         }
       `}</style>
     </>
-  )
-}
-
-const Input = ({ autoFocus, id, onChange, required, type, value, placeholder, autoComplete }) => {
-  // autofocus is bugging if has states/onChanges
-  const inputRef = useRef()
-  useEffect(_ => {
-    if (autoFocus) {
-      inputRef.current.focus();
-    }
-  })
-  return (
-    <>
-      <input
-        autoFocus={autoFocus && "true"}
-        className="form-control"
-        id={id}
-        placeholder={placeholder}
-        onChange={onChange}
-        ref={inputRef}
-        required={required}
-        type={type}
-        value={value}
-        autoComplete={autoComplete}
-      />
-      <style jsx>{`
-        .form-control {
-          border-color: rgba(var(--gray2-rgb), .55);
-          border-width: 2px;
-          color: inherit;
-        }
-      `}</style>
-    </>
-  )
-}
-
-const FormText = (props) => {
-  return (
-    <div className="form-text text-center">
-      {props.children}
-      <style jsx>{`
-        .form-text {
-          font-size: 14px;
-        }
-        .form-text :global(a) {
-          color: inherit;
-        }
-      `}</style>
-    </div>
-  )
-}
-
-const LoginTab = ({handleClose, changeTab}) => {
-  const [ email, setEmail ] = useState('')
-  const [ password, setPassword ] = useState('')
-  const [ error, setError ] = useState('')
-  const { signIn } = useContext(UserContext)
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    try {
-      const tokenResponse = await api.post(`${baseURL}/oauth/token`, {
-        grant_type: 'password',
-        client_id: CLIENT_ID,
-        client_secret: CLIENT_SECRET,
-        username: email,
-        password,
-        scope: '',
-      })
-      const { access_token, } = tokenResponse.data
-      setAccessToken(access_token)
-      const userResponse = await api.get('/user')
-      signIn(userResponse.data, tokenResponse.data)
-      handleClose()
-    } catch (error) {
-      console.table(error.response.status)
-      if (error.response) {
-        const { data, status } = error.response
-
-        data.message =
-          status == 400 ? 'Correo electrónico o contraseña incorrectos. Inténtalo de nuevo' :
-          status == 403 ? 'Tu dirección de correo electrónico no está verificada' : data.message
-
-        setError(data.message);
-        // const { message } = error.response.data
-        // setError(message)
-      } else {
-        setError('An error has occurred!')
-        console.log('error', error)
-      }
-    }
-  }
-
-  function goToPasswordRecovery(e) {
-    e.preventDefault()
-    changeTab('password')
-  }
-
-  function goToRegister(e) {
-    e.preventDefault()
-    changeTab('register')
-  }
-
-  return (
-    <div>
-      <div className="intro-text">
-        <p>Una sola cuenta para todos los productos <span className="text-uppercase">{CONFIG.clubName}</span></p>
-      </div>
-      <form onSubmit={handleSubmit} method="post">
-      {error && <div className="invalid-feedback">{error}</div>}
-        <FormGroup>
-          {/* <Label hmtlFor="email">E-mail</Label> */}
-          <Input id="email" autoComplete="username" placeholder="E-mail" onChange={e => setEmail(e.target.value)} required type="email" value={email} />
-        </FormGroup>
-        <FormGroup>
-          {/* <Label hmtlFor="clave">Clave</Label> */}
-          <Input id="clave" autoComplete="current-password" placeholder="Clave" onChange={e => setPassword(e.target.value)} required type="password" value={password} />
-          <FormText>
-            <a href="#" onClick={goToPasswordRecovery}>¿Olvidó su clave?</a>
-          </FormText>
-        </FormGroup>
-        <Button block className="enter-btn" size="sm" type="submit">Entrar</Button>
-        <div className="already-subscriptor">
-          <span>¿No es suscriptor?</span>
-          &nbsp;
-          <a className="bold text-uppercase" href="#" onClick={goToRegister}>Regístrate!</a>
-        </div>
-        {/* <div className="or-enter-with">o entre con</div>
-        <Button className="social facebook" onClick={toggleAuth} type="button">
-          <ReactSVG className="icon" src="/static/icons/facebook.svg" />
-          Facebook
-        </Button>
-        <Button className="social google" onClick={toggleAuth} type="button">
-          <ReactSVG className="icon" src="/static/icons/google.svg" />
-          Google
-        </Button> */}
-      </form>
-    </div>
   )
 }
 

@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "docz": "^2.0.0-rc.75",
-    "nodemon": "^2.0.1"
+    "nodemon": "^2.0.1",
+    "sleep-promise": "^8.0.1"
   }
 }
