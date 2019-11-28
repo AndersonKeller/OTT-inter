@@ -12,7 +12,7 @@ import UserMenu from './UserMenu'
 import { CONFIG } from '../../config'
 import Router from 'next/router'
 
-const Header = ({ closed, menus }) => {
+const Header = ({ closed, layoutColor, menus }) => {
 
   // scrolled state
   const hasScrolled = _ => {
@@ -101,6 +101,7 @@ const Header = ({ closed, menus }) => {
       </nav>
       <style jsx>{`
         .header {
+          background-color: ${layoutColor === 'white' ? 'var(--black)' : 'transparent'};
           box-shadow: 0 0 5px rgba(var(--black-rgb), 0);
           color: var(--gray);
           font-family: 'Helvetica', sans-serif;

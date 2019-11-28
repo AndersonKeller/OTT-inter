@@ -15,11 +15,19 @@ import { WHITE } from '../../constants/colors'
 import AuthModal from './AuthModal'
 
 // layout
-const Layout = ({ children, error, menus, header, paddingTop = true }) => {
+const Layout = ({
+  children,
+  color: layoutColor = 'black',
+  error,
+  menus,
+  header,
+  paddingTop = true,
+}) => {
 
   if (header === 'closed') {
     paddingTop = false
   }
+
   if ( ! IS_PRODUCTION) {
     import('bootstrap/dist/css/bootstrap.min.css')
     import('slick-carousel/slick/slick.css')
@@ -61,13 +69,13 @@ const Layout = ({ children, error, menus, header, paddingTop = true }) => {
         <script src="https://player.vimeo.com/api/player.js"></script>
       </Head>
 
-      <Header {...{closed: header === 'closed', menus}} />
+      <Header {...{closed: header === 'closed', layoutColor, menus}} />
 
       <main className={ ! paddingTop ? 'no-padding' : ''}>
         {children}
       </main>
 
-      <Footer />
+      <Footer {...{layoutColor}}/>
 
       <AuthModal />
 
@@ -95,6 +103,10 @@ const Layout = ({ children, error, menus, header, paddingTop = true }) => {
           --primary-hover: ${Color(CONFIG.color).darken(.2)};
           --gray4:         #666; /* 656565 */
 
+          /* colors by job */
+          --background: var(--${layoutColor === 'white' ? 'white' : 'black'});
+          --color: var(--${layoutColor === 'white' ? 'black' : 'white'});
+
           /* fonts */
           --sans-serif: 'Helvetica', sans-serif;
           --sans-serif-condensed: 'Helvetica CE', 'Helvetica', sans-serif;
@@ -119,8 +131,8 @@ const Layout = ({ children, error, menus, header, paddingTop = true }) => {
           height: 100%;
         }
         body {
-          background-color: var(--black);
-          color: var(--white);
+          background-color: var(--background);
+          color: var(--color);
           font-family: var(--sans-serif);
           font-size: var(--font-size);
           height: 100%;

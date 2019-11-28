@@ -8,11 +8,11 @@ import { CONFIG } from '../../config'
 import ActiveLink from '../ActiveLink'
 
 // footer
-export default function Footer() {
+export default function Footer({ layoutColor }) {
   return (
     <footer className="footer">
       <NavFooter className="d-md-none" />
-      <TermsAndPoliciesBar />
+      <TermsAndPoliciesBar {...{layoutColor}} />
       <style jsx>{`
         .footer {
           padding-bottom: 65px;
@@ -94,7 +94,7 @@ const NavFooter = ({className}) => {
 }
 
 // terms and policies
-const TermsAndPoliciesBar = _ => {
+const TermsAndPoliciesBar = ({ layoutColor }) => {
   return (
     <div className="terms-and-policies-bar">
       <div className="container-fluid">
@@ -113,6 +113,8 @@ const TermsAndPoliciesBar = _ => {
       </div>
       <style jsx>{`
         .terms-and-policies-bar {
+          background-color ${layoutColor === 'white' ? 'var(--black)' : 'transparent'};
+          color var(--${layoutColor === 'white' ? 'white' : 'black'});
           font-size: 13px;
           padding-top: 15px;
           padding-bottom: 5px;

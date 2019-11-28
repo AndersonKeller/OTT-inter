@@ -424,13 +424,17 @@ const RegisterTab = ({handleClose, changeTab})  => {
   const handleSubmit = async e  => {
     e.preventDefault();
     try {
-      const response = await api.post('/register', {
+      const tokenResponse = await api.post('/register', {
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET,
         name,
         email,
         password,
       })
-      // const { user } = tokenResponse.data
-      // signIn(user, tokenResponse.data)
+      const { access_token, } = tokenResponse.data
+      setAccessToken(access_token)
+      const userResponse = await api.get('/user')
+      signIn(userResponse.data, tokenResponse.data)
       handleClose()
       Router.push('/register/confirm')
     } catch (error) {
