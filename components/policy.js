@@ -1,6 +1,6 @@
 
 
-const Policy = ({title, policy, ...props}) => (
+const Policy = ({title, policy}) => (
         <div className="legal-wrapper">
         <div className="policy container">
             <h3 className="h3 text-uppercase legal-title">{ title }</h3>
@@ -9,26 +9,15 @@ const Policy = ({title, policy, ...props}) => (
             </div>
         </div>
       <style jsx>{`
-        .legal-wrapper { 
-           background-color: white; 
-           min-height: 500px;  
-        }
-
         .legal-title {
-            padding-top: 10px; 
+            padding-top: 10px;
         }
-
-       .policy {
-           background-color: #fff ;
-       }
-
        .h3 {
            color: #000;
            font-size: 32px;
            font-weight: 700;
            line-height: 48px;
        }
-
        .legal-text {
            color: #000;
            font-family: Helvetica, Arial, sans-serif;
