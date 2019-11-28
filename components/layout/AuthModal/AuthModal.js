@@ -1,26 +1,19 @@
 import Color from 'color'
-import Router from 'next/router'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
-import { Tab, Form, Spinner } from 'react-bootstrap'
+import { Tab } from 'react-bootstrap'
 // import ReactSVG from 'react-svg'
 
 import { CONFIG } from '../../../config'
-import { WHITE } from '../../../constants/colors'
-import { STATIC_PATH, CLIENT_SECRET, CLIENT_ID } from '../../../constants/constants'
+import { STATIC_PATH } from '../../../constants/constants'
 import { AuthModalContext } from '../../../contexts/AuthModalContext'
-import api, { baseURL } from '../../../services/api'
-import { setAccessToken } from '../../../services/auth'
 
-import Button from '../../button'
-import Loading from '../../Loading/Loading'
-import UserContext from '../../UserContext'
-
-import FormGroup from './FormGroup'
 import LoginTab from './LoginTab'
-import Input from './Input'
+import ModalLoading from './ModalLoading'
+import PasswordTab from './PasswordTab'
 import RegisterTab from './RegisterTab'
 
+// Auth Modal
 export default function AuthModal() {
   const { backTab, changeTab, closeAuthModal, show, tab, tabsHistory } = useContext(AuthModalContext)
   const facebookColor = '#3B5990'
@@ -71,7 +64,7 @@ export default function AuthModal() {
               <LoginTab {...{changeTab, setLoading}} />
             </Tab.Pane>
             <Tab.Pane eventKey="password">
-              <PasswordTab />
+              <PasswordTab {...{setLoading}} />
             </Tab.Pane>
             <Tab.Pane eventKey="register">
               <RegisterTab {...{changeTab, setLoading}} />
@@ -253,95 +246,5 @@ export default function AuthModal() {
         }
       `}</style>
     </Modal>
-  )
-}
-
-const ModalLoading = _ => (
-  <>
-    <div className="modal-loading">
-      <Loading />
-    </div>
-    <style jsx>{`
-      .modal-loading {
-        background-color: ${Color(WHITE).fade(.2)};
-        align-items: center;
-        display: flex;
-        height: 100%;
-        justify-content: center;
-        left: 0;
-        padding-bottom: 10%;
-        position: absolute;
-        top: 0;
-        width: 100%;
-      }
-    `}</style>
-  </>
-)
-
-const PasswordTab = ({handleClose, setTab}) => {
-
-  const [email,setEmail] = useState('')
-  const [emailSent, setEmailSent] = useState(false)
-  const [message, setMessage] = useState('')
-  const [error, setError] = useState(false)
-  const [isLoading, setLoading] = useState(false)
-
-  const handleSubmit = async e => {
-    e.preventDefault()
-    setLoading(true)
-
-    try{
-      let { data } = await api.post('/forgot', {
-        email
-      })
-      console.table(data)
-      setEmailSent(true)
-      setMessage(data.message)
-      setLoading(false)
-    }catch(error){
-      console.table(error)
-      if (error.response) {
-        const { data, status } = error.response
-        if(data) setError(data)
-      } else {
-        setError({message: 'An error has occurred!'})
-        console.log('error', error)
-      }
-      setLoading(false)
-    }
-  }
-
-  return (
-    <>
-      {emailSent ?
-        <p>
-          {message}
-          {/* Acceda al correo electrónico registrado para para recuperar tu clave. */}
-        </p>
-      :
-        <div>
-          <div className="intro-text" style={{ marginBottom: 15 }}>
-            <p>¿Olvidó su clave?</p>
-          </div>
-          <form method="post" onSubmit={handleSubmit}>
-            <FormGroup>
-              <Input id="email_recover" placeholder="E-mail" autoFocus onChange={e => setEmail(e.target.value)} value={email}  type="email" />
-              {error && <div className="invalid-feedback">{error.message}</div>}
-            </FormGroup>
-            <Button block className="enter-btn" size="sm" type="submit">
-              {/* {isLoading ? 'Loading…' : 'Enviar Recuperación'} */}
-              {isLoading && <Spinner
-                as="span"
-                animation="border"
-                size="sm"
-                role="status"
-                aria-hidden="true"
-              />}
-              {'  Enviar Recuperación'}
-            </Button>
-          </form>
-        </div>
-      }
-    </>
   )
 }

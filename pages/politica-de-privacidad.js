@@ -19,7 +19,7 @@ const PrivacyPolicy = ({ layoutProps, privacy }) => {
 PrivacyPolicy.getInitialProps = async function() {
   const res = await api.get(`/privacypolicy`);
   const data = await res.data;
-  return { title: title, privacy: data.privacy_policy.privacy_pol}  ;
+  return { privacy: data.privacy_policy.privacy_pol}  ;
 }
 
 export default PrivacyPolicy
