@@ -5,11 +5,12 @@ import ReactSVG from 'react-svg'
 import Button from '../button'
 import { STATIC_PATH, CLIENT_SECRET, CLIENT_ID } from '../../constants/constants'
 import { CONFIG } from '../../config'
-import { Tab, Form } from 'react-bootstrap'
+import { Tab, Form, Spinner } from 'react-bootstrap'
 import api, { baseURL } from '../../services/api'
 import { setAccessToken } from '../../services/auth'
 import UserContext from '../UserContext'
 import { AuthModalContext } from '../../contexts/AuthModalContext'
+import Router from 'next/router'
 
 export default function AuthModal() {
   const { backTab, changeTab, closeAuthModal, show, tab, tabsHistory } = useContext(AuthModalContext)
@@ -275,7 +276,7 @@ const Label = ({ children, htmlFor, ...props }) => {
   )
 }
 
-const Input = ({ autoFocus, id, onChange, required, type, value, placeholder }) => {
+const Input = ({ autoFocus, id, onChange, required, type, value, placeholder, autoComplete }) => {
   // autofocus is bugging if has states/onChanges
   const inputRef = useRef()
   useEffect(_ => {
@@ -295,6 +296,7 @@ const Input = ({ autoFocus, id, onChange, required, type, value, placeholder }) 
         required={required}
         type={type}
         value={value}
+        autoComplete={autoComplete}
       />
       <style jsx>{`
         .form-control {
@@ -383,11 +385,11 @@ const LoginTab = ({handleClose, changeTab}) => {
       {error && <div className="invalid-feedback">{error}</div>}
         <FormGroup>
           {/* <Label hmtlFor="email">E-mail</Label> */}
-          <Input id="email" placeholder="E-mail" onChange={e => setEmail(e.target.value)} required type="email" value={email} />
+          <Input id="email" autoComplete="username" placeholder="E-mail" onChange={e => setEmail(e.target.value)} required type="email" value={email} />
         </FormGroup>
         <FormGroup>
           {/* <Label hmtlFor="clave">Clave</Label> */}
-          <Input id="clave" placeholder="Clave" onChange={e => setPassword(e.target.value)} required type="password" value={password} />
+          <Input id="clave" autoComplete="current-password" placeholder="Clave" onChange={e => setPassword(e.target.value)} required type="password" value={password} />
           <FormText>
             <a href="#" onClick={goToPasswordRecovery}>¿Olvidó su clave?</a>
           </FormText>
@@ -417,26 +419,20 @@ const RegisterTab = ({handleClose, changeTab})  => {
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
   const [error, setError] = useState('')
-  const [emailSent, setEmailSent] = useState(false)
   const { signIn } = useContext(UserContext)
 
   const handleSubmit = async e  => {
     e.preventDefault();
     try {
-      // console.log('data:',name);
-      const tokenResponse = await api.post('/register', {
+      const response = await api.post('/register', {
         name,
         email,
         password,
       })
-
-      // tokenResponse.data.token_type = 'tk_type'
-      // tokenResponse.data.expires_in = 'expires_in'
-      // tokenResponse.data.refresh_token = 'refresh_token'
       // const { user } = tokenResponse.data
       // signIn(user, tokenResponse.data)
-      // handleClose()
-      setEmailSent(true)
+      handleClose()
+      Router.push('/register/confirm')
     } catch (error) {
       if (error.response) {
         setError(error.response.data)
@@ -457,25 +453,22 @@ const RegisterTab = ({handleClose, changeTab})  => {
     <div className="intro-text">
       <p>Una sola cuenta para todos los productos <span className="text-uppercase">{CONFIG.clubName}</span></p>
     </div>
-    {! emailSent ?
     <form method="post" onSubmit={handleSubmit}>
+
       {error && <div className="invalid-feedback">{error.message}</div>}
+
       <FormGroup>
         {/* <Label hmtlFor="name">Nombre</Label> */}
         <Input id="name" type="text" placeholder="Nombre" onChange={e => setName(e.target.value)} value={name} />
         {error && error.errors && (<div className="invalid-feedback">{error.errors.name}</div>)}
       </FormGroup>
 
-      {/* <FormGroup>
-        <Label hmtlFor="lastname">Apellido</Label>
-        <Input id="lastname" type="text" />
-      </FormGroup> */}
-
       <FormGroup>
         {/* <Label hmtlFor="reg_email">E-mail</Label> */}
         <Input id="reg_email" type="email" placeholder="E-mail" onChange={e => setEmail(e.target.value)} value={email} />
         {error && error.errors && (<div className="invalid-feedback">{error.errors.email}</div>)}
       </FormGroup>
+
       <FormGroup>
         {/* <Label hmtlFor="reg_password">Clave</Label> */}
         <Input id="reg_password" type="password" placeholder="Clave"  onChange={e => setPassword(e.target.value)} value={password} />
@@ -483,37 +476,12 @@ const RegisterTab = ({handleClose, changeTab})  => {
           <div className="invalid-feedback">{error.errors.password}</div>
         )}
       </FormGroup>
+
       {/* <FormGroup>
         <Label hmtlFor="password_confirmation">Confirmación de Clave</Label>
         <Input id="password_confirmation" type="password" />
-      </FormGroup>
-      <FormGroup>
-        <Label hmtlFor="address">Dirección</Label>
-        <Input id="address" type="text" />
-      </FormGroup>
-      <FormGroup>
-        <Label hmtlFor="city">Ciudad</Label>
-        <Input id="city" type="text" />
-      </FormGroup>
-      <FormGroup>
-        <Label hmtlFor="country">País</Label>
-        <Input id="country" type="text" />
-      </FormGroup>
-      <FormGroup>
-        <Label hmtlFor="document">Documento</Label>
-        <Input id="document" type="text" />
       </FormGroup> */}
 
-      {/* <FormGroup>
-        <Form.Label className="radio-label" as="legend" style={{paddingRight:'25px'}}>Género</Form.Label>
-        <Form.Check type="radio" label="Hombre" name="genre" inline />
-        <Form.Check type="radio" label="Mujer" name="genre" inline />
-      </FormGroup> */}
-
-    {/* <FormGroup>
-        <Label hmtlFor="payment">Meios de Pagamento</Label>
-        <Input id="payment" type="text" />
-      </FormGroup> */}
       <Button block className="enter-btn" size="sm" type="submit">Registrar</Button>
       <div className="already-subscriptor">
         <span>¿Ya es suscriptor?</span>
@@ -530,11 +498,6 @@ const RegisterTab = ({handleClose, changeTab})  => {
         Google
       </Button> */}
     </form>
-    :
-    <p>
-      Acceda al correo electrónico registrado para confirmar su cuenta.
-      <div><a className="bold text-uppercase" href="#" onClick={goToLogin}>Haga Login</a></div>
-    </p>}
 
     {/* <style jsx>{`
     .label-radio {
@@ -545,32 +508,70 @@ const RegisterTab = ({handleClose, changeTab})  => {
   )
 }
 
-const PasswordTab = ({handleClose, changeTab}) => {
+const PasswordTab = ({handleClose, setTab}) => {
+
+  const [email,setEmail] = useState('')
+  const [emailSent, setEmailSent] = useState(false)
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState(false)
+  const [isLoading, setLoading] = useState(false)
 
   const handleSubmit = async e => {
-    e.preventDefault();
+    e.preventDefault()
+    setLoading(true)
 
     try{
-
+      let { data } = await api.post('/forgot', {
+        email
+      })
+      console.table(data)
+      setEmailSent(true)
+      setMessage(data.message)
+      setLoading(false)
     }catch(error){
-
+      console.table(error)
+      if (error.response) {
+        const { data, status } = error.response
+        if(data) setError(data)
+      } else {
+        setError({message: 'An error has occurred!'})
+        console.log('error', error)
+      }
+      setLoading(false)
     }
   }
 
   return (
     <>
-      <div className="intro-text" style={{ marginBottom: 15 }}>
-        <p>¿Olvidó su clave?</p>
-      </div>
-      <form method="post" onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label hmtlFor="email2">E-mail</Label>
-          <Input autoFocus id="email2" type="email" />
-        </FormGroup>
-        <Button block className="enter-btn" onClick={e => { e.preventDefault(); alert('pã');}} size="sm" type="submit">
-          Enviar Recuperación
-        </Button>
-      </form>
+      {emailSent ?
+        <p>
+          {message}
+          {/* Acceda al correo electrónico registrado para para recuperar tu clave. */}
+        </p>
+      :
+        <div>
+          <div className="intro-text" style={{ marginBottom: 15 }}>
+            <p>¿Olvidó su clave?</p>
+          </div>
+          <form method="post" onSubmit={handleSubmit}>
+            <FormGroup>
+              <Input id="email_recover" placeholder="E-mail" autoFocus onChange={e => setEmail(e.target.value)} value={email}  type="email" />
+              {error && <div className="invalid-feedback">{error.message}</div>}
+            </FormGroup>
+            <Button block className="enter-btn" size="sm" type="submit">
+              {/* {isLoading ? 'Loading…' : 'Enviar Recuperación'} */}
+              {isLoading && <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />}
+              {'  Enviar Recuperación'}
+            </Button>
+          </form>
+        </div>
+      }
     </>
   )
 }

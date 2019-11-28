@@ -16,7 +16,7 @@ const TermsAndPolitics = ({ layoutProps, ...props }) => (
                     poster="https://d2tkjr0gw68yth.cloudfront.net/fit-in/300x200/images/movies/posters/poster_1573496673inside-cover.png" /> 
 
                 <VideoPlayer 
-                    link='http://dale.out.s3.amazonaws.com/srv/stevie.mpd' 
+                    link='http://dalecampeon.teste.s3.amazonaws.com/Campanha_de_Alistamento_Servico_Militar.mp4' 
                     poster="https://d2tkjr0gw68yth.cloudfront.net/fit-in/300x200/images/movies/posters/poster_1573496673inside-cover.png" /> 
             </div>
         </Layout>
