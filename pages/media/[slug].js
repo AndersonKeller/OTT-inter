@@ -67,7 +67,7 @@ const Cover = ({category, media}) => {
             )}
           </div>
           <MediaLink {...{category, media}} watch>
-            <Button>Proba Gratis</Button>
+            <Button>{!user ? 'Proba Gratis' : 'Mira'}</Button>
           </MediaLink>
           <MiLista />
         </div>
@@ -119,7 +119,7 @@ const HMediaCard = ({category, media}) => (
   <div className="h-media-card row align-items-center">
     <div className="col-md-4">
 
-      <MediaLink {...{category, media}}>
+      <MediaLink watch {...{category, media}}>
         <a>
           <img
             className="img-fluid w-100 d-block"
@@ -132,7 +132,7 @@ const HMediaCard = ({category, media}) => (
     </div>
     <div className="col-md-7">
       <h3 className="h3">
-        <MediaLink {...{category, media}}>
+        <MediaLink watch {...{category, media}}>
           <a>{media.title}</a>
         </MediaLink>
       </h3>

@@ -1,7 +1,7 @@
 const Label = ({ children, htmlFor }) => {
   return (
     <>
-      <label htmlFor={htmlFor}>{children}</label>
+      <label {...{htmlFor}}>{children}</label>
       <style jsx>{`
         label {
           cursor: pointer;

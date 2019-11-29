@@ -30,6 +30,7 @@ const MediaCard = ({
         .media-card img {
           margin-bottom: 10px;
           transition: opacity .2s;
+          will-change: opacity;
         }
         .media-card-label {
           opacity: .4;

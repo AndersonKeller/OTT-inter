@@ -81,16 +81,7 @@ const Home = ({ layoutProps }) => {
         <HomeCarouselSection category="news" />
 
         {/* features */}
-        {!user ? (
-          <Featured img={`${STATIC_PATH}/featured/sorteos.png`}>
-            <Link href="/subscriptor">
-              <Button>Probar Gratis</Button>
-            </Link>
-            <Link as="/category/sorteos" href="/category/[slug]">
-              <Button color="secondary" outline>Ver más</Button>
-            </Link>
-          </Featured>
-        ) : (
+        {user && (
           <Featured img={`${STATIC_PATH}/logged-banner3.png`}>
             <Link href="/media-inside-2-public">
               <Button>Ver más</Button>
@@ -150,13 +141,13 @@ const Cover = _ => {
                   <Link href="/subscriptor" passHref>
                     <Button>Probar Gratis</Button>
                   </Link>
-                  <Link as="/category/entrevistas" href="/category/[slug]" passHref>
+                  <Link as="/category/interviews" href="/category/[slug]" passHref>
                     <Button color="secondary" outline>Ver más</Button>
                   </Link>
                 </>
               ) : (
                 <>
-                  <Link as="/category/entrevistas" href="/category/[slug]" passHref>
+                  <Link as="/category/interviews" href="/category/[slug]" passHref>
                     <Button>Ver más</Button>
                   </Link>
                   <MiLista />
