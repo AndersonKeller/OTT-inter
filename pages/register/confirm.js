@@ -55,10 +55,10 @@ export default function RegisterConfirmPage({ layoutProps }) {
                   <h3 className="h3">Sus datos</h3>
                   <FormGroup>
                     <Label htmlFor="fullName">Nombre completo</Label>
-                    <Input id="fullName" name="fullName" value={user ? user.name : null} />
+                    <Input id="fullName" name="fullName" value={user ? user.name : ''} />
                   </FormGroup>
                   <FormGroup>
-                    <Label hmtlFor="genre">Género</Label>
+                    <Label htmlFor="genre">Género</Label>
                     <Select id="genre" name="genre">
                       <option disabled selected>Selecciona tu genero</option>
                       { genres && genres.length && genres.map((genre, key) => (
