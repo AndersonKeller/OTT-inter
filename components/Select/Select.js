@@ -1,6 +1,6 @@
-export default function Select({children}) {
+export default function Select({children, id, name}) {
   return <>
-    <select className="form-control" id="genre" name="genre">
+    <select className="form-control" {...{id, name}}>
       {children}
     </select>
     <style jsx>{`

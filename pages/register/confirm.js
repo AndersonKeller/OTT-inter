@@ -8,15 +8,17 @@ import FormGroup from '../../components/layout/AuthModal/FormGroup';
 import Label from '../../components/layout/AuthModal/Label';
 import Input from '../../components/layout/AuthModal/Input';
 import Button from '../../components/button';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import UserContext from '../../components/UserContext';
 import Select from '../../components/Select/Select';
+import api from '../../services/api';
 
 // page
 export default function RegisterConfirmPage({ layoutProps }) {
 
   const { user } = useContext(UserContext)
   const [ creditCard, setCreditCard ] = useState(false)
+  const [ genres, setGenres ] = useState()
 
   function showCreditCardInputs(e) {
     e.preventDefault();
@@ -27,6 +29,13 @@ export default function RegisterConfirmPage({ layoutProps }) {
     e.preventDefault();
     setCreditCard(false)
   }
+
+  useEffect(_ => {
+    (async _ => {
+      const {data} = await api.get('user_genres')
+      setGenres(data)
+    })()
+  })
 
   return (
     <Layout color="white" {...layoutProps}>
@@ -45,17 +54,16 @@ export default function RegisterConfirmPage({ layoutProps }) {
                 <div className="data">
                   <h3 className="h3">Sus datos</h3>
                   <FormGroup>
-                    <Label hmtlFor="fullName">Nombre completo</Label>
+                    <Label htmlFor="fullName">Nombre completo</Label>
                     <Input id="fullName" name="fullName" value={user ? user.name : null} />
                   </FormGroup>
                   <FormGroup>
                     <Label hmtlFor="genre">Género</Label>
                     <Select id="genre" name="genre">
                       <option disabled selected>Selecciona tu genero</option>
-                      <option value="1">Hembra</option>
-                      <option value="2">Masculino</option>
-                      <option value="3">Otros</option>
-                      <option value="4">No quiero informar</option>
+                      { genres && genres.length && genres.map((genre, key) => (
+                        <option key={key} value={genre.id}>{genre.name}</option>
+                      ))}
                     </Select>
                   </FormGroup>
                   <FormGroup>
