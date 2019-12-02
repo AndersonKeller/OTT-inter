@@ -165,15 +165,7 @@ const RegisterConfirmPage = ({ layoutProps }) => {
 
                   {/* package */}
                   <div className="col-md-4">
-                    <div className="package">
-                      <h3 className="h3">Plan seleccionado</h3>
-                      { user.package_intention && (
-                        <div className="plan-card text-center">
-                          <h4>{ user.package_intention.name }</h4>
-                          <h5>{ (user.package_intention.currency === 'usd' ? '$' : '') + user.package_intention.amount }</h5>
-                        </div>
-                      ) }
-                    </div>
+                    <PackageSelector intention={user.package_intention} />
                   </div>
 
                   {/* payment */}
@@ -245,7 +237,7 @@ const RegisterConfirmPage = ({ layoutProps }) => {
         .h2 {
           margin-bottom: 10px;
         }
-        .h3 {
+        :global(.h3) {
           font-size: 20px;
           font-weight: bold;
           margin-bottom: 10px;
@@ -254,17 +246,75 @@ const RegisterConfirmPage = ({ layoutProps }) => {
           margin-top: 15px;
           margin-bottom: 30px;
         }
-        .plan-card {
-          border: 1px solid lightgray;
-          border-radius: 5px;
-          padding: 30px;
-        }
         .card-inputs {
           margin-top: -21px;
         }
       `}</style>
     </Layout>
   );
+}
+
+const PackageSelector = ({intention}) => {
+
+  const [pkg, setPkg] = useState(intention)
+  const [items, setItems] = useState()
+
+  /* get genres */
+  useEffect(_ => {
+    (async _ => {
+      const {data} = await api.get('packages')
+      setItems(data)
+    })()
+  }, [])
+
+  function swapPlan(e) {
+    e.preventDefault()
+    if (items) {
+      setPkg(items[parseInt(Math.random()*4)])
+    }
+  }
+
+  return (
+    <div className="package">
+      <div className="row">
+        <div className="col-9">
+          <h3 className="h3">Plan seleccionado</h3>
+        </div>
+        <div className="col-3 align-self-start">
+          <button className="swap-btn" onClick={swapPlan}>
+            <img src="/static/icons/swap.svg" />
+          </button>
+        </div>
+      </div>
+      { pkg && (
+        <div className="plan-card text-center">
+          <h4>{ pkg.name }</h4>
+          <h5>{ (pkg.currency === 'usd' ? '$' : '') + pkg.amount }</h5>
+        </div>
+      ) }
+      <style jsx>{`
+        .plan-card {
+          border: 1px solid lightgray;
+          border-radius: 3px;
+          padding: 27px;
+        }
+        .card-inputs {
+          margin-top: -21px;
+        }
+        .swap-btn {
+          background-color: transparent;
+          border: 0;
+          display: block;
+          font-size: 14px;
+          line-height: 1;
+          margin: 0 0 0 auto;
+          outline: 0;
+          padding: 1px 2px;
+          width: auto;
+        }
+      `}</style>
+    </div>
+  )
 }
 
 RegisterConfirmPage.getInitialProps = () => {
