@@ -172,14 +172,14 @@ const RegisterConfirmPage = ({ layoutProps }) => {
                   <div className="col-md-8">
                     <h3 className="h3">Pago</h3>
                     <div className="row">
-                      <div className="col-6">
+                      <div className="col-md-6">
                         <FormGroup>
                           <Input id="payment" onFocus={showCreditCardInputs} placeholder="Tarjeta de crédito" style={{ marginBottom: 5 }} type="text" />
                           <Input id="payment" onFocus={hideCreditCardInputs} placeholder="Tarjeta de débito" style={{ marginBottom: 5 }} type="text" />
                           <Input id="payment" onFocus={hideCreditCardInputs} placeholder="Recibo bancario" style={{ marginBottom: 5 }} type="text" />
                         </FormGroup>
                       </div>
-                      <div className="col-6">
+                      <div className="col-md-6">
                         { creditCard && (
                           <div className="card-inputs">
                             <FormGroup>
@@ -214,11 +214,11 @@ const RegisterConfirmPage = ({ layoutProps }) => {
                 </div>
 
                 <div className="row align-items-center">
-                  <div className="col-6 offset-md-4" style={{ fontSize: 18}}>
+                  <div className="col-md-6 offset-md-4" style={{ fontSize: 18}}>
                     <input type="checkbox" /> He leído y acepto el contrato de Dale Campéon
                   </div>
-                  <div className="col-2 text-right">
-                    <Button color="secondary" type="submit">Continuar</Button>
+                  <div className="col-md-2 text-right">
+                    <Button block color="secondary" type="submit">Continuar</Button>
                   </div>
                 </div>
 
@@ -247,8 +247,10 @@ const RegisterConfirmPage = ({ layoutProps }) => {
           margin-top: 15px;
           margin-bottom: 30px;
         }
-        .card-inputs {
-          margin-top: -21px;
+        @media (min-width: 768px) {
+          .card-inputs {
+            margin-top: -21px;
+          }
         }
       `}</style>
     </Layout>
@@ -297,6 +299,7 @@ const PackageSelector = ({intention}) => {
         .plan-card {
           border: 1px solid lightgray;
           border-radius: 3px;
+          margin-bottom: 15px;
           padding: 27px;
         }
         .card-inputs {
