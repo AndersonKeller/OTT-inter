@@ -93,7 +93,7 @@ const RegisterConfirmPage = ({ layoutProps }) => {
                       {/* genre */}
                       <FormGroup>
                         <Label htmlFor="genre">Género</Label>
-                        <Select id="genre" name="genre" required value={0}>
+                        <Select defaultValue={0} id="genre" name="genre" required>
                           { ! genres ? (
                             <option disabled value={0}>Cargando...</option>
                           ) : genres.length ? (
@@ -137,7 +137,7 @@ const RegisterConfirmPage = ({ layoutProps }) => {
                       {/* country */}
                       <FormGroup>
                         <Label htmlFor="country">País</Label>
-                        <Select id="country" name="country" required value={0}>
+                        <Select defaultValue={0} id="country" name="country" required>
                           { ! countries ? (
                             <option disabled value={0}>Cargando...</option>
                           ) : countries.length ? (
@@ -189,26 +189,28 @@ const RegisterConfirmPage = ({ layoutProps }) => {
                       </div>
                       <div className="col-6">
                         { creditCard && (
-                          <div className="card-inputs" style={{marginTop: -21}}>
+                          <div className="card-inputs">
                             <FormGroup>
-                              <Label htmlFor="etc">Nombre impreso</Label>
-                              <Input id="etc" type="text" />
+                              <Label htmlFor="creditCardName">Nombre impreso</Label>
+                              <Input id="creditCardName" name="creditCardName" required type="text" />
                             </FormGroup>
                             <FormGroup>
-                              <Label htmlFor="etc">Numero</Label>
-                              <Input id="etc" type="text" />
+                              <Label htmlFor="creditCardNumber">Numero</Label>
+                              <Input id="creditCardNumber" name="creditCardNumber" required type="text" />
                             </FormGroup>
                             <div className="row">
                               <div className="col-6">
                                 <FormGroup>
-                                  <Label htmlFor="etc">Validez</Label>
-                                  <Input id="etc" type="text" />
+                                  <Label htmlFor="creditCardDate">Validez</Label>
+                                  <Input id="creditCardDate" name="creditCardDate" required type="text" />
                                 </FormGroup>
                               </div>
                               <div className="col-6">
                                 <FormGroup>
-                                  <Label htmlFor="etc"><abbr title="Código de seguridad">CVV</abbr></Label>
-                                  <Input id="etc" type="text" />
+                                  <Label htmlFor="creditCardCode">
+                                    <abbr title="Código de seguridad">CVV</abbr>
+                                  </Label>
+                                  <Input id="creditCardCode" name="creditCardCode" required type="text" />
                                 </FormGroup>
                               </div>
                             </div>
@@ -256,6 +258,9 @@ const RegisterConfirmPage = ({ layoutProps }) => {
           border: 1px solid lightgray;
           border-radius: 5px;
           padding: 30px;
+        }
+        .card-inputs {
+          margin-top: -21px;
         }
       `}</style>
     </Layout>
