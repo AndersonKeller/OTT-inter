@@ -36,15 +36,13 @@ const LoginTab = ({ changeTab, setLoading }) => {
       signIn(userResponse.data, tokenResponse.data)
       closeAuthModal()
     } catch (error) {
-      console.table(error.response.status)
       if (error.response) {
         const { data, status } = error.response
-        data.message =
-          status == 400 ? 'Correo electrónico o contraseña incorrectos. Inténtalo de nuevo' :
-          status == 403 ? 'Tu dirección de correo electrónico no está verificada' : data.message
-        setError(data.message)
-        // const { message } = error.response.data
-        // setError(message)
+        const message =
+          status === 400 ? 'Correo electrónico o contraseña incorrectos. Inténtalo de nuevo' :
+          status === 403 ? 'Tu dirección de correo electrónico no está verificada' :
+          status === 500 ? 'Servidor, base de datos o conexión no disponible' : data.message
+        setError(message)
       } else {
         setError('An error has occurred!')
         console.log('error', error)
