@@ -129,6 +129,7 @@ const Packages = () => {
   const [ error, setError ] = useState()
   const [ loading, setLoading ] = useState(false)
 
+  // fetch packages
   useEffect(_ => {
     async function fetchData() {
       setLoading(true)
@@ -143,9 +144,10 @@ const Packages = () => {
     fetchData()
   }, [])
 
-  function register(e) {
+  // choose package / register
+  function choosePackage(e, packageId) {
     e.preventDefault()
-    openAuthModal('register')
+    openAuthModal('register', packageId)
   }
 
   return (
@@ -166,22 +168,30 @@ const Packages = () => {
               { packages.length ? (
                 <div className="cards">
                   <div className="row justify-content-center gutter-15">
-                    { packages.map((price, key) => (
+                    { packages.map((item, key) => (
                       <div className="col-12 col-sm-6 col-lg-3" {...{key}}>
-                        <div className={`card ${price.amount === 0 ? 'card--free' : ''}`}>
+                        <div className={`card ${item.amount === 0 ? 'card--free' : ''}`}>
                           <div className="card-heading">Suscripción</div>
-                          <div className="time">{price.name}</div>
-                          { price.amount !== 0 && (
+                          <div className="time">{item.name}</div>
+                          { item.amount !== 0 && (
                             <div className="value">
-                              { (price.currency === 'usd' ? '$' : '') + price.amount }
+                              { (item.currency === 'usd' ? '$' : '') + item.amount }
                             </div>
                           ) }
                           { ! user && (
                             <>
-                              { price.amount === 0 ? (
-                                <Button block onClick={register}>Probá Gratis</Button>
+                              { item.amount === 0 ? (
+                                <Button
+                                  block
+                                  onClick={(e) => choosePackage(e, item.id)}
+                                >Probá Gratis</Button>
                               ) : (
-                                <Button block color="secondary" onClick={register} outline>Suscribir</Button>
+                                <Button
+                                  block
+                                  color="secondary"
+                                  onClick={(e) => choosePackage(e, item.id)}
+                                  outline
+                                >Suscribir</Button>
                               ) }
                             </>
                           ) }

@@ -12,6 +12,7 @@ export function AuthModalProvider({ children }) {
   const [ show, setShow ] = useState(shouldAutoOpen ? true : false)
   const [ tab, setTab ] = useState(shouldAutoOpen ? modal : 'login')
   const [ tabsHistory, setTabHistory ] = useState([])
+  const [ packageId, setPackageId ] = useState()
 
   function backTab() {
     if (tabsHistory.length <= 1) {
@@ -37,13 +38,14 @@ export function AuthModalProvider({ children }) {
     return true
   }
 
-  function openAuthModal(wishedTab = 'login') {
+  function openAuthModal(wishedTab = 'login', packageId = null) {
     validateTab(wishedTab)
     if (tab !== wishedTab) {
       setTab(wishedTab)
     }
     const newTabHistory = [wishedTab]
     setTabHistory(newTabHistory)
+    setPackageId(packageId)
     setShow(true)
     return true
   }
@@ -56,7 +58,16 @@ export function AuthModalProvider({ children }) {
   }
 
   return (
-    <AuthModalContext.Provider value={{...{backTab, closeAuthModal, openAuthModal, changeTab, show, tab, tabsHistory }}}>
+    <AuthModalContext.Provider value={{...{
+      backTab,
+      changeTab,
+      closeAuthModal,
+      openAuthModal,
+      packageId,
+      show,
+      tab,
+      tabsHistory,
+    }}}>
       {children}
     </AuthModalContext.Provider>
   )

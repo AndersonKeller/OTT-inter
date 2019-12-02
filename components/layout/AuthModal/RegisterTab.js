@@ -16,23 +16,24 @@ const RegisterTab = ({changeTab, setLoading})  => {
   const [password,setPassword] = useState('')
   const [error, setError] = useState('')
   const { signIn } = useContext(UserContext)
-  const { closeAuthModal } = useContext(AuthModalContext)
+  const { closeAuthModal, packageId } = useContext(AuthModalContext)
 
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true)
     document.activeElement.blur()
     try {
-      const tokenResponse = await api.post('/register', {
+      const tokenResponse = await api.post('register', {
         client_id: CLIENT_ID,
         client_secret: CLIENT_SECRET,
-        name,
         email,
+        name,
+        package_id_intention: packageId,
         password,
       })
       const { access_token, } = tokenResponse.data
       setAccessToken(access_token)
-      const userResponse = await api.get('/user')
+      const userResponse = await api.get('user')
       signIn(userResponse.data, tokenResponse.data)
       closeAuthModal()
       Router.push('/register/confirm')
