@@ -74,7 +74,7 @@ const RegisterConfirmPage = ({ layoutProps }) => {
             <h1 className="h2">Completa tu registro</h1>
 
             { user && (
-              <div>
+              <form>
 
                 <div className="row">
 
@@ -218,14 +218,15 @@ const RegisterConfirmPage = ({ layoutProps }) => {
                     <input type="checkbox" /> He leído y acepto el contrato de Dale Campéon
                   </div>
                   <div className="col-2 text-right">
-                    <Button color="secondary">Continuar</Button>
+                    <Button color="secondary" type="submit">Continuar</Button>
                   </div>
                 </div>
 
                 {/* <p>Acceda al correo electrónico registrado para confirmar su cuenta.</p> */}
 
-              </div>
+              </form>
             ) }
+
           </div>
         </div>
       </div>
