@@ -113,8 +113,8 @@ const TermsAndPoliciesBar = ({ layoutColor }) => {
       </div>
       <style jsx>{`
         .terms-and-policies-bar {
-          background-color ${layoutColor === 'white' ? 'var(--black)' : 'transparent'};
-          color var(--${layoutColor === 'white' ? 'white' : 'black'});
+          background-color: ${layoutColor === 'white' ? 'var(--black)' : 'transparent'};
+          color: var(--white);
           font-size: 13px;
           padding-top: 15px;
           padding-bottom: 5px;
