@@ -19,18 +19,12 @@ import Router from 'next/router'
 const RegisterConfirmPage = ({ layoutProps }) => {
 
   const { user } = useContext(UserContext)
-  const [ creditCard, setCreditCard ] = useState(false)
   const [ genres, setGenres ] = useState()
   const [ countries, setCountries ] = useState()
+  const [ payment, setPayment ] = useState()
 
-  function showCreditCardInputs(e) {
-    e.preventDefault()
-    setCreditCard(true)
-  }
-
-  function hideCreditCardInputs(e) {
-    e.preventDefault()
-    setCreditCard(false)
+  function handlePaymentChange(e) {
+    setPayment(e.target.value)
   }
 
   /* temporarily handle user presence */
@@ -177,13 +171,31 @@ const RegisterConfirmPage = ({ layoutProps }) => {
                         <div className="row">
                           <div className="col-md-6">
                             <FormGroup>
-                              <Input id="payment" onFocus={showCreditCardInputs} placeholder="Tarjeta de crédito" style={{ marginBottom: 5 }} type="text" />
-                              <Input id="payment" onFocus={hideCreditCardInputs} placeholder="Tarjeta de débito" style={{ marginBottom: 5 }} type="text" />
-                              <Input id="payment" onFocus={hideCreditCardInputs} placeholder="Recibo bancario" style={{ marginBottom: 5 }} type="text" />
+                              <InputRadio
+                                label="Tarjeta de crédito"
+                                name="payment"
+                                onChange={handlePaymentChange}
+                                state={payment}
+                                value="credit"
+                              />
+                              <InputRadio
+                                label="Tarjeta de débito"
+                                name="payment"
+                                onChange={handlePaymentChange}
+                                state={payment}
+                                value="debit"
+                              />
+                              <InputRadio
+                                label="Recibo bancario"
+                                name="payment"
+                                onChange={handlePaymentChange}
+                                state={payment}
+                                value="boleto"
+                              />
                             </FormGroup>
                           </div>
                           <div className="col-md-6">
-                            { creditCard && (
+                            { payment === 'credit' && (
                               <div className="card-inputs">
                                 <FormGroup>
                                   <Label htmlFor="creditCardName">Nombre impreso</Label>
@@ -264,6 +276,7 @@ const RegisterConfirmPage = ({ layoutProps }) => {
   );
 }
 
+/* Package Selector */
 const PackageSelector = ({intention}) => {
 
   const [pkg, setPkg] = useState(intention)
@@ -291,7 +304,7 @@ const PackageSelector = ({intention}) => {
           <h3 className="h3">Plan seleccionado</h3>
         </div>
         <div className="col-3 align-self-start">
-          <button className="swap-btn" onClick={swapPlan}>
+          <button className="swap-btn" onClick={swapPlan} type="button">
             <img src="/static/icons/swap.svg" />
           </button>
         </div>
@@ -325,6 +338,71 @@ const PackageSelector = ({intention}) => {
         }
       `}</style>
     </div>
+  )
+}
+
+// Radio
+const InputRadio = ({ label, name, onChange, state, value }) => {
+  return (
+    <label>
+      <input checked={state === value} type="radio" {...{name, onChange, value}} />
+      <span className="fake-input">
+        <span className="fake-radio"></span>
+        <span>{label}</span>
+      </span>
+      <style jsx>{`
+        label {
+          display: block;
+          margin-bottom: 5px;
+          overflow: hidden;
+          position: relative;
+        }
+        input {
+          opacity: 0;
+          position: absolute;
+        }
+        .fake-input {
+          border: 2px solid var(--primary);
+          border-radius: 4px;
+          display: block;
+          font-size: 1rem;
+          line-height: 1.4;
+          padding: .375rem .75rem;
+          transition: background-color .3s, border-color .3s, color .3s;
+        }
+        .fake-radio {
+          background-color: var(--white);
+          border: 1px solid var(--gray2);
+          border-radius: 50%;
+          display: inline-block;
+          height: 15px;
+          margin-right: 7.5px;
+          padding: 1px;
+          vertical-align: -2px;
+          width: 15px;
+        }
+        .fake-radio::before {
+          background-color: var(--black);
+          border-radius: 50%;
+          content: '';
+          display: block;
+          opacity: 0;
+          height: 100%;
+          transition: opacity .3s;
+          width: 100%;
+        }
+        input:checked + .fake-input {
+          background-color: var(--primary);
+          color: white;
+        }
+        input:checked + .fake-input .fake-radio::before {
+          opacity: 1;
+        }
+        input:focus + .fake-input {
+          border-color: var(--black);
+        }
+      `}</style>
+    </label>
   )
 }
 
