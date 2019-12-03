@@ -69,7 +69,7 @@ const Cover = ({category, media}) => {
           <MediaLink {...{category, media}} watch>
             <Button>{!user ? 'Proba Gratis' : 'Mira'}</Button>
           </MediaLink>
-          <WishlistBtn movieId={13} />
+          <WishlistBtn movieId={media.id} />
         </div>
       </div>
       <style jsx>{`
