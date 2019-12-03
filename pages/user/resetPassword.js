@@ -9,7 +9,7 @@ import { Form, Button, Toast } from 'react-bootstrap'
 // app imports
 import Layout from '../../components/layout/Layout'
 import { CONFIG } from '../../config'
-import { api } from '../../services/api'
+import api from '../../services/api'
 
 const ResetPassword = ({layoutProps}) => {
 
