@@ -57,9 +57,6 @@ const Home = ({ layoutProps }) => {
         {/* podcasts */}
         <HomeCarouselSection category="podcasts" />
 
-        {/* interviews */}
-        <HomeCarouselSection category="interviews" />
-
         {/* features */}
         {!user ? (
           <Featured img={`${STATIC_PATH}/featured/sponsored-or-generic.png`}>
