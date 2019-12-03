@@ -68,7 +68,7 @@ const RegisterConfirmPage = ({ layoutProps }) => {
             <h1 className="h2">Completa tu registro</h1>
 
             { user && (
-              <form>
+              <form method="post">
 
                 <div className="row">
 
@@ -233,8 +233,11 @@ const RegisterConfirmPage = ({ layoutProps }) => {
                 )}
 
                 <div className="row align-items-center">
-                  <div className="col-md-6 offset-md-4" style={{ fontSize: 18}}>
-                    <input type="checkbox" /> He leído y acepto el contrato de Dale Campéon
+                  <div className="col-md-6 offset-md-4">
+                    <label className="terms">
+                      <input name="terms" required type="checkbox" />
+                      <span>He leído y acepto el contrato de Dale Campéon</span>
+                    </label>
                   </div>
                   <div className="col-md-2 text-right">
                     <Button block color="secondary" type="submit">Continuar</Button>
@@ -270,6 +273,12 @@ const RegisterConfirmPage = ({ layoutProps }) => {
           .card-inputs {
             margin-top: -21px;
           }
+        }
+        .terms {
+          font-size: 18px;
+        }
+        .terms input {
+          margin-right: 5px;
         }
       `}</style>
     </Layout>
