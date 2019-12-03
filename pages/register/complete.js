@@ -158,60 +158,67 @@ const RegisterConfirmPage = ({ layoutProps }) => {
 
                 </div>
 
-                {/* hr */}
-                <hr className="hr" />
+                {user.package_intention && (
+                  <div>
 
-                <div className="row">
+                    {/* hr */}
+                    <hr className="hr" />
 
-                  {/* package */}
-                  <div className="col-md-4">
-                    <PackageSelector intention={user.package_intention} />
-                  </div>
-
-                  {/* payment */}
-                  <div className="col-md-8">
-                    <h3 className="h3">Pago</h3>
                     <div className="row">
-                      <div className="col-md-6">
-                        <FormGroup>
-                          <Input id="payment" onFocus={showCreditCardInputs} placeholder="Tarjeta de crédito" style={{ marginBottom: 5 }} type="text" />
-                          <Input id="payment" onFocus={hideCreditCardInputs} placeholder="Tarjeta de débito" style={{ marginBottom: 5 }} type="text" />
-                          <Input id="payment" onFocus={hideCreditCardInputs} placeholder="Recibo bancario" style={{ marginBottom: 5 }} type="text" />
-                        </FormGroup>
+
+                      {/* package */}
+                      <div className="col-md-4">
+                        <PackageSelector intention={user.package_intention} />
                       </div>
-                      <div className="col-md-6">
-                        { creditCard && (
-                          <div className="card-inputs">
+
+                      {/* payment */}
+                      <div className="col-md-8">
+                        <h3 className="h3">Pago</h3>
+                        <div className="row">
+                          <div className="col-md-6">
                             <FormGroup>
-                              <Label htmlFor="creditCardName">Nombre impreso</Label>
-                              <Input id="creditCardName" name="creditCardName" required type="text" />
+                              <Input id="payment" onFocus={showCreditCardInputs} placeholder="Tarjeta de crédito" style={{ marginBottom: 5 }} type="text" />
+                              <Input id="payment" onFocus={hideCreditCardInputs} placeholder="Tarjeta de débito" style={{ marginBottom: 5 }} type="text" />
+                              <Input id="payment" onFocus={hideCreditCardInputs} placeholder="Recibo bancario" style={{ marginBottom: 5 }} type="text" />
                             </FormGroup>
-                            <FormGroup>
-                              <Label htmlFor="creditCardNumber">Numero</Label>
-                              <Input id="creditCardNumber" name="creditCardNumber" required type="text" />
-                            </FormGroup>
-                            <div className="row">
-                              <div className="col-6">
-                                <FormGroup>
-                                  <Label htmlFor="creditCardDate">Validez</Label>
-                                  <Input id="creditCardDate" name="creditCardDate" required type="text" />
-                                </FormGroup>
-                              </div>
-                              <div className="col-6">
-                                <FormGroup>
-                                  <Label htmlFor="creditCardCode">
-                                    <abbr title="Código de seguridad">CVV</abbr>
-                                  </Label>
-                                  <Input id="creditCardCode" name="creditCardCode" required type="text" />
-                                </FormGroup>
-                              </div>
-                            </div>
                           </div>
-                        ) }
+                          <div className="col-md-6">
+                            { creditCard && (
+                              <div className="card-inputs">
+                                <FormGroup>
+                                  <Label htmlFor="creditCardName">Nombre impreso</Label>
+                                  <Input id="creditCardName" name="creditCardName" required type="text" />
+                                </FormGroup>
+                                <FormGroup>
+                                  <Label htmlFor="creditCardNumber">Numero</Label>
+                                  <Input id="creditCardNumber" name="creditCardNumber" required type="text" />
+                                </FormGroup>
+                                <div className="row">
+                                  <div className="col-6">
+                                    <FormGroup>
+                                      <Label htmlFor="creditCardDate">Validez</Label>
+                                      <Input id="creditCardDate" name="creditCardDate" required type="text" />
+                                    </FormGroup>
+                                  </div>
+                                  <div className="col-6">
+                                    <FormGroup>
+                                      <Label htmlFor="creditCardCode">
+                                        <abbr title="Código de seguridad">CVV</abbr>
+                                      </Label>
+                                      <Input id="creditCardCode" name="creditCardCode" required type="text" />
+                                    </FormGroup>
+                                  </div>
+                                </div>
+                              </div>
+                            ) }
+                            </div>
                         </div>
+                      </div>
+
                     </div>
+
                   </div>
-                </div>
+                )}
 
                 <div className="row align-items-center">
                   <div className="col-md-6 offset-md-4" style={{ fontSize: 18}}>

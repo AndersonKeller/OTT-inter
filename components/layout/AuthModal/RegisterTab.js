@@ -36,7 +36,7 @@ const RegisterTab = ({changeTab, setLoading})  => {
       const userResponse = await api.get('user')
       signIn(userResponse.data, tokenResponse.data)
       closeAuthModal()
-      Router.push('/register/confirm')
+      Router.push('/register/complete')
     } catch (error) {
       if (error.response) {
         setError(error.response.data)
