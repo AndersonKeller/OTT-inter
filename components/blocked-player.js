@@ -5,31 +5,41 @@ import UserContext from './UserContext'
 import { IS_PRODUCTION } from '../constants/constants'
 import VideoPlayer from '../components/video-player'
 
-export default function BlockedPlayer({ image, video_link }) {
+export default function BlockedPlayer({ image = '', video_link = '' }) {
   const { user } = useContext(UserContext)
   const [ video, setVideo ] = useState(user ? 1 : 0)
-  image = (image) ? image : ''
-  video_link = (video_link) ? video_link : ''; 
+
   const showVideo = (e) => {
+    e.preventDefault()
     setVideo(true)
   }
+
   useEffect(_ => {
     setVideo(user ? 1 : 0)
   }, [user])
+
   return (
     <div className="player">
       { video ? (
         (video_link.ready_url) ? (
         <div style={{position:'relative'}}>
-          <VideoPlayer style={{padding:'56.44% 0 0 0',position:'relative'}} 
-                       poster = { image } link = { video_link.ready_url } 
-                       height="100%" width="100%"/>
-        </div> 
+          <VideoPlayer
+            height="100%"
+            link = { video_link.ready_url }
+            poster = { image }
+            style={{padding:'56.44% 0 0 0',position:'relative'}}
+            width="100%"
+          />
+        </div>
         ) : (
-          <iframe width="820" height="505" 
-                  src={`${video_link.iframeurl}?autoplay=1`} 
-                  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                   allowfullscreen></iframe>
+          <iframe
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            frameBorder="0"
+            height="505"
+            src={`${video_link.iframeurl}?autoplay=1`}
+            width="820"
+          ></iframe>
         )
       ) : (
         <>
