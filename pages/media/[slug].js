@@ -9,7 +9,7 @@ import { useContext } from 'react'
 import Button from '../../components/button'
 import Layout from '../../components/layout/Layout'
 import MediaLink from '../../components/MediaLink/MediaLink'
-import MiLista from '../../components/mi-lista'
+import WishlistBtn from '../../components/wishlist-btn'
 import UserContext from '../../components/UserContext'
 import { CONFIG } from '../../config'
 import api from '../../services/api'
@@ -69,7 +69,7 @@ const Cover = ({category, media}) => {
           <MediaLink {...{category, media}} watch>
             <Button>{!user ? 'Proba Gratis' : 'Mira'}</Button>
           </MediaLink>
-          <MiLista />
+          <WishlistBtn movieId={13} />
         </div>
       </div>
       <style jsx>{`

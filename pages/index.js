@@ -12,7 +12,7 @@ import CarouselSection from '../components/carousel-section'
 import Featured from '../components/featured'
 import Layout from '../components/layout/Layout'
 import Loading from '../components/Loading/Loading'
-import MiLista from '../components/mi-lista'
+import WishlistBtn from '../components/wishlist-btn'
 import UserContext from '../components/UserContext'
 import { STATIC_PATH, TENANT } from '../constants/constants'
 import { CONFIG } from '../config'
@@ -50,7 +50,7 @@ const Home = ({ layoutProps }) => {
             <Link href="/media-inside-2-public" passHref>
               <Button>Ver más</Button>
             </Link>
-            <MiLista />
+            <WishlistBtn movieId={13} />
           </Featured>
         )}
 
@@ -70,7 +70,7 @@ const Home = ({ layoutProps }) => {
             <Link href="/media-inside-2-public">
               <Button>Ver más</Button>
             </Link>
-            <MiLista color="white" />
+            <WishlistBtn movieId={14}color="white"/>
           </Featured>
         )}
 
@@ -83,7 +83,7 @@ const Home = ({ layoutProps }) => {
             <Link href="/media-inside-2-public">
               <Button>Ver más</Button>
             </Link>
-            <MiLista />
+            <WishlistBtn movieId={15} />
           </Featured>
         )}
 
@@ -95,7 +95,7 @@ const Home = ({ layoutProps }) => {
             <Link href="/media-inside-2-public">
               <Button>Ver más</Button>
             </Link>
-            <MiLista color="white" />
+            <WishlistBtn movieId={16} color="white"/>
           </Featured>
         )}
 
@@ -147,7 +147,7 @@ const Cover = _ => {
                   <Link as="/category/interviews" href="/category/[slug]" passHref>
                     <Button>Ver más</Button>
                   </Link>
-                  <MiLista />
+                  <WishlistBtn movieId={17} />
                 </>
               )}
               </div>
