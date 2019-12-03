@@ -3,6 +3,7 @@ import { useRef, useEffect } from "react";
 const Input = ({
   autoComplete,
   autoFocus,
+  defaultValue,
   id,
   name,
   onChange,
@@ -13,6 +14,7 @@ const Input = ({
   type = "text",
   value,
 }) => {
+
   // autofocus is bugging if has states/onChanges
   const inputRef = useRef()
   useEffect(_ => {
@@ -20,13 +22,26 @@ const Input = ({
       inputRef.current.focus();
     }
   })
+
   return (
     <>
       <input
         autoFocus={autoFocus && "true"}
         className="form-control"
         ref={inputRef}
-        {...{autoComplete, id, name, onChange, onFocus, placeholder, required, style, type, value}}
+        {...{
+          autoComplete,
+          defaultValue,
+          id,
+          name,
+          onChange,
+          onFocus,
+          placeholder,
+          required,
+          style,
+          type,
+          value,
+        }}
       />
       <style jsx>{`
         .form-control {
