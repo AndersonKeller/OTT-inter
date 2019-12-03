@@ -13,7 +13,7 @@ const Admin = ({ layoutProps }) => (
 );
 
 Admin.getInitialProps = async function(ctx) {
-	return redirect(ctx, 'http://admin.dalecampeon.net/')
+	return redirect(ctx, '//admin.dalecampeon.net/')
 }
 
 export default Admin;

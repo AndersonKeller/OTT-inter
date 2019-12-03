@@ -109,7 +109,7 @@ function RelatedVideo({category = null, media}) {
               <img
                 className="img-fluid"
                 height="123"
-                src={media.thumbnail2_url ? media.thumbnail2_url : 'http://placehold.jp/220x123.png'} width="220"
+                src={media.thumbnail2_url ? media.thumbnail2_url : '//placehold.jp/220x123.png'} width="220"
               />
             </div>
             <div className="col-4">

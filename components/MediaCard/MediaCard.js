@@ -5,7 +5,7 @@ const MediaCard = ({
   media,
 }) => {
   if (!media.thumbnail_url) {
-    media.thumbnail_url = 'http://placehold.jp/180x256.png'
+    media.thumbnail_url = '//placehold.jp/180x256.png'
   }
   return (
     <div>

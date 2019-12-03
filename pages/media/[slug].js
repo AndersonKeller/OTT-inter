@@ -124,7 +124,7 @@ const HMediaCard = ({category, media}) => (
           <img
             className="img-fluid w-100 d-block"
             height="220"
-            src={media.thumbnail2_url ? media.thumbnail2_url : 'http://placehold.jp/390x220.png'}
+            src={media.thumbnail2_url ? media.thumbnail2_url : '//placehold.jp/390x220.png'}
             width="390"
           />
         </a>

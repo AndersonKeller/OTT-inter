@@ -66,12 +66,17 @@ import Color from 'color'
 
 Color('#D44639').darken(.2)
 Color('#D44639').fade(.2)
-
 ```
 
 ### Placeholders
 
-If anytime you need an image placeholder, feel free to use the [http://placehold.jp/](http://placehold.jp/) website. You can call a images like: [http://placehold.jp/390x220.png](http://placehold.jp/390x220.png)
+If anytime you need an image placeholder, feel free to use the [https://placehold.jp/](https://placehold.jp/) website. You can call a images like: [https://placehold.jp/390x220.png](https://placehold.jp/390x220.png). **Important**: always write `//placehold.jp/` or make sure it'll work with and without `https`. Production server will always work in `https`. If needed, you can get `HTTPS_PROTOCOL` from [constants/constants.js](constants/constants.js), like so:
+
+```js
+import { HTTP_PROTOCOL } from 'constants/constants'
+
+const myUrl = `${HTTP_PROTOCOL}://placehold.jp/390x220.png`
+```
 
 ### SVGs
 
