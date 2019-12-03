@@ -15,10 +15,12 @@ import { STATIC_PATH, TENANT } from '../../../constants/constants'
 import api from '../../../services/api'
 import MediaLink from '../../../components/MediaLink/MediaLink'
 
-export default function WatchPage({ errorCode, category, media, related, layoutProps }) {
+export default function WatchPage({ errorCode, category, media, movie_links, related, layoutProps }) {
+
   if (errorCode) {
     return <Error statusCode={errorCode} />
   }
+
   return (
     <Layout {...layoutProps}>
       <Head>
@@ -27,7 +29,10 @@ export default function WatchPage({ errorCode, category, media, related, layoutP
       <div className="container-fluid">
         <div className="row align-items-center">
           <div className="col-12 col-lg-8">
+            {/*
             <BlockedPlayer image={`${STATIC_PATH}/blurred-sample.png`} />
+            */}
+            <BlockedPlayer image={ media.thumbnail2_url } video_link={ movie_links } />
           </div>
           <div className="col-12 col-lg-4 d-none d-md-block">
             <Related {...{category, medias: related}} />
@@ -65,6 +70,9 @@ export default function WatchPage({ errorCode, category, media, related, layoutP
           }
         }
       `}</style>
+      <script>
+        {'window.alert("aqui");'}
+      </script>
     </Layout>
   );
 }
@@ -73,8 +81,8 @@ WatchPage.getInitialProps = async (context) => {
   const {slug, category: categorySlug} = context.query;
   try {
     const response = await api.get(`/movie/${slug}/category/${categorySlug}`)
-    const { category, movie, related } = response.data
-    return { category, media: movie, related }
+    const { category, movie, movie_links, related } = response.data
+    return { category, media: movie, movie_links, related }
   } catch (error) {
     const errorCode = 404
     return { errorCode }

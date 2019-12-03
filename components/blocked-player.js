@@ -3,10 +3,13 @@ import Link from 'next/link'
 import Button from '../components/button'
 import UserContext from './UserContext'
 import { IS_PRODUCTION } from '../constants/constants'
+import VideoPlayer from '../components/video-player'
 
-export default function BlockedPlayer({ image }) {
+export default function BlockedPlayer({ image, video_link }) {
   const { user } = useContext(UserContext)
   const [ video, setVideo ] = useState(user ? 1 : 0)
+  image = (image) ? image : ''
+  video_link = (video_link) ? video_link : ''; 
   const showVideo = (e) => {
     setVideo(true)
   }
@@ -15,14 +18,22 @@ export default function BlockedPlayer({ image }) {
   }, [user])
   return (
     <div className="player">
-      {video ? (
-        <div style={{padding:'56.44% 0 0 0',position:'relative'}}>
-          <iframe src={`https://player.vimeo.com/video/330250376?autoplay=${IS_PRODUCTION ? '1' : '0'}&amp;loop=1&amp;color=ff0000&amp;title=0&amp;byline=0&amp;portrait=0`}
-          style={{position:'absolute',top:0,left:0,width:'100%',height:'100%'}}
-          frameBorder="0" allow="autoplay; fullscreen" allowFullScreen></iframe>
-        </div>
+      { video ? (
+        (video_link.ready_url) ? (
+        <div style={{position:'relative'}}>
+          <VideoPlayer style={{padding:'56.44% 0 0 0',position:'relative'}} 
+                       poster = { image } link = { video_link.ready_url } 
+                       height="100%" width="100%"/>
+        </div> 
+        ) : (
+          <iframe width="820" height="505" 
+                  src={`${video_link.iframeurl}?autoplay=1`} 
+                  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                   allowfullscreen></iframe>
+        )
       ) : (
         <>
+          {/* Aqui */}
           <img src={image} width="822" height="464" className="img-fluid" />
           <div className="block-msg text-center">
             <div className="text-block">
