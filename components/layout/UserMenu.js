@@ -17,7 +17,7 @@ export default ({}) => {
   }
 
   const loggedMenu = [
-    { slug: 'add', label: 'Mi Lista', href: '/mi-lista' },
+    { slug: 'add', label: 'Mi Lista', href: '/wishlist' },
     { slug: 'user', label: 'Mi Cuenta', href: '/mi-cuenta' },
     { slug: 'settings', label: 'Configuración', href: '/mi-cuenta' },
     { slug: 'help', label: 'Ayuda', href: '/ayuda' },
