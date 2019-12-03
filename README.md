@@ -21,6 +21,12 @@ yarn docz:dev
 now --name=dalecacique
 # or
 now --name=dalecampeon
+now alias set deployed-url.now.sh dalecampeon.now.sh
+```
+
+### Removing testing deploy
+```sh
+now rm dalecampeon.now.sh
 ```
 
 ## Info
