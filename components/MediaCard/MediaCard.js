@@ -40,7 +40,7 @@ const MediaCard = ({
         }
         .media-card:focus .media-card-label,
         .media-card:hover .media-card-label {
-          opacity: .5;
+          opacity: 1;
         }
         .media-card:focus img,
         .media-card:hover img {
