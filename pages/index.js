@@ -138,13 +138,13 @@ const Cover = _ => {
                   <Link href="/subscriptor" passHref>
                     <Button>Probar Gratis</Button>
                   </Link>
-                  <Link as="/category/interviews" href="/category/[slug]" passHref>
+                  <Link href="/movies" passHref>
                     <Button color="secondary" outline>Ver más</Button>
                   </Link>
                 </>
               ) : (
                 <>
-                  <Link as="/category/interviews" href="/category/[slug]" passHref>
+                  <Link href="/movies" passHref>
                     <Button>Ver más</Button>
                   </Link>
                   <WishlistBtn movieId={17} />
