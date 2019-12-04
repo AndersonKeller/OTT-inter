@@ -1,14 +1,19 @@
-import MediaLink from "../MediaLink/MediaLink"
+import MediaLink from '../MediaLink/MediaLink'
+import PropTypes from 'prop-types'
+import React from 'react'
+import Category from '../../types/Category'
+import Media from '../../types/Media'
 
 const MediaCard = ({
   category = null,
+  className,
   media,
 }) => {
-  if (!media.thumbnail_url) {
+  if ( ! media.thumbnail_url) {
     media.thumbnail_url = '//placehold.jp/180x256.png'
   }
   return (
-    <div>
+    <div {...{className}}>
       <MediaLink {...{category, media}}>
         <a className="media-card text-center">
           <img className="img-fluid" src={media.thumbnail_url} />
@@ -18,9 +23,9 @@ const MediaCard = ({
       <style jsx>{`
         .media-card {
           display: block;
-          font-size: 16px;
+          font-size: 13px;
           line-height: 1;
-          margin-bottom: 30px;
+          outline: 0;
           text-decoration: none;
         }
         .media-card:focus,
@@ -46,9 +51,31 @@ const MediaCard = ({
         .media-card:hover img {
           opacity: .75;
         }
+        @media (min-width: 768px) {
+          .media-card {
+            font-size: 16px;
+          }
+        }
       `}</style>
     </div>
   )
+}
+
+MediaCard.propTypes = {
+  /** Category object containing at least a slug property. */
+  category: Category,
+
+  /** classNames that should be inserted on the component. */
+  className: PropTypes.string,
+
+  /** Media object containing slug, thumbnail_url and title. */
+  media: Media,
+}
+
+MediaCard.defaultProps = {
+  category: null,
+  className: null,
+  media: null,
 }
 
 export default MediaCard

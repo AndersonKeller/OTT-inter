@@ -1,0 +1,36 @@
+---
+name: MediaCard
+menu: Components
+---
+
+import { Playground, Props } from 'docz'
+import MediaCard from './MediaCard'
+
+# MediaCard
+
+<Props of={MediaCard} />
+
+## Default Use
+
+<Playground>
+  <MediaCard media={{
+    slug: 'media-slug',
+    thumbnail_url: 'https://placehold.jp/180x255.png',
+    title: 'Media Name'
+  }} />
+</Playground>
+
+## Specifying a Category
+
+This way it'll pass tha category/slug object to the next media page, so the related data will be from that category.
+
+<Playground>
+  <MediaCard
+    category={{ slug: 'category-slug' }}
+    media={{
+      slug: 'media-slug',
+      thumbnail_url: 'https://placehold.jp/180x255.png',
+      title: 'Media Name'
+    }}
+  />
+</Playground>

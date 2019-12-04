@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Button from '../components/button'
-import Card from '../components/card'
+import MediaCard from '../components/MediaCard/MediaCard'
 import CarouselSection from '../components/carousel-section'
 
 export default function MoreContentCarousel({category, uppercase}) {
@@ -11,7 +11,7 @@ export default function MoreContentCarousel({category, uppercase}) {
           <CarouselSection color="gray" title={category.name} {...{uppercase}}>
             {category.movies.length &&
               category.movies.map((item, key) => (
-                <Card {...{category, key, media: item}} />
+                <MediaCard {...{category, key, media: item}} />
               ))
             }
           </CarouselSection>
@@ -35,7 +35,7 @@ export default function MoreContentCarousel({category, uppercase}) {
           }
         }
         .carousel-section {
-          margin-bottom: 55px;
+          margin-bottom: 15px;
         }
       `}</style>
     </aside>

@@ -2,16 +2,19 @@ import MediaCard from '../MediaCard/MediaCard'
 
 export default ({ category = null, medias }) => {
   return (
-    <div className="media-cards row gutter-15">
+    <div className="media-list row gutter-15">
       { medias.map((media, key) => (
         <div className="col-4 col-md-2" {...{key}}>
-          <MediaCard {...{category, media}} />
+          <MediaCard {...{category, className: 'media-list__card', media}} />
         </div>
       )) }
       <style jsx>{`
         @media (min-width: 768px) {
-          .media-cards {
+          .media-list {
             margin-bottom: 45px;
+          }
+          .media-list :global(.media-list__card) {
+            margin-bottom: 30px;
           }
         }
       `}</style>

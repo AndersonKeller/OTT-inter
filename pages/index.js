@@ -7,7 +7,7 @@ import React, { useContext, useEffect, useState } from 'react'
 
 // app imports
 import Button from '../components/button'
-import Card from '../components/card'
+import MediaCard from '../components/MediaCard/MediaCard'
 import CarouselSection from '../components/carousel-section'
 import Featured from '../components/featured'
 import Layout from '../components/layout/Layout'
@@ -246,7 +246,7 @@ const HomeCarouselSection = ({ category: categorySlug }) => {
           <CarouselSection title={category.name}>
             {category.movies.length &&
               category.movies.map((media, key) => (
-                <Card {...{category, key, media}} />
+                <MediaCard {...{category, key, media}} />
               ))
             }
           </CarouselSection>
