@@ -152,85 +152,78 @@ const RegisterConfirmPage = ({ layoutProps }) => {
 
                 </div>
 
-                {user.package_intention && (
-                  <div>
+                {/* hr */}
+                <hr className="hr" />
 
-                    {/* hr */}
-                    <hr className="hr" />
+                {/* package */}
+                <Packages package_id_intention={user.package_id_intention} />
 
+                {/* hr */}
+                <hr className="hr" />
+
+                {/* payment */}
+                <div className="row">
+                  <div className="offset-md-2 col-md-8">
+                    <h3 className="h3">Pago</h3>
                     <div className="row">
-
-                      {/* package */}
-                      <div className="col-md-4">
-                        <PackageSelector intention={user.package_intention} />
+                      <div className="col-md-6">
+                        <FormGroup>
+                          <InputRadio
+                            label="Tarjeta de crédito"
+                            name="payment"
+                            onChange={handlePaymentChange}
+                            state={payment}
+                            value="credit"
+                          />
+                          <InputRadio
+                            label="Tarjeta de débito"
+                            name="payment"
+                            onChange={handlePaymentChange}
+                            state={payment}
+                            value="debit"
+                          />
+                          <InputRadio
+                            label="Recibo bancario"
+                            name="payment"
+                            onChange={handlePaymentChange}
+                            state={payment}
+                            value="boleto"
+                          />
+                        </FormGroup>
                       </div>
-
-                      {/* payment */}
-                      <div className="col-md-8">
-                        <h3 className="h3">Pago</h3>
-                        <div className="row">
-                          <div className="col-md-6">
+                      <div className="col-md-6">
+                        { payment === 'credit' && (
+                          <div className="card-inputs">
                             <FormGroup>
-                              <InputRadio
-                                label="Tarjeta de crédito"
-                                name="payment"
-                                onChange={handlePaymentChange}
-                                state={payment}
-                                value="credit"
-                              />
-                              <InputRadio
-                                label="Tarjeta de débito"
-                                name="payment"
-                                onChange={handlePaymentChange}
-                                state={payment}
-                                value="debit"
-                              />
-                              <InputRadio
-                                label="Recibo bancario"
-                                name="payment"
-                                onChange={handlePaymentChange}
-                                state={payment}
-                                value="boleto"
-                              />
+                              <Label htmlFor="creditCardName">Nombre impreso</Label>
+                              <Input id="creditCardName" name="creditCardName" required type="text" />
                             </FormGroup>
-                          </div>
-                          <div className="col-md-6">
-                            { payment === 'credit' && (
-                              <div className="card-inputs">
+                            <FormGroup>
+                              <Label htmlFor="creditCardNumber">Numero</Label>
+                              <Input id="creditCardNumber" name="creditCardNumber" required type="text" />
+                            </FormGroup>
+                            <div className="row">
+                              <div className="col-6">
                                 <FormGroup>
-                                  <Label htmlFor="creditCardName">Nombre impreso</Label>
-                                  <Input id="creditCardName" name="creditCardName" required type="text" />
+                                  <Label htmlFor="creditCardDate">Validez</Label>
+                                  <Input id="creditCardDate" name="creditCardDate" required type="text" />
                                 </FormGroup>
-                                <FormGroup>
-                                  <Label htmlFor="creditCardNumber">Numero</Label>
-                                  <Input id="creditCardNumber" name="creditCardNumber" required type="text" />
-                                </FormGroup>
-                                <div className="row">
-                                  <div className="col-6">
-                                    <FormGroup>
-                                      <Label htmlFor="creditCardDate">Validez</Label>
-                                      <Input id="creditCardDate" name="creditCardDate" required type="text" />
-                                    </FormGroup>
-                                  </div>
-                                  <div className="col-6">
-                                    <FormGroup>
-                                      <Label htmlFor="creditCardCode">
-                                        <abbr title="Código de seguridad">CVV</abbr>
-                                      </Label>
-                                      <Input id="creditCardCode" name="creditCardCode" required type="text" />
-                                    </FormGroup>
-                                  </div>
-                                </div>
                               </div>
-                            ) }
+                              <div className="col-6">
+                                <FormGroup>
+                                  <Label htmlFor="creditCardCode">
+                                    <abbr title="Código de seguridad">CVV</abbr>
+                                  </Label>
+                                  <Input id="creditCardCode" name="creditCardCode" required type="text" />
+                                </FormGroup>
+                              </div>
                             </div>
+                          </div>
+                        ) }
                         </div>
-                      </div>
-
                     </div>
-
                   </div>
-                )}
+                </div>
 
                 <div className="row align-items-center">
                   <div className="col-md-6 offset-md-4">
@@ -265,9 +258,10 @@ const RegisterConfirmPage = ({ layoutProps }) => {
           font-weight: bold;
           margin-bottom: 10px;
         }
+        hr,
         .hr {
-          margin-top: 15px;
-          margin-bottom: 30px;
+          margin-top: 0;
+          margin-bottom: 15px;
         }
         @media (min-width: 768px) {
           .card-inputs {
@@ -285,13 +279,11 @@ const RegisterConfirmPage = ({ layoutProps }) => {
   );
 }
 
-/* Package Selector */
-const PackageSelector = ({intention}) => {
+const Packages = ({package_id_intention}) => {
 
-  const [pkg, setPkg] = useState(intention)
   const [items, setItems] = useState()
+  const [package_id, setPackageId] = useState(package_id_intention)
 
-  /* get genres */
   useEffect(_ => {
     (async _ => {
       const {data} = await api.get('packages')
@@ -299,54 +291,68 @@ const PackageSelector = ({intention}) => {
     })()
   }, [])
 
-  function swapPlan(e) {
-    e.preventDefault()
-    if (items) {
-      setPkg(items[parseInt(Math.random()*4)])
-    }
+  function handlePackage(e) {
+    setPackageId(e.target.value)
   }
 
   return (
-    <div className="package">
-      <div className="row">
-        <div className="col-9">
-          <h3 className="h3">Plan seleccionado</h3>
-        </div>
-        <div className="col-3 align-self-start">
-          <button className="swap-btn" onClick={swapPlan} type="button">
-            <img src="/static/icons/swap.svg" />
-          </button>
-        </div>
+    <section className="packages">
+      <h3 className="h3">Selecciona tu plan</h3>
+      <div className="row gutter-15">
+        { items && items.map((item, key) => (
+          <div className="col-6 col-md-3" {...{key}}>
+            <FormGroup>
+              <PackageRadio {...{onChange: handlePackage, package_id, plan: item}} />
+            </FormGroup>
+          </div>
+        )) }
       </div>
-      { pkg && (
-        <div className="plan-card text-center">
-          <h4>{ pkg.name }</h4>
-          <h5>{ (pkg.currency === 'usd' ? '$' : '') + pkg.amount }</h5>
-        </div>
-      ) }
+    </section>
+  )
+}
+
+const PackageRadio = ({ onChange, package_id, plan }) => {
+  return (
+    <label className="text-center">
+      <input
+        checked={plan.id == package_id}
+        name="package"
+        onChange={onChange}
+        type="radio"
+        value={plan.id}
+      />
+      <span className="fake-input">
+        <span className="d-block name">{ plan.name }</span>
+        <span className="value">{ (plan.currency === 'usd' ? '$' : '') + plan.amount }</span>
+      </span>
       <style jsx>{`
-        .plan-card {
-          border: 1px solid lightgray;
-          border-radius: 3px;
-          margin-bottom: 15px;
-          padding: 27px;
-        }
-        .card-inputs {
-          margin-top: -21px;
-        }
-        .swap-btn {
-          background-color: transparent;
-          border: 0;
+        label {
+          cursor: pointer;
           display: block;
-          font-size: 14px;
-          line-height: 1;
-          margin: 0 0 0 auto;
-          outline: 0;
-          padding: 1px 2px;
-          width: auto;
+          margin-bottom: 15px;
+          overflow: hidden;
+          position: relative;
+        }
+        input {
+          opacity: 0;
+          position: absolute;
+        }
+        .fake-input {
+          border: 1px solid lightgray;
+          border-radius: 4px;
+          display: block;
+          padding: 15px;
+          transition: border-color .3s;
+        }
+        input:checked + .fake-input {
+          border-color: var(--primary);
+        }
+        .name {
+          font-size: 1.33em;
+          margin-bottom: 5px;
         }
       `}</style>
-    </div>
+    </label>
   )
 }
 
