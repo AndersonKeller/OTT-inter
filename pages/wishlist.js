@@ -2,7 +2,7 @@
 import Head from 'next/head'
 
 // react imports
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 
 // app imports
 import Layout from '../components/layout/Layout'
@@ -10,23 +10,39 @@ import { CONFIG } from '../config'
 import api from '../services/api'
 import Loading from '../components/Loading/Loading'
 import MediaList from '../components/MediaList/MediaList'
+import Button from '../components/button'
+import UserContext from '../components/UserContext'
+import Router from 'next/router'
 
 // wishlist page
 const WishlistPage = ({layoutProps}) => {
 
   const [medias, setMedias] = useState()
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState()
+  const {user} = useContext(UserContext)
+
+  /* temporarily handle user presence */
+  useEffect(_ => {
+    const timeout = setTimeout(_ => {
+      if ( ! user) {
+        Router.push('/login')
+      }
+    }, 1000)
+    return function cleanup() {
+      clearTimeout(timeout)
+    }
+  }, [user])
 
   const fetchData = async _ => {
+    setLoading(true)
     try {
-      setLoading(true)
       const {data: medias} = await api.get('/wishlist')
       setMedias(medias);
-      setLoading(false)
     } catch (e) {
       setError(500)
     }
+    setLoading(false)
   }
 
   useEffect( _ => { fetchData() }, [])
@@ -40,18 +56,33 @@ const WishlistPage = ({layoutProps}) => {
         <div className="row">
           <div className="col-md-10 offset-md-1">
 
+            {/* heading */}
             <header>
               <h1 className="h2">Mi lista</h1>
-              {error ? (
-                <h1 className="h6">{error}</h1>
-              ) : !loading && (
-                <h1 className="h4">{medias.length} Videos</h1>
-              )}
             </header>
+
+            {/* loading */}
             <Loading loadingState={loading} />
-            { ! loading && (
+
+            {/* empty msg */}
+            { ! loading && medias && medias.length === 0 && (
+              <div>
+                <div className="info">
+                  <p>Aún no hay videos en tu lista.</p>
+                </div>
+                <Button href="/movies">Agregar videos</Button>
+              </div>
+            ) }
+
+            {/* error msg */}
+            { ! loading && error && ! medias && (
+              <p>{error}</p>
+            ) }
+
+            {/* media list */}
+            { ! loading && ! error && medias && medias.length >= 1 && (
               <MediaList {...{medias, wishlist: true}} />
-            )}
+            ) }
 
           </div>
         </div>
@@ -61,6 +92,9 @@ const WishlistPage = ({layoutProps}) => {
           padding-top: 15px;
         }
         .h2 {
+          margin-bottom: 30px;
+        }
+        .info {
           margin-bottom: 30px;
         }
         @media (min-width: 768px) {
