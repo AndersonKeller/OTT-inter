@@ -7,6 +7,10 @@ export default function MediaDescription({ media }) {
         <p>{media.detail}</p>
       </div>
       <style jsx>{`
+        .description {
+          font-size: 13px;
+          line-height: normal;
+        }
         .h2,
         .year {
           margin-bottom: 10px;
@@ -16,6 +20,8 @@ export default function MediaDescription({ media }) {
         }
         @media (min-width: 768px) {
           .description {
+            font-size: 16px;
+            line-height: 1.5;
             margin-left: 10px;
           }
           .text {

@@ -66,7 +66,7 @@ export default function WatchPage({ errorCode, category, media, movie_links, rel
             padding-left: 4%;
           }
           .row:first-child {
-            margin-bottom: 60px;
+            margin-bottom: 30px;
           }
         }
       `}</style>
