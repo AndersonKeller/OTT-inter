@@ -9,6 +9,7 @@ import { AuthModalContext } from '../contexts/AuthModalContext'
 import UserContext from '../components/UserContext'
 import Loading from '../components/Loading/Loading'
 import api from '../services/api'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 
 export default function Subscriptor({ layoutProps }) {
   const playersName = TENANT === 'dalecampeon' ? 'Franco Armani' : 'Valdivia'
@@ -378,6 +379,42 @@ const SubscriptorSection = (props) => {
 }
 
 const Section1 = () => {
+
+  const iPhone4Height = 480
+
+  const {
+    height: windowHeight = iPhone4Height,
+    width: windowWidth = 320,
+  } = useWindowDimensions()
+
+  const imageDimensions = { width: 1310, height: 746 }
+
+  const headerHeight = windowWidth >= 768 ? 90 : 75
+
+  const footerHeight = windowWidth >= 768 ? 0 : 65
+
+  const chromeLaptopHeight = 657
+
+  const minHeight = windowWidth >= 1400 ? 0 :
+    windowWidth >= 1200 ? chromeLaptopHeight - headerHeight :
+    iPhone4Height - headerHeight - footerHeight
+
+  const maxHeight = windowWidth >= 1400 ? 740 :
+    windowWidth >= 1200 ? windowHeight :
+    windowWidth >= 992 ? 525 :
+    windowWidth >= 768 ? 450 :
+    windowHeight
+
+  const sectionHeight = Math.max(minHeight,
+    Math.min(maxHeight,
+      windowHeight - headerHeight - footerHeight,
+    ),
+  )
+
+  const percentage = sectionHeight / imageDimensions.height
+
+  const imageWidth = percentage * imageDimensions.width
+
   return (
     <div className="section1 container-fluid">
       <div className="row">
@@ -389,8 +426,8 @@ const Section1 = () => {
               </div>
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
-            <p className="text-uppercase">{CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos del más grande</p>
-            <p>Todo por $ 99 pesos mensuales.</p>
+            <p>{CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos del más grande</p>
+            <p>Todo por u$s 99 pesos mensuales.</p>
           </div>
         </div>
       </div>
@@ -403,12 +440,12 @@ const Section1 = () => {
             transform: translateX(-50%);
           }
         }
-        .subscriptor {
-          line-height: 1.5;
-        }
         .section1 {
+          align-items: center;
           display: flex;
-          line-height: 1.5;
+          font-size: 16px;
+          height: ${sectionHeight + 'px'};
+          line-height: 1.33;
           margin-bottom: 15px;
           overflow: hidden;
           padding-top: 30px;
@@ -420,14 +457,14 @@ const Section1 = () => {
           animation: sliding 200s linear infinite normal;
           background-image: url(${STATIC_PATH}/subscriptor/featured-background.png);
           background-position: 50% 0;
-          background-size: 1310px 100%;
+          background-size: ${imageWidth + 'px'} 100%;
           content: '';
           display: block;
           height: 100%;
           left: 0;
           position: absolute;
           top: 0;
-          width: 13100px;
+          width: ${imageWidth * 10 + 'px'};
           z-index: -2;
         }
         .section1::after {
@@ -454,21 +491,23 @@ const Section1 = () => {
           margin-bottom: 10px;
         }
         .section1__content p {
-          margin-bottom: 5px;
+          margin-bottom: 15px;
         }
         @media (min-width: 768px) {
           .section1 {
-            padding-top: 60px;
-            padding-bottom: 60px;
-          }
-          .section1__logo {
-            margin-bottom: 45px;
+            padding-top: 30px;
+            padding-bottom: 30px;
           }
         }
-        @media (min-width: 992px) {
+        @media (min-width: 1200px) {
           .section1 {
-            height: 740px;
-            padding-top: 95px;
+            --headerHeight: 90px;
+            min-height: calc(100vh - var(--headerHeight));
+          }
+        }
+        @media (min-width: 1400px) {
+          .section1 {
+            min-height: 0;
           }
           .section1__logo {
             margin-bottom: 45px;
