@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Category from '../../types/Category'
 import Media from '../../types/Media'
+import WishlistBtn from "../../components/wishlist-btn"
 
 const MediaCard = ({
   category = null,
@@ -16,6 +17,9 @@ const MediaCard = ({
     <div {...{className}}>
       <MediaLink {...{category, media}}>
         <a className="media-card text-center">
+          <div className="wish">
+            <WishlistBtn movieId={media.id} inside={true} />
+          </div>
           <img className="img-fluid" src={media.thumbnail_url} />
           <div className="media-card-label">{media.title}</div>
         </a>
@@ -50,6 +54,16 @@ const MediaCard = ({
         .media-card:focus img,
         .media-card:hover img {
           opacity: .75;
+        }
+        .wish {
+          position: absolute;
+          z-index: 2;
+          opacity: 0;
+          text-align: left;
+        }
+        .media-card:focus .wish,
+        .media-card:hover .wish {
+          opacity: 1;
         }
         @media (min-width: 768px) {
           .media-card {

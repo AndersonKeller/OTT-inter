@@ -4,6 +4,40 @@ import api from '../services/api'
 
 const WishlistBtn = ({ movieId, color, inside }) => {
 
+  const InsideBtn = ({ icon, size, onClick }) => {
+
+    return (
+      <>
+        <button className={`btn inside-btn`} onClick={onClick}>
+          <img height={size} src={icon} width={size} />
+          <span>Mi Lista</span>
+        </button>
+
+        <style jsx>{`
+
+          .inside-btn {
+            z-index: 3;
+            width: 65px;
+            padding: 2px 5px;
+            margin:0px;
+            display: flex;
+            margin: 5px;
+            color: black;
+            background-color: white;
+          }
+          span {
+            margin-left: 6px;
+            font-size: 8px;
+            font-weight: bold;
+          }
+          .inside-btn:hover {
+            background-color: lightgray;
+          }
+        `}</style>
+      </>
+    )
+  }
+
   const [wishlisted, setWishlisted] = useState(false)
 
   const handleToggle = async e => {
@@ -18,18 +52,6 @@ const WishlistBtn = ({ movieId, color, inside }) => {
     }
   }
 
-  // const style = _ => {
-  //   // const attributes = {}
-  //   return inside === true ?
-  //       { padding: '5px 10px',
-  //         borderRadius: '.25rem',
-  //         position: 'absolute',
-  //         zIndex: '10'
-  //       }
-  //     :
-  //       {}
-  // }
-
   const wishlist = async _ => {
     try {
       const res = await api.get(`/wishlist/${movieId}`)
@@ -42,30 +64,22 @@ const WishlistBtn = ({ movieId, color, inside }) => {
   useEffect( _ => { wishlist() }, [])
 
   return (
-    // <div style={{backgroundColor: 'red !important'}}>
-    //   {
-
-      wishlisted ?
-        <Button  onClick={handleToggle}>
+    wishlisted ?
+      inside ?
+        <InsideBtn icon="/static/icons/remove.svg" size="10" onClick={handleToggle} />
+      :
+        <Button onClick={handleToggle}>
           <img height="13" src="/static/icons/remove.svg" width="13" />
           <span>Mi Lista</span>
         </Button>
+    :
+      inside ?
+        <InsideBtn icon="/static/icons/add.svg" size="10"  onClick={handleToggle} />
       :
         <Button color="secondary" outline textColor={color} onClick={handleToggle}>
           <img height="13" src="/static/icons/add.svg" width="13" />
           <span>Mi Lista</span>
         </Button>
-
-    //     }
-
-    //     <style jsx>{`
-    //       .btn-small {
-    //         line-height: 1 !important;
-    //         padding-top: 0;
-    //         padding-bottom: 0;
-    //       }
-    //     `}</style>
-    // </div>
   )
 }
 
