@@ -50,7 +50,7 @@ const WishlistPage = ({layoutProps}) => {
             </header>
             <Loading loadingState={loading} />
             { ! loading && (
-              <MediaList {...{medias}} />
+              <MediaList {...{medias, wishlist: true}} />
             )}
 
           </div>

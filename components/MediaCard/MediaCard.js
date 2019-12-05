@@ -9,6 +9,7 @@ const MediaCard = ({
   category = null,
   className,
   media,
+  wishlist
 }) => {
   if ( ! media.thumbnail_url) {
     media.thumbnail_url = '//placehold.jp/180x256.png'
@@ -17,9 +18,10 @@ const MediaCard = ({
     <div {...{className}}>
       <MediaLink {...{category, media}}>
         <a className="media-card text-center">
-          <div className="wish">
-            <WishlistBtn movieId={media.id} inside={true} />
-          </div>
+          {wishlist &&
+            <div className="wish">
+              <WishlistBtn movieId={media.id} inside={true} />
+            </div>}
           <img className="img-fluid" src={media.thumbnail_url} />
           <div className="media-card-label">{media.title}</div>
         </a>
