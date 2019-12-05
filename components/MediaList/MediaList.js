@@ -1,11 +1,11 @@
 import MediaCard from '../MediaCard/MediaCard'
 
-export default ({ category = null, medias }) => {
+export default ({ wishlist, category = null, medias }) => {
   return (
     <div className="media-list row gutter-15">
       { medias.map((media, key) => (
         <div className="col-4 col-md-2" {...{key}}>
-          <MediaCard {...{category, className: 'media-list__card', media}} />
+          <MediaCard {...{category, className: 'media-list__card', media, wishlist}} />
         </div>
       )) }
       <style jsx>{`
