@@ -106,6 +106,7 @@ const Layout = ({
           /* colors by job */
           --background: var(--${layoutColor === 'white' ? 'white' : 'black'});
           --color: var(--${layoutColor === 'white' ? 'black' : 'white'});
+          --descriptions-color: var(--gray);
 
           /* fonts */
           --sans-serif: 'Helvetica', sans-serif;

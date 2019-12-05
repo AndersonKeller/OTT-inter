@@ -38,7 +38,11 @@ export default function WatchPage({ errorCode, category, media, movie_links, rel
             <Related {...{category, medias: related}} />
           </div>
         </div>
-        <MediaDescription {...{media}} />
+        <div className="row">
+          <div className="col-lg-8">
+            <MediaDescription {...{media}} />
+          </div>
+        </div>
         <div className="icons-row row">
           <div className="col">
             <LikeNCommentsBtns />

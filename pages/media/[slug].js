@@ -56,10 +56,12 @@ const Cover = ({category, media}) => {
       <div className="row align-items-center">
         <div className="col-12 col-md-5 offset-md-1">
           <div className="info">
-            <h1>{media.title}</h1>
-            {media.publish_year && (
-              <div className="year">{media.publish_year}</div>
-            )}
+            <div className="heading">
+              <h1>{media.title}</h1>
+              {media.publish_year && (
+                <div className="year">{media.publish_year}</div>
+              )}
+            </div>
             {media.detail && (
               <div className="description">
                 <p>{media.detail}</p>
@@ -86,15 +88,22 @@ const Cover = ({category, media}) => {
           padding-bottom: 15px;
         }
         .info {
+          margin-bottom: 30px;
+        }
+        .heading {
           margin-bottom: 15px;
         }
         h1 {
           font-size: 31px;
+          font-weight: bold;
           line-height: normal;
           margin-bottom: 0;
         }
         .year {
           font-size: 1.33em;
+        }
+        .description {
+          color: var(--descriptions-color);
         }
         .cover :global(.btn-primary) {
           margin-bottom: 15px;
@@ -117,7 +126,7 @@ const Cover = ({category, media}) => {
 
 // individual more card
 const HMediaCard = ({category, media}) => (
-  <div className="h-media-card row align-items-center">
+  <div className="h-media-card row">
     <div className="col-md-4">
       <MediaLink watch {...{category, media}}>
         <a>
@@ -130,7 +139,7 @@ const HMediaCard = ({category, media}) => (
         </a>
       </MediaLink>
     </div>
-    <div className="col-md-7">
+    <div className="col-md-5">
       <h3 className="h3">
         <MediaLink watch {...{category, media}}>
           <a>{media.title}</a>
@@ -155,14 +164,16 @@ const HMediaCard = ({category, media}) => (
       }
       .h3 {
         font-size: inherit;
-        margin-top: 0;
-        margin-bottom: 0;
+        font-weight: bold;
+        margin-top: 15px;
+        margin-bottom: 15px;
       }
       .h3 a:focus,
       .h3 a:hover {
         text-decoration: underline;
       }
       .description {
+        color: var(--descriptions-color);
         font-size: 15px;
       }
       @media (min-width: 768px) {

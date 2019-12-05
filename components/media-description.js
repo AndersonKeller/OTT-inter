@@ -8,11 +8,13 @@ export default function MediaDescription({ media }) {
       </div>
       <style jsx>{`
         .description {
+          color: var(--descriptions-color);
           font-size: 13px;
           line-height: normal;
         }
         .h2,
         .year {
+          color: var(--white);
           margin-bottom: 10px;
         }
         .text {

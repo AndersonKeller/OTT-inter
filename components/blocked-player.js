@@ -8,6 +8,7 @@ import VideoPlayer from '../components/video-player'
 export default function BlockedPlayer({ image = '', video_link = '' }) {
   const { user } = useContext(UserContext)
   const [ video, setVideo ] = useState(user ? 1 : 0)
+  const autoplay = IS_PRODUCTION
 
   const showVideo = (e) => {
     e.preventDefault()
@@ -33,11 +34,11 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
         </div>
         ) : (
           <iframe
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allow={`accelerometer; ${autoplay ? 'autoplay;' : ''} encrypted-media; gyroscope; picture-in-picture`}
             allowFullScreen
             frameBorder="0"
             height="505"
-            src={`${video_link.iframeurl}?autoplay=1`}
+            src={`${video_link.iframeurl}?${autoplay ? 'autoplay=1' : ''}`}
             width="820"
           ></iframe>
         )
