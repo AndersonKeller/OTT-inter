@@ -77,21 +77,24 @@ const Cover = ({category, media}) => {
           background-color: #0a0b11;
           background-position: 50% 50%, 100% 50%;
           background-repeat: no-repeat, no-repeat;
-          background-size: cover, contain;
-          font-size: 20px;
+          background-size: cover, cover;
+          font-size: 15px;
           line-height: 1.5;
         }
         .cover .row {
           padding-top: calc(var(--padding-top) + 15px);
           padding-bottom: 15px;
         }
+        .info {
+          margin-bottom: 15px;
+        }
         h1 {
           font-size: 31px;
           line-height: normal;
           margin-bottom: 0;
         }
-        .info {
-          margin-bottom: 30px;
+        .year {
+          font-size: 1.33em;
         }
         .cover :global(.btn-primary) {
           margin-bottom: 15px;
@@ -99,10 +102,8 @@ const Cover = ({category, media}) => {
         @media (min-width: 768px) {
           .cover .row {
             height: 560px;
-            padding-top: 110px;
-          }
-          .info {
-            margin-bottom: 50px;
+            padding-top: var(--padding-top);
+            padding-bottom: 30px;
           }
           .cover :global(.btn-primary) {
             margin-right: 15px;
@@ -118,7 +119,6 @@ const Cover = ({category, media}) => {
 const HMediaCard = ({category, media}) => (
   <div className="h-media-card row align-items-center">
     <div className="col-md-4">
-
       <MediaLink watch {...{category, media}}>
         <a>
           <img
@@ -137,7 +137,9 @@ const HMediaCard = ({category, media}) => (
         </MediaLink>
       </h3>
       {media.detail && (
-        <p>{media.detail}</p>
+        <div className="description">
+          <p>{media.detail}</p>
+        </div>
       )}
     </div>
     <style jsx>{`
@@ -159,6 +161,9 @@ const HMediaCard = ({category, media}) => (
       .h3 a:focus,
       .h3 a:hover {
         text-decoration: underline;
+      }
+      .description {
+        font-size: 15px;
       }
       @media (min-width: 768px) {
         .h-media-card {
