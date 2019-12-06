@@ -176,27 +176,23 @@ const Packages = () => {
                           <div className="time">{item.name}</div>
                           { item.amount !== 0 && (
                             <div className="value">
-                              { (item.currency === 'usd' ? '$' : '') + item.amount }
+                              { item.price }
                             </div>
                           ) }
-                          { ! user && (
-                            <>
-                              { item.amount === 0 ? (
-                                <Button
-                                  block
-                                  onClick={(e) => choosePackage(e, item.id)}
-                                >Probá Gratis</Button>
-                              ) : (
-                                <Button
-                                  block
-                                  color="secondary"
-                                  onClick={(e) => choosePackage(e, item.id)}
-                                  outline
-                                >Suscribir</Button>
-                              ) }
-                            </>
-                          ) }
-                          </div>
+                          { ! user && (item.amount === 0 ? (
+                            <Button
+                              block
+                              onClick={(e) => choosePackage(e, item.id)}
+                            >Probá Gratis</Button>
+                          ) : (
+                            <Button
+                              block
+                              color="secondary"
+                              onClick={(e) => choosePackage(e, item.id)}
+                              outline
+                            >Suscribir</Button>
+                          )) }
+                        </div>
                       </div>
                     )) }
                   </div>
