@@ -260,26 +260,23 @@ const BannerSection = ({bannerID: id, movieID}) => {
 
         {/* features */}
         { (banner) && (
-          <Featured img={banner.banner_url}>
+              <div>
             {(!movieID)? (
-              <div className="buttons">
-                 <Link href="/subscriptor">
-                   <Button>Probar Gratis</Button>
-                 </Link>
                     <a className="sponsor-link" href={banner.link} target="_blank">
-                      <Button color="secondary" outline>Descubri más</Button>
+                      <Featured img={banner.banner_url} />
                     </a>
-              </div>
             ) :
             (
+             <Featured img={banner.banner_url}>
               <div className="buttons">
                 <Link href={banner.link} passHref>
                   <Button>Ver más</Button>
                 </Link>
                 <WishlistBtn movieId={movieID} />
               </div>
+              </Featured>
             )}
-          </Featured>
+            </div>
         )} 
 
         {/* error */}
