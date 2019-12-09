@@ -82,7 +82,7 @@ const Page = ({ layoutProps }) => {
 
   useEffect(() => {
     const script = document.createElement("script")
-    script.src = latestJSApi
+    script.src = jsApi
     script.async = true
     script.onload = () => scriptLoaded()
     document.body.appendChild(script)
