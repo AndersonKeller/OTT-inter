@@ -3,8 +3,9 @@ import Head from 'next/head'
 import Layout from '../../../components/layout/Layout'
 import { CONFIG } from '../../../config'
 import { useEffect } from 'react'
+import { IS_PRODUCTION } from '../../../constants/constants'
 
-const Page = ({ layoutProps }) => {
+const Page = ({ errorCode, layoutProps }) => {
   let POS
   function onSubmit(event) {
     event.preventDefault();
@@ -74,7 +75,7 @@ const Page = ({ layoutProps }) => {
     document.body.appendChild(script);
   })
   return (
-    <Layout {...layoutProps} color="white" payments>
+    <Layout color="white" errorCode={errorCode} {...layoutProps}>
       <Head>
         <title>Payments Sample &lt; {CONFIG.appName}</title>
       </Head>
@@ -94,6 +95,13 @@ const Page = ({ layoutProps }) => {
         </form>
     </Layout>
   )
+}
+
+Page.getInitialProps = _ => {
+  if (IS_PRODUCTION) {
+    const errorCode = 404
+    return { errorCode }
+  }
 }
 
 export default Page

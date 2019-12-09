@@ -16,13 +16,8 @@ import api from '../../../services/api'
 import MediaLink from '../../../components/MediaLink/MediaLink'
 
 export default function WatchPage({ errorCode, category, media, movie_links, related, layoutProps }) {
-
-  if (errorCode) {
-    return <Error statusCode={errorCode} />
-  }
-
   return (
-    <Layout {...layoutProps}>
+    <Layout errorCode={errorCode} {...layoutProps}>
       <Head>
         <title>{media.title} &lt; {CONFIG.appName}</title>
       </Head>

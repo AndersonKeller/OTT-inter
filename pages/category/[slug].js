@@ -1,4 +1,3 @@
-import Error from 'next/error'
 import Head from 'next/head'
 
 import Layout from '../../components/layout/Layout'
@@ -8,13 +7,10 @@ import MediaList from '../../components/MediaList/MediaList'
 
 const Category = ({ category, errorCode, layoutProps, medias }) => {
 
-  if (errorCode) {
-    return <Error statusCode={errorCode} />
-  }
   // const router = useRouter()
 
   return (
-    <Layout {...layoutProps}>
+    <Layout errorCode={errorCode} {...layoutProps}>
       <Head>
         <title>{category.name} &lt; {CONFIG.appName}</title>
       </Head>

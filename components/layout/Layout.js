@@ -1,4 +1,5 @@
 // next imports
+import Error from 'next/error'
 import Head from 'next/head'
 
 // other imports
@@ -18,9 +19,10 @@ import AuthModal from './AuthModal/AuthModal'
 const Layout = ({
   children,
   color: layoutColor = 'black',
-  error,
+  errorCode,
   header,
   menus,
+  menusError,
   paddingTop = true,
 }) => {
 
@@ -31,6 +33,10 @@ const Layout = ({
   if ( ! IS_PRODUCTION) {
     import('bootstrap/dist/css/bootstrap.min.css')
     import('slick-carousel/slick/slick.css')
+  }
+
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
   }
 
   return (
@@ -69,7 +75,11 @@ const Layout = ({
         <script src="https://player.vimeo.com/api/player.js"></script>
       </Head>
 
-      <Header {...{closed: header === 'closed', layoutColor, menus}} />
+      <Header {...{
+        closed: header === 'closed',
+        layoutColor,
+        menus: menusError ? null : menus,
+      }} />
 
       <main className={ ! paddingTop ? 'no-padding' : ''}>
         {children}
@@ -261,7 +271,7 @@ Layout.getInitialProps = async _ => {
     const menus = await loadMenus()
     return { menus }
   } catch (error) {
-    return { error }
+    return { menusError: error }
   }
 }
 

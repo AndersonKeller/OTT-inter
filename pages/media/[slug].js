@@ -1,5 +1,4 @@
 // next imports
-import Error from 'next/error'
 import Head from 'next/head'
 
 // react imports
@@ -16,11 +15,8 @@ import api from '../../services/api'
 
 // page
 function MediaPage1({ category, errorCode, layoutProps, media, related }) {
-  if (errorCode) {
-    return <Error statusCode={errorCode} />
-  }
   return (
-    <Layout {...layoutProps} paddingTop={false}>
+    <Layout errorCode={errorCode} {...layoutProps} paddingTop={false}>
       <Head>
         <title>{media.title} &lt; {CONFIG.appName}</title>
       </Head>
