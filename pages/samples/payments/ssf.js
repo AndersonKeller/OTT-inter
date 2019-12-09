@@ -1,7 +1,7 @@
 
 import Head from 'next/head'
-import Layout from '../../components/layout/Layout'
-import { CONFIG } from '../../config'
+import Layout from '../../../components/layout/Layout'
+import { CONFIG } from '../../../config'
 import { useEffect } from 'react'
 
 const Page = ({ layoutProps }) => {
@@ -13,8 +13,8 @@ const Page = ({ layoutProps }) => {
       custom_data: document.getElementById('custom').value,
     }
     POS.createToken(additionalData, function(result) {
-      console.log(result)
-      if (result.token) {
+      const json = JSON.parse(result)
+      if (json.token) {
         // sample response:
         /* {
           "token":"3c82255a-7986-405b-9721-11be1d3ab6ed",
