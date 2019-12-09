@@ -38,66 +38,24 @@ const Home = ({ layoutProps }) => {
         <HomeCarouselSection category="arts" />
 
         {/* featured */}
-        {!user ? (
-          <Featured img={`${STATIC_PATH}/featured/crear.png`}>
-            <Link href="/subscriptor">
-              <Button>Probar Gratis</Button>
-            </Link>
-            <Button color="secondary" outline>Compra aquí</Button>
-          </Featured>
-        ) : (
-          <Featured img={`${STATIC_PATH}/logged-banner1.png`}>
-            <Link href="/media-inside-2-public" passHref>
-              <Button>Ver más</Button>
-            </Link>
-            <WishlistBtn movieId={13} />
-          </Featured>
-        )}
+        { (user)? <BannerSection  bannerID="1" movieID="13"/> : <BannerSection bannerID="6"/> }
 
         {/* podcasts */}
         <HomeCarouselSection category="podcasts" />
 
         {/* features */}
-        {!user ? (
-          <Featured img={`${STATIC_PATH}/featured/sponsored-or-generic.png`}>
-            <Link href="/subscriptor">
-              <Button>Probar Gratis</Button>
-            </Link>
-            <Button color="secondary" outline>Descubri más</Button>
-          </Featured>
-        ) : (
-          <Featured img={`${STATIC_PATH}/logged-banner2.png`}>
-            <Link href="/media-inside-2-public">
-              <Button>Ver más</Button>
-            </Link>
-            <WishlistBtn movieId={14}color="white"/>
-          </Featured>
-        )}
+        { (user)? <BannerSection  bannerID="2" movieID="14"/> : <BannerSection bannerID="5"/> }
 
         {/* news */}
         <HomeCarouselSection category="news" />
 
         {/* features */}
-        {user && (
-          <Featured img={`${STATIC_PATH}/logged-banner3.png`}>
-            <Link href="/media-inside-2-public">
-              <Button>Ver más</Button>
-            </Link>
-            <WishlistBtn movieId={15} />
-          </Featured>
-        )}
+        { (user)? <BannerSection  bannerID="3" movieID="15" /> : "" }
 
         {/* family */}
         <HomeCarouselSection category="family" />
 
-        {user && (
-          <Featured img={`${STATIC_PATH}/logged-banner4.png`}>
-            <Link href="/media-inside-2-public">
-              <Button>Ver más</Button>
-            </Link>
-            <WishlistBtn movieId={16} color="white"/>
-          </Featured>
-        )}
+        { (user)? <BannerSection  bannerID="4" movieID="16"/> : "" }
 
         {/* children */}
         <HomeCarouselSection category="children" />
@@ -270,4 +228,80 @@ const HomeCarouselSection = ({ category: categorySlug }) => {
       `}</style>
     </div>
   )
+}
+
+const BannerSection = ({bannerID: id, movieID}) => {
+  const [banner, setBanner] = useState()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState()
+
+  useEffect(_ => {
+    async function fetchData() {
+      setLoading(true)
+      try {
+        const {data} = await api.get(`/banners/${id}`)
+        setBanner(data)
+      } catch (error) {
+        setError(true)
+      }
+      setLoading(false)
+    }
+    fetchData()
+  }, [id])
+  
+  return (
+    <div>
+      <div className="section">
+        
+        {/* loading */}
+        <div className="text-center">
+          <Loading loadingState={loading} />
+        </div>
+
+        {/* features */}
+        { (banner) && (
+          <Featured img={banner.banner_url}>
+            {(!movieID)? (
+              <div className="buttons">
+                 <Link href="/subscriptor">
+                   <Button>Probar Gratis</Button>
+                 </Link>
+                    <a className="sponsor-link" href={banner.link} target="_blank">
+                      <Button color="secondary" outline>Descubri más</Button>
+                    </a>
+              </div>
+            ) :
+            (
+              <div className="buttons">
+                <Link href={banner.link} passHref>
+                  <Button>Ver más</Button>
+                </Link>
+                <WishlistBtn movieId={movieID} />
+              </div>
+            )}
+          </Featured>
+        )} 
+
+        {/* error */}
+        {error && (
+          <div className="text-center">Error</div>
+        )}
+        
+      </div>
+      <style jsx>{`
+        .sponsor-link {
+          color: white !important;
+          text-decoration: none;
+        }
+        .sponsor-link:hover {
+          color: white !important;
+          text-decoration: none;
+        }
+        a:not([href]):not([tabindex]):hover {
+          color: white !important;
+          text-decoration: none;
+        }
+      `}</style>
+    </div>
+  );
 }
