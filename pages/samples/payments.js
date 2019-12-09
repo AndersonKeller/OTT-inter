@@ -9,7 +9,8 @@ const Page = ({ layoutProps }) => {
   function onSubmit(event) {
     event.preventDefault();
     const additionalData = {
-      holder_name: document.getElementById('cardholder-name').value
+      holder_name: document.getElementById('cardholder-name').value,
+      custom_data: document.getElementById('custom').value,
     }
     POS.createToken(additionalData, function(result) {
       console.log(result)
@@ -59,7 +60,13 @@ const Page = ({ layoutProps }) => {
       </Head>
         Payments
         <form id="payment-form" method="post" onSubmit={onSubmit}>
-          <input type="text" id="cardholder-name" placeholder="John Doe" />
+
+          {/* custom additional data */}
+          <input type="text" id="custom" placeholder="Custom Additional Data" />
+
+          {/* mandatory data */}
+          <input id="cardholder-name" placeholder="John Doe" required type="text" />
+
           <div id="card-secure-fields">
             <p>The payment form will be displayed here</p>
           </div>
