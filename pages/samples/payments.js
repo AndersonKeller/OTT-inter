@@ -14,25 +14,45 @@ const Page = ({ layoutProps }) => {
     }
     POS.createToken(additionalData, function(result) {
       console.log(result)
-      // sample response:
-      /* {
-        "token":"3c82255a-7986-405b-9721-11be1d3ab6ed",
-        "created":"1575914964507",
-        "pass_luhn_validation":true,
-        "encrypted_cvv":"NjI0MzdmN2UtOGUwYS00MWVmLWFkZTItOGYyMDRhNjQ4YWRiY3Z2X2RlbGltaXRlcnZhdWx0OnYxOnIzd1g0aGowbXZ5NS9nQ2lPb2ZlR29tR2FDcnZHYVJEalUrTzJreTVxQ2VaSVNLSVpxNnRCSlNJQi9mVmV6am5zdzI1a3lLbFpwR2hSQjRLRExOZzVqWFBZYWtmdC9iVTE5MVZvU01y",
-        "token_type":"credit_card",
-        "type":"tokenized",
-        "state":"created",
-        "bin_number":"550209",
-        "vendor":"MASTERCARD",
-        "card_type":"CREDIT",
-        "issuer":"NU PAGAMENTOS SA",
-        "level":"GOLD",
-        "country_code":"BRA",
-        "holder_name":"Giovanni",
-        "expiration_date":"08/2027",
-        "last_4_digits":"3362"
-      } */
+      if (result.token) {
+        // sample response:
+        /* {
+          "token":"3c82255a-7986-405b-9721-11be1d3ab6ed",
+          "created":"1575914964507",
+          "pass_luhn_validation":true,
+          "encrypted_cvv":"NjI0MzdmN2UtOGUwYS00MWVmLWFkZTItOGYyMDRhNjQ4YWRiY3Z2X2RlbGltaXRlcnZhdWx0OnYxOnIzd1g0aGowbXZ5NS9nQ2lPb2ZlR29tR2FDcnZHYVJEalUrTzJreTVxQ2VaSVNLSVpxNnRCSlNJQi9mVmV6am5zdzI1a3lLbFpwR2hSQjRLRExOZzVqWFBZYWtmdC9iVTE5MVZvU01y",
+          "token_type":"credit_card",
+          "type":"tokenized",
+          "state":"created",
+          "bin_number":"550209",
+          "vendor":"MASTERCARD",
+          "card_type":"CREDIT",
+          "issuer":"NU PAGAMENTOS SA",
+          "level":"GOLD",
+          "country_code":"BRA",
+          "holder_name":"Giovanni",
+          "expiration_date":"08/2027",
+          "last_4_digits":"3362"
+        } */
+      } else {
+        const possibleErrors = [
+          {
+            category: "client_validation_error",
+            description: "Invalid PAN",
+            more_info: "Card number did not pass luhn validation"
+          },
+          {
+            category: "client_validation_error",
+            description: "Invalid expiration date",
+            more_info: "expiration date have passed"
+          },
+          {
+            category: "client_validation_error",
+            description: "Missing required parameters",
+            more_info: "holder_name field is mandatory"
+          },
+        ]
+      }
     });
   }
   function scriptLoaded() {
