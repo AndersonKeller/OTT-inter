@@ -19,8 +19,8 @@ const Layout = ({
   children,
   color: layoutColor = 'black',
   error,
-  menus,
   header,
+  menus,
   paddingTop = true,
 }) => {
 
