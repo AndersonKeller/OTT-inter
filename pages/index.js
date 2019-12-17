@@ -90,7 +90,7 @@ const Cover = ({ media }) => {
     <div className="cover">
       <div className="container-fluid">
         <div className="row">
-          <div className="col col-8 col-md-4 offset-md-1">
+          <div className="col-10 offset-1 col-md-4 offset-md-1">
             <div className="cover__interaction">
 
               <div className="cover__infos">
@@ -109,11 +109,15 @@ const Cover = ({ media }) => {
                   <Button>Probar Gratis</Button>
                 </Link>
               ) : (
-                <div>
-                  <MediaLink {...{media}} passHref>
-                    <Button>Mira</Button>
-                  </MediaLink>
-                  <WishlistBtn movieId={media.id} />
+                <div className="row justify-content-center justify-content-md-start gutter-15">
+                  <div className="col-auto">
+                    <MediaLink {...{media}} passHref>
+                      <Button>Mira</Button>
+                    </MediaLink>
+                  </div>
+                  <div className="col-auto">
+                    <WishlistBtn movieId={media.id} />
+                  </div>
                 </div>
               )}
 
@@ -123,21 +127,35 @@ const Cover = ({ media }) => {
       </div>
       <style jsx>{`
         .cover {
-          align-items: center;
           background-image:
             linear-gradient(to bottom, rgba(0,0,0,0) 80%, black 100%),
-            radial-gradient(circle at 67.5% 57.5%, rgba(0,0,0,0) 25%, rgba(0,0,0,.925) 42.5%),
+            radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 25%, rgba(0,0,0,.925) 75%),
             url(${media.poster_url});
-          background-position: 50% 50%, 50% 50%;
-          background-repeat: no-repeat, no-repeat;
-          background-size: cover, cover;
+          background-position: 50% 50%, 50% 0, 80% 0;
+          background-repeat: no-repeat, no-repeat, no-repeat;
+          background-size: cover, 100% 350px, 170%;
           display: flex;
-          height: 650px;
-          margin-bottom: -60px;
-          min-height: 100vh;
+          margin-bottom: 15px;
+          min-height: 400px;
           overflow: hidden;
-          padding-top: var(--padding-top);
-          padding-bottom: 60px;
+          padding-top: calc(var(--padding-top) + 150px);
+          padding-bottom: 15px;
+        }
+        @media (min-width: 768px) {
+          .cover {
+            align-items: center;
+            background-image:
+              linear-gradient(to bottom, rgba(0,0,0,0) 80%, black 100%),
+              radial-gradient(circle at 67.5% 57.5%, rgba(0,0,0,0) 25%, rgba(0,0,0,.925) 42.5%),
+              url(${media.poster_url});
+            background-position: 50% 50%, 50% 50%, 50% 50%;
+            background-size: cover, cover, cover;
+            height: 650px;
+            margin-bottom: -60px;
+            min-height: 100vh;
+            padding-top: var(--padding-top);
+            padding-bottom: 60px;
+          }
         }
         .cover__infos {
           margin-bottom: 30px;
@@ -156,9 +174,6 @@ const Cover = ({ media }) => {
           left: 0;
           position: absolute;
           top: 0;
-        }
-        .cover :global(.btn) {
-          margin-right: 15px;
         }
       `}</style>
     </div>
