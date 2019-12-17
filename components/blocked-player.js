@@ -44,7 +44,6 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
         )
       ) : (
         <>
-          {/* Aqui */}
           <img src={image} width="822" height="464" className="img-fluid" />
           <div className="block-msg text-center">
             <div className="text-block">

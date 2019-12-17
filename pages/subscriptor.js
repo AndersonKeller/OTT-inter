@@ -56,7 +56,8 @@ export default function Subscriptor({ layoutProps }) {
           </H2>
           <SubscriptorSectionText>
             {TENANT === 'dalecampeon' ? (
-              <p>Sucesos como The Handmaid's Tale y clásicos, como Dexter y House</p>
+              <p>
+              ¡Destacados del club y contenido exclusivo para ver tantas veces como quieras!</p>
             ) : (
               <p>Mati Zaldivia: mi vida en el Albo</p>
             )}
@@ -93,7 +94,7 @@ export default function Subscriptor({ layoutProps }) {
             Sin compromiso
           </H2>
           <SubscriptorSectionText>
-            <p>¿No quiero mas? Usted cancela cuando quiera: en línea y con un clic</p>
+            <p style={{ width: `300px`}}>¿No quiero mas? Usted cancela cuando quiera: en línea y con un clic</p>
           </SubscriptorSectionText>
         </SubscriptorSection>
 

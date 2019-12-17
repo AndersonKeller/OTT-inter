@@ -1,5 +1,6 @@
 // next imports
 import Head from 'next/head'
+import Link from 'next/link'
 
 // react imports
 import { useContext } from 'react'
@@ -64,9 +65,17 @@ const Cover = ({category, media}) => {
               </div>
             )}
           </div>
-          <MediaLink {...{category, media}} watch>
+          {/* <MediaLink {...{category, media}} watch>
             <Button>{!user ? 'Proba Gratis' : 'Mira'}</Button>
-          </MediaLink>
+            </MediaLink> */}
+            { (user) ?
+              <MediaLink {...{category, media}} watch>
+                <Button>{!user ? 'Proba Gratis' : 'Mira'}</Button>
+              </MediaLink>  :
+              <Link href="/subscriptor">
+                <Button>Probá Gratis</Button>
+              </Link>
+            }
           <WishlistBtn movieId={media.id} />
         </div>
       </div>
