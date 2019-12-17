@@ -33,7 +33,7 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
           />
         </div>
         ) : (
-          <div className="embed-responsive" >
+          <div className="embed-responsive embed-responsive-16by9" >
           <iframe
             allow={`accelerometer; ${autoplay ? 'autoplay;' : ''} encrypted-media; gyroscope; picture-in-picture`}
             allowFullScreen
@@ -66,19 +66,6 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
         .player {
           overflow: hidden;
           position: relative;
-        }
-        .embed-responsive {
-          height: 500px;
-        }
-        @media (max-width: 600px){
-          .embed-responsive {
-            height: 300px;
-          }
-        }
-        @media tv and (min-width: 1240px){
-          .embed-responsive {
-            height: 1000px;
-          }
         }
         .block-msg {
           align-items: center;
