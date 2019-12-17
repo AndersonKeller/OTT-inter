@@ -50,12 +50,12 @@ const Home = ({ featuredMedia, featuredMediaError, layoutProps }) => {
         <HomeCarouselSection category="news" />
 
         {/* features */}
-        { (user)? <BannerSection  bannerID="3" movieID="15" /> : "" }
+        { (user)? <BannerSection  bannerID="3" movieID="15" /> : <BannerSection bannerID="7"/> }
 
         {/* family */}
         <HomeCarouselSection category="family" />
 
-        { (user)? <BannerSection  bannerID="4" movieID="16"/> : "" }
+        { (user)? <BannerSection  bannerID="4" movieID="16"/> : <BannerSection bannerID="8"/> }
 
         {/* children */}
         <HomeCarouselSection category="children" />
