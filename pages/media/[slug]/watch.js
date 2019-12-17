@@ -69,9 +69,6 @@ export default function WatchPage({ errorCode, category, media, movie_links, rel
           }
         }
       `}</style>
-      <script>
-        {'window.alert("aqui");'}
-      </script>
     </Layout>
   );
 }
