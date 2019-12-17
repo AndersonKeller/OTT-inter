@@ -50,12 +50,12 @@ const Home = ({ layoutProps }) => {
         <HomeCarouselSection category="news" />
 
         {/* features */}
-        { (user)? <BannerSection  bannerID="3" movieID="15" /> : "" }
+        { (user)? <BannerSection  bannerID="3" movieID="15" /> : <BannerSection bannerID="7"/> }
 
         {/* family */}
         <HomeCarouselSection category="family" />
 
-        { (user)? <BannerSection  bannerID="4" movieID="16"/> : "" }
+        { (user)? <BannerSection  bannerID="4" movieID="16"/> : <BannerSection bannerID="8"/> }
 
         {/* children */}
         <HomeCarouselSection category="children" />
@@ -248,11 +248,11 @@ const BannerSection = ({bannerID: id, movieID}) => {
     }
     fetchData()
   }, [id])
-  
+
   return (
     <div>
       <div className="section">
-        
+
         {/* loading */}
         <div className="text-center">
           <Loading loadingState={loading} />
@@ -277,13 +277,13 @@ const BannerSection = ({bannerID: id, movieID}) => {
               </Featured>
             )}
             </div>
-        )} 
+        )}
 
         {/* error */}
         {error && (
           <div className="text-center">Error</div>
         )}
-        
+
       </div>
       <style jsx>{`
         .sponsor-link {
