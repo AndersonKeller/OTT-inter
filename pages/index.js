@@ -20,7 +20,11 @@ import api from '../services/api'
 
 // home page
 const Home = ({ featuredMedia, featuredMediaError, layoutProps }) => {
+
+  // get user
   const { user } = useContext(UserContext)
+
+  // return
   return (
     <Layout {...layoutProps} paddingTop={false}>
       <Head>
@@ -31,43 +35,53 @@ const Home = ({ featuredMedia, featuredMediaError, layoutProps }) => {
         {/* cover */}
         <Cover error={featuredMediaError} media={featuredMedia} />
 
-        {/* supporters */}
-        <HomeCarouselSection category="supporters" />
+        <div className="index__contents">
 
-        {/* arts */}
-        <HomeCarouselSection category="arts" />
+          {/* supporters */}
+          <HomeCarouselSection category="supporters" />
 
-        {/* featured */}
-        { (user)? <BannerSection  bannerID="1" movieID="13"/> : <BannerSection bannerID="6"/> }
+          {/* arts */}
+          <HomeCarouselSection category="arts" />
 
-        {/* podcasts */}
-        <HomeCarouselSection category="podcasts" />
+          {/* featured */}
+          { (user)? <BannerSection  bannerID="1" movieID="13"/> : <BannerSection bannerID="6"/> }
 
-        {/* features */}
-        { (user)? <BannerSection  bannerID="2" movieID="14"/> : <BannerSection bannerID="5"/> }
+          {/* podcasts */}
+          <HomeCarouselSection category="podcasts" />
 
-        {/* news */}
-        <HomeCarouselSection category="news" />
+          {/* features */}
+          { (user)? <BannerSection  bannerID="2" movieID="14"/> : <BannerSection bannerID="5"/> }
 
-        {/* features */}
-        { (user)? <BannerSection  bannerID="3" movieID="15" /> : <BannerSection bannerID="7"/> }
+          {/* news */}
+          <HomeCarouselSection category="news" />
 
-        {/* family */}
-        <HomeCarouselSection category="family" />
+          {/* features */}
+          { (user)? <BannerSection  bannerID="3" movieID="15" /> : <BannerSection bannerID="7"/> }
 
-        { (user)? <BannerSection  bannerID="4" movieID="16"/> : <BannerSection bannerID="8"/> }
+          {/* family */}
+          <HomeCarouselSection category="family" />
 
-        {/* children */}
-        <HomeCarouselSection category="children" />
+          { (user)? <BannerSection  bannerID="4" movieID="16"/> : <BannerSection bannerID="8"/> }
 
+          {/* children */}
+          <HomeCarouselSection category="children" />
+
+        </div>
       </div>
+
+      {/* styles */}
       <style jsx>{`
+        .index__contents {
+          position: relative;
+          z-index: 2;
+        }
         @media (min-width: 768px) {
           .index {
             padding-bottom: 30px;
           }
         }
       `}</style>
+
     </Layout>
   )
 }
@@ -86,85 +100,113 @@ export default Home
 
 // home cover
 const Cover = ({ error, media }) => {
+
+  // get user
   const { user } = useContext(UserContext)
+
+  // in case of errors
   if (error) {
     return (
       <p>No se puede cargar contenido destacado</p>
     )
   }
+
+  // return
   return (
-    <div className="cover">
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-10 offset-1 col-md-4 offset-md-1">
-            <div className="cover__interaction">
+    <div className="cover container-fluid">
 
-              <div className="cover__infos">
-                <h1 className="cover__logo">
-                  <img className="img-fluid" height={media.logo.height} src={media.logo.url} width={media.logo.width} />
-                </h1>
-                {media.description && (
-                  <div className="cover__description">
-                    <p>{media.description}</p>
-                  </div>
-                )}
-              </div>
-
-              { ! user ? (
-                <Link href="/subscriptor" passHref>
-                  <Button>Probar Gratis</Button>
-                </Link>
-              ) : (
-                <div className="row justify-content-center justify-content-md-start gutter-15">
-                  <div className="col-auto">
-                    <MediaLink {...{media}} passHref>
-                      <Button>Mira</Button>
-                    </MediaLink>
-                  </div>
-                  <div className="col-auto">
-                    <WishlistBtn movieId={media.id} />
-                  </div>
-                </div>
-              )}
-
-            </div>
+      {/* image */}
+      <div className="cover__img row">
+        <div className="col p-0">
+          <div className="cover__img-content">
+            <img alt="" className="d-none" src={media.poster_url} />
           </div>
         </div>
       </div>
+
+      <div className="cover__contents row">
+        <div className="col-12 col-md-4 offset-md-1">
+          <div className="cover__infos">
+
+            {/* logo */}
+            <div className="row">
+              <div className="col-8 offset-2 col-md-12 offset-md-0">
+                <h1 className="cover__logo">
+                  <img
+                    className="img-fluid"
+                    height={media.logo.height}
+                    src={media.logo.url}
+                    width={media.logo.width}
+                  />
+                </h1>
+              </div>
+            </div>
+
+            {/* description */}
+            {media.description && (
+              <div className="row cover__description">
+                <div className="col-10 offset-1 col-md-12 offset-md-0">
+                  <p className="mb-0">{media.description}</p>
+                </div>
+              </div>
+            )}
+
+          </div>
+
+          {/* buttons */}
+          <div className="row justify-content-center justify-content-md-start gutter-15">
+            { ! user ? (
+              <div className="col-auto">
+                <Link href="/subscriptor" passHref>
+                  <Button>Probar Gratis</Button>
+                </Link>
+              </div>
+            ) : <>
+              <div className="col-auto">
+                <MediaLink {...{media}} passHref>
+                  <Button>Mira</Button>
+                </MediaLink>
+              </div>
+              <div className="col-auto">
+                <WishlistBtn movieId={media.id} />
+              </div>
+            </> }
+          </div>
+
+        </div>
+      </div>
+
+      {/* styles */}
       <style jsx>{`
         .cover {
+          font-size: 12px;
+          line-height: 1.4;
+          margin-bottom: 15px;
+          overflow: hidden;
+          padding-bottom: 15px;
+          position: relative;
+          text-align: center;
+          z-index: 1;
+        }
+        .cover__img {
+          margin-bottom: -90px;
+        }
+        .cover__img-content {
           background-image:
             linear-gradient(to bottom, rgba(0,0,0,0) 80%, black 100%),
             radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 25%, rgba(0,0,0,.925) 75%),
             url(${media.poster_url});
-          background-position: 50% 50%, 50% 0, 80% 0;
+          background-position: 50% 0, 50% 0, 75% 0;
           background-repeat: no-repeat, no-repeat, no-repeat;
-          background-size: cover, 100% 350px, 170%;
-          display: flex;
-          margin-bottom: 15px;
-          min-height: 400px;
-          overflow: hidden;
-          padding-top: calc(var(--padding-top) + 150px);
-          padding-bottom: 15px;
+          background-size: cover, cover, cover;
         }
-        @media (min-width: 768px) {
-          .cover {
-            align-items: center;
-            background-image:
-              linear-gradient(to bottom, rgba(0,0,0,0) 80%, black 100%),
-              radial-gradient(circle at 67.5% 57.5%, rgba(0,0,0,0) 25%, rgba(0,0,0,.925) 42.5%),
-              url(${media.poster_url});
-            background-position: 50% 50%, 50% 50%, 50% 50%;
-            background-size: cover, cover, cover;
-            height: 650px;
-            margin-bottom: -60px;
-            min-height: 100vh;
-            padding-top: var(--padding-top);
-            padding-bottom: 60px;
-          }
+        .cover__img-content::before {
+          content: '';
+          display: block;
+          padding-bottom: 112.5%;
         }
         .cover__infos {
-          margin-bottom: 30px;
+          margin-bottom: 15px;
         }
         .cover__logo {
           margin-top: 0;
@@ -181,7 +223,49 @@ const Cover = ({ error, media }) => {
           position: absolute;
           top: 0;
         }
+        @media (min-width: 768px) {
+          .cover {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: -60px;
+            text-align: left;
+          }
+          .cover__img {
+            margin-bottom: 0;
+          }
+          .cover__img-content {
+            background-image:
+              linear-gradient(to bottom, rgba(0,0,0,0) 80%, black 100%),
+              radial-gradient(circle at 67.5% 57.5%, rgba(0,0,0,0) 25%, rgba(0,0,0,.925) 42.5%),
+              url(${media.poster_url});
+            background-position: 50% 0, 50% 0, 40% 50%;
+          }
+          .cover__img-content::before {
+            padding-bottom: 80%;
+          }
+          .cover__contents {
+            align-items: center;
+            height: 100%;
+            padding-top: var(--padding-top);
+            padding-bottom: 60px;
+            position: absolute;
+            width: 100%;
+            top: 0;
+          }
+          .cover__infos {
+            margin-bottom: 30px;
+          }
+        }
+        @media (min-width: 1200px) {
+          .cover__img-content {
+            background-position: 50% 0, 50% 0, 75% 50%;
+          }
+          .cover__img-content::before {
+            padding-bottom: 48%;
+          }
+        }
       `}</style>
+
     </div>
   )
 }
