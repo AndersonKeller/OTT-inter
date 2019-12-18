@@ -40,31 +40,36 @@ const Home = ({ featuredMedia, featuredMediaError, layoutProps }) => {
           {/* supporters */}
           <HomeCarouselSection category="supporters" />
 
+          {/* featured */}
+          { (user)? <BannerSection  bannerID="1" movieID="13"/> : <BannerSection bannerID="6"/> }
+
           {/* arts */}
           <HomeCarouselSection category="arts" />
 
-          {/* featured */}
-          { (user)? <BannerSection  bannerID="1" movieID="13"/> : <BannerSection bannerID="6"/> }
+          {/* features */}
+          { (user)? <BannerSection  bannerID="2" movieID="14"/> : <BannerSection bannerID="5"/> }
 
           {/* podcasts */}
           <HomeCarouselSection category="podcasts" />
 
           {/* features */}
-          { (user)? <BannerSection  bannerID="2" movieID="14"/> : <BannerSection bannerID="5"/> }
+          { (user)? <BannerSection  bannerID="3" movieID="15" /> : <BannerSection bannerID="7"/> }
 
           {/* news */}
           <HomeCarouselSection category="news" />
 
-          {/* features */}
-          { (user)? <BannerSection  bannerID="3" movieID="15" /> : <BannerSection bannerID="7"/> }
+          { (user)? <BannerSection  bannerID="4" movieID="16"/> : <BannerSection bannerID="8"/> }
 
           {/* family */}
           <HomeCarouselSection category="family" />
 
-          { (user)? <BannerSection  bannerID="4" movieID="16"/> : <BannerSection bannerID="8"/> }
+          { (!user)? <BannerSection  bannerID="9" /> : "" }
 
           {/* children */}
           <HomeCarouselSection category="children" />
+
+          { (!user)? <BannerSection  bannerID="10" /> : "" }
+
 
         </div>
       </div>
