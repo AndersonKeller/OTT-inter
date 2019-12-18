@@ -19,7 +19,7 @@ export default ({}) => {
   const loggedMenu = [
     { slug: 'add', label: 'Mi Lista', href: '/wishlist' },
     { slug: 'user', label: 'Mi Cuenta', href: '/mi-cuenta' },
-    { slug: 'settings', label: 'Configuración', href: '/mi-cuenta' },
+    // { slug: 'settings', label: 'Configuración', href: '/mi-cuenta' },
     { slug: 'help', label: 'Ayuda', href: '/ayuda' },
     { slug: 'info', label: 'Soporte', href: '/soporte' },
     { slug: 'logout', label: 'Salir', href: '/logout', onClick: logout, },
@@ -47,43 +47,61 @@ export default ({}) => {
             width="16"
           />
         </Dropdown.Toggle>
-        { user ? (
+
+        {/* logged menu */}
+        { user ? <>
           <Dropdown.Menu>
+
             <Dropdown.Header>
               <div className="user-name">{ user.name }</div>
               <div className="user-email">{ user.email }</div>
               <div className="suscriptor">Suscriptor</div>
             </Dropdown.Header>
+
             { loggedMenu.map((item, i) => (
               <Dropdown.Item className="dropdown-item-style3" href={item.href} key={i} onClick={item.onClick}>
                 <span className="icon"><img className={`img-fluid ${item.slug}`} src={`/static/icons/${item.slug}.svg`} /></span>
                 <span>{item.label}</span>
               </Dropdown.Item>
             )) }
+
           </Dropdown.Menu>
-        ) : (
+
+        {/* public menu */}
+        </> : (
           <Dropdown.Menu>
-            <Dropdown.Item as="button" className="dropdown-item-style1" onClick={enter}>Entrar</Dropdown.Item>
+
+            <Dropdown.Item as="button"
+              className="dropdown-item-style1"
+              onClick={enter}>Entrar</Dropdown.Item>
+
             <Link href="/subscriptor">
-              <Dropdown.Item className="dropdown-item-style2" href="/subscriptor">Suscripción</Dropdown.Item>
+              <Dropdown.Item className="dropdown-item-style2"
+                href="/subscriptor">Suscripción</Dropdown.Item>
             </Link>
+
             <Dropdown.Divider />
-            <Dropdown.Item className="dropdown-item-style3" href="/ajustes">
+
+            {/* <Dropdown.Item className="dropdown-item-style3" href="/ajustes">
               <span className="icon">
                 <img height="26" src="/static/icons/settings.svg" width="26" />
               </span>
               <span>Ajustes</span>
-            </Dropdown.Item>
+            </Dropdown.Item> */}
+
             <Dropdown.Item className="dropdown-item-style3" href="/ayuda">
               <span className="icon">
                 <img height="24" src="/static/icons/help.svg" width="24" />
               </span>
               <span>Ayuda</span>
             </Dropdown.Item>
+
           </Dropdown.Menu>
         ) }
+
       </Dropdown>
 
+      {/* styles */}
       <style jsx>{`
         .user-select {
           align-items: center;
