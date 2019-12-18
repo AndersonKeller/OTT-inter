@@ -4,15 +4,19 @@ import Button from '../components/button'
 import UserContext from './UserContext'
 import { IS_PRODUCTION } from '../constants/constants'
 import VideoPlayer from '../components/video-player'
+import { AuthModalContext } from '../contexts/AuthModalContext'
 
 export default function BlockedPlayer({ image = '', video_link = '' }) {
   const { user } = useContext(UserContext)
   const [ video, setVideo ] = useState(user ? 1 : 0)
   const autoplay = IS_PRODUCTION
+  const { openAuthModal } = useContext(AuthModalContext)
 
   const showVideo = (e) => {
     e.preventDefault()
-    setVideo(true)
+    // setVideo(true)
+    openAuthModal('register', 1)
+
   }
 
   useEffect(_ => {
