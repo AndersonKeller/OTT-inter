@@ -96,7 +96,6 @@ Home.getInitialProps = async _ => {
     const { data: { movie: featuredMedia } } = await api.get('movie/marcelo-gallardo-lo-jugamos-como-una-final?for=home-cover')
     return { featuredMedia }
   } catch (error) {
-    console.log(error)
     return { featuredMediaError: error }
   }
 }
