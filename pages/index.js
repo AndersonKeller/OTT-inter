@@ -29,7 +29,7 @@ const Home = ({ featuredMedia, featuredMediaError, layoutProps }) => {
       <div className="index">
 
         {/* cover */}
-        <Cover media={featuredMedia} />
+        <Cover error={featuredMediaError} media={featuredMedia} />
 
         {/* supporters */}
         <HomeCarouselSection category="supporters" />
@@ -77,15 +77,21 @@ Home.getInitialProps = async _ => {
     const { data: { movie: featuredMedia } } = await api.get('movie/marcelo-gallardo-lo-jugamos-como-una-final?for=home-cover')
     return { featuredMedia }
   } catch (error) {
-    return { error: featuredMediaError }
+    console.log(error)
+    return { featuredMediaError: error }
   }
 }
 
 export default Home
 
-// cover
-const Cover = ({ media }) => {
+// home cover
+const Cover = ({ error, media }) => {
   const { user } = useContext(UserContext)
+  if (error) {
+    return (
+      <p>No se puede cargar contenido destacado</p>
+    )
+  }
   return (
     <div className="cover">
       <div className="container-fluid">
