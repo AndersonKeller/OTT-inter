@@ -33,7 +33,8 @@ const NavFooter = ({className}) => {
     { icon: 'home', label: 'Inicio', href: '/', },
     // { icon: 'live', label: 'Ahora', },
     { icon: 'categories', label: 'Categorías', href: '/categories', },
-    { icon: 'downloads', label: 'Descargas', href: '/downloads', },
+    // { icon: 'downloads', label: 'Descargas', href: '/downloads', },
+    { icon: 'add', label: 'Mi Lista', href: '/wishlist', },
     { icon: 'search', label: 'Buscar', href: '/movies', },
     // { icon: 'scan', label: 'Escanear', },
   ]
