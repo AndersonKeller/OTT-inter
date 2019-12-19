@@ -154,10 +154,6 @@ const Packages = () => {
 
   return (
     <section className="prices text-center container-fluid">
-      <header>
-        <H2>¡Sin límites! Sólo el suscriptor da un juego  n absoluto.</H2>
-        <p>Comience ahora sus días gratis y aproveche todas las ventajas de ser un suscriptor de {CONFIG.appName}.</p>
-      </header>
       <div className="entries row">
         <div className="col-md-10 offset-md-1 col-lg-12 offset-lg-0 col-xl-10 offset-xl-1">
 
@@ -214,15 +210,12 @@ const Packages = () => {
       <style jsx>{`
         .prices {
           border-top: 1px solid #fff;
+          padding-top: 15px;
         }
         @media (min-width: 768px) {
           .prices {
             padding-bottom: 95px;
         }
-        }
-        header {
-          margin-bottom: 70px;
-          padding-top: 80px;
         }
         .cards {
           font-size: 31px;
