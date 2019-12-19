@@ -4,12 +4,13 @@ import Router, { useRouter } from 'next/router'
 
 // react imports
 import { useState } from 'react'
-import { Form, Button, Toast } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 
 // app imports
 import Layout from '../../components/layout/Layout'
 import { CONFIG } from '../../config'
 import api from '../../services/api'
+import Button from '../../components/button'
 
 const ResetPassword = ({layoutProps}) => {
 
@@ -91,7 +92,12 @@ const ResetPassword = ({layoutProps}) => {
                 <Form.Control id="password_confirmation" type="password" placeholder="Confirmar nueva contraseña"  onChange={e => setPasswordConfirmation(e.target.value)} value={passwordConfirmation} />
                 {error && error.errors &&  (<div className="invalid-feedback">{error.errors.password[1]}</div>)}
               </Form.Group>
-              <Button block size="sm" type="submit" disabled={isLoading}>{isLoading ? 'Loading…' : 'Restabelecer'}</Button>
+              {/* <Form.Group style={{textAlign: 'center'}}>
+                <Button variant='danger' style={{backgroundColor:'#ff0000'}} size="lg" type="submit" disabled={isLoading}>{isLoading ? 'Loading…' : 'Restabelecer'}</Button>
+              </Form.Group> */}
+              <Form.Group style={{textAlign: '-webkit-center'}}>
+                <Button block style={{minWidth: '145px', maxWidth: '50%', boxShadow: 'none'}} className="enter-btn" size="sm" type="submit" disabled={isLoading}>{isLoading ? 'Loading…' : 'Restabelecer'}</Button>
+              </Form.Group>
             </form>
           </div>
         </div>
