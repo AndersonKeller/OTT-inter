@@ -19,6 +19,7 @@ const Header = ({ closed, layoutColor, menus }) => {
   const hasScrolled = _ => {
     return hasWindow ? window.pageYOffset > 1 : false
   }
+
   const [ scrolled, setScrolled ] = useState(hasScrolled())
   useEffect(_ => {
     const handleScroll = _ => {
