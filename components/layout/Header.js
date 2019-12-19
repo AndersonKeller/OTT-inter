@@ -13,10 +13,11 @@ import { CONFIG } from '../../config'
 import Router from 'next/router'
 
 const Header = ({ closed, layoutColor, menus }) => {
+  const hasWindow = typeof window !== 'undefined'
 
   // scrolled state
   const hasScrolled = _ => {
-    return typeof window !== 'undefined' ? window.pageYOffset > 1 : false
+    return hasWindow ? window.pageYOffset > 1 : false
   }
   const [ scrolled, setScrolled ] = useState(hasScrolled())
   useEffect(_ => {
@@ -45,6 +46,19 @@ const Header = ({ closed, layoutColor, menus }) => {
     })
   }
 
+  useEffect(_ => {
+    if (hasWindow) {
+      let btn =  document.querySelector('#search-btn')
+      let input = document.querySelector('#search')
+      btn.onclick = function (e) {
+        if(input.classList.contains('d-none')){
+          e.preventDefault()
+        }
+        document.querySelector('#search').classList.toggle('d-none')
+      }
+    }
+  })
+
   return (
     <header className={classes}>
       <nav className="nav">
@@ -69,12 +83,13 @@ const Header = ({ closed, layoutColor, menus }) => {
               method="get"
               onSubmit={(e) => handleSearch(e)}
             >
-              <button className="search-btn" type="submit">
+              <button className="search-btn" id="search-btn" type="submit">
                 <img alt="Buscar" height="28" src="/static/magnify-icon.svg" width="28" />
               </button>
               <input
-                className="form-control"
+                className="form-control d-none"
                 name="search"
+                id="search"
                 onChange={e => setSearchField(e.target.value)}
                 placeholder="Buscar"
                 type="search"
@@ -174,7 +189,7 @@ const Header = ({ closed, layoutColor, menus }) => {
           background-color: transparent;
           border: 0;
           cursor: pointer;
-          margin-right: 5px;
+          margin-right: 10px;
           outline: 0;
           padding: 5px;
           vertical-align: middle;
