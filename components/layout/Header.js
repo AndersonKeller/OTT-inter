@@ -129,10 +129,11 @@ const Header = ({ closed, layoutColor, menus }) => {
           transition: background-color .6s, box-shadow .6s;
           width: 90%;
           z-index: 10;
+          height: 78px;
         }
         @media (min-width: 768px) {
           .header {
-            padding: 15px 30px 20px 30px;
+            padding: 10px 30px 13px 30px;
           }
         }
         .header.closed {
