@@ -51,12 +51,14 @@ const Header = ({ closed, layoutColor, menus }) => {
     if (hasWindow) {
       let btn =  document.querySelector('#search-btn')
       let input = document.querySelector('#search')
+      if (btn) {
       btn.onclick = function (e) {
         if(input.classList.contains('d-none')){
           e.preventDefault()
         }
         document.querySelector('#search').classList.toggle('d-none')
       }
+    }
     }
   })
 
