@@ -23,6 +23,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 ### Corrigido
 - Corrigimos a margem inferior dos cards em listas fora dos carroséis.
 - Corrigimos a centralização do modal de login pra mobile.
+- Corrigimos o botão Mi-lista do rodapé para mostrar a modal de login quando o usuário não estiver logado
 
 
 ## [0.1.0] - 18/12/2019
