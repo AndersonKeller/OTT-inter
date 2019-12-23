@@ -21,6 +21,8 @@ yarn docz:dev
 now --name=dalecacique
 # or
 now --name=dalecampeon
+
+# then set alias
 now alias set deployed-url.now.sh dalecampeon.now.sh
 ```
 
