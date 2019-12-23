@@ -9,6 +9,9 @@ export default ({ wishlist, category = null, medias }) => {
         </div>
       )) }
       <style jsx>{`
+        .media-list :global(.media-list__card) {
+          margin-bottom: 15px;
+        }
         @media (min-width: 768px) {
           .media-list {
             margin-bottom: 45px;
