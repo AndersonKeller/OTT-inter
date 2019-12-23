@@ -79,6 +79,7 @@ export default function AuthModal() {
         .login-modal {
           align-items: center;
           color: var(--gray4);
+          justify-content: center;
           padding-top: .5rem;
           padding-bottom: .5rem;
           text-align: center;
