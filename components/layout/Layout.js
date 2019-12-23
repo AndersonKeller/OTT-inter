@@ -130,7 +130,7 @@ const Layout = ({
         }
         @media (min-width: 768px) {
           :root {
-            --padding-top: 95px;
+            --padding-top: 80px;
           }
         }
         @media (min-width: 992px) {
