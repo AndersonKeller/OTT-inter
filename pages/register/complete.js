@@ -24,6 +24,9 @@ const RegisterConfirmPage = ({ layoutProps, packages, packagesError }) => {
   const [ countries, setCountries ] = useState()
   const [ payment, setPayment ] = useState()
   const requireds = IS_PRODUCTION
+  const [ name, setName ] = useState(user ? user.name : '')
+  const [ user_genre_id, setUserGenreId ] = useState(user ? user.user_genre_id : 0)
+  const [ error, setError ] = useState()
 
   function handlePaymentChange(e) {
     setPayment(e.target.value)
@@ -57,6 +60,35 @@ const RegisterConfirmPage = ({ layoutProps, packages, packagesError }) => {
     })()
   }, [])
 
+  /* fill user form */
+  useEffect(_ => {
+    if (user) {
+      setName(user.name)
+      setUserGenreId(user.user_genre_id)
+    }
+  }, [user])
+
+  /* handle submit */
+  const handleSubmit = async e => {
+    e.preventDefault()
+    // setLoading(true)
+    try {
+      const response = await api.post('register/complete', {
+        name,
+        user_genre_id,
+      })
+      console.log(response)
+    } catch (error) {
+      if (error.response) {
+        setError(error.response.data)
+      } else {
+        setError('An error has occurred!')
+        console.log('error', error)
+      }
+    }
+    // setLoading(false)
+  }
+
   return (
     <Layout color="white" {...layoutProps}>
       <Head>
@@ -70,7 +102,7 @@ const RegisterConfirmPage = ({ layoutProps, packages, packagesError }) => {
             <h1 className="h2">Completa tu registro</h1>
 
             { user && (
-              <form method="post">
+              <form method="post" onSubmit={handleSubmit}>
 
                 <div className="row">
 
@@ -82,14 +114,26 @@ const RegisterConfirmPage = ({ layoutProps, packages, packagesError }) => {
 
                       {/* name */}
                       <FormGroup>
-                        <Label htmlFor="fullName">Nombre completo</Label>
-                        <Input defaultValue={user.name} id="fullName" name="fullName" required={requireds} />
+                        <Label htmlFor="name">Nombre completo</Label>
+                        <Input
+                          id="name"
+                          name="name"
+                          onChange={e => setName(e.target.value)}
+                          required={requireds}
+                          value={name}
+                        />
                       </FormGroup>
 
                       {/* genre */}
                       <FormGroup>
-                        <Label htmlFor="genre">Género</Label>
-                        <Select defaultValue={0} id="genre" name="genre" required={requireds}>
+                        <Label htmlFor="user_genre_id">Género</Label>
+                        <Select
+                          id="user_genre_id"
+                          name="user_genre_id"
+                          onChange={e => setUserGenreId(e.target.value)}
+                          required={requireds}
+                          value={user_genre_id}
+                        >
                           { ! genres ? (
                             <option disabled value={0}>Cargando...</option>
                           ) : genres.length ? (
@@ -280,12 +324,14 @@ const Packages = ({packages, packagesError, package_id_intention}) => {
   const [items, setItems] = useState(packages)
   const [package_id, setPackageId] = useState(package_id_intention)
 
-  /* useEffect(_ => {
-    (async _ => {
-      const {data} = await api.get('packages')
-      setItems(data)
-    })()
-  }, []) */
+  if ( ! packages) {
+    useEffect(_ => {
+      (async _ => {
+        const {data} = await api.get('packages')
+        setItems(data)
+      })()
+    }, [])
+  }
 
   function handlePackage(e) {
     setPackageId(e.target.value)
@@ -319,7 +365,7 @@ const PackageRadio = ({ onChange, package_id, plan }) => {
       />
       <span className="fake-input">
         <span className="d-block name">{ plan.name }</span>
-        <span className="value">{ (plan.currency === 'usd' ? '$' : '') + plan.amount }</span>
+        <span className="value">{ (plan.currency === 'ars' ? '$' : '') + plan.amount }</span>
       </span>
       <style jsx>{`
         label {

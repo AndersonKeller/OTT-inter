@@ -19,7 +19,7 @@ const RegisterTab = ({changeTab, setLoading})  => {
   const { closeAuthModal, packageId } = useContext(AuthModalContext)
 
   const handleSubmit = async e => {
-    e.preventDefault();
+    e.preventDefault()
     setLoading(true)
     document.activeElement.blur()
     try {
