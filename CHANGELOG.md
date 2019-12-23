@@ -18,6 +18,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 ### Modificado
 - Modificamos a margem superior do conteúdo pra espelhar a altura do cabeçalho que foi modificada.
 - Atualizamos o leia-me.
+- O link descargas (downloads) do menu do rodapé no mobile foi substituído por um link para Mi Lista.
 
 ### Corrigido
 - Corrigimos a margem inferior dos cards em listas fora dos carroséis.
@@ -25,4 +26,15 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 
 ## [0.1.0] - 18/12/2019
-Versão inicial pré-changelog.
+
+### Corrigido
+- Corrigimos a responsividade do player de vídeo para os links de YouTube que estão sendo usados por enquanto.
+
+### Modificado
+- Passamos o cover do Napoléon que estava estático para um conteúdo dinâmico do admin (o que corrige o botão de Mi Lista). Também refatoramos todos os estilos desse mesmo cover pra mostrar mais certinho em mobile / tablet e desktop e ficar mais fácil de dar manutenção.
+- Banners da home passaram a linkar para os sites dos patrocionadores.
+
+### Removido
+- Retirado os links de menu Configurações e Ajustes que estavam nos dropdowns de usuário logado e deslogado.
+- Foram retirados os botões que constavam em cima dos banners da home quando o usuário está deslogado.
+- O botão de ver mais saiu do cover da Home quando deslogado.
