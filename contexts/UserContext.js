@@ -1,3 +1,4 @@
+import Router from 'next/router'
 import { createContext, useState, useEffect } from 'react'
 import api from '../services/api'
 import { setAccessToken, removeAccessToken } from '../services/auth'
@@ -25,7 +26,12 @@ export function UserProvider({ children }) {
 
   const signIn = (user, tokenResponse) => {
 
-    const { token_type, expires_in, access_token, refresh_token } = tokenResponse
+    const {
+      access_token,
+      expires_in,
+      refresh_token,
+      token_type,
+    } = tokenResponse
 
     setAccessToken(access_token)
 
@@ -35,7 +41,10 @@ export function UserProvider({ children }) {
     localStorage.setItem('user', JSON.stringify(user))
 
     setUser(user)
-    // Router.push('/', '#logged')
+
+    if ( ! user.register_completed_at) {
+      Router.push('/register/complete')
+    }
   }
 
   const signOut = async _ => {
