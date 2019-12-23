@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import UserContext from '../../UserContext'
+import UserContext from '../../../contexts/UserContext'
 import api, { baseURL } from '../../../services/api'
 import { CLIENT_ID, CLIENT_SECRET } from '../../../constants/constants'
 import { setAccessToken } from '../../../services/auth'

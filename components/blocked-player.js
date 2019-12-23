@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
 import Button from '../components/button'
-import UserContext from './UserContext'
+import UserContext from '../contexts/UserContext'
 import { IS_PRODUCTION } from '../constants/constants'
 import VideoPlayer from '../components/video-player'
 import { AuthModalContext } from '../contexts/AuthModalContext'

@@ -11,7 +11,7 @@ import api from '../services/api'
 import Loading from '../components/Loading/Loading'
 import MediaList from '../components/MediaList/MediaList'
 import Button from '../components/button'
-import UserContext from '../components/UserContext'
+import UserContext from '../contexts/UserContext'
 import Router from 'next/router'
 
 // wishlist page

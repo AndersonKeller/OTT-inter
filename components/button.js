@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import UserContext from './UserContext'
+import UserContext from '../contexts/UserContext'
 import { WHITE } from '../constants/colors'
 import Color from 'color'
 import classNames from 'classnames'

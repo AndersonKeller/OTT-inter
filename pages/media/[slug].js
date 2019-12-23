@@ -10,7 +10,7 @@ import Button from '../../components/button'
 import Layout from '../../components/layout/Layout'
 import MediaLink from '../../components/MediaLink/MediaLink'
 import WishlistBtn from '../../components/wishlist-btn'
-import UserContext from '../../components/UserContext'
+import UserContext from '../../contexts/UserContext'
 import { CONFIG } from '../../config'
 import api from '../../services/api'
 

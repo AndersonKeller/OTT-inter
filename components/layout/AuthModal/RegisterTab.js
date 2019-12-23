@@ -1,6 +1,6 @@
 import Router from 'next/router'
 import {useState, useContext} from 'react'
-import UserContext from '../../UserContext'
+import UserContext from '../../../contexts/UserContext'
 import { CLIENT_ID, CLIENT_SECRET } from '../../../constants/constants'
 import { setAccessToken } from '../../../services/auth'
 import api from '../../../services/api'

@@ -3,7 +3,7 @@ import { useContext, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 
 import Chevron from '../icons/chevron'
-import UserContext from '../UserContext'
+import UserContext from '../../contexts/UserContext'
 import { AuthModalContext } from '../../contexts/AuthModalContext'
 
 export default ({}) => {

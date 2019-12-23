@@ -10,18 +10,20 @@ import Label from '../../components/layout/AuthModal/Label'
 import Input from '../../components/layout/AuthModal/Input'
 import Button from '../../components/button'
 import { useContext, useEffect, useState } from 'react'
-import UserContext from '../../components/UserContext'
+import UserContext from '../../contexts/UserContext'
 import Select from '../../components/Select/Select'
 import api from '../../services/api'
 import Router from 'next/router'
+import { IS_PRODUCTION } from '../../constants/constants'
 
 // page
-const RegisterConfirmPage = ({ layoutProps }) => {
+const RegisterConfirmPage = ({ layoutProps, packages, packagesError }) => {
 
   const { user } = useContext(UserContext)
   const [ genres, setGenres ] = useState()
   const [ countries, setCountries ] = useState()
   const [ payment, setPayment ] = useState()
+  const requireds = IS_PRODUCTION
 
   function handlePaymentChange(e) {
     setPayment(e.target.value)
@@ -81,13 +83,13 @@ const RegisterConfirmPage = ({ layoutProps }) => {
                       {/* name */}
                       <FormGroup>
                         <Label htmlFor="fullName">Nombre completo</Label>
-                        <Input defaultValue={user.name} id="fullName" name="fullName" required />
+                        <Input defaultValue={user.name} id="fullName" name="fullName" required={requireds} />
                       </FormGroup>
 
                       {/* genre */}
                       <FormGroup>
                         <Label htmlFor="genre">Género</Label>
-                        <Select defaultValue={0} id="genre" name="genre" required>
+                        <Select defaultValue={0} id="genre" name="genre" required={requireds}>
                           { ! genres ? (
                             <option disabled value={0}>Cargando...</option>
                           ) : genres.length ? (
@@ -106,7 +108,7 @@ const RegisterConfirmPage = ({ layoutProps }) => {
                       {/* document */}
                       <FormGroup>
                         <Label htmlFor="document">Documento</Label>
-                        <Input id="document" name="document" required type="text" />
+                        <Input id="document" name="document" required={requireds} type="text" />
                       </FormGroup>
 
                     </div>
@@ -119,19 +121,19 @@ const RegisterConfirmPage = ({ layoutProps }) => {
                       {/* address */}
                       <FormGroup>
                         <Label htmlFor="address">Dirección</Label>
-                        <Input id="address" name="address" required type="text" />
+                        <Input id="address" name="address" required={requireds} type="text" />
                       </FormGroup>
 
                       {/* city */}
                       <FormGroup>
                         <Label htmlFor="city">Ciudad</Label>
-                        <Input id="city" name="city" required type="text" />
+                        <Input id="city" name="city" required={requireds} type="text" />
                       </FormGroup>
 
                       {/* country */}
                       <FormGroup>
                         <Label htmlFor="country">País</Label>
-                        <Select defaultValue={0} id="country" name="country" required>
+                        <Select defaultValue={0} id="country" name="country" required={requireds}>
                           { ! countries ? (
                             <option disabled value={0}>Cargando...</option>
                           ) : countries.length ? (
@@ -152,14 +154,8 @@ const RegisterConfirmPage = ({ layoutProps }) => {
 
                 </div>
 
-                {/* hr */}
-                <hr className="hr" />
-
                 {/* package */}
-                <Packages package_id_intention={user.package_id_intention} />
-
-                {/* hr */}
-                <hr className="hr" />
+                <Packages {...{packages, packagesError}} package_id_intention={user.package_id_intention} />
 
                 {/* payment */}
                 <div className="row">
@@ -196,17 +192,17 @@ const RegisterConfirmPage = ({ layoutProps }) => {
                           <div className="card-inputs">
                             <FormGroup>
                               <Label htmlFor="creditCardName">Nombre impreso</Label>
-                              <Input id="creditCardName" name="creditCardName" required type="text" />
+                              <Input id="creditCardName" name="creditCardName" required={requireds} type="text" />
                             </FormGroup>
                             <FormGroup>
                               <Label htmlFor="creditCardNumber">Numero</Label>
-                              <Input id="creditCardNumber" name="creditCardNumber" required type="text" />
+                              <Input id="creditCardNumber" name="creditCardNumber" required={requireds} type="text" />
                             </FormGroup>
                             <div className="row">
                               <div className="col-6">
                                 <FormGroup>
                                   <Label htmlFor="creditCardDate">Validez</Label>
-                                  <Input id="creditCardDate" name="creditCardDate" required type="text" />
+                                  <Input id="creditCardDate" name="creditCardDate" required={requireds} type="text" />
                                 </FormGroup>
                               </div>
                               <div className="col-6">
@@ -214,7 +210,7 @@ const RegisterConfirmPage = ({ layoutProps }) => {
                                   <Label htmlFor="creditCardCode">
                                     <abbr title="Código de seguridad">CVV</abbr>
                                   </Label>
-                                  <Input id="creditCardCode" name="creditCardCode" required type="text" />
+                                  <Input id="creditCardCode" name="creditCardCode" required={requireds} type="text" />
                                 </FormGroup>
                               </div>
                             </div>
@@ -228,7 +224,7 @@ const RegisterConfirmPage = ({ layoutProps }) => {
                 <div className="row align-items-center">
                   <div className="col-md-6 offset-md-4">
                     <label className="terms">
-                      <input name="terms" required type="checkbox" />
+                      <input name="terms" required={requireds} type="checkbox" />
                       <span>He leído y acepto el contrato de Dale Campéon</span>
                     </label>
                   </div>
@@ -279,17 +275,17 @@ const RegisterConfirmPage = ({ layoutProps }) => {
   );
 }
 
-const Packages = ({package_id_intention}) => {
+const Packages = ({packages, packagesError, package_id_intention}) => {
 
-  const [items, setItems] = useState()
+  const [items, setItems] = useState(packages)
   const [package_id, setPackageId] = useState(package_id_intention)
 
-  useEffect(_ => {
+  /* useEffect(_ => {
     (async _ => {
       const {data} = await api.get('packages')
       setItems(data)
     })()
-  }, [])
+  }, []) */
 
   function handlePackage(e) {
     setPackageId(e.target.value)
@@ -421,7 +417,13 @@ const InputRadio = ({ label, name, onChange, state, value }) => {
   )
 }
 
-RegisterConfirmPage.getInitialProps = () => {
+RegisterConfirmPage.getInitialProps = async _ => {
+  try {
+    const {data} = await api.get('packages')
+    return { packages: data }
+  } catch(error) {
+    return { packagesError: error }
+  }
 }
 
 export default RegisterConfirmPage
