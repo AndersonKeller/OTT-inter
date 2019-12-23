@@ -1,7 +1,7 @@
 # Dale
 Built with [Next.js](https://nextjs.org/).
 
-**Please keep this project's [CHANGELOG](CHANGELOD.md) updated.**
+**Please keep this project's [CHANGELOG](CHANGELOG.md) updated.**
 
 ## Install
 ```sh
