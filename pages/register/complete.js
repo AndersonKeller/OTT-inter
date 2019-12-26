@@ -65,6 +65,8 @@ const CompleteRegisterForm = ({ packages }) => {
     user_genre_id: '',
     document: '',
     address: '',
+    city: '',
+    country_id: '',
   })
 
   // const [ packages, setPackages ] = useState()
@@ -116,6 +118,8 @@ const CompleteRegisterForm = ({ packages }) => {
         user_genre_id: user.user_genre_id ? user.user_genre_id : '',
         document: user.document ? user.document : '',
         address: user.address ? user.address : '',
+        city: user.city ? user.city : '',
+        country_id: user.country_id ? user.country_id : '',
       })
     }
   }, [user])
@@ -220,22 +224,35 @@ const CompleteRegisterForm = ({ packages }) => {
             {/* city */}
             <FormGroup>
               <Label htmlFor="city">Ciudad</Label>
-              <Input id="city" name="city" required={requireds} type="text" />
+              <Input
+                id="city"
+                name="city"
+                onChange={handleInputChange}
+                required={requireds}
+                type="text"
+                value={values.city}
+              />
             </FormGroup>
 
             {/* country */}
             <FormGroup>
-              <Label htmlFor="country">País</Label>
-              <Select defaultValue={0} id="country" name="country" required={requireds}>
+              <Label htmlFor="country_id">País</Label>
+              <Select
+                id="country_id"
+                name="country_id"
+                onChange={handleInputChange}
+                required={requireds}
+                value={values.country_id}
+              >
                 { ! countries ? (
-                  <option disabled value={0}>Cargando...</option>
+                  <option disabled value="">Cargando...</option>
                 ) : countries.length ? <>
-                  <option disabled value={0}>Selecciona tu país</option>
+                  <option disabled value="">Selecciona tu país</option>
                   { countries.map((country, key) => (
                     <option {...{key}} value={country.id}>{country.name}</option>
                   ))}
                 </> : (
-                  <option disabled value={0}>Incapaz de cargar países</option>
+                  <option disabled value="">Incapaz de cargar países</option>
                 ) }
               </Select>
             </FormGroup>
