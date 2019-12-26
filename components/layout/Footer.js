@@ -2,10 +2,12 @@
 import classNames from 'classnames'
 import Link from 'next/link'
 import ReactSVG from 'react-svg'
+import { useContext } from 'react'
 
 // app imports
 import { CONFIG } from '../../config'
 import ActiveLink from '../ActiveLink'
+import UserContext from '../../contexts/UserContext'
 
 // footer
 export default function Footer({ layoutColor }) {
@@ -29,12 +31,14 @@ export default function Footer({ layoutColor }) {
 
 // nav footer
 const NavFooter = ({className}) => {
+
+  const { user } = useContext(UserContext)
   const menu = [
     { icon: 'home', label: 'Inicio', href: '/', },
     // { icon: 'live', label: 'Ahora', },
     { icon: 'categories', label: 'Categorías', href: '/categories', },
     // { icon: 'downloads', label: 'Descargas', href: '/downloads', },
-    { icon: 'add', label: 'Mi Lista', href: '/wishlist', },
+    { icon: 'add', label: 'Mi Lista', href: user ? '/wishlist' : '/login', },
     { icon: 'search', label: 'Buscar', href: '/movies', },
     // { icon: 'scan', label: 'Escanear', },
   ]

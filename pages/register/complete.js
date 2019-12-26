@@ -11,21 +11,23 @@ import Input from '../../components/layout/AuthModal/Input'
 import Button from '../../components/button'
 import { useContext, useEffect, useState } from 'react'
 import UserContext from '../../contexts/UserContext'
+import Packages from '../../components/Packages'
 import Select from '../../components/Select/Select'
 import api from '../../services/api'
 import Router from 'next/router'
 import { IS_PRODUCTION } from '../../constants/constants'
 
 // page
-const RegisterConfirmPage = ({ layoutProps, packages, packagesError }) => {
+const RegisterConfirmPage = ({ layoutProps, packages }) => {
 
   const { user } = useContext(UserContext)
   const [ genres, setGenres ] = useState()
   const [ countries, setCountries ] = useState()
+  // const [ packages, setPackages ] = useState()
   const [ payment, setPayment ] = useState()
   const requireds = IS_PRODUCTION
-  const [ name, setName ] = useState(user ? user.name : '')
-  const [ user_genre_id, setUserGenreId ] = useState(user ? user.user_genre_id : 0)
+  const [ name, setName ] = useState('')
+  const [ user_genre_id, setUserGenreId ] = useState('')
   const [ error, setError ] = useState()
 
   function handlePaymentChange(e) {
@@ -64,7 +66,7 @@ const RegisterConfirmPage = ({ layoutProps, packages, packagesError }) => {
   useEffect(_ => {
     if (user) {
       setName(user.name)
-      setUserGenreId(user.user_genre_id)
+      setUserGenreId(user.user_genre_id ? user.user_genre_id : '')
     }
   }, [user])
 
@@ -135,16 +137,14 @@ const RegisterConfirmPage = ({ layoutProps, packages, packagesError }) => {
                           value={user_genre_id}
                         >
                           { ! genres ? (
-                            <option disabled value={0}>Cargando...</option>
-                          ) : genres.length ? (
-                            <>
-                              <option disabled value={0}>Selecciona tu género</option>
-                              { genres.map((genre, key) => (
-                                <option {...{key}} value={genre.id}>{genre.name}</option>
-                              ))}
-                            </>
-                          ) : (
-                            <option disabled value={0}>Incapaz de cargar géneros</option>
+                            <option disabled value="">Cargando...</option>
+                          ) : genres.length ? <>
+                            <option disabled value="">Selecciona tu género</option>
+                            { genres.map((genre, key) => (
+                              <option {...{key}} value={genre.id}>{genre.name}</option>
+                            ))}
+                          </> : (
+                            <option disabled value="">Incapaz de cargar géneros</option>
                           ) }
                         </Select>
                       </FormGroup>
@@ -175,23 +175,21 @@ const RegisterConfirmPage = ({ layoutProps, packages, packagesError }) => {
                       </FormGroup>
 
                       {/* country */}
-                      <FormGroup>
+                      {<FormGroup>
                         <Label htmlFor="country">País</Label>
                         <Select defaultValue={0} id="country" name="country" required={requireds}>
                           { ! countries ? (
                             <option disabled value={0}>Cargando...</option>
-                          ) : countries.length ? (
-                            <>
-                              <option disabled value={0}>Selecciona tu país</option>
-                              { countries.map((country, key) => (
-                                <option {...{key}} value={country.id}>{country.name}</option>
-                              ))}
-                            </>
-                          ) : (
+                          ) : countries.length ? <>
+                            <option disabled value={0}>Selecciona tu país</option>
+                            { countries.map((country, key) => (
+                              <option {...{key}} value={country.id}>{country.name}</option>
+                            ))}
+                          </> : (
                             <option disabled value={0}>Incapaz de cargar países</option>
                           ) }
                         </Select>
-                      </FormGroup>
+                      </FormGroup>}
 
                     </div>
                   </div>
@@ -199,7 +197,13 @@ const RegisterConfirmPage = ({ layoutProps, packages, packagesError }) => {
                 </div>
 
                 {/* package */}
-                <Packages {...{packages, packagesError}} package_id_intention={user.package_id_intention} />
+                <Packages
+                  {...{
+                    error: packages.error ? packages.error : null,
+                    items: packages.items ? packages.items : null,
+                    id_intention: user.package_id_intention,
+                  }}
+                />
 
                 {/* payment */}
                 <div className="row">
@@ -319,85 +323,6 @@ const RegisterConfirmPage = ({ layoutProps, packages, packagesError }) => {
   );
 }
 
-const Packages = ({packages, packagesError, package_id_intention}) => {
-
-  const [items, setItems] = useState(packages)
-  const [package_id, setPackageId] = useState(package_id_intention)
-
-  if ( ! packages) {
-    useEffect(_ => {
-      (async _ => {
-        const {data} = await api.get('packages')
-        setItems(data)
-      })()
-    }, [])
-  }
-
-  function handlePackage(e) {
-    setPackageId(e.target.value)
-  }
-
-  return (
-    <section className="packages">
-      <h3 className="h3">Selecciona tu plan</h3>
-      <div className="row gutter-15">
-        { items && items.map((item, key) => (
-          <div className="col-6 col-md-3" {...{key}}>
-            <FormGroup>
-              <PackageRadio {...{onChange: handlePackage, package_id, plan: item}} />
-            </FormGroup>
-          </div>
-        )) }
-      </div>
-    </section>
-  )
-}
-
-const PackageRadio = ({ onChange, package_id, plan }) => {
-  return (
-    <label className="text-center">
-      <input
-        checked={plan.id == package_id}
-        name="package"
-        onChange={onChange}
-        type="radio"
-        value={plan.id}
-      />
-      <span className="fake-input">
-        <span className="d-block name">{ plan.name }</span>
-        <span className="value">{ (plan.currency === 'ars' ? '$' : '') + plan.amount }</span>
-      </span>
-      <style jsx>{`
-        label {
-          cursor: pointer;
-          display: block;
-          margin-bottom: 15px;
-          overflow: hidden;
-          position: relative;
-        }
-        input {
-          opacity: 0;
-          position: absolute;
-        }
-        .fake-input {
-          border: 1px solid lightgray;
-          border-radius: 4px;
-          display: block;
-          padding: 15px;
-          transition: border-color .3s;
-        }
-        input:checked + .fake-input {
-          border-color: var(--primary);
-        }
-        .name {
-          font-size: 1.33em;
-          margin-bottom: 5px;
-        }
-      `}</style>
-    </label>
-  )
-}
-
 // Radio
 const InputRadio = ({ label, name, onChange, state, value }) => {
   return (
@@ -465,10 +390,10 @@ const InputRadio = ({ label, name, onChange, state, value }) => {
 
 RegisterConfirmPage.getInitialProps = async _ => {
   try {
-    const {data} = await api.get('packages')
-    return { packages: data }
+    const { data } = await api.get('packages')
+    return { packages: { items: data } }
   } catch(error) {
-    return { packagesError: error }
+    return { packages: { error } }
   }
 }
 
