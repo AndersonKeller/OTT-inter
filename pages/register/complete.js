@@ -18,7 +18,40 @@ import Router from 'next/router'
 import { IS_PRODUCTION } from '../../constants/constants'
 
 // page
-const RegisterConfirmPage = ({ layoutProps, packages }) => {
+const CompleteRegisterPage = ({ layoutProps, packages }) => {
+  const { user } = useContext(UserContext)
+  return (
+    <Layout color="white" {...layoutProps}>
+      <Head>
+        <title>Confirmación &lt; Registro &lt; {CONFIG.appName}</title>
+      </Head>
+      <div className="rgpage container-fluid">
+        <div className="row">
+          <div className="col-xl-8 offset-xl-2">
+
+            <h1 className="h2">Completa tu registro</h1>
+
+            { user && (
+              <CompleteRegisterForm {...{packages}} />
+            ) }
+
+          </div>
+        </div>
+      </div>
+      <style jsx>{`
+        .rgpage {
+          padding-top: 40px;
+          padding-bottom: 120px;
+        }
+        .h2 {
+          margin-bottom: 10px;
+        }
+      `}</style>
+    </Layout>
+  );
+}
+
+const CompleteRegisterForm = ({ packages }) => {
 
   const requireds = IS_PRODUCTION
 
@@ -79,7 +112,7 @@ const RegisterConfirmPage = ({ layoutProps, packages }) => {
   useEffect(_ => {
     if (user) {
       setValues({
-        name: user.name ? user.name : '',
+        name: user.name,
         user_genre_id: user.user_genre_id ? user.user_genre_id : '',
         document: user.document ? user.document : '',
         address: user.address ? user.address : '',
@@ -106,225 +139,201 @@ const RegisterConfirmPage = ({ layoutProps, packages }) => {
   }
 
   return (
-    <Layout color="white" {...layoutProps}>
-      <Head>
-        <title>Confirmación &lt; Registro &lt; {CONFIG.appName}</title>
-      </Head>
-      <div className="rgpage container-fluid">
-        <div className="row">
-          <div className="col-xl-8 offset-xl-2">
+    <form method="post" onSubmit={handleSubmit}>
+
+      <div className="row">
+
+        <div className="col-md-6">
+          <div className="data">
 
             {/* heading */}
-            <h1 className="h2">Completa tu registro</h1>
+            <h3 className="h3">Sus datos</h3>
 
-            { user && (
-              <form method="post" onSubmit={handleSubmit}>
+            {/* name */}
+            <FormGroup>
+              <Label htmlFor="name">Nombre completo</Label>
+              <Input
+                id="name"
+                name="name"
+                onChange={handleInputChange}
+                required={requireds}
+                value={values.name}
+              />
+            </FormGroup>
 
-                <div className="row">
+            {/* genre */}
+            <FormGroup>
+              <Label htmlFor="user_genre_id">Género</Label>
+              <Select
+                id="user_genre_id"
+                name="user_genre_id"
+                onChange={handleInputChange}
+                required={requireds}
+                value={values.user_genre_id}
+              >
+                { ! genres ? (
+                  <option disabled value="">Cargando...</option>
+                ) : genres.length ? <>
+                  <option disabled value="">Selecciona tu género</option>
+                  { genres.map((genre, key) => (
+                    <option {...{key}} value={genre.id}>{genre.name}</option>
+                  ))}
+                </> : (
+                  <option disabled value="">Incapaz de cargar géneros</option>
+                ) }
+              </Select>
+            </FormGroup>
 
-                  <div className="col-md-6">
-                    <div className="data">
-
-                      {/* heading */}
-                      <h3 className="h3">Sus datos</h3>
-
-                      {/* name */}
-                      <FormGroup>
-                        <Label htmlFor="name">Nombre completo</Label>
-                        <Input
-                          id="name"
-                          name="name"
-                          onChange={handleInputChange}
-                          required={requireds}
-                          value={values.name}
-                        />
-                      </FormGroup>
-
-                      {/* genre */}
-                      <FormGroup>
-                        <Label htmlFor="user_genre_id">Género</Label>
-                        <Select
-                          id="user_genre_id"
-                          name="user_genre_id"
-                          onChange={handleInputChange}
-                          required={requireds}
-                          value={values.user_genre_id}
-                        >
-                          { ! genres ? (
-                            <option disabled value="">Cargando...</option>
-                          ) : genres.length ? <>
-                            <option disabled value="">Selecciona tu género</option>
-                            { genres.map((genre, key) => (
-                              <option {...{key}} value={genre.id}>{genre.name}</option>
-                            ))}
-                          </> : (
-                            <option disabled value="">Incapaz de cargar géneros</option>
-                          ) }
-                        </Select>
-                      </FormGroup>
-
-                      {/* document */}
-                      <FormGroup>
-                        <Label htmlFor="document">Documento</Label>
-                        <Input
-                          id="document"
-                          name="document"
-                          onChange={handleInputChange}
-                          required={requireds}
-                          type="text"
-                          value={values.document}
-                        />
-                      </FormGroup>
-
-                    </div>
-                  </div>
-
-                  <div className="col-md-6">
-                    <div className="localization">
-                      <h3 className="h3">Ubicación</h3>
-
-                      {/* address */}
-                      <FormGroup>
-                        <Label htmlFor="address">Dirección</Label>
-                        <Input
-                          id="address"
-                          name="address"
-                          onChange={handleInputChange}
-                          required={requireds}
-                          type="text"
-                          value={values.address}
-                        />
-                      </FormGroup>
-
-                      {/* city */}
-                      <FormGroup>
-                        <Label htmlFor="city">Ciudad</Label>
-                        <Input id="city" name="city" required={requireds} type="text" />
-                      </FormGroup>
-
-                      {/* country */}
-                      <FormGroup>
-                        <Label htmlFor="country">País</Label>
-                        <Select defaultValue={0} id="country" name="country" required={requireds}>
-                          { ! countries ? (
-                            <option disabled value={0}>Cargando...</option>
-                          ) : countries.length ? <>
-                            <option disabled value={0}>Selecciona tu país</option>
-                            { countries.map((country, key) => (
-                              <option {...{key}} value={country.id}>{country.name}</option>
-                            ))}
-                          </> : (
-                            <option disabled value={0}>Incapaz de cargar países</option>
-                          ) }
-                        </Select>
-                      </FormGroup>
-
-                    </div>
-                  </div>
-
-                </div>
-
-                {/* package */}
-                <Packages
-                  {...{
-                    error: packages.error ? packages.error : null,
-                    items: packages.items ? packages.items : null,
-                    id_intention: user.package_id_intention,
-                  }}
-                />
-
-                {/* payment */}
-                <div className="row">
-                  <div className="offset-md-2 col-md-8">
-                    <h3 className="h3">Pago</h3>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <FormGroup>
-                          <InputRadio
-                            label="Tarjeta de crédito"
-                            name="payment"
-                            onChange={handlePaymentChange}
-                            state={payment}
-                            value="credit"
-                          />
-                          <InputRadio
-                            label="Tarjeta de débito"
-                            name="payment"
-                            onChange={handlePaymentChange}
-                            state={payment}
-                            value="debit"
-                          />
-                          <InputRadio
-                            label="Recibo bancario"
-                            name="payment"
-                            onChange={handlePaymentChange}
-                            state={payment}
-                            value="boleto"
-                          />
-                        </FormGroup>
-                      </div>
-                      <div className="col-md-6">
-                        { payment === 'credit' && (
-                          <div className="card-inputs">
-                            <FormGroup>
-                              <Label htmlFor="creditCardName">Nombre impreso</Label>
-                              <Input id="creditCardName" name="creditCardName" required={requireds} type="text" />
-                            </FormGroup>
-                            <FormGroup>
-                              <Label htmlFor="creditCardNumber">Numero</Label>
-                              <Input id="creditCardNumber" name="creditCardNumber" required={requireds} type="text" />
-                            </FormGroup>
-                            <div className="row">
-                              <div className="col-6">
-                                <FormGroup>
-                                  <Label htmlFor="creditCardDate">Validez</Label>
-                                  <Input id="creditCardDate" name="creditCardDate" required={requireds} type="text" />
-                                </FormGroup>
-                              </div>
-                              <div className="col-6">
-                                <FormGroup>
-                                  <Label htmlFor="creditCardCode">
-                                    <abbr title="Código de seguridad">CVV</abbr>
-                                  </Label>
-                                  <Input id="creditCardCode" name="creditCardCode" required={requireds} type="text" />
-                                </FormGroup>
-                              </div>
-                            </div>
-                          </div>
-                        ) }
-                        </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row align-items-center">
-                  <div className="col-md-6 offset-md-4">
-                    <label className="terms">
-                      <input name="terms" required={requireds} type="checkbox" />
-                      <span>He leído y acepto el contrato de Dale Campéon</span>
-                    </label>
-                  </div>
-                  <div className="col-md-2 text-right">
-                    <Button block color="secondary" type="submit">Continuar</Button>
-                  </div>
-                </div>
-
-                {/* <p>Acceda al correo electrónico registrado para confirmar su cuenta.</p> */}
-
-              </form>
-            ) }
+            {/* document */}
+            <FormGroup>
+              <Label htmlFor="document">Documento</Label>
+              <Input
+                id="document"
+                name="document"
+                onChange={handleInputChange}
+                required={requireds}
+                type="text"
+                value={values.document}
+              />
+            </FormGroup>
 
           </div>
         </div>
+
+        <div className="col-md-6">
+          <div className="localization">
+            <h3 className="h3">Ubicación</h3>
+
+            {/* address */}
+            <FormGroup>
+              <Label htmlFor="address">Dirección</Label>
+              <Input
+                id="address"
+                name="address"
+                onChange={handleInputChange}
+                required={requireds}
+                type="text"
+                value={values.address}
+              />
+            </FormGroup>
+
+            {/* city */}
+            <FormGroup>
+              <Label htmlFor="city">Ciudad</Label>
+              <Input id="city" name="city" required={requireds} type="text" />
+            </FormGroup>
+
+            {/* country */}
+            <FormGroup>
+              <Label htmlFor="country">País</Label>
+              <Select defaultValue={0} id="country" name="country" required={requireds}>
+                { ! countries ? (
+                  <option disabled value={0}>Cargando...</option>
+                ) : countries.length ? <>
+                  <option disabled value={0}>Selecciona tu país</option>
+                  { countries.map((country, key) => (
+                    <option {...{key}} value={country.id}>{country.name}</option>
+                  ))}
+                </> : (
+                  <option disabled value={0}>Incapaz de cargar países</option>
+                ) }
+              </Select>
+            </FormGroup>
+
+          </div>
+        </div>
+
       </div>
+
+      {/* package */}
+      <Packages
+        {...{
+          error: packages.error ? packages.error : null,
+          items: packages.items ? packages.items : null,
+          id_intention: user.package_id_intention,
+        }}
+      />
+
+      {/* payment */}
+      <div className="row">
+        <div className="offset-md-2 col-md-8">
+          <h3 className="h3">Pago</h3>
+          <div className="row">
+            <div className="col-md-6">
+              <FormGroup>
+                <InputRadio
+                  label="Tarjeta de crédito"
+                  name="payment"
+                  onChange={handlePaymentChange}
+                  state={payment}
+                  value="credit"
+                />
+                <InputRadio
+                  label="Tarjeta de débito"
+                  name="payment"
+                  onChange={handlePaymentChange}
+                  state={payment}
+                  value="debit"
+                />
+                <InputRadio
+                  label="Recibo bancario"
+                  name="payment"
+                  onChange={handlePaymentChange}
+                  state={payment}
+                  value="boleto"
+                />
+              </FormGroup>
+            </div>
+            <div className="col-md-6">
+              { payment === 'credit' && (
+                <div className="card-inputs">
+                  <FormGroup>
+                    <Label htmlFor="creditCardName">Nombre impreso</Label>
+                    <Input id="creditCardName" name="creditCardName" required={requireds} type="text" />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="creditCardNumber">Numero</Label>
+                    <Input id="creditCardNumber" name="creditCardNumber" required={requireds} type="text" />
+                  </FormGroup>
+                  <div className="row">
+                    <div className="col-6">
+                      <FormGroup>
+                        <Label htmlFor="creditCardDate">Validez</Label>
+                        <Input id="creditCardDate" name="creditCardDate" required={requireds} type="text" />
+                      </FormGroup>
+                    </div>
+                    <div className="col-6">
+                      <FormGroup>
+                        <Label htmlFor="creditCardCode">
+                          <abbr title="Código de seguridad">CVV</abbr>
+                        </Label>
+                        <Input id="creditCardCode" name="creditCardCode" required={requireds} type="text" />
+                      </FormGroup>
+                    </div>
+                  </div>
+                </div>
+              ) }
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row align-items-center">
+        <div className="col-md-6 offset-md-4">
+          <label className="terms">
+            <input name="terms" required={requireds} type="checkbox" />
+            <span>He leído y acepto el contrato de Dale Campéon</span>
+          </label>
+        </div>
+        <div className="col-md-2 text-right">
+          <Button block color="secondary" type="submit">Continuar</Button>
+        </div>
+      </div>
+
+      {/* <p>Acceda al correo electrónico registrado para confirmar su cuenta.</p> */}
+
+
       <style jsx>{`
-        .rgpage {
-          padding-top: 40px;
-          padding-bottom: 120px;
-        }
-        .h2 {
-          margin-bottom: 10px;
-        }
         :global(.h3) {
           font-size: 20px;
           font-weight: bold;
@@ -347,8 +356,8 @@ const RegisterConfirmPage = ({ layoutProps, packages }) => {
           margin-right: 5px;
         }
       `}</style>
-    </Layout>
-  );
+    </form>
+  )
 }
 
 // Radio
@@ -416,7 +425,7 @@ const InputRadio = ({ label, name, onChange, state, value }) => {
   )
 }
 
-RegisterConfirmPage.getInitialProps = async _ => {
+CompleteRegisterPage.getInitialProps = async _ => {
   try {
     const { data } = await api.get('packages')
     return { packages: { items: data } }
@@ -425,4 +434,4 @@ RegisterConfirmPage.getInitialProps = async _ => {
   }
 }
 
-export default RegisterConfirmPage
+export default CompleteRegisterPage
