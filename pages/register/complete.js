@@ -20,14 +20,19 @@ import { IS_PRODUCTION } from '../../constants/constants'
 // page
 const RegisterConfirmPage = ({ layoutProps, packages }) => {
 
+  const requireds = IS_PRODUCTION
+
   const { user } = useContext(UserContext)
+
   const [ genres, setGenres ] = useState()
   const [ countries, setCountries ] = useState()
-  // const [ packages, setPackages ] = useState()
-  const [ payment, setPayment ] = useState()
-  const requireds = IS_PRODUCTION
+
   const [ name, setName ] = useState('')
   const [ user_genre_id, setUserGenreId ] = useState('')
+  const [ document, setDocument ] = useState('')
+
+  // const [ packages, setPackages ] = useState()
+  const [ payment, setPayment ] = useState()
   const [ error, setError ] = useState()
 
   function handlePaymentChange(e) {
@@ -67,6 +72,7 @@ const RegisterConfirmPage = ({ layoutProps, packages }) => {
     if (user) {
       setName(user.name)
       setUserGenreId(user.user_genre_id ? user.user_genre_id : '')
+      setDocument(user.document)
     }
   }, [user])
 
@@ -78,6 +84,7 @@ const RegisterConfirmPage = ({ layoutProps, packages }) => {
       const response = await api.post('register/complete', {
         name,
         user_genre_id,
+        document,
       })
       console.log(response)
     } catch (error) {
@@ -152,7 +159,14 @@ const RegisterConfirmPage = ({ layoutProps, packages }) => {
                       {/* document */}
                       <FormGroup>
                         <Label htmlFor="document">Documento</Label>
-                        <Input id="document" name="document" required={requireds} type="text" />
+                        <Input
+                          id="document"
+                          name="document"
+                          onChange={e => setDocument(e.target.value)}
+                          required={requireds}
+                          type="text"
+                          value={document}
+                        />
                       </FormGroup>
 
                     </div>
