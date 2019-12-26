@@ -27,13 +27,21 @@ const RegisterConfirmPage = ({ layoutProps, packages }) => {
   const [ genres, setGenres ] = useState()
   const [ countries, setCountries ] = useState()
 
-  const [ name, setName ] = useState('')
-  const [ user_genre_id, setUserGenreId ] = useState('')
-  const [ document, setDocument ] = useState('')
+  const [ values, setValues ] = useState({
+    name: '',
+    user_genre_id: '',
+    document: '',
+    address: '',
+  })
 
   // const [ packages, setPackages ] = useState()
   const [ payment, setPayment ] = useState()
   const [ error, setError ] = useState()
+
+  const handleInputChange = e => {
+    const { name, value } = e.target
+    setValues({ ...values, [name]: value })
+  }
 
   function handlePaymentChange(e) {
     setPayment(e.target.value)
@@ -70,9 +78,12 @@ const RegisterConfirmPage = ({ layoutProps, packages }) => {
   /* fill user form */
   useEffect(_ => {
     if (user) {
-      setName(user.name)
-      setUserGenreId(user.user_genre_id ? user.user_genre_id : '')
-      setDocument(user.document)
+      setValues({
+        name: user.name ? user.name : '',
+        user_genre_id: user.user_genre_id ? user.user_genre_id : '',
+        document: user.document ? user.document : '',
+        address: user.address ? user.address : '',
+      })
     }
   }, [user])
 
@@ -81,11 +92,7 @@ const RegisterConfirmPage = ({ layoutProps, packages }) => {
     e.preventDefault()
     // setLoading(true)
     try {
-      const response = await api.post('register/complete', {
-        name,
-        user_genre_id,
-        document,
-      })
+      const response = await api.post('register/complete', values)
       console.log(response)
     } catch (error) {
       if (error.response) {
@@ -127,9 +134,9 @@ const RegisterConfirmPage = ({ layoutProps, packages }) => {
                         <Input
                           id="name"
                           name="name"
-                          onChange={e => setName(e.target.value)}
+                          onChange={handleInputChange}
                           required={requireds}
-                          value={name}
+                          value={values.name}
                         />
                       </FormGroup>
 
@@ -139,9 +146,9 @@ const RegisterConfirmPage = ({ layoutProps, packages }) => {
                         <Select
                           id="user_genre_id"
                           name="user_genre_id"
-                          onChange={e => setUserGenreId(e.target.value)}
+                          onChange={handleInputChange}
                           required={requireds}
-                          value={user_genre_id}
+                          value={values.user_genre_id}
                         >
                           { ! genres ? (
                             <option disabled value="">Cargando...</option>
@@ -162,10 +169,10 @@ const RegisterConfirmPage = ({ layoutProps, packages }) => {
                         <Input
                           id="document"
                           name="document"
-                          onChange={e => setDocument(e.target.value)}
+                          onChange={handleInputChange}
                           required={requireds}
                           type="text"
-                          value={document}
+                          value={values.document}
                         />
                       </FormGroup>
 
@@ -179,7 +186,14 @@ const RegisterConfirmPage = ({ layoutProps, packages }) => {
                       {/* address */}
                       <FormGroup>
                         <Label htmlFor="address">Dirección</Label>
-                        <Input id="address" name="address" required={requireds} type="text" />
+                        <Input
+                          id="address"
+                          name="address"
+                          onChange={handleInputChange}
+                          required={requireds}
+                          type="text"
+                          value={values.address}
+                        />
                       </FormGroup>
 
                       {/* city */}
@@ -189,7 +203,7 @@ const RegisterConfirmPage = ({ layoutProps, packages }) => {
                       </FormGroup>
 
                       {/* country */}
-                      {<FormGroup>
+                      <FormGroup>
                         <Label htmlFor="country">País</Label>
                         <Select defaultValue={0} id="country" name="country" required={requireds}>
                           { ! countries ? (
@@ -203,7 +217,7 @@ const RegisterConfirmPage = ({ layoutProps, packages }) => {
                             <option disabled value={0}>Incapaz de cargar países</option>
                           ) }
                         </Select>
-                      </FormGroup>}
+                      </FormGroup>
 
                     </div>
                   </div>
