@@ -254,12 +254,10 @@ const Layout = ({
         .bold {
           font-weight: bold;
         }
-        .invalid-feedback {
-          display: block;
-          font-size: 14px;
-        }
+        .invalid-feedback,
         .valid-feedback {
           display: block;
+          font-size: 14px;
         }
       `}</style>
     </>

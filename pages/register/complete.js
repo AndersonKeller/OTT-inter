@@ -1,6 +1,7 @@
 // other imports
 import Head from 'next/head'
-import sleep from 'sleep-promise'
+import Link from 'next/link'
+// import sleep from 'sleep-promise'
 
 // app imports
 import Layout from '../../components/layout/Layout'
@@ -53,6 +54,7 @@ const CompleteRegisterPage = ({ layoutProps, packages }) => {
 
 const CompleteRegisterForm = ({ packages }) => {
 
+  const debug = false && ! IS_PRODUCTION
   const requireds = IS_PRODUCTION
 
   const { user } = useContext(UserContext)
@@ -67,20 +69,12 @@ const CompleteRegisterForm = ({ packages }) => {
     address: '',
     city: '',
     country_id: '',
+    package_id: '',
   })
 
-  // const [ packages, setPackages ] = useState()
-  const [ payment, setPayment ] = useState()
+  const [ loading, setLoading ] = useState()
   const [ error, setError ] = useState()
-
-  const handleInputChange = e => {
-    const { name, value } = e.target
-    setValues({ ...values, [name]: value })
-  }
-
-  function handlePaymentChange(e) {
-    setPayment(e.target.value)
-  }
+  const [ payment, setPayment ] = useState()
 
   /* temporarily handle user presence */
   useEffect(_ => {
@@ -120,30 +114,67 @@ const CompleteRegisterForm = ({ packages }) => {
         address: user.address ? user.address : '',
         city: user.city ? user.city : '',
         country_id: user.country_id ? user.country_id : '',
+        package_id: user.package_id_intention ? user.package_id_intention : '',
       })
     }
   }, [user])
 
-  /* handle submit */
+  /* handle general input change */
+  const handleInputChange = e => {
+    const { name, value } = e.target
+    setValues({ ...values, [name]: value })
+  }
+
+  /* handle package change */
+  function onPackageChange(e) {
+    setValues({
+      ...values,
+      package_id: parseInt(e.target.value, 10),
+    })
+  }
+
+  function handlePaymentChange(e) {
+    setPayment(e.target.value)
+  }
+
   const handleSubmit = async e => {
     e.preventDefault()
-    // setLoading(true)
+    setLoading(true)
     try {
       const response = await api.post('register/complete', values)
       console.log(response)
     } catch (error) {
       if (error.response) {
-        setError(error.response.data)
+        const { data, status } = error.response
+        if (status === 422) {
+          setError(data)
+        }
+      } else if (error.request) {
+        console.log(error.request);
+        setError(error)
       } else {
-        setError('An error has occurred!')
-        console.log('error', error)
+        console.log('Error', error.message);
+        setError(error)
       }
+      console.log(error.config);
     }
-    // setLoading(false)
+    setLoading(false)
   }
 
   return (
     <form method="post" onSubmit={handleSubmit}>
+
+      {/* main error msg */}
+      { error && error.message && (
+        <div className="invalid-feedback">{error.message}</div>
+      ) }
+
+      {/* form data debug */}
+      { debug && (
+        <pre>
+          {JSON.stringify(values, null, 2)}
+        </pre>
+      )}
 
       <div className="row">
 
@@ -163,6 +194,11 @@ const CompleteRegisterForm = ({ packages }) => {
                 required={requireds}
                 value={values.name}
               />
+              { error && error.errors && error.errors.name ? (
+                <div className="invalid-feedback">{error.errors.name}</div>
+              ) : error && error.errors && (
+                <div className="valid-feedback">¡Se ve bien!</div>
+              ) }
             </FormGroup>
 
             {/* genre */}
@@ -262,12 +298,13 @@ const CompleteRegisterForm = ({ packages }) => {
 
       </div>
 
-      {/* package */}
+      {/* package selection */}
       <Packages
         {...{
           error: packages.error ? packages.error : null,
           items: packages.items ? packages.items : null,
-          id_intention: user.package_id_intention,
+          onChange: onPackageChange,
+          package_id: values.package_id,
         }}
       />
 
@@ -339,16 +376,17 @@ const CompleteRegisterForm = ({ packages }) => {
         <div className="col-md-6 offset-md-4">
           <label className="terms">
             <input name="terms" required={requireds} type="checkbox" />
-            <span>He leído y acepto el contrato de Dale Campéon</span>
+            <span>He leído y acepto <Link href="/terminos-y-politicas">
+                <a target="_blank">el contrato</a>
+              </Link> de Dale Campéon</span>
           </label>
         </div>
         <div className="col-md-2 text-right">
-          <Button block color="secondary" type="submit">Continuar</Button>
+          <Button block color="secondary" disabled={loading} type="submit">Enviar</Button>
         </div>
       </div>
 
       {/* <p>Acceda al correo electrónico registrado para confirmar su cuenta.</p> */}
-
 
       <style jsx>{`
         :global(.h3) {

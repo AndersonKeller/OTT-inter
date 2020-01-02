@@ -1,27 +1,13 @@
-// react imports
-import { useContext, useEffect, useState } from 'react'
-
 // app imports
 import FormGroup from './layout/AuthModal/FormGroup'
 
-// component
-const Packages = ({ error, id_intention, items }) => {
-
-  // const [ items, setItems ] = useState(items)
-  const [ package_id, setPackageId ] = useState(id_intention)
-
-  // useEffect(_ => {
-  //   setItems(items)
-  // }, [items])
-
-  function handlePackage(e) {
-    setPackageId(e.target.value)
-  }
-
+// packages component
+const Packages = ({ error, items, onChange, package_id }) => {
+  // error handling
   if (error) {
     return <div>No se pueden cargar paquetes</div>
   }
-
+  // return
   return (
     <section className="packages">
       <h3 className="h3">Selecciona tu plan</h3>
@@ -29,7 +15,7 @@ const Packages = ({ error, id_intention, items }) => {
         { items && items.map((item, key) => (
           <div className="col-6 col-md-3" {...{key}}>
             <FormGroup>
-              <PackageRadio {...{onChange: handlePackage, package_id, plan: item}} />
+              <PackageRadio {...{onChange, package_id, plan: item}} />
             </FormGroup>
           </div>
         )) }
@@ -38,12 +24,13 @@ const Packages = ({ error, id_intention, items }) => {
   )
 }
 
+// radio component
 const PackageRadio = ({ onChange, package_id, plan }) => {
   return (
     <label className="text-center">
       <input
         checked={plan.id == package_id}
-        name="package"
+        name="package_id"
         onChange={onChange}
         type="radio"
         value={plan.id}
@@ -83,4 +70,5 @@ const PackageRadio = ({ onChange, package_id, plan }) => {
   )
 }
 
+// export packages
 export default Packages
