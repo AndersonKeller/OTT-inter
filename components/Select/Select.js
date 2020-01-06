@@ -6,9 +6,10 @@ export default function Select({
   onChange,
   required,
   value,
+  style
 }) {
   return <>
-    <select className="form-control" {...{id, defaultValue, name, onChange, required, value}}>
+    <select className="form-control" {...{id, defaultValue, name, onChange, required, value, style}}>
       {children}
     </select>
     <style jsx>{`

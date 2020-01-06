@@ -14,11 +14,13 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 ## [Não publicado]
 ### Adicionado
 - Adicionamos e iniciamos um changelog.
+- Adicionamos as dependencias para Material-UI, Formik e Yup
 
 ### Modificado
 - Modificamos a margem superior do conteúdo pra espelhar a altura do cabeçalho que foi modificada.
 - Atualizamos o leia-me.
 - O link descargas (downloads) do menu do rodapé no mobile foi substituído por um link para Mi Lista.
+- Modificamos a página da conta do usuário
 
 ### Corrigido
 - Corrigimos a margem inferior dos cards em listas fora dos carroséis.
