@@ -10,16 +10,10 @@ export default ({}) => {
   const { signOut, user } = useContext(UserContext)
   const { closeAuthModal, openAuthModal } = useContext(AuthModalContext)
 
-  const logout = (e) => {
-    e.preventDefault()
-    signOut()
-    closeAuthModal()
-  }
-
   const loggedMenu = [
     { slug: 'add', label: 'Mi Lista', href: '/wishlist' },
-    { slug: 'user', label: 'Mi Cuenta', href: '/mi-cuenta' },
-    // { slug: 'settings', label: 'Configuración', href: '/mi-cuenta' },
+    { slug: 'user', label: 'Mi Cuenta', href: '/user/account' },
+    // { slug: 'settings', label: 'Configuración', href: '/settings' },
     { slug: 'help', label: 'Ayuda', href: '/ayuda' },
     { slug: 'info', label: 'Soporte', href: '/soporte' },
     { slug: 'logout', label: 'Salir', href: '/logout', onClick: logout, },
@@ -28,6 +22,12 @@ export default ({}) => {
   function enter(e) {
     e.preventDefault()
     openAuthModal()
+  }
+
+  function logout(e) {
+    e.preventDefault()
+    signOut()
+    closeAuthModal()
   }
 
   return (
@@ -58,11 +58,15 @@ export default ({}) => {
               <div className="suscriptor">Suscriptor</div>
             </Dropdown.Header>
 
-            { loggedMenu.map((item, i) => (
-              <Dropdown.Item className="dropdown-item-style3" href={item.href} key={i} onClick={item.onClick}>
-                <span className="icon"><img className={`img-fluid ${item.slug}`} src={`/static/icons/${item.slug}.svg`} /></span>
-                <span>{item.label}</span>
-              </Dropdown.Item>
+            { loggedMenu.map((item, key) => (
+              <Link href={item.href} key={key} onClick={item.onClick} passHref>
+                <Dropdown.Item className="dropdown-item-style3" onClick={item.onClick}>
+                  <span className="icon">
+                    <img className={`img-fluid ${item.slug}`} src={`/static/icons/${item.slug}.svg`} />
+                  </span>
+                  <span>{item.label}</span>
+                </Dropdown.Item>
+              </Link>
             )) }
 
           </Dropdown.Menu>
