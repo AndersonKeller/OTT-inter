@@ -16,11 +16,29 @@ import Packages from '../../components/Packages'
 import Select from '../../components/Select/Select'
 import api from '../../services/api'
 import Router from 'next/router'
-import { IS_PRODUCTION } from '../../constants/constants'
+import { IS_PRODUCTION, HAS_WINDOW } from '../../constants/constants'
+import useScript, { ScriptStatus } from '@charlietango/use-script'
 
 // page
 const CompleteRegisterPage = ({ layoutProps, packages }) => {
+
+  const [ ready, status ] = useScript('https://js.paymentsos.com/v2/latest/secure-fields.min.js')
   const { user } = useContext(UserContext)
+  const POS = HAS_WINDOW && ready ? window.POS : false
+  const payUEnv = 'test'
+  const businessUnitPublicKey = '88985036-6530-4b5a-a7ec-c4e07ec07f6c'
+
+  if (status === ScriptStatus.ERROR) {
+    return <div>Failed to load Google API</div>
+  }
+
+  useEffect(_ => {
+    if (POS) {
+      POS.setPublicKey(businessUnitPublicKey)
+      POS.setEnvironment(payUEnv)
+    }
+  }, [POS])
+
   return (
     <Layout color="white" {...layoutProps}>
       <Head>
@@ -33,7 +51,7 @@ const CompleteRegisterPage = ({ layoutProps, packages }) => {
             <h1 className="h2">Completa tu registro</h1>
 
             { user && (
-              <CompleteRegisterForm {...{packages}} />
+              <CompleteRegisterForm {...{packages, POS}} />
             ) }
 
           </div>
@@ -52,7 +70,7 @@ const CompleteRegisterPage = ({ layoutProps, packages }) => {
   );
 }
 
-const CompleteRegisterForm = ({ packages }) => {
+const CompleteRegisterForm = ({ packages, POS }) => {
 
   const debug = false && ! IS_PRODUCTION
   const requireds = IS_PRODUCTION
@@ -70,11 +88,11 @@ const CompleteRegisterForm = ({ packages }) => {
     city: '',
     country_id: '',
     package_id: '',
+    payment_method_id: '',
   })
 
   const [ loading, setLoading ] = useState()
   const [ error, setError ] = useState()
-  const [ payment, setPayment ] = useState()
 
   /* temporarily handle user presence */
   useEffect(_ => {
@@ -115,6 +133,7 @@ const CompleteRegisterForm = ({ packages }) => {
         city: user.city ? user.city : '',
         country_id: user.country_id ? user.country_id : '',
         package_id: user.package_id_intention ? user.package_id_intention : '',
+        payment_method_id: user.payment_method_id ? user.payment_method_id : '',
       })
     }
   }, [user])
@@ -131,10 +150,6 @@ const CompleteRegisterForm = ({ packages }) => {
       ...values,
       package_id: parseInt(e.target.value, 10),
     })
-  }
-
-  function handlePaymentChange(e) {
-    setPayment(e.target.value)
   }
 
   const handleSubmit = async e => {
@@ -308,69 +323,7 @@ const CompleteRegisterForm = ({ packages }) => {
         }}
       />
 
-      {/* payment */}
-      <div className="row">
-        <div className="offset-md-2 col-md-8">
-          <h3 className="h3">Pago</h3>
-          <div className="row">
-            <div className="col-md-6">
-              <FormGroup>
-                <InputRadio
-                  label="Tarjeta de crédito"
-                  name="payment"
-                  onChange={handlePaymentChange}
-                  state={payment}
-                  value="credit"
-                />
-                <InputRadio
-                  label="Tarjeta de débito"
-                  name="payment"
-                  onChange={handlePaymentChange}
-                  state={payment}
-                  value="debit"
-                />
-                <InputRadio
-                  label="Recibo bancario"
-                  name="payment"
-                  onChange={handlePaymentChange}
-                  state={payment}
-                  value="boleto"
-                />
-              </FormGroup>
-            </div>
-            <div className="col-md-6">
-              { payment === 'credit' && (
-                <div className="card-inputs">
-                  <FormGroup>
-                    <Label htmlFor="creditCardName">Nombre impreso</Label>
-                    <Input id="creditCardName" name="creditCardName" required={requireds} type="text" />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label htmlFor="creditCardNumber">Numero</Label>
-                    <Input id="creditCardNumber" name="creditCardNumber" required={requireds} type="text" />
-                  </FormGroup>
-                  <div className="row">
-                    <div className="col-6">
-                      <FormGroup>
-                        <Label htmlFor="creditCardDate">Validez</Label>
-                        <Input id="creditCardDate" name="creditCardDate" required={requireds} type="text" />
-                      </FormGroup>
-                    </div>
-                    <div className="col-6">
-                      <FormGroup>
-                        <Label htmlFor="creditCardCode">
-                          <abbr title="Código de seguridad">CVV</abbr>
-                        </Label>
-                        <Input id="creditCardCode" name="creditCardCode" required={requireds} type="text" />
-                      </FormGroup>
-                    </div>
-                  </div>
-                </div>
-              ) }
-              </div>
-          </div>
-        </div>
-      </div>
+      <Payment {...{POS, requireds}} />
 
       <div className="row align-items-center">
         <div className="col-md-6 offset-md-4">
@@ -412,6 +365,107 @@ const CompleteRegisterForm = ({ packages }) => {
         }
       `}</style>
     </form>
+  )
+}
+
+// Payment
+const Payment = ({ POS, requireds }) => {
+
+  const [ payment, setPayment ] = useState()
+
+  function handlePaymentChange(e) {
+    setPayment(e.target.value)
+  }
+
+  useEffect(_ => {
+    if (payment === 'credit' && POS) {
+      POS.initSecureFields('card-secure-fields')
+    }
+  }, [payment])
+
+  return (
+    <div className="row">
+      <div className="offset-md-2 col-md-8">
+
+        <h3 className="h3">Pago</h3>
+
+        <div className="row">
+
+            <div className="col-md-6">
+              <FormGroup>
+                <InputRadio
+                  label="Tarjeta de crédito"
+                  name="payment"
+                  onChange={handlePaymentChange}
+                  state={payment}
+                  value="credit"
+                />
+                <InputRadio
+                  label="Tarjeta de débito"
+                  name="payment"
+                  onChange={handlePaymentChange}
+                  state={payment}
+                  value="debit"
+                />
+                <InputRadio
+                  label="Recibo bancario"
+                  name="payment"
+                  onChange={handlePaymentChange}
+                  state={payment}
+                  value="boleto"
+                />
+              </FormGroup>
+            </div>
+
+            <div className="col-md-6">
+              { payment === 'credit' && (
+                <div className="card-inputs">
+
+                  {/* mandatory data */}
+                  <FormGroup>
+                    <Label htmlFor="cardholder-name">Nombre impreso</Label>
+                    <Input id="cardholder-name" name="cardholder-name" required={requireds} type="text" />
+                  </FormGroup>
+
+                  {/* card fields */}
+                  <div id="card-secure-fields">
+                    { ! POS && (
+                      <p>Entradas de tarjeta aún no cargadas</p>
+                    ) }
+                  </div>
+
+                  {/* <FormGroup>
+                    <Label htmlFor="creditCardName">Nombre impreso</Label>
+                    <Input id="creditCardName" name="creditCardName" required={requireds} type="text" />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="creditCardNumber">Numero</Label>
+                    <Input id="creditCardNumber" name="creditCardNumber" required={requireds} type="text" />
+                  </FormGroup>
+                  <div className="row">
+                    <div className="col-6">
+                      <FormGroup>
+                        <Label htmlFor="creditCardDate">Validez</Label>
+                        <Input id="creditCardDate" name="creditCardDate" required={requireds} type="text" />
+                      </FormGroup>
+                    </div>
+                    <div className="col-6">
+                      <FormGroup>
+                        <Label htmlFor="creditCardCode">
+                          <abbr title="Código de seguridad">CVV</abbr>
+                        </Label>
+                        <Input id="creditCardCode" name="creditCardCode" required={requireds} type="text" />
+                      </FormGroup>
+                    </div>
+                  </div> */}
+
+                </div>
+              ) }
+              </div>
+          </div>
+
+      </div>
+    </div>
   )
 }
 

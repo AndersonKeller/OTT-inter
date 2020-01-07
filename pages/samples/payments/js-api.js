@@ -104,8 +104,7 @@ const Page = ({ errorCode, layoutProps }) => {
           <div>
             <input
               id="holder_name"
-              placeholder="John
-              Doe"
+              placeholder="John Doe"
               required
               type="text"
               defaultValue="John Doe"

@@ -5,6 +5,13 @@ if ( ! process.env.TENANT) {
 
 /**
  * @constant
+ * @type {boolean}
+ * @returns {boolean}
+ */
+export const HAS_WINDOW = typeof window !== 'undefined'
+
+/**
+ * @constant
  * @type {string}
  * @returns {string} "dalecampeon", "dalecacique" etc.
  */
