@@ -29,7 +29,7 @@ const CompleteRegisterPage = ({ layoutProps, packages }) => {
   const businessUnitPublicKey = '88985036-6530-4b5a-a7ec-c4e07ec07f6c'
 
   if (status === ScriptStatus.ERROR) {
-    return <div>Failed to load Google API</div>
+    console.log('Failed to load POS API')
   }
 
   useEffect(_ => {
@@ -67,7 +67,7 @@ const CompleteRegisterPage = ({ layoutProps, packages }) => {
         }
       `}</style>
     </Layout>
-  );
+  )
 }
 
 const CompleteRegisterForm = ({ packages, POS }) => {
@@ -152,26 +152,48 @@ const CompleteRegisterForm = ({ packages, POS }) => {
     })
   }
 
+  /* token */
+  async function createToken() {
+    const promise = new Promise((resolve, reject) => {
+      const additionalData = {
+        holder_name: document.getElementById('cardholder-name').value,
+        // custom_data: document.getElementById('custom').value,
+      }
+      POS.createToken(additionalData, (result) => {
+        console.log('result', result)
+        const json = JSON.parse(result)
+        json.token ? resolve(json) : reject(json)
+      })
+    })
+    return promise
+  }
+
+  /* submit */
   const handleSubmit = async e => {
     e.preventDefault()
     setLoading(true)
     try {
-      const response = await api.post('register/complete', values)
-      console.log(response)
-    } catch (error) {
-      if (error.response) {
-        const { data, status } = error.response
-        if (status === 422) {
-          setError(data)
+      const reqToken = await createToken()
+      try {
+        const response = await api.post('register/complete', values)
+        console.log(response)
+      } catch (error) {
+        if (error.response) {
+          const { data, status } = error.response
+          if (status === 422) {
+            setError(data)
+          }
+        } else if (error.request) {
+          console.log(error.request)
+          setError(error)
+        } else {
+          console.log('Error', error.message)
+          setError(error)
         }
-      } else if (error.request) {
-        console.log(error.request);
-        setError(error)
-      } else {
-        console.log('Error', error.message);
-        setError(error)
+        console.log(error.config)
       }
-      console.log(error.config);
+    } catch (error) {
+      setError(error.description ? { errors: { payment: error.description } } : error)
     }
     setLoading(false)
   }
@@ -323,7 +345,7 @@ const CompleteRegisterForm = ({ packages, POS }) => {
         }}
       />
 
-      <Payment {...{POS, requireds}} />
+      <Payment {...{error, loading, POS, requireds}} />
 
       <div className="row align-items-center">
         <div className="col-md-6 offset-md-4">
@@ -369,7 +391,7 @@ const CompleteRegisterForm = ({ packages, POS }) => {
 }
 
 // Payment
-const Payment = ({ POS, requireds }) => {
+const Payment = ({ error, loading, POS, requireds }) => {
 
   const [ payment, setPayment ] = useState()
 
@@ -431,6 +453,9 @@ const Payment = ({ POS, requireds }) => {
                   <div id="card-secure-fields">
                     { ! POS && (
                       <p>Entradas de tarjeta aún no cargadas</p>
+                    ) }
+                    { error && error.errors && error.errors.payment && ! loading && (
+                      <div className="invalid-feedback">{error.errors.payment}</div>
                     ) }
                   </div>
 

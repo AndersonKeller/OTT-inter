@@ -8,7 +8,7 @@ import { IS_PRODUCTION } from '../../../constants/constants'
 const Page = ({ errorCode, layoutProps }) => {
   let POS
   function onSubmit(event) {
-    event.preventDefault();
+    event.preventDefault()
     const additionalData = {
       holder_name: document.getElementById('cardholder-name').value,
       custom_data: document.getElementById('custom').value,
@@ -54,7 +54,7 @@ const Page = ({ errorCode, layoutProps }) => {
           },
         ]
       }
-    });
+    })
   }
   function scriptLoaded() {
     const payUEnv = 'test'
@@ -65,14 +65,14 @@ const Page = ({ errorCode, layoutProps }) => {
     }
     POS.setPublicKey(businessUnitPublicKey)
     POS.setEnvironment(payUEnv)
-    POS.initSecureFields('card-secure-fields');
+    POS.initSecureFields('card-secure-fields')
   }
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://js.paymentsos.com/v2/latest/secure-fields.min.js";
-    script.async = true;
-    script.onload = () => scriptLoaded();
-    document.body.appendChild(script);
+    const script = document.createElement("script")
+    script.src = "https://js.paymentsos.com/v2/latest/secure-fields.min.js"
+    script.async = true
+    script.onload = () => scriptLoaded()
+    document.body.appendChild(script)
   })
   return (
     <Layout color="white" errorCode={errorCode} {...layoutProps}>
