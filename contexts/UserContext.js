@@ -47,6 +47,11 @@ export function UserProvider({ children }) {
     }
   }
 
+  const updateUser = user => {
+    localStorage.setItem('user', JSON.stringify(user))
+    setUser(user)
+  }
+
   const signOut = async _ => {
 
     api.post('logout').then((response) => {
@@ -67,7 +72,7 @@ export function UserProvider({ children }) {
   }
 
   return (
-    <UserContext.Provider value={{...{ user, signIn, signOut }}}>
+    <UserContext.Provider value={{...{ user, signIn, signOut, updateUser }}}>
       {children}
     </UserContext.Provider>
   )

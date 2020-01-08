@@ -21,6 +21,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 - Atualizamos o leia-me.
 - O link descargas (downloads) do menu do rodapé no mobile foi substituído por um link para Mi Lista.
 - Modificamos a página da conta do usuário
+- Modificado o formulário da conta de usuário para utilizar o Formik
 
 ### Corrigido
 - Corrigimos a margem inferior dos cards em listas fora dos carroséis.
