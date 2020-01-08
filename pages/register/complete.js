@@ -1,6 +1,9 @@
 // other imports
 import Head from 'next/head'
 import Link from 'next/link'
+
+import nookies from 'nookies'
+import SafeJSONParse from 'json-parse-safe'
 // import sleep from 'sleep-promise'
 
 // app imports
@@ -20,10 +23,35 @@ import { IS_PRODUCTION, HAS_WINDOW } from '../../constants/constants'
 import useScript, { ScriptStatus } from '@charlietango/use-script'
 
 // page
-const CompleteRegisterPage = ({ layoutProps, packages }) => {
+const CompleteRegisterPage = ({ layoutProps, packages, user: updatedUser }) => {
+
+  const { updateUserData, user } = useContext(UserContext)
+
+  // temporary handle user presence
+  useEffect( _ => {
+    const timeout = setTimeout( _ => {
+      if ( ! user) {
+        Router.push('/login')
+      }
+    }, 1000)
+    return function cleanup() {
+      clearTimeout(timeout)
+    }
+  }, [user])
+
+  // update user based on server request (temporary)
+  // useEffect( _ => {
+  //   try {
+  //     if (updatedUser) {
+  //       console.log('updated user', updatedUser)
+  //       updateUserData(updatedUser)
+  //     }
+  //   } catch(e) {
+  //     console.log('couilllllllllllllllndt')
+  //   }
+  // }, [updatedUser])
 
   const [ ready, status ] = useScript('https://js.paymentsos.com/v2/latest/secure-fields.min.js')
-  const { user } = useContext(UserContext)
   const POS = HAS_WINDOW && ready ? window.POS : false
   const payUEnv = 'test'
   const businessUnitPublicKey = '88985036-6530-4b5a-a7ec-c4e07ec07f6c'
@@ -88,23 +116,13 @@ const CompleteRegisterForm = ({ packages, POS }) => {
     city: '',
     country_id: '',
     package_id: '',
-    payment_method_id: '',
+    payment_method_id: null,
+    payment_os: null,
+    terms: null,
   })
 
   const [ loading, setLoading ] = useState()
   const [ error, setError ] = useState()
-
-  /* temporarily handle user presence */
-  useEffect(_ => {
-    const timeout = setTimeout(_ => {
-      if ( ! user) {
-        Router.push('/login')
-      }
-    }, 1000)
-    return function cleanup() {
-      clearTimeout(timeout)
-    }
-  }, [user])
 
   /* get genres */
   useEffect(_ => {
@@ -126,6 +144,7 @@ const CompleteRegisterForm = ({ packages, POS }) => {
   useEffect(_ => {
     if (user) {
       setValues({
+        ...values,
         name: user.name,
         user_genre_id: user.user_genre_id ? user.user_genre_id : '',
         document: user.document ? user.document : '',
@@ -133,15 +152,20 @@ const CompleteRegisterForm = ({ packages, POS }) => {
         city: user.city ? user.city : '',
         country_id: user.country_id ? user.country_id : '',
         package_id: user.package_id_intention ? user.package_id_intention : '',
-        payment_method_id: user.payment_method_id ? user.payment_method_id : '',
+        payment_method_id: user.payment_method_id ? user.payment_method_id : null,
       })
     }
   }, [user])
 
   /* handle general input change */
   const handleInputChange = e => {
-    const { name, value } = e.target
-    setValues({ ...values, [name]: value })
+    const { checked, name, value, type } = e.target
+    setValues({
+      ...values,
+      [name]: type === 'checkbox' ?
+        (checked ? (value === 'true' ? true : value) : false) :
+        value,
+    })
   }
 
   /* handle package change */
@@ -149,6 +173,14 @@ const CompleteRegisterForm = ({ packages, POS }) => {
     setValues({
       ...values,
       package_id: parseInt(e.target.value, 10),
+    })
+  }
+
+  /* handle payment method change */
+  function onPaymentChange(e) {
+    setValues({
+      ...values,
+      payment_method_id: parseInt(e.target.value, 10),
     })
   }
 
@@ -160,8 +192,8 @@ const CompleteRegisterForm = ({ packages, POS }) => {
         // custom_data: document.getElementById('custom').value,
       }
       POS.createToken(additionalData, (result) => {
-        console.log('result', result)
         const json = JSON.parse(result)
+        console.log('json', json)
         json.token ? resolve(json) : reject(json)
       })
     })
@@ -173,27 +205,26 @@ const CompleteRegisterForm = ({ packages, POS }) => {
     e.preventDefault()
     setLoading(true)
     try {
-      const reqToken = await createToken()
+      const paymentData = values.payment_method_id ? await createToken() : null
+      const data = { ...values, payment_os: paymentData }
       try {
-        const response = await api.post('register/complete', values)
+        const response = await api.post('register/complete', data)
         console.log(response)
       } catch (error) {
+        console.log('error', error)
         if (error.response) {
           const { data, status } = error.response
           if (status === 422) {
             setError(data)
           }
         } else if (error.request) {
-          console.log(error.request)
           setError(error)
         } else {
-          console.log('Error', error.message)
           setError(error)
         }
-        console.log(error.config)
       }
     } catch (error) {
-      setError(error.description ? { errors: { payment: error.description } } : error)
+      setError(error.description ? { errors: { payment_os: error.description } } : error)
     }
     setLoading(false)
   }
@@ -231,10 +262,8 @@ const CompleteRegisterForm = ({ packages, POS }) => {
                 required={requireds}
                 value={values.name}
               />
-              { error && error.errors && error.errors.name ? (
+              { ! loading && error && error.errors && error.errors.name && (
                 <div className="invalid-feedback">{error.errors.name}</div>
-              ) : error && error.errors && (
-                <div className="valid-feedback">¡Se ve bien!</div>
               ) }
             </FormGroup>
 
@@ -259,6 +288,9 @@ const CompleteRegisterForm = ({ packages, POS }) => {
                   <option disabled value="">Incapaz de cargar géneros</option>
                 ) }
               </Select>
+              { ! loading && error && error.errors && error.errors.user_genre_id && (
+                <div className="invalid-feedback">{error.errors.user_genre_id}</div>
+              ) }
             </FormGroup>
 
             {/* document */}
@@ -272,6 +304,9 @@ const CompleteRegisterForm = ({ packages, POS }) => {
                 type="text"
                 value={values.document}
               />
+              { ! loading && error && error.errors && error.errors.document && (
+                <div className="invalid-feedback">{error.errors.document}</div>
+              ) }
             </FormGroup>
 
           </div>
@@ -292,6 +327,9 @@ const CompleteRegisterForm = ({ packages, POS }) => {
                 type="text"
                 value={values.address}
               />
+              { ! loading && error && error.errors && error.errors.address && (
+                <div className="invalid-feedback">{error.errors.address}</div>
+              ) }
             </FormGroup>
 
             {/* city */}
@@ -305,6 +343,9 @@ const CompleteRegisterForm = ({ packages, POS }) => {
                 type="text"
                 value={values.city}
               />
+              { ! loading && error && error.errors && error.errors.city && (
+                <div className="invalid-feedback">{error.errors.city}</div>
+              ) }
             </FormGroup>
 
             {/* country */}
@@ -328,6 +369,9 @@ const CompleteRegisterForm = ({ packages, POS }) => {
                   <option disabled value="">Incapaz de cargar países</option>
                 ) }
               </Select>
+              { ! loading && error && error.errors && error.errors.country_id && (
+                <div className="invalid-feedback">{error.errors.country_id}</div>
+              ) }
             </FormGroup>
 
           </div>
@@ -336,32 +380,54 @@ const CompleteRegisterForm = ({ packages, POS }) => {
       </div>
 
       {/* package selection */}
-      <Packages
-        {...{
-          error: packages.error ? packages.error : null,
-          items: packages.items ? packages.items : null,
-          onChange: onPackageChange,
-          package_id: values.package_id,
-        }}
-      />
+      <Packages {...{
+        error: packages.error ? packages.error : null,
+        items: packages.items ? packages.items : null,
+        onChange: onPackageChange,
+        package_id: values.package_id,
+        validationError: ! loading && error && error.errors && error.errors.package_id,
+      }} />
 
-      <Payment {...{error, loading, POS, requireds}} />
+      {/* payment */}
+      <Payment {...{
+        error,
+        loading,
+        onChange: onPaymentChange,
+        payment_method_id: values.payment_method_id,
+        POS,
+        requireds,
+        validationError: ! loading && error && error.errors && error.errors.payment_method_id,
+      }} />
 
+      {/* footer */}
       <div className="row align-items-center">
+
+        {/* terms */}
         <div className="col-md-6 offset-md-4">
           <label className="terms">
-            <input name="terms" required={requireds} type="checkbox" />
+            <input
+              checked={values.terms}
+              name="terms"
+              onChange={handleInputChange}
+              required={requireds}
+              type="checkbox"
+              value={true}
+            />
             <span>He leído y acepto <Link href="/terminos-y-politicas">
                 <a target="_blank">el contrato</a>
               </Link> de Dale Campéon</span>
           </label>
+          { ! loading && error && error.errors && error.errors.terms && (
+            <div className="invalid-feedback">{error.errors.terms}</div>
+          ) }
         </div>
+
+        {/* send btn */}
         <div className="col-md-2 text-right">
           <Button block color="secondary" disabled={loading} type="submit">Enviar</Button>
         </div>
-      </div>
 
-      {/* <p>Acceda al correo electrónico registrado para confirmar su cuenta.</p> */}
+      </div>
 
       <style jsx>{`
         :global(.h3) {
@@ -391,19 +457,13 @@ const CompleteRegisterForm = ({ packages, POS }) => {
 }
 
 // Payment
-const Payment = ({ error, loading, POS, requireds }) => {
-
-  const [ payment, setPayment ] = useState()
-
-  function handlePaymentChange(e) {
-    setPayment(e.target.value)
-  }
+const Payment = ({ error, loading, onChange, payment_method_id, POS, requireds, validationError }) => {
 
   useEffect(_ => {
-    if (payment === 'credit' && POS) {
+    if (payment_method_id === 1 && POS) {
       POS.initSecureFields('card-secure-fields')
     }
-  }, [payment])
+  }, [payment_method_id])
 
   return (
     <div className="row">
@@ -418,29 +478,32 @@ const Payment = ({ error, loading, POS, requireds }) => {
                 <InputRadio
                   label="Tarjeta de crédito"
                   name="payment"
-                  onChange={handlePaymentChange}
-                  state={payment}
-                  value="credit"
+                  onChange={onChange}
+                  state={payment_method_id}
+                  value={1}
                 />
                 <InputRadio
                   label="Tarjeta de débito"
                   name="payment"
-                  onChange={handlePaymentChange}
-                  state={payment}
-                  value="debit"
+                  onChange={onChange}
+                  state={payment_method_id}
+                  value={2}
                 />
                 <InputRadio
                   label="Recibo bancario"
                   name="payment"
-                  onChange={handlePaymentChange}
-                  state={payment}
-                  value="boleto"
+                  onChange={onChange}
+                  state={payment_method_id}
+                  value={3}
                 />
+                { validationError && (
+                  <div className="invalid-feedback">{validationError}</div>
+                ) }
               </FormGroup>
             </div>
 
             <div className="col-md-6">
-              { payment === 'credit' && (
+              { payment_method_id === 1 && (
                 <div className="card-inputs">
 
                   {/* mandatory data */}
@@ -450,14 +513,16 @@ const Payment = ({ error, loading, POS, requireds }) => {
                   </FormGroup>
 
                   {/* card fields */}
-                  <div id="card-secure-fields">
-                    { ! POS && (
-                      <p>Entradas de tarjeta aún no cargadas</p>
+                  <FormGroup>
+                    <div id="card-secure-fields">
+                      { ! POS && (
+                        <p>Entradas de tarjeta aún no cargadas</p>
+                      ) }
+                    </div>
+                    { ! loading && error && error.errors && error.errors.payment_os && (
+                      <div className="invalid-feedback">{error.errors.payment_os}</div>
                     ) }
-                    { error && error.errors && error.errors.payment && ! loading && (
-                      <div className="invalid-feedback">{error.errors.payment}</div>
-                    ) }
-                  </div>
+                  </FormGroup>
 
                   {/* <FormGroup>
                     <Label htmlFor="creditCardName">Nombre impreso</Label>
@@ -559,13 +624,34 @@ const InputRadio = ({ label, name, onChange, state, value }) => {
   )
 }
 
-CompleteRegisterPage.getInitialProps = async _ => {
+// getInitialProps
+CompleteRegisterPage.getInitialProps = async (ctx) => {
+  const { user: userString } = nookies.get(ctx)
+  const user = SafeJSONParse(userString).value
+  // const newUser = { ...user, name: 'Sebastião' }
+  // nookies.set(ctx, 'user', JSON.stringify(newUser), { path: '/' })
+
+  // get user
+  /* let user
+  try {
+    const { data } = await api.get('user')
+    user = data
+  } catch(error) {
+    console.log('error while getting user', error)
+  } */
+
+  // get packages
+  let packages
   try {
     const { data } = await api.get('packages')
-    return { packages: { items: data } }
+    packages = { items: data }
   } catch(error) {
-    return { packages: { error } }
+    packages = { error }
   }
+
+  // return
+  return { packages } // ,user
 }
 
+// export
 export default CompleteRegisterPage

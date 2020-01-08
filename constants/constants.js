@@ -8,7 +8,14 @@ if ( ! process.env.TENANT) {
  * @type {boolean}
  * @returns {boolean}
  */
-export const HAS_WINDOW = typeof window !== 'undefined'
+export const IS_BROWSER = typeof window !== 'undefined'
+
+/**
+ * @constant
+ * @type {boolean}
+ * @returns {boolean}
+ */
+export const HAS_WINDOW = IS_BROWSER
 
 /**
  * @constant

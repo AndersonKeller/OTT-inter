@@ -1,5 +1,10 @@
-import Router from 'next/router'
 import { createContext, useState, useEffect } from 'react'
+
+import Router from 'next/router'
+
+import SafeJSONParse from 'json-parse-safe'
+import nookies from 'nookies'
+
 import api from '../services/api'
 import { setAccessToken, removeAccessToken } from '../services/auth'
 
@@ -10,19 +15,6 @@ export default UserContext
 export function UserProvider({ children }) {
 
   const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    const getUser = async _ => {
-      const userString = localStorage.getItem('user')
-      if (userString) {
-        const user = JSON.parse(userString)
-        setUser(user)
-      } else {
-        // Router.push('/')
-      }
-    }
-    getUser()
-  }, [])
 
   const signIn = (user, tokenResponse) => {
 
@@ -38,8 +30,9 @@ export function UserProvider({ children }) {
     localStorage.setItem('token_type', token_type)
     localStorage.setItem('expires_in', expires_in)
     localStorage.setItem('refresh_token', refresh_token)
-    localStorage.setItem('user', JSON.stringify(user))
 
+    localStorage.setItem('user', JSON.stringify(user))
+    nookies.set({}, 'user', JSON.stringify(user), { path: '/' })
     setUser(user)
 
     if ( ! user.register_completed_at) {
@@ -61,13 +54,33 @@ export function UserProvider({ children }) {
     })
 
     localStorage.removeItem('user')
+    nookies.destroy({}, 'user', { path: '/' })
     setUser(null)
     // Router.push('/signin')
     // location.href = location.protocol + '//' + location.host + location.pathname
   }
 
+  const updateUserData = (user) => {
+    localStorage.setItem('user', JSON.stringify(user))
+    nookies.set({}, 'user', JSON.stringify(user), { path: '/' })
+    setUser(user)
+  }
+
+  useEffect( _ => {
+    const getUser = async _ => {
+      const { user: userString } = nookies.get({}, 'user')
+      const user = SafeJSONParse(userString).value
+      if (user) {
+        setUser(user)
+      } else {
+        // Router.push('/')
+      }
+    }
+    getUser()
+  }, [])
+
   return (
-    <UserContext.Provider value={{...{ user, signIn, signOut }}}>
+    <UserContext.Provider value={{...{ user, signIn, signOut, updateUserData }}}>
       {children}
     </UserContext.Provider>
   )

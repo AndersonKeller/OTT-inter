@@ -2,7 +2,7 @@
 import FormGroup from './layout/AuthModal/FormGroup'
 
 // packages component
-const Packages = ({ error, items, onChange, package_id }) => {
+const Packages = ({ error, items, loading, onChange, package_id, validationError }) => {
   // error handling
   if (error) {
     return <div>No se pueden cargar paquetes</div>
@@ -11,7 +11,7 @@ const Packages = ({ error, items, onChange, package_id }) => {
   return (
     <section className="packages">
       <h3 className="h3">Selecciona tu plan</h3>
-      <div className="row gutter-15">
+      <div className="row gutter-15 packages__list">
         { items && items.map((item, key) => (
           <div className="col-6 col-md-3" {...{key}}>
             <FormGroup>
@@ -20,6 +20,17 @@ const Packages = ({ error, items, onChange, package_id }) => {
           </div>
         )) }
       </div>
+      { validationError && (
+        <div className="invalid-feedback">{validationError}</div>
+      ) }
+      <style jsx>{`
+        .packages {
+          margin-bottom: 15px;
+        }
+        .packages__list {
+          margin-bottom: -15px;
+        }
+      `}</style>
     </section>
   )
 }

@@ -9,7 +9,7 @@ const dotenvLoad = require('dotenv-load')
 
 dotenvLoad()
 
-const withNextEnv = nextEnv();
+const withNextEnv = nextEnv()
 
 // next config
 const nextConfig = {
