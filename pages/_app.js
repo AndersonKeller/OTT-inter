@@ -35,7 +35,7 @@ class MyApp extends App {
     const [ layoutProps, pageProps ] = await Promise.all([
       layoutPropsTasks,
       pagePropsTasks,
-    ]);
+    ])
 
     return { layoutProps, pageProps }
   }

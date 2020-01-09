@@ -17,14 +17,14 @@ import { useContext, useEffect, useState } from 'react'
 import UserContext from '../../contexts/UserContext'
 import Packages from '../../components/Packages'
 import Select from '../../components/Select/Select'
-import api from '../../services/api'
 import Router from 'next/router'
 import { IS_PRODUCTION, HAS_WINDOW } from '../../constants/constants'
 import useScript, { ScriptStatus } from '@charlietango/use-script'
 import { checkIfItNeedsToLogout, checkIfItNeedsToLogoutAtBackEnd } from '../../services/auth'
+import withApi from '../../components/withApi/withApi'
 
 // page
-const CompleteRegisterPage = ({ layoutProps, packages, user: updatedUser }) => {
+const CompleteRegisterPage = ({ api, layoutProps, packages, user: updatedUser }) => {
 
   const { signOut, updateUser, user } = useContext(UserContext)
 
@@ -71,10 +71,8 @@ const CompleteRegisterPage = ({ layoutProps, packages, user: updatedUser }) => {
   const testUserRequest = async e => {
     e.preventDefault()
     try {
-      const user = await api().get('user')
-      console.log(user)
+      const user = await api(null, signOut).get('user')
     } catch (error) {
-      checkIfItNeedsToLogout(error, signOut)
       console.log(error)
     }
   }
@@ -644,17 +642,15 @@ CompleteRegisterPage.getInitialProps = async ctx => {
   // get user
   let user
   try {
-    const { data } = await api(ctx).get('user')
+    const { data } = await ctx.api(ctx).get('user')
     user = data
     nookies.set(ctx, 'user', JSON.stringify(user), { path: '/' })
-  } catch(error) {
-    checkIfItNeedsToLogoutAtBackEnd(error, ctx)
-  }
+  } catch(error) { }
 
   // get packages
   let packages
   try {
-    const { data } = await api(ctx).get('packages')
+    const { data } = await ctx.api(ctx).get('packages')
     packages = { items: data }
   } catch(error) {
     packages = { error }
@@ -665,4 +661,4 @@ CompleteRegisterPage.getInitialProps = async ctx => {
 }
 
 // export
-export default CompleteRegisterPage
+export default withApi(CompleteRegisterPage)
