@@ -1,3 +1,5 @@
+import nookies from 'nookies'
+
 export const ACCESS_TOKEN_KEY = 'access_token'
 
 export const getAccessToken = _ => {
@@ -13,6 +15,18 @@ export const setAccessToken = accessToken => {
 
 export const removeAccessToken = _ => {
   localStorage.removeItem(ACCESS_TOKEN_KEY)
+}
+
+export const checkIfItNeedsToLogout = (error, signOut) => {
+  if (error.response && error.response.status === 401) {
+    signOut()
+  }
+}
+
+export const checkIfItNeedsToLogoutAtBackEnd = (error, ctx) => {
+  if (error.response && error.response.status === 401) {
+    nookies.destroy(ctx, 'user', { path: '/' })
+  }
 }
 
 // export const isAuthenticated = _ => getAccessToken() !== null

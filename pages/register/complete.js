@@ -2,7 +2,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 
-import nookies from 'nookies'
+import nookies, { parseCookies, setCookie } from 'nookies'
 import SafeJSONParse from 'json-parse-safe'
 // import sleep from 'sleep-promise'
 
@@ -21,11 +21,12 @@ import api from '../../services/api'
 import Router from 'next/router'
 import { IS_PRODUCTION, HAS_WINDOW } from '../../constants/constants'
 import useScript, { ScriptStatus } from '@charlietango/use-script'
+import { checkIfItNeedsToLogout, checkIfItNeedsToLogoutAtBackEnd } from '../../services/auth'
 
 // page
 const CompleteRegisterPage = ({ layoutProps, packages, user: updatedUser }) => {
 
-  const { updateUser, user } = useContext(UserContext)
+  const { signOut, updateUser, user } = useContext(UserContext)
 
   // temporary handle user presence
   useEffect( _ => {
@@ -67,6 +68,17 @@ const CompleteRegisterPage = ({ layoutProps, packages, user: updatedUser }) => {
     }
   }, [POS])
 
+  const testUserRequest = async e => {
+    e.preventDefault()
+    try {
+      const user = await api.get('user')
+      console.log(user)
+    } catch (error) {
+      checkIfItNeedsToLogout(error, signOut)
+      console.log(error)
+    }
+  }
+
   return (
     <Layout color="white" {...layoutProps}>
       <Head>
@@ -77,6 +89,8 @@ const CompleteRegisterPage = ({ layoutProps, packages, user: updatedUser }) => {
           <div className="col-xl-8 offset-xl-2">
 
             <h1 className="h2">Completa tu registro</h1>
+
+            <button onClick={e => testUserRequest(e)} type="button">Test</button>
 
             { user && (
               <CompleteRegisterForm {...{packages, POS}} />
@@ -625,20 +639,17 @@ const InputRadio = ({ label, name, onChange, state, value }) => {
 }
 
 // getInitialProps
-CompleteRegisterPage.getInitialProps = async (ctx) => {
-  const { user: userString } = nookies.get(ctx)
-  const user = SafeJSONParse(userString).value
-  // const newUser = { ...user, name: 'Sebastião' }
-  // nookies.set(ctx, 'user', JSON.stringify(newUser), { path: '/' })
+CompleteRegisterPage.getInitialProps = async ctx => {
 
   // get user
-  /* let user
+  let user
   try {
     const { data } = await api.get('user')
     user = data
+    nookies.set(ctx, 'user', JSON.stringify(user), { path: '/' })
   } catch(error) {
-    console.log('error while getting user', error)
-  } */
+    checkIfItNeedsToLogoutAtBackEnd(error, ctx)
+  }
 
   // get packages
   let packages
@@ -650,7 +661,7 @@ CompleteRegisterPage.getInitialProps = async (ctx) => {
   }
 
   // return
-  return { packages } // ,user
+  return { packages, user }
 }
 
 // export
