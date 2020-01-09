@@ -91,9 +91,9 @@ const Home = ({ featuredMedia, featuredMediaError, layoutProps }) => {
   )
 }
 
-Home.getInitialProps = async _ => {
+Home.getInitialProps = async ctx => {
   try {
-    const { data: { movie: featuredMedia } } = await api.get('movie/marcelo-gallardo-lo-jugamos-como-una-final?for=home-cover')
+    const { data: { movie: featuredMedia } } = await api(ctx).get('movie/marcelo-gallardo-lo-jugamos-como-una-final?for=home-cover')
     return { featuredMedia }
   } catch (error) {
     return { featuredMediaError: error }
@@ -285,7 +285,7 @@ const HomeCarouselSection = ({ category: categorySlug }) => {
     async function fetchData() {
       setLoading(true)
       try {
-        const {data} = await api.get(`/category/${categorySlug}`)
+        const {data} = await api().get(`/category/${categorySlug}`)
         setCategory(data)
       } catch (error) {
         setError(true)
@@ -345,7 +345,7 @@ const BannerSection = ({bannerID: id, movieID}) => {
     async function fetchData() {
       setLoading(true)
       try {
-        const {data} = await api.get(`/banners/${id}`)
+        const {data} = await api().get(`/banners/${id}`)
         setBanner(data)
       } catch (error) {
         setError(true)

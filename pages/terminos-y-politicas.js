@@ -17,8 +17,8 @@ const TermsAndPolitics = ({ layoutProps, privacy }) => {
   );
 }
 
-TermsAndPolitics.getInitialProps = async function() {
-  const res = await api.get(`/privacypolicy`);
+TermsAndPolitics.getInitialProps = async ctx => {
+  const res = await api(ctx).get(`/privacypolicy`);
   const data = await res.data;
   return { privacy: data.privacy_policy.terms_condition}  ;
 }

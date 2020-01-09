@@ -37,7 +37,7 @@ const ResetPassword = ({layoutProps}) => {
     setLoading(true)
 
     try {
-      const response = await api.post('/reset',{
+      const response = await api().post('/reset',{
         token: token,
         password: password,
         password_confirmation: passwordConfirmation,

@@ -264,9 +264,9 @@ const Layout = ({
   );
 }
 
-Layout.getInitialProps = async _ => {
+Layout.getInitialProps = async ctx => {
   try {
-    const menus = await loadMenus()
+    const menus = await loadMenus(ctx)
     return { menus }
   } catch (error) {
     return { menusError: error }

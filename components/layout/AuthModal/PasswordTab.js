@@ -15,7 +15,7 @@ const PasswordTab = ({setLoading}) => {
     e.preventDefault()
     setLoading(true)
     try{
-      let { data } = await api.post('/forgot', {
+      let { data } = await api().post('/forgot', {
         email
       })
       console.table(data)

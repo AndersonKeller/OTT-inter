@@ -44,7 +44,7 @@ const AccountPage = ({ layoutProps }) => {
   /* get genres */
   useEffect(_ => {
     (async _ => {
-      const {data} = await api.get('user_genres')
+      const {data} = await api().get('user_genres')
       setGenres(data)
     })()
   }, [])
@@ -52,7 +52,7 @@ const AccountPage = ({ layoutProps }) => {
   /* get countries */
   useEffect(_ => {
     (async _ => {
-      const {data} = await api.get('countries')
+      const {data} = await api().get('countries')
       setCountries(data)
     })()
   }, [])
@@ -60,7 +60,7 @@ const AccountPage = ({ layoutProps }) => {
   /* get packages */
   useEffect(_ => {
     (async _ => {
-      const {data} = await api.get('packages')
+      const {data} = await api().get('packages')
       setPackages(data)
     })()
   }, [])
@@ -134,7 +134,7 @@ const AccountPage = ({ layoutProps }) => {
       //   alert(JSON.stringify(values, null, 2));
       // actions.setSubmitting(false)
       // }, 10000)
-      const res = await api.post(`user/${user.id}`,{
+      const res = await api().post(`user/${user.id}`,{
         name,
         genre,
         document,

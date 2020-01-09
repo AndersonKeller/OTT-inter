@@ -28,10 +28,11 @@ function MediaPage1({ category, errorCode, layoutProps, media, related }) {
 }
 
 // initial props
-MediaPage1.getInitialProps = async (context) => {
-  const { slug, category: categorySlug } = context.query;
+MediaPage1.getInitialProps = async ctx => {
+  const { slug, category: categorySlug } = ctx.query;
   try {
-    const response = await api.get(`/movie/${slug}` + (categorySlug ? `/category/${categorySlug}` : ''))
+    const response = await api(ctx)
+      .get(`/movie/${slug}` + (categorySlug ? `/category/${categorySlug}` : ''))
     const { category, movie, related } = response.data
     return { category, media: movie, related }
   } catch (error) {

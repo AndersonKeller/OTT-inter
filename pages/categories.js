@@ -21,7 +21,7 @@ function CategoriesPage({ layoutProps }) {
     async function fetchData() {
       setLoading(true)
       try {
-        const {data} = await api.get('/categories')
+        const {data} = await api().get('/categories')
         setCategories(data)
       } catch(e) {
         setError(true)

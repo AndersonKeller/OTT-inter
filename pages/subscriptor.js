@@ -136,7 +136,7 @@ const Packages = () => {
     async function fetchData() {
       setLoading(true)
       try {
-        const {data} = await api.get('/packages')
+        const {data} = await api().get('/packages')
         setPackages(data)
       } catch (error) {
         setError(true)

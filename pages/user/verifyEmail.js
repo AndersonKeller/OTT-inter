@@ -23,7 +23,7 @@ const CheckEmail = ({layoutProps, userMenuProps}) => {
   const fetchData = async _ => {
     console.table(userMenuProps);
     try {
-      const { status } = await api.get('',{baseURL: decodeURI(verify)})
+      const { status } = await api().get('',{baseURL: decodeURI(verify)})
 
       if(status == 200 ){
         setLoading(false)

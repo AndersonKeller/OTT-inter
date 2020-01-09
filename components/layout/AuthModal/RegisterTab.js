@@ -23,7 +23,7 @@ const RegisterTab = ({changeTab, setLoading})  => {
     setLoading(true)
     document.activeElement.blur()
     try {
-      const tokenResponse = await api.post('register', {
+      const tokenResponse = await api().post('register', {
         client_id: CLIENT_ID,
         client_secret: CLIENT_SECRET,
         email,
@@ -33,7 +33,7 @@ const RegisterTab = ({changeTab, setLoading})  => {
       })
       const { access_token, } = tokenResponse.data
       setAccessToken(access_token)
-      const userResponse = await api.get('user')
+      const userResponse = await api().get('user')
       signIn(userResponse.data, tokenResponse.data)
       closeAuthModal()
       Router.push('/register/complete')

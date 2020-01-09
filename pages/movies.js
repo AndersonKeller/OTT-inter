@@ -25,7 +25,7 @@ const MoviesPage = ({layoutProps}) => {
     const fetchData = async _ => {
       try {
         setLoading(true)
-        const {data: medias} = await api.get(search ? `/search/${search}` : '/movies')
+        const {data: medias} = await api().get(search ? `/search/${search}` : '/movies')
         setMedias(medias);
         setLoading(false)
       } catch (e) {

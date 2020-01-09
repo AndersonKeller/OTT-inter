@@ -2,19 +2,17 @@ import nookies from 'nookies'
 
 export const ACCESS_TOKEN_KEY = 'access_token'
 
-export const getAccessToken = _ => {
-  if (typeof window === 'undefined') {
-    return null
-  }
-  return localStorage.getItem(ACCESS_TOKEN_KEY)
+export const getAccessToken = ctx => {
+  const cookies = nookies.get(ctx, ACCESS_TOKEN_KEY)
+  return cookies[ACCESS_TOKEN_KEY]
 }
 
 export const setAccessToken = accessToken => {
-  localStorage.setItem(ACCESS_TOKEN_KEY, accessToken)
+  nookies.set({}, ACCESS_TOKEN_KEY, accessToken, { path: '/' })
 }
 
 export const removeAccessToken = _ => {
-  localStorage.removeItem(ACCESS_TOKEN_KEY)
+  nookies.destroy(ctx, ACCESS_TOKEN_KEY, { path: '/' })
 }
 
 export const checkIfItNeedsToLogout = (error, signOut) => {

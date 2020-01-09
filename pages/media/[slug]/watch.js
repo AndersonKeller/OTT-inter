@@ -73,10 +73,10 @@ export default function WatchPage({ errorCode, category, media, movie_links, rel
   );
 }
 
-WatchPage.getInitialProps = async (context) => {
-  const {slug, category: categorySlug} = context.query;
+WatchPage.getInitialProps = async (ctx) => {
+  const {slug, category: categorySlug} = ctx.query;
   try {
-    const response = await api.get(`/movie/${slug}/category/${categorySlug}`)
+    const response = await api(ctx).get(`/movie/${slug}/category/${categorySlug}`)
     const { category, movie, movie_links, related } = response.data
     return { category, media: movie, movie_links, related }
   } catch (error) {

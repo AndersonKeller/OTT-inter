@@ -22,7 +22,7 @@ const LoginTab = ({ changeTab, setLoading }) => {
     setLoading(true)
     document.activeElement.blur()
     try {
-      const tokenResponse = await api.post(`${baseURL}/oauth/token`, {
+      const tokenResponse = await api().post(`${baseURL}/oauth/token`, {
         grant_type: 'password',
         client_id: CLIENT_ID,
         client_secret: CLIENT_SECRET,
@@ -32,7 +32,7 @@ const LoginTab = ({ changeTab, setLoading }) => {
       })
       const { access_token, } = tokenResponse.data
       setAccessToken(access_token)
-      const userResponse = await api.get('/user')
+      const userResponse = await api().get('/user')
       signIn(userResponse.data, tokenResponse.data)
       closeAuthModal()
     } catch (error) {

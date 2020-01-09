@@ -43,7 +43,7 @@ const WishlistBtn = ({ movieId, color, inside }) => {
   const handleToggle = async e => {
     e.preventDefault()
     try{
-      const response = await api.post('/wishlist',{id : movieId})
+      const response = await api().post('/wishlist',{id : movieId})
       const {attached, detached } = response.data
       const inList = attached.includes(movieId) && ! detached.includes(movieId)
       setWishlisted(inList)
@@ -54,7 +54,7 @@ const WishlistBtn = ({ movieId, color, inside }) => {
 
   const wishlist = async _ => {
     try {
-      const res = await api.get(`/wishlist/${movieId}`)
+      const res = await api().get(`/wishlist/${movieId}`)
       setWishlisted(Object.keys(res.data).length > 0)
     } catch (error) {
       console.log(error)

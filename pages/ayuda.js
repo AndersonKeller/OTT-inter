@@ -66,8 +66,8 @@ const Help = ({ layoutProps, title, faqs, ...props }) => {
     </Layout>
 )}
 
-Help.getInitialProps = async function () {
-    const response = await api.get('/help');
+Help.getInitialProps = async ctx => {
+    const response = await api(ctx).get('/help');
     const data = await response.data;
     const {faqs} = data
     const title = 'Ayuda';

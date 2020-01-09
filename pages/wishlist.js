@@ -37,7 +37,7 @@ const WishlistPage = ({layoutProps}) => {
   const fetchData = async _ => {
     setLoading(true)
     try {
-      const {data: medias} = await api.get('/wishlist')
+      const {data: medias} = await api().get('/wishlist')
       setMedias(medias);
     } catch (e) {
       setError(500)

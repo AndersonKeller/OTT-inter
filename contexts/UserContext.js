@@ -42,7 +42,7 @@ export function UserProvider({ children }) {
 
   const signOut = async _ => {
 
-    api.post('logout').then((response) => {
+    api().post('logout').then((response) => {
       console.log('Logout successfully', response)
       removeAccessToken()
       localStorage.removeItem('token_type')

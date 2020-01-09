@@ -49,11 +49,11 @@ const Category = ({ category, errorCode, layoutProps, medias }) => {
   );
 }
 
-Category.getInitialProps = async (context) => {
-  const { slug } = context.query;
+Category.getInitialProps = async ctx => {
+  const { slug } = ctx.query;
   let category, medias = [], errorCode = false
   try {
-    const response = await api.get(`/category/${slug}`)
+    const response = await api(ctx).get(`/category/${slug}`)
     category = response.data
     medias = category.movies
   } catch (error) {
