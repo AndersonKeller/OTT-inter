@@ -60,9 +60,10 @@ export function UserProvider({ children }) {
     // location.href = location.protocol + '//' + location.host + location.pathname
   }
 
-  const updateUserData = (user) => {
-    localStorage.setItem('user', JSON.stringify(user))
-    nookies.set({}, 'user', JSON.stringify(user), { path: '/' })
+  const updateUser = user => {
+    const userString = JSON.stringify(user)
+    localStorage.setItem('user', userString)
+    nookies.set({}, 'user', userString, { path: '/' })
     setUser(user)
   }
 
@@ -80,7 +81,7 @@ export function UserProvider({ children }) {
   }, [])
 
   return (
-    <UserContext.Provider value={{...{ user, signIn, signOut, updateUserData }}}>
+    <UserContext.Provider value={{...{ user, signIn, signOut, updateUser }}}>
       {children}
     </UserContext.Provider>
   )

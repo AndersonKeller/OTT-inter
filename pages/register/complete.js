@@ -25,7 +25,7 @@ import useScript, { ScriptStatus } from '@charlietango/use-script'
 // page
 const CompleteRegisterPage = ({ layoutProps, packages, user: updatedUser }) => {
 
-  const { updateUserData, user } = useContext(UserContext)
+  const { updateUser, user } = useContext(UserContext)
 
   // temporary handle user presence
   useEffect( _ => {
@@ -44,7 +44,7 @@ const CompleteRegisterPage = ({ layoutProps, packages, user: updatedUser }) => {
   //   try {
   //     if (updatedUser) {
   //       console.log('updated user', updatedUser)
-  //       updateUserData(updatedUser)
+  //       updateUser(updatedUser)
   //     }
   //   } catch(e) {
   //     console.log('couilllllllllllllllndt')
