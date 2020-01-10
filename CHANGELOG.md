@@ -14,19 +14,20 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 ## [Não publicado]
 ### Adicionado
 - Adicionamos e iniciamos um changelog.
-- Adicionamos as dependencias para Material-UI, Formik e Yup
+- Adicionamos as dependencias para Material-UI, Formik e Yup.
 
 ### Modificado
 - Modificamos a margem superior do conteúdo pra espelhar a altura do cabeçalho que foi modificada.
 - Atualizamos o leia-me.
 - O link descargas (downloads) do menu do rodapé no mobile foi substituído por um link para Mi Lista.
-- Modificamos a página da conta do usuário
-- Modificado o formulário da conta de usuário para utilizar o Formik
+- Modificamos a página da conta do usuário.
+- Modificado o formulário da conta de usuário para utilizar o Formik.
+- Alteramos a forma como salvamos o usuário para poder verificar se ele está logado antes mesmo da página exibir.
 
 ### Corrigido
 - Corrigimos a margem inferior dos cards em listas fora dos carroséis.
 - Corrigimos a centralização do modal de login pra mobile.
-- Corrigimos o botão Mi-lista do rodapé para mostrar a modal de login quando o usuário não estiver logado
+- Corrigimos o botão Mi-lista do rodapé para mostrar a modal de login quando o usuário não estiver logado.
 
 
 ## [0.1.0] - 18/12/2019
