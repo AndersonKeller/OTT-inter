@@ -71,7 +71,7 @@ const CompleteRegisterPage = ({ api, layoutProps, packages, user: updatedUser })
   const testUserRequest = async e => {
     e.preventDefault()
     try {
-      const user = await api(null, signOut).get('user')
+      const user = await api.get('user')
     } catch (error) {
       console.log(error)
     }
@@ -91,7 +91,7 @@ const CompleteRegisterPage = ({ api, layoutProps, packages, user: updatedUser })
             <button onClick={e => testUserRequest(e)} type="button">Test</button>
 
             { user && (
-              <CompleteRegisterForm {...{packages, POS}} />
+              <CompleteRegisterForm {...{api, packages, POS}} />
             ) }
 
           </div>
@@ -110,7 +110,7 @@ const CompleteRegisterPage = ({ api, layoutProps, packages, user: updatedUser })
   )
 }
 
-const CompleteRegisterForm = ({ packages, POS }) => {
+const CompleteRegisterForm = ({ api, packages, POS }) => {
 
   const debug = false && ! IS_PRODUCTION
   const requireds = IS_PRODUCTION
@@ -139,7 +139,7 @@ const CompleteRegisterForm = ({ packages, POS }) => {
   /* get genres */
   useEffect(_ => {
     (async _ => {
-      const {data} = await api().get('user_genres')
+      const {data} = await api.get('user_genres')
       setGenres(data)
     })()
   }, [])
@@ -147,7 +147,7 @@ const CompleteRegisterForm = ({ packages, POS }) => {
   /* get countries */
   useEffect(_ => {
     (async _ => {
-      const {data} = await api().get('countries')
+      const {data} = await api.get('countries')
       setCountries(data)
     })()
   }, [])
@@ -220,7 +220,7 @@ const CompleteRegisterForm = ({ packages, POS }) => {
       const paymentData = values.payment_method_id ? await createToken() : null
       const data = { ...values, payment_os: paymentData }
       try {
-        const response = await api().post('register/complete', data)
+        const response = await api.post('register/complete', data)
         console.log(response)
       } catch (error) {
         console.log('error', error)
@@ -642,7 +642,7 @@ CompleteRegisterPage.getInitialProps = async ctx => {
   // get user
   let user
   try {
-    const { data } = await ctx.api(ctx).get('user')
+    const { data } = await ctx.api.get('user')
     user = data
     nookies.set(ctx, 'user', JSON.stringify(user), { path: '/' })
   } catch(error) { }
@@ -650,7 +650,7 @@ CompleteRegisterPage.getInitialProps = async ctx => {
   // get packages
   let packages
   try {
-    const { data } = await ctx.api(ctx).get('packages')
+    const { data } = await ctx.api.get('packages')
     packages = { items: data }
   } catch(error) {
     packages = { error }
