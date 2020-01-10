@@ -2,8 +2,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 
-import nookies, { parseCookies, setCookie } from 'nookies'
-import SafeJSONParse from 'json-parse-safe'
+import nookies from 'nookies'
 // import sleep from 'sleep-promise'
 
 // app imports
@@ -20,13 +19,12 @@ import Select from '../../components/Select/Select'
 import Router from 'next/router'
 import { IS_PRODUCTION, HAS_WINDOW } from '../../constants/constants'
 import useScript, { ScriptStatus } from '@charlietango/use-script'
-import { checkIfItNeedsToLogout, checkIfItNeedsToLogoutAtBackEnd } from '../../services/auth'
 import withApi from '../../components/withApi/withApi'
 
 // page
-const CompleteRegisterPage = ({ api, layoutProps, packages, user: updatedUser }) => {
+const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
 
-  const { signOut, updateUser, user } = useContext(UserContext)
+  const { user } = useContext(UserContext)
 
   // temporary handle user presence
   useEffect( _ => {
@@ -39,18 +37,6 @@ const CompleteRegisterPage = ({ api, layoutProps, packages, user: updatedUser })
       clearTimeout(timeout)
     }
   }, [user])
-
-  // update user based on server request (temporary)
-  // useEffect( _ => {
-  //   try {
-  //     if (updatedUser) {
-  //       console.log('updated user', updatedUser)
-  //       updateUser(updatedUser)
-  //     }
-  //   } catch(e) {
-  //     console.log('couilllllllllllllllndt')
-  //   }
-  // }, [updatedUser])
 
   const [ ready, status ] = useScript('https://js.paymentsos.com/v2/latest/secure-fields.min.js')
   const POS = HAS_WINDOW && ready ? window.POS : false
@@ -68,15 +54,6 @@ const CompleteRegisterPage = ({ api, layoutProps, packages, user: updatedUser })
     }
   }, [POS])
 
-  const testUserRequest = async e => {
-    e.preventDefault()
-    try {
-      const user = await api.get('user')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   return (
     <Layout color="white" {...layoutProps}>
       <Head>
@@ -87,8 +64,6 @@ const CompleteRegisterPage = ({ api, layoutProps, packages, user: updatedUser })
           <div className="col-xl-8 offset-xl-2">
 
             <h1 className="h2">Completa tu registro</h1>
-
-            <button onClick={e => testUserRequest(e)} type="button">Test</button>
 
             { user && (
               <CompleteRegisterForm {...{api, packages, POS}} />
@@ -642,8 +617,7 @@ CompleteRegisterPage.getInitialProps = async ctx => {
   // get user
   let user
   try {
-    const { data } = await ctx.api.get('user')
-    user = data
+    const { data: user } = await ctx.api.get('user')
     nookies.set(ctx, 'user', JSON.stringify(user), { path: '/' })
   } catch(error) { }
 
