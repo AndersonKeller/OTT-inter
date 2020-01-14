@@ -24,6 +24,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 - Modificado o formulário da conta de usuário para utilizar o Formik.
 - Alteramos a forma como salvamos o usuário para poder verificar se ele está logado antes mesmo da página exibir.
 - Alteramos a página de erro para a cor preta com branco, adicionamos o logo e fizemos mostrar uma mensagem 503 caso a API esteja indisponível.
+- Modificamos os campos de cartão de crédito para fazer a encriptação dos dados de acordo com a PayU e enviar para nossa API.
 
 ### Corrigido
 - Corrigimos a margem inferior dos cards em listas fora dos carroséis.
