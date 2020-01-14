@@ -4,10 +4,13 @@ import Layout from '../../components/layout/Layout'
 import { CONFIG } from '../../config'
 import api from '../../services/api'
 import MediaList from '../../components/MediaList/MediaList'
+import CustomError from '../_error'
 
 const Category = ({ category, errorCode, layoutProps, medias }) => {
 
-  // const router = useRouter()
+  if (errorCode) {
+    return <CustomError statusCode={errorCode} />
+  }
 
   return (
     <Layout errorCode={errorCode} {...layoutProps}>

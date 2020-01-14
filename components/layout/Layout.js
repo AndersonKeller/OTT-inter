@@ -26,6 +26,10 @@ const Layout = ({
   paddingTop = true,
 }) => {
 
+  if (errorCode) {
+    return <CustomError statusCode={errorCode} />
+  }
+
   if (header === 'closed') {
     paddingTop = false
   }
@@ -33,10 +37,6 @@ const Layout = ({
   if ( ! IS_PRODUCTION) {
     import('bootstrap/dist/css/bootstrap.min.css')
     import('slick-carousel/slick/slick.css')
-  }
-
-  if (errorCode) {
-    return <CustomError statusCode={errorCode} />
   }
 
   return (
