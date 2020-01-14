@@ -6,7 +6,9 @@ function CustomError({ statusCode }) {
     <div className="error">
       <Error
         statusCode={statusCode}
-        title={statusCode === 404 ? 'No se pudo encontrar esta página' : null}
+        title={ statusCode === 404 ? 'No se pudo encontrar esta página' :
+          statusCode === 503 ? 'Servicio no disponible' :
+          null }
       />
       <style global jsx>{`
         .error > div {
