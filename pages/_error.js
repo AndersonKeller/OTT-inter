@@ -1,4 +1,5 @@
 import Error from 'next/error'
+import { STATIC_PATH } from '../constants/constants'
 
 function CustomError({ statusCode }) {
   return (
@@ -8,11 +9,21 @@ function CustomError({ statusCode }) {
         title={statusCode === 404 ? 'No se pudo encontrar esta página' : null}
       />
       <style global jsx>{`
-        .error div {
+        .error > div {
           background: #000 !important;
           color: #fff !important;
         }
-        .error div h1 {
+        .error > div > div::after {
+          content: url(${STATIC_PATH}/logos/dale.svg);
+          display: block;
+          height: auto;
+          margin-right: auto;
+          margin-top: 15px;
+          margin-left: auto;
+          max-width: 100%;
+          width: 150px;
+        }
+        .error > div h1 {
           border-right-color: rgba(255, 255, 255, .3) !important;
         }
       `}</style>
