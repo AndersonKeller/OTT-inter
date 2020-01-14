@@ -1,6 +1,7 @@
 // other imports
 import Head from 'next/head'
 import Link from 'next/link'
+import Router from 'next/router'
 
 import nookies from 'nookies'
 // import sleep from 'sleep-promise'
@@ -16,7 +17,6 @@ import { useContext, useEffect, useState } from 'react'
 import UserContext from '../../contexts/UserContext'
 import Packages from '../../components/Packages'
 import Select from '../../components/Select/Select'
-import Router from 'next/router'
 import { IS_PRODUCTION, HAS_WINDOW } from '../../constants/constants'
 import useScript, { ScriptStatus } from '@charlietango/use-script'
 import withApi from '../../components/withApi/withApi'
@@ -90,7 +90,7 @@ const CompleteRegisterForm = ({ api, packages, POS }) => {
   const debug = false && ! IS_PRODUCTION
   const requireds = IS_PRODUCTION
 
-  const { user } = useContext(UserContext)
+  const { user, updateUser } = useContext(UserContext)
 
   const [ genres, setGenres ] = useState()
   const [ countries, setCountries ] = useState()
@@ -196,8 +196,9 @@ const CompleteRegisterForm = ({ api, packages, POS }) => {
         values.payment_method_id === 1 ? await createToken() : null
       const data = { ...values, payment_os: paymentData }
       try {
-        const response = await api.post('register/complete', data)
-        console.log(response)
+        const { data: user } = await api.post('register/complete', data)
+        updateUser(user)
+        Router.push('/')
       } catch (error) {
         console.log('error', error)
         if (error.response) {
