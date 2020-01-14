@@ -23,6 +23,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 - Modificamos a página da conta do usuário.
 - Modificado o formulário da conta de usuário para utilizar o Formik.
 - Alteramos a forma como salvamos o usuário para poder verificar se ele está logado antes mesmo da página exibir.
+- Alteramos a página de erro para a cor preta com branco, adicionamos o logo e fizemos mostrar uma mensagem 503 caso a API esteja indisponível.
 
 ### Corrigido
 - Corrigimos a margem inferior dos cards em listas fora dos carroséis.
