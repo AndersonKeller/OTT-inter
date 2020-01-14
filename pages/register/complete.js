@@ -192,7 +192,8 @@ const CompleteRegisterForm = ({ api, packages, POS }) => {
     e.preventDefault()
     setLoading(true)
     try {
-      const paymentData = values.payment_method_id ? await createToken() : null
+      const paymentData = values.payment_method_id &&
+        values.payment_method_id === 1 ? await createToken() : null
       const data = { ...values, payment_os: paymentData }
       try {
         const response = await api.post('register/complete', data)
