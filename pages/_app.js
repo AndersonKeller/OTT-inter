@@ -15,9 +15,12 @@ Router.events.on('routeChangeStart', url => {
   NProgress.start()
 })
 
-Router.events.on('routeChangeComplete', () => NProgress.done())
+Router.events.on('routeChangeComplete', _ => {
+  NProgress.done()
+  window.scrollTo(0, 0)
+})
 
-Router.events.on('routeChangeError', () => NProgress.done())
+Router.events.on('routeChangeError', _ => NProgress.done())
 
 class MyApp extends App {
 
