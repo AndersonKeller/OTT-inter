@@ -12,9 +12,13 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 
 ## [Não publicado]
+
+
+## [0.2.0] - 15/01/2020
 ### Adicionado
 - Adicionamos e iniciamos um changelog.
 - Adicionamos as dependencias para Material-UI, Formik e Yup.
+- Adicionamos uma verificação automática em cada requisição a API para verificar se o usuário continua com autorização para se comunicar - ou seja, está logado - que em caso não estiver, desloga o usuário da plataforma tanto nas requisições no lado cliente como no servidor.
 
 ### Modificado
 - Modificamos a margem superior do conteúdo pra espelhar a altura do cabeçalho que foi modificada.
