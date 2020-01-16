@@ -619,9 +619,26 @@ CompleteRegisterPage.getInitialProps = async ctx => {
   // get user
   let user
   try {
-    const { data: user } = await ctx.api.get('user')
-    nookies.set(ctx, 'user', JSON.stringify(user), { path: '/' })
-  } catch(error) { }
+    const { data } = await ctx.api.get('user')
+    user = data
+  } catch(error) {
+    return { }
+  }
+
+  // save updated user
+  nookies.set(ctx, 'user', JSON.stringify(user), { path: '/' })
+
+  // if user has already completed registry, redirect it
+  if (user.register_completed_at) {
+    nookies.set(ctx, 'flash_message', 'Ya ha completado su registro.', { path: '/' })
+    if (ctx.res) {
+      ctx.res.redirect('/')
+      ctx.res.end()
+      return { }
+    } else {
+      Router.back()
+    }
+  }
 
   // get packages
   let packages

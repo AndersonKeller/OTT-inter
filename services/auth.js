@@ -11,28 +11,23 @@ export const setAccessToken = accessToken => {
   nookies.set({}, ACCESS_TOKEN_KEY, accessToken, { path: '/' })
 }
 
-export const removeAccessToken = _ => {
+export const removeAccessToken = ctx => {
   nookies.destroy(ctx, ACCESS_TOKEN_KEY, { path: '/' })
 }
 
-export const checkIfItNeedsToLogout = (error, signOut) => {
-  if (error.response && error.response.status === 401) {
-    signOut()
-  }
+export const frontendLogout = signOut => {
+  signOut()
 }
 
-export const checkIfItNeedsToLogoutAtBackEnd = (error, ctx) => {
-  if (error.response && error.response.status === 401) {
-    nookies.destroy(ctx, 'user', { path: '/' })
-  }
+export const backendLogout = ctx => {
+  removeAccessToken(ctx)
+  nookies.destroy(ctx, 'user', { path: '/' })
+  ctx.res.redirect('/login')
+  ctx.res.end()
 }
 
 // export const isAuthenticated = _ => getAccessToken() !== null
 
 /* export const login = accessToken => {
   setAccessToken(accessToken)
-} */
-
-/* export const logout = () => {
-  removeAccessToken()
 } */

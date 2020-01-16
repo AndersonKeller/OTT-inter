@@ -1,11 +1,17 @@
+// react imports
+import { useEffect } from 'react'
+
 // next imports
 import Head from 'next/head'
 
 // other imports
 import Color from 'color'
+import nookies from 'nookies'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.min.css'
 
 // app imports
-import { GRAY3 } from '../../constants/colors'
+import { BLACK, GRAY3 } from '../../constants/colors'
 import { IS_PRODUCTION } from '../../constants/constants'
 import Header from './Header'
 import Footer from './Footer'
@@ -38,6 +44,17 @@ const Layout = ({
     import('bootstrap/dist/css/bootstrap.min.css')
     import('slick-carousel/slick/slick.css')
   }
+
+  const { flash_message } = nookies.get({}, 'flash_message')
+  useEffect(_ => {
+    if (flash_message) {
+      toast.info(flash_message, {
+        delay: 1000,
+        onClose: _ => nookies.destroy({}, 'flash_message', { path: '/' }),
+      })
+      nookies.destroy({}, 'flash_message', { path: '/' })
+    }
+  }, [flash_message])
 
   return (
     <>
@@ -74,6 +91,8 @@ const Layout = ({
         <link rel="stylesheet" href="/static/fonts/bebas-neue/stylesheet.css" />
         <script src="https://player.vimeo.com/api/player.js"></script>
       </Head>
+
+      <ToastContainer newestOnTop />
 
       <Header {...{
         closed: header === 'closed',
@@ -183,6 +202,22 @@ const Layout = ({
         p {
           margin-top: 0;
           margin-bottom: 10px;
+        }
+        /* toasts */
+        .Toastify__toast-container--top-right {
+          top: 3.75em;
+        }
+        .Toastify__toast--info {
+          background-color: ${Color(WHITE).fade(.1)};
+          color: ${BLACK};
+          min-height: 45px;
+          padding: 15px;
+        }
+        .Toastify__progress-bar {
+          background-color: var(--primary);
+        }
+        .Toastify__close-button {
+          color: ${BLACK};
         }
         /* gutters */
         .no-gutters {
