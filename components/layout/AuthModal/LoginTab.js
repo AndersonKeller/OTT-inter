@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import UserContext from '../../../contexts/UserContext'
 import api, { baseURL } from '../../../services/api'
 import { CLIENT_ID, CLIENT_SECRET } from '../../../constants/constants'
@@ -9,13 +9,38 @@ import Input from './Input'
 import FormText from './FormText'
 import Button from '../../button'
 import { AuthModalContext } from '../../../contexts/AuthModalContext'
+import ReactSVG from 'react-svg'
 
 const LoginTab = ({ changeTab, setLoading }) => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ error, setError ] = useState('')
   const { signIn } = useContext(UserContext)
-  const { closeAuthModal } = useContext(AuthModalContext)
+  const { closeAuthModal, code } = useContext(AuthModalContext)
+
+  const socialLogin = async () => {
+    try{
+        setLoading(true);
+        const tokenResponse = await api().post('auth/facebook/callback', {
+          code,
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET,
+        })
+
+        const { access_token } = tokenResponse.data
+        setAccessToken(access_token)
+        const userResponse = await api().get('/user')
+        setLoading(false)
+        signIn(userResponse.data, tokenResponse.data)
+        closeAuthModal()
+    } catch(error){
+      console.table(error);
+      setError('An error has occurred!')
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => { if(code) socialLogin() }, [])
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -61,6 +86,19 @@ const LoginTab = ({ changeTab, setLoading }) => {
     changeTab('register')
   }
 
+  const facebookLogin = async e => {
+    e.preventDefault()
+    try {
+      const res = await api().get(`${baseURL}/api/auth/facebook`)
+      console.table(res)
+      window.location = res.data.url
+
+    } catch (error) {
+      console.table(error)
+      setError('An error has occurred!')
+    }
+  }
+
   return (
     <div>
       <div className="intro-text">
@@ -83,12 +121,12 @@ const LoginTab = ({ changeTab, setLoading }) => {
           &nbsp;
           <a className="bold text-uppercase" href="#" onClick={goToRegister}>Regístrate!</a>
         </div>
-        {/* <div className="or-enter-with">o entre con</div>
-        <Button className="social facebook" onClick={toggleAuth} type="button">
-          <ReactSVG className="icon" src="/static/icons/facebook.svg" />
-          Facebook
-        </Button>
-        <Button className="social google" onClick={toggleAuth} type="button">
+        <div className="or-enter-with">o entre con</div>
+          <Button className="social facebook" type="button" onClick={facebookLogin}>
+            <ReactSVG className="icon" src="/static/icons/facebook.svg" />
+            Facebook
+          </Button>
+        {/* <Button className="social google" onClick={toggleAuth} type="button">
           <ReactSVG className="icon" src="/static/icons/google.svg" />
           Google
         </Button> */}

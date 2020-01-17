@@ -2,7 +2,6 @@ import Color from 'color'
 import { useContext, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { Tab } from 'react-bootstrap'
-// import ReactSVG from 'react-svg'
 
 import { CONFIG } from '../../../config'
 import { STATIC_PATH } from '../../../constants/constants'
