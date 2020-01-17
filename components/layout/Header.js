@@ -122,7 +122,7 @@ const Header = ({ closed, layoutColor, menus }) => {
           background-color: ${layoutColor === 'white' ? 'var(--black)' : 'transparent'};
           box-shadow: 0 0 5px rgba(var(--black-rgb), 0);
           color: var(--gray);
-          font-family: 'Helvetica', sans-serif;
+          font-family: var(--sans-serif);
           /* font-size: 21.5px; */
           font-size: 16px;
           font-weight: bold;

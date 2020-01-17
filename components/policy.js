@@ -20,7 +20,7 @@ const Policy = ({title, policy}) => (
        }
        .legal-text {
            color: #000;
-           font-family: Helvetica, Arial, sans-serif;
+           font-family: var(--sans-serif);
            font-size: 17px;
            font-weight:300;
            line-height: 28px;

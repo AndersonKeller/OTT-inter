@@ -61,34 +61,41 @@ const Layout = ({
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1, shrink-to-fit=no, width=device-width" />
-        { IS_PRODUCTION && (
-          <>
-            <link
-              crossOrigin="anonymous"
-              href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-              rel="stylesheet"
-              />
-            <link
-              charSet="utf-8"
-              href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-              rel="stylesheet"
-              type="text/css"
+        { IS_PRODUCTION ? <>
+          {/* bootstrap */}
+          <link
+            crossOrigin="anonymous"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            rel="stylesheet"
             />
-          </>
-        ) }
-        { IS_PRODUCTION ? (
+          {/* slick */}
+          <link
+            charSet="utf-8"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+            rel="stylesheet"
+            type="text/css"
+          />
+          {/* slick theme */}
           <link
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
             rel="stylesheet"
             type="text/css"
           />
-        ) : (
+          {/* roboto & roboto condensed */}
+          <link
+            href="https://fonts.googleapis.com/css?family=Roboto:400,700||Roboto+Condensed:700&amp;display=swap"
+            rel="stylesheet"
+          />
+        </> : <>
+          {/* slick theme */}
           <link href="/static/slick-theme.css" rel="stylesheet" />
-        ) }
-        <link rel="stylesheet" href="/static/fonts/helvetica/stylesheet.css" />
-        <link rel="stylesheet" href="/static/fonts/helvetica-ce/stylesheet.css" />
+          {/* roboto & roboto condensed */}
+          <link href="/static/fonts/roboto/stylesheet.css" rel="stylesheet" />
+        </> }
+        {/* bebas */}
         <link rel="stylesheet" href="/static/fonts/bebas-neue/stylesheet.css" />
+        {/* vimeo */}
         <script src="https://player.vimeo.com/api/player.js"></script>
       </Head>
 
@@ -138,8 +145,8 @@ const Layout = ({
           --descriptions-color: var(--gray);
 
           /* fonts */
-          --sans-serif: 'Helvetica', sans-serif;
-          --sans-serif-condensed: 'Helvetica CE', 'Helvetica', sans-serif;
+          --sans-serif: 'Roboto', sans-serif;
+          --sans-serif-condensed: 'Roboto Condensed', 'Roboto', sans-serif;
 
           /* font-sizes */
           --font-size: 20px;
