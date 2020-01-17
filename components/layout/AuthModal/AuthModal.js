@@ -11,6 +11,7 @@ import LoginTab from './LoginTab'
 import ModalLoading from './ModalLoading'
 import PasswordTab from './PasswordTab'
 import RegisterTab from './RegisterTab'
+import api from '../../../services/api'
 
 // Auth Modal
 export default function AuthModal() {
@@ -37,6 +38,19 @@ export default function AuthModal() {
     return changeTab(e)
   }
 
+  const facebookLogin = async e => {
+    e.preventDefault()
+    try {
+      const res = await api().get('auth/facebook')
+      console.table(res)
+      window.location = res.data.url
+
+    } catch (error) {
+      console.table(error)
+      // setError('An error has occurred!')
+    }
+  }
+
   return (
     <Modal backdrop={loading ? 'static' : true} className="login-modal" {...{onHide, show}}>
       <Modal.Header>
@@ -60,13 +74,13 @@ export default function AuthModal() {
         <Tab.Container activeKey={tab} id="user-modal-tabs" {...{onSelect}}>
           <Tab.Content>
             <Tab.Pane eventKey="login">
-              <LoginTab {...{changeTab, setLoading}} />
+              <LoginTab {...{changeTab, setLoading, facebookLogin }} />
             </Tab.Pane>
             <Tab.Pane eventKey="password">
               <PasswordTab {...{setLoading}} />
             </Tab.Pane>
             <Tab.Pane eventKey="register">
-              <RegisterTab {...{changeTab, setLoading}} />
+              <RegisterTab {...{changeTab, setLoading, facebookLogin }} />
             </Tab.Pane>
           </Tab.Content>
         </Tab.Container>

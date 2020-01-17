@@ -11,7 +11,7 @@ import Button from '../../button'
 import { AuthModalContext } from '../../../contexts/AuthModalContext'
 import ReactSVG from 'react-svg'
 
-const LoginTab = ({ changeTab, setLoading }) => {
+const LoginTab = ({ changeTab, setLoading, facebookLogin }) => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ error, setError ] = useState('')
@@ -84,19 +84,6 @@ const LoginTab = ({ changeTab, setLoading }) => {
   function goToRegister(e) {
     e.preventDefault()
     changeTab('register')
-  }
-
-  const facebookLogin = async e => {
-    e.preventDefault()
-    try {
-      const res = await api().get(`${baseURL}/api/auth/facebook`)
-      console.table(res)
-      window.location = res.data.url
-
-    } catch (error) {
-      console.table(error)
-      setError('An error has occurred!')
-    }
   }
 
   return (

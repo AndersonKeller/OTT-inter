@@ -9,8 +9,9 @@ import FormGroup from './FormGroup'
 import Input from './Input'
 import Button from '../../button'
 import { CONFIG } from '../../../config'
+import ReactSVG from 'react-svg'
 
-const RegisterTab = ({changeTab, setLoading})  => {
+const RegisterTab = ({ changeTab, setLoading, facebookLogin })  => {
   const [name,setName] = useState('')
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
@@ -110,12 +111,12 @@ const RegisterTab = ({changeTab, setLoading})  => {
           &nbsp;
           <a className="bold text-uppercase" href="#" onClick={goToLogin}>Haga Login</a>
         </div>
-        {/* <div className="or-enter-with">o entre con</div>
-        <Button className="social facebook" onClick={toggleAuth} type="button">
+        <div className="or-enter-with">o entre con</div>
+        <Button className="social facebook" type="button" onClick={facebookLogin}>
           <ReactSVG className="icon" src="/static/icons/facebook.svg" />
           Facebook
         </Button>
-        <Button className="social google" onClick={toggleAuth} type="button">
+        {/*<Button className="social google" onClick={toggleAuth} type="button">
           <ReactSVG className="icon" src="/static/icons/google.svg" />
           Google
         </Button> */}
