@@ -108,9 +108,6 @@ const Layout = ({
         {/* bebas */}
         {/* <link rel="stylesheet" href="/static/fonts/bebas-neue/stylesheet.css" /> */}
 
-        {/* vimeo */}
-        <script src="https://player.vimeo.com/api/player.js"></script>
-
       </Head>
 
       <ToastContainer newestOnTop />
