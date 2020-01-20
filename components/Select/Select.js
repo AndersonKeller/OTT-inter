@@ -16,7 +16,7 @@ export default function Select({
       .form-control {
         border-color: rgba(var(--gray2-rgb), .55);
         border-width: 2px;
-        color: inherit;
+        color: var(--black);
       }
     `}</style>
   </>

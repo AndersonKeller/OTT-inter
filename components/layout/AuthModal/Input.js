@@ -23,35 +23,33 @@ const Input = ({
     }
   })
 
-  return (
-    <>
-      <input
-        autoFocus={autoFocus && "true"}
-        className="form-control"
-        ref={inputRef}
-        {...{
-          autoComplete,
-          defaultValue,
-          id,
-          name,
-          onChange,
-          onFocus,
-          placeholder,
-          required,
-          style,
-          type,
-          value,
-        }}
-      />
-      <style jsx>{`
-        .form-control {
-          border-color: rgba(var(--gray2-rgb), .55);
-          border-width: 2px;
-          color: inherit;
-        }
-      `}</style>
-    </>
-  )
+  return <>
+    <input
+      autoFocus={autoFocus && "true"}
+      className="form-control"
+      ref={inputRef}
+      {...{
+        autoComplete,
+        defaultValue,
+        id,
+        name,
+        onChange,
+        onFocus,
+        placeholder,
+        required,
+        style,
+        type,
+        value,
+      }}
+    />
+    <style jsx>{`
+      .form-control {
+        border-color: rgba(var(--gray2-rgb), .55);
+        border-width: 2px;
+        color: var(--black);
+      }
+    `}</style>
+  </>
 }
 
 export default Input
