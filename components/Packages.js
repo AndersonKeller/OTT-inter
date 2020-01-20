@@ -71,6 +71,8 @@ const PackageRadio = ({ onChange, package_id, plan }) => {
         }
         input:checked + .fake-input {
           border-color: var(--primary);
+          border-width: 2px;
+          padding: 14px;
         }
         .name {
           font-size: 1.33em;
