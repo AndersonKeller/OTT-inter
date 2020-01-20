@@ -57,7 +57,7 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
   }, [POS])
 
   return (
-    <Layout color="white" {...layoutProps}>
+    <Layout {...layoutProps}>
       <Head>
         <title>Confirmación &lt; Registro &lt; {CONFIG.appName}</title>
       </Head>
