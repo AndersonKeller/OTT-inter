@@ -12,6 +12,9 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 
 ## [Não publicado]
+
+
+## [0.2.1] - 20/01/2020
 ### Adicionado
 - Adicionamos o login via Facebook na Modal de Login
 

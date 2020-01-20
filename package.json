@@ -1,6 +1,5 @@
 {
   "name": "@somosgad/dale",
-  "version": "0.2.0",
   "private": true,
   "scripts": {
     "build": "next build",
