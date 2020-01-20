@@ -3,5 +3,8 @@
     "env": {
       "TENANT": "dalecampeon"
     }
-  }
+  },
+  "routes": [
+    { "src": "/login", "dest": "/?modal=login" }
+  ]
 }
