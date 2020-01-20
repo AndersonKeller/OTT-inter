@@ -13,6 +13,7 @@ import Label        from '../../components/layout/AuthModal/Label'
 import Input        from '../../components/layout/AuthModal/Input'
 import FormGroup    from '../../components/layout/AuthModal/FormGroup'
 import Packages     from '../../components/Packages'
+import withAuth     from '../../components/withAuth/withAuth'
 import UserContext  from '../../contexts/UserContext'
 import Select       from '../../components/Select/Select'
 import Button       from '../../components/button'
@@ -21,25 +22,12 @@ import { CONFIG }   from '../../config'
 
 
 // form
-const AccountPage = ({ layoutProps }) => {
+const AccountPage = ({ layoutProps, user }) => {
 
   const [ genres, setGenres ] = useState([])
   const [ countries, setCountries ] = useState([])
   const [ packages, setPackages ] = useState([])
-  const { user, updateUser } = useContext(UserContext)
-
-  /* temporarily handle user presence */
-  useEffect(_ => {
-    const timeout = setTimeout(_ => {
-      if ( ! user) {
-        Router.push('/')
-      }
-    }, 1000)
-
-    return function cleanup() {
-      clearTimeout(timeout)
-    }
-  }, [user])
+  const { updateUser } = useContext(UserContext)
 
   /* get genres */
   useEffect(_ => {
@@ -274,6 +262,4 @@ const AccountPage = ({ layoutProps }) => {
   );
 }
 
-AccountPage.getInitialProps = () => {}
-
-export default AccountPage
+export default withAuth(AccountPage)
