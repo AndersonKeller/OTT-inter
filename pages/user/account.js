@@ -159,7 +159,7 @@ const AccountPage = ({ layoutProps }) => {
   return (
     <Layout {...layoutProps}>
       <Head>
-        <title>Confirmación &lt; Registro &lt; {CONFIG.appName}</title>
+        <title>Mi Cuenta &lt; {CONFIG.appName}</title>
       </Head>
       <div className="rgpage container-fluid">
         <div className="row">
