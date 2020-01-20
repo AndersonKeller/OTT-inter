@@ -39,9 +39,10 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
   }, [user])
 
   const [ ready, status ] = useScript('https://js.paymentsos.com/v2/latest/secure-fields.min.js')
-  const POS = HAS_WINDOW && ready ? window.POS : false
+  const POS = ready && HAS_WINDOW ? window.POS : null
   const payUEnv = 'test'
   const businessUnitPublicKey = '88985036-6530-4b5a-a7ec-c4e07ec07f6c'
+  const [ isPayUReady, setIsPayUReady ] = useState(false)
 
   if (status === ScriptStatus.ERROR) {
     console.log('Failed to load POS API')
@@ -51,6 +52,7 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
     if (POS) {
       POS.setPublicKey(businessUnitPublicKey)
       POS.setEnvironment(payUEnv)
+      setIsPayUReady(true)
     }
   }, [POS])
 
@@ -66,7 +68,7 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
             <h1 className="h2">Completa tu registro</h1>
 
             { user && (
-              <CompleteRegisterForm {...{api, packages, POS}} />
+              <CompleteRegisterForm {...{api, isPayUReady, packages, POS}} />
             ) }
 
           </div>
@@ -85,7 +87,7 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
   )
 }
 
-const CompleteRegisterForm = ({ api, packages, POS }) => {
+const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
 
   const debug = false && ! IS_PRODUCTION
   const requireds = IS_PRODUCTION
@@ -380,6 +382,7 @@ const CompleteRegisterForm = ({ api, packages, POS }) => {
       {/* payment */}
       <Payment {...{
         error,
+        isPayUReady,
         loading,
         onChange: onPaymentChange,
         payment_method_id: values.payment_method_id,
@@ -446,13 +449,13 @@ const CompleteRegisterForm = ({ api, packages, POS }) => {
 }
 
 // Payment
-const Payment = ({ error, loading, onChange, payment_method_id, POS, requireds, validationError }) => {
+const Payment = ({ error, isPayUReady, loading, onChange, payment_method_id, POS, requireds, validationError }) => {
 
   useEffect(_ => {
-    if (payment_method_id === 1 && POS) {
+    if (isPayUReady && payment_method_id === 1) {
       POS.initSecureFields('card-secure-fields')
     }
-  }, [payment_method_id])
+  }, [isPayUReady, payment_method_id])
 
   return (
     <div className="row">
@@ -503,11 +506,7 @@ const Payment = ({ error, loading, onChange, payment_method_id, POS, requireds, 
 
                   {/* card fields */}
                   <FormGroup>
-                    <div id="card-secure-fields">
-                      { ! POS && (
-                        <p>Entradas de tarjeta aún no cargadas</p>
-                      ) }
-                    </div>
+                    <div id="card-secure-fields" />
                     { ! loading && error && error.errors && error.errors.payment_os && (
                       <div className="invalid-feedback">{error.errors.payment_os}</div>
                     ) }
