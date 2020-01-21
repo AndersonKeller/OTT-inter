@@ -449,7 +449,16 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
 }
 
 // Payment
-const Payment = ({ error, isPayUReady, loading, onChange, payment_method_id, POS, requireds, validationError }) => {
+const Payment = ({
+  error,
+  isPayUReady,
+  loading,
+  onChange,
+  payment_method_id,
+  POS,
+  requireds,
+  validationError
+}) => {
 
   useEffect(_ => {
     if (isPayUReady && payment_method_id === 1) {
@@ -495,7 +504,7 @@ const Payment = ({ error, isPayUReady, loading, onChange, payment_method_id, POS
             </div>
 
             <div className="col-md-6">
-              { payment_method_id === 1 && (
+              { payment_method_id === 1 ? (
                 <div className="card-inputs">
 
                   {/* mandatory data */}
@@ -538,6 +547,12 @@ const Payment = ({ error, isPayUReady, loading, onChange, payment_method_id, POS
                   </div> */}
 
                 </div>
+              ) : payment_method_id === 3 && (
+                <ul>
+                  <li>Rapipago</li>
+                  <li>Cobroexpress</li>
+                  <li>Pagofácil</li>
+                </ul>
               ) }
               </div>
           </div>
