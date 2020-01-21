@@ -107,6 +107,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     package_id: '',
     payment_method_id: null,
     payment_os: null,
+    cash_payment_method_id: null,
     terms: null,
   })
 
@@ -170,6 +171,13 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     setValues({
       ...values,
       payment_method_id: parseInt(e.target.value, 10),
+    })
+  }
+
+  function onCashPaymentMethodChange(e) {
+    setValues({
+      ...values,
+      cash_payment_method_id: parseInt(e.target.value, 10),
     })
   }
 
@@ -380,16 +388,21 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
       }} />
 
       {/* payment */}
-      <Payment {...{
-        error,
-        isPayUReady,
-        loading,
-        onChange: onPaymentChange,
-        payment_method_id: values.payment_method_id,
-        POS,
-        requireds,
-        validationError: ! loading && error && error.errors && error.errors.payment_method_id,
-      }} />
+      { values.package_id && (
+        <Payment {...{
+          api,
+          cash_payment_method_id: values.cash_payment_method_id,
+          error,
+          isPayUReady,
+          loading,
+          onCashPaymentMethodChange,
+          onChange: onPaymentChange,
+          payment_method_id: values.payment_method_id,
+          POS,
+          requireds,
+          validationError: ! loading && error && error.errors && error.errors.payment_method_id,
+        }} />
+      ) }
 
       {/* footer */}
       <div className="row align-items-center">
@@ -450,9 +463,12 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
 
 // Payment
 const Payment = ({
+  api,
+  cash_payment_method_id,
   error,
   isPayUReady,
   loading,
+  onCashPaymentMethodChange,
   onChange,
   payment_method_id,
   POS,
@@ -460,11 +476,36 @@ const Payment = ({
   validationError
 }) => {
 
+  // payment methods
+  const [ paymentMethods, setPaymentMethods ] = useState()
+
+  // get payment methods
+  useEffect( _ => {
+    const getPaymentMethods = async _ => {
+      const { data } = await api.get('payment-methods')
+      setPaymentMethods(data)
+    }
+    getPaymentMethods()
+  }, [])
+
+  // init card secure fields
   useEffect(_ => {
     if (isPayUReady && payment_method_id === 1) {
       POS.initSecureFields('card-secure-fields')
     }
   }, [isPayUReady, payment_method_id])
+
+  // cash payment methods
+  const [ cashPaymentMethods, setCashPaymentMethods ] = useState()
+
+  // get cash payment methods
+  useEffect( _ => {
+    const getCashPaymentMethods = async _ => {
+      const { data } = await api.get('payu-argentina-payment-methods')
+      setCashPaymentMethods(data)
+    }
+    getCashPaymentMethods()
+  }, [])
 
   return (
     <div className="row">
@@ -476,27 +517,16 @@ const Payment = ({
 
             <div className="col-md-6">
               <FormGroup>
-                <InputRadio
-                  label="Tarjeta de crédito"
-                  name="payment"
-                  onChange={onChange}
-                  state={payment_method_id}
-                  value={1}
-                />
-                <InputRadio
-                  label="Tarjeta de débito"
-                  name="payment"
-                  onChange={onChange}
-                  state={payment_method_id}
-                  value={2}
-                />
-                <InputRadio
-                  label="Recibo bancario"
-                  name="payment"
-                  onChange={onChange}
-                  state={payment_method_id}
-                  value={3}
-                />
+                { paymentMethods && paymentMethods.map((paymentMethod, key) => (
+                  <InputRadio
+                    key={key}
+                    label={paymentMethod.name}
+                    name="payment"
+                    onChange={onChange}
+                    state={payment_method_id}
+                    value={paymentMethod.id}
+                  />
+                )) }
                 { validationError && (
                   <div className="invalid-feedback">{validationError}</div>
                 ) }
@@ -504,6 +534,8 @@ const Payment = ({
             </div>
 
             <div className="col-md-6">
+
+              {/* credit card */}
               { payment_method_id === 1 ? (
                 <div className="card-inputs">
 
@@ -547,12 +579,24 @@ const Payment = ({
                   </div> */}
 
                 </div>
+
+              // cash payment methods
               ) : payment_method_id === 3 && (
-                <ul>
-                  <li>Rapipago</li>
-                  <li>Cobroexpress</li>
-                  <li>Pagofácil</li>
-                </ul>
+                <FormGroup>
+                  { cashPaymentMethods && cashPaymentMethods.map((item, key) => (
+                    <InputRadio
+                      key={key}
+                      label={item.name}
+                      name="cash_payment_method_id"
+                      onChange={onCashPaymentMethodChange}
+                      state={cash_payment_method_id}
+                      value={item.id}
+                    />
+                  )) }
+                  { validationError && (
+                    <div className="invalid-feedback">{validationError}</div>
+                  ) }
+                </FormGroup>
               ) }
               </div>
           </div>
@@ -619,9 +663,9 @@ const InputRadio = ({ label, name, onChange, state, value }) => {
         input:checked + .fake-input .fake-radio::before {
           opacity: 1;
         }
-        input:focus + .fake-input {
-          border-color: var(--black);
-        }
+        {/* input:focus + .fake-input {
+          border-color: var(--white);
+        } */}
       `}</style>
     </label>
   )
