@@ -14,7 +14,9 @@ export default UserContext
 
 export function UserProvider({ children }) {
 
-  const [user, setUser] = useState(null)
+  const { user: userString } = nookies.get({}, 'user')
+  const userCookie = SafeJSONParse(userString).value
+  const [ user, setUser ] = useState(userCookie)
 
   const signIn = (user, tokenResponse) => {
 
@@ -66,19 +68,6 @@ export function UserProvider({ children }) {
     nookies.set({}, 'user', userString, { path: '/' })
     setUser(user)
   }
-
-  useEffect( _ => {
-    const getUser = async _ => {
-      const { user: userString } = nookies.get({}, 'user')
-      const user = SafeJSONParse(userString).value
-      if (user) {
-        setUser(user)
-      } else {
-        // Router.push('/')
-      }
-    }
-    getUser()
-  }, [])
 
   return (
     <UserContext.Provider value={{...{ user, signIn, signOut, updateUser }}}>
