@@ -12,11 +12,12 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 
 ## [Não publicado]
-
+### Corrigido
+- Corrigimos as mensagens de validação na página Mi Cuenta.
 
 ## [0.2.1] - 20/01/2020
 ### Adicionado
-- Adicionamos o login via Facebook na Modal de Login
+- Adicionamos o login via Facebook na Modal de Login.
 
 
 ## [0.2.0] - 15/01/2020

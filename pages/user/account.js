@@ -90,27 +90,24 @@ const AccountPage = ({ layoutProps, user }) => {
 
   }
 
+  const nullable3CharMinString= Yup.string()
+    .trim().nullable()
+    .required('Required')
+    .min(3, 'Must be 3 characters or more');
+
   const getYupSchema = (countries, genres) => Yup.object({
-    name: Yup.string().trim()
-      .max(25, 'Must be 25 characters or less')
-      .min(3, 'Must be 3 characters or more')
-      .required('Required'),
-    document: Yup.string().trim()
-      .max(20, 'Must be 20 characters or less')
-      .min(3, 'Must be 3 characters or more')
-      .required('Required'),
-    address: Yup.string().trim()
-      .max(80, 'Must be 80 characters or less')
-      .min(3, 'Must be 3 characters or more')
-      .required('Required'),
-    city: Yup.string().trim()
-      .max(20, 'Must be 20 characters or less')
-      .min(3, 'Must be 3 characters or more')
-      .required('Required'),
-    country: Yup.number()
+    name: nullable3CharMinString
+      .max(25, 'Must be 25 characters or less'),
+    document: nullable3CharMinString
+      .max(20, 'Must be 20 characters or less'),
+    address: nullable3CharMinString
+      .max(80, 'Must be 80 characters or less'),
+    city: nullable3CharMinString
+      .max(20, 'Must be 20 characters or less'),
+    country: Yup.number().nullable()
       .oneOf(countries.map(c => c.id),"Invalid Country")
       .required('Required'),
-    genre: Yup.number()
+    genre: Yup.number().nullable()
       .oneOf(genres.map(c => c.id),"Invalid Genre")
       .required('Required'),
   })
