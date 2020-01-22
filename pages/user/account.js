@@ -71,7 +71,7 @@ const AccountPage = ({ layoutProps, user }) => {
   // create formik select field
   const FkSelect = ({ label, list, ...props }) => {
     const [field, meta] = useField(props)
-    let opts = list && list.length ?  [{id:0, name:`Selecciona tu ${label}`, disabled: true},...list] : []
+    let opts = list && list.length ?  [{id:0, name:`Selecciona tu ${label}`},...list] : [{id:0, name:`Selecciona tu ${label}`}]
 
     return (
       <>
@@ -79,22 +79,22 @@ const AccountPage = ({ layoutProps, user }) => {
         <Select style={{color: 'black'}} {...field} {...props}>
           {list && list.length ?
             opts.map((opt, key) =>
-              <option {...{key}} disabled={opt.disabled} value={opt.id}>{opt.name}</option>)
+              <option {...{key}} value={opt.id}>{opt.name}</option>)
             :
-            <option disabled selected value={0}>{`Incapaz de cargar ${label}`}</option>
+            <option disabled value={0}>{`Incapaz de cargar ${label}`}</option>
           }
         </Select>
         {meta.touched && meta.error ? ( <div className="invalid-feedback">{ meta.error }</div> ) : null}
       </>
     )
-
   }
 
+
+// create Yup validation Schema
   const nullable3CharMinString= Yup.string()
     .trim().nullable()
     .required('Required')
     .min(3, 'Must be 3 characters or more');
-
   const getYupSchema = (countries, genres) => Yup.object({
     name: nullable3CharMinString
       .max(25, 'Must be 25 characters or less'),
@@ -115,29 +115,18 @@ const AccountPage = ({ layoutProps, user }) => {
   const handleSubmit = async  ({ name, genre, document, country, city, address }, { setStatus } ) => {
     try{
       setStatus('Data successfully updated')
-      // setTimeout(() => {
-      //   alert(JSON.stringify(values, null, 2));
-      // actions.setSubmitting(false)
-      // }, 10000)
       const res = await api().post(`user/${user.id}`,{
-        name,
-        genre,
-        document,
-        country,
-        city,
-        address
+        name, genre, document,
+        country, city, address,
       })
-      // setSubmitting(false)
       console.table(res)
       updateUser(res.data)
       setStatus({success: 'Data updated successfully'})
 
     }catch(error) {
       const { message } = error.response ? error.response.data : '';
-      setStatus({fail:'An Error Occured'})
+      setStatus({fail:'An Error Occured while updating'})
       console.log(message,error)
-      // setFormStatus('Não foi possivel atualizar os dados');
-      // setSubmitting(false)
     }
   }
 
@@ -162,7 +151,7 @@ const AccountPage = ({ layoutProps, user }) => {
                   }
                   onSubmit={ handleSubmit }
                 >
-                {({status, isSubmitting}) => (<Form>
+                {({status, isSubmitting, values}) => (<Form>
                 { status ? <div className="valid-feedback"><h5>{status.success}</h5></div> :''}
                     {/* <div className="invalid-feedback">{status.fail}</div> */}
                     <div className="row">
@@ -208,16 +197,12 @@ const AccountPage = ({ layoutProps, user }) => {
                     <hr className="hr" />
                     {/* package */}
                     <h2>Detalles del plan</h2>
-                    {/* <table>
-                      <thead>
-                      </thead>
-                      <tbody> */}
-                        {/* <tr> */}
-                          {/* <td>Pacote</td> */}
-                            {/* {user && <Packages package_id_intention={user.package_id_intention} packages={packages} />} */}
-                        {/* </tr>
-                      </tbody>
-                    </table> */}
+                    <Packages
+                      {...{
+                        items: packages ? packages : null,
+                        package_id: values.package_id_intention,
+                      }}
+                    />
                     <hr className="hr" />
 
                     <div className="row align-items-center">
