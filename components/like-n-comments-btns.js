@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 export default function LikeNCommentBtns() {
-  return null
+  // return null
   const [like, setLike] = useState(false);
   async function handleLike() {
     setLike( ! like);

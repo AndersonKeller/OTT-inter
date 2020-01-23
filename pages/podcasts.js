@@ -2,10 +2,10 @@ import Head from 'next/head'
 import BlockedPlayer from '../components/blocked-player'
 import CommentSection from '../components/comment-section'
 import Layout from '../components/layout/Layout'
-import LikeNCommentsBtns from '../components/like-n-comments-btns'
+// import LikeNCommentsBtns from '../components/like-n-comments-btns'
 import MediaDescription from '../components/media-description'
 import MoreContentCarousel from '../components/more-content-carousel'
-import SocialShareBtns from '../components/social-share-btns'
+// import SocialShareBtns from '../components/social-share-btns'
 import { CONFIG } from '../config'
 import { STATIC_PATH, TENANT } from '../constants/constants'
 
@@ -45,14 +45,14 @@ export default function PodcastsPage({ layoutProps }) {
           </div>
         </div>
         <MediaDescription media={media} />
-        <div className="icons-row row">
+        {/* <div className="icons-row row">
           <div className="col">
             <LikeNCommentsBtns />
           </div>
           <div className="col text-right">
             <SocialShareBtns />
           </div>
-        </div>
+        </div> */}
       </div>
       <MoreContentCarousel
         content={moreContent}

@@ -11,6 +11,7 @@ import { useContext } from 'react'
 import { CONFIG } from '../../config'
 import ActiveLink from '../ActiveLink'
 import UserContext from '../../contexts/UserContext'
+import SocialShareBtns from '../social-share-btns'
 
 // footer
 export default function Footer({ layoutColor }) {
@@ -108,11 +109,13 @@ const TermsAndPoliciesBar = ({ layoutColor }) => {
       <div className="container-fluid">
         <div className="row align-items-center">
 
-          <div className="col-12 col-md-8 text-md-left">
+          <div className="col-12 col-sm-4  col-md-4 text-md-left">
             <p>{CONFIG.appName} @ 2020 - Todos los derechos reservados</p>
           </div>
-
-          <div className="col-12 col-md-4 text-md-right">
+          <div className="col-4 col-sm-4  col-md-4 text-center text-nowrap ">
+            <SocialShareBtns />
+          </div>
+          <div className="col-8 col-sm-4  col-md-4 text-md-right">
             <ul>
 
               <li><Link href="/politica-de-privacidad" passHref>
@@ -223,17 +226,17 @@ const FooterLink = React.forwardRef(({ children, onClick, href, target }, ref) =
 const GADLogo = _ => {
   return <>
     <a className="signature d-inline-block" href="//somosgad.com" target="_blank">
-      <img alt="GAD_" className="img-fluid" height="19" src="/static/logos/gad.svg" width="35" />
+      <img alt="GAD_" height="19" src="/static/logos/gad.svg" width="35" />
     </a>
     <style jsx>{`
       img {
         height: 17px;
-        max-width: 30px;
+        min-width: 30px;
       }
       @media (min-width: 768px) {
         img {
           height: 19px;
-          max-width: 35px;
+          min-width: 35px;
         }
       }
     `}</style>

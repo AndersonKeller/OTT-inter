@@ -24,6 +24,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 - Alteramos o tamanho do avatar no menu do usuário.
 - Alteramos a página Mi Cuenta para redirecionar o usuário para Home ao salvar os dados.
 - Alteramos as paginas para não exibirem o ícone de carregamento no canto superior direito.
+- Alteramos a lista de ícones das redes socias para aparecerem no rodapé das páginas.
 
 ## [0.2.1] - 20/01/2020
 ### Adicionado
