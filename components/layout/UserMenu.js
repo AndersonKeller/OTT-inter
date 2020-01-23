@@ -328,6 +328,7 @@ const Avatar = ({ image }) => {
         }
         .empty-img img {
           max-height: 100%;
+          filter: brightness(0) saturate(100%);
         }
         @media (min-width: 768px) {
           .avatar {

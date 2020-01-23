@@ -15,6 +15,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 ### Corrigido
 - Corrigimos as mensagens de validação na página Mi Cuenta.
 - Corrigimos os selects da página Mi Cuenta para iniciarem vazios.
+- Corrigimos a cor do ícone do item de menu Mi Cuenta.
 
 ### Adicionado
 - Adicionamos o pacote do usuário na página Mi Cuenta.
