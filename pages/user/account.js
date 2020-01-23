@@ -89,7 +89,6 @@ const AccountPage = ({ layoutProps, user }) => {
     )
   }
 
-
 // create Yup validation Schema
   const nullable3CharMinString= Yup.string()
     .trim().nullable()
@@ -122,6 +121,9 @@ const AccountPage = ({ layoutProps, user }) => {
       console.table(res)
       updateUser(res.data)
       setStatus({success: 'Data updated successfully'})
+      setTimeout(() => {
+        Router.push('/')
+      }, 2000);
 
     }catch(error) {
       const { message } = error.response ? error.response.data : '';
