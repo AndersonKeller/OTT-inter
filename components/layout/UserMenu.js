@@ -332,9 +332,9 @@ const Avatar = ({ image }) => {
         @media (min-width: 768px) {
           .avatar {
             background-color: var(--gray);
-            height: 45px;
+            height: 38px;
             margin-right: 10px;
-            width: 45px;
+            width: 38px;
           }
         }
       `}</style>

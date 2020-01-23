@@ -19,6 +19,9 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 ### Adicionado
 - Adicionamos o pacote do usuário na página Mi Cuenta.
 
+### Modificado
+- Alteramos o tamanho do avatar no menu do usuário.
+
 ## [0.2.1] - 20/01/2020
 ### Adicionado
 - Adicionamos o login via Facebook na Modal de Login.
