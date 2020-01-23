@@ -13,7 +13,7 @@ export default ({ as, children, ...props }) => {
   return (
     <Link as={as} {...props}>
       { React.cloneElement(child, {
-        active: active,
+        active: `${active}`,
         className: classes,
       }) }
     </Link>
