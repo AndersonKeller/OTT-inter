@@ -1,3 +1,6 @@
+// react
+import React from 'react'
+
 // other imports
 import classNames from 'classnames'
 import Link from 'next/link'
@@ -103,55 +106,130 @@ const TermsAndPoliciesBar = ({ layoutColor }) => {
   return (
     <div className="terms-and-policies-bar">
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-12 col-lg-8 offset-lg-2">
-            <div className="row">
-              <div className="col-12 col-md-9 text-md-left">
-                <p>{CONFIG.appName} @ 2019 <a href="//www.somosgad.com/" target="_blank">GAD_</a> - Todos los derechos reservados - <Link href="/politica-de-privacidad"><a>Política de Privacidad</a></Link></p>
-              </div>
-              <div className="col-12 col-md-3 text-md-right">
-                <p><Link href="/terminos-y-politicas"><a>Términos y políticas</a></Link></p>
-              </div>
-            </div>
+        <div className="row align-items-center">
+
+          <div className="col-12 col-md-8 text-md-left">
+            <p>{CONFIG.appName} @ 2020 - Todos los derechos reservados</p>
           </div>
+
+          <div className="col-12 col-md-4 text-md-right">
+            <ul>
+
+              <li><Link href="/politica-de-privacidad" passHref>
+                <FooterLink>Política de Privacidad</FooterLink>
+              </Link></li>
+
+              <li><Link href="/terminos-y-politicas" passHref>
+                <FooterLink>Términos y políticas</FooterLink>
+              </Link></li>
+
+              <li><GADLogo /></li>
+
+            </ul>
+          </div>
+
         </div>
       </div>
       <style jsx>{`
         .terms-and-policies-bar {
           background-color: ${layoutColor === 'white' ? 'var(--black)' : 'transparent'};
-          color: var(--white);
-          font-size: 13px;
-          padding-top: 15px;
+          color: var(--gray4);
+          font-size: 11px;
+          line-height: 1;
+          padding-top: 10px;
           padding-bottom: 5px;
-          text-align: center;
         }
-        .terms-and-policies-bar a {
-          color: inherit;
-          display: inline-block;
-          text-decoration: none;
+        .terms-and-policies-bar p {
+          margin-bottom: 5px;
         }
-        .terms-and-policies-bar a::after {
-          border-bottom: 1px solid var(--white);
-          content: '';
-          display: block;
-          opacity: 0;
-          transition: opacity .2s, transform .2s;
-          transform: translateY(-2px);
+        .terms-and-policies-bar ul {
+          align-items: flex-start;
+          display: flex;
+          justify-content: space-between;
+          list-style-type: none;
+          margin-right: -5px;
+          margin-bottom: 0;
+          margin-left: -5px;
+          padding-left: 0;
         }
-        .terms-and-policies-bar a:focus::after,
-        .terms-and-policies-bar a:hover::after {
-          opacity: 1;
-          transform: translateY(0);
+        .terms-and-policies-bar ul li {
+          display: inline;
+          padding-right: 5px;
+          padding-left: 5px;
+        }
+        .terms-and-policies-bar ul li:last-child {
+          margin-left: auto;
         }
         @media (min-width: 768px) {
           .terms-and-policies-bar {
-            padding: 20px 5px;
+            font-size: 12px;
+            padding: 10px 5px 15px;
           }
           .terms-and-policies-bar p {
             margin-bottom: 0;
+          }
+          .terms-and-policies-bar ul {
+            align-items: center;
+            justify-content: flex-end;
+            margin-right: -10px;
+          }
+          .terms-and-policies-bar ul li {
+            padding-right: 10px;
+            padding-left: 10px;
+          }
+          .terms-and-policies-bar ul li:last-child {
+            margin-left: 0;
           }
         }
       `}</style>
     </div>
   )
+}
+
+// footer link
+const FooterLink = React.forwardRef(({ children, onClick, href, target }, ref) => {
+  return <>
+    <a {...{href, onClick, ref, target}}>{children}</a>
+    <style jsx>{`
+      a {
+        color: inherit;
+        display: inline-block;
+        text-decoration: none;
+      }
+      a::after {
+        border-bottom: 1px solid var(--white);
+        content: '';
+        display: block;
+        opacity: 0;
+        transition: opacity .2s, transform .2s;
+        transform: translateY(-2px);
+      }
+      a:focus::after,
+      a:hover::after {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    `}</style>
+  </>
+})
+
+// gad logo
+const GADLogo = _ => {
+  return <>
+    <a className="signature d-inline-block" href="//somosgad.com" target="_blank">
+      <img alt="GAD_" className="img-fluid" height="19" src="/static/logos/gad.svg" width="35" />
+    </a>
+    <style jsx>{`
+      img {
+        height: 17px;
+        max-width: 30px;
+      }
+      @media (min-width: 768px) {
+        img {
+          height: 19px;
+          max-width: 35px;
+        }
+      }
+    `}</style>
+  </>
 }

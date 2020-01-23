@@ -114,7 +114,7 @@ export default ({}) => {
         }
         @media (min-width: 768px) {
           .user-select {
-            margin-right: 15px;
+            margin-right: -15px;
           }
         }
         .user-select :global(.dropdown-toggle) {

@@ -108,11 +108,6 @@ const Header = ({ closed, layoutColor, menus }) => {
             {/* user */}
             <UserMenu />
 
-            {/* gad logo */}
-            <a className="signature d-none d-md-inline" href="//somosgad.com" target="_blank">
-              <img alt="GAD_" height="19" src="/static/logos/gad.svg" width="35" />
-            </a>
-
           </>
         ) }
 
