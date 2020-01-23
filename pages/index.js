@@ -76,13 +76,16 @@ const Home = ({ featuredMedia, featuredMediaError, layoutProps }) => {
 
       {/* styles */}
       <style jsx>{`
+        .index {
+          margin-bottom: 75px;
+        }
         .index__contents {
           position: relative;
           z-index: 2;
         }
         @media (min-width: 768px) {
           .index {
-            padding-bottom: 30px;
+            margin-bottom: 30px;
           }
         }
       `}</style>

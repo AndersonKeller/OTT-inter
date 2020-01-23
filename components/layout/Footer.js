@@ -164,7 +164,7 @@ const TermsAndPoliciesBar = ({ layoutColor }) => {
           .terms-and-policies-bar {
             font-size: 12px;
             line-height: 1.25;
-            padding: 10px 5px 15px;
+            padding: 15px 5px;
           }
           .terms-and-policies-bar p {
             margin-bottom: 0;
