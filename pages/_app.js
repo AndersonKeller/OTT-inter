@@ -10,6 +10,8 @@ import { AuthModalProvider } from '../contexts/AuthModalContext'
 import { UserProvider } from '../contexts/UserContext'
 import Layout from '../components/layout/Layout'
 
+NProgress.configure({ showSpinner: false });
+
 Router.events.on('routeChangeStart', url => {
   console.log(`Loading: ${url}`)
   NProgress.start()
