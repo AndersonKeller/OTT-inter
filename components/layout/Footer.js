@@ -163,6 +163,7 @@ const TermsAndPoliciesBar = ({ layoutColor }) => {
         @media (min-width: 768px) {
           .terms-and-policies-bar {
             font-size: 12px;
+            line-height: 1.25;
             padding: 10px 5px 15px;
           }
           .terms-and-policies-bar p {
@@ -195,6 +196,7 @@ const FooterLink = React.forwardRef(({ children, onClick, href, target }, ref) =
         color: inherit;
         display: inline-block;
         text-decoration: none;
+        transition: color .2s;
       }
       a::after {
         border-bottom: 1px solid var(--white);
@@ -203,6 +205,10 @@ const FooterLink = React.forwardRef(({ children, onClick, href, target }, ref) =
         opacity: 0;
         transition: opacity .2s, transform .2s;
         transform: translateY(-2px);
+      }
+      a:focus,
+      a:hover {
+        color: var(--white);
       }
       a:focus::after,
       a:hover::after {
