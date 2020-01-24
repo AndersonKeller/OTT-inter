@@ -53,7 +53,7 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
           <div className="block-msg text-center">
             <div className="text-block">
               <p><strong>Este contenido es exclusivo para los suscriptores</strong></p>
-              <p className="d-none d-md-block"><small>Ver las novelas, series, humor, películas y dibujos cuando y donde quieras.</small></p>
+              <p className="d-none d-md-block"><small>Ver los videos cuando y donde quieras.</small></p>
             </div>
             {/* <Link href="/subscriptor">
               <Button>Probá Gratis</Button>
