@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Layout from '../components/layout/Layout'
 import { CONFIG } from '../config'
 import api from '../services/api'
-import { Accordion, Card } from 'react-bootstrap'
+import { Accordion, Card, Button } from 'react-bootstrap'
 
 const Help = ({ layoutProps, title, faqs, ...props }) => {
     return (
@@ -13,54 +13,60 @@ const Help = ({ layoutProps, title, faqs, ...props }) => {
         <div className="faqs-wrapper">
             <div className="container">
                 <h3 className="faqs-title">Preguntas Frecuentes</h3>
-                { faqs.map(item => (
-                    <Accordion>
+                <Accordion>
+                { faqs.map((item, key) => (
                        <Card className="faqs-card">
-                          <Accordion.Toggle as={Card.Header} className="faqs-header" eventKey="0">
+                          <Accordion.Toggle as={Card.Header} className="faqs-header" eventKey={key}>
                                 <h5 className="faqs-question">{ item.question }</h5>
                           </Accordion.Toggle>
-                          <Accordion.Collapse eventKey="0">
+                          <Accordion.Collapse eventKey={key}>
                               <Card.Body>
                                 <p className="faqs-text">{ item.answer }</p>
                               </Card.Body>
                           </Accordion.Collapse>
                        </Card>
-                   </Accordion>
                 )) }
+                </Accordion>
             </div>
         </div>
        <style global jsx>{`
-            .accordeon {
-                border-bottom: 1;
-            }
-            .accordion>.card:last-of-type {
-                border-bottom: 1px solid black;
+
+            .faqs-question{
+              margin:0;
             }
             .faqs-title {
-                color: black;
+                color: white;
                 font-size: 32px;
                 font-weight: 700;
                 line-height: 48px;
                 padding-top: 10px;
             }
             .faqs-card {
-                border: 1px solid #000;
-                margin-bottom: 4px;
+              background-color: black;
+
+
+              border: 1px solid white;
+              border-radius:5px;
+            }
+            .card-body {
+              padding:5px 20px;
             }
             .faqs-header {
-                background-color: white;
                 border: none;
+                color: var(--gray);
+                background-color: black;
+
             }
-            .faqs-question {
-                color: black;
-                font-weight: 700;
+            .faqs-header:hover {
+              color: white;
             }
+
             .faqs-wrapper {
-                background-color: white;
                 min-height: 500px;
             }
             .faqs-text {
-                color: black;
+                color: white;
+                font-size: 18px;
             }
         '`}</style>
     </Layout>
