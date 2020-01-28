@@ -15,7 +15,7 @@ export default ({}) => {
     { slug: 'user', label: 'Mi Cuenta', href: '/user/account' },
     // { slug: 'settings', label: 'Configuración', href: '/settings' },
     { slug: 'help', label: 'Ayuda', href: '/ayuda' },
-    { slug: 'info', label: 'Soporte', href: '/soporte' },
+    // { slug: 'info', label: 'Soporte', href: '/soporte' },
     { slug: 'logout', label: 'Salir', href: '/logout', onClick: logout, },
   ]
 
