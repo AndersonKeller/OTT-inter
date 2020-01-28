@@ -91,7 +91,7 @@ const Layout = ({
 
           {/* roboto & roboto condensed */}
           <link
-            href="https://fonts.googleapis.com/css?family=Roboto:400,700||Roboto+Condensed:700&amp;display=swap"
+            href="https://fonts.googleapis.com/css?family=Roboto:400,700|Roboto+Condensed:700&amp;display=swap"
             rel="stylesheet"
           />
 
