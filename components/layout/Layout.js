@@ -46,12 +46,22 @@ const Layout = ({
   }
 
   const { flash_message } = nookies.get({}, 'flash_message')
+
   useEffect(_ => {
     if (flash_message) {
-      toast.info(flash_message, {
-        delay: 1000,
-        onClose: _ => nookies.destroy({}, 'flash_message', { path: '/' }),
-      })
+      let messages = JSON.parse(flash_message)
+      console.log(messages)
+
+      if(messages.error)
+        toast.error(messages.error, {delay: 500, autoClose: 5000})
+
+      if(messages.success)
+        toast.success(messages.success, {delay: 500, autoClose: 4000})
+
+      if(messages.info)
+        toast.info(messages.info, {delay: 500, autoClose: 4000})
+
+
       nookies.destroy({}, 'flash_message', { path: '/' })
     }
   }, [flash_message])
@@ -222,17 +232,44 @@ const Layout = ({
           margin-bottom: 10px;
         }
         /* toasts */
-        .Toastify__toast-container--top-right {
-          top: 3.75em;
-        }
-        .Toastify__toast--info {
+        .Toastify__toast {
+          border-radius: 5px;
           background-color: ${Color(WHITE).fade(.1)};
           color: ${BLACK};
-          min-height: 45px;
+          min-height: 50px;
           padding: 15px;
+        }
+        .Toastify__toast--info {
+          border-right: 4px solid rgb(220, 159, 27);
+          border-left: 4px solid rgb(220, 159, 27);
+        }
+        .Toastify__toast--success {
+          border-right: 4px solid rgb(26, 115, 26);
+          border-left: 4px solid rgb(26, 115, 26);
+        }
+        .Toastify__toast--error {
+          border-right: 4px solid rgb(190, 0, 0);
+          border-left: 4px solid rgb(190, 0, 0);;
+        }
+        .Toastify__toast-container {
+          font-size: 14px;
+        }
+        .Toastify__toast-container--top-right {
+          top: 5rem;
         }
         .Toastify__progress-bar {
           background-color: var(--primary);
+          height: 100%;
+          width: 100%;
+        }
+        .Toastify__progress-bar--info {
+          background-color: rgba(220, 159, 27, 0.2);
+        }
+        .Toastify__progress-bar--error {
+          background-color: rgba(190, 0, 0, 0.2);
+        }
+        .Toastify__progress-bar--success {
+          background-color: rgba(26, 115, 26, 0.2)
         }
         .Toastify__close-button {
           color: ${BLACK};

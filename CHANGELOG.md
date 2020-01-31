@@ -27,6 +27,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 - Alteramos a lista de ícones das redes socias para aparecerem no rodapé das páginas.
 - Alteramos o layout da página Ayuda: fundo preto, auto-collapse, espaçamento.
 - Removemmos o item Soporte do menu do usuário.
+- Alteramos o layout das mensagens/notificações via Toast.
 
 ## [0.2.1] - 20/01/2020
 ### Adicionado
