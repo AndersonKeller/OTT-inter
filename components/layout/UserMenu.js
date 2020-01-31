@@ -59,7 +59,7 @@ export default ({}) => {
             </Dropdown.Header>
 
             { loggedMenu.map((item, key) => (
-              <Link href={item.href} key={key} onClick={item.onClick} passHref>
+              <Link href={item.href} key={key} passHref>
                 <Dropdown.Item className="dropdown-item-style3" onClick={item.onClick}>
                   <span className="icon">
                     <img className={`img-fluid ${item.slug}`} src={`/static/icons/${item.slug}.svg`} />
