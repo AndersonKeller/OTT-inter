@@ -7,13 +7,13 @@ import UserContext from '../../contexts/UserContext'
 const withAuth = WrappedComponent => {
 
   const WithAuth = props => {
-    const { user } = useContext(UserContext)
+    const { user, updateUser } = useContext(UserContext)
     useEffect( _ => {
       if ( ! user) {
         Router.push('/')
       }
     }, [user])
-    return <WrappedComponent {...props} />
+    return <WrappedComponent updateUser={updateUser} {...props} />
   }
 
   WithAuth.getInitialProps = async ctx => {
