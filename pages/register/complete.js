@@ -688,7 +688,8 @@ CompleteRegisterPage.getInitialProps = async ctx => {
 
   // if user has already completed registry, redirect it
   if (user.register_completed_at) {
-    nookies.set(ctx, 'flash_message', 'Ya ha completado su registro.', { path: '/' })
+    let message = JSON.stringify({ info: "Ya ha completado su registro." })
+    nookies.set(ctx, 'flash_message', message, { path: '/' })
     if (ctx.res) {
       ctx.res.redirect('/')
       ctx.res.end()
