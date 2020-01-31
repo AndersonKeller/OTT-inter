@@ -19,6 +19,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ### Adicionado
 - Adicionamos o pacote do usuário na página Mi Cuenta.
+- Adicionamos a página Datos Personales como link na página Mi Cuenta.
 
 ### Modificado
 - Alteramos o tamanho do avatar no menu do usuário.
