@@ -167,7 +167,7 @@ const Packages = () => {
                 <div className="cards">
                   <div className="row justify-content-center gutter-15">
                     { packages.map((item, key) => (
-                      <div className="col-12 col-sm-6 col-lg-4 col-xl-auto" {...{key}}>
+                      <div className="col-12 col-sm-6 col-lg-4 col-xl" {...{key}}>
                         <div className={`card ${item.amount === 0 ? 'card--free' : ''}`}>
                           <div className="card-heading">Suscripción</div>
                           <div className="time">{item.name}</div>

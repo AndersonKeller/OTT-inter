@@ -13,7 +13,7 @@ const Packages = ({ error, items, loading, onChange, package_id, validationError
       <h3 className="h3">Selecciona tu plan</h3>
       <div className="row gutter-15 packages__list">
         { items && items.map((item, key) => (
-          <div className="col-6 col-md-3" {...{key}}>
+          <div className="col-6 col-md" {...{key}}>
             <FormGroup>
               <PackageRadio {...{onChange, readOnly, package_id, plan: item}} />
             </FormGroup>
