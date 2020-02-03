@@ -191,7 +191,7 @@ export default ({}) => {
           font-size: 20px;
           font-weight: bold;
           line-height: 1.25;
-          margin: 10px 40px 15px;
+          margin: 10px 15px 15px;
           padding-right: 25px;
           padding-left: 25px;
           text-align: center;
