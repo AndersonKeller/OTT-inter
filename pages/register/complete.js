@@ -89,6 +89,8 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
 
 const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
 
+  const free_package_id = 5
+
   const debug = false && ! IS_PRODUCTION
   const requireds = IS_PRODUCTION
 
@@ -388,7 +390,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
       }} />
 
       {/* payment */}
-      { values.package_id && (
+      { values.package_id && values.package_id !== free_package_id && (
         <Payment {...{
           api,
           cash_payment_method_id: values.cash_payment_method_id,
