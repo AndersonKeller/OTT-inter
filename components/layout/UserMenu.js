@@ -7,6 +7,7 @@ import UserContext from '../../contexts/UserContext'
 import { AuthModalContext } from '../../contexts/AuthModalContext'
 
 export default ({}) => {
+
   const { signOut, user } = useContext(UserContext)
   const { closeAuthModal, openAuthModal } = useContext(AuthModalContext)
 
@@ -18,6 +19,13 @@ export default ({}) => {
     // { slug: 'info', label: 'Soporte', href: '/soporte' },
     { slug: 'logout', label: 'Salir', href: '/logout', onClick: logout, },
   ]
+
+  function getUserName() {
+    const nameArray = user.name.split(' ')
+    const userName = nameArray.length > 1 ?
+      `${nameArray[0]} ${nameArray[nameArray.length - 1]}` : nameArray.join('')
+    return userName
+  }
 
   function enter(e) {
     e.preventDefault()
@@ -53,7 +61,7 @@ export default ({}) => {
           <Dropdown.Menu>
 
             <Dropdown.Header>
-              <div className="user-name">{ user.name }</div>
+              <div className="user-name">{ getUserName() }</div>
               <div className="user-email">{ user.email }</div>
               <div className="suscriptor">Suscriptor</div>
             </Dropdown.Header>
