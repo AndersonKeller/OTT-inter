@@ -155,7 +155,7 @@ const Packages = () => {
   return (
     <section className="prices text-center container-fluid">
       <div className="entries row">
-        <div className="col-md-10 offset-md-1 col-lg-12 offset-lg-0 col-xl-10 offset-xl-1">
+        <div className="col-md-10 offset-md-1 col-xl-12 offset-xl-0">
 
           {/* loading */}
           <Loading loadingState={loading} />
@@ -167,7 +167,7 @@ const Packages = () => {
                 <div className="cards">
                   <div className="row justify-content-center gutter-15">
                     { packages.map((item, key) => (
-                      <div className="col-12 col-sm-6 col-lg-3" {...{key}}>
+                      <div className="col-12 col-sm-6 col-lg-4 col-xl-auto" {...{key}}>
                         <div className={`card ${item.amount === 0 ? 'card--free' : ''}`}>
                           <div className="card-heading">Suscripción</div>
                           <div className="time">{item.name}</div>
@@ -215,7 +215,7 @@ const Packages = () => {
         @media (min-width: 768px) {
           .prices {
             padding-bottom: 95px;
-        }
+          }
         }
         .cards {
           font-size: 31px;
@@ -230,9 +230,6 @@ const Packages = () => {
           min-height: calc(100% - 15px);
           padding: 20px;
           transition: background-color 1s;
-        }
-        .card--free {
-          padding-top: 87px;
         }
         .card:hover {
           background-color: #1e1e1e;
@@ -262,6 +259,12 @@ const Packages = () => {
           }
           .card :global(.btn) {
             margin-top: auto;
+          }
+          .card--free {
+            padding-top: 87px;
+          }
+          .card--free .time {
+            margin-bottom: 45px;
           }
         }
         @media (min-width: 1200px) {
