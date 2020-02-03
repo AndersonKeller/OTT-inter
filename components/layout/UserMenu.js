@@ -63,7 +63,6 @@ export default ({}) => {
             <Dropdown.Header>
               <div className="user-name">{ getUserName() }</div>
               <div className="user-email">{ user.email }</div>
-              <div className="suscriptor">Suscriptor</div>
             </Dropdown.Header>
 
             { loggedMenu.map((item, key) => (
@@ -280,7 +279,7 @@ export default ({}) => {
           border-radius: 5px;
           color: var(--white);
           line-height: 1;
-          padding: 15px 30px;
+          padding: 15px 30px 20px;
           text-align: center;
         }
         .user-select.logged :global(.dropdown-header) .user-name {
@@ -292,14 +291,6 @@ export default ({}) => {
         }
         .user-select.logged :global(.dropdown-header) .user-email {
           font-size: 12px;
-          margin-bottom: 30px;
-        }
-        .user-select.logged :global(.dropdown-header) .suscriptor {
-          color: var(--black);
-          font-family: var(--sans-serif-condensed);
-          font-weight: bold;
-          font-size: 14px;
-          text-transform: uppercase;
         }
       `}</style>
     </div>
