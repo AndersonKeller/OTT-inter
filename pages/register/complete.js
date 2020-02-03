@@ -162,9 +162,11 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
 
   /* handle package change */
   function onPackageChange(e) {
+    const package_id = parseInt(e.target.value, 10)
     setValues({
       ...values,
-      package_id: parseInt(e.target.value, 10),
+      package_id: package_id,
+      payment_method_id: package_id === free_package_id ? null : values.payment_method_id,
     })
   }
 
@@ -173,6 +175,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     setValues({
       ...values,
       payment_method_id: parseInt(e.target.value, 10),
+      cash_payment_method_id: null,
     })
   }
 
@@ -208,8 +211,9 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         values.payment_method_id && values.payment_method_id === 1 ? await createToken() : null
       const data = { ...values, payment_os: paymentData }
       try {
-        const { data: user } = await api.post('register/complete', data)
-        updateUser(user)
+        const { data: losDatos } = await api.post('register/complete', data)
+        updateUser(losDatos.user)
+        console.log('losDatos', losDatos)
         Router.push('/')
       } catch (error) {
         console.log('error', error)
@@ -595,8 +599,8 @@ const Payment = ({
                       value={item.id}
                     />
                   )) }
-                  { validationError && (
-                    <div className="invalid-feedback">{validationError}</div>
+                  { ! loading && error && error.errors && error.errors.cash_payment_method_id && (
+                    <div className="invalid-feedback">{error.errors.cash_payment_method_id}</div>
                   ) }
                 </FormGroup>
               ) }
