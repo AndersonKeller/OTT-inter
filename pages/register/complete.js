@@ -204,7 +204,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     e.preventDefault()
     setLoading(true)
     try {
-      const paymentData = values.package_id !== free_package_id &&
+      const paymentData = values.package_id && values.package_id !== free_package_id &&
         values.payment_method_id && values.payment_method_id === 1 ? await createToken() : null
       const data = { ...values, payment_os: paymentData }
       try {
