@@ -1,6 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 import { IS_PRODUCTION } from '~/constants/constants'
+import theme from '~/theme';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -23,6 +24,11 @@ export default class MyDocument extends Document {
           </>
         ),
       }
+      // return {
+      //   ...initialProps,
+      //   // Styles fragment is rendered after the app and page rendering finish.
+      //   styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
+      // };
     } finally {
       sheet.seal()
     }
@@ -33,6 +39,8 @@ export default class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta name="viewport" content="initial-scale=1, shrink-to-fit=no, width=device-width" />
+          {/* PWA primary color */}
+          <meta name="theme-color" content={theme.colors.primary} />
           {/* styles */}
           { IS_PRODUCTION ? <>
             {/* bootstrap */}

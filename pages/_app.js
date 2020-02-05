@@ -7,6 +7,8 @@ import { UserProvider } from '../contexts/UserContext'
 import Layout from '../components/layout/Layout'
 import { ThemeProvider } from 'styled-components'
 import GlobalStyle from '~/styles'
+// import CssBaseline from '@material-ui/core/CssBaseline';
+import theme from '~/theme';
 
 NProgress.configure({ showSpinner: false });
 
@@ -21,12 +23,6 @@ Router.events.on('routeChangeComplete', _ => {
 })
 
 Router.events.on('routeChangeError', _ => NProgress.done())
-
-const theme = {
-  colors: {
-    primary: '#0070f3',
-  },
-}
 
 class MyApp extends App {
 
@@ -49,10 +45,20 @@ class MyApp extends App {
     return { layoutProps, pageProps }
   }
 
+  componentDidMount() {
+    // Remove the server-side injected CSS.
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }
+
   render() {
     const { Component, layoutProps, pageProps } = this.props
     return (
       <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        {/* <CssBaseline /> */}
         <GlobalStyle />
         <UserProvider>
           <AuthModalProvider>
