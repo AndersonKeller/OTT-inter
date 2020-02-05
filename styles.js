@@ -20,6 +20,7 @@ export default createGlobalStyle`
     --sans-serif: 'Roboto', sans-serif;
     --sans-serif-condensed: 'Roboto Condensed', var(--sans-serif);
     --bebas: 'Bebas Neue', var(--sans-serif-condensed);
+    --bebas-book: 'Bebas Neue Book', var(--sans-serif-condensed);
 
     /* colors */
     --white:         ${WHITE};
@@ -81,24 +82,29 @@ export default createGlobalStyle`
   }
 
   /* nprogress */
-  #nprogress .bar {
-    background: var(--primary);
-  }
-  #nprogress .peg {
-    box-shadow: 0 0 10px var(--primary), 0 0 5px var(--primary);
-  }
-  #nprogress .spinner-icon {
-    border-top-color: var(--primary);
-    border-left-color: var(--primary);
+  #nprogress {
+    .bar {
+      background: var(--primary);
+    }
+    .peg {
+      box-shadow: 0 0 10px var(--primary), 0 0 5px var(--primary);
+    }
+    .spinner-icon {
+      border-top-color: var(--primary);
+      border-left-color: var(--primary);
+    }
   }
 
   /* headings */
   h1, .h1 {
-    font-family: var(--bebas);
+    font-family: var(--bebas-book);
     font-size: 48px;
-    font-weight: bold;
+    font-weight: normal;
     line-height: 1;
     margin-bottom: 5px;
+    @media (min-width: 768px) {
+      font-size: 68px;
+    }
   }
   h2, .h2 {
     font-family: var(--sans-serif);
@@ -118,6 +124,11 @@ export default createGlobalStyle`
   /* inline elements */
   a {
     color: inherit;
+    transition: .2s ease;
+    :focus,
+    :hover {
+      color: var(--primary);
+    }
   }
   input[type="search"]::-webkit-search-cancel-button {
     display: none;
@@ -174,29 +185,29 @@ export default createGlobalStyle`
   .no-gutters {
     margin-right: 0;
     margin-left: 0;
-  }
-  .no-gutters > .col,
-  .no-gutters > [class*="col-"] {
-    padding-right: 0;
-    padding-left: 0;
+    > .col,
+    > [class*="col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
   }
   .gutter-10 {
     margin-right: -5px;
     margin-left: -5px;
-  }
-  .gutter-10 > .col,
-  .gutter-10 > [class*="col-"] {
-    padding-right: 5px;
-    padding-left: 5px;
+    > .col,
+    > [class*="col-"] {
+      padding-right: 5px;
+      padding-left: 5px;
+    }
   }
   .gutter-15 {
     margin-right: -7.5px;
     margin-left: -7.5px;
-  }
-  .gutter-15 > .col,
-  .gutter-15 > [class*="col-"] {
-    padding-right: 7.5px;
-    padding-left: 7.5px;
+    > .col,
+    > [class*="col-"] {
+      padding-right: 7.5px;
+      padding-left: 7.5px;
+    }
   }
 
   /* helpers */
