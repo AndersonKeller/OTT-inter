@@ -4,11 +4,11 @@ import App from 'next/app'
 import Router from 'next/router'
 
 import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
 
 import { AuthModalProvider } from '../contexts/AuthModalContext'
 import { UserProvider } from '../contexts/UserContext'
 import Layout from '../components/layout/Layout'
+import GlobalStyle from '../styles'
 
 NProgress.configure({ showSpinner: false });
 
@@ -48,11 +48,14 @@ class MyApp extends App {
   render() {
     const { Component, layoutProps, pageProps } = this.props
     return (
-      <UserProvider>
-        <AuthModalProvider>
-          <Component layoutProps={layoutProps} {...pageProps} />
-        </AuthModalProvider>
-      </UserProvider>
+      <>
+        <GlobalStyle />
+        <UserProvider>
+          <AuthModalProvider>
+            <Component layoutProps={layoutProps} {...pageProps} />
+          </AuthModalProvider>
+        </UserProvider>
+      </>
     )
   }
 }
