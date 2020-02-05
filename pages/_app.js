@@ -1,14 +1,12 @@
 import React from 'react'
-
 import App from 'next/app'
 import Router from 'next/router'
-
 import NProgress from 'nprogress'
-
 import { AuthModalProvider } from '../contexts/AuthModalContext'
 import { UserProvider } from '../contexts/UserContext'
 import Layout from '../components/layout/Layout'
-import GlobalStyle from '../styles'
+import { ThemeProvider } from 'styled-components'
+import GlobalStyle from '~/styles'
 
 NProgress.configure({ showSpinner: false });
 
@@ -23,6 +21,12 @@ Router.events.on('routeChangeComplete', _ => {
 })
 
 Router.events.on('routeChangeError', _ => NProgress.done())
+
+const theme = {
+  colors: {
+    primary: '#0070f3',
+  },
+}
 
 class MyApp extends App {
 
@@ -48,14 +52,14 @@ class MyApp extends App {
   render() {
     const { Component, layoutProps, pageProps } = this.props
     return (
-      <>
+      <ThemeProvider theme={theme}>
         <GlobalStyle />
         <UserProvider>
           <AuthModalProvider>
             <Component layoutProps={layoutProps} {...pageProps} />
           </AuthModalProvider>
         </UserProvider>
-      </>
+      </ThemeProvider>
     )
   }
 }

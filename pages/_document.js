@@ -1,13 +1,32 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+import { ServerStyleSheet } from 'styled-components'
 import { IS_PRODUCTION } from '~/constants/constants'
 
-class MyDocument extends Document {
-
+export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx)
-    return { ...initialProps }
-  }
+    const sheet = new ServerStyleSheet()
+    const originalRenderPage = ctx.renderPage
 
+    try {
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
+        })
+
+      const initialProps = await Document.getInitialProps(ctx)
+      return {
+        ...initialProps,
+        styles: (
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>
+        ),
+      }
+    } finally {
+      sheet.seal()
+    }
+  }
   render() {
     return (
       <Html>
@@ -43,12 +62,12 @@ class MyDocument extends Document {
             />
           </> : <>
             {/* slick theme */}
-            <link href="/static/slick-theme.css" rel="stylesheet" />
+            <link rel="stylesheet" href="/static/slick-theme.css" />
             {/* roboto & roboto condensed */}
-            <link href="/static/fonts/roboto/stylesheet.css" rel="stylesheet" />
+            <link rel="stylesheet" href="/static/fonts/roboto/stylesheet.css" />
           </> }
           {/* bebas */}
-          {/* <link rel="stylesheet" href="/static/fonts/bebas-neue/stylesheet.css" /> */}
+          <link rel="stylesheet" href="/static/fonts/bebas-neue/stylesheet.css" />
         </Head>
         <body>
           <Main />
@@ -57,7 +76,4 @@ class MyDocument extends Document {
       </Html>
     )
   }
-
 }
-
-export default MyDocument

@@ -51,6 +51,7 @@
     "yup": "^0.28.0"
   },
   "devDependencies": {
+    "babel-plugin-styled-components": "^1.10.7",
     "docz": "^2.0.0-rc.75",
     "nodemon": "^2.0.1",
     "sleep-promise": "^8.0.1"

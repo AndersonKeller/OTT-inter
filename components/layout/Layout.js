@@ -1,18 +1,13 @@
-// react imports
 import { useEffect } from 'react'
-
-// other imports
 import nookies from 'nookies'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
-
-// app imports
-import { IS_PRODUCTION } from '../../constants/constants'
+import { IS_PRODUCTION } from '~/constants/constants'
 import Header from './Header'
 import Footer from './Footer'
-import loadMenus from '../../lib/load-menus'
+import loadMenus from '~/lib/load-menus'
 import AuthModal from './AuthModal/AuthModal'
-import CustomError from '../../pages/_error'
+import CustomError from '~/pages/_error'
 
 // layout
 const Layout = ({
@@ -54,7 +49,6 @@ const Layout = ({
 
       if(messages.info)
         toast.info(messages.info, {delay: 500, autoClose: 4000})
-
 
       nookies.destroy({}, 'flash_message', { path: '/' })
     }
