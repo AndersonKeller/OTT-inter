@@ -1,4 +1,5 @@
 # Dale
+
 Built with [Next.js](https://nextjs.org/).
 
 **Please keep this project's [CHANGELOG](CHANGELOG.md) updated.**
@@ -13,18 +14,26 @@ yarn
 yarn dev
 ```
 
+## Useful stuff
+* [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+* [Syntax highlighting and IntelliSense for styled-components.](https://github.com/styled-components/vscode-styled-components)
+* [Syntax highlighting for styled-jsx.](https://marketplace.visualstudio.com/items?itemName=blanu.vscode-styled-jsx)
+* [WakaTime](http://wakatime.com/)
+
 ## Docs
 ```sh
 yarn docz:dev
 ```
 
-## Testing deploy
+## Testing deploy with now
 ```sh
 now --name=dalecacique
 # or
-now --name=dalecampeon
+now --name=dalecampeon --prod
+```
 
-# then set alias
+### Setting now deploy alias if needed
+```sh
 now alias set deployed-url.now.sh dalecampeon.now.sh
 ```
 
