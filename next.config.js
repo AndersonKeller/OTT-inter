@@ -1,3 +1,5 @@
+const path = require('path');
+
 // composer
 const withPlugins = require('next-compose-plugins')
 
@@ -16,6 +18,10 @@ const nextConfig = {
   env: {
     TENANT: process.env.TENANT,
     API_URL: process.env.API_URL
+  },
+  webpack(config, options) {
+    config.resolve.alias['~'] = path.resolve(__dirname)
+    return config
   },
 };
 
