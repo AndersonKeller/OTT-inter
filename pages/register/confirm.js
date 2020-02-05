@@ -22,6 +22,12 @@ const RegisterConfirmPage = ({ layoutProps }) => {
         flex-direction: column;
         justify-content: center;
       }
+      h1 {
+        color: var(--primary);
+      }
+      small {
+        color: var(--gray);
+      }
     `}</style>
   </Layout>
 }
