@@ -123,7 +123,6 @@ export default createGlobalStyle`
   /* inline elements */
   a {
     color: inherit;
-    transition: .2s ease;
     :focus,
     :hover {
       color: var(--primary);

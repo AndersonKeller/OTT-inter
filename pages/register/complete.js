@@ -211,10 +211,19 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         values.payment_method_id && values.payment_method_id === 1 ? await createToken() : null
       const data = { ...values, payment_os: paymentData }
       try {
-        const { data: losDatos } = await api.post('register/complete', data)
-        updateUser(losDatos.user)
-        console.log('losDatos', losDatos)
-        Router.push('/')
+        const { data: { user, order } } = await api.post('register/complete', data)
+        updateUser(user)
+        if (order) {
+          Router.push({
+            pathname: '/register/confirm',
+            query: {
+              download_link: order.download_link,
+              link: order.link,
+            },
+          }, '/register/confirm')
+        } else {
+          Router.push('/')
+        }
       } catch (error) {
         console.log('error', error)
         if (error.response) {
