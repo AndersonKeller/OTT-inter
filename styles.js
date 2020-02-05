@@ -32,11 +32,11 @@ export default createGlobalStyle`
     --gray3-rgb:     51, 51, 51;
     --gray3-darken:  #282828;
     --mid-gray:      #4d4d4d;
-    --dark-gray3:    ${Color(GRAY3).darken(.5)};
+    --dark-gray3:    ${Color(GRAY3).darken(.5).string()};
     --black:         #000;
     --black-rgb:     0, 0, 0;
     --primary:       ${CONFIG.color};
-    --primary-hover: ${Color(CONFIG.color).darken(.2)};
+    --primary-hover: ${props => props.theme.colors.primaryHover};
     --gray4:         #666; /* 656565 */
 
     /* colors by job */
@@ -67,7 +67,6 @@ export default createGlobalStyle`
   body {
     background-color: var(--background);
     color: var(--color);
-    /* color: ${props => (props.whiteColor ? 'white' : 'black')}; */
     font-family: var(--sans-serif);
     font-size: var(--font-size);
     height: 100%;
@@ -140,7 +139,7 @@ export default createGlobalStyle`
   /* toasts */
   .Toastify__toast {
     border-radius: 5px;
-    background-color: ${Color(WHITE).fade(.1)};
+    background-color: ${Color(WHITE).fade(.1).string()};
     color: ${BLACK};
     min-height: 50px;
     padding: 15px;

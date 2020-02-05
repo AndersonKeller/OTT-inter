@@ -1,7 +1,11 @@
 
+import Color from 'color'
+import { CONFIG } from '~/config'
+
 const theme = {
   colors: {
-    primary: '#0070f3',
+    primary: CONFIG.color,
+    primaryHover: Color(CONFIG.color).darken(.2).string(),
   },
 }
 
