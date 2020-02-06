@@ -107,7 +107,7 @@ const RegisterTab = ({ changeTab, setLoading, facebookLogin })  => {
 
         <Button block className="enter-btn" size="sm" type="submit">Registrar</Button>
         <div className="already-subscriptor">
-          <span>¿Ya es suscriptor?</span>
+          <span>¿Ya eres suscriptor?</span>
           &nbsp;
           <a className="bold text-uppercase" href="#" onClick={goToLogin}>Haga Login</a>
         </div>
