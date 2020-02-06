@@ -163,7 +163,7 @@ export default function AuthModal() {
         .login-modal .intro-text {
           font-size: 18px;
           line-height: 1.2;
-          margin-bottom: 5px;
+          margin-bottom: 15px;
           padding: 0 15%;
         }
         .login-modal .intro-text *:last-child {
