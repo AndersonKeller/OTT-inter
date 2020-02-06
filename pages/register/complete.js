@@ -264,7 +264,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
           <div className="data">
 
             {/* heading */}
-            <h3 className="h3">Sus datos</h3>
+            <h3 className="h3">Tus datos</h3>
 
             {/* name */}
             <FormGroup>

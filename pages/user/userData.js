@@ -150,7 +150,7 @@ const userDataPage = ({ layoutProps, user, updateUser }) => {
           <div className="row">
             <div className="col-md-6">
               <div className="data">
-                <h4>Sus datos</h4>
+                <h4>Tus datos</h4>
                 <FormGroup>
                   <FkInputText label="Nombre Completo" name="name" />
                 </FormGroup>

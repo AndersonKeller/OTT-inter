@@ -42,7 +42,7 @@ const AccountPage = ({ layoutProps, user }) => {
             <div className="row">
               <div className="col-md-4">
                 <div className="data">
-                  <h4>Sus datos</h4>
+                  <h4>Tus datos</h4>
                 </div>
               </div>
               <div className="col-md-8">
