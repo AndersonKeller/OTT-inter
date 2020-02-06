@@ -38,7 +38,7 @@ export default function Subscriptor({ layoutProps }) {
             {playersName} en <span className="text-uppercase">{CONFIG.appName}</span>!
           </H2>
           <SubscriptorSectionText>
-            <p>Vea dónde y cuando quiera, incluso 24 horas antes de pasar a la TV</p>
+            <p>Mira donde y cuando quieras.</p>
           </SubscriptorSectionText>
         </SubscriptorSection>
 
