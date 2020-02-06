@@ -7,7 +7,7 @@ function CustomError({ statusCode }) {
       <Error
         statusCode={statusCode}
         title={ statusCode === 404 ? 'No se pudo encontrar esta página' :
-          statusCode === 503 ? 'Servicio no disponible' :
+          statusCode === 503 ? 'Servidor no disponible' :
           null }
       />
       <style global jsx>{`
@@ -16,7 +16,7 @@ function CustomError({ statusCode }) {
           color: #fff !important;
         }
         .error > div > div::after {
-          content: url(${STATIC_PATH}/logos/dale.svg);
+          content: url(${STATIC_PATH}/logos/app.svg);
           display: block;
           height: auto;
           margin-right: auto;

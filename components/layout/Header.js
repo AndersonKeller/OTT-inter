@@ -244,25 +244,26 @@ const Logo = _ => {
     <h1 className="logo">
       <ActiveLink href="/">
         <a>
-          <img alt={CONFIG.appName} className="img-fluid" src={`${STATIC_PATH}/logos/dale.svg`} />
+          <img alt={CONFIG.appName} className="img-fluid" src={`${STATIC_PATH}/logos/app.svg`} />
         </a>
       </ActiveLink>
       <style jsx>{`
         .logo {
+          align-items: center;
           display: flex;
           height: auto;
           justify-content: center;
           margin-top: -10px;
           margin-bottom: -10px;
           margin-right: 0;
-          height: 75px;
+          height: 45px;
           width: 130px;
         }
         @media (min-width: 768px) {
           .logo {
             margin-right: 25px;
             margin-left: -10px;
-            order: -1;
+            /* order: -1; */
           }
         }
         .logo a {

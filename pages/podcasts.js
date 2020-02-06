@@ -11,7 +11,7 @@ import { STATIC_PATH, TENANT } from '../constants/constants'
 
 export default function PodcastsPage({ layoutProps }) {
   let media
-  if (TENANT === 'dalecampeon') {
+  if (TENANT === 'river') {
     media = {
       title: `¡${CONFIG.clubName} celebra su cuarta Copa Libertadores!`,
       year: 'PODCAST # 10 - 2018',

@@ -4,7 +4,7 @@
   "scripts": {
     "build": "next build",
     "dev": "nodemon server.js",
-    "dev:dalecampeon": "cross-env TENANT=dalecampeon yarn dev",
+    "dev:river": "cross-env TENANT=river yarn dev",
     "dev:dalecacique": "cross-env TENANT=dalecacique yarn dev",
     "docz:dev": "docz dev",
     "docz:build": "docz build",

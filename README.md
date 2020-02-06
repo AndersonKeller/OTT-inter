@@ -29,17 +29,17 @@ yarn docz:dev
 ```sh
 now --name=dalecacique
 # or
-now --name=dalecampeon --prod
+now --name=rivermas --prod
 ```
 
 ### Setting now deploy alias if needed
 ```sh
-now alias set deployed-url.now.sh dalecampeon.now.sh
+now alias set deployed-url.now.sh rivermas.now.sh
 ```
 
 ### Removing testing deploy
 ```sh
-now rm dalecampeon.now.sh
+now rm rivermas.now.sh
 ```
 
 ## Info

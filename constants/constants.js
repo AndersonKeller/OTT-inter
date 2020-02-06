@@ -20,7 +20,7 @@ export const HAS_WINDOW = IS_BROWSER
 /**
  * @constant
  * @type {string}
- * @returns {string} "dalecampeon", "dalecacique" etc.
+ * @returns {string} "river", "dalecacique" etc.
  */
 export const TENANT = process.env.TENANT
 

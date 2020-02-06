@@ -64,7 +64,7 @@ export default function AuthModal() {
               <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23" />
             </button>
           )}
-          <img alt={CONFIG.appName} height="64" src={`${STATIC_PATH}/logos/dale.svg`} width="131" />
+          <img alt={CONFIG.appName} height="64" src={`${STATIC_PATH}/logos/app.svg`} width="131" />
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

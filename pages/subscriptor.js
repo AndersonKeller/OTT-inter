@@ -12,8 +12,8 @@ import api from '../services/api'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
 export default function Subscriptor({ layoutProps }) {
-  const playersName = TENANT === 'dalecampeon' ? 'Franco Armani' : 'Valdivia'
-  const section2Alt = TENANT === 'dalecampeon' ? `${playersName} con un trofeo` : `${playersName} chutando`
+  const playersName = TENANT === 'river' ? 'Franco Armani' : 'Valdivia'
+  const section2Alt = TENANT === 'river' ? `${playersName} con un trofeo` : `${playersName} chutando`
 
   return (
     <Layout {...layoutProps} header="closed">
@@ -55,7 +55,7 @@ export default function Subscriptor({ layoutProps }) {
             El mejor contenido
           </H2>
           <SubscriptorSectionText>
-            {TENANT === 'dalecampeon' ? (
+            {TENANT === 'river' ? (
               <p>
               ¡Destacados del club y contenido exclusivo para ver tantas veces como quieras!</p>
             ) : (
@@ -415,7 +415,7 @@ const Section1 = () => {
           <div className="section1__content">
             <div className="row">
               <div className="col-4 col-md-6">
-                <img className="section1__logo img-fluid" src={`${STATIC_PATH}/logos/club.svg`} width="170" height="212" alt={`${CONFIG.clubName} Logo`} />
+                <img className="section1__logo img-fluid" src={`${STATIC_PATH}/logos/app.svg`} width="170" height="212" alt={`${CONFIG.clubName} Logo`} />
               </div>
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
