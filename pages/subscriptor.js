@@ -74,10 +74,10 @@ export default function Subscriptor({ layoutProps }) {
           imgWidth="870"
         >
           <H2>
-            Lleva <img alt={CONFIG.appName} className="text-uppercase" src={`${STATIC_PATH}/logos/app.svg`} width="110" height="23" style={{ verticalAlign: 0 }} />
+            LLeva <img alt={CONFIG.appName} className="text-uppercase" src={`${STATIC_PATH}/logos/app.svg`} width="110" height="23" style={{ verticalAlign: 0 }} />
           </H2>
           <SubscriptorSectionText>
-            <p>Descarga tu contenido favorita y mira sin conexión, sin gastar internet</p>
+            <p>Mira lo mejor en contenidos, documentales, series y el día a día de tu club.</p>
           </SubscriptorSectionText>
         </SubscriptorSection>
 
