@@ -9,6 +9,7 @@ import { ThemeProvider } from 'styled-components'
 import GlobalStyle from '~/styles'
 // import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '~/theme';
+import withBasicAuth from '~/basic-auth'
 
 NProgress.configure({ showSpinner: false });
 
@@ -70,4 +71,4 @@ class MyApp extends App {
   }
 }
 
-export default MyApp
+export default withBasicAuth(MyApp)
