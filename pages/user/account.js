@@ -79,19 +79,19 @@ const AccountPage = ({ layoutProps, user }) => {
                 <hr />
                 <div className="row">
                   <div className="col col-md text-left">
-                  <p className="info">Cartão: **** **** **** 1234</p>
+                  <p className="info">Tarjeta de crédito: **** **** **** 1234</p>
                   </div>
-                  <div className="col col-md text-right">
+                  <div className="col col-md-auto text-right">
                   <Link as="#" href="#">
-                    <a>Atualizar pagamento</a>
+                    <a>Actualización de pago</a>
                   </Link>
                   </div>
                 </div>
                 <div className="row">
                   <div className="col col-md text-left">
-                    <p className="info">Plano válido até 24/08/2020</p>
+                    <p className="info">Fecha de vencimiento: 24/08/2020</p>
                   </div>
-                  <div className="col col-md text-right">
+                  <div className="col col-md-auto text-right">
                   <Link as="#" href="#">
                     <a>Detahes de cobrança</a>
                   </Link>
