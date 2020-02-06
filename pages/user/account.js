@@ -93,7 +93,7 @@ const AccountPage = ({ layoutProps, user }) => {
                   </div>
                   <div className="col col-md-auto text-right">
                   <Link as="#" href="#">
-                    <a>Detahes de cobrança</a>
+                    <a>Detalles de compra</a>
                   </Link>
                   </div>
                 </div>
