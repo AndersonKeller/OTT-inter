@@ -415,12 +415,12 @@ const Section1 = () => {
           <div className="section1__content">
             <div className="row">
               <div className="col-4 col-md-6">
-                <img className="section1__logo img-fluid" src={`${STATIC_PATH}/logos/app.svg`} width="170" height="212" alt={`${CONFIG.clubName} Logo`} />
+                <img className="section1__logo img-fluid" src={`${STATIC_PATH}/logos/club.svg`} width="170" height="212" alt={`${CONFIG.clubName} Logo`} />
               </div>
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
             <p>{CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos del Más Grande</p>
-            <p>Todo por u$s 99 pesos mensuales.</p>
+            <p>Todo por <big>99</big> pesos mensuales.</p>
           </div>
         </div>
       </div>
@@ -485,6 +485,9 @@ const Section1 = () => {
         }
         .section1__content p {
           margin-bottom: 15px;
+        }
+        .section1__content big {
+          font-size: 1.75em;
         }
         @media (min-width: 768px) {
           .section1 {
