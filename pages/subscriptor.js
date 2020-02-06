@@ -419,7 +419,7 @@ const Section1 = () => {
               </div>
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
-            <p>{CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos del más grande</p>
+            <p>{CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos del Más Grande</p>
             <p>Todo por u$s 99 pesos mensuales.</p>
           </div>
         </div>
