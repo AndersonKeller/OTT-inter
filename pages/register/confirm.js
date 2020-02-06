@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router'
 import Layout from "~/components/layout/Layout"
 import H2 from "~/components/h2"
+import { CONFIG } from '~/config'
+import { STATIC_PATH } from '~/constants/constants'
 
 const RegisterConfirmPage = ({ layoutProps }) => {
 
@@ -17,12 +19,12 @@ const RegisterConfirmPage = ({ layoutProps }) => {
   return <Layout {...layoutProps}>
     <div className="container text-center">
 
-      <h1>Gracias!</h1>
+      <h1>¡Gracias!</h1>
 
-      <H2 mb={6} uppercase>Bienvenido a Dale.</H2>
+      <H2 mb={6} uppercase>Bienvenido a <img alt={CONFIG.appName} className="text-uppercase" src={`${STATIC_PATH}/logos/app.svg`} width="110" height="23" style={{ verticalAlign: 0 }} /></H2>
 
-      <p>Su plan estará activo después de la confirmación del pago.</p>
-      <p><small>Si la descarga del boleto no se inicia, haga <a href={link} target="_blank">clic aquí</a>.</small></p>
+      <p>Tu plan estará activo después de la confirmación de pago.</p>
+      <p><small>Si la descarga del boleto no se inicia, ház <a href={link} target="_blank">click aqui</a>.</small></p>
     </div>
     <style jsx>{`
       .container {
