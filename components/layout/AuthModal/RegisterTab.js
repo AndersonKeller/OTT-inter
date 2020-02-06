@@ -109,9 +109,9 @@ const RegisterTab = ({ changeTab, setLoading, facebookLogin })  => {
         <div className="already-subscriptor">
           <span>¿Ya eres suscriptor?</span>
           &nbsp;
-          <a className="bold text-uppercase" href="#" onClick={goToLogin}>Haga Login</a>
+          <a className="bold text-uppercase" href="#" onClick={goToLogin}>Ház Login</a>
         </div>
-        <div className="or-enter-with">o entre con</div>
+        <div className="or-enter-with">o entrá con</div>
         <Button className="social facebook" type="button" onClick={facebookLogin}>
           <ReactSVG className="icon" src="/static/icons/facebook.svg" />
           Facebook

@@ -108,7 +108,7 @@ const LoginTab = ({ changeTab, setLoading, facebookLogin }) => {
           &nbsp;
           <a className="bold text-uppercase" href="#" onClick={goToRegister}>Regístrate!</a>
         </div>
-        <div className="or-enter-with">o entre con</div>
+        <div className="or-enter-with">o entrá con</div>
           <Button className="social facebook" type="button" onClick={facebookLogin}>
             <ReactSVG className="icon" src="/static/icons/facebook.svg" />
             Facebook
