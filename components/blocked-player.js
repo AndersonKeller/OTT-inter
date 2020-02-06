@@ -60,8 +60,8 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
             </Link> */}
             <Button onClick={(e) => showVideo(e)}>Probá Gratis</Button>
             <div className="text-block">
-              <p><strong><span className="text-uppercase d-none d-md-inline">Pruebe gratis</span><br className="d-none d-md-inline" />
-                ¿Ya es suscriptor? <span className="text-uppercase">Haga <Link href="/login"><a>login</a></Link></span></strong></p>
+              <p><strong><span className="text-uppercase d-none d-md-inline">Prueba gratis</span><br className="d-none d-md-inline" />
+                ¿Ya ere suscriptor? <span className="text-uppercase">Ház <Link href="/login"><a>login</a></Link></span></strong></p>
             </div>
           </div>
         </>

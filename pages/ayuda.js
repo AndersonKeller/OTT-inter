@@ -1,12 +1,14 @@
+import Color from 'color'
 import Head from 'next/head'
-import Layout from '../components/layout/Layout'
-import { CONFIG } from '../config'
-import api from '../services/api'
+import Layout from '~/components/layout/Layout'
+import { CONFIG } from '~/config'
+import { WHITE } from '~/constants/colors'
+import api from '~/services/api'
 import { Accordion, Card, Button } from 'react-bootstrap'
 
 const Help = ({ layoutProps, title, faqs, ...props }) => {
     return (
-    <Layout { ...layoutProps }>
+    <Layout layoutColor="white" { ...layoutProps }>
         <Head>
            <title>{ title } &lt; {CONFIG.appName} </title>
         </Head>
@@ -30,45 +32,38 @@ const Help = ({ layoutProps, title, faqs, ...props }) => {
             </div>
         </div>
        <style global jsx>{`
-
-            .faqs-question{
-              margin:0;
-            }
-            .faqs-title {
-                color: white;
-                font-size: 32px;
-                font-weight: 700;
-                line-height: 48px;
-                padding-top: 10px;
-            }
-            .faqs-card {
-              background-color: black;
-
-
-              border: 1px solid white;
-              border-radius:5px;
-            }
-            .card-body {
-              padding:5px 20px;
-            }
-            .faqs-header {
-                border: none;
-                color: var(--gray);
-                background-color: black;
-
-            }
-            .faqs-header:hover {
-              color: white;
-            }
-
-            .faqs-wrapper {
-                min-height: 500px;
-            }
-            .faqs-text {
-                color: white;
-                font-size: 18px;
-            }
-        '`}</style>
+        .faqs-question{
+          margin:0;
+        }
+        .faqs-title {
+          font-size: 32px;
+          font-weight: 700;
+          line-height: 48px;
+          padding-top: 10px;
+        }
+        .faqs-card {
+          border: 1px solid var(--gray);
+          border-radius: 3px;
+        }
+        .card-body {
+          padding:5px 20px;
+        }
+        .faqs-header {
+          background-color: ${Color(WHITE).darken(.025).string()};
+          transition: background-color .2s;
+        }
+        .faqs-header:hover {
+          background-color: ${Color(WHITE).darken(.1).string()};
+        }
+        .faqs-wrapper {
+          background-color: var(--white);
+          color: var(--black);
+          min-height: 500px;
+        }
+        .faqs-text {
+          font-size: 18px;
+        }
+      '`}</style>
     </Layout>
 )}
 
