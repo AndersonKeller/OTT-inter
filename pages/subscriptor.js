@@ -74,7 +74,7 @@ export default function Subscriptor({ layoutProps }) {
           imgWidth="870"
         >
           <H2>
-            Lleve {CONFIG.appName}
+            Lleva {CONFIG.appName}
           </H2>
           <SubscriptorSectionText>
             <p>Descarga tu contenido favorita y mira sin conexión, sin gastar internet</p>
