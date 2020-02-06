@@ -44,7 +44,7 @@ const PasswordTab = ({setLoading}) => {
       :
         <div>
           <div className="intro-text" style={{ marginBottom: 15 }}>
-            <p>¿Olvidó su clave?</p>
+            <p>¿Olvidaste tu clave?</p>
           </div>
           <form method="post" onSubmit={handleSubmit}>
             <FormGroup>

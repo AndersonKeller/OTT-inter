@@ -99,7 +99,7 @@ const LoginTab = ({ changeTab, setLoading, facebookLogin }) => {
         <FormGroup>
           <Input id="clave" autoComplete="current-password" placeholder="Clave" onChange={e => setPassword(e.target.value)} required type="password" value={password} />
           <FormText>
-            <a href="#" onClick={goToPasswordRecovery}>¿Olvidó su clave?</a>
+            <a href="#" onClick={goToPasswordRecovery}>¿Olvidaste tu clave?</a>
           </FormText>
         </FormGroup>
         <Button block className="enter-btn" size="sm" type="submit">Entrar</Button>
