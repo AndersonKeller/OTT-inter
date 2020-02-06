@@ -94,7 +94,7 @@ export default function Subscriptor({ layoutProps }) {
             Sin compromiso
           </H2>
           <SubscriptorSectionText>
-            <p style={{ width: `300px`}}>¿No quiero mas? Usted cancela cuando quiera: en línea y con un clic</p>
+            <p style={{ width: `300px`}}>¿No quieres continuar? Cancelas cuando quieras en línea y con un Click</p>
           </SubscriptorSectionText>
         </SubscriptorSection>
 
