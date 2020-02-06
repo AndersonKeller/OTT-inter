@@ -35,7 +35,7 @@ export default function Subscriptor({ layoutProps }) {
           imgWidth="870"
         >
           <H2>
-            {playersName} en <span className="text-uppercase">{CONFIG.appName}</span>!
+            {playersName} en <img alt={CONFIG.appName} className="text-uppercase" src={`${STATIC_PATH}/logos/app.svg`} width="110" height="23" style={{ verticalAlign: 0 }} />!
           </H2>
           <SubscriptorSectionText>
             <p>Mira donde y cuando quieras.</p>
@@ -74,7 +74,7 @@ export default function Subscriptor({ layoutProps }) {
           imgWidth="870"
         >
           <H2>
-            Lleva {CONFIG.appName}
+            Lleva <img alt={CONFIG.appName} className="text-uppercase" src={`${STATIC_PATH}/logos/app.svg`} width="110" height="23" style={{ verticalAlign: 0 }} />
           </H2>
           <SubscriptorSectionText>
             <p>Descarga tu contenido favorita y mira sin conexión, sin gastar internet</p>
@@ -419,7 +419,7 @@ const Section1 = () => {
               </div>
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
-            <p>{CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos del Más Grande</p>
+            <p>{CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos del Más Grande!</p>
             <p>Todo por <big>99</big> pesos mensuales.</p>
           </div>
         </div>
