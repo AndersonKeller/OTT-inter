@@ -103,7 +103,7 @@ const AccountPage = ({ layoutProps, user }) => {
             <div className="row">
               <div className="col-md-4">
                 <div className="data">
-                  <h4>Detalhes do Plano</h4>
+                  <h4>Detalles del Plan</h4>
                 </div>
               </div>
               <div className="col-md-8">
@@ -117,7 +117,7 @@ const AccountPage = ({ layoutProps, user }) => {
                     />
                   </div>
                   <div className="col col-md-3 text-right">
-                    Cambiar plano
+                    Cambiar plan
                   </div> */}
                   <div
                     className="col col-md-4 text-left vertical-align"
@@ -135,7 +135,7 @@ const AccountPage = ({ layoutProps, user }) => {
                   </div>
                   <div className="col col-md-8 text-right vertical-align">
                   <Link as="#" href="#">
-                    <a>Cambiar plano</a>
+                    <a>Cambiar plan</a>
                   </Link>
                   </div>
                 </div>
