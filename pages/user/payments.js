@@ -10,7 +10,7 @@ import { PackageRadio } from '../../components/Packages'
 import withApi from '../../components/withApi/withApi'
 import withAuth         from '../../components/withAuth/withAuth'
 
-const Help = ({ layoutProps, user, ...props }) => {
+const PaymentsPage = ({ layoutProps, user, ...props }) => {
 
   // useEffect(() => {
   //   console.table(data);
@@ -30,7 +30,7 @@ const Help = ({ layoutProps, user, ...props }) => {
               <Card bg="dark" text="white">
                 <Card.Body>
                 <Card.Title>Tu plan</Card.Title>
-                <Card.Text>Todo el contenido de Dale Campeón por 3 meses.</Card.Text>
+                <Card.Text>Todo el contenido de River+ por 3 meses.</Card.Text>
                   <div className="col-2" style={{fontSize: '13px', lineHeight: '0.7rem', padding: 0}}>
                     <PackageRadio
                       readOnly
@@ -64,7 +64,7 @@ const Help = ({ layoutProps, user, ...props }) => {
                     <tr>
                       <td>1</td>
                       <td><Link href="#"><a>20/08/1989</a></Link></td>
-                      <td>Dale Campeon </td>
+                      <td>River+</td>
                       <td>09/01/2020—08/02/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
                       <td>R$32,90</td>
@@ -72,7 +72,7 @@ const Help = ({ layoutProps, user, ...props }) => {
                     <tr>
                       <td>2</td>
                       <td><Link href="#"><a>20/08/1989</a></Link></td>
-                      <td>Dale Campeon </td>
+                      <td>River+</td>
                       <td>09/01/2020—08/02/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
                       <td>R$32,90</td>
@@ -80,7 +80,7 @@ const Help = ({ layoutProps, user, ...props }) => {
                     <tr>
                       <td>3</td>
                       <td><Link href="#"><a>20/08/1989</a></Link></td>
-                      <td>Dale Campeon </td>
+                      <td>River+</td>
                       <td>09/01/2020—08/02/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
                       <td>R$32,90</td>
@@ -88,7 +88,7 @@ const Help = ({ layoutProps, user, ...props }) => {
                     <tr>
                       <td>4</td>
                       <td><Link href="#"><a>20/08/1989</a></Link></td>
-                      <td>Dale Campeon </td>
+                      <td>River+</td>
                       <td>09/01/2020—08/02/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
                       <td>R$32,90</td>
@@ -96,7 +96,7 @@ const Help = ({ layoutProps, user, ...props }) => {
                     <tr>
                       <td>5</td>
                       <td><Link href="#"><a>20/08/1989</a></Link></td>
-                      <td>Dale Campeon </td>
+                      <td>River+</td>
                       <td>09/01/2020—08/02/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
                       <td>R$32,90</td>
@@ -141,15 +141,15 @@ const Help = ({ layoutProps, user, ...props }) => {
     </Layout>
 )}
 
-Help.getInitialProps = async ctx => {
-  // try{
-  //   const data = await ctx.api.get('subscriptions');
-  //   return { data }
-  // }catch(error){
-  //   console.table(error);
-  //   return { error }
+// PaymentsPage.getInitialProps = async ctx => {
+//   try{
+//     const data = await api.get('subscriptions');
+//     console.log(data);
+//     return { data }
+//   }catch(error){
+//     console.log(error);
+//     return { error }
+//   }
+// }
 
-  // }
-}
-
-export default withAuth(withApi(Help));
+export default withAuth(PaymentsPage);
