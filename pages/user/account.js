@@ -51,7 +51,7 @@ const AccountPage = ({ layoutProps, user }) => {
                   <p className="info">{user && user.email }</p>
                   </div>
                   <div className="col col-md text-right">
-                  <Link as="#" href="#">
+                  <Link href="changeEmail">
                     <a>Cambiar email</a>
                   </Link>
                   </div>
@@ -61,7 +61,7 @@ const AccountPage = ({ layoutProps, user }) => {
                     <p className="info">Contraseña: ******</p>
                   </div>
                   <div className="col col-md text-right">
-                    <Link as="#" href="#">
+                    <Link href="changePassword">
                       <a>Cambiar la contraseña</a>
                     </Link>
                   </div>
@@ -71,7 +71,7 @@ const AccountPage = ({ layoutProps, user }) => {
                     <p className="info">Datos Personales</p>
                   </div>
                   <div className="col col-md text-right">
-                    <Link as='/user/userData' href='/user/userData'>
+                    <Link href='userData'>
                       <a>Cambiar datos</a>
                     </Link>
                   </div>
@@ -92,7 +92,7 @@ const AccountPage = ({ layoutProps, user }) => {
                     <p className="info">Fecha de vencimiento: 24/08/2020</p>
                   </div>
                   <div className="col col-md-auto text-right">
-                  <Link as="#" href="#">
+                  <Link href="payments">
                     <a>Detalles de compra</a>
                   </Link>
                   </div>
@@ -190,7 +190,7 @@ const ProfilePic = ({ image }) => {
     <>
       <div className="avatar">
           <img alt="Avatar" className="img-fluid" src={src} />
-          <div className="overlay"><p className="title">Change Photo</p></div>
+          <div className="overlay"><p className="title">Cambiar foto</p></div>
       </div>
       <style jsx>{`
       .avatar {
