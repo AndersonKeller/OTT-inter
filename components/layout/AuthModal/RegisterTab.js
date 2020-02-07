@@ -57,7 +57,7 @@ const RegisterTab = ({ changeTab, setLoading, facebookLogin })  => {
   return (
     <>
       <div className="intro-text">
-        <p>Una sola cuenta para todos los productos <span className="text-uppercase">{CONFIG.clubName}</span></p>
+        <p>¡Bienvenidos!</p>
       </div>
       <form method="post" onSubmit={handleSubmit}>
 
