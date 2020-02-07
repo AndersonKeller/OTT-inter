@@ -11,7 +11,7 @@ const withBasicAuth = WrappedComponent => {
     const [ error, setError ] = useState()
     const handleSubmit = e => {
       e.preventDefault()
-      if (password === 'gad') {
+      if (password === 'Rivermas2020Somosgad_') {
         setUser(password)
         nookies.set({ }, 'basicAuthUser', password, {
           maxAge: 60 * 60,
