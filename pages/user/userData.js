@@ -92,23 +92,23 @@ const userDataPage = ({ layoutProps, user, updateUser }) => {
 // create Yup validation Schema
   const nullable3CharMinString= Yup.string()
     .trim().nullable()
-    .required('Required')
-    .min(3, 'Must be 3 characters or more');
+    .required('Obligatorio')
+    .min(3, 'Debe tener 3 caracteres o más.');
   const getYupSchema = (countries, genres) => Yup.object({
     name: nullable3CharMinString
-      .max(25, 'Must be 25 characters or less'),
+      .max(25, 'Debe tener 25 caracteres o menos'),
     document: nullable3CharMinString
-      .max(20, 'Must be 20 characters or less'),
+      .max(20, 'Debe tener 20 caracteres o menos'),
     address: nullable3CharMinString
-      .max(80, 'Must be 80 characters or less'),
+      .max(80, 'Debe tener 80 caracteres o menos'),
     city: nullable3CharMinString
-      .max(20, 'Must be 20 characters or less'),
+      .max(20, 'Debe tener 20 caracteres o menos'),
     country: Yup.number().nullable()
-      .oneOf(countries.map(c => c.id), "Invalid Country")
-      .required('Required'),
+      .oneOf(countries.map(c => c.id), "País inválido")
+      .required('Obligatorio'),
     genre: Yup.number().nullable()
-      .oneOf(genres.map(g => g.id), "Invalid Genre")
-      .required('Required'),
+      .oneOf(genres.map(g => g.id), "Género inválido")
+      .required('Obligatorio'),
   })
 
   const handleSubmit = async  ({ name, genre, document, country, city, address }) => {

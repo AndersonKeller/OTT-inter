@@ -31,6 +31,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 - Removemmos o item Soporte do menu do usuário.
 - Alteramos o layout das mensagens/notificações via Toast.
 - Alteramos a página Mi Cuenta para linkar nas páginas internas do usuário.
+- Alteramos as mensagens de validação do formulário de dados do usuário para espanhol.
 
 ## [0.2.1] - 20/01/2020
 ### Adicionado
