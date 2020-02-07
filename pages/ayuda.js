@@ -62,6 +62,7 @@ const Help = ({ layoutProps, title, faqs, ...props }) => {
         }
         .faqs-text {
           font-size: 18px;
+          white-space: pre-wrap;
         }
       '`}</style>
     </Layout>
