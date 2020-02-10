@@ -1,9 +1,12 @@
+// react imports
+import { useContext } from 'react'
+
 // next imports
 import Head from 'next/head'
 import Link from 'next/link'
 
-// react imports
-import { useContext } from 'react'
+// material
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 // app imports
 import Button from '../../components/button'
@@ -13,7 +16,6 @@ import WishlistBtn from '../../components/wishlist-btn'
 import UserContext from '../../contexts/UserContext'
 import { CONFIG } from '../../config'
 import api from '../../services/api'
-
 // page
 function MediaPage1({ category, errorCode, layoutProps, media, related }) {
   return (
@@ -44,7 +46,8 @@ MediaPage1.getInitialProps = async ctx => {
 // cover
 const Cover = ({category, media}) => {
   const { user } = useContext(UserContext)
-    return (
+  const smDown = useMediaQuery('(max-width: 767px)')
+  return (
     <div className="cover container-fluid" style={{
       backgroundImage: [
         'url(/static/inside-cover-gradient.png)',
@@ -66,18 +69,19 @@ const Cover = ({category, media}) => {
               </div>
             )}
           </div>
-          {/* <MediaLink {...{category, media}} watch>
-            <Button>{!user ? 'Proba Gratis' : 'Mira'}</Button>
-            </MediaLink> */}
-            { (user) ?
-              <MediaLink {...{category, media}} watch>
-                <Button>{!user ? 'Proba Gratis' : 'Mira'}</Button>
-              </MediaLink>  :
-              <Link href="/subscriptor">
-                <Button>Probá Gratis</Button>
-              </Link>
-            }
-          <WishlistBtn movieId={media.id} />
+
+          { ! user ? (
+            <Link href="/subscriptor">
+              <Button block={smDown}>Proba Gratis</Button>
+            </Link>
+          ) : (
+            <MediaLink {...{category, media}} watch>
+              <Button block={smDown}>Mira</Button>
+            </MediaLink>
+          ) }
+
+          <WishlistBtn block={smDown} movieId={media.id} />
+
         </div>
       </div>
       <style jsx>{`

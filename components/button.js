@@ -46,7 +46,7 @@ const Button = React.forwardRef(({
           border: 0;
           border-radius: 5px;
           cursor: pointer;
-          display: block;
+          display: inline-block;
           font-family: var(--sans-serif-condensed);
           font-size: 20px;
           font-weight: bold;
@@ -54,11 +54,6 @@ const Button = React.forwardRef(({
           padding: 10px 20px;
           text-align: center;
           user-select: none;
-        }
-        @media (min-width: 768px) {
-          .btn {
-            display: inline-block;
-          }
         }
         .btn-primary {
           background-color: var(--primary) !important;
