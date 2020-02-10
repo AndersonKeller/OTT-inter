@@ -46,7 +46,7 @@ export default createGlobalStyle`
     --font-size: 20px;
 
     /* others */
-    --padding-top: 75px;
+    --padding-top: 65px;
 
   }
   @media (min-width: 768px) {

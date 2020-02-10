@@ -127,7 +127,6 @@ const Header = ({ closed, layoutColor, menus }) => {
           transition: background-color .6s, box-shadow .6s;
           width: 90%;
           z-index: 10;
-          height: 78px;
         }
         @media (min-width: 768px) {
           .header {
