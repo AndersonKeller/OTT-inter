@@ -94,7 +94,7 @@ export default function Subscriptor({ layoutProps }) {
             Sin compromiso
           </H2>
           <SubscriptorSectionText>
-            <p style={{ width: `300px`}}>¿No quieres continuar? Cancelas cuando quieras en línea y con un Click</p>
+            <p>¿No quieres continuar? Cancelas cuando quieras en línea y con un Click</p>
           </SubscriptorSectionText>
         </SubscriptorSection>
 
@@ -110,10 +110,10 @@ export default function Subscriptor({ layoutProps }) {
   );
 }
 
-const SubscriptorSectionText = (props) => {
+const SubscriptorSectionText = ({ children }) => {
   return (
     <div className="subscriptor-section-text">
-      {props.children}
+      {children}
       <style jsx>{`
         .subscriptor-section-text :global(p:only-child) {
           margin-bottom: 0;
@@ -355,7 +355,10 @@ const SubscriptorSection = (props) => {
             height: 530px;
           }
           .subscriptor-section--right .subscriptor-section-text-col {
-            padding-left: 4.5%;
+            padding-left: 3.5%;
+          }
+          .subscriptor-section--left .subscriptor-section-text-col {
+            padding-right: 4%;
           }
         }
         @media (min-width: 1400px) {
