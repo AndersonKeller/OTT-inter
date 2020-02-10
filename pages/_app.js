@@ -71,4 +71,7 @@ class MyApp extends App {
   }
 }
 
-export default withBasicAuth(MyApp)
+/* Enable pwd page protection while in development */
+// export default withBasicAuth(MyApp)
+
+export default MyApp
