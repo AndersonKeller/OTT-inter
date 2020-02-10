@@ -35,7 +35,7 @@ export default function Subscriptor({ layoutProps }) {
           imgWidth="870"
         >
           <H2>
-            {playersName} en <img alt={CONFIG.appName} className="text-uppercase" src={`${STATIC_PATH}/logos/app.svg`} width="110" height="23" style={{ verticalAlign: 0 }} />!
+            {playersName} en <img alt={CONFIG.appName} className="text-uppercase" src={`${STATIC_PATH}/logos/app.svg`} width="110" height="23" style={{ verticalAlign: 0 }} />
           </H2>
           <SubscriptorSectionText>
             <p>Mira donde y cuando quieras.</p>
@@ -355,7 +355,7 @@ const SubscriptorSection = (props) => {
             height: 530px;
           }
           .subscriptor-section--right .subscriptor-section-text-col {
-            padding-left: 7.5%;
+            padding-left: 4.5%;
           }
         }
         @media (min-width: 1400px) {
