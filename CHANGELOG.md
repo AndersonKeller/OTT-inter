@@ -21,6 +21,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 - Adicionamos o pacote do usuário na página Mi Cuenta.
 - Adicionamos a página Datos Personales como link na página Mi Cuenta.
 - Adicionamos a página Pagos como link na página MiCuenta.
+- Adicionamos os campos de sócio e somos river para desconto no plano.
 
 ### Modificado
 - Alteramos o tamanho do avatar no menu do usuário.
