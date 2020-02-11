@@ -2,7 +2,7 @@
 import FormGroup from './layout/AuthModal/FormGroup'
 
 // packages component
-const Packages = ({ error, items, loading, onChange, package_id, validationError, readOnly }) => {
+const Packages = ({ error, items, loading, onChange, package_id, validationError, readOnly, discount }) => {
   // error handling
   if (error) {
     return <div>No se pueden cargar paquetes</div>
@@ -15,7 +15,7 @@ const Packages = ({ error, items, loading, onChange, package_id, validationError
         { items && items.map((item, key) => (
           <div className="col-6 col-md" {...{key}}>
             <FormGroup>
-              <PackageRadio {...{onChange, readOnly, package_id, plan: item}} />
+              <PackageRadio {...{onChange, readOnly, discount, package_id, plan: item}} />
             </FormGroup>
           </div>
         )) }
@@ -36,7 +36,7 @@ const Packages = ({ error, items, loading, onChange, package_id, validationError
 }
 
 // radio component
-export const PackageRadio = ({ onChange, package_id, plan, readOnly }) => {
+export const PackageRadio = ({ onChange, package_id, plan, readOnly, discount }) => {
   return (
     <label className="text-center">
       <input
@@ -49,7 +49,14 @@ export const PackageRadio = ({ onChange, package_id, plan, readOnly }) => {
       />
       <span className="fake-input">
         <span className="d-block name">{ plan.name }</span>
-        <span className="value">{ (plan.currency === 'ars' ? '$' : '') + plan.amount }</span>
+        <span className={discount ? 'discount-value' : 'value'}>
+          { (plan.currency === 'ars' ? '$' : '') + plan.amount }
+
+        </span>
+        {discount && <span className="value">
+            { (plan.currency === 'ars' ? '$' : '') + Math.round(plan.amount*0.8) }
+          </span>}
+
       </span>
       <style jsx>{`
         label {
@@ -78,6 +85,13 @@ export const PackageRadio = ({ onChange, package_id, plan, readOnly }) => {
         .name {
           font-size: 1.33em;
           margin-bottom: 5px;
+        }
+        .discount-value {
+          text-decoration: line-through;
+          margin-right: 5px;
+          color: red;
+        }
+        .value {
         }
       `}</style>
     </label>

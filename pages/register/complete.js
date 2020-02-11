@@ -98,6 +98,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
 
   const [ genres, setGenres ] = useState()
   const [ countries, setCountries ] = useState()
+  const [ discount, setDiscount ] = useState(false)
 
   const [ values, setValues ] = useState({
     name: '',
@@ -159,6 +160,9 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         value,
     })
   }
+
+  /* handle general input change */
+  const handleDiscountChange = e => setDiscount(e.target.value == '12345')
 
   /* handle package change */
   function onPackageChange(e) {
@@ -392,6 +396,38 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         </div>
 
       </div>
+      <h3 className="h3">¿Eres Socio? Obtén un descuento especial</h3>
+        <div className="row">
+          <div className="col-md-6">
+            <div className="data">
+              <FormGroup>
+                <Label htmlFor="socio">Socio River</Label>
+                <Input
+                  id="socio"
+                  name="socio"
+                  onChange={handleDiscountChange}
+                  type="text"
+                  style={discount ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
+                />
+              </FormGroup>
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="localization">
+              <FormGroup>
+                <Label htmlFor="somos">Somos River</Label>
+                <Input
+                  id="somos"
+                  name="somos"
+                  onChange={handleDiscountChange}
+                  type="text"
+                  style={discount ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
+                />
+              </FormGroup>
+            </div>
+          </div>
+        </div>
+
 
       {/* package selection */}
       <Packages {...{
@@ -400,6 +436,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         onChange: onPackageChange,
         package_id: values.package_id,
         validationError: ! loading && error && error.errors && error.errors.package_id,
+        discount,
       }} />
 
       {/* payment */}
@@ -470,6 +507,9 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         }
         .terms input {
           margin-right: 5px;
+        }
+        .valid-number {
+          background-color: rgb(206, 249, 206);
         }
       `}</style>
     </form>
