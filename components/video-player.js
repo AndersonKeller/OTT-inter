@@ -1,5 +1,11 @@
 import React from 'react'
-import shaka from 'shaka-player'
+// import shaka from 'shaka-player'
+import 'shaka-player/dist/controls.css'
+
+let shaka
+if (typeof window !== 'undefined') {
+  shaka = require('shaka-player/dist/shaka-player.ui.js')
+}
 
 class VideoPlayer extends React.PureComponent{
 
@@ -43,12 +49,16 @@ class VideoPlayer extends React.PureComponent{
     // Create a Player instance.
     var manifestUri = this.link
     const video = this.videoComponent.current
-    // const videoContainer = this.videoContainer.current
+    const videoContainer = this.videoContainer.current
     var player = new shaka.Player(video)
 
     // player language configurations
     player.configure('preferredTextLanguage', 'es')
     player.configure('preferredAudioLanguage', 'es')
+
+		//Setting up shaka player UI
+    const ui = new shaka.ui.Overlay(player, videoContainer, video)
+    ui.getControls()
 
     // Listen for error events.
     player.addEventListener('error', this.onErrorEvent)
@@ -67,7 +77,7 @@ class VideoPlayer extends React.PureComponent{
         <video
           autoplay={this.autoplay}
           className='video-player'
-          controls
+          // controls
           height={this.height}
           poster={this.poster}
           ref={this.videoComponent}
