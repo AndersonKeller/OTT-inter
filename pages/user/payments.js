@@ -30,22 +30,22 @@ const PaymentsPage = ({ layoutProps, user, ...props }) => {
               <Card bg="dark" text="white">
                 <Card.Body>
                 <Card.Title>Tu plan</Card.Title>
-                <Card.Text>Todo el contenido de River+ por 3 meses.</Card.Text>
+                <Card.Text>Todo el contenido de River+ por 6 meses.</Card.Text>
                   <div className="col-2" style={{fontSize: '13px', lineHeight: '0.7rem', padding: 0}}>
                     <PackageRadio
                       readOnly
                       package_id="1"
                       plan={{
                         id: '1',
-                        name:'3 meses',
+                        name:'6 meses',
                         currency: 'ars',
-                        amount: '99'
+                        amount: '594'
                       }}
                     />
                   </div>
                 </Card.Body>
                 <Card.Footer style={{fontSize: '12px', lineHeight: 1}}>
-                Proxima fatura: 1 de fevereiro de 2020.
+                Próxima factura: 09 de Marzo de 2020.
                 </Card.Footer>
               </Card>
 
@@ -53,53 +53,61 @@ const PaymentsPage = ({ layoutProps, user, ...props }) => {
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Data</th>
-                      <th>Descrição</th>
-                      <th>Período</th>
-                      <th>Forma de Pagamento</th>
+                      <th>Fecha</th>
+                      <th>Descripción</th>
+                      <th>Periodo</th>
+                      <th>Medios de Pago</th>
                       <th>Total</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>1</td>
-                      <td><Link href="#"><a>20/08/1989</a></Link></td>
+                      <td><Link href="#"><a>09/01/2020</a></Link></td>
                       <td>River+</td>
                       <td>09/01/2020—08/02/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
-                      <td>R$32,90</td>
+                      <td>$99,00</td>
                     </tr>
                     <tr>
                       <td>2</td>
-                      <td><Link href="#"><a>20/08/1989</a></Link></td>
+                      <td><Link href="#"><a>09/01/2020</a></Link></td>
                       <td>River+</td>
-                      <td>09/01/2020—08/02/2020</td>
+                      <td>09/02/2020—08/03/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
-                      <td>R$32,90</td>
+                      <td>$99,00</td>
                     </tr>
                     <tr>
                       <td>3</td>
-                      <td><Link href="#"><a>20/08/1989</a></Link></td>
+                      <td><Link href="#"><a>09/01/2020</a></Link></td>
                       <td>River+</td>
-                      <td>09/01/2020—08/02/2020</td>
+                      <td>09/03/2020—08/04/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
-                      <td>R$32,90</td>
+                      <td>$99,00</td>
                     </tr>
                     <tr>
                       <td>4</td>
-                      <td><Link href="#"><a>20/08/1989</a></Link></td>
+                      <td><Link href="#"><a>09/01/2020</a></Link></td>
                       <td>River+</td>
-                      <td>09/01/2020—08/02/2020</td>
+                      <td>09/04/2020—08/05/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
-                      <td>R$32,90</td>
+                      <td>$99,00</td>
                     </tr>
                     <tr>
                       <td>5</td>
-                      <td><Link href="#"><a>20/08/1989</a></Link></td>
+                      <td><Link href="#"><a>09/01/2020</a></Link></td>
                       <td>River+</td>
-                      <td>09/01/2020—08/02/2020</td>
+                      <td>09/05/2020—08/06/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
-                      <td>R$32,90</td>
+                      <td>$99,00</td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td><Link href="#"><a>09/01/2020</a></Link></td>
+                      <td>River+</td>
+                      <td>09/06/2020—08/07/2020</td>
+                      <td>VISA •••• •••• •••• 1627</td>
+                      <td>$99,00</td>
                     </tr>
                   </tbody>
                 </Table>

@@ -89,7 +89,7 @@ const AccountPage = ({ layoutProps, user }) => {
                 </div>
                 <div className="row">
                   <div className="col col-md text-left">
-                    <p className="info">Fecha de vencimiento: 24/08/2020</p>
+                    <p className="info">Fecha de vencimiento: 08/07/2020</p>
                   </div>
                   <div className="col col-md-auto text-right">
                   <Link href="payments">
@@ -127,9 +127,9 @@ const AccountPage = ({ layoutProps, user }) => {
                       package_id="1"
                       plan={{
                         id: '1',
-                        name:'3 meses',
+                        name:'6 meses',
                         currency: 'ars',
-                        amount: '99'
+                        amount: '594'
                       }}
                     />
                   </div>
@@ -161,11 +161,11 @@ const AccountPage = ({ layoutProps, user }) => {
         }
         a:hover {
           color: var(--primary-hover);
+          text-decoration: none;
         }
         .vertical-align {
           align-self: center;
         }
-
         .h2 {
           margin-bottom: 10px;
         }
@@ -200,6 +200,10 @@ const ProfilePic = ({ image }) => {
         width: 120px;
         margin-top: 15px;
       }
+      .avatar img {
+        height: 120px;
+        width:120px;
+      }
       .title {
         color: var(--gray);
         font-size: 12px;
@@ -207,7 +211,7 @@ const ProfilePic = ({ image }) => {
       }
       .title:hover {
         color: var(--primary-hover);
-        text-decoration: underline;
+        /* text-decoration: underline; */
       }
       .overlay {
         height: 40%;
