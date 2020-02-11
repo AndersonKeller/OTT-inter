@@ -1,9 +1,10 @@
 import React from 'react'
 // import shaka from 'shaka-player'
 import 'shaka-player/dist/controls.css'
+import { HAS_WINDOW } from '~/constants/constants'
 
 let shaka
-if (typeof window !== 'undefined') {
+if (HAS_WINDOW) {
   shaka = require('shaka-player/dist/shaka-player.ui.js')
 }
 
@@ -11,7 +12,7 @@ class VideoPlayer extends React.PureComponent{
 
   constructor(props){
     super(props)
-    this.autoplay = this.props.autoplay
+    this.autoPlay = this.props.autoPlay
     this.videoComponent = React.createRef()
     this.videoContainer = React.createRef()
     this.onErrorEvent = this.onErrorEvent.bind(this)
@@ -55,6 +56,9 @@ class VideoPlayer extends React.PureComponent{
     // player language configurations
     player.configure('preferredTextLanguage', 'es')
     player.configure('preferredAudioLanguage', 'es')
+    const minutes = 10
+    const bufferingGoal = 60 * minutes
+    player.configure('streaming.bufferingGoal', bufferingGoal)
 
 		//Setting up shaka player UI
     const ui = new shaka.ui.Overlay(player, videoContainer, video)
@@ -75,7 +79,7 @@ class VideoPlayer extends React.PureComponent{
     return(
       <div className="video-container" ref={this.videoContainer}>
         <video
-          autoplay={this.autoplay}
+          autoPlay={this.autoPlay}
           className='video-player'
           // controls
           height={this.height}

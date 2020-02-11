@@ -9,7 +9,7 @@ import { AuthModalContext } from '../contexts/AuthModalContext'
 export default function BlockedPlayer({ image = '', video_link = '' }) {
   const { user } = useContext(UserContext)
   const [ video, setVideo ] = useState(user ? 1 : 0)
-  const autoplay = IS_PRODUCTION
+  const autoPlay = IS_PRODUCTION
   const { openAuthModal } = useContext(AuthModalContext)
 
   // open auth modal
@@ -30,7 +30,7 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
           <div style={{ position:'relative' }}>
             {/* <ShakaPlayer autoPlay src={video_link.ready_url} /> */}
             {<VideoPlayer
-              autoplay={autoplay}
+              autoPlay={autoPlay}
               height="100%"
               link={ video_link.ready_url }
               poster={ image }
@@ -41,11 +41,11 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
         ) : (
           <div className="embed-responsive embed-responsive-16by9" >
             <iframe
-              allow={`accelerometer; ${autoplay ? 'autoplay;' : ''} encrypted-media; gyroscope; picture-in-picture`}
+              allow={`accelerometer; ${autoPlay ? 'autoplay;' : ''} encrypted-media; gyroscope; picture-in-picture`}
               allowFullScreen
               className={`embed-responsive-item`}
               frameBorder="0"
-              src={`${video_link.iframeurl}?${autoplay ? 'autoplay=1' : ''}`}
+              src={`${video_link.iframeurl}?${autoPlay ? 'autoplay=1' : ''}`}
             ></iframe>
           </div>
         )
