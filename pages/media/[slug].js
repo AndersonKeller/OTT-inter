@@ -72,7 +72,7 @@ const Cover = ({category, media}) => {
 
           { ! user ? (
             <Link href="/subscriptor">
-              <Button block={smDown}>Proba Gratis</Button>
+              <Button block={smDown}>Probá Gratis</Button>
             </Link>
           ) : (
             <MediaLink {...{category, media}} watch>

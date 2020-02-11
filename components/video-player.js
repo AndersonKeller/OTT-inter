@@ -1,57 +1,82 @@
-import React from 'react';
-import shaka from 'shaka-player';
+import React from 'react'
+import shaka from 'shaka-player'
+
 class VideoPlayer extends React.PureComponent{
 
-	constructor(props){
-		super(props);
-		this.videoComponent = React.createRef();
-		this.videoContainer = React.createRef();
-		this.onErrorEvent = this.onErrorEvent.bind(this);
-		this.onError = this.onError.bind(this);
-		this.link = (this.props.link)? this.props.link : "null";
-		this.poster = (this.props.poster)? this.props.poster : "null";
-		this.width = (this.props.height)? this.props.height : "400";
-		this.width = (this.props.width)? this.props.width : "600";
-	}
+  constructor(props){
+    super(props)
+    this.autoplay = this.props.autoplay
+    this.videoComponent = React.createRef()
+    this.videoContainer = React.createRef()
+    this.onErrorEvent = this.onErrorEvent.bind(this)
+    this.onError = this.onError.bind(this)
+    this.link = this.props.link ? this.props.link : null
+    this.poster = this.props.poster ? this.props.poster : null
+    this.height = this.props.height ? this.props.height : 400
+    this.width = this.props.width ? this.props.width : 600
+  }
 
-	onErrorEvent(event) {
-	  this.onError(event.detail);
-	}
+  onErrorEvent(event) {
+    this.onError(event.detail)
+  }
 
-	onError(error) {
-	  console.error('Error code', error.code, 'object', error);
-	}
+  onError(error) {
+    console.error('Error code', error.code, 'object', error)
+  }
 
-	componentDidMount(){
-		var manifestUri = this.link;
-		const video = this.videoComponent.current;
-		const videoContainer = this.videoContainer.current;
-		var player = new shaka.Player(video);
+  componentDidMount(){
+    // Install built-in polyfills to patch browser incompatibilities.
+    shaka.polyfill.installAll()
 
-		// player language configurations
-		player.configure('preferredTextLanguage', 'es');
-		player.configure('preferredAudioLanguage', 'es');
+    // Check to see if the browser supports the basic APIs Shaka needs.
+    if (shaka.Player.isBrowserSupported()) {
+      // Everything looks good!
+      this.initPlayer()
+    } else {
+      // This browser does not have the minimum set of APIs we need.
+      console.error('Browser not supported!')
+    }
 
-  		player.addEventListener('error', this.onErrorEvent);
-	  	player.load(manifestUri).then(function() {
-		    console.log('');
-		  }).catch(this.onError);  // onError is executed if the asynchronous load fails.
-	}
+  }
 
-	render(){
-		return(
-			<div className="video-container" ref={this.videoContainer}>
-				<video
-					className='video-player' 
-					height={this.height}
-					width={this.width}
-					ref={this.videoComponent}
-					poster={this.poster}
-					controls autoplay
-				/>
-			</div>
-		);
-	}
-}
+  initPlayer() {
+    // Create a Player instance.
+    var manifestUri = this.link
+    const video = this.videoComponent.current
+    // const videoContainer = this.videoContainer.current
+    var player = new shaka.Player(video)
 
-export default VideoPlayer;
+    // player language configurations
+    player.configure('preferredTextLanguage', 'es')
+    player.configure('preferredAudioLanguage', 'es')
+
+    // Listen for error events.
+    player.addEventListener('error', this.onErrorEvent)
+
+    // Try to load a manifest.
+    // This is an asynchronous process.
+    player.load(manifestUri).then(function() {
+      // This runs if the asynchronous load is successful.
+      console.log('The video has now been loaded!')
+    }).catch(this.onError)  // onError is executed if the asynchronous load fails.
+  }
+
+  render() {
+    return(
+      <div className="video-container" ref={this.videoContainer}>
+        <video
+          autoplay={this.autoplay}
+          className='video-player'
+          controls
+          height={this.height}
+          poster={this.poster}
+          ref={this.videoComponent}
+          style={{ outline: 0 }}
+          width={this.width}
+        />
+        </div>
+      )
+    }
+  }
+
+  export default VideoPlayer

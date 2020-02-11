@@ -12,14 +12,14 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
   const autoplay = IS_PRODUCTION
   const { openAuthModal } = useContext(AuthModalContext)
 
-  const showVideo = (e) => {
+  // open auth modal
+  const handleAuth = e => {
     e.preventDefault()
-    // setVideo(true)
-    openAuthModal('register', 1)
-
+    openAuthModal('register')
   }
 
-  useEffect(_ => {
+  // show or hide video if has user
+  useEffect( _ => {
     setVideo(user ? 1 : 0)
   }, [user])
 
@@ -27,24 +27,26 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
     <div className="player">
       { video ? (
         (video_link.ready_url) ? (
-        <div style={{position:'relative'}}>
-          <VideoPlayer
-            height="100%"
-            link = { video_link.ready_url }
-            poster = { image }
-            style={{padding:'56.44% 0 0 0',position:'relative'}}
-            width="100%"
-          />
-        </div>
+          <div style={{ position:'relative' }}>
+            {/* <ShakaPlayer autoPlay src={video_link.ready_url} /> */}
+            {<VideoPlayer
+              autoplay={autoplay}
+              height="100%"
+              link={ video_link.ready_url }
+              poster={ image }
+              style={{ padding:'56.44% 0 0 0', position:'relative' }}
+              width="100%"
+            />}
+          </div>
         ) : (
           <div className="embed-responsive embed-responsive-16by9" >
-          <iframe
-            allow={`accelerometer; ${autoplay ? 'autoplay;' : ''} encrypted-media; gyroscope; picture-in-picture`}
-            allowFullScreen
-            frameBorder="0"
-            src={`${video_link.iframeurl}?${autoplay ? 'autoplay=1' : ''}`}
-            className={`embed-responsive-item`}
-          ></iframe>
+            <iframe
+              allow={`accelerometer; ${autoplay ? 'autoplay;' : ''} encrypted-media; gyroscope; picture-in-picture`}
+              allowFullScreen
+              className={`embed-responsive-item`}
+              frameBorder="0"
+              src={`${video_link.iframeurl}?${autoplay ? 'autoplay=1' : ''}`}
+            ></iframe>
           </div>
         )
       ) : (
@@ -55,10 +57,7 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
               <p><strong>Este contenido es exclusivo para los suscriptores</strong></p>
               <p className="d-none d-md-block"><small>Ver los videos cuando y donde quieras.</small></p>
             </div>
-            {/* <Link href="/subscriptor">
-              <Button>Probá Gratis</Button>
-            </Link> */}
-            <Button onClick={(e) => showVideo(e)}>Probá Gratis</Button>
+            <Button onClick={e => handleAuth(e)}>Probá Gratis</Button>
             <div className="text-block">
               <p><strong><span className="text-uppercase d-none d-md-inline">Prueba gratis</span><br className="d-none d-md-inline" />
                 ¿Ya ere suscriptor? <span className="text-uppercase">Ház <Link href="/login"><a>login</a></Link></span></strong></p>
