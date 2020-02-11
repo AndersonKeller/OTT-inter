@@ -63,6 +63,14 @@ class VideoPlayer extends React.PureComponent{
 		//Setting up shaka player UI
     const ui = new shaka.ui.Overlay(player, videoContainer, video)
     ui.getControls()
+    const uiConfig = {
+      addBigPlayButton: false,
+      controlPanelElements: [
+        'play_pause', 'time_and_duration', 'spacer', 'mute', 'volume', 'fullscreen', 'overflow_menu',
+      ],
+      overflowMenuButtons: ['cast', 'quality', 'picture_in_picture'],
+    }
+    ui.configure(uiConfig)
 
     // Listen for error events.
     player.addEventListener('error', this.onErrorEvent)
@@ -76,21 +84,34 @@ class VideoPlayer extends React.PureComponent{
   }
 
   render() {
-    return(
+    return (
       <div className="video-container" ref={this.videoContainer}>
         <video
           autoPlay={this.autoPlay}
           className='video-player'
-          // controls
           height={this.height}
           poster={this.poster}
           ref={this.videoComponent}
           style={{ outline: 0 }}
           width={this.width}
         />
-        </div>
-      )
-    }
+        <style jsx>{`
+          .video-container :global(.shaka-bottom-controls) {
+            display: flex;
+            flex-direction: column;
+          }
+          .video-container :global(.shaka-bottom-controls .shaka-controls-button-panel) {
+            order: 2;
+            width: 100%;
+          }
+          .video-container :global(.shaka-bottom-controls .shaka-seek-bar-container) {
+            order: 1;
+            width: 100%;
+          }
+        `}</style>
+      </div>
+    )
   }
+}
 
-  export default VideoPlayer
+export default VideoPlayer
