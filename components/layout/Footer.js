@@ -7,11 +7,15 @@ import Link from 'next/link'
 import ReactSVG from 'react-svg'
 import { useContext } from 'react'
 
+// react icons
+import { IconContext } from 'react-icons'
+import { FaFacebookSquare } from 'react-icons/fa'
+import { IoLogoInstagram, IoLogoTwitter } from 'react-icons/io'
+
 // app imports
 import { CONFIG } from '../../config'
-import ActiveLink from '../ActiveLink'
 import UserContext from '../../contexts/UserContext'
-import SocialShareBtns from '../social-share-btns'
+import ActiveLink from '../ActiveLink'
 
 // footer
 export default function Footer({ layoutColor }) {
@@ -102,6 +106,59 @@ const NavFooter = ({className}) => {
   )
 }
 
+// social networks
+const SocialNetworks = ({ className }) => {
+  if ( ! CONFIG.socialNetworks && Array.isArray(CONFIG.socialNetworks) ) return
+  return (
+    <IconContext.Provider value={{ size: '24px' }}>
+      <ul className={`list-inline ${className}`}>
+        { CONFIG.socialNetworks.map(item => {
+          const slug = item.name.toLowerCase()
+          if ( ! ['facebook', 'instagram', 'twitter'].includes(slug)) return
+          return (
+            <li>
+              <a href={item.link} target="_blank" title={`${CONFIG.clubName} ${item.name}`}>
+                { slug === 'facebook' ?
+                  <FaFacebookSquare />
+                : slug === 'instagram' ?
+                  <IoLogoInstagram />
+                : slug === 'twitter' &&
+                  <IoLogoTwitter />
+                }
+              </a>
+            </li>
+          )
+        }) }
+      </ul>
+      <style jsx>{`
+        ul {
+          display: inline-flex;
+          justify-content: center;
+          margin: 5px 0;
+        }
+        a {
+          color: var(--gray3);
+          display: block;
+          padding: 2.5px;
+          transition: color .3s;
+        }
+        @media (min-width: 768px) {
+          a {
+            margin-right: 1px;
+            margin-left: 1px;
+            padding: 5px;
+          }
+        }
+        a:focus,
+        a:hover {
+          color: var(--white);
+          transition: color .125s;
+        }
+      `}</style>
+    </IconContext.Provider>
+  )
+}
+
 // terms and policies
 const TermsAndPoliciesBar = ({ layoutColor }) => {
   return (
@@ -109,13 +166,16 @@ const TermsAndPoliciesBar = ({ layoutColor }) => {
       <div className="container-fluid">
         <div className="row align-items-center">
 
-          <div className="col-12 col-sm-4  col-md-4 text-md-left">
+          <div className="col-12 col-sm-4 text-md-left">
             <p>{CONFIG.appName} @ 2020 - Todos los derechos reservados</p>
           </div>
-          <div className="col-4 col-sm-4  col-md-4 text-center text-nowrap ">
-            <SocialShareBtns />
+
+          {/* social icons */}
+          <div className="col-4 col-md-4 text-md-center terms-and-policies-bar__social-networks-col">
+            <SocialNetworks className="social-networks" />
           </div>
-          <div className="col-8 col-sm-4  col-md-4 text-md-right">
+
+          <div className="col-8 col-sm-4 text-md-right">
             <ul>
 
               <li><Link href="/politica-de-privacidad" passHref>
@@ -141,6 +201,14 @@ const TermsAndPoliciesBar = ({ layoutColor }) => {
           line-height: 1;
           padding-top: 10px;
           padding-bottom: 5px;
+        }
+        @media (max-width: 767px) {
+          .terms-and-policies-bar__social-networks-col {
+            padding-right: 0;
+          }
+          .terms-and-policies-bar__social-networks-col :global(.social-networks) {
+            margin-left: -2.5px;
+          }
         }
         .terms-and-policies-bar p {
           margin-bottom: 5px;

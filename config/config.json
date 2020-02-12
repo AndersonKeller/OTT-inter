@@ -15,6 +15,11 @@
     "shortClubName": "River",
     "supportersAKA": "RiverPlatenses",
     "color": "#ff0000",
-    "site": "//www.cariverplate.com.ar/"
+    "site": "https://www.cariverplate.com.ar/",
+    "socialNetworks": [
+      { "name": "Facebook", "link": "https://www.facebook.com/riverplateoficial/" },
+      { "name": "Instagram", "link": "https://www.instagram.com/riverplate/" },
+      { "name": "Twitter", "link": "https://twitter.com/RiverPlate" }
+    ]
   }
 }
