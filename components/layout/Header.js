@@ -3,6 +3,10 @@ import Color from 'color'
 import React, { useContext, useEffect, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 
+// next
+import Link from 'next/link'
+import Router from 'next/router'
+
 import { GRAY3 } from '../../constants/colors'
 import { STATIC_PATH } from '../../constants/constants'
 import ActiveLink from '../ActiveLink'
@@ -10,7 +14,6 @@ import UserContext from '../../contexts/UserContext'
 import Chevron from '../icons/chevron'
 import UserMenu from './UserMenu'
 import { CONFIG } from '../../config'
-import Router from 'next/router'
 
 const Header = ({ closed, layoutColor, menus }) => {
   const hasWindow = typeof window !== 'undefined'
@@ -212,9 +215,11 @@ const Header = ({ closed, layoutColor, menus }) => {
 const ClubLogo = _ => {
   return (
     <div className="club-logo">
-      <a href={CONFIG.site} target="_blank">
-        <img alt={`by ${CONFIG.clubName}`} className="img-fluid" src={`${STATIC_PATH}/logos/club.svg`} />
-      </a>
+      <Link href="/">
+        <a>
+          <img alt={`by ${CONFIG.clubName}`} className="img-fluid" src={`${STATIC_PATH}/logos/club.svg`} />
+        </a>
+      </Link>
       <style jsx>{`
         .club-logo {
           display: flex;
