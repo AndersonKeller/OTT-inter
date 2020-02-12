@@ -178,10 +178,12 @@ const TermsAndPoliciesBar = ({ layoutColor }) => {
           <div className="col-8 col-sm-4 text-md-right">
             <ul>
 
-              <li><Link href="/politica-de-privacidad" passHref>
+              {/* privacy policy */}
+              <li><Link href="/privacy" passHref>
                 <FooterLink>Política de Privacidad</FooterLink>
               </Link></li>
 
+              {/* terms of use */}
               <li><Link href="/terminos-y-politicas" passHref>
                 <FooterLink>Términos y políticas</FooterLink>
               </Link></li>
