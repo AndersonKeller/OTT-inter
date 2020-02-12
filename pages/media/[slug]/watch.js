@@ -2,18 +2,18 @@
 import Head from 'next/head'
 
 // app imports
-import BlockedPlayer from '../../../components/blocked-player'
-import CommentSection from '../../../components/comment-section'
-import Layout from '../../../components/layout/Layout'
-// import LikeNCommentsBtns from '../../../components/like-n-comments-btns'
-import MediaDescription from '../../../components/media-description'
-import MoreContentCarousel from '../../../components/more-content-carousel'
-// import SocialShareBtns from '../../../components/social-share-btns'
-// import UserContext from '../../../contexts/UserContext'
-import { CONFIG } from '../../../config'
-import { STATIC_PATH, TENANT } from '../../../constants/constants'
-import api from '../../../services/api'
-import MediaLink from '../../../components/MediaLink/MediaLink'
+import BlockedPlayer from '~/components/Player/BlockedPlayer'
+import CommentSection from '~/components/comment-section'
+import Layout from '~/components/layout/Layout'
+// import LikeNCommentsBtns from '~/components/like-n-comments-btns'
+import MediaDescription from '~/components/media-description'
+import MoreContentCarousel from '~/components/more-content-carousel'
+// import SocialShareBtns from '~/components/social-share-btns'
+// import UserContext from '~/contexts/UserContext'
+import { CONFIG } from '~/config'
+import { STATIC_PATH, TENANT } from '~/constants/constants'
+import api from '~/services/api'
+import MediaLink from '~/components/MediaLink/MediaLink'
 
 export default function WatchPage({ errorCode, category, media, movie_links, related, layoutProps }) {
   return (

@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
-import Button from '../components/button'
-import UserContext from '../contexts/UserContext'
-import { IS_PRODUCTION } from '../constants/constants'
-import VideoPlayer from '../components/video-player'
-import { AuthModalContext } from '../contexts/AuthModalContext'
+import Button from '~/components/button'
+import Player from '~/components/Player'
+import UserContext from '~/contexts/UserContext'
+import { IS_PRODUCTION } from '~/constants/constants'
+import { AuthModalContext } from '~/contexts/AuthModalContext'
 
 export default function BlockedPlayer({ image = '', video_link = '' }) {
   const { user } = useContext(UserContext)
@@ -29,7 +29,7 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
         (video_link.ready_url) ? (
           <div style={{ position:'relative' }}>
             {/* <ShakaPlayer autoPlay src={video_link.ready_url} /> */}
-            {<VideoPlayer
+            {<Player
               autoPlay={autoPlay}
               height="100%"
               link={ video_link.ready_url }

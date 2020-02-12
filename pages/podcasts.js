@@ -1,13 +1,13 @@
 import Head from 'next/head'
-import BlockedPlayer from '../components/blocked-player'
-import CommentSection from '../components/comment-section'
-import Layout from '../components/layout/Layout'
-// import LikeNCommentsBtns from '../components/like-n-comments-btns'
-import MediaDescription from '../components/media-description'
-import MoreContentCarousel from '../components/more-content-carousel'
-// import SocialShareBtns from '../components/social-share-btns'
-import { CONFIG } from '../config'
-import { STATIC_PATH, TENANT } from '../constants/constants'
+import BlockedPlayer from '~/components/Player/BlockedPlayer'
+import CommentSection from '~/components/comment-section'
+import Layout from '~/components/layout/Layout'
+// import LikeNCommentsBtns from '~/components/like-n-comments-btns'
+import MediaDescription from '~/components/media-description'
+import MoreContentCarousel from '~/components/more-content-carousel'
+// import SocialShareBtns from '~/components/social-share-btns'
+import { CONFIG } from '~/config'
+import { STATIC_PATH, TENANT } from '~/constants/constants'
 
 export default function PodcastsPage({ layoutProps }) {
   let media

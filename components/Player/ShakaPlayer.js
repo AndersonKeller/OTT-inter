@@ -1,16 +1,10 @@
 import React from 'react'
-// import shaka from 'shaka-player'
 import 'shaka-player/dist/controls.css'
-import { HAS_WINDOW } from '~/constants/constants'
+import shaka from 'shaka-player/dist/shaka-player.ui.js' // no SSR support
 
-let shaka
-if (HAS_WINDOW) {
-  shaka = require('shaka-player/dist/shaka-player.ui.js')
-}
-
-class VideoPlayer extends React.PureComponent{
-
-  constructor(props){
+class ShakaPlayer extends React.PureComponent
+{
+  constructor(props) {
     super(props)
     this.autoPlay = this.props.autoPlay
     this.videoComponent = React.createRef()
@@ -43,7 +37,6 @@ class VideoPlayer extends React.PureComponent{
       // This browser does not have the minimum set of APIs we need.
       console.error('Browser not supported!')
     }
-
   }
 
   initPlayer() {
@@ -114,4 +107,4 @@ class VideoPlayer extends React.PureComponent{
   }
 }
 
-export default VideoPlayer
+export default ShakaPlayer
