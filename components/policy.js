@@ -40,6 +40,10 @@ const Policy = ({ policy, title }) => (
       .legal-wrapper__text :global(li) {
         margin-bottom: 10px;
       }
+      .legal-wrapper__text :global(a[href]) {
+        color: var(--primary);
+        text-decoration: underline;
+      }
       @media (min-width: 768px) {
         .legal-wrapper {
           font-size: 17px;
