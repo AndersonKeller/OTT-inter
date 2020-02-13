@@ -10,6 +10,7 @@ import FormText from './FormText'
 import Button from '../../button'
 import { AuthModalContext } from '../../../contexts/AuthModalContext'
 import ReactSVG from 'react-svg'
+import nookies from 'nookies'
 
 const LoginTab = ({ changeTab, setLoading, facebookLogin }) => {
   const [ email, setEmail ] = useState('')
@@ -21,10 +22,12 @@ const LoginTab = ({ changeTab, setLoading, facebookLogin }) => {
   const socialLogin = async () => {
     try{
         setLoading(true);
+        const { pkg_int_id: package_id_intention } = nookies.get({}, 'pkg_int_id')
         const tokenResponse = await api().post('auth/facebook/callback', {
           code,
           client_id: CLIENT_ID,
           client_secret: CLIENT_SECRET,
+          package_id_intention
         })
 
         const { access_token } = tokenResponse.data

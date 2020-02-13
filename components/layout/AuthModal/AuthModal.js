@@ -2,6 +2,7 @@ import Color from 'color'
 import { useContext, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { Tab } from 'react-bootstrap'
+import nookies from 'nookies'
 
 import { CONFIG } from '../../../config'
 import { STATIC_PATH } from '../../../constants/constants'
@@ -15,7 +16,7 @@ import api from '../../../services/api'
 
 // Auth Modal
 export default function AuthModal() {
-  const { backTab, changeTab, closeAuthModal, show, tab, tabsHistory } = useContext(AuthModalContext)
+  const { backTab, changeTab, closeAuthModal, show, tab, tabsHistory, packageId } = useContext(AuthModalContext)
   const facebookColor = '#3B5990'
   const googleColor = '#D44639'
   const [ loading, setLoading ] = useState()
@@ -41,6 +42,7 @@ export default function AuthModal() {
   const facebookLogin = async e => {
     e.preventDefault()
     try {
+      nookies.set({}, 'pkg_int_id', JSON.stringify(packageId), { path: '/' })
       const res = await api().get('auth/facebook')
       console.table(res)
       window.location = res.data.url
