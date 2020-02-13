@@ -562,6 +562,9 @@ const Payment = ({
     getCashPaymentMethods()
   }, [])
 
+  const credit_card_id = 1
+  const debit_card_id = 2
+
   return (
     <div className="row">
       <div className="offset-md-2 col-md-8">
@@ -590,8 +593,8 @@ const Payment = ({
 
             <div className="col-md-6">
 
-              {/* credit card */}
-              { payment_method_id === 1 ? (
+              {/* credit / debit card */}
+              {[credit_card_id, debit_card_id].includes(payment_method_id) ? (
                 <div className="card-inputs">
 
                   {/* mandatory data */}
