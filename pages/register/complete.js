@@ -206,13 +206,18 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     return promise
   }
 
+  // is card payment
+  const credit_card_id = 1
+  const debit_card_id = 2
+  const isCardPayment = [credit_card_id, debit_card_id].includes(values.payment_method_id)
+
   /* submit */
   const handleSubmit = async e => {
     e.preventDefault()
     setLoading(true)
     try {
       const paymentData = values.package_id && values.package_id !== free_package_id &&
-        values.payment_method_id && values.payment_method_id === 1 ? await createToken() : null
+        values.payment_method_id && isCardPayment ? await createToken() : null
       const data = { ...values, payment_os: paymentData }
       try {
         const { data: { user, order } } = await api.post('register/complete', data)
@@ -445,6 +450,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
           api,
           cash_payment_method_id: values.cash_payment_method_id,
           error,
+          isCardPayment,
           isPayUReady,
           loading,
           onCashPaymentMethodChange,
@@ -521,6 +527,7 @@ const Payment = ({
   api,
   cash_payment_method_id,
   error,
+  isCardPayment,
   isPayUReady,
   loading,
   onCashPaymentMethodChange,
@@ -545,10 +552,10 @@ const Payment = ({
 
   // init card secure fields
   useEffect(_ => {
-    if (isPayUReady && payment_method_id === 1) {
+    if (isPayUReady && isCardPayment) {
       POS.initSecureFields('card-secure-fields')
     }
-  }, [isPayUReady, payment_method_id])
+  }, [isPayUReady, isCardPayment])
 
   // cash payment methods
   const [ cashPaymentMethods, setCashPaymentMethods ] = useState()
@@ -562,8 +569,6 @@ const Payment = ({
     getCashPaymentMethods()
   }, [])
 
-  const credit_card_id = 1
-  const debit_card_id = 2
 
   return (
     <div className="row">
@@ -594,7 +599,7 @@ const Payment = ({
             <div className="col-md-6">
 
               {/* credit / debit card */}
-              {[credit_card_id, debit_card_id].includes(payment_method_id) ? (
+              {isCardPayment ? (
                 <div className="card-inputs">
 
                   {/* mandatory data */}
