@@ -17,15 +17,13 @@ import Input        from '../../components/layout/AuthModal/Input'
 import withAuth     from '../../components/withAuth/withAuth'
 import Select       from '../../components/Select/Select'
 import Layout       from '../../components/layout/Layout'
-import Packages     from '../../components/Packages'
 import Button       from '../../components/button'
 import api          from '../../services/api'
-import { CONFIG }       from '../../config'
+import { CONFIG }   from '../../config'
 
 const userDataPage = ({ layoutProps, user, updateUser }) => {
   const [ genres, setGenres ] = useState([])
   const [ countries, setCountries ] = useState([])
-  const [ packages, setPackages ] = useState([])
 
   /* get genres */
   useEffect(_ => {
@@ -44,12 +42,12 @@ const userDataPage = ({ layoutProps, user, updateUser }) => {
   }, [])
 
   /* get packages */
-  useEffect(_ => {
-    (async _ => {
-      const {data} = await api().get('packages')
-      setPackages(data)
-    })()
-  }, [])
+  // useEffect(_ => {
+  //   (async _ => {
+  //     const {data} = await api().get('packages')
+  //     setPackages(data)
+  //   })()
+  // }, [])
 
     /* get user data */
     // const getUserData = ({user_genre_id: genre, country_id: country, ...data})  => {return {genre, country,...data}}
@@ -78,8 +76,9 @@ const userDataPage = ({ layoutProps, user, updateUser }) => {
         <Label htmlFor={props.id || props.name}>{label}</Label>
         <Select style={{color: 'black'}} {...field} {...props}>
           {list && list.length ?
-            opts.map((opt, key) =>
-              <option {...{key}} value={opt.id}>{opt.name}</option>)
+            opts.map(
+              (opt, key) => <option {...{key}} value={opt.id}>{opt.name}</option>
+            )
             :
             <option disabled value={0}>{`Incapaz de cargar ${label}`}</option>
           }
@@ -178,7 +177,7 @@ const userDataPage = ({ layoutProps, user, updateUser }) => {
               </div>
             </div>
           </div>
-
+{/*
           <hr />
 
           <h2>Detalles del plan</h2>
@@ -189,7 +188,7 @@ const userDataPage = ({ layoutProps, user, updateUser }) => {
             }}
           />
 
-          <hr />
+          <hr /> */}
 
           <div className="row align-items-center">
             <div className="col-md-12 text-right">
