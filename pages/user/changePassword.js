@@ -15,9 +15,7 @@ import FormGroup    from '../../components/layout/AuthModal/FormGroup'
 import Label        from '../../components/layout/AuthModal/Label'
 import Input        from '../../components/layout/AuthModal/Input'
 import withAuth     from '../../components/withAuth/withAuth'
-import Select       from '../../components/Select/Select'
 import Layout       from '../../components/layout/Layout'
-import Packages     from '../../components/Packages'
 import Button       from '../../components/button'
 import api          from '../../services/api'
 import { CONFIG }   from '../../config'
@@ -30,7 +28,7 @@ const passwordPage = ({ layoutProps, user, updateUser }) => {
     //field.value= field.value || undefined;
     return (
       <>
-        <Label htmlFor={props.id || props.name}>{label}</Label>
+        { props.type == 'hidden' ? '' : <Label htmlFor={props.id || props.name}>{label}</Label> }
         <Input style={{color: 'black'}} {...field} {...props} />
         {/* {console.table(meta)} */}
         {meta.touched && meta.error ? ( <div className="invalid-feedback">{ meta.error }</div> ) : null}
@@ -90,26 +88,27 @@ const passwordPage = ({ layoutProps, user, updateUser }) => {
         // initialTouched={{name: true, country: true, document: true}}
         initialValues={
           (({ email }) => {
-            return { email }})(user)
+            return { email, oldpassword: '', password: '', password_confirmation: '' }})(user)
         }
         validationSchema={
           getYupSchema()
         }
         onSubmit={ handleSubmit }
       >
-      {({ isSubmitting, status }) => (<Form>
+      {({ isSubmitting, status, values }) => (<Form>
         { status && <div className="invalid-feedback"><h5>{status.error}</h5></div> }
-
+                <FormGroup>
+                  <FkInputText name="username" type="hidden" value={values.email} label="Username" autoComplete="username" />
+                </FormGroup>
+                <FormGroup>
+                  <FkInputText name="oldpassword" type="password" label="Contraseña anterior" autoComplete="current-password" />
+                </FormGroup>
                 <FormGroup>
                   <FkInputText name="password" type="password" label="Nueva contraseña" autoComplete="new-password" />
                 </FormGroup>
                 <FormGroup>
                   <FkInputText name="password_confirmation" type="password" label="Confirmar nueva contraseña" autoComplete="new-password" />
                 </FormGroup>
-                <FormGroup>
-                  <FkInputText name="oldpassword" type="password" label="Contraseña" autoComplete="current-password" />
-                </FormGroup>
-
           <hr />
 
           <div className="row">
@@ -138,7 +137,7 @@ const passwordPage = ({ layoutProps, user, updateUser }) => {
       </Head>
       <div className="rgpage container-fluid">
         <div className="row">
-          <div className="col-xl-8 offset-xl-2">
+          <div className="col-md-8 offset-md-2">
             <h1 className="h2">Cambiar la Contraseña</h1>
             <DataForm />
           </div>
