@@ -478,7 +478,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
             />
             <span>He leído y acepto <Link href="/terminos-y-politicas">
                 <a target="_blank">el contrato</a>
-              </Link> de Dale Campéon</span>
+              </Link> de {CONFIG.appName}</span>
           </label>
           { ! loading && error && error.errors && error.errors.terms && (
             <div className="invalid-feedback">{error.errors.terms}</div>
