@@ -82,12 +82,11 @@ const changeEmailPage = ({ layoutProps, user, updateUser }) => {
           <div className="row">
             <div className="col-md-8">
               <div className="data">
-                <h4>Sus datos</h4>
                 <FormGroup>
-                  <FkInputText name="oldEmail" label="Correo Actual" type="email" readOnly />
+                  <FkInputText name="oldEmail" label="Email Actual" type="email" disabled />
                 </FormGroup>
                 <FormGroup>
-                  <FkInputText name="email" label="Nuevo Correo" type="email" />
+                  <FkInputText name="email" label="Nuevo Email" type="email" />
                 </FormGroup>
               </div>
             </div>
@@ -99,13 +98,6 @@ const changeEmailPage = ({ layoutProps, user, updateUser }) => {
             </div>
           </div>
           <style jsx>{`
-          .btn .btn-danger {
-            color: #fff;
-            background-color: var(--primary);
-          }
-          .btn .btn-danger:hover {
-            background-color: green;
-          }
         `}</style>
         </Form>)}
       </Formik>
@@ -115,12 +107,12 @@ const changeEmailPage = ({ layoutProps, user, updateUser }) => {
   return (
     <Layout {...layoutProps}>
       <Head>
-        <title>Cambiar Correo &lt; {CONFIG.appName}</title>
+        <title>Cambiar Email &lt; {CONFIG.appName}</title>
       </Head>
       <div className="rgpage container-fluid">
         <div className="row">
           <div className="col-xl-8 offset-xl-2">
-            <h1 className="h2">Cambiar Correo</h1>
+            <h1 className="h2">Cambiar Email</h1>
               <DataForm />
           </div>
         </div>
