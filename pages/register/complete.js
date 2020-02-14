@@ -160,7 +160,6 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         city: user.city ? user.city : '',
         country_id: user.country_id ? user.country_id : '',
         package_id: user.package_id_intention ? user.package_id_intention : '',
-        payment_method_id: user.payment_method_id ? user.payment_method_id : null,
       })
     }
   }, [user])
