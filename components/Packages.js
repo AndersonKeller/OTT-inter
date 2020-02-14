@@ -80,7 +80,6 @@ export const PackageRadio = ({
     }
   }
 
-  console.log(plan.amount)
   return (
     <label className="text-center">
       <input
