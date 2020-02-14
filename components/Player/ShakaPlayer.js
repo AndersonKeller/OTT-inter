@@ -1,12 +1,13 @@
 import React from 'react'
 import 'shaka-player/dist/controls.css'
 import shaka from 'shaka-player/dist/shaka-player.ui.js' // no SSR support
+import { IS_PRODUCTION } from '~/constants/constants'
 
 class ShakaPlayer extends React.PureComponent
 {
   constructor(props) {
     super(props)
-    this.autoPlay = this.props.autoPlay
+    this.autoPlay = this.props.autoPlay || true
     this.videoComponent = React.createRef()
     this.videoContainer = React.createRef()
     this.onErrorEvent = this.onErrorEvent.bind(this)
@@ -83,6 +84,7 @@ class ShakaPlayer extends React.PureComponent
           autoPlay={this.autoPlay}
           className='video-player'
           height={this.height}
+          muted={!IS_PRODUCTION}
           poster={this.poster}
           ref={this.videoComponent}
           style={{ outline: 0 }}

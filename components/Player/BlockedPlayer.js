@@ -6,11 +6,12 @@ import UserContext from '~/contexts/UserContext'
 import { IS_PRODUCTION } from '~/constants/constants'
 import { AuthModalContext } from '~/contexts/AuthModalContext'
 
-export default function BlockedPlayer({ image = '', video_link = '' }) {
+export default function BlockedPlayer({ image = '', media}) {
   const { user } = useContext(UserContext)
   const [ video, setVideo ] = useState(user ? 1 : 0)
   const autoPlay = IS_PRODUCTION
   const { openAuthModal } = useContext(AuthModalContext)
+  const [link,setLink] = useState(media.video_link.ready_url)
 
   // open auth modal
   const handleAuth = e => {
@@ -23,20 +24,23 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
     setVideo(user ? 1 : 0)
   }, [user])
 
+  useEffect(_ => {
+    setLink(media.video_link.ready_url + '?' + Math.round(Math.random() * 999))
+    console.log(link)
+  }, [media])
+
   return (
     <div className="player">
       { video ? (
-        (video_link.ready_url) ? (
+        (media && media.video_link && media.video_link.ready_url) ? (
           <div style={{ position:'relative' }}>
-            {/* <ShakaPlayer autoPlay src={video_link.ready_url} /> */}
-            {<Player
-              autoPlay={autoPlay}
+            <Player
               height="100%"
-              link={ video_link.ready_url }
-              poster={ image }
-              style={{ padding:'56.44% 0 0 0', position:'relative' }}
+              link={link}
+              poster={image}
+              style={{ padding: '56.44% 0 0 0', position: 'relative' }}
               width="100%"
-            />}
+            />
           </div>
         ) : (
           <div className="embed-responsive embed-responsive-16by9" >
@@ -45,7 +49,7 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
               allowFullScreen
               className={`embed-responsive-item`}
               frameBorder="0"
-              src={`${video_link.iframeurl}?${autoPlay ? 'autoplay=1' : ''}`}
+              src={`${media.video_link.iframeurl}?${autoPlay ? 'autoplay=1' : ''}`}
             ></iframe>
           </div>
         )
