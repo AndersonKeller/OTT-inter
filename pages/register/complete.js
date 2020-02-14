@@ -111,6 +111,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
   const [ genres, setGenres ] = useState()
   const [ countries, setCountries ] = useState()
   const [ discount, setDiscount ] = useState(false)
+  const [ supportersDiscount, setSupportersDiscount ] = useState()
 
   const [ values, setValues ] = useState({
     name: '',
@@ -124,6 +125,8 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     payment_os: null,
     cash_payment_method_id: null,
     terms: null,
+    supporter_id: '',
+    alternate_supporter_id: '',
   })
 
   const [ loading, setLoading ] = useState()
@@ -173,8 +176,20 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     })
   }
 
-  /* handle general input change */
-  const handleDiscountChange = e => setDiscount(e.target.value == '12345')
+  const handleDiscountChange = e => {
+    setValues({
+      ...values,
+      alternate_supporter_id: e.target.value,
+    })
+    setDiscount(e.target.value.length === 5)
+  }
+  const handleSupportersDiscountChange = e => {
+    setValues({
+      ...values,
+      supporter_id: e.target.value,
+    })
+    setSupportersDiscount(e.target.value.length === 5)
+  }
 
   /* handle package change */
   function onPackageChange(e) {
@@ -418,13 +433,16 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
           <div className="col-md-6">
             <div className="data">
               <FormGroup>
-                <Label htmlFor="socio">Socio River</Label>
+                <Label htmlFor="supporter_id">Socio {CONFIG.shortClubName}</Label>
                 <Input
-                  id="socio"
-                  name="socio"
-                  onChange={handleDiscountChange}
+                  disabled={values.alternate_supporter_id}
+                  id="supporter_id"
+                  maxLength={5}
+                  name="supporter_id"
+                  onChange={handleSupportersDiscountChange}
                   type="text"
-                  style={discount ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
+                  style={supportersDiscount ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
+                  value={values.supporter_id}
                 />
               </FormGroup>
             </div>
@@ -432,13 +450,16 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
           <div className="col-md-6">
             <div className="localization">
               <FormGroup>
-                <Label htmlFor="somos">Somos River</Label>
+                <Label htmlFor="alternate_supporter_id">Somos {CONFIG.shortClubName}</Label>
                 <Input
-                  id="somos"
-                  name="somos"
+                  disabled={values.supporter_id}
+                  id="alternate_supporter_id"
+                  maxLength={5}
+                  name="alternate_supporter_id"
                   onChange={handleDiscountChange}
                   type="text"
                   style={discount ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
+                  value={values.alternate_supporter_id}
                 />
               </FormGroup>
             </div>
@@ -454,6 +475,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         package_id: values.package_id,
         validationError: ! loading && error && error.errors && error.errors.package_id,
         discount,
+        supportersDiscount,
       }} />
 
       {/* payment */}
@@ -616,7 +638,7 @@ const Payment = ({
 
                   {/* mandatory data */}
                   <FormGroup>
-                    <Label htmlFor="cardholder-name">Nombre impreso</Label>
+                    <Label htmlFor="cardholder-name">Nombre impreso en tarjeta</Label>
                     <Input id="cardholder-name" name="cardholder-name" required={requireds} type="text" />
                   </FormGroup>
 
