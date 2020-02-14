@@ -32,7 +32,7 @@ export const CLIENT_ID = 2
 
 const LOCAL_API_URL = process.env.API_URL || 'http://127.0.0.1:8000'
 
-export const API_URL = IS_PRODUCTION ? 'https://admin.rivermas.com' : LOCAL_API_URL
+export const API_URL = IS_PRODUCTION ? 'https://admin.dalecampeon.net' : LOCAL_API_URL
 
 /**
  * @constant
