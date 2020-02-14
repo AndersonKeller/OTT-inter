@@ -150,9 +150,8 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
             .card-text {
               font-size: 14px;
             }
-
             .table-dark.table-hover tbody tr:hover {
-              background-color: rgba(255, 0, 0, 0.3);
+              background-color: rgba(255, 0, 0, 0.1);
             }
         '`}</style>
     </Layout>
