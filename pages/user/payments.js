@@ -4,18 +4,27 @@ import Link   from 'next/link'
 import { useEffect } from 'react'
 import { Accordion, Card, Button, Table } from 'react-bootstrap'
 
-import Layout from '../../components/layout/Layout'
-import { CONFIG } from '../../config'
 import { PackageRadio } from '../../components/Packages'
-import withApi from '../../components/withApi/withApi'
+import { CONFIG }       from '../../config'
 import withAuth         from '../../components/withAuth/withAuth'
+import withApi          from '../../components/withApi/withApi'
+import Layout           from '../../components/layout/Layout'
+// import api              from '../../services/api'
 
-const PaymentsPage = ({ layoutProps, user, ...props }) => {
+const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
 
-  // useEffect(() => {
-  //   console.table(data);
-
-  // }, [])
+  useEffect(() => {
+    (async _ => {
+      try{
+        const subs = await api.get('subscriptions');
+        console.table(subs);
+        return { subs }
+      }catch(error){
+        console.log(error);
+        return { error }
+      }
+    })()
+  }, [])
 
   return (
     <Layout { ...layoutProps }>
@@ -56,14 +65,14 @@ const PaymentsPage = ({ layoutProps, user, ...props }) => {
                       <th>Fecha</th>
                       <th>Descripción</th>
                       <th>Periodo</th>
-                      <th>Medios de Pago</th>
+                      <th>Medio de Pago</th>
                       <th>Total</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>1</td>
-                      <td><Link href="#"><a>09/01/2020</a></Link></td>
+                      <td><Link href="receipt"><a>09/01/2020</a></Link></td>
                       <td>River+</td>
                       <td>09/01/2020—08/02/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
@@ -71,7 +80,7 @@ const PaymentsPage = ({ layoutProps, user, ...props }) => {
                     </tr>
                     <tr>
                       <td>2</td>
-                      <td><Link href="#"><a>09/01/2020</a></Link></td>
+                      <td><Link href="receipt"><a>09/01/2020</a></Link></td>
                       <td>River+</td>
                       <td>09/02/2020—08/03/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
@@ -79,7 +88,7 @@ const PaymentsPage = ({ layoutProps, user, ...props }) => {
                     </tr>
                     <tr>
                       <td>3</td>
-                      <td><Link href="#"><a>09/01/2020</a></Link></td>
+                      <td><Link href="receipt"><a>09/01/2020</a></Link></td>
                       <td>River+</td>
                       <td>09/03/2020—08/04/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
@@ -87,7 +96,7 @@ const PaymentsPage = ({ layoutProps, user, ...props }) => {
                     </tr>
                     <tr>
                       <td>4</td>
-                      <td><Link href="#"><a>09/01/2020</a></Link></td>
+                      <td><Link href="receipt"><a>09/01/2020</a></Link></td>
                       <td>River+</td>
                       <td>09/04/2020—08/05/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
@@ -95,7 +104,7 @@ const PaymentsPage = ({ layoutProps, user, ...props }) => {
                     </tr>
                     <tr>
                       <td>5</td>
-                      <td><Link href="#"><a>09/01/2020</a></Link></td>
+                      <td><Link href="receipt"><a>09/01/2020</a></Link></td>
                       <td>River+</td>
                       <td>09/05/2020—08/06/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
@@ -103,7 +112,7 @@ const PaymentsPage = ({ layoutProps, user, ...props }) => {
                     </tr>
                     <tr>
                       <td>6</td>
-                      <td><Link href="#"><a>09/01/2020</a></Link></td>
+                      <td><Link href="receipt"><a>09/01/2020</a></Link></td>
                       <td>River+</td>
                       <td>09/06/2020—08/07/2020</td>
                       <td>VISA •••• •••• •••• 1627</td>
@@ -141,23 +150,21 @@ const PaymentsPage = ({ layoutProps, user, ...props }) => {
             .card-text {
               font-size: 14px;
             }
-
             .table-dark.table-hover tbody tr:hover {
-              background-color: rgba(255, 0, 0, 0.3);
+              background-color: rgba(255, 0, 0, 0.1);
             }
         '`}</style>
     </Layout>
 )}
 
 // PaymentsPage.getInitialProps = async ctx => {
-//   try{
-//     const data = await api.get('subscriptions');
-//     console.log(data);
-//     return { data }
-//   }catch(error){
-//     console.log(error);
-//     return { error }
-//   }
+//   // try{
+//     // console.table(subs);
+//     // return { subs }
+//   // }catch(error){
+//   //   console.log(error);
+//   //   return { error }
+//   // }
 // }
 
-export default withAuth(PaymentsPage);
+export default withAuth(withApi(PaymentsPage));

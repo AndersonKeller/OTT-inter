@@ -52,6 +52,9 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
     if (POS) {
       POS.setPublicKey(businessUnitPublicKey)
       POS.setEnvironment(payUEnv)
+      POS.setStyle({base: {color: 'white', fontSize: '16px', padding:'0px 3px', pan:{ width:'200px'}}})
+      POS.setCardNumberPlaceholder('Tarjeta de crédito')
+      POS.setExpirationDatePlaceholder('MM/AA');
       setIsPayUReady(true)
     }
   }, [POS])
@@ -82,6 +85,15 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
         .h2 {
           margin-bottom: 10px;
         }
+        input {
+          color: white;
+          /*
+          background-color: white !important;
+          border-radius: 2px;
+           height: 35px !important;
+          padding: 10px;
+          margin: 0px 2px;*/
+      }
       `}</style>
     </Layout>
   )

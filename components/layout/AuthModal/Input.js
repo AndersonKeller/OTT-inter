@@ -13,6 +13,8 @@ const Input = ({
   style,
   type = "text",
   value,
+  readOnly,
+  disabled
 }) => {
 
   // autofocus is bugging if has states/onChanges
@@ -40,6 +42,8 @@ const Input = ({
         style,
         type,
         value,
+        readOnly,
+        disabled
       }}
     />
     <style jsx>{`
