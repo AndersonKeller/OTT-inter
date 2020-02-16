@@ -9,7 +9,7 @@ import Loading from '../components/Loading/Loading'
 import { CONFIG } from '../config'
 import api from '../services/api'
 import CategoryLink from '../components/CategoryLink/CategoryLink'
-import { BLACK } from '../constants/colors'
+import { BLACK, WHITE } from '../constants/colors'
 
 function CategoriesPage({ layoutProps }) {
 
@@ -79,8 +79,8 @@ const CategoryCard = ({category}) => {
       </CategoryLink>
       <style jsx>{`
         .category-card {
-          background-color: var(--gray2);
-          background-image: url(${category.image_url});
+          background-color: ${Color(WHITE).alpha(.075)};
+          background-image: ${category.image_url ? `url(${category.image_url})` : 'none'};
           background-position: 50% 50%;
           background-repeat: no-repeat;
           background-size: cover;
@@ -89,6 +89,8 @@ const CategoryCard = ({category}) => {
           font-size: 14px;
           margin-bottom: 15px;
           position: relative;
+          text-shadow: 1px 1px 5px ${BLACK}, -1px -1px 5px ${BLACK}, 1px 1px 5px ${Color(BLACK).alpha(.1)};
+          transition: text-shadow .2s;
         }
         .category-card::before {
           content: '';
@@ -97,7 +99,7 @@ const CategoryCard = ({category}) => {
         }
         .inner {
           align-items: center;
-          background-color: ${Color(BLACK).fade(.15)};
+          background-color: ${Color(BLACK).fade(.6)};
           bottom: 0;
           display: flex;
           left: 0;
@@ -110,13 +112,20 @@ const CategoryCard = ({category}) => {
           transition: background-color .2s;
           z-index: 2;
         }
+        .category-card:focus,
+        .category-card:hover {
+          text-shadow: 1px 1px 5px ${BLACK}, -1px -1px 5px ${BLACK}, 1px 1px 5px ${BLACK};
+        }
         .category-card:focus .inner,
         .category-card:hover .inner {
-          background-color: ${Color(BLACK).fade(.4)};
+          background-color: ${Color(BLACK).fade(.8)};
         }
         @media (min-width: 768px) {
           .category-card {
             font-size: 22px;
+          }
+          .inner {
+            background-color: ${Color(BLACK).fade(.4)};
           }
         }
       `}</style>
