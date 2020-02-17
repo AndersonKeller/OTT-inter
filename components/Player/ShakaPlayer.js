@@ -42,7 +42,6 @@ class ShakaPlayer extends React.PureComponent
 
   initPlayer() {
     // Create a Player instance.
-    var manifestUri = this.link
     const video = this.videoComponent.current
     const videoContainer = this.videoContainer.current
     var player = new shaka.Player(video)
@@ -71,6 +70,15 @@ class ShakaPlayer extends React.PureComponent
 
     // Try to load a manifest.
     // This is an asynchronous process.
+    var manifestUri = this.link
+    /* const support = await shaka.Player.probeSupport();
+    if (support.manifest.mpd) {
+      console.log('mpd supported')
+      // manifestUri = 'foo.mpd';
+    } else {
+      console.log('hls supported')
+      // manifestUri = 'foo.m3u8';
+    } */
     player.load(manifestUri).then(function() {
       // This runs if the asynchronous load is successful.
       console.log('The video has now been loaded!')
