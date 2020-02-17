@@ -46,20 +46,14 @@ const passwordPage = ({ layoutProps, user, updateUser }) => {
     password_confirmation: nullable8CharMinString
       .max(255, 'Debe tener 255 caracteres o menos')
       .oneOf([Yup.ref('password'), null], 'Las contraseñas deben coincidir'),
-    oldpassword: nullable8CharMinString,
+    oldpassword: Yup.string().nullable()
   })
 
-  const handleSubmit = async  ({ email, oldpassword, password, password_confirmation }, actions) => {
+  const handleSubmit = async  (fields, actions) => {
     try{
-      const res = await api().post('password',{
-        email,
-        password,
-        password_confirmation,
-        oldpassword,
-      })
+      const res = await api().post('password', fields)
       console.table(res)
       let message = ''
-      // updateUser(res.data)
       if( ! (message = res.data.message) ) {
         message = "Cambio de datos completo."
       }
@@ -98,22 +92,28 @@ const passwordPage = ({ layoutProps, user, updateUser }) => {
       {({ isSubmitting, status, values }) => (<Form>
         { status && <div className="invalid-feedback"><h5>{status.error}</h5></div> }
                 <FormGroup>
-                  <FkInputText name="username" type="hidden" value={values.email} label="Username" autoComplete="username" />
+                  <FkInputText name="username" type="hidden"
+                    label="Username" autoComplete="username" value={values.email} />
                 </FormGroup>
                 <FormGroup>
-                  <FkInputText name="oldpassword" type="password" label="Contraseña anterior" autoComplete="current-password" />
+                  <FkInputText name="oldpassword" type="password"
+                    label="Contraseña anterior" autoComplete="current-password" />
                 </FormGroup>
                 <FormGroup>
-                  <FkInputText name="password" type="password" label="Nueva contraseña" autoComplete="new-password" />
+                  <FkInputText name="password" type="password"
+                    label="Nueva contraseña" autoComplete="new-password" />
                 </FormGroup>
                 <FormGroup>
-                  <FkInputText name="password_confirmation" type="password" label="Confirmar nueva contraseña" autoComplete="new-password" />
+                  <FkInputText name="password_confirmation" type="password"
+                    label="Confirmar nueva contraseña" autoComplete="new-password" />
                 </FormGroup>
           <hr />
 
           <div className="row">
             <div className="col-md-12 text-right">
-              <Button color="danger" type="submit" disabled={isSubmitting}>Cambiar datos</Button>
+              <Button color="danger" type="submit" disabled={isSubmitting}>
+                Cambiar datos
+              </Button>
             </div>
           </div>
           <style jsx>{`
