@@ -17,20 +17,70 @@ const ReceiptPage = ({ api }) => {
             <p>CNPJ: 13.590.585/0002-70</p>
           </p>
           <p className="email">breakearth@gmail.com</p>
-          <div className="receipt-info">
+          <dl className="payment">
+            <dt>Receipt ID:</dt>
+            <dd>JF83-FN43</dd>
+          </dl>
+        </header>
+        <div className="mobile-table">
+          <div className="mobile-row">
             <dl>
-              <dt>Receipt ID:</dt>
-              <dd>JF83-FN43</dd>
+              <dt>Fecha</dt>
+              <dd>09/01/2020</dd>
+            </dl>
+            <dl>
+              <dt>Descripción</dt>
+              <dd>River+</dd>
+            </dl>
+            <dl>
+              <dt>Periodo</dt>
+              <dd>09/01/2020—08/02/2020</dd>
+            </dl>
+            <dl>
+              <dt>Medio de Pago</dt>
+              <dd>VISA •••• •••• •••• 1627</dd>
+            </dl>
+            <dl>
+              <dt>Subtotal</dt>
+              <dd>$99,00</dd>
             </dl>
           </div>
-        </header>
+          <div className="mobile-row">
+            <dl>
+              <dt>Fecha</dt>
+              <dd>09/01/2020</dd>
+            </dl>
+            <dl>
+              <dt>Descripción</dt>
+              <dd>River+</dd>
+            </dl>
+            <dl>
+              <dt>Periodo</dt>
+              <dd>09/01/2020—08/02/2020</dd>
+            </dl>
+            <dl>
+              <dt>Medio de Pago</dt>
+              <dd>VISA •••• •••• •••• 1627</dd>
+            </dl>
+            <dl>
+              <dt>Subtotal</dt>
+              <dd>$99,00</dd>
+            </dl>
+          </div>
+          <div className="mobile-row">
+            <dl>
+              <dt>Total</dt>
+              <dd>$99,00</dd>
+            </dl>
+          </div>
+        </div>
         <table>
           <thead>
             <tr>
               <th>Fecha</th>
               <th>Descripción</th>
               <th>Periodo</th>
-              <th>Total</th>
+              <th>Subtotal</th>
             </tr>
           </thead>
           <tbody>
@@ -52,9 +102,8 @@ const ReceiptPage = ({ api }) => {
         </dl>
       </div>
       <style jsx>{`
-        .receipt-page {
-          background: #f1f1f1;
-          height: 100%;
+        .body {
+          background: #f1f1f1 !important;
         }
         .receipt {
           font-size: 14px;
@@ -99,7 +148,7 @@ const ReceiptPage = ({ api }) => {
           height: 40px;
         }
         td:last-of-type, th:last-of-type {
-          max-width: 35px;
+
           text-align: right;
         }
         tr:last-of-type > td {
@@ -115,6 +164,37 @@ const ReceiptPage = ({ api }) => {
         }
         dd {
           margin-left: 40px;
+        }
+        .mobile-table {
+          font-size: 16px;
+          margin-top: 40px;
+          margin-bottom: 20px;
+          display: none;
+        }
+        .mobile-row {
+          border-top: 1px solid;
+          margin-top: 20px;
+          padding-top: 10px;
+        }
+        .mobile-row dt, .mobile-row dd {
+          display: inline;
+        }
+        .mobile-row dd {
+          float:right;
+        }
+        .mobile-row dl {
+          margin-bottom: 0.5rem;
+        }
+        .mobile-row:last-of-type dt, .mobile-row:last-of-type dd {
+          font-weight: bold;
+        }
+        @media only screen and (max-width: 767px) {
+          .mobile-table {
+            display: block;
+          }
+          table {
+            display: none;
+          }
         }
       `}</style>
     </div>
