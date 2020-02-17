@@ -32,7 +32,7 @@ const Header = ({ closed, layoutColor, menus }) => {
     return _ => {
       window.removeEventListener('scroll', handleScroll)
     }
-  })
+  }, [])
 
   // classes
   const classes = classNames('header', {
