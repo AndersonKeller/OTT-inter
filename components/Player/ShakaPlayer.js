@@ -12,7 +12,7 @@ class ShakaPlayer extends React.PureComponent
     this.videoContainer = React.createRef()
     this.onErrorEvent = this.onErrorEvent.bind(this)
     this.onError = this.onError.bind(this)
-    this.link = this.props.link ? this.props.link : null
+    this.media = this.props.media
     this.poster = this.props.poster ? this.props.poster : null
     this.height = this.props.height ? this.props.height : 400
     this.width = this.props.width ? this.props.width : 600
@@ -40,7 +40,7 @@ class ShakaPlayer extends React.PureComponent
     }
   }
 
-  initPlayer() {
+  async initPlayer() {
     // Create a Player instance.
     const video = this.videoComponent.current
     const videoContainer = this.videoContainer.current
@@ -68,17 +68,29 @@ class ShakaPlayer extends React.PureComponent
     // Listen for error events.
     player.addEventListener('error', this.onErrorEvent)
 
+    // Determine if it must load mpd or hls
+    const hls_type_id = 1
+    const mpd_type_id = 2
+    const hls_link = this.media ? this.media.movie_links.find(element => {
+      return element.movie_link_type_id === hls_type_id
+    }) : ''
+    const mpd_link = this.media ? this.media.movie_links.find(element => {
+      return element.movie_link_type_id === mpd_type_id
+    }) : ''
+    const support = await shaka.Player.probeSupport();
+    const manifestUri = support.manifest.mpd ? mpd_link.url : hls_link.url
+
+    /* esse funciona: */
+    // const manifestUri = 'https://s3-us-west-1.amazonaws.com/videos.in/dale/dash/la+copa+eterna.mpd'
+
+    /* esses non: */
+    // const manifestUri = 'https://story-video-out.s3-us-west-1.amazonaws.com/teste/DASHIndex.mpd'
+    // const manifestUri = 'https://story-video-out.s3-us-west-1.amazonaws.com/teste/HLSIndex.m3u8'
+
+    console.log('Suporta ' + (support.manifest.mpd ? 'mpd' : 'hls'), manifestUri)
+
     // Try to load a manifest.
     // This is an asynchronous process.
-    var manifestUri = this.link
-    /* const support = await shaka.Player.probeSupport();
-    if (support.manifest.mpd) {
-      console.log('mpd supported')
-      // manifestUri = 'foo.mpd';
-    } else {
-      console.log('hls supported')
-      // manifestUri = 'foo.m3u8';
-    } */
     player.load(manifestUri).then(function() {
       // This runs if the asynchronous load is successful.
       console.log('The video has now been loaded!')

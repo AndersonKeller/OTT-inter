@@ -11,7 +11,6 @@ export default function BlockedPlayer({ image = '', media}) {
   const [ video, setVideo ] = useState(user ? 1 : 0)
   const autoPlay = IS_PRODUCTION
   const { openAuthModal } = useContext(AuthModalContext)
-  const [link,setLink] = useState(media.video_link.ready_url)
 
   // open auth modal
   const handleAuth = e => {
@@ -24,19 +23,14 @@ export default function BlockedPlayer({ image = '', media}) {
     setVideo(user ? 1 : 0)
   }, [user])
 
-  useEffect(_ => {
-    setLink(media.video_link.ready_url + '?' + Math.round(Math.random() * 999))
-    console.log(link)
-  }, [media])
-
   return (
     <div className="player">
       { video ? (
-        (media && media.video_link && media.video_link.ready_url) ? (
+        (media && media.movie_links && media.movie_links.length) ? (
           <div style={{ position:'relative' }}>
             <Player
               height="100%"
-              link={link}
+              media={media}
               poster={image}
               style={{ padding: '56.44% 0 0 0', position: 'relative' }}
               width="100%"
