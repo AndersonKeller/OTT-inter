@@ -73,12 +73,13 @@ class ShakaPlayer extends React.PureComponent
     const mpd_type_id = 2
     const hls_link = this.media ? this.media.movie_links.find(element => {
       return element.movie_link_type_id === hls_type_id
-    }) : ''
+    }) : null
     const mpd_link = this.media ? this.media.movie_links.find(element => {
       return element.movie_link_type_id === mpd_type_id
-    }) : ''
+    }) : null
     const support = await shaka.Player.probeSupport();
-    const manifestUri = support.manifest.mpd ? mpd_link.url : hls_link.url
+    const manifestUri = support.manifest.mpd && mpd_link ? mpd_link.url :
+      hls_link ? hls_link.url : null
 
     /* esse funciona: */
     // const manifestUri = 'https://s3-us-west-1.amazonaws.com/videos.in/dale/dash/la+copa+eterna.mpd'

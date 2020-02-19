@@ -23,10 +23,15 @@ export default function BlockedPlayer({ image = '', media}) {
     setVideo(user ? 1 : 0)
   }, [user])
 
+  const youtube_type_id = 3
+  const youtube_link = media.movie_links.find(element => {
+    return element.movie_link_type_id === youtube_type_id
+  })
+
   return (
     <div className="player">
       { video ? (
-        (media && media.movie_links && media.movie_links.length) ? (
+        (media && media.movie_links && media.movie_links.length && ! youtube_link) ? (
           <div style={{ position:'relative' }}>
             <Player
               height="100%"
@@ -43,7 +48,7 @@ export default function BlockedPlayer({ image = '', media}) {
               allowFullScreen
               className={`embed-responsive-item`}
               frameBorder="0"
-              src={`${media.video_link.iframeurl}?${autoPlay ? 'autoplay=1' : ''}`}
+              src={`${youtube_link.url}?${autoPlay ? 'autoplay=1' : ''}`}
             ></iframe>
           </div>
         )
