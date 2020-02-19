@@ -1,0 +1,12 @@
+{
+  "alias": ["dalecacique.now.sh"],
+  "build": {
+    "env": {
+      "TENANT": "dalecacique"
+    }
+  },
+  "routes": [
+    { "src": "/login", "dest": "/?modal=login" }
+  ],
+  "scope": "giovannipds"
+}

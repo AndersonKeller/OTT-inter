@@ -1,0 +1,12 @@
+{
+  "alias": ["rivermas.now.sh", "dalecampeon.now.sh"],
+  "build": {
+    "env": {
+      "TENANT": "river"
+    }
+  },
+  "routes": [
+    { "src": "/login", "dest": "/?modal=login" }
+  ],
+  "scope": "giovannipds"
+}
