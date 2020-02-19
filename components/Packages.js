@@ -2,7 +2,17 @@
 import FormGroup from './layout/AuthModal/FormGroup'
 
 // packages component
-const Packages = ({ error, items, loading, onChange, package_id, validationError, readOnly, discount }) => {
+const Packages = ({
+  error,
+  items,
+  loading,
+  onChange,
+  package_id,
+  validationError,
+  readOnly,
+  discount,
+  supportersDiscount,
+}) => {
   // error handling
   if (error) {
     return <div>No se pueden cargar paquetes</div>
@@ -15,7 +25,7 @@ const Packages = ({ error, items, loading, onChange, package_id, validationError
         { items && items.map((item, key) => (
           <div className="col-6 col-md" {...{key}}>
             <FormGroup>
-              <PackageRadio {...{onChange, readOnly, discount, package_id, plan: item}} />
+              <PackageRadio {...{onChange, readOnly, discount, supportersDiscount, package_id, plan: item}} />
             </FormGroup>
           </div>
         )) }
@@ -36,7 +46,40 @@ const Packages = ({ error, items, loading, onChange, package_id, validationError
 }
 
 // radio component
-export const PackageRadio = ({ onChange, package_id, plan, readOnly, discount }) => {
+export const PackageRadio = ({
+  onChange,
+  package_id,
+  plan,
+  readOnly,
+  discount,
+  supportersDiscount,
+}) => {
+
+  if (supportersDiscount) {
+
+    if (plan.name === '1 mes') {
+      plan.amount_with_discount = Math.round(plan.amount * .9)
+    } else if (plan.name === '3 meses') {
+      plan.amount_with_discount = Math.round(plan.amount * .85)
+    } else if (plan.name === '6 meses') {
+      plan.amount_with_discount = Math.round(plan.amount * .8)
+    } else if (plan.name === '1 año') {
+      plan.amount_with_discount = Math.round(plan.amount * .75)
+    } else {
+      plan.amount_with_discount = 0
+    }
+
+  } else if (discount) {
+
+    if (plan.name === '1 mes') {
+      plan.amount_with_discount = Math.round(plan.amount * .95)
+    } else if (plan.name === '3 meses') {
+      plan.amount_with_discount = Math.round(plan.amount * .9)
+    } else {
+      plan.amount_with_discount = Math.round(plan.amount * .85)
+    }
+  }
+
   return (
     <label className="text-center">
       <input
@@ -47,17 +90,29 @@ export const PackageRadio = ({ onChange, package_id, plan, readOnly, discount })
         value={plan.id}
         readOnly={readOnly}
       />
-      <span className="fake-input">
-        <span className="d-block name">{ plan.name }</span>
-        <span className={discount ? 'discount-value' : 'value'}>
-          { (plan.currency === 'ars' ? '$' : '') + plan.amount }
 
-        </span>
-        {discount && <span className="value">
-            { (plan.currency === 'ars' ? '$' : '') + Math.round(plan.amount*0.8) }
-          </span>}
+      <span className="fake-input">
+
+        {/* name */}
+        <span className="d-block name">{ plan.name }</span>
+
+        {/* value */}
+        { (plan.amount !== plan.amount_with_discount ||
+          plan.amount === 0 && ! (discount || supportersDiscount)) && (
+          <span className={(discount || supportersDiscount) ? 'discount-value' : 'value'}>
+            { (plan.currency === 'ars' ? '$' : '') + plan.amount }
+          </span>
+        ) }
+
+        {/* discount */}
+        {(discount || supportersDiscount) && (
+          <span className="value">
+            { (plan.currency === 'ars' ? '$' : '') + plan.amount_with_discount }
+          </span>
+        )}
 
       </span>
+
       <style jsx>{`
         label {
           cursor: pointer;

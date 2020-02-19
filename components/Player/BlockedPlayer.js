@@ -6,7 +6,7 @@ import UserContext from '~/contexts/UserContext'
 import { IS_PRODUCTION } from '~/constants/constants'
 import { AuthModalContext } from '~/contexts/AuthModalContext'
 
-export default function BlockedPlayer({ image = '', video_link = '' }) {
+export default function BlockedPlayer({ image = '', media}) {
   const { user } = useContext(UserContext)
   const [ video, setVideo ] = useState(user ? 1 : 0)
   const autoPlay = IS_PRODUCTION
@@ -23,20 +23,23 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
     setVideo(user ? 1 : 0)
   }, [user])
 
+  const youtube_type_id = 3
+  const youtube_link = media.movie_links.find(element => {
+    return element.movie_link_type_id === youtube_type_id
+  })
+
   return (
     <div className="player">
       { video ? (
-        (video_link.ready_url) ? (
+        (media && media.movie_links && media.movie_links.length && ! youtube_link) ? (
           <div style={{ position:'relative' }}>
-            {/* <ShakaPlayer autoPlay src={video_link.ready_url} /> */}
-            {<Player
-              autoPlay={autoPlay}
+            <Player
               height="100%"
-              link={ video_link.ready_url }
-              poster={ image }
-              style={{ padding:'56.44% 0 0 0', position:'relative' }}
+              media={media}
+              poster={image}
+              style={{ padding: '56.44% 0 0 0', position: 'relative' }}
               width="100%"
-            />}
+            />
           </div>
         ) : (
           <div className="embed-responsive embed-responsive-16by9" >
@@ -45,7 +48,7 @@ export default function BlockedPlayer({ image = '', video_link = '' }) {
               allowFullScreen
               className={`embed-responsive-item`}
               frameBorder="0"
-              src={`${video_link.iframeurl}?${autoPlay ? 'autoplay=1' : ''}`}
+              src={`${youtube_link.url}?${autoPlay ? 'autoplay=1' : ''}`}
             ></iframe>
           </div>
         )

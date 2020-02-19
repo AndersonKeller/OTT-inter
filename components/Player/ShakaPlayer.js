@@ -1,17 +1,18 @@
 import React from 'react'
 import 'shaka-player/dist/controls.css'
 import shaka from 'shaka-player/dist/shaka-player.ui.js' // no SSR support
+import { IS_PRODUCTION } from '~/constants/constants'
 
 class ShakaPlayer extends React.PureComponent
 {
   constructor(props) {
     super(props)
-    this.autoPlay = this.props.autoPlay
+    this.autoPlay = this.props.autoPlay || true
     this.videoComponent = React.createRef()
     this.videoContainer = React.createRef()
     this.onErrorEvent = this.onErrorEvent.bind(this)
     this.onError = this.onError.bind(this)
-    this.link = this.props.link ? this.props.link : null
+    this.media = this.props.media
     this.poster = this.props.poster ? this.props.poster : null
     this.height = this.props.height ? this.props.height : 400
     this.width = this.props.width ? this.props.width : 600
@@ -39,9 +40,8 @@ class ShakaPlayer extends React.PureComponent
     }
   }
 
-  initPlayer() {
+  async initPlayer() {
     // Create a Player instance.
-    var manifestUri = this.link
     const video = this.videoComponent.current
     const videoContainer = this.videoContainer.current
     var player = new shaka.Player(video)
@@ -68,6 +68,28 @@ class ShakaPlayer extends React.PureComponent
     // Listen for error events.
     player.addEventListener('error', this.onErrorEvent)
 
+    // Determine if it must load mpd or hls
+    const hls_type_id = 1
+    const mpd_type_id = 2
+    const hls_link = this.media ? this.media.movie_links.find(element => {
+      return element.movie_link_type_id === hls_type_id
+    }) : null
+    const mpd_link = this.media ? this.media.movie_links.find(element => {
+      return element.movie_link_type_id === mpd_type_id
+    }) : null
+    const support = await shaka.Player.probeSupport();
+    const manifestUri = support.manifest.mpd && mpd_link ? mpd_link.url :
+      hls_link ? hls_link.url : null
+
+    /* esse funciona: */
+    // const manifestUri = 'https://s3-us-west-1.amazonaws.com/videos.in/dale/dash/la+copa+eterna.mpd'
+
+    /* esses non: */
+    // const manifestUri = 'https://story-video-out.s3-us-west-1.amazonaws.com/teste/DASHIndex.mpd'
+    // const manifestUri = 'https://story-video-out.s3-us-west-1.amazonaws.com/teste/HLSIndex.m3u8'
+
+    console.log('Suporta ' + (support.manifest.mpd ? 'mpd' : 'hls'), manifestUri)
+
     // Try to load a manifest.
     // This is an asynchronous process.
     player.load(manifestUri).then(function() {
@@ -83,6 +105,7 @@ class ShakaPlayer extends React.PureComponent
           autoPlay={this.autoPlay}
           className='video-player'
           height={this.height}
+          muted={!IS_PRODUCTION}
           poster={this.poster}
           ref={this.videoComponent}
           style={{ outline: 0 }}

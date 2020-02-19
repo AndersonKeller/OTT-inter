@@ -58,7 +58,7 @@ const Cover = ({category, media}) => {
         <div className="col-12 col-md-5 offset-md-1">
           <div className="info">
             <div className="heading">
-              <h1>{media.title}</h1>
+              <h1 className="h2">{media.title}</h1>
               {media.publish_year && (
                 <div className="year">{media.publish_year}</div>
               )}

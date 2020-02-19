@@ -52,6 +52,9 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
     if (POS) {
       POS.setPublicKey(businessUnitPublicKey)
       POS.setEnvironment(payUEnv)
+      POS.setStyle({base: {color: 'white', fontSize: '16px', padding:'0px 3px', pan:{ width:'200px'}}})
+      POS.setCardNumberPlaceholder('Tarjeta de crédito')
+      POS.setExpirationDatePlaceholder('MM/AA');
       setIsPayUReady(true)
     }
   }, [POS])
@@ -82,6 +85,15 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
         .h2 {
           margin-bottom: 10px;
         }
+        input {
+          color: white;
+          /*
+          background-color: white !important;
+          border-radius: 2px;
+           height: 35px !important;
+          padding: 10px;
+          margin: 0px 2px;*/
+      }
       `}</style>
     </Layout>
   )
@@ -99,6 +111,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
   const [ genres, setGenres ] = useState()
   const [ countries, setCountries ] = useState()
   const [ discount, setDiscount ] = useState(false)
+  const [ supportersDiscount, setSupportersDiscount ] = useState()
 
   const [ values, setValues ] = useState({
     name: '',
@@ -112,6 +125,8 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     payment_os: null,
     cash_payment_method_id: null,
     terms: null,
+    supporter_id: '',
+    alternate_supporter_id: '',
   })
 
   const [ loading, setLoading ] = useState()
@@ -145,7 +160,6 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         city: user.city ? user.city : '',
         country_id: user.country_id ? user.country_id : '',
         package_id: user.package_id_intention ? user.package_id_intention : '',
-        payment_method_id: user.payment_method_id ? user.payment_method_id : null,
       })
     }
   }, [user])
@@ -161,8 +175,20 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     })
   }
 
-  /* handle general input change */
-  const handleDiscountChange = e => setDiscount(e.target.value == '12345')
+  const handleDiscountChange = e => {
+    setValues({
+      ...values,
+      alternate_supporter_id: e.target.value,
+    })
+    setDiscount(e.target.value.length === 5)
+  }
+  const handleSupportersDiscountChange = e => {
+    setValues({
+      ...values,
+      supporter_id: e.target.value,
+    })
+    setSupportersDiscount(e.target.value.length === 5)
+  }
 
   /* handle package change */
   function onPackageChange(e) {
@@ -206,13 +232,18 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     return promise
   }
 
+  // is card payment
+  const credit_card_id = 1
+  const debit_card_id = 2
+  const isCardPayment = [credit_card_id, debit_card_id].includes(values.payment_method_id)
+
   /* submit */
   const handleSubmit = async e => {
     e.preventDefault()
     setLoading(true)
     try {
       const paymentData = values.package_id && values.package_id !== free_package_id &&
-        values.payment_method_id && values.payment_method_id === 1 ? await createToken() : null
+        values.payment_method_id && isCardPayment ? await createToken() : null
       const data = { ...values, payment_os: paymentData }
       try {
         const { data: { user, order } } = await api.post('register/complete', data)
@@ -401,13 +432,16 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
           <div className="col-md-6">
             <div className="data">
               <FormGroup>
-                <Label htmlFor="socio">Socio River</Label>
+                <Label htmlFor="supporter_id">Socio {CONFIG.shortClubName}</Label>
                 <Input
-                  id="socio"
-                  name="socio"
-                  onChange={handleDiscountChange}
+                  disabled={values.alternate_supporter_id}
+                  id="supporter_id"
+                  maxLength={5}
+                  name="supporter_id"
+                  onChange={handleSupportersDiscountChange}
                   type="text"
-                  style={discount ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
+                  style={supportersDiscount ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
+                  value={values.supporter_id}
                 />
               </FormGroup>
             </div>
@@ -415,13 +449,16 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
           <div className="col-md-6">
             <div className="localization">
               <FormGroup>
-                <Label htmlFor="somos">Somos River</Label>
+                <Label htmlFor="alternate_supporter_id">Somos {CONFIG.shortClubName}</Label>
                 <Input
-                  id="somos"
-                  name="somos"
+                  disabled={values.supporter_id}
+                  id="alternate_supporter_id"
+                  maxLength={5}
+                  name="alternate_supporter_id"
                   onChange={handleDiscountChange}
                   type="text"
                   style={discount ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
+                  value={values.alternate_supporter_id}
                 />
               </FormGroup>
             </div>
@@ -437,6 +474,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         package_id: values.package_id,
         validationError: ! loading && error && error.errors && error.errors.package_id,
         discount,
+        supportersDiscount,
       }} />
 
       {/* payment */}
@@ -445,6 +483,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
           api,
           cash_payment_method_id: values.cash_payment_method_id,
           error,
+          isCardPayment,
           isPayUReady,
           loading,
           onCashPaymentMethodChange,
@@ -472,7 +511,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
             />
             <span>He leído y acepto <Link href="/terminos-y-politicas">
                 <a target="_blank">el contrato</a>
-              </Link> de Dale Campéon</span>
+              </Link> de {CONFIG.appName}</span>
           </label>
           { ! loading && error && error.errors && error.errors.terms && (
             <div className="invalid-feedback">{error.errors.terms}</div>
@@ -521,6 +560,7 @@ const Payment = ({
   api,
   cash_payment_method_id,
   error,
+  isCardPayment,
   isPayUReady,
   loading,
   onCashPaymentMethodChange,
@@ -545,10 +585,10 @@ const Payment = ({
 
   // init card secure fields
   useEffect(_ => {
-    if (isPayUReady && payment_method_id === 1) {
+    if (isPayUReady && isCardPayment) {
       POS.initSecureFields('card-secure-fields')
     }
-  }, [isPayUReady, payment_method_id])
+  }, [isPayUReady, isCardPayment])
 
   // cash payment methods
   const [ cashPaymentMethods, setCashPaymentMethods ] = useState()
@@ -561,6 +601,7 @@ const Payment = ({
     }
     getCashPaymentMethods()
   }, [])
+
 
   return (
     <div className="row">
@@ -590,13 +631,13 @@ const Payment = ({
 
             <div className="col-md-6">
 
-              {/* credit card */}
-              { payment_method_id === 1 ? (
+              {/* credit / debit card */}
+              {isCardPayment ? (
                 <div className="card-inputs">
 
                   {/* mandatory data */}
                   <FormGroup>
-                    <Label htmlFor="cardholder-name">Nombre impreso</Label>
+                    <Label htmlFor="cardholder-name">Nombre impreso en tarjeta</Label>
                     <Input id="cardholder-name" name="cardholder-name" required={requireds} type="text" />
                   </FormGroup>
 

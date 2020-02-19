@@ -5,6 +5,7 @@ const Input = ({
   autoFocus,
   defaultValue,
   id,
+  maxLength,
   name,
   onChange,
   onFocus,
@@ -13,6 +14,8 @@ const Input = ({
   style,
   type = "text",
   value,
+  readOnly,
+  disabled
 }) => {
 
   // autofocus is bugging if has states/onChanges
@@ -32,6 +35,7 @@ const Input = ({
         autoComplete,
         defaultValue,
         id,
+        maxLength,
         name,
         onChange,
         onFocus,
@@ -40,6 +44,8 @@ const Input = ({
         style,
         type,
         value,
+        readOnly,
+        disabled
       }}
     />
     <style jsx>{`
@@ -47,6 +53,9 @@ const Input = ({
         border-color: rgba(var(--gray2-rgb), .55);
         border-width: 2px;
         color: var(--black);
+      }
+      .form-control[disabled] {
+        background-color: var(--gray);
       }
     `}</style>
   </>

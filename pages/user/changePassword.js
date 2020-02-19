@@ -15,9 +15,7 @@ import FormGroup    from '../../components/layout/AuthModal/FormGroup'
 import Label        from '../../components/layout/AuthModal/Label'
 import Input        from '../../components/layout/AuthModal/Input'
 import withAuth     from '../../components/withAuth/withAuth'
-import Select       from '../../components/Select/Select'
 import Layout       from '../../components/layout/Layout'
-import Packages     from '../../components/Packages'
 import Button       from '../../components/button'
 import api          from '../../services/api'
 import { CONFIG }   from '../../config'
@@ -30,7 +28,7 @@ const passwordPage = ({ layoutProps, user, updateUser }) => {
     //field.value= field.value || undefined;
     return (
       <>
-        <Label htmlFor={props.id || props.name}>{label}</Label>
+        { props.type == 'hidden' ? '' : <Label htmlFor={props.id || props.name}>{label}</Label> }
         <Input style={{color: 'black'}} {...field} {...props} />
         {/* {console.table(meta)} */}
         {meta.touched && meta.error ? ( <div className="invalid-feedback">{ meta.error }</div> ) : null}
@@ -48,20 +46,14 @@ const passwordPage = ({ layoutProps, user, updateUser }) => {
     password_confirmation: nullable8CharMinString
       .max(255, 'Debe tener 255 caracteres o menos')
       .oneOf([Yup.ref('password'), null], 'Las contraseñas deben coincidir'),
-    oldpassword: nullable8CharMinString,
+    oldpassword: Yup.string().nullable()
   })
 
-  const handleSubmit = async  ({ email, oldpassword, password, password_confirmation }, actions) => {
+  const handleSubmit = async  (fields, actions) => {
     try{
-      const res = await api().post('password',{
-        email,
-        password,
-        password_confirmation,
-        oldpassword,
-      })
+      const res = await api().post('password', fields)
       console.table(res)
       let message = ''
-      // updateUser(res.data)
       if( ! (message = res.data.message) ) {
         message = "Cambio de datos completo."
       }
@@ -90,31 +82,38 @@ const passwordPage = ({ layoutProps, user, updateUser }) => {
         // initialTouched={{name: true, country: true, document: true}}
         initialValues={
           (({ email }) => {
-            return { email }})(user)
+            return { email, oldpassword: '', password: '', password_confirmation: '' }})(user)
         }
         validationSchema={
           getYupSchema()
         }
         onSubmit={ handleSubmit }
       >
-      {({ isSubmitting, status }) => (<Form>
+      {({ isSubmitting, status, values }) => (<Form>
         { status && <div className="invalid-feedback"><h5>{status.error}</h5></div> }
-
                 <FormGroup>
-                  <FkInputText name="password" type="password" label="Nueva contraseña" autoComplete="new-password" />
+                  <FkInputText name="username" type="hidden"
+                    label="Username" autoComplete="username" value={values.email} />
                 </FormGroup>
                 <FormGroup>
-                  <FkInputText name="password_confirmation" type="password" label="Confirmar nueva contraseña" autoComplete="new-password" />
+                  <FkInputText name="oldpassword" type="password"
+                    label="Contraseña anterior" autoComplete="current-password" />
                 </FormGroup>
                 <FormGroup>
-                  <FkInputText name="oldpassword" type="password" label="Contraseña" autoComplete="current-password" />
+                  <FkInputText name="password" type="password"
+                    label="Nueva contraseña" autoComplete="new-password" />
                 </FormGroup>
-
+                <FormGroup>
+                  <FkInputText name="password_confirmation" type="password"
+                    label="Confirmar nueva contraseña" autoComplete="new-password" />
+                </FormGroup>
           <hr />
 
           <div className="row">
             <div className="col-md-12 text-right">
-              <Button color="danger" type="submit" disabled={isSubmitting}>Cambiar datos</Button>
+              <Button color="danger" type="submit" disabled={isSubmitting}>
+                Cambiar datos
+              </Button>
             </div>
           </div>
           <style jsx>{`
@@ -138,7 +137,7 @@ const passwordPage = ({ layoutProps, user, updateUser }) => {
       </Head>
       <div className="rgpage container-fluid">
         <div className="row">
-          <div className="col-xl-8 offset-xl-2">
+          <div className="col-md-8 offset-md-2">
             <h1 className="h2">Cambiar la Contraseña</h1>
             <DataForm />
           </div>

@@ -15,7 +15,7 @@ import { STATIC_PATH, TENANT } from '~/constants/constants'
 import api from '~/services/api'
 import MediaLink from '~/components/MediaLink/MediaLink'
 
-export default function WatchPage({ errorCode, category, media, movie_links, related, layoutProps }) {
+export default function WatchPage({ errorCode, category, media, related, layoutProps }) {
   return (
     <Layout errorCode={errorCode} {...layoutProps}>
       <Head>
@@ -27,7 +27,7 @@ export default function WatchPage({ errorCode, category, media, movie_links, rel
             {/*
             <BlockedPlayer image={`${STATIC_PATH}/blurred-sample.png`} />
             */}
-            <BlockedPlayer image={ media.thumbnail2_url } video_link={ movie_links } />
+            <BlockedPlayer image={ media.thumbnail2_url } media={media} />
           </div>
           <div className="col-12 col-lg-4 d-none d-md-block">
             <Related {...{category, medias: related}} />
@@ -77,8 +77,8 @@ WatchPage.getInitialProps = async (ctx) => {
   const {slug, category: categorySlug} = ctx.query;
   try {
     const response = await api(ctx).get(`/movie/${slug}/category/${categorySlug}`)
-    const { category, movie, movie_links, related } = response.data
-    return { category, media: movie, movie_links, related }
+    const { category, movie, related } = response.data
+    return { category, media: movie, related }
   } catch (error) {
     const errorCode = 404
     return { errorCode }

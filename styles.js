@@ -107,15 +107,18 @@ export default createGlobalStyle`
   }
   h2, .h2 {
     font-family: var(--sans-serif);
-    font-size: 31px;
+    font-size: 26px;
     font-weight: bold;
     line-height: 1;
     margin-top: 0;
     margin-bottom: 0;
+    @media (min-width: 768px) {
+      font-size: 30px;
+    }
   }
 
-  /* block elements */
-  p {
+  /* block elements margin */
+  ul, p {
     margin-top: 0;
     margin-bottom: 10px;
   }
