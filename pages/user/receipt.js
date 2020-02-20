@@ -11,10 +11,10 @@ const ReceiptPage = ({ api }) => {
             <img className="img-fluid" src={`${STATIC_PATH}/logos/app_black.svg`} />
           </div>
           <p className="details">
-            <p> Entretenimento Brasil, Ltda.</p>
-            <p>Alameda Xingu, 350 - 14° andar - Alphaville Industrial</p>
-            <p>Barueri, CEP 06455-911 - SP - Brazil</p>
-            <p>CNPJ: 13.590.585/0002-70</p>
+            <p>Somosgad S.A.S</p>
+            <p>SERVICIOS DE CONSULTORES EN TECNOLOGÍA DE LA INFORMACIÓN</p>
+            <p>POLA 107 - 3B - Villa Luro - Caba</p>
+            <p>Buenos Aires</p>
           </p>
           <p className="email">breakearth@gmail.com</p>
           <dl className="payment">
