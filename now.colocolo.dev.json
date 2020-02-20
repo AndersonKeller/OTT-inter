@@ -1,0 +1,16 @@
+{
+  "alias": ["dalecacique-dev.now.sh"],
+  "build": {
+    "env": {
+      "TENANT": "dalecacique"
+    }
+  },
+  "github": {
+    "enabled": false
+  },
+  "routes": [
+    { "src": "/login", "dest": "/?modal=login" }
+  ],
+  "scope": "somosgad",
+  "version": 2
+}

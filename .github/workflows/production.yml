@@ -1,0 +1,22 @@
+
+name: Production
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    name: Deploy to Zeit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: River
+        env:
+          NOW_ORG_ID: team_WtAI5aOHuDxYRprOgqAOqdAS
+          NOW_PROJECT_ID: QmSd8njRgbgt5SjfPEvwwFHY5FfXULUd3WoeuybcHza1J4
+          NOW_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+        run:
+          now -A now.river.prod.json --prod -t $NOW_TOKEN

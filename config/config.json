@@ -6,7 +6,12 @@
     "shortClubName": "Colo-Colo",
     "supportersAKA": "Albos",
     "color": "#e12213",
-    "site": "//www.colocolo.cl/"
+    "site": "//www.colocolo.cl/",
+    "socialNetworks": [
+      { "name": "Facebook", "link": "https://www.facebook.com/colocolo/" },
+      { "name": "Instagram", "link": "https://www.instagram.com/colocolooficial/" },
+      { "name": "Twitter", "link": "https://twitter.com/colocolo" }
+    ]
   },
   "river": {
     "appName": "River Mas",

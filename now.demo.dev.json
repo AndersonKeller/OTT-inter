@@ -1,0 +1,16 @@
+{
+  "alias": ["daledemo-dev.now.sh"],
+  "build": {
+    "env": {
+      "TENANT": "river"
+    }
+  },
+  "github": {
+    "enabled": false
+  },
+  "routes": [
+    { "src": "/login", "dest": "/?modal=login" }
+  ],
+  "scope": "somosgad",
+  "version": 2
+}
