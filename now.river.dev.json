@@ -1,4 +1,5 @@
 {
+  "alias": ["rivermas-dev.now.sh"],
   "build": {
     "env": {
       "TENANT": "river"

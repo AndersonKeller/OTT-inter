@@ -1,4 +1,5 @@
 {
+  "alias": ["daledemo-dev.now.sh"],
   "build": {
     "env": {
       "TENANT": "river"

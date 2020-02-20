@@ -1,4 +1,5 @@
 {
+  "alias": ["dalecacique-dev.now.sh"],
   "build": {
     "env": {
       "TENANT": "dalecacique"
