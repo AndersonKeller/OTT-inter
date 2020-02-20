@@ -1,0 +1,12 @@
+{
+  "build": {
+    "env": {
+      "TENANT": "river"
+    }
+  },
+  "name": "river",
+  "routes": [
+    { "src": "/login", "dest": "/?modal=login" }
+  ],
+  "scope": "somosgad"
+}

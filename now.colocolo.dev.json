@@ -1,12 +1,12 @@
 {
-  "alias": ["rivermas.now.sh", "dalecampeon.now.sh"],
   "build": {
     "env": {
-      "TENANT": "river"
+      "TENANT": "dalecacique"
     }
   },
+  "name": "colocolo",
   "routes": [
     { "src": "/login", "dest": "/?modal=login" }
   ],
-  "scope": "giovannipds"
+  "scope": "somosgad"
 }

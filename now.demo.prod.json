@@ -1,12 +1,13 @@
 {
-  "alias": ["dalecacique.now.sh"],
+  "alias": ["daledemo.now.sh"],
   "build": {
     "env": {
-      "TENANT": "dalecacique"
+      "TENANT": "river"
     }
   },
+  "name": "demo",
   "routes": [
     { "src": "/login", "dest": "/?modal=login" }
   ],
-  "scope": "giovannipds"
+  "scope": "somosgad"
 }

@@ -1,0 +1,16 @@
+name: Deploys to Now
+
+on: [push]
+
+jobs:
+  publish:
+    name: Publish to prod
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v1
+
+      - name: Deploy to Zeit
+        uses: actions/zeit-now@master
+        with:
+          args: -A now.river.dev.json

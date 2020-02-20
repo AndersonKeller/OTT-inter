@@ -4,15 +4,18 @@ Built with [Next.js](https://nextjs.org/).
 
 **Please keep this project's [CHANGELOG](CHANGELOG.md) updated.**
 
+
 ## Install
 ```sh
 yarn
 ```
 
+
 ## Develop
 ```sh
 yarn dev
 ```
+
 
 ## Useful stuff
 * [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
@@ -20,27 +23,12 @@ yarn dev
 * [Syntax highlighting for styled-jsx.](https://marketplace.visualstudio.com/items?itemName=blanu.vscode-styled-jsx)
 * [WakaTime](http://wakatime.com/)
 
+
 ## Docs
 ```sh
 yarn docz:dev
 ```
 
-## Testing deploy with now
-```sh
-now --name=dalecacique
-# or
-now --name=rivermas --prod
-```
-
-### Setting now deploy alias if needed
-```sh
-now alias set deployed-url.now.sh rivermas.now.sh
-```
-
-### Removing testing deploy
-```sh
-now rm rivermas.now.sh
-```
 
 ## Info
 
@@ -56,7 +44,9 @@ warning " > slick-carousel@1.8.1" has unmet peer dependency "jquery@>=1.8.0".
 
 Don't worry, we're just using `bootstrap` to import styles for `react-bootstrap`, so it's not necessary to install these unmet peer dependencies. The same applies to `slick-carousel` that's just here to import styles so `jquery` is not needed.
 
+
 ---
+
 
 ## Utilities
 

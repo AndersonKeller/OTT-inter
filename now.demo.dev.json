@@ -4,7 +4,9 @@
       "TENANT": "river"
     }
   },
+  "name": "demo",
   "routes": [
     { "src": "/login", "dest": "/?modal=login" }
-  ]
+  ],
+  "scope": "somosgad"
 }

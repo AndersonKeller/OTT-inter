@@ -1,0 +1,13 @@
+{
+  "alias": ["colocolo.now.sh"],
+  "build": {
+    "env": {
+      "TENANT": "dalecacique"
+    }
+  },
+  "name": "colocolo",
+  "routes": [
+    { "src": "/login", "dest": "/?modal=login" }
+  ],
+  "scope": "somosgad"
+}
