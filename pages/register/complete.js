@@ -43,6 +43,30 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
   const payUEnv = 'test'
   const businessUnitPublicKey = '88985036-6530-4b5a-a7ec-c4e07ec07f6c'
   const [ isPayUReady, setIsPayUReady ] = useState(false)
+  const POSStyle = {
+    base: {
+      borderRadius: '.15rem',
+      backgroundColor: 'white',
+      height: 'calc(1.5em + .75rem + 2px)',
+      fontSize: '12px',
+      padding:'0px 3px',
+      marginLeft: '5px',
+      cardImage: {
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0,
+        margin: 0,
+      },
+      pan:{
+        width:'160px',
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0,
+        marginLeft: 0,
+      },
+      expirationDate: { width: '47px' },
+      secureFields: { left: '40px' },
+      cvv: { width: '35px' }
+    }
+  }
 
   if (status === ScriptStatus.ERROR) {
     console.log('Failed to load POS API')
@@ -52,7 +76,7 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
     if (POS) {
       POS.setPublicKey(businessUnitPublicKey)
       POS.setEnvironment(payUEnv)
-      POS.setStyle({base: {color: 'white', fontSize: '16px', padding:'0px 3px', pan:{ width:'200px'}}})
+      POS.setStyle(POSStyle)
       POS.setCardNumberPlaceholder('Tarjeta de crédito')
       POS.setExpirationDatePlaceholder('MM/AA');
       setIsPayUReady(true)
@@ -85,15 +109,6 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
         .h2 {
           margin-bottom: 10px;
         }
-        input {
-          color: white;
-          /*
-          background-color: white !important;
-          border-radius: 2px;
-           height: 35px !important;
-          padding: 10px;
-          margin: 0px 2px;*/
-      }
       `}</style>
     </Layout>
   )
