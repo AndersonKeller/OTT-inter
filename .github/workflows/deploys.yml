@@ -18,6 +18,9 @@ jobs:
 
       - name: Deploy to Zeit
         if: github.ref == 'refs/heads/dev'
-        uses: actions/zeit-now@master
+        uses: amondnet/now-deployment@v2
         with:
-          args: -A now.river.dev.json
+          now-args: -A now.river.dev.json
+          now-org-id: 'team_WtAI5aOHuDxYRprOgqAOqdAS' # Required
+          now-project-id: 'QmXGZT7Mta1bgttLGhBLdzShPyWSauKi7f2x3DtN1A17ma' # Required
+          zeit-token: ${{ secrets.ZEIT_TOKEN }} # Required

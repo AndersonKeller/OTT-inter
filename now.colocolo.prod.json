@@ -8,9 +8,9 @@
   "github": {
     "enabled": false
   },
-  "name": "colocolo",
   "routes": [
     { "src": "/login", "dest": "/?modal=login" }
   ],
-  "scope": "somosgad"
+  "scope": "somosgad",
+  "version": 2
 }
