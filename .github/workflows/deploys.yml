@@ -18,5 +18,18 @@ jobs:
 
       - name: Now
         if: github.ref == 'refs/heads/dev'
+        env:
+          NOW_ORG_ID: team_WtAI5aOHuDxYRprOgqAOqdAS
+          NOW_PROJECT_ID: QmXGZT7Mta1bgttLGhBLdzShPyWSauKi7f2x3DtN1A17ma
+          NOW_TOKEN: ${{ secrets.NOW_TOKEN }}
         run:
-          NOW_ORG_ID=team_WtAI5aOHuDxYRprOgqAOqdAS NOW_PROJECT_ID=QmXGZT7Mta1bgttLGhBLdzShPyWSauKi7f2x3DtN1A17ma now -A now.river.dev.json -t ${{ secrets.ZEIT_TOKEN }}
+          now -A now.river.dev.json -t $NOW_TOKEN
+
+      - name: Now
+        if: github.ref == 'refs/heads/master'
+        env:
+          NOW_ORG_ID: team_WtAI5aOHuDxYRprOgqAOqdAS
+          NOW_PROJECT_ID: QmXGZT7Mta1bgttLGhBLdzShPyWSauKi7f2x3DtN1A17ma
+          NOW_TOKEN: ${{ secrets.NOW_TOKEN }}
+        run:
+          now -A now.river.prod.json --prod -t $NOW_TOKEN
