@@ -17,6 +17,13 @@ yarn dev
 ```
 
 
+## Release
+
+```sh
+git flow release start vX.X.X && git flow release finish vX.X.X
+```
+
+
 ## Useful stuff
 * [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
 * [Syntax highlighting and IntelliSense for styled-components.](https://github.com/styled-components/vscode-styled-components)
