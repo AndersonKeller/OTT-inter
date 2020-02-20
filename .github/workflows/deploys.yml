@@ -1,4 +1,4 @@
-name: Deploys to Now
+name: Deploy to Zeit
 
 on:
   push:
@@ -10,17 +10,13 @@ on:
 
 jobs:
   deploy:
-    name: Create a deployment
+    name: Deploy to Zeit
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repo
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Deploy to Zeit
+      - name: Now
         if: github.ref == 'refs/heads/dev'
-        uses: amondnet/now-deployment@v2
-        with:
-          now-args: -A now.river.dev.json
-          now-org-id: 'team_WtAI5aOHuDxYRprOgqAOqdAS' # Required
-          now-project-id: 'QmXGZT7Mta1bgttLGhBLdzShPyWSauKi7f2x3DtN1A17ma' # Required
-          zeit-token: ${{ secrets.ZEIT_TOKEN }} # Required
+        run:
+          NOW_ORG_ID=team_WtAI5aOHuDxYRprOgqAOqdAS NOW_PROJECT_ID=QmXGZT7Mta1bgttLGhBLdzShPyWSauKi7f2x3DtN1A17ma now -A now.river.dev.json -t ${{ secrets.ZEIT_TOKEN }}
