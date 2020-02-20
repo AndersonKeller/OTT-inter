@@ -21,7 +21,7 @@ jobs:
         env:
           NOW_ORG_ID: team_WtAI5aOHuDxYRprOgqAOqdAS
           NOW_PROJECT_ID: QmXGZT7Mta1bgttLGhBLdzShPyWSauKi7f2x3DtN1A17ma
-          NOW_TOKEN: ${{ secrets.NOW_TOKEN }}
+          NOW_TOKEN: ${{ secrets.ZEIT_TOKEN }}
         run:
           now -A now.river.dev.json -t $NOW_TOKEN
 
@@ -30,6 +30,6 @@ jobs:
         env:
           NOW_ORG_ID: team_WtAI5aOHuDxYRprOgqAOqdAS
           NOW_PROJECT_ID: QmXGZT7Mta1bgttLGhBLdzShPyWSauKi7f2x3DtN1A17ma
-          NOW_TOKEN: ${{ secrets.NOW_TOKEN }}
+          NOW_TOKEN: ${{ secrets.ZEIT_TOKEN }}
         run:
           now -A now.river.prod.json --prod -t $NOW_TOKEN
