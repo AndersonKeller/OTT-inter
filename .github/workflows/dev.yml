@@ -29,4 +29,4 @@ jobs:
           NOW_PROJECT_ID: QmZYb5yG2fKzk2CXB8thALWjjTfJ1HjhgaozUGF3bdbtDZ
           NOW_TOKEN: ${{ secrets.ZEIT_TOKEN }}
         run:
-          now -A now.colcolo.dev.json --prod -t $NOW_TOKEN
+          now -A now.colocolo.dev.json --prod -t $NOW_TOKEN
