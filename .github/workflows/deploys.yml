@@ -1,16 +1,23 @@
 name: Deploys to Now
 
-on: [push]
+on:
+  push:
+    branches:
+      - dev
+      - feature/*
+      - master
+      - release/*
 
 jobs:
-  publish:
-    name: Publish to prod
+  deploy:
+    name: Create a deployment
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repo
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Deploy to Zeit
+        if: github.ref == 'refs/heads/dev'
         uses: actions/zeit-now@master
         with:
           args: -A now.river.dev.json

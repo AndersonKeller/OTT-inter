@@ -5,6 +5,9 @@
       "TENANT": "river"
     }
   },
+  "github": {
+    "enabled": false
+  },
   "name": "demo",
   "routes": [
     { "src": "/login", "dest": "/?modal=login" }

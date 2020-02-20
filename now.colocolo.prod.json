@@ -5,6 +5,9 @@
       "TENANT": "dalecacique"
     }
   },
+  "github": {
+    "enabled": false
+  },
   "name": "colocolo",
   "routes": [
     { "src": "/login", "dest": "/?modal=login" }
