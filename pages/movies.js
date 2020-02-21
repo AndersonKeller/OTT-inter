@@ -1,9 +1,8 @@
 // next imports
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 
 // react imports
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 
 // app imports
 import Layout from '../components/layout/Layout'
@@ -11,22 +10,27 @@ import { CONFIG } from '../config'
 import api from '../services/api'
 import Loading from '../components/Loading/Loading'
 import MediaList from '../components/MediaList/MediaList'
+import SearchContext from '../contexts/SearchContext'
 
 // movies page
 const MoviesPage = ({layoutProps}) => {
 
-  const router = useRouter()
   const [medias, setMedias] = useState();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const search = router.query.search
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+  const { search, setSearch } = useContext(SearchContext)
+
+  const handleSearch = e => {
+    // Implementar Dwebounce to SearchField
+    // Instalar pacote Lodash _
+  }
 
   useEffect(_ => {
     const fetchData = async _ => {
       try {
         setLoading(true)
         const {data: medias} = await api().get(search ? `/search/${search}` : '/movies')
-        setMedias(medias);
+        setMedias(medias)
         setLoading(false)
       } catch (e) {
         setError(500)
@@ -45,9 +49,13 @@ const MoviesPage = ({layoutProps}) => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-10 offset-md-1">
-
             <header>
-              <h1 className="h2">Videos</h1>
+              <h1 className="h2">Videos
+                <input
+                  className="form-control" type="search" placeholder="Buscar"
+                  onChange={e => setSearch(e.target.value)} value={search}
+                />
+              </h1>
               {error ? (
                 <h1 className="h6">{error} | Incapaz de buscar</h1>
               ) : search && !loading && (
@@ -73,6 +81,30 @@ const MoviesPage = ({layoutProps}) => {
           header {
             padding-top: 30px;
           }
+        }
+        input[type=search] {
+          padding: 0px 10px;
+          margin-left: 30px;
+          width: 40vw;
+          font-size: 12px;
+          transition: ease-in-out 0.7s;
+          box-shadow: 0 0 0 0.1rem rgba(255, 0, 0, 0.26);
+        }
+        .form-control {
+          background-color: transparent;
+          border: 0;
+          display: inline-block;
+          color: #fff;
+          font-family: inherit;
+          font-size: inherit;
+          font-weight: inherit;
+          outline: 0;
+          padding: 0;
+          vertical-align: middle;
+          width: 95px;
+        }
+        .form-control::placeholder {
+          color: var(--light-gray);
         }
       `}</style>
     </Layout>

@@ -1,19 +1,24 @@
+//  react
+import React, { useContext, useEffect, useState, useRef } from 'react'
+import Color      from 'color'
+import Dropdown   from 'react-bootstrap/Dropdown'
 import classNames from 'classnames'
-import Color from 'color'
-import React, { useContext, useEffect, useState } from 'react'
-import Dropdown from 'react-bootstrap/Dropdown'
 
-// next
-import Link from 'next/link'
+//  next
+import Link   from 'next/link'
 import Router from 'next/router'
 
-import { GRAY3 } from '../../constants/colors'
-import { STATIC_PATH } from '../../constants/constants'
-import ActiveLink from '../ActiveLink'
-import UserContext from '../../contexts/UserContext'
-import Chevron from '../icons/chevron'
-import UserMenu from './UserMenu'
-import { CONFIG } from '../../config'
+//  constants
+import { GRAY3 }        from '../../constants/colors'
+import { CONFIG }       from '../../config'
+import { STATIC_PATH }  from '../../constants/constants'
+
+//  app
+import Chevron        from '../icons/chevron'
+import UserMenu       from '../layout/UserMenu'
+import ActiveLink     from '../ActiveLink'
+import UserContext    from '../../contexts/UserContext'
+import SearchContext  from '../../contexts/SearchContext'
 
 const Header = ({ closed, layoutColor, menus }) => {
   const hasWindow = typeof window !== 'undefined'
@@ -41,29 +46,14 @@ const Header = ({ closed, layoutColor, menus }) => {
   })
 
   // submit
-  const [ searchValue, setSearchField ] = useState('')
-  const handleSearch = (e) => {
+  // const [ searchValue, setSearchField ] = useState('')
+  const { search, setSearch } = useContext(SearchContext)
+  const searchRef = useRef(null)
+  // const router = useRouter()
+  const handleSearch = e => {
     e.preventDefault()
-    Router.push({
-      pathname: '/movies',
-      query: { search: searchValue },
-    })
+    Router.push('/movies')
   }
-
-  useEffect(_ => {
-    if (hasWindow) {
-      let btn =  document.querySelector('#search-btn')
-      let input = document.querySelector('#search')
-      if (btn) {
-      btn.onclick = function (e) {
-        if(input.classList.contains('d-none')){
-          e.preventDefault()
-        }
-        document.querySelector('#search').classList.toggle('d-none')
-      }
-    }
-    }
-  })
 
   return (
     <header className={classes}>
@@ -87,19 +77,21 @@ const Header = ({ closed, layoutColor, menus }) => {
               action="/movies"
               className="d-none d-lg-block search-form"
               method="get"
-              onSubmit={(e) => handleSearch(e)}
+              onSubmit={handleSearch}
             >
-              <button className="search-btn" id="search-btn" type="submit">
+              <button className="search-btn" id="search-btn" type="button" onClick={ _ => searchRef.current.focus() }>
                 <img alt="Buscar" height="28" src="/static/magnify-icon.svg" width="28" />
               </button>
               <input
-                className="form-control d-none"
+                className="form-control"
+                ref={searchRef}
+                // autoFocus={ router.pathname === '/movies'}
                 name="search"
                 id="search"
-                onChange={e => setSearchField(e.target.value)}
+                onChange={e => setSearch(e.target.value)}
                 placeholder="Buscar"
                 type="search"
-                value={searchValue}
+                value={search}
               />
             </form>
 
@@ -170,13 +162,13 @@ const Header = ({ closed, layoutColor, menus }) => {
           width: 95px;
         }
         input[type=search] {
-          padding: 0px 10px;
-          margin-right: 10px;
-          width: 10vw;
+          width: 0;
           transition: ease-in-out 0.7s;
         }
         input[type=search]:focus {
-          width: 20vw !important;
+          padding: 0px 10px;
+          margin-right: 10px;
+          width: 15vw;
           transition: ease-in-out 0.7s;
           box-shadow: 0 0 0 0.1rem rgba(255, 0, 0, 0.26);
         }
