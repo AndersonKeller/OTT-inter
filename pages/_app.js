@@ -1,12 +1,21 @@
-import React from 'react'
-import App from 'next/app'
+// react
+import React      from 'react'
+import NProgress  from 'nprogress'
+
+// next
+import App    from 'next/app'
 import Router from 'next/router'
-import NProgress from 'nprogress'
-import { AuthModalProvider } from '../contexts/AuthModalContext'
-import { UserProvider } from '../contexts/UserContext'
-import Layout from '../components/layout/Layout'
-import { ThemeProvider } from 'styled-components'
-import GlobalStyle from '~/styles'
+
+// app
+import Layout       from '../components/layout/Layout'
+import GlobalStyle  from '~/styles'
+
+// providers
+import { AuthModalProvider }  from '../contexts/AuthModalContext'
+import { SearchProvider }     from '../contexts/SearchContext'
+import { ThemeProvider }      from 'styled-components'
+import { UserProvider }       from '../contexts/UserContext'
+
 // import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '~/theme';
 import withBasicAuth from '~/basic-auth'
@@ -63,7 +72,9 @@ class MyApp extends App {
         <GlobalStyle />
         <UserProvider>
           <AuthModalProvider>
-            <Component layoutProps={layoutProps} {...pageProps} />
+            <SearchProvider>
+              <Component layoutProps={layoutProps} {...pageProps} />
+            </SearchProvider>
           </AuthModalProvider>
         </UserProvider>
       </ThemeProvider>
