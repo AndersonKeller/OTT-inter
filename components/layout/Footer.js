@@ -21,7 +21,7 @@ import ActiveLink from '../ActiveLink'
 export default function Footer({ layoutColor }) {
   return (
     <footer className="footer">
-      <NavFooter className="d-md-none" />
+      <NavFooter className="d-lg-none" />
       <TermsAndPoliciesBar {...{layoutColor}} />
       <style jsx>{`
         .footer {
