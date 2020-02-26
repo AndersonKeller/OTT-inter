@@ -1,5 +1,5 @@
 {
-  "alias": ["dalecampeon.now.sh", "rivermas.now.sh"],
+  "alias": ["rivermas.now.sh"],
   "build": {
     "env": {
       "TENANT": "river"
