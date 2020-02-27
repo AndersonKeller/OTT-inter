@@ -20,6 +20,12 @@ const Featured = (props) => {
         .featured-content :global(.btn) {
           margin-right: 15px;
         }
+        @media (max-width: 576px) {
+          .featured-content {
+            padding-left: 0;
+            top: 70%;
+          }
+        }
       `}</style>
     </div>
   )
