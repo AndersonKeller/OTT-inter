@@ -39,18 +39,20 @@ export default function AuthModal() {
     return changeTab(e)
   }
 
-  const facebookLogin = async e => {
-    e.preventDefault()
+  const socialLogin = async e => {
+    let provider = e.currentTarget.innerText;
     try {
       nookies.set({}, 'pkg_int_id', JSON.stringify(packageId), { path: '/' })
-      const res = await api().get('auth/facebook')
-      console.table(res)
+      const res = await api().get(`auth/${provider}`)
+      // console.table(res)
+      // console.log(res.data.url)
       window.location = res.data.url
 
     } catch (error) {
       console.table(error)
       // setError('An error has occurred!')
     }
+    // console.table(e.currentTarget.innerText);
   }
 
   return (
@@ -76,13 +78,13 @@ export default function AuthModal() {
         <Tab.Container activeKey={tab} id="user-modal-tabs" {...{onSelect}}>
           <Tab.Content>
             <Tab.Pane eventKey="login">
-              <LoginTab {...{changeTab, setLoading, facebookLogin }} />
+              <LoginTab {...{changeTab, setLoading, socialLogin }} />
             </Tab.Pane>
             <Tab.Pane eventKey="password">
               <PasswordTab {...{setLoading}} />
             </Tab.Pane>
             <Tab.Pane eventKey="register">
-              <RegisterTab {...{changeTab, setLoading, facebookLogin }} />
+              <RegisterTab {...{changeTab, setLoading, socialLogin }} />
             </Tab.Pane>
           </Tab.Content>
         </Tab.Container>

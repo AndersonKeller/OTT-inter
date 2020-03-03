@@ -24,6 +24,7 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 - Adicionamos os campos de sócio e somos river para desconto no plano.
 - Adicionameos a página do recibo de pagamento do serviço.
 - Adicionamos um contexto para a pesquisa do site: SearchContext.
+- Adicionamos o login via Google. Rotas adds: gLogin, fLogin.
 
 ### Modificado
 - Alteramos o tamanho do avatar no menu do usuário.

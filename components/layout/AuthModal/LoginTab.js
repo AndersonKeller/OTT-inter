@@ -12,18 +12,18 @@ import { AuthModalContext } from '../../../contexts/AuthModalContext'
 import ReactSVG from 'react-svg'
 import nookies from 'nookies'
 
-const LoginTab = ({ changeTab, setLoading, facebookLogin }) => {
+const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ error, setError ] = useState('')
   const { signIn } = useContext(UserContext)
-  const { closeAuthModal, code } = useContext(AuthModalContext)
+  const { closeAuthModal, code, socialProvider } = useContext(AuthModalContext)
 
-  const socialLogin = async () => {
+  const providerLogin = async _ => {
     try{
         setLoading(true);
         const { pkg_int_id: package_id_intention } = nookies.get({}, 'pkg_int_id')
-        const tokenResponse = await api().post('auth/facebook/callback', {
+        const tokenResponse = await api().post(`auth/${socialProvider}/callback`, {
           code,
           client_id: CLIENT_ID,
           client_secret: CLIENT_SECRET,
@@ -43,7 +43,7 @@ const LoginTab = ({ changeTab, setLoading, facebookLogin }) => {
     }
   }
 
-  useEffect(() => { if(code) socialLogin() }, [])
+  useEffect(() => { if(code && socialProvider) providerLogin() }, [])
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -112,14 +112,14 @@ const LoginTab = ({ changeTab, setLoading, facebookLogin }) => {
           <a className="bold text-uppercase" href="#" onClick={goToRegister}>Regístrate!</a>
         </div>
         <div className="or-enter-with">o entrá con</div>
-          <Button className="social facebook" type="button" onClick={facebookLogin}>
+          <Button className="social facebook" type="button" onClick={socialLogin}>
             <ReactSVG className="icon" src="/static/icons/facebook.svg" />
             Facebook
           </Button>
-        {/* <Button className="social google" onClick={toggleAuth} type="button">
+        <Button className="social google" type="button" onClick={socialLogin}>
           <ReactSVG className="icon" src="/static/icons/google.svg" />
           Google
-        </Button> */}
+        </Button>
       </form>
     </div>
   )
