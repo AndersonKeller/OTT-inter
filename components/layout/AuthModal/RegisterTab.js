@@ -11,7 +11,7 @@ import Button from '../../button'
 import { CONFIG } from '../../../config'
 import ReactSVG from 'react-svg'
 
-const RegisterTab = ({ changeTab, setLoading, facebookLogin })  => {
+const RegisterTab = ({ changeTab, setLoading, socialLogin })  => {
   const [name,setName] = useState('')
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
@@ -112,14 +112,14 @@ const RegisterTab = ({ changeTab, setLoading, facebookLogin })  => {
           <a className="bold text-uppercase" href="#" onClick={goToLogin}>Ház Login</a>
         </div>
         <div className="or-enter-with">o entrá con</div>
-        <Button className="social facebook" type="button" onClick={facebookLogin}>
+        <Button className="social facebook" type="button" onClick={socialLogin}>
           <ReactSVG className="icon" src="/static/icons/facebook.svg" />
           Facebook
         </Button>
-        {/*<Button className="social google" onClick={toggleAuth} type="button">
+        <Button className="social google" onClick={socialLogin} type="button">
           <ReactSVG className="icon" src="/static/icons/google.svg" />
           Google
-        </Button> */}
+        </Button>
       </form>
 
       {/* <style jsx>{`

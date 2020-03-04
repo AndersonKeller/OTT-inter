@@ -65,7 +65,7 @@ const Button = React.forwardRef(({
         }
         .btn-primary.logged {
           background-color: var(--white) !important;
-          border: 2px solid var(--white);
+          border: 1px solid var(--white);
           color: var(--black) !important;
           padding-top: 8px;
           padding-bottom: 8px;
@@ -80,10 +80,15 @@ const Button = React.forwardRef(({
         }
         .btn-secondary.btn-outline {
           background-color: transparent;
-          border: 2px solid var(--gray);
+          border: 1px solid var(--gray);
           color: var(--gray);
           padding-top: 8px;
           padding-bottom: 8px;
+        }
+        .btn-secondary.btn-outline:hover{
+          background-color: white;
+          border: 1px solid white;
+          color: black;
         }
         .btn-secondary.btn-outline.btn--color-white {
           color: var(--white);
@@ -98,6 +103,22 @@ const Button = React.forwardRef(({
           line-height: 1.75;
           padding-top: 0;
           padding-bottom: 0;
+        }
+        @media (max-width: 576px) {
+          .btn {
+            font-size: 12px;
+            padding: 5px 12px;
+          }
+          .btn-primary.logged {
+            padding-top: 5px;
+            padding-bottom: 5px;
+          }
+          .btn-secondary.btn-outline {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border: 1px solid white;
+            color: white;
+          }
         }
       `}</style>
     </>

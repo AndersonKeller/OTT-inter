@@ -7,7 +7,7 @@ export function AuthModalProvider({ children }) {
 
   const allowedTabs = ['login', 'password', 'register']
   const router = useRouter()
-  const { modal, code } = router.query
+  const { modal, code, socialProvider } = router.query
   const shouldAutoOpen = allowedTabs.includes(modal)
   const [ show, setShow ] = useState(shouldAutoOpen ? true : false)
   const [ tab, setTab ] = useState(shouldAutoOpen ? modal : 'login')
@@ -67,7 +67,8 @@ export function AuthModalProvider({ children }) {
       show,
       tab,
       tabsHistory,
-      code
+      code,
+      socialProvider
     }}}>
       {children}
     </AuthModalContext.Provider>
