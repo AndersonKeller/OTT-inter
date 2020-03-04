@@ -9,8 +9,8 @@
     "enabled": false
   },
   "routes": [
-    { "src": "/fLogin", "dest": "/?modal=login&amp;socialProvider=facebook" },
-    { "src": "/gLogin", "dest": "/?modal=login&amp;socialProvider=google" },
+    { "src": "/fLogin", "dest": "/?modal=login&socialProvider=facebook" },
+    { "src": "/gLogin", "dest": "/?modal=login&socialProvider=google" },
     { "src": "/login", "dest": "/?modal=login" }
   ],
   "scope": "somosgad",
