@@ -20,14 +20,14 @@ import api          from '../../services/api'
 import { CONFIG }   from '../../config'
 
 const userDataPage = ({ layoutProps, user, updateUser }) => {
-  const [ genres, setGenres ] = useState([])
+  const [ genders, setGenders ] = useState([])
   const [ countries, setCountries ] = useState([])
 
-  /* get genres */
+  /* get genders */
   useEffect(_ => {
     (async _ => {
-      const {data} = await api().get('user_genres')
-      setGenres(data)
+      const {data} = await api().get('genders')
+      setGenders(data)
     })()
   }, [])
 
@@ -71,14 +71,14 @@ const userDataPage = ({ layoutProps, user, updateUser }) => {
             { user &&
               <Formik
                 initialValues={
-                  (({user_genre_id: genre, country_id: country, ...data}) => {
+                  (({gender_id: genre, country_id: country, ...data}) => {
                     return {genre, country, ...data}})(user)
                 }
                 validationSchema={
-                  getYupSchema(countries,genres)
+                  getYupSchema(countries,genders)
                 }
                 onSubmit={handleSubmit}
-                component={props => <DataForm {...{countries, genres, ...props}} />}
+                component={props => <DataForm {...{countries, genders, ...props}} />}
               />
             }
           </div>
@@ -107,7 +107,7 @@ const userDataPage = ({ layoutProps, user, updateUser }) => {
   );
 }
 
-const DataForm = ({isSubmitting, countries, genres})  =>
+const DataForm = ({isSubmitting, countries, genders})  =>
   <Form>
     <div className="row">
       <div className="col-md-6">
@@ -117,7 +117,7 @@ const DataForm = ({isSubmitting, countries, genres})  =>
             <FkInput name="name" label="Nombre Completo" />
           </FormGroup>
           <FormGroup>
-            <FkSelect name="genre" label="Género" list={genres} />
+            <FkSelect name="genre" label="Género" list={genders} />
           </FormGroup>
           <FormGroup>
             <FkInput name="document" label="Documento" />
@@ -149,7 +149,7 @@ const DataForm = ({isSubmitting, countries, genres})  =>
   </Form>
 
 // create Yup validation Schema
-const getYupSchema = (countries, genres) => {
+const getYupSchema = (countries, genders) => {
   const nullable3CharMinString = Yup.string()
     .trim().nullable()
     .required('Obligatorio')
@@ -168,7 +168,7 @@ const getYupSchema = (countries, genres) => {
       .oneOf(countries.map(c => c.id), "País inválido")
       .required('Obligatorio'),
     genre: Yup.number().nullable()
-      .oneOf(genres.map(g => g.id), "Género inválido")
+      .oneOf(genders.map(g => g.id), "Género inválido")
       .required('Obligatorio'),
   })
 }
