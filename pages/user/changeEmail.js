@@ -95,7 +95,7 @@ const DataForm = ({ isSubmitting }) =>
             <FkInput name="oldEmail" label="Email Actual" type="email" disabled />
           </FormGroup>
           <FormGroup>
-            <FkInput name="email" label="Nuevo Email" type="email" />
+            <FkInput name="email" label="Nuevo Email" type="email" autoFocus />
           </FormGroup>
         </div>
       </div>
