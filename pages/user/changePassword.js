@@ -95,7 +95,7 @@ const DataForm = ({ isSubmitting, status }) =>
     </FormGroup>
     <FormGroup>
       <FkInput name="oldpassword" type="password"
-        label="Contraseña anterior" autoComplete="current-password" />
+        label="Contraseña anterior" autoComplete="current-password" autoFocus />
     </FormGroup>
     <FormGroup>
       <FkInput name="password" type="password"
