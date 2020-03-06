@@ -75,12 +75,13 @@ const Cover = ({category, media}) => {
               <Button block={smDown}>Probá Gratis</Button>
             </Link>
           ) : (
-            <MediaLink {...{category, media}} watch>
-              <Button block={smDown}>Mira</Button>
-            </MediaLink>
+            <>
+              <MediaLink {...{category, media}} watch>
+                <Button block={smDown}>Mira</Button>
+              </MediaLink>
+              <WishlistBtn block={smDown} movieId={media.id} />
+            </>
           ) }
-
-          <WishlistBtn block={smDown} movieId={media.id} />
 
         </div>
       </div>
