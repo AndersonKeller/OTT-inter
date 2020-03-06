@@ -7,6 +7,8 @@ import Input        from '../layout/AuthModal/Input'
 // create formik input field
 export const FkInput = ({ style, label, ...props }) => {
   const [field, meta] = useField(props)
+  field.value = field.value || ''
+
   return (
     <>
       { props.type == 'hidden' ? '' : <Label htmlFor={props.id || props.name}>{label}</Label> }
@@ -19,6 +21,8 @@ export const FkInput = ({ style, label, ...props }) => {
 // create formik select field
 export const FkSelect = ({ style, label, list, ...props }) => {
   const [field, meta] = useField(props)
+  field.value = field.value || ''
+
   let opts = list && list.length ?  [{id:0, name:`Selecciona tu ${label}`},...list] : [{id:0, name:`Selecciona tu ${label}`}]
 
   return (
