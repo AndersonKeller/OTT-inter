@@ -1,6 +1,7 @@
 // react
-import React      from 'react'
-import NProgress  from 'nprogress'
+import React        from 'react'
+import NProgress    from 'nprogress'
+import * as Sentry  from '@sentry/node'
 
 // next
 import App    from 'next/app'
@@ -34,6 +35,8 @@ Router.events.on('routeChangeComplete', _ => {
 
 Router.events.on('routeChangeError', _ => NProgress.done())
 
+Sentry.init({ dsn: process.env.SENTRY_DSN })
+
 class MyApp extends App {
 
   static async getInitialProps({ Component, router, ctx }) {
@@ -61,6 +64,18 @@ class MyApp extends App {
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
+  }
+
+  componentDidCatch(error, errorInfo) {
+    Sentry.withScope((scope) => {
+        Object.keys(errorInfo).forEach((key) => {
+            scope.setExtra(key, errorInfo[key])
+        })
+
+        Sentry.captureException(error)
+    });
+
+    super.componentDidCatch(error, errorInfo)
   }
 
   render() {
