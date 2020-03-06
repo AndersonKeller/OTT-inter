@@ -71,11 +71,11 @@ const userDataPage = ({ layoutProps, user, updateUser }) => {
             { user &&
               <Formik
                 initialValues={
-                  (({gender_id: genre, country_id: country, ...data}) => {
-                    return {genre, country, ...data}})(user)
+                  (({gender_id: gender, country_id: country, ...data}) => {
+                    return {gender, country, ...data}})(user)
                 }
                 validationSchema={
-                  getYupSchema(countries,genders)
+                  getYupSchema(countries, genders)
                 }
                 onSubmit={handleSubmit}
                 component={props => <DataForm {...{countries, genders, ...props}} />}
@@ -117,7 +117,7 @@ const DataForm = ({isSubmitting, countries, genders})  =>
             <FkInput name="name" label="Nombre Completo" />
           </FormGroup>
           <FormGroup>
-            <FkSelect name="genre" label="Género" list={genders} />
+            <FkSelect name="gender" label="Género" list={genders} />
           </FormGroup>
           <FormGroup>
             <FkInput name="document" label="Documento" />
@@ -167,7 +167,7 @@ const getYupSchema = (countries, genders) => {
     country: Yup.number().nullable()
       .oneOf(countries.map(c => c.id), "País inválido")
       .required('Obligatorio'),
-    genre: Yup.number().nullable()
+    gender: Yup.number().nullable()
       .oneOf(genders.map(g => g.id), "Género inválido")
       .required('Obligatorio'),
   })
