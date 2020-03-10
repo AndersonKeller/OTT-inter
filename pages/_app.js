@@ -16,10 +16,11 @@ import { AuthModalProvider }  from '../contexts/AuthModalContext'
 import { SearchProvider }     from '../contexts/SearchContext'
 import { ThemeProvider }      from 'styled-components'
 import { UserProvider }       from '../contexts/UserContext'
+import * as gtag              from '~/lib/gtag'
 
 // import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '~/theme';
-import withBasicAuth from '~/basic-auth'
+// import withBasicAuth from '~/basic-auth'
 
 NProgress.configure({ showSpinner: false });
 
@@ -28,9 +29,10 @@ Router.events.on('routeChangeStart', url => {
   NProgress.start()
 })
 
-Router.events.on('routeChangeComplete', _ => {
+Router.events.on('routeChangeComplete', url => {
   NProgress.done()
   window.scrollTo(0, 0)
+  gtag.pageview(url)
 })
 
 Router.events.on('routeChangeError', _ => NProgress.done())
