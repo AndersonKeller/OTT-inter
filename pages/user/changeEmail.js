@@ -1,107 +1,40 @@
 // nextjs imports
 import Router from 'next/router'
 import Head   from 'next/head'
-// import Link   from 'next/link'
 
 // react imports
-import { useEffect, useState }  from 'react'
-import { Formik, Form, useField }           from 'formik'
+import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 
 import nookies from 'nookies'
 
 // app imports
 import FormGroup    from '../../components/layout/AuthModal/FormGroup'
-import Label        from '../../components/layout/AuthModal/Label'
-import Input        from '../../components/layout/AuthModal/Input'
 import withAuth     from '../../components/withAuth/withAuth'
-import Select       from '../../components/Select/Select'
+import { FkInput }  from '../../components/Formik/fields'
 import Layout       from '../../components/layout/Layout'
-import Packages     from '../../components/Packages'
 import Button       from '../../components/button'
 import api          from '../../services/api'
-import { CONFIG }       from '../../config'
+import { CONFIG }   from '../../config'
 
 const changeEmailPage = ({ layoutProps, user, updateUser }) => {
 
-  // create formik input field
-  const FkInputText = ({ label, ...props }) => {
-    const [field, meta] = useField(props)
-    return (
-      <>
-        <Label htmlFor={props.id || props.name}>{label}</Label>
-        <Input style={{color: 'black'}} {...field} {...props} />
-        {meta.touched && meta.error ? ( <div className="invalid-feedback">{ meta.error }</div> ) : null}
-      </>
-    )
-  }
+  const handleSubmit = async (fields, actions) => {
+    var msg = ''
 
-
-// create Yup validation Schema
-  const nullable3CharMinString = Yup.string()
-    .trim().nullable()
-    .required('Obligatorio')
-    .min(3, 'Debe tener 3 caracteres o más.')
-  const getYupSchema = _ => Yup.object({
-    email: nullable3CharMinString
-      .email('Correo inválido'),
-  })
-
-  const handleSubmit = async ({ email }) => {
-    try{
-      const res = await api().post('email',{ email })
+    try {
+      const res = await api().post('email',fields)
       updateUser(res.data)
-      let message = JSON.stringify({ success: "Acceda al correo electrónico para confirmación" })
-      nookies.set({}, 'flash_message', message , { path: '/' })
-      Router.push('/user/account')
+      msg = JSON.stringify({ success: "Acceda al correo electrónico para confirmación" })
 
     }catch(error) {
-      let { message } = error.message ? error : error.response ? error.response.data : ''
+      var { message } = error.message ? error : error.response ? error.response.data : ''
       console.table(error);
-      message = JSON.stringify({ error: "An Error Occured while updating: " + message })
-      nookies.set({}, 'flash_message', message , { path: '/' })
+      msg = JSON.stringify({ error: "An Error Occured while updating: " + message })
+    }finally {
+      nookies.set({}, 'flash_message', msg , { path: '/' })
       Router.push('/user/account')
     }
-  }
-
-  const DataForm = () => {
-    return ( user &&
-      <Formik
-        // initialTouched={{name: true, country: true, document: true}}
-        initialValues={
-          (({ email: oldEmail }) => {
-            return {oldEmail, email: ''}})(user)
-        }
-        validationSchema={
-          getYupSchema()
-        }
-        onSubmit={ handleSubmit }
-      >
-      {({isSubmitting, values}) => (<Form>
-          <hr />
-          <div className="row">
-            <div className="col-md-8">
-              <div className="data">
-                <FormGroup>
-                  <FkInputText name="oldEmail" label="Email Actual" type="email" disabled />
-                </FormGroup>
-                <FormGroup>
-                  <FkInputText name="email" label="Nuevo Email" type="email" />
-                </FormGroup>
-              </div>
-            </div>
-          </div>
-
-          <div className="row align-items-center">
-            <div className="col-md-12 offset-md-2 text-left">
-              <Button color="danger" type="submit" disabled={isSubmitting}>Cambiar datos</Button>
-            </div>
-          </div>
-          <style jsx>{`
-        `}</style>
-        </Form>)}
-      </Formik>
-    )
   }
 
   return (
@@ -113,7 +46,19 @@ const changeEmailPage = ({ layoutProps, user, updateUser }) => {
         <div className="row">
           <div className="col-xl-8 offset-xl-2">
             <h1 className="h2">Cambiar Email</h1>
-              <DataForm />
+
+            { user &&
+              <Formik
+                initialValues={
+                  (({ email: oldEmail }) => {
+                    return {oldEmail, email: ''}})(user)
+                }
+                validationSchema={ getYupSchema() }
+                onSubmit={handleSubmit}
+                component={DataForm}
+              />
+            }
+
           </div>
         </div>
       </div>
@@ -122,30 +67,7 @@ const changeEmailPage = ({ layoutProps, user, updateUser }) => {
           padding-top: 40px;
           padding-bottom: 120px;
         }
-        .info {
-          font-size: 16px;
-          font-weight: none;
-        }
-        a {
-          display: inline-block;
-          font-size: 16px;
-          color: cornflowerblue;
-          line-height: 1.5;
-        }
-        .vertical-align {
-          align-self: center;
-        }
-        .profile-pic {
-          display: flex;
-          height: 120px;
-          width: 120px;
-        }
         .h2 {
-          margin-bottom: 10px;
-        }
-        :global(.h3) {
-          font-size: 20px;
-          font-weight: bold;
           margin-bottom: 10px;
         }
         hr {
@@ -161,7 +83,42 @@ const changeEmailPage = ({ layoutProps, user, updateUser }) => {
       `}</style>
     </Layout>
   );
+}
 
+const DataForm = ({ isSubmitting }) =>
+  <Form>
+    <hr />
+    <div className="row">
+      <div className="col-md-8">
+        <div className="data">
+          <FormGroup>
+            <FkInput name="oldEmail" label="Email Actual" type="email" disabled />
+          </FormGroup>
+          <FormGroup>
+            <FkInput name="email" label="Nuevo Email" type="email" autoFocus />
+          </FormGroup>
+        </div>
+      </div>
+    </div>
+
+    <div className="row align-items-center">
+      <div className="col-md-12 offset-md-2 text-left">
+        <Button color="danger" type="submit" disabled={isSubmitting}>Cambiar datos</Button>
+      </div>
+    </div>
+  </Form>
+
+// create Yup validation Schema
+const getYupSchema = _ => {
+  const nullable3CharMinString = Yup.string()
+    .trim().nullable()
+    .required('Obligatorio')
+    .min(3, 'Debe tener 3 caracteres o más.')
+
+  return Yup.object({
+    email: nullable3CharMinString
+      .email('Correo inválido'),
+  })
 }
 
 export default withAuth(changeEmailPage)

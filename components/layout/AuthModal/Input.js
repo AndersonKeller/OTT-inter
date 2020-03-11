@@ -28,7 +28,7 @@ const Input = ({
 
   return <>
     <input
-      autoFocus={autoFocus && "true"}
+      autoFocus={autoFocus}
       className="form-control"
       ref={inputRef}
       {...{

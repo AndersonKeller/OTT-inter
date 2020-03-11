@@ -123,14 +123,14 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
 
   const { user, updateUser } = useContext(UserContext)
 
-  const [ genres, setGenres ] = useState()
+  const [ genders, setGenders ] = useState()
   const [ countries, setCountries ] = useState()
   const [ discount, setDiscount ] = useState(false)
   const [ supportersDiscount, setSupportersDiscount ] = useState()
 
   const [ values, setValues ] = useState({
     name: '',
-    user_genre_id: '',
+    gender_id: '',
     document: '',
     address: '',
     city: '',
@@ -147,11 +147,11 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
   const [ loading, setLoading ] = useState()
   const [ error, setError ] = useState()
 
-  /* get genres */
+  /* get genders */
   useEffect(_ => {
     (async _ => {
-      const {data} = await api.get('user_genres')
-      setGenres(data)
+      const {data} = await api.get('genders')
+      setGenders(data)
     })()
   }, [])
 
@@ -169,7 +169,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
       setValues({
         ...values,
         name: user.name,
-        user_genre_id: user.user_genre_id ? user.user_genre_id : '',
+        gender_id: user.gender_id ? user.gender_id : '',
         document: user.document ? user.document : '',
         address: user.address ? user.address : '',
         city: user.city ? user.city : '',
@@ -333,27 +333,27 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
 
             {/* genre */}
             <FormGroup>
-              <Label htmlFor="user_genre_id">Género</Label>
+              <Label htmlFor="gender_id">Género</Label>
               <Select
-                id="user_genre_id"
-                name="user_genre_id"
+                id="gender_id"
+                name="gender_id"
                 onChange={handleInputChange}
                 required={requireds}
-                value={values.user_genre_id}
+                value={values.gender_id}
               >
-                { ! genres ? (
+                { ! genders ? (
                   <option disabled value="">Cargando...</option>
-                ) : genres.length ? <>
+                ) : genders.length ? <>
                   <option disabled value="">Selecciona tu género</option>
-                  { genres.map((genre, key) => (
+                  { genders.map((genre, key) => (
                     <option {...{key}} value={genre.id}>{genre.name}</option>
                   ))}
                 </> : (
                   <option disabled value="">Incapaz de cargar géneros</option>
                 ) }
               </Select>
-              { ! loading && error && error.errors && error.errors.user_genre_id && (
-                <div className="invalid-feedback">{error.errors.user_genre_id}</div>
+              { ! loading && error && error.errors && error.errors.gender_id && (
+                <div className="invalid-feedback">{error.errors.gender_id}</div>
               ) }
             </FormGroup>
 

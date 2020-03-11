@@ -6,6 +6,8 @@ import Chevron from '../icons/chevron'
 import UserContext from '../../contexts/UserContext'
 import { AuthModalContext } from '../../contexts/AuthModalContext'
 
+import * as gtag from '~/lib/gtag'
+
 export default ({}) => {
 
   const { signOut, user } = useContext(UserContext)
@@ -29,6 +31,12 @@ export default ({}) => {
 
   function enter(e) {
     e.preventDefault()
+    // this is just a test, we should change it later:
+    gtag.event({
+      action: 'submit_form',
+      category: 'Contact',
+      label: 'Message here',
+    })
     openAuthModal()
   }
 
