@@ -3,6 +3,7 @@ import UserContext from '../contexts/UserContext'
 import { WHITE } from '../constants/colors'
 import Color from 'color'
 import classNames from 'classnames'
+import Spinner from 'react-bootstrap/Spinner'
 
 const Button = React.forwardRef(({
   block,
@@ -13,12 +14,15 @@ const Button = React.forwardRef(({
   onClick,
   outline,
   type,
+  style,
+  disabled,
+  loading,
   ...props
 }, ref) => {
   const textColor = props.textColor ? 'btn--color-white' : ''
   const size = props.size === 'sm' ? 'btn-sm' : ''
   const { user } = useContext(UserContext)
-  const style = props.style
+
   const classes = classNames([
     'btn',
     `btn-${color}`,
@@ -33,8 +37,18 @@ const Button = React.forwardRef(({
   return (
     <>
       { ['button', 'submit'].includes(type) ? (
-        <button className={classes} style={style} {...{href, onClick, ref, type}}>
+        <button className={classes} {...{href, onClick, ref, type, style, disabled}}>
           {children}
+          {'  '}
+          {loading &&
+            <Spinner
+              as="span"
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          }
         </button>
       ) : (
         <a className={classes} {...{href, onClick, ref}}>

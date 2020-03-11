@@ -114,7 +114,7 @@ const DataForm = ({isSubmitting, countries, genders})  =>
         <div className="data">
           <h4>Tus datos</h4>
           <FormGroup>
-            <FkInput name="name" label="Nombre Completo" autoFocus />
+            <FkInput name="name" label="Nombre Completo" />
           </FormGroup>
           <FormGroup>
             <FkSelect name="gender" label="Género" list={genders} />
@@ -143,7 +143,9 @@ const DataForm = ({isSubmitting, countries, genders})  =>
 
     <div className="row align-items-center">
       <div className="col-md-12 text-right">
-        <Button color="danger" type="submit" disabled={isSubmitting}>Cambiar datos</Button>
+        <Button color="danger" type="submit" disabled={isSubmitting} loading={isSubmitting}>
+          Cambiar datos
+        </Button>
       </div>
     </div>
   </Form>

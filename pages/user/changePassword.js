@@ -95,7 +95,7 @@ const DataForm = ({ isSubmitting, status }) =>
     </FormGroup>
     <FormGroup>
       <FkInput name="oldpassword" type="password"
-        label="Contraseña anterior" autoComplete="current-password" autoFocus />
+        label="Contraseña anterior" autoComplete="current-password" />
     </FormGroup>
     <FormGroup>
       <FkInput name="password" type="password"
@@ -109,7 +109,7 @@ const DataForm = ({ isSubmitting, status }) =>
 
     <div className="row">
       <div className="col-md-12 text-right">
-        <Button color="danger" type="submit" disabled={isSubmitting}>
+        <Button color="danger" type="submit" disabled={isSubmitting} loading={isSubmitting}>
           Cambiar datos
         </Button>
       </div>

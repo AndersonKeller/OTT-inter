@@ -95,7 +95,7 @@ const DataForm = ({ isSubmitting }) =>
             <FkInput name="oldEmail" label="Email Actual" type="email" disabled />
           </FormGroup>
           <FormGroup>
-            <FkInput name="email" label="Nuevo Email" type="email" autoFocus />
+            <FkInput name="email" label="Nuevo Email" type="email" />
           </FormGroup>
         </div>
       </div>
@@ -103,7 +103,9 @@ const DataForm = ({ isSubmitting }) =>
 
     <div className="row align-items-center">
       <div className="col-md-12 offset-md-2 text-left">
-        <Button color="danger" type="submit" disabled={isSubmitting}>Cambiar datos</Button>
+        <Button color="danger" type="submit" disabled={isSubmitting} loading={isSubmitting}>
+          Cambiar datos
+        </Button>
       </div>
     </div>
   </Form>
