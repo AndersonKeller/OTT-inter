@@ -28,5 +28,20 @@
       { "name": "Twitter", "link": "https://twitter.com/RiverPlate" }
     ],
     "googleAnalytics": "UA-146274840-2"
+  },
+  "lau": {
+    "appName": "La U Mas",
+    "clubName": "Universidad de Chile",
+    "fullClubName": "Club Universidad de Chile",
+    "shortClubName": "La U",
+    "supportersAKA": "Universitários",
+    "color": "#293989",
+    "site": "https://www.udechile.cl/",
+    "socialNetworks": [
+      { "name": "Facebook", "link": "https://www.facebook.com/ClubUniversidadDeChileOficial" },
+      { "name": "Instagram", "link": "https://instagram.com/udechileoficial" },
+      { "name": "Twitter", "link": "https://www.twitter.com/udechile" }
+    ],
+    "googleAnalytics": null
   }
 }
