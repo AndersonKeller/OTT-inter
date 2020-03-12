@@ -5,7 +5,7 @@ const Loading = ({loadingState}) => {
     <ClipLoader
       sizeUnit={"px"}
       size={80}
-      color={'#ff0000'}
+      color="var(--primary)"
       loading={loadingState}
     />
   )
