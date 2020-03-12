@@ -88,7 +88,7 @@ const MoviesPage = ({layoutProps}) => {
           width: 40vw;
           font-size: 12px;
           transition: ease-in-out 0.7s;
-          box-shadow: 0 0 0 0.1rem rgba(255, 0, 0, 0.26);
+          box-shadow: 0 0 0 0.1rem var(--primary);
         }
         .form-control {
           background-color: transparent;

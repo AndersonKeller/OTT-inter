@@ -170,7 +170,7 @@ const Header = ({ closed, layoutColor, menus }) => {
           margin-right: 10px;
           width: 15vw;
           transition: ease-in-out 0.7s;
-          box-shadow: 0 0 0 0.1rem rgba(255, 0, 0, 0.26);
+          box-shadow: 0 0 0 0.1rem var(--primary);
         }
         .form-control::placeholder {
           color: #b2b2b2;
@@ -188,7 +188,7 @@ const Header = ({ closed, layoutColor, menus }) => {
           vertical-align: middle;
         }
         .search-btn:hover {
-          filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+          /* filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%); */
         }
         .notifications-btn {
           background-color: transparent;
