@@ -13,7 +13,7 @@
       { "name": "Twitter", "link": "https://twitter.com/colocolo" }
     ],
     "googleAnalytics": null,
-    "apiUrl": "https://admin.dalecampeon.net"
+    "apiUrl": "https://admin.rivermas.com"
   },
   "river": {
     "appName": "River Mas",
@@ -29,7 +29,7 @@
       { "name": "Twitter", "link": "https://twitter.com/RiverPlate" }
     ],
     "googleAnalytics": "UA-146274840-2",
-    "apiUrl": "https://admin.dalecampeon.net"
+    "apiUrl": "https://admin.rivermas.com"
   },
   "lau": {
     "appName": "La U Mas",
