@@ -1,5 +1,5 @@
 // @ts-check
-import { TENANT } from '../constants/constants'
+import { IS_PRODUCTION, LOCAL_API_URL, TENANT } from '../constants/constants'
 
 // @ts-ignore
 import tenantsConfigs from './config.json'
@@ -16,6 +16,10 @@ import tenantsConfigs from './config.json'
  * @property {string} site - the club's website.
  * @property {array} socialNetworks - club's social networks.
  * @property {string} googleAnalytics - analytics tracking code.
+ * @property {string} apiUrl - project api URL.
  */
 /** @type {AppsConfig} */
 export const CONFIG = tenantsConfigs[TENANT]
+
+//
+export const API_URL = IS_PRODUCTION ? CONFIG.apiUrl : LOCAL_API_URL

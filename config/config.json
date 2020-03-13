@@ -12,7 +12,8 @@
       { "name": "Instagram", "link": "https://www.instagram.com/colocolooficial/" },
       { "name": "Twitter", "link": "https://twitter.com/colocolo" }
     ],
-    "googleAnalytics": null
+    "googleAnalytics": null,
+    "apiUrl": "https://admin.dalecampeon.net"
   },
   "river": {
     "appName": "River Mas",
@@ -27,7 +28,8 @@
       { "name": "Instagram", "link": "https://www.instagram.com/riverplate/" },
       { "name": "Twitter", "link": "https://twitter.com/RiverPlate" }
     ],
-    "googleAnalytics": "UA-146274840-2"
+    "googleAnalytics": "UA-146274840-2",
+    "apiUrl": "https://admin.dalecampeon.net"
   },
   "lau": {
     "appName": "La U Mas",
@@ -42,6 +44,7 @@
       { "name": "Instagram", "link": "https://instagram.com/udechileoficial" },
       { "name": "Twitter", "link": "https://www.twitter.com/udechile" }
     ],
-    "googleAnalytics": null
+    "googleAnalytics": null,
+    "apiUrl": "https://admin.laumas.cl"
   }
 }
