@@ -34,7 +34,7 @@ jobs:
       - name: La U
         env:
           NOW_ORG_ID: team_WtAI5aOHuDxYRprOgqAOqdAS
-          NOW_PROJECT_ID: QmZYb5yG2fKzk2CXB8thALWjjTfJ1HjhgaozUGF3bdbtDZ
+          NOW_PROJECT_ID: QmZom53ScQd6PTvXVB7Q2GrjGziYazhyPSen4EaBZ8CSXq
           NOW_TOKEN: ${{ secrets.ZEIT_TOKEN }}
         run:
           now -A now.lau.dev.json --prod -t $NOW_TOKEN
