@@ -135,18 +135,20 @@ const Cover = ({ error, media }) => {
           <div className="cover__infos">
 
             {/* logo */}
-            <div className="row">
-              <div className="col-8 offset-2 col-md-12 offset-md-0">
-                <h1 className="cover__logo">
-                  <img
-                    className="img-fluid"
-                    height={media.logo.height}
-                    src={media.logo.url}
-                    width={media.logo.width}
-                  />
-                </h1>
+            {media.logo && (
+              <div className="row">
+                <div className="col-8 offset-2 col-md-12 offset-md-0">
+                  <h1 className="cover__logo">
+                    <img
+                      className="img-fluid"
+                      height={media.logo.height}
+                      src={media.logo.url}
+                      width={media.logo.width}
+                    />
+                  </h1>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* description */}
             {media.description && (
@@ -222,7 +224,7 @@ const Cover = ({ error, media }) => {
         .cover__logo::before {
           content: '';
           display: block;
-          padding-bottom: ${media.logo.height * 100 / media.logo.width + '%'};
+          padding-bottom: ${media.logo ? media.logo.height * 100 / media.logo.width + '%' : 0};
         }
         .cover__logo img {
           left: 0;

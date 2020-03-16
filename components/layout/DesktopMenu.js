@@ -54,8 +54,6 @@ const DesktopMenu = ({ data: menus }) => {
     });
   }
 
-  console.log(menu)
-
   const { user } = useContext(UserContext)
 
   return (
