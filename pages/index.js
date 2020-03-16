@@ -70,7 +70,6 @@ const Home = ({ featuredMedia, featuredMediaError, layoutProps }) => {
 
           { (!user)? <BannerSection  bannerID="10" /> : "" }
 
-
         </div>
       </div>
 
