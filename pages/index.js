@@ -203,7 +203,7 @@ const Cover = ({ error, media }) => {
           background-image:
             linear-gradient(to bottom, rgba(0,0,0,0) 80%, black 100%),
             radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 25%, rgba(0,0,0,.925) 75%),
-            url(${media.poster_url});
+            url('${media.poster_url}');
           background-position: 50% 0, 50% 0, 75% 0;
           background-repeat: no-repeat, no-repeat, no-repeat;
           background-size: cover, cover, cover;
@@ -245,7 +245,7 @@ const Cover = ({ error, media }) => {
             background-image:
               linear-gradient(to bottom, rgba(0,0,0,0) 80%, black 100%),
               radial-gradient(circle at 67.5% 57.5%, rgba(0,0,0,0) 25%, rgba(0,0,0,.925) 42.5%),
-              url(${media.poster_url});
+              url('${media.poster_url}');
             background-position: 50% 0, 50% 0, 40% 50%;
           }
           .cover__img-content::before {
