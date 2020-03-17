@@ -44,7 +44,7 @@
       { "name": "Instagram", "link": "https://instagram.com/udechileoficial" },
       { "name": "Twitter", "link": "https://www.twitter.com/udechile" }
     ],
-    "googleAnalytics": null,
+    "googleAnalytics": "UA-146274840-3",
     "apiUrl": "https://admin.laumas.cl"
   }
 }
