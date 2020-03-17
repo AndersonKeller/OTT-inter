@@ -82,7 +82,7 @@ const DesktopMenu = ({ data: menus }) => {
                     <Dropdown.Menu>
                       { dropdown.map(({ as: sub_as, href: sub_href, label: sub_label }, key) => (
                         isExternalLink(sub_href) ? (
-                          <Dropdown.Item href={sub_href} target="_blank">{sub_label}</Dropdown.Item>
+                          <Dropdown.Item href={sub_href} key={key} target="_blank">{sub_label}</Dropdown.Item>
                         ) : (
                           <Link as={sub_as} href={sub_href} key={key} passHref>
                             <Dropdown.Item href={sub_as}>{sub_label}</Dropdown.Item>
