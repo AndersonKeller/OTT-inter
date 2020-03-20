@@ -17,9 +17,10 @@ import WishlistBtn from '../components/wishlist-btn'
 import UserContext from '../contexts/UserContext'
 import { CONFIG } from '../config'
 import api from '../services/api'
+import withApi from '~/components/withApi/withApi'
 
 // home page
-const Home = ({ featuredMedia, featuredMediaError, layoutProps }) => {
+const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) => {
 
   // get user
   const { user } = useContext(UserContext)
@@ -36,41 +37,16 @@ const Home = ({ featuredMedia, featuredMediaError, layoutProps }) => {
         <Cover error={featuredMediaError} media={featuredMedia} />
 
         <div className="index__contents">
-
-          {/* supporters */}
-          <HomeCarouselSection category="supporters" />
-
-          {/* featured */}
-          { (user)? <BannerSection  bannerID="1" movieID="13"/> : <BannerSection bannerID="6"/> }
-
-          {/* arts */}
-          <HomeCarouselSection category="arts" />
-
-          {/* features */}
-          { (user)? <BannerSection  bannerID="2" movieID="14"/> : <BannerSection bannerID="5"/> }
-
-          {/* podcasts */}
-          <HomeCarouselSection category="podcasts" />
-
-          {/* features */}
-          { (user)? <BannerSection  bannerID="3" movieID="15" /> : <BannerSection bannerID="7"/> }
-
-          {/* news */}
-          <HomeCarouselSection category="news" />
-
-          { (user)? <BannerSection  bannerID="4" movieID="16"/> : <BannerSection bannerID="8"/> }
-
-          {/* family */}
-          <HomeCarouselSection category="family" />
-
-          { (!user)? <BannerSection  bannerID="9" /> : "" }
-
-          {/* children */}
-          <HomeCarouselSection category="children" />
-
-          { (!user)? <BannerSection  bannerID="10" /> : "" }
-
+          {contents.map(item => {
+            return item.contentable_type === 'categories' ? (
+              <HomeCarouselSection category={item.slug} />
+            ) : item.contentable_type === 'banners' ? (
+              item.is_paid && user || !item.is_paid && !user &&
+              <BannerSection bannerID={item.contentable_id} />
+            ) : item.contentable_type === 'movies' && null
+          })}
         </div>
+
       </div>
 
       {/* styles */}
@@ -93,16 +69,18 @@ const Home = ({ featuredMedia, featuredMediaError, layoutProps }) => {
   )
 }
 
-Home.getInitialProps = async ctx => {
+HomePage.getInitialProps = async ctx => {
   try {
-    const { data: { movie: featuredMedia } } = await api(ctx).get('movie/marcelo-gallardo-lo-jugamos-como-una-final?for=home-cover')
-    return { featuredMedia }
+    const { data: home_page } = await ctx.api.get('pages/home')
+    const [firstContent,...contents] = home_page.contents
+    const { data: { movie: featuredMedia } } = await ctx.api.get('movie/' + firstContent.slug + '?for=home-cover')
+    return { contents, featuredMedia }
   } catch (error) {
     return { featuredMediaError: error }
   }
 }
 
-export default Home
+export default withApi(HomePage)
 
 // home cover
 const Cover = ({ error, media }) => {
