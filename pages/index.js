@@ -37,12 +37,12 @@ const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) 
         <Cover error={featuredMediaError} media={featuredMedia} />
 
         <div className="index__contents">
-          {contents.map(item => {
+          {contents.map((item, index) => {
             return item.contentable_type === 'categories' ? (
-              <HomeCarouselSection category={item.slug} />
+              <HomeCarouselSection category={item.slug} key={index} />
             ) : item.contentable_type === 'banners' ? (
               (item.is_paid && user || !item.is_paid && !user) &&
-              <BannerSection bannerID={item.contentable_id} />
+              <BannerSection bannerID={item.contentable_id} key={index} />
             ) : item.contentable_type === 'movies' && null
           })}
         </div>
