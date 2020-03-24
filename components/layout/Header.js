@@ -15,6 +15,7 @@ import UserMenu       from '../layout/UserMenu'
 import ActiveLink     from '../ActiveLink'
 import SearchContext  from '../../contexts/SearchContext'
 import DesktopMenu from './DesktopMenu'
+import AppLogo from '~/components/AppLogo'
 
 const Header = ({ closed, layoutColor, menus }) => {
   const hasWindow = typeof window !== 'undefined'
@@ -61,7 +62,7 @@ const Header = ({ closed, layoutColor, menus }) => {
         ) }
 
         {/* logo */}
-        <Logo />
+        <HeaderLogo />
 
         { ! closed && (
           <>
@@ -231,36 +232,45 @@ const ClubLogo = _ => {
   )
 }
 
-const Logo = _ => {
+const HeaderLogo = _ => {
   return (
     <h1 className="logo">
       <ActiveLink href="/">
         <a>
-          <img alt={CONFIG.appName} className="img-fluid" src={`${STATIC_PATH}/logos/app.svg`} />
+          <AppLogo />
         </a>
       </ActiveLink>
       <style jsx>{`
         .logo {
           align-items: center;
           display: flex;
-          height: auto;
-          justify-content: center;
-          margin-top: -10px;
-          margin-bottom: -10px;
-          margin-right: 0;
           height: 45px;
-          width: 130px;
+          justify-content: center;
+          margin-top: -5px;
+          margin-bottom: -5px;
+          width: 110px;
         }
         @media (min-width: 768px) {
           .logo {
+            height: 55px;
             margin-right: 25px;
-            margin-left: -10px;
+            margin-left: -5px;
             /* order: -1; */
           }
         }
         .logo a {
           display: block;
-          padding: 10px;
+          height: 100%;
+          padding: 5px;
+          width: 100%;
+        }
+        .logo :global(img) {
+          display: block;
+          height: 100%;
+          margin: auto;
+          max-height: 100%;
+          max-width: 100%;
+          width: auto;
         }
       `}</style>
     </h1>

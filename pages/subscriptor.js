@@ -10,6 +10,7 @@ import UserContext from '../contexts/UserContext'
 import Loading from '../components/Loading/Loading'
 import api from '../services/api'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import AppLogo from '~/components/AppLogo'
 
 export default function Subscriptor({ layoutProps }) {
   const playersName = TENANT === 'river' ? 'Franco Armani' : 'Valdivia'
@@ -35,7 +36,7 @@ export default function Subscriptor({ layoutProps }) {
           imgWidth="870"
         >
           <H2>
-            {playersName} en <img alt={CONFIG.appName} className="text-uppercase" src={`${STATIC_PATH}/logos/app.svg`} width="110" height="23" style={{ verticalAlign: 0 }} />
+            <span>{playersName} en</span> <AppLogo height={23} verticalAlign={0} />
           </H2>
           <SubscriptorSectionText>
             <p>Mira donde y cuando quieras.</p>
@@ -74,7 +75,7 @@ export default function Subscriptor({ layoutProps }) {
           imgWidth="870"
         >
           <H2>
-            LLeva <img alt={CONFIG.appName} className="text-uppercase" src={`${STATIC_PATH}/logos/app.svg`} width="110" height="23" style={{ verticalAlign: 0 }} />
+            <span>LLeva</span> <AppLogo height={23} verticalAlign={0} />
           </H2>
           <SubscriptorSectionText>
             <p>Mira lo mejor en contenidos, documentales, series y el día a día de tu club.</p>
