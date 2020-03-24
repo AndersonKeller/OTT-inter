@@ -611,7 +611,7 @@ const Payment = ({
   // get cash payment methods
   useEffect( _ => {
     const getCashPaymentMethods = async _ => {
-      const { data } = await api.get('payu-argentina-payment-methods')
+      const { data } = await api.get('cash-payment-methods')
       setCashPaymentMethods(data)
     }
     getCashPaymentMethods()
@@ -694,7 +694,9 @@ const Payment = ({
               // cash payment methods
               ) : payment_method_id === 3 && (
                 <FormGroup>
-                  { cashPaymentMethods && cashPaymentMethods.map((item, key) => (
+                  {cashPaymentMethods == null ? (
+                    <p>Cargando...</p>
+                  ) : cashPaymentMethods.length ? cashPaymentMethods.map((item, key) => (
                     <InputRadio
                       key={key}
                       label={item.name}
@@ -703,7 +705,9 @@ const Payment = ({
                       state={cash_payment_method_id}
                       value={item.id}
                     />
-                  )) }
+                  )) : (
+                    <p>Sin método de pago configurado.</p>
+                  )}
                   { ! loading && error && error.errors && error.errors.cash_payment_method_id && (
                     <div className="invalid-feedback">{error.errors.cash_payment_method_id}</div>
                   ) }
