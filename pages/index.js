@@ -41,7 +41,7 @@ const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) 
             return item.contentable_type === 'categories' ? (
               <HomeCarouselSection category={item.slug} />
             ) : item.contentable_type === 'banners' ? (
-              item.is_paid && user || !item.is_paid && !user &&
+              (item.is_paid && user || !item.is_paid && !user) &&
               <BannerSection bannerID={item.contentable_id} />
             ) : item.contentable_type === 'movies' && null
           })}
