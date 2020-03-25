@@ -3,7 +3,8 @@
   "build": {
     "env": {
       "TENANT": "river",
-      "SENTRY_DSN": "https://b7155df9027f4df2b715238ce3e2049e@sentry.io/2105115"
+      "SENTRY_DSN": "https://b7155df9027f4df2b715238ce3e2049e@sentry.io/2105115",
+      "NODE_ENV": "production"
     }
   },
   "github": {

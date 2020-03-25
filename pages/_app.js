@@ -31,7 +31,10 @@ NProgress.configure({ showSpinner: false })
 
 let isPoppingState = false
 
-Sentry.init({ dsn: process.env.SENTRY_DSN })
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+  environment: process.env.TENANT + '_' + (process.env.NODE_ENV || 'testing'),
+})
 
 class MyApp extends App {
 

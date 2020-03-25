@@ -2,7 +2,8 @@
   "alias": ["laumas-dev.now.sh"],
   "build": {
     "env": {
-      "TENANT": "lau"
+      "TENANT": "lau",
+      "SENTRY_DSN": "https://b7155df9027f4df2b715238ce3e2049e@sentry.io/2105115"
     }
   },
   "github": {
