@@ -412,6 +412,8 @@ const Section1 = () => {
 
   const imageWidth = percentage * imageDimensions.width
 
+  const leadText = `¡${CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos ${TENANT === 'river' ? 'del Más Grande' : CONFIG.appName}!`
+
   return (
     <div className="section1 container-fluid">
       <div className="row">
@@ -423,7 +425,7 @@ const Section1 = () => {
               </div>
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
-            <p>{CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos del Más Grande!</p>
+            <p>{leadText}</p>
             <p>Todo por <big>{TENANT === 'river' ? 149 : 1699}</big> pesos mensuales.</p>
           </div>
         </div>
