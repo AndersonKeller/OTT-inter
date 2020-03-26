@@ -244,6 +244,7 @@ export default function AuthModal() {
         }
         .login-modal .google {
           background-color: ${Color(googleColor)} !important;
+          margin-bottom: 5px;
         }
         .login-modal .google .cls-3 {
           fill: ${Color(googleColor)};
@@ -256,10 +257,10 @@ export default function AuthModal() {
         .login-modal .google:hover .cls-3 {
           fill: ${Color(googleColor).darken(.2)};
         }
-        @media (min-width: 768px) {
-          .login-modal .facebook {
-            margin-right: 5px;
-            margin-bottom: 0;
+        @media (max-width: 768px) {
+          .login-modal .facebook,
+          .login-modal .google {
+            padding: 8px 15px;
           }
         }
       `}</style>

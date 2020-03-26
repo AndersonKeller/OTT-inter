@@ -8,8 +8,7 @@ import { AuthModalContext } from '../../../contexts/AuthModalContext'
 import FormGroup from './FormGroup'
 import Input from './Input'
 import Button from '../../button'
-import { CONFIG } from '../../../config'
-import ReactSVG from 'react-svg'
+import SocialButtons from './SocialButtons'
 
 const RegisterTab = ({ changeTab, setLoading, socialLogin })  => {
   const [name,setName] = useState('')
@@ -112,21 +111,8 @@ const RegisterTab = ({ changeTab, setLoading, socialLogin })  => {
           <a className="bold text-uppercase" href="#" onClick={goToLogin}>Ház Login</a>
         </div>
         <div className="or-enter-with">o entrá con</div>
-        <Button className="social facebook" type="button" onClick={socialLogin}>
-          <ReactSVG className="icon" src="/static/icons/facebook.svg" />
-          Facebook
-        </Button>
-        <Button className="social google" onClick={socialLogin} type="button">
-          <ReactSVG className="icon" src="/static/icons/google.svg" />
-          Google
-        </Button>
+        <SocialButtons socialLogin={socialLogin} />
       </form>
-
-      {/* <style jsx>{`
-        .label-radio {
-          padding-right: 5px;
-        }
-      `}</style> */}
     </>
   )
 }
