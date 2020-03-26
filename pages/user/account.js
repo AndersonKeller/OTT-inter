@@ -4,10 +4,10 @@ import Link   from 'next/link'
 import Router from 'next/router'
 
 // app imports
-import { PackageRadio } from '../../components/Packages'
-import { CONFIG }       from '../../config'
-import withAuth         from '../../components/withAuth/withAuth'
-import Layout           from '../../components/layout/Layout'
+import { PackageRadio } from '~/components/Packages'
+import { CONFIG }       from '~/config'
+import withAuth         from '~/components/withAuth'
+import Layout           from '~/components/layout/Layout'
 
 const AccountPage = ({ layoutProps, user }) => {
 

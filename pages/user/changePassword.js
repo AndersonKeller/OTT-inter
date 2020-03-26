@@ -9,13 +9,13 @@ import * as Yup from 'yup'
 import nookies  from 'nookies'
 
 // app imports
-import FormGroup    from '../../components/layout/AuthModal/FormGroup'
-import withAuth     from '../../components/withAuth/withAuth'
-import { FkInput }  from '../../components/Formik/fields'
-import Layout       from '../../components/layout/Layout'
-import Button       from '../../components/button'
-import api          from '../../services/api'
-import { CONFIG }   from '../../config'
+import FormGroup    from '~/components/layout/AuthModal/FormGroup'
+import withAuth     from '~/components/withAuth'
+import { FkInput }  from '~/components/Formik/fields'
+import Layout       from '~/components/layout/Layout'
+import Button       from '~/components/button'
+import api          from '~/services/api'
+import { CONFIG }   from '~/config'
 
 const passwordPage = ({ layoutProps, user }) => {
 

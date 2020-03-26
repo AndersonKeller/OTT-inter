@@ -11,13 +11,13 @@ import * as Yup from 'yup'
 import nookies  from 'nookies'
 
 // app imports
-import { FkSelect, FkInput } from '../../components/Formik/fields'
-import FormGroup    from '../../components/layout/AuthModal/FormGroup'
-import withAuth     from '../../components/withAuth/withAuth'
-import Layout       from '../../components/layout/Layout'
-import Button       from '../../components/button'
-import api          from '../../services/api'
-import { CONFIG }   from '../../config'
+import { FkSelect, FkInput } from '~/components/Formik/fields'
+import FormGroup    from '~/components/layout/AuthModal/FormGroup'
+import withAuth     from '~/components/withAuth'
+import Layout       from '~/components/layout/Layout'
+import Button       from '~/components/button'
+import api          from '~/services/api'
+import { CONFIG }   from '~/config'
 
 const userDataPage = ({ layoutProps, user, updateUser }) => {
   const [ genders, setGenders ] = useState([])

@@ -3,6 +3,7 @@ import Layout from "~/components/layout/Layout"
 import H2 from "~/components/h2"
 import { CONFIG } from '~/config'
 import { STATIC_PATH } from '~/constants/constants'
+import withAuth from '~/components/withAuth'
 
 const RegisterConfirmPage = ({ layoutProps }) => {
 
@@ -43,4 +44,4 @@ const RegisterConfirmPage = ({ layoutProps }) => {
   </Layout>
 }
 
-export default RegisterConfirmPage
+export default withAuth(RegisterConfirmPage)
