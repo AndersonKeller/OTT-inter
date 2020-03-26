@@ -358,9 +358,9 @@ const BannerSection = ({bannerID: id, movieID}) => {
              <Featured img={banner.banner_url}>
               <div className="buttons">
                 <Link href={banner.link} passHref>
-                  <Button>Ver más</Button>
+                  <Button home >Ver más</Button>
                 </Link>
-                <WishlistBtn movieId={movieID} />
+                <WishlistBtn movieId={movieID} home />
               </div>
               </Featured>
             )}

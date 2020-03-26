@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import Spinner from 'react-bootstrap/Spinner'
 
 const Button = React.forwardRef(({
+  home,
   block,
   children,
   className = '',
@@ -24,6 +25,7 @@ const Button = React.forwardRef(({
   const { user } = useContext(UserContext)
 
   const classes = classNames([
+    {'home': home},
     'btn',
     `btn-${color}`,
     {'btn-block': block},
@@ -119,15 +121,15 @@ const Button = React.forwardRef(({
           padding-bottom: 0;
         }
         @media (max-width: 576px) {
-          .btn {
+          .home.btn {
             font-size: 12px;
             padding: 5px 12px;
           }
-          .btn-primary.logged {
+          .home.btn-primary.logged {
             padding-top: 5px;
             padding-bottom: 5px;
           }
-          .btn-secondary.btn-outline {
+          .home.btn-secondary.btn-outline {
             padding-top: 5px;
             padding-bottom: 5px;
             border: 1px solid white;
