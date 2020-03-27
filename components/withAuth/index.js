@@ -30,6 +30,7 @@ const withAuth = WrappedComponent => {
       return { }
     }
     if (WrappedComponent.getInitialProps) {
+      ctx.user = user
       const componentProps = await WrappedComponent.getInitialProps(ctx)
       return { user, ...componentProps }
     } else {

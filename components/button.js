@@ -1,7 +1,4 @@
-import React, { useContext } from 'react'
-import UserContext from '../contexts/UserContext'
-import { WHITE } from '../constants/colors'
-import Color from 'color'
+import React from 'react'
 import classNames from 'classnames'
 import Spinner from 'react-bootstrap/Spinner'
 
@@ -22,7 +19,6 @@ const Button = React.forwardRef(({
 }, ref) => {
   const textColor = props.textColor ? 'btn--color-white' : ''
   const size = props.size === 'sm' ? 'btn-sm' : ''
-  const { user } = useContext(UserContext)
 
   const classes = classNames([
     {'home': home},
@@ -33,7 +29,6 @@ const Button = React.forwardRef(({
     className,
     textColor,
     size,
-    {'logged': user},
   ])
 
   return (
@@ -79,17 +74,6 @@ const Button = React.forwardRef(({
         .btn-primary:hover {
           background-color: var(--primary-hover) !important;
         }
-        .btn-primary.logged {
-          background-color: var(--white) !important;
-          border: 1px solid var(--white);
-          color: var(--black) !important;
-          padding-top: 8px;
-          padding-bottom: 8px;
-        }
-        .btn-primary.logged:focus,
-        .btn-primary.logged:hover {
-          background-color: ${Color(WHITE).darken(.35)} !important;
-        }
         .btn-secondary {
           background-color: var(--mid-gray);
           color: var(--white);
@@ -124,10 +108,6 @@ const Button = React.forwardRef(({
           .home.btn {
             font-size: 12px;
             padding: 5px 12px;
-          }
-          .home.btn-primary.logged {
-            padding-top: 5px;
-            padding-bottom: 5px;
           }
           .home.btn-secondary.btn-outline {
             padding-top: 5px;
