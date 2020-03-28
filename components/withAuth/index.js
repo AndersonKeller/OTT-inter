@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react'
 import SafeJSONParse from 'json-parse-safe'
+import React, { useContext, useEffect } from 'react'
 import Router from 'next/router'
 import nookies from 'nookies'
-import UserContext from '../../contexts/UserContext'
+import UserContext from '~/contexts/UserContext'
+import withApi from '~/components/withApi'
 
-const withAuth = WrappedComponent => {
+const withAuth = (WrappedComponent, update = false) => {
 
   const WithAuth = props => {
     const { user, updateUser } = useContext(UserContext)
@@ -17,20 +18,40 @@ const withAuth = WrappedComponent => {
   }
 
   WithAuth.getInitialProps = async ctx => {
-    const { user: userString } = nookies.get(ctx, 'user')
-    const user = SafeJSONParse(userString).value
+    const { api } = ctx
+    let user
+    if (update) {
+      try {
+
+        // get updated user
+        const { data } = await api.get('user')
+        user = data
+
+        // set user to cookies
+        nookies.set(ctx, 'user', JSON.stringify(user), { path: '/' })
+
+      } catch(error) { }
+    } else {
+      const { user: userString } = nookies.get(ctx, 'user')
+      user = SafeJSONParse(userString).value
+    }
     if ( ! user ) {
-      const redirectRoute = `/login?redirectTo=${ctx.pathname}`
-      if (ctx.res) {
-        ctx.res.redirect(redirectRoute)
-        ctx.res.end()
+      const { pathname, res } = ctx
+      const redirectRoute = `/login?redirectTo=${pathname}`
+      console.log('redirectroute', redirectRoute)
+      if (res) {
+        res.redirect(redirectRoute)
+        res.end()
       } else {
         Router.replace(redirectRoute)
       }
       return { }
     }
     if (WrappedComponent.getInitialProps) {
+
+      // append user to the context
       ctx.user = user
+
       const componentProps = await WrappedComponent.getInitialProps(ctx)
       return { user, ...componentProps }
     } else {
@@ -40,7 +61,8 @@ const withAuth = WrappedComponent => {
 
   WithAuth.displayName = `WithAuth(${getDisplayName(WrappedComponent)})`;
 
-  return WithAuth
+  // wrap this hoc on withApi hoc
+  return withApi(WithAuth)
 }
 
 function getDisplayName(WrappedComponent) {

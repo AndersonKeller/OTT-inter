@@ -17,7 +17,7 @@ import WishlistBtn from '../components/wishlist-btn'
 import UserContext from '../contexts/UserContext'
 import { CONFIG } from '../config'
 import api from '../services/api'
-import withApi from '~/components/withApi/withApi'
+import withApi from '~/components/withApi'
 
 // home page
 const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) => {

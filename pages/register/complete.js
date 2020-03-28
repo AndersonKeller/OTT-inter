@@ -1,43 +1,24 @@
-// other imports
+import useScript, { ScriptStatus } from '@charlietango/use-script'
 import Head from 'next/head'
 import Link from 'next/link'
 import Router from 'next/router'
-
 import nookies from 'nookies'
 // import sleep from 'sleep-promise'
-
-// app imports
-import Layout from '../../components/layout/Layout'
-import { CONFIG } from '../../config'
-import FormGroup from '../../components/layout/AuthModal/FormGroup'
-import Label from '../../components/layout/AuthModal/Label'
-import Input from '../../components/layout/AuthModal/Input'
-import Button from '../../components/button'
+import Layout from '~/components/layout/Layout'
+import { CONFIG } from '~/config'
+import FormGroup from '~/components/layout/AuthModal/FormGroup'
+import Label from '~/components/layout/AuthModal/Label'
+import Input from '~/components/layout/AuthModal/Input'
+import Button from '~/components/button'
 import { useContext, useEffect, useState } from 'react'
-import UserContext from '../../contexts/UserContext'
-import Packages from '../../components/Packages'
-import Select from '../../components/Select/Select'
-import { IS_PRODUCTION, HAS_WINDOW } from '../../constants/constants'
-import useScript, { ScriptStatus } from '@charlietango/use-script'
-import withApi from '../../components/withApi/withApi'
+import UserContext from '~/contexts/UserContext'
+import Packages from '~/components/Packages'
+import Select from '~/components/Select/Select'
+import { IS_PRODUCTION, HAS_WINDOW } from '~/constants/constants'
+import withAuth from '~/components/withAuth'
 
 // page
-const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
-
-  const { user } = useContext(UserContext)
-
-  // temporary handle user presence
-  useEffect( _ => {
-    const timeout = setTimeout( _ => {
-      if ( ! user) {
-        Router.push('/login')
-      }
-    }, 1000)
-    return function cleanup() {
-      clearTimeout(timeout)
-    }
-  }, [user])
-
+const CompleteRegisterPage = ({ api, layoutProps, packages, user }) => {
   const [ ready, status ] = useScript('https://js.paymentsos.com/v2/latest/secure-fields.min.js')
   const POS = ready && HAS_WINDOW ? window.POS : null
   const payUEnv = 'test'
@@ -94,9 +75,7 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
 
             <h1 className="h2">Completa tu registro</h1>
 
-            { user && (
-              <CompleteRegisterForm {...{api, isPayUReady, packages, POS}} />
-            ) }
+            <CompleteRegisterForm {...{api, isPayUReady, packages, POS}} />
 
           </div>
         </div>
@@ -789,25 +768,15 @@ const InputRadio = ({ label, name, onChange, state, value }) => {
 // getInitialProps
 CompleteRegisterPage.getInitialProps = async ctx => {
 
-  // get user
-  let user
-  try {
-    const { data } = await ctx.api.get('user')
-    user = data
-  } catch(error) {
-    return { }
-  }
-
-  // save updated user
-  nookies.set(ctx, 'user', JSON.stringify(user), { path: '/' })
+  const {api, res, user} = ctx
 
   // if user has already completed registry, redirect it
   if (user.register_completed_at) {
     let message = JSON.stringify({ info: "Ya ha completado su registro." })
     nookies.set(ctx, 'flash_message', message, { path: '/' })
-    if (ctx.res) {
-      ctx.res.redirect('/')
-      ctx.res.end()
+    if (res) {
+      res.redirect('/')
+      res.end()
       return { }
     } else {
       Router.back()
@@ -817,7 +786,7 @@ CompleteRegisterPage.getInitialProps = async ctx => {
   // get packages
   let packages
   try {
-    const { data } = await ctx.api.get('packages')
+    const { data } = await api.get('packages')
     packages = { items: data }
   } catch(error) {
     packages = { error }
@@ -828,4 +797,4 @@ CompleteRegisterPage.getInitialProps = async ctx => {
 }
 
 // export
-export default withApi(CompleteRegisterPage)
+export default withAuth(CompleteRegisterPage)

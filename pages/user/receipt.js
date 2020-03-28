@@ -1,5 +1,5 @@
-import withApi from '../../components/withApi/withApi'
-import { STATIC_PATH } from '../../constants/constants'
+import withApi from '~/components/withApi'
+import { STATIC_PATH } from '~/constants/constants'
 
 const ReceiptPage = ({ api }) => {
 

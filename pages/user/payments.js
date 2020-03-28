@@ -7,7 +7,6 @@ import { Accordion, Card, Button, Table } from 'react-bootstrap'
 import { PackageRadio } from '~/components/Packages'
 import { CONFIG }       from '~/config'
 import withAuth         from '~/components/withAuth'
-import withApi          from '~/components/withApi/withApi'
 import Layout           from '~/components/layout/Layout'
 // import api              from '~/services/api'
 
@@ -248,4 +247,4 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
 //   // }
 // }
 
-export default withAuth(withApi(PaymentsPage));
+export default withAuth(PaymentsPage);

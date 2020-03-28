@@ -1,24 +1,27 @@
-import React from 'react'
+import Color from 'color'
 import classNames from 'classnames'
+import React from 'react'
 import Spinner from 'react-bootstrap/Spinner'
+import { CONFIG } from '~/config'
 
 const Button = React.forwardRef(({
-  home,
   block,
   children,
   className = '',
   color = 'primary',
+  disabled,
+  home,
   href,
+  loading,
   onClick,
   outline,
-  type,
+  size = '',
   style,
-  disabled,
-  loading,
-  ...props
+  target,
+  textColor,
+  type,
+  ...rest
 }, ref) => {
-  const textColor = props.textColor ? 'btn--color-white' : ''
-  const size = props.size === 'sm' ? 'btn-sm' : ''
 
   const classes = classNames([
     {'home': home},
@@ -26,9 +29,9 @@ const Button = React.forwardRef(({
     `btn-${color}`,
     {'btn-block': block},
     {'btn-outline': outline},
+    {'btn-sm': size === 'sm'},
+    {'btn--color-white': textColor},
     className,
-    textColor,
-    size,
   ])
 
   return (
@@ -48,7 +51,7 @@ const Button = React.forwardRef(({
           }
         </button>
       ) : (
-        <a className={classes} {...{href, onClick, ref}}>
+        <a className={classes} href={href} onClick={onClick} ref={ref} target={target}>
           {children}
         </a>
       ) }
@@ -66,14 +69,20 @@ const Button = React.forwardRef(({
           text-align: center;
           user-select: none;
         }
+        {/* primary */}
         .btn-primary {
           background-color: var(--primary) !important;
           color: var(--white) !important;
         }
         .btn-primary:focus,
+        .btn-primary:active:focus {
+          box-shadow: 0 0 0 .2rem ${Color(CONFIG.color).fade(.5).string()};
+        }
+        .btn-primary:focus,
         .btn-primary:hover {
           background-color: var(--primary-hover) !important;
         }
+        {/* secondary */}
         .btn-secondary {
           background-color: var(--mid-gray);
           color: var(--white);
@@ -93,6 +102,7 @@ const Button = React.forwardRef(({
         .btn-secondary.btn-outline.btn--color-white {
           color: var(--white);
         }
+        {/*  */}
         .btn-block {
           display: block;
         }
