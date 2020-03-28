@@ -13,8 +13,16 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import AppLogo from '~/components/AppLogo'
 
 export default function Subscriptor({ layoutProps }) {
-  const playersName = TENANT === 'river' ? 'Franco Armani' : 'Valdivia'
-  const section2Alt = TENANT === 'river' ? `${playersName} con un trofeo` : `${playersName} chutando`
+
+  const playersName = TENANT === 'river' ? 'Franco Armani' :
+    TENANT === 'colocolo' ? 'Valdivia' :
+    TENANT === 'lau' ? 'Fernand Cornejo' :
+    'Todos los jugadores están'
+
+  const section2Alt = TENANT === 'river' ? `${playersName} con un trofeo` :
+    TENANT === 'coloclo' ? `${playersName} chutando` :
+    TENANT === 'lau' ? 'Fernando Cornejo mirando hacia adelante con los brazos cruzados' :
+    ''
 
   return (
     <Layout {...layoutProps} header="closed">
