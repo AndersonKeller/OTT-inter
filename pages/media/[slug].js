@@ -1,5 +1,5 @@
 // react imports
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 
 // next imports
 import Head from 'next/head'
@@ -7,6 +7,7 @@ import Link from 'next/link'
 
 // material
 import useMediaQuery from '@material-ui/core/useMediaQuery'
+import Collapse from 'react-bootstrap/Collapse'
 
 // app imports
 import Button from '../../components/button'
@@ -16,6 +17,8 @@ import WishlistBtn from '../../components/wishlist-btn'
 import UserContext from '../../contexts/UserContext'
 import { CONFIG } from '../../config'
 import api from '../../services/api'
+import Chevron from '~/components/icons/chevron'
+
 // page
 function MediaPage1({ category, errorCode, layoutProps, media, related }) {
   return (
@@ -45,6 +48,7 @@ MediaPage1.getInitialProps = async ctx => {
 
 // cover
 const Cover = ({category, media}) => {
+  const [open, setOpen] = useState(false)
   const { user } = useContext(UserContext)
   const smDown = useMediaQuery('(max-width: 767px)')
   return (
@@ -64,9 +68,27 @@ const Cover = ({category, media}) => {
               )}
             </div>
             {media.detail && (
-              <div className="description">
-                <p>{media.detail}</p>
-              </div>
+              <div className="description" style={{display: 'flex'}}>
+                <div className={smDown && !open && 'short-description'}>
+                    { smDown && !open && media.detail.replace(/^([\s\S]{70}[^\s]*)[\s\S]*/, "$1") }
+                    <Collapse in={open || !smDown}>
+                      <p>{media.detail}</p>
+                    </Collapse>
+                </div>
+                <div
+                  className={ 'chevron-collapse ' + (!smDown && 'd-none') }
+                  onClick={_ => setOpen(!open)}
+                  aria-controls="description"
+                  aria-expanded={open}
+                >
+                  <Chevron
+                    dir={!open && "bottom"}
+                    alt="mas" className="chevron"
+                    height="10" width="17"
+                    inline
+                  />
+                </div>
+            </div>
             )}
           </div>
 
@@ -77,9 +99,9 @@ const Cover = ({category, media}) => {
           ) : (
             <>
               <MediaLink {...{category, media}} watch>
-                <Button block={smDown}>Mira</Button>
+                <Button>Mira</Button>
               </MediaLink>
-              <WishlistBtn block={smDown} movieId={media.id} />
+              <WishlistBtn movieId={media.id} />
             </>
           ) }
 
@@ -98,9 +120,6 @@ const Cover = ({category, media}) => {
           padding-top: calc(var(--padding-top) + 15px);
           padding-bottom: 15px;
         }
-        .info {
-          margin-bottom: 30px;
-        }
         .heading {
           margin-bottom: 15px;
         }
@@ -116,8 +135,18 @@ const Cover = ({category, media}) => {
         .description {
           color: var(--descriptions-color);
         }
+        .short-description {
+          margin-bottom: 100px;
+        }
+        .short-description :after {
+            content: " . . .";
+        }
         .cover :global(.btn-primary) {
-          margin-bottom: 15px;
+          margin-right: 15px;
+          margin-bottom: 0;
+        }
+        .chevron-collapse {
+          padding-left: 10px;
         }
         @media (min-width: 768px) {
           .cover .row {
@@ -125,9 +154,11 @@ const Cover = ({category, media}) => {
             padding-top: var(--padding-top);
             padding-bottom: 30px;
           }
-          .cover :global(.btn-primary) {
-            margin-right: 15px;
-            margin-bottom: 0;
+          .info {
+            margin-bottom: 30px;
+          }
+          .description:after {
+            content: "";
           }
         }
       `}</style>
