@@ -36,17 +36,18 @@ const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) 
         {/* cover */}
         <Cover error={featuredMediaError} media={featuredMedia} />
 
+        {/* Contents */}
         <div className="index__contents">
           {contents.map((item, index) => {
-            return item.contentable_type === 'categories' ? (
-              <HomeCarouselSection category={item.slug} key={index} />
-            ) : item.contentable_type === 'banners' ? (
-              (item.is_paid && user || !item.is_paid && !user) &&
-              <BannerSection bannerID={item.contentable_id} key={index} />
-            ) : item.contentable_type === 'movies' && null
+            let showBanner = (item.is_paid && user || !item.is_paid && !user)
+            console.log(item.slug)
+            switch(item.contentable_type) {
+              case 'categories':  return <HomeCarouselSection category={item.slug} key={index} />
+              case 'banners':     return showBanner && <BannerSection id={item.contentable_id} key={index} />
+              case 'movies':      return showBanner && <BannerSection movie={item.slug} key={index} />
+            }
           })}
         </div>
-
       </div>
 
       {/* styles */}
@@ -318,7 +319,7 @@ const HomeCarouselSection = ({ category: categorySlug }) => {
   )
 }
 
-const BannerSection = ({bannerID: id, movieID}) => {
+const BannerSection = ({id, movie}) => {
   const [banner, setBanner] = useState()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
@@ -327,8 +328,9 @@ const BannerSection = ({bannerID: id, movieID}) => {
     async function fetchData() {
       setLoading(true)
       try {
-        const {data} = await api().get(`/banners/${id}`)
+        const { data } = await (id ? api().get(`/banners/${id}`) : api().get(`/movie/${movie}`))
         setBanner(data)
+
       } catch (error) {
         setError(true)
       }
@@ -347,25 +349,22 @@ const BannerSection = ({bannerID: id, movieID}) => {
         </div>
 
         {/* features */}
-        { (banner) && (
-              <div>
-            {(!movieID)? (
-                    <a className="sponsor-link" href={banner.link} target="_blank">
-                      <Featured img={banner.banner_url} />
-                    </a>
-            ) :
-            (
-             <Featured img={banner.banner_url}>
-              <div className="buttons">
-                <Link href={banner.link} passHref>
-                  <Button home >Ver más</Button>
-                </Link>
-                <WishlistBtn movieId={movieID} home />
-              </div>
-              </Featured>
-            )}
-            </div>
-        )}
+        { banner && id &&
+          <a className="sponsor-link" href={banner.link} target="_blank">
+            <Featured img={banner.banner_url} />
+          </a>
+        }
+
+        { banner && movie &&
+          <MediaLink media={banner.movie} passHref>
+            <a>
+              <Featured
+                className="gradient"
+                img={banner.movie.poster_url}
+              />
+            </a>
+          </MediaLink>
+        }
 
         {/* error */}
         {error && (
