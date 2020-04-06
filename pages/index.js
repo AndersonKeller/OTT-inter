@@ -141,7 +141,7 @@ const Cover = ({ error, media }) => {
           </div>
 
           {/* buttons */}
-          <div className="row justify-content-center justify-content-md-start gutter-15">
+          <div className="row justify-content-center gutter-15">
             { ! user ? (
               <div className="col-auto">
                 <Link href="/subscriptor" passHref>
