@@ -95,7 +95,7 @@ const CompleteRegisterPage = ({ api, layoutProps, packages, user }) => {
 
 const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
 
-  const free_package_id = 5
+  const { id: free_package_id } = packages.items.find(item => item.amount == 0) || {}
 
   const debug = false && ! IS_PRODUCTION
   const requireds = IS_PRODUCTION
