@@ -7,7 +7,7 @@ export default ({height, verticalAlign}) => {
     <style jsx>{`
       img {
         display: inline-block;
-        height: ${height ? (height + 'px') : 'auto'};
+        height: ${height ? (height + 'px') : 'auto'} !important;
         vertical-align: ${verticalAlign ? verticalAlign : 'baseline'};
       }
     `}</style>

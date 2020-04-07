@@ -237,7 +237,7 @@ const HeaderLogo = _ => {
     <h1 className="logo">
       <ActiveLink href="/">
         <a>
-          <AppLogo />
+          <AppLogo height="27" />
         </a>
       </ActiveLink>
       <style jsx>{`
@@ -254,12 +254,12 @@ const HeaderLogo = _ => {
           .logo {
             height: 55px;
             margin-right: 25px;
-            margin-left: -5px;
+            margin-left: -25px;
             /* order: -1; */
           }
         }
         .logo a {
-          display: block;
+          display: inline-flex;
           height: 100%;
           padding: 5px;
           width: 100%;
