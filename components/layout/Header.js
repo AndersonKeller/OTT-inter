@@ -93,9 +93,9 @@ const Header = ({ closed, layoutColor, menus }) => {
             </form>
 
             {/* notifications */}
-            <button className="notifications-btn d-none d-md-inline-block" type="button">
+            {/* <button className="notifications-btn d-none d-md-inline-block" type="button">
               <img alt="Notificações" height="27" src="/static/notification-icon.svg" width="18" />
-            </button>
+            </button> */}
 
             {/* user */}
             <UserMenu />
