@@ -60,7 +60,7 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
                 <div className="mobile-row">
                   <dl>
                     <dt>Fecha</dt>
-                    <dd><Link href="receipt"><a>09/01/2020</a></Link></dd>
+                    <dd><Link href="receipt"><a target="_blank">09/01/2020</a></Link></dd>
                   </dl>
                   <dl>
                     <dt>Descripción</dt>
@@ -82,7 +82,7 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
                 <div className="mobile-row">
                   <dl>
                     <dt>Fecha</dt>
-                    <dd><Link href="receipt"><a>09/01/2020</a></Link></dd>
+                    <dd><Link href="receipt"><a target="_blank">09/01/2020</a></Link></dd>
                   </dl>
                   <dl>
                     <dt>Descripción</dt>
@@ -116,7 +116,7 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
                 <tbody>
                   <tr>
                     <td>1</td>
-                    <td><Link href="receipt"><a>09/01/2020</a></Link></td>
+                    <td><Link href="receipt"><a target="_blank">09/01/2020</a></Link></td>
                     <td>River+</td>
                     <td>09/01/2020—08/02/2020</td>
                     <td>VISA •••• •••• •••• 1627</td>
@@ -124,7 +124,7 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
                   </tr>
                   <tr>
                     <td>2</td>
-                    <td><Link href="receipt"><a>09/01/2020</a></Link></td>
+                    <td><Link href="receipt"><a target="_blank">09/01/2020</a></Link></td>
                     <td>River+</td>
                     <td>09/02/2020—08/03/2020</td>
                     <td>VISA •••• •••• •••• 1627</td>
@@ -132,7 +132,7 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
                   </tr>
                   <tr>
                     <td>3</td>
-                    <td><Link href="receipt"><a>09/01/2020</a></Link></td>
+                    <td><Link href="receipt"><a target="_blank">09/01/2020</a></Link></td>
                     <td>River+</td>
                     <td>09/03/2020—08/04/2020</td>
                     <td>VISA •••• •••• •••• 1627</td>
@@ -140,7 +140,7 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
                   </tr>
                   <tr>
                     <td>4</td>
-                    <td><Link href="receipt"><a>09/01/2020</a></Link></td>
+                    <td><Link href="receipt"><a target="_blank">09/01/2020</a></Link></td>
                     <td>River+</td>
                     <td>09/04/2020—08/05/2020</td>
                     <td>VISA •••• •••• •••• 1627</td>
@@ -148,7 +148,7 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
                   </tr>
                   <tr>
                     <td>5</td>
-                    <td><Link href="receipt"><a>09/01/2020</a></Link></td>
+                    <td><Link href="receipt"><a target="_blank">09/01/2020</a></Link></td>
                     <td>River+</td>
                     <td>09/05/2020—08/06/2020</td>
                     <td>VISA •••• •••• •••• 1627</td>
@@ -156,7 +156,7 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
                   </tr>
                   <tr>
                     <td>6</td>
-                    <td><Link href="receipt"><a>09/01/2020</a></Link></td>
+                    <td><Link href="receipt"><a target="_blank">09/01/2020</a></Link></td>
                     <td>River+</td>
                     <td>09/06/2020—08/07/2020</td>
                     <td>VISA •••• •••• •••• 1627</td>

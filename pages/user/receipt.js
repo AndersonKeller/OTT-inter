@@ -8,7 +8,7 @@ const ReceiptPage = ({ api }) => {
       <div className="receipt">
         <header>
           <div className="logo">
-            <img className="img-fluid" src={`${STATIC_PATH}/logos/app_black.svg`} />
+            <img className="img-fluid" src={`${STATIC_PATH}/logos/club.svg`} />
           </div>
           <p className="details">
             <p>Somosgad S.A.S</p>
@@ -115,7 +115,7 @@ const ReceiptPage = ({ api }) => {
           margin-bottom: 25px;
         }
         .logo img {
-          max-width: 160px;
+          max-width: 80px;
         }
         .details {
           font-size: 12px;
