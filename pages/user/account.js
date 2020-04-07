@@ -134,9 +134,6 @@ const AccountPage = ({ layoutProps, user }) => {
                     />
                   </div>
                   <div className="col col-md-8 text-right vertical-align">
-                  <Link as="#" href="#">
-                    <a>Cambiar plan</a>
-                  </Link>
                   </div>
                 </div>
               </div>
