@@ -56,8 +56,9 @@ const passwordPage = ({ layoutProps, user }) => {
             { user &&
               <Formik
                 initialValues={
-                  (({ email:username }) => {
-                    return { username, oldpassword: '', password: '', password_confirmation: '' }})(user)
+                  (({ email: username }) => {
+                    return { username, oldpassword: '', password: '', password_confirmation: '' }
+                  })(user)
                 }
                 validationSchema={ getYupSchema() }
                 onSubmit={handleSubmit}
@@ -86,35 +87,34 @@ const passwordPage = ({ layoutProps, user }) => {
 
 }
 
-const DataForm = ({ isSubmitting, status }) =>
-  <Form>
-    { status && <div className="invalid-feedback"><h5>{status.error}</h5></div> }
-    <FormGroup>
-      <FkInput name="username" type="hidden"
-        label="Username" autoComplete="username" />
-    </FormGroup>
-    <FormGroup>
-      <FkInput name="oldpassword" type="password"
-        label="Contraseña anterior" autoComplete="current-password" />
-    </FormGroup>
-    <FormGroup>
-      <FkInput name="password" type="password"
-        label="Nueva contraseña" autoComplete="new-password" />
-    </FormGroup>
-    <FormGroup>
-      <FkInput name="password_confirmation" type="password"
-        label="Confirmar nueva contraseña" autoComplete="new-password" />
-    </FormGroup>
-    <hr />
+const DataForm = ({ isSubmitting, status }) => <Form>
+  { status && <div className="invalid-feedback"><h5>{status.error}</h5></div> }
+  <FormGroup>
+    <FkInput name="username" type="hidden"
+      label="Username" autoComplete="username" />
+  </FormGroup>
+  <FormGroup>
+    <FkInput name="oldpassword" type="password"
+      label="Contraseña anterior" autoComplete="current-password" />
+  </FormGroup>
+  <FormGroup>
+    <FkInput name="password" type="password"
+      label="Nueva contraseña" autoComplete="new-password" />
+  </FormGroup>
+  <FormGroup>
+    <FkInput name="password_confirmation" type="password"
+      label="Confirmar nueva contraseña" autoComplete="new-password" />
+  </FormGroup>
+  <hr />
 
-    <div className="row">
-      <div className="col-md-12 text-right">
-        <Button color="danger" type="submit" disabled={isSubmitting} loading={isSubmitting}>
-          Cambiar datos
-        </Button>
-      </div>
+  <div className="row">
+    <div className="col-md-12 text-right">
+      <Button color="danger" type="submit" disabled={isSubmitting} loading={isSubmitting}>
+        Cambiar datos
+      </Button>
     </div>
-  </Form>
+  </div>
+</Form>
 
 // create Yup validation Schema
 const getYupSchema = _ => {
