@@ -35,8 +35,9 @@ export default createGlobalStyle`
     --dark-gray3:    ${Color(GRAY3).darken(.5).string()};
     --black:         #000;
     --black-rgb:     0, 0, 0;
-    --primary:       ${CONFIG.color};
+    --primary:       ${props => props.theme.colors.primary};
     --primary-hover: ${props => props.theme.colors.primaryHover};
+    --primary-alpha: ${props => props.theme.colors.primaryAlpha};
     --gray4:         #666; /* 656565 */
 
     /* colors by job */

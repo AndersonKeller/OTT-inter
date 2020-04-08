@@ -201,7 +201,7 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
               font-size: 14px;
             }
             .table-dark.table-hover tbody tr:hover {
-              background-color: rgba(255, 0, 0, 0.2);
+              background-color: var(--primary-alpha);
             }
             .mobile-table {
               font-size: 16px;
