@@ -3,13 +3,36 @@ import Head   from 'next/head'
 import Link   from 'next/link'
 import Router from 'next/router'
 
+// react
+import { useEffect, useState } from 'react'
+
 // app imports
 import { PackageRadio } from '~/components/Packages'
 import { CONFIG }       from '~/config'
 import withAuth         from '~/components/withAuth'
 import Layout           from '~/components/layout/Layout'
 
-const AccountPage = ({ layoutProps, user }) => {
+const AccountPage = ({ layoutProps, user, api, packages }) => {
+
+  const [ plan, setPlan ] = useState({})
+  const [ subscription, setSubscription ] = useState({})
+
+  useEffect( async _ => {
+    try{
+      const { data: {package_id, ...data} } = await api.get('subscription')
+      console.log(data)
+      setSubscription(data)
+
+      if(package_id){
+        setPlan(packages.items.find(item => item.id == package_id))
+      }else{
+        setPlan(packages.items.find(item => item.amount == 0))
+      }
+    }catch(error){
+      console.log(error)
+    }
+  }, [])
+
 
   return (
     <Layout {...layoutProps}>
@@ -79,7 +102,7 @@ const AccountPage = ({ layoutProps, user }) => {
                 <hr />
                 <div className="row">
                   <div className="col col-md text-left">
-                  <p className="info">Tarjeta de crédito: **** **** **** 1234</p>
+                  <p className="info">Medio de Pago:</p>
                   </div>
                   <div className="col col-md-auto text-right">
                   <Link as="#" href="#">
@@ -89,7 +112,7 @@ const AccountPage = ({ layoutProps, user }) => {
                 </div>
                 <div className="row">
                   <div className="col col-md text-left">
-                    <p className="info">Fecha de vencimiento: 08/07/2020</p>
+                <p className="info">Fecha de vencimiento: { subscription.ends_at && subscription.ends_at.split(' ')[0]}</p>
                   </div>
                   <div className="col col-md-auto text-right">
                   <Link href="payments">
@@ -122,15 +145,11 @@ const AccountPage = ({ layoutProps, user }) => {
                   <div
                     className="col col-md-4 text-left vertical-align"
                     style={{fontSize: '16px', lineHeight: 1}}>
+
                     <PackageRadio
                       readOnly
-                      package_id="1"
-                      plan={{
-                        id: '1',
-                        name:'6 meses',
-                        currency: 'ars',
-                        amount: '594'
-                      }}
+                      package_id={plan.id}
+                      plan={plan}
                     />
                   </div>
                   <div className="col col-md-8 text-right vertical-align">
@@ -179,6 +198,23 @@ const AccountPage = ({ layoutProps, user }) => {
       `}</style>
     </Layout>
   );
+}
+
+// getInitialProps
+AccountPage.getInitialProps = async ctx => {
+
+  const {api, user} = ctx
+
+  let packages
+  try {
+    const { data } = await api.get('packages')
+    packages = { items: data }
+  } catch(error) {
+    packages = { error }
+  }
+
+  // return
+  return { packages, user }
 }
 
 const ProfilePic = ({ image }) => {
