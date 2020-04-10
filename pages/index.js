@@ -38,7 +38,7 @@ const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) 
 
         {/* Contents */}
         <div className="index__contents">
-          {contents.map((item, index) => {
+          {contents && contents.map((item, index) => {
             let showBanner = (item.is_paid && user || !item.is_paid && !user)
             console.log(item.slug)
             switch(item.contentable_type) {
