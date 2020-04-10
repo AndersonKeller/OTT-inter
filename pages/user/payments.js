@@ -16,30 +16,34 @@ const PaymentsPage = ({ layoutProps, user, api, packages }) => {
   const [ subscription, setSubscription ] = useState({})
   const [ orders, setOrders ] = useState([])
 
-  useEffect( async _ => {
-    try{
-      const { data: {package_id, ...data} } = await api.get('subscription')
-      console.log(data)
-      setSubscription(data)
+  useEffect(_ => {
+      (async _ => {
+        try{
+          const { data: {package_id, ...data} } = await api.get('subscription')
+          console.log(data)
+          setSubscription(data)
 
-      if(package_id){
-        setPlan(packages.items.find(item => item.id == package_id))
-      }else{
-        setPlan(packages.items.find(item => item.amount == 0))
-      }
-    }catch(error){
-      console.log(error)
-    }
+          if(package_id){
+            setPlan(packages.items.find(item => item.id == package_id))
+          }else{
+            setPlan(packages.items.find(item => item.amount == 0))
+          }
+        }catch(error){
+          console.log(error)
+        }
+      })()
   }, [])
 
-  useEffect( async _ => {
-    try{
-      const { data } = await api.get('cash-orders')
-      console.log(data)
-      setOrders(data)
-    }catch(error){
-      console.log(error)
-    }
+  useEffect(_ => {
+    (async _ => {
+      try{
+        const { data } = await api.get('cash-orders')
+        console.log(data)
+        setOrders(data)
+      }catch(error){
+        console.log(error)
+      }
+    })()
   }, [])
 
   return (
@@ -73,7 +77,7 @@ const PaymentsPage = ({ layoutProps, user, api, packages }) => {
                   <div className="mobile-row">
                     <dl>
                       <dt>Fecha</dt>
-                      <dd><Link href="receipt"><a target="_blank">{order.paid_at.split(' ')[0]}</a></Link></dd>
+                      <dd><Link href="receipt"><a target="_blank">{order.paid_at && order.paid_at.split(' ')[0]}</a></Link></dd>
                     </dl>
                     <dl>
                       <dt>Descripción</dt>
@@ -81,7 +85,7 @@ const PaymentsPage = ({ layoutProps, user, api, packages }) => {
                     </dl>
                     <dl>
                       <dt>Periodo</dt>
-                      <dd>{order.paid_at.split(' ')[0]}-</dd>
+                      <dd>{order.paid_at && order.paid_at.split(' ')[0]}-</dd>
                     </dl>
                     <dl>
                       <dt>Medio de Pago</dt>
@@ -131,9 +135,9 @@ const PaymentsPage = ({ layoutProps, user, api, packages }) => {
                   {orders && orders.map(order => {
                     <tr>
                       <td>{order.id}</td>
-                      <td><Link href="receipt"><a target="_blank">{order.paid_at.split(' ')[0]}</a></Link></td>
+                      <td><Link href="receipt"><a target="_blank">{order.paid_at && order.paid_at.split(' ')[0]}</a></Link></td>
                       <td>{CONFIG.appName}</td>
-                      <td>{order.paid_at.split(' ')[0]}-</td>
+                      <td>{order.paid_at && order.paid_at.split(' ')[0]}-</td>
                       <td><Link href="receipt"><a target="_blank">{order.download_link}</a></Link></td>
                       <td>{order.value}</td>
                     </tr>

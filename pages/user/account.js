@@ -17,20 +17,22 @@ const AccountPage = ({ layoutProps, user, api, packages }) => {
   const [ plan, setPlan ] = useState({})
   const [ subscription, setSubscription ] = useState({})
 
-  useEffect( async _ => {
-    try{
-      const { data: {package_id, ...data} } = await api.get('subscription')
-      console.log(data)
-      setSubscription(data)
+  useEffect(_ => {
+    (async _ => {
+      try{
+        const { data: {package_id, ...data} } = await api.get('subscription')
+        console.log(data)
+        setSubscription(data)
 
-      if(package_id){
-        setPlan(packages.items.find(item => item.id == package_id))
-      }else{
-        setPlan(packages.items.find(item => item.amount == 0))
+        if(package_id){
+          setPlan(packages.items.find(item => item.id == package_id))
+        }else{
+          setPlan(packages.items.find(item => item.amount == 0))
+        }
+      }catch(error){
+        console.log(error)
       }
-    }catch(error){
-      console.log(error)
-    }
+    })()
   }, [])
 
 
@@ -53,9 +55,9 @@ const AccountPage = ({ layoutProps, user, api, packages }) => {
                       />
                     </a>
                   </Link> */}
-                  <Link as="#" href="#">
+                  {/* <Link href="changePhoto">  */}
                     <a><ProfilePic image={user && user.cropped_image_url ? user.cropped_image_url : null} /></a>
-                  </Link>
+                  {/* </Link> */}
               </div>
               <div className="col-md-8 vertical-align">
                  {user && user.name}
@@ -105,9 +107,9 @@ const AccountPage = ({ layoutProps, user, api, packages }) => {
                   <p className="info">Medio de Pago:</p>
                   </div>
                   <div className="col col-md-auto text-right">
-                  <Link as="#" href="#">
+                  {/* <Link as="#" href="#">
                     <a>Actualización de pago</a>
-                  </Link>
+                  </Link> */}
                   </div>
                 </div>
                 <div className="row">
@@ -223,7 +225,7 @@ const ProfilePic = ({ image }) => {
     <>
       <div className="avatar">
           <img alt="Avatar" className="img-fluid" src={src} />
-          <div className="overlay"><p className="title">Cambiar foto</p></div>
+          {/* <div className="overlay"><p className="title">Cambiar foto</p></div> */}
       </div>
       <style jsx>{`
       .avatar {
