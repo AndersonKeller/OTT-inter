@@ -1,19 +1,12 @@
-//  react
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import classNames from 'classnames'
-
-//  next
-import Link   from 'next/link'
+import Link from 'next/link'
 import Router from 'next/router'
-
-//  constants
-import { CONFIG }       from '../../config'
-import { STATIC_PATH }  from '../../constants/constants'
-
-//  app
-import UserMenu       from '../layout/UserMenu'
-import ActiveLink     from '../ActiveLink'
-import SearchContext  from '../../contexts/SearchContext'
+import { CONFIG } from '~/config'
+import { STATIC_PATH, TENANT }  from '~/constants/constants'
+import UserMenu from './UserMenu'
+import ActiveLink from '../ActiveLink'
+import SearchContext from '~/contexts/SearchContext'
 import DesktopMenu from './DesktopMenu'
 import AppLogo from '~/components/AppLogo'
 
@@ -62,7 +55,7 @@ const Header = ({ closed, layoutColor, menus }) => {
         ) }
 
         {/* logo */}
-        <HeaderLogo />
+        <HeaderAppLogo />
 
         { ! closed && (
           <>
@@ -223,7 +216,7 @@ const ClubLogo = _ => {
         @media (min-width: 768px) {
           .club-logo {
             height: 55px;
-            margin-right: 25px;
+            margin-right: 5px;
             width: 55px;
           }
         }
@@ -232,45 +225,30 @@ const ClubLogo = _ => {
   )
 }
 
-const HeaderLogo = _ => {
+const HeaderAppLogo = _ => {
   return (
     <h1 className="logo">
       <ActiveLink href="/">
         <a>
-          <AppLogo height="27" />
+          <AppLogo height={TENANT === 'lau' ? 30 : TENANT === 'river' ? 22 : 25} />
         </a>
       </ActiveLink>
       <style jsx>{`
         .logo {
           align-items: center;
           display: flex;
-          height: 45px;
           justify-content: center;
           margin-top: -5px;
           margin-bottom: -5px;
-          width: 110px;
-        }
-        @media (min-width: 768px) {
-          .logo {
-            height: 55px;
-            margin-right: 25px;
-            margin-left: -25px;
-            /* order: -1; */
-          }
         }
         .logo a {
           display: inline-flex;
-          height: 100%;
           padding: 5px;
-          width: 100%;
         }
-        .logo :global(img) {
-          display: block;
-          height: 100%;
-          margin: auto;
-          max-height: 100%;
-          max-width: 100%;
-          width: auto;
+        @media (min-width: 768px) {
+          .logo {
+            margin-right: 20px;
+          }
         }
       `}</style>
     </h1>

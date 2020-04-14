@@ -109,8 +109,7 @@ const DesktopMenu = ({ data: menus }) => {
         .menu {
           display: none;
           justify-content: space-between;
-          margin: 0 auto;
-          margin-left: -15px;
+          margin: 0 auto 0 0;
           padding-left: 0;
         }
         .menu li {
