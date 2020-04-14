@@ -73,40 +73,7 @@ export default function Subscriptor({ layoutProps }) {
           </SubscriptorSectionText>
         </SubscriptorSection>
 
-        {/* section 4 */}
-        <SubscriptorSection
-          direction="right"
-          gradientSrc="/static/subscriptor/section4-gradient.png"
-          imgAlt=""
-          imgHeight="560"
-          imgSrc={`${STATIC_PATH}/subscriptor/section4-img.png`}
-          imgWidth="870"
-        >
-          <H2>
-            <span>LLeva</span> <AppLogo height={23} verticalAlign={0} />
-          </H2>
-          <SubscriptorSectionText>
-            <p>Mira lo mejor en contenidos, documentales, series y el día a día de tu club.</p>
-          </SubscriptorSectionText>
-        </SubscriptorSection>
-
-        {/* section 5 */}
-        <SubscriptorSection
-          direction="left"
-          gradientSrc="/static/subscriptor/section5-gradient.png"
-          imgAlt=""
-          imgHeight="560"
-          imgSrc={`${STATIC_PATH}/subscriptor/section5-img.png`}
-          imgWidth="870"
-        >
-          <H2>
-            Sin compromiso
-          </H2>
-          <SubscriptorSectionText>
-            <p>¿No quieres continuar? Cancelas cuando quieras en línea y con un Click</p>
-          </SubscriptorSectionText>
-        </SubscriptorSection>
-
+        {/* packages */}
         <Packages />
 
       </div>
