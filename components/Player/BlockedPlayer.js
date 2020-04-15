@@ -5,8 +5,9 @@ import Player from '~/components/Player'
 import UserContext from '~/contexts/UserContext'
 import { IS_PRODUCTION } from '~/constants/constants'
 import { AuthModalContext } from '~/contexts/AuthModalContext'
+import { withTranslation } from '~/i18n'
 
-export default function BlockedPlayer({ image = '', media}) {
+function BlockedPlayer({ image = '', media, t }) {
   const { user } = useContext(UserContext)
   const [ video, setVideo ] = useState(user ? 1 : 0)
   const autoPlay = IS_PRODUCTION
@@ -16,6 +17,11 @@ export default function BlockedPlayer({ image = '', media}) {
   const handleAuth = e => {
     e.preventDefault()
     openAuthModal('register')
+  }
+
+  const handleLogin = e => {
+    e.preventDefault()
+    openAuthModal('login')
   }
 
   // show or hide video if has user
@@ -60,10 +66,15 @@ export default function BlockedPlayer({ image = '', media}) {
               <p><strong>Este contenido es exclusivo para los suscriptores</strong></p>
               <p className="d-none d-md-block"><small>Ver los videos cuando y donde quieras.</small></p>
             </div>
-            <Button onClick={e => handleAuth(e)}>Probá Gratis</Button>
+            <Button onClick={e => handleAuth(e)}>{t('proba-gratis')}</Button>
             <div className="text-block">
               <p><strong><span className="text-uppercase d-none d-md-inline">Prueba gratis</span><br className="d-none d-md-inline" />
-                ¿Ya ere suscriptor? <span className="text-uppercase">Ház <Link href="/login"><a>login</a></Link></span></strong></p>
+                ¿Ya ere suscriptor?
+                {' '}
+                <span className="text-uppercase">
+                  Ház <Link href="/login"><a onClick={e => handleLogin(e)}>login</a></Link>
+                </span>
+              </strong></p>
             </div>
           </div>
         </>
@@ -121,3 +132,5 @@ export default function BlockedPlayer({ image = '', media}) {
     </div>
   )
 }
+
+export default withTranslation('common')(BlockedPlayer)

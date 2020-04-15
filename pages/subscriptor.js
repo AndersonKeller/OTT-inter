@@ -1,18 +1,19 @@
-import Layout from '../components/layout/Layout'
 import Head from 'next/head'
-import H2 from '../components/h2'
-import Button from '../components/button'
-import { STATIC_PATH, TENANT } from '../constants/constants'
-import { CONFIG } from '../config'
+import Layout from '~/components/layout/Layout'
+import H2 from '~/components/h2'
+import Button from '~/components/button'
+import { STATIC_PATH, TENANT } from '~/constants/constants'
+import { CONFIG } from '~/config'
 import { useContext, useEffect, useState } from 'react'
-import { AuthModalContext } from '../contexts/AuthModalContext'
-import UserContext from '../contexts/UserContext'
-import Loading from '../components/Loading/Loading'
-import api from '../services/api'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import { AuthModalContext } from '~/contexts/AuthModalContext'
+import UserContext from '~/contexts/UserContext'
+import Loading from '~/components/Loading/Loading'
+import api from '~/services/api'
+import useWindowDimensions from '~/hooks/useWindowDimensions'
 import AppLogo from '~/components/AppLogo'
+import { withTranslation } from '~/i18n'
 
-export default function Subscriptor({ layoutProps }) {
+function Subscriptor({ layoutProps, t }) {
 
   const playersName = TENANT === 'river' ? 'Franco Armani' :
     TENANT === 'colocolo' ? 'Valdivia' :
@@ -74,7 +75,7 @@ export default function Subscriptor({ layoutProps }) {
         </SubscriptorSection>
 
         {/* packages */}
-        <Packages />
+        <Packages t={t} />
 
       </div>
       <style jsx>{`
@@ -99,7 +100,7 @@ const SubscriptorSectionText = ({ children }) => {
   )
 }
 
-const Packages = () => {
+const Packages = ({ t }) => {
 
   const { openAuthModal } = useContext(AuthModalContext)
   const { user } = useContext(UserContext)
@@ -156,7 +157,7 @@ const Packages = () => {
                             <Button
                               block
                               onClick={(e) => choosePackage(e, item.id)}
-                            >Probá Gratis</Button>
+                            >{t('proba-gratis')}</Button>
                           ) : (
                             <Button
                               block
@@ -491,3 +492,5 @@ const Section1 = () => {
     </div>
   )
 }
+
+export default withTranslation('common')(Subscriptor)

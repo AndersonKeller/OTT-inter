@@ -21,7 +21,7 @@ import withApi from '~/components/withApi'
 import { i18n, withTranslation } from '~/i18n'
 
 // home page
-const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) => {
+const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps, t }) => {
 
   // get user
   const { user } = useContext(UserContext)
@@ -35,7 +35,7 @@ const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) 
       <div className="index">
 
         {/* cover */}
-        <Cover error={featuredMediaError} media={featuredMedia} />
+        <Cover error={featuredMediaError} media={featuredMedia} t={t} />
 
         {/* Contents */}
         <div className="index__contents">
@@ -85,7 +85,7 @@ HomePage.getInitialProps = async ({ api }) => {
 export default withTranslation('common')(withApi(HomePage))
 
 // home cover
-const Cover = withTranslation('common')(({ error, media, t }) => {
+const Cover = ({ error, media, t }) => {
 
   // get user
   const { user } = useContext(UserContext)
@@ -256,7 +256,7 @@ const Cover = withTranslation('common')(({ error, media, t }) => {
 
     </div>
   )
-})
+}
 
 // carousel sections
 const HomeCarouselSection = ({ category: categorySlug }) => {

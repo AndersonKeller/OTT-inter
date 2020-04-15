@@ -18,15 +18,16 @@ import UserContext from '../../contexts/UserContext'
 import { CONFIG } from '../../config'
 import api from '../../services/api'
 import Chevron from '~/components/icons/chevron'
+import { withTranslation } from '~/i18n'
 
 // page
-function MediaPage1({ category, errorCode, layoutProps, media, related }) {
+function MediaPage1({ category, errorCode, layoutProps, media, related, t }) {
   return (
     <Layout errorCode={errorCode} {...layoutProps} paddingTop={false}>
       <Head>
         <title>{media.title} &lt; {CONFIG.appName}</title>
       </Head>
-      <Cover {...{category, media}} />
+      <Cover {...{category, media, t}} />
       <More {...{category, related}} />
     </Layout>
   );
@@ -47,7 +48,7 @@ MediaPage1.getInitialProps = async ctx => {
 }
 
 // cover
-const Cover = ({category, media}) => {
+const Cover = ({ category, media, t }) => {
   const [open, setOpen] = useState(false)
   const { user } = useContext(UserContext)
   const smDown = useMediaQuery('(max-width: 767px)')
@@ -94,7 +95,7 @@ const Cover = ({category, media}) => {
 
           { ! user ? (
             <Link href="/subscriptor">
-              <Button block={smDown}>Probá Gratis</Button>
+              <Button block={smDown}>{t('proba-gratis')}</Button>
             </Link>
           ) : (
             <>
@@ -278,4 +279,4 @@ const More = ({category, related}) => {
 }
 
 // export
-export default MediaPage1
+export default withTranslation('common')(MediaPage1)
