@@ -15,6 +15,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: La U
+        env:
+          NOW_ORG_ID: team_WtAI5aOHuDxYRprOgqAOqdAS
+          NOW_PROJECT_ID: QmZom53ScQd6PTvXVB7Q2GrjGziYazhyPSen4EaBZ8CSXq
+          NOW_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+        run:
+          now -A now.lau.dev.json --prod -t $NOW_TOKEN
+
       - name: River
         env:
           NOW_ORG_ID: team_WtAI5aOHuDxYRprOgqAOqdAS
@@ -23,18 +31,10 @@ jobs:
         run:
           now -A now.river.dev.json --prod -t $NOW_TOKEN
 
-      - name: Colo Colo
-        env:
-          NOW_ORG_ID: team_WtAI5aOHuDxYRprOgqAOqdAS
-          NOW_PROJECT_ID: QmZYb5yG2fKzk2CXB8thALWjjTfJ1HjhgaozUGF3bdbtDZ
-          NOW_TOKEN: ${{ secrets.ZEIT_TOKEN }}
-        run:
-          now -A now.colocolo.dev.json --prod -t $NOW_TOKEN
-
-      - name: La U
-        env:
-          NOW_ORG_ID: team_WtAI5aOHuDxYRprOgqAOqdAS
-          NOW_PROJECT_ID: QmZom53ScQd6PTvXVB7Q2GrjGziYazhyPSen4EaBZ8CSXq
-          NOW_TOKEN: ${{ secrets.ZEIT_TOKEN }}
-        run:
-          now -A now.lau.dev.json --prod -t $NOW_TOKEN
+      # - name: Colo Colo
+      #   env:
+      #     NOW_ORG_ID: team_WtAI5aOHuDxYRprOgqAOqdAS
+      #     NOW_PROJECT_ID: QmZYb5yG2fKzk2CXB8thALWjjTfJ1HjhgaozUGF3bdbtDZ
+      #     NOW_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      #   run:
+      #     now -A now.colocolo.dev.json --prod -t $NOW_TOKEN
