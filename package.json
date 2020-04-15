@@ -3,13 +3,15 @@
   "private": true,
   "scripts": {
     "build": "next-translate && next build",
-    "dev": "nodemon server.js",
+    "dev": "next-translate && next dev",
+    "dev:custom": "nodemon server.js",
     "dev:river": "cross-env TENANT=river yarn dev",
     "dev:dalecacique": "cross-env TENANT=dalecacique yarn dev",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
     "docz:serve": "docz build && docz serve",
-    "start": "cross-env NODE_ENV=production node server.js"
+    "start": "next start",
+    "start:custom": "cross-env NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@charlietango/use-script": "^2.1.0",

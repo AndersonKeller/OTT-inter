@@ -31,3 +31,6 @@ package-lock.json
 .docz
 
 .now
+
+# static next-translate
+/pages
