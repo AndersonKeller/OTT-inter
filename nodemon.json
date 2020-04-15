@@ -6,6 +6,6 @@
     "next.config.js",
     "nodemon.json",
     "server.js",
-    "static/locales"
+    "locales"
   ]
 }

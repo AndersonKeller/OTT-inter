@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import useTranslation from 'next-translate/useTranslation'
 import Layout from '~/components/layout/Layout'
 import H2 from '~/components/h2'
 import Button from '~/components/button'
@@ -11,9 +12,8 @@ import Loading from '~/components/Loading/Loading'
 import api from '~/services/api'
 import useWindowDimensions from '~/hooks/useWindowDimensions'
 import AppLogo from '~/components/AppLogo'
-import { withTranslation } from '~/i18n'
 
-function Subscriptor({ layoutProps, t }) {
+function Subscriptor({ layoutProps }) {
 
   const playersName = TENANT === 'river' ? 'Franco Armani' :
     TENANT === 'colocolo' ? 'Valdivia' :
@@ -75,7 +75,7 @@ function Subscriptor({ layoutProps, t }) {
         </SubscriptorSection>
 
         {/* packages */}
-        <Packages t={t} />
+        <Packages />
 
       </div>
       <style jsx>{`
@@ -100,13 +100,15 @@ const SubscriptorSectionText = ({ children }) => {
   )
 }
 
-const Packages = ({ t }) => {
+const Packages = _ => {
 
   const { openAuthModal } = useContext(AuthModalContext)
   const { user } = useContext(UserContext)
   const [ packages, setPackages ] = useState()
   const [ error, setError ] = useState()
   const [ loading, setLoading ] = useState(false)
+  const { t } = useTranslation()
+  const probaGratis = t('common:proba-gratis')
 
   // fetch packages
   useEffect(_ => {
@@ -157,7 +159,7 @@ const Packages = ({ t }) => {
                             <Button
                               block
                               onClick={(e) => choosePackage(e, item.id)}
-                            >{t('proba-gratis')}</Button>
+                            >{probaGratis}</Button>
                           ) : (
                             <Button
                               block
@@ -493,4 +495,4 @@ const Section1 = () => {
   )
 }
 
-export default withTranslation('common')(Subscriptor)
+export default Subscriptor

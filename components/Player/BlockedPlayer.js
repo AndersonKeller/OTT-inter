@@ -1,17 +1,20 @@
 import { useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
+import useTranslation from 'next-translate/useTranslation'
 import Button from '~/components/button'
 import Player from '~/components/Player'
 import UserContext from '~/contexts/UserContext'
 import { IS_PRODUCTION } from '~/constants/constants'
 import { AuthModalContext } from '~/contexts/AuthModalContext'
-import { withTranslation } from '~/i18n'
 
-function BlockedPlayer({ image = '', media, t }) {
+function BlockedPlayer({ image = '', media }) {
+
   const { user } = useContext(UserContext)
   const [ video, setVideo ] = useState(user ? 1 : 0)
   const autoPlay = IS_PRODUCTION
   const { openAuthModal } = useContext(AuthModalContext)
+  const { t } = useTranslation()
+  const probaGratis = t('common:proba-gratis')
 
   // open auth modal
   const handleAuth = e => {
@@ -66,7 +69,7 @@ function BlockedPlayer({ image = '', media, t }) {
               <p><strong>Este contenido es exclusivo para los suscriptores</strong></p>
               <p className="d-none d-md-block"><small>Ver los videos cuando y donde quieras.</small></p>
             </div>
-            <Button onClick={e => handleAuth(e)}>{t('proba-gratis')}</Button>
+            <Button onClick={e => handleAuth(e)}>{probaGratis}</Button>
             <div className="text-block">
               <p><strong><span className="text-uppercase d-none d-md-inline">Prueba gratis</span><br className="d-none d-md-inline" />
                 ¿Ya ere suscriptor?
@@ -133,4 +136,4 @@ function BlockedPlayer({ image = '', media, t }) {
   )
 }
 
-export default withTranslation('common')(BlockedPlayer)
+export default BlockedPlayer

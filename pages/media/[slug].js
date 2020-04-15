@@ -1,15 +1,9 @@
-// react imports
 import { useContext, useState } from 'react'
-
-// next imports
 import Head from 'next/head'
 import Link from 'next/link'
-
-// material
+import useTranslation from 'next-translate/useTranslation'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Collapse from 'react-bootstrap/Collapse'
-
-// app imports
 import Button from '../../components/button'
 import Layout from '../../components/layout/Layout'
 import MediaLink from '../../components/MediaLink/MediaLink'
@@ -18,16 +12,15 @@ import UserContext from '../../contexts/UserContext'
 import { CONFIG } from '../../config'
 import api from '../../services/api'
 import Chevron from '~/components/icons/chevron'
-import { withTranslation } from '~/i18n'
 
 // page
-function MediaPage1({ category, errorCode, layoutProps, media, related, t }) {
+function MediaPage1({ category, errorCode, layoutProps, media, related }) {
   return (
     <Layout errorCode={errorCode} {...layoutProps} paddingTop={false}>
       <Head>
         <title>{media.title} &lt; {CONFIG.appName}</title>
       </Head>
-      <Cover {...{category, media, t}} />
+      <Cover {...{category, media}} />
       <More {...{category, related}} />
     </Layout>
   );
@@ -48,10 +41,14 @@ MediaPage1.getInitialProps = async ctx => {
 }
 
 // cover
-const Cover = ({ category, media, t }) => {
+const Cover = ({ category, media }) => {
+
   const [open, setOpen] = useState(false)
   const { user } = useContext(UserContext)
   const smDown = useMediaQuery('(max-width: 767px)')
+  const { t } = useTranslation()
+  const probaGratis = t('common:proba-gratis')
+
   return (
     <div className="cover container-fluid" style={{
       backgroundImage: [
@@ -95,7 +92,7 @@ const Cover = ({ category, media, t }) => {
 
           { ! user ? (
             <Link href="/subscriptor">
-              <Button block={smDown}>{t('proba-gratis')}</Button>
+              <Button block={smDown}>{probaGratis}</Button>
             </Link>
           ) : (
             <>
@@ -279,4 +276,4 @@ const More = ({category, related}) => {
 }
 
 // export
-export default withTranslation('common')(MediaPage1)
+export default MediaPage1

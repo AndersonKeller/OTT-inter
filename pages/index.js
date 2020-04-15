@@ -1,27 +1,22 @@
-// next imports
 import Head from 'next/head'
 import Link from 'next/link'
-
-// react imports
+import useTranslation from 'next-translate/useTranslation'
 import React, { useContext, useEffect, useState } from 'react'
-
-// app imports
-import Button from '../components/button'
-import MediaCard from '../components/MediaCard/MediaCard'
-import CarouselSection from '../components/carousel-section'
-import Featured from '../components/featured'
-import Layout from '../components/layout/Layout'
-import Loading from '../components/Loading/Loading'
-import MediaLink from '../components/MediaLink/MediaLink'
-import WishlistBtn from '../components/wishlist-btn'
-import UserContext from '../contexts/UserContext'
-import { CONFIG } from '../config'
-import api from '../services/api'
+import Button from '~/components/button'
+import MediaCard from '~/components/MediaCard/MediaCard'
+import CarouselSection from '~/components/carousel-section'
+import Featured from '~/components/featured'
+import Layout from '~/components/layout/Layout'
+import Loading from '~/components/Loading/Loading'
+import MediaLink from '~/components/MediaLink/MediaLink'
+import WishlistBtn from '~/components/wishlist-btn'
+import UserContext from '~/contexts/UserContext'
+import { CONFIG } from '~/config'
+import api from '~/services/api'
 import withApi from '~/components/withApi'
-import { i18n, withTranslation } from '~/i18n'
 
 // home page
-const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps, t }) => {
+const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) => {
 
   // get user
   const { user } = useContext(UserContext)
@@ -35,7 +30,7 @@ const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps, t 
       <div className="index">
 
         {/* cover */}
-        <Cover error={featuredMediaError} media={featuredMedia} t={t} />
+        <Cover error={featuredMediaError} media={featuredMedia} />
 
         {/* Contents */}
         <div className="index__contents">
@@ -82,10 +77,13 @@ HomePage.getInitialProps = async ({ api }) => {
   }
 }
 
-export default withTranslation('common')(withApi(HomePage))
+export default withApi(HomePage)
 
 // home cover
-const Cover = ({ error, media, t }) => {
+const Cover = ({ error, media }) => {
+
+  const { t } = useTranslation()
+  const empezaYa = t('common:empeza-ya')
 
   // get user
   const { user } = useContext(UserContext)
@@ -146,7 +144,7 @@ const Cover = ({ error, media, t }) => {
             { ! user ? (
               <div className="col-auto">
                 <Link href="/subscriptor" passHref>
-                  <Button>{t('empeza-ya')}</Button>
+                  <Button>{empezaYa}</Button>
                 </Link>
               </div>
             ) : <>

@@ -6,6 +6,7 @@
 // react
 import React        from 'react'
 import NProgress    from 'nprogress'
+import appWithI18n from 'next-translate/appWithI18n'
 import * as Sentry  from '@sentry/node'
 
 // next
@@ -25,7 +26,7 @@ import * as gtag              from '~/lib/gtag'
 
 // import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from '~/theme'
-import { appWithTranslation } from '~/i18n'
+import i18nConfig from '~/i18n'
 // import withBasicAuth from '~/basic-auth'
 
 NProgress.configure({ showSpinner: false })
@@ -133,4 +134,4 @@ class MyApp extends App {
 /* Enable pwd page protection while in development */
 // export default withBasicAuth(MyApp)
 
-export default appWithTranslation(MyApp)
+export default appWithI18n(MyApp, i18nConfig)
