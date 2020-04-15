@@ -2,7 +2,7 @@
   "name": "@somosgad/dale",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "next-translate && next build",
     "dev": "nodemon server.js",
     "dev:river": "cross-env TENANT=river yarn dev",
     "dev:dalecacique": "cross-env TENANT=dalecacique yarn dev",
