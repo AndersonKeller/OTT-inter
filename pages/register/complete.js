@@ -104,8 +104,8 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
 
   const [ genders, setGenders ] = useState()
   const [ countries, setCountries ] = useState()
+  const [ discounts, setDiscounts ] = useState(false)
   const [ discount, setDiscount ] = useState(false)
-  const [ supportersDiscount, setSupportersDiscount ] = useState()
 
   const [ values, setValues ] = useState({
     name: '',
@@ -119,8 +119,6 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     payment_os: null,
     cash_payment_method_id: null,
     terms: null,
-    supporter_id: '',
-    alternate_supporter_id: '',
   })
 
   const [ loading, setLoading ] = useState()
@@ -139,6 +137,20 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     (async _ => {
       const {data} = await api.get('countries')
       setCountries(data)
+    })()
+  }, [])
+
+   /* get discounts */
+   useEffect(_ => {
+    (async _ => {
+      var { data } = await api.get('discounts')
+
+      data = data.map( (disc, index) => {
+        disc.dsc_id = 'dsc_' + index
+        return disc
+      })
+
+      setDiscounts(data)
     })()
   }, [])
 
@@ -169,20 +181,15 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     })
   }
 
-  const handleDiscountChange = e => {
+  const handleDiscountChange = ({target:{name, value, id}}) => {
     setValues({
       ...values,
-      alternate_supporter_id: e.target.value,
+      [name]: value,
     })
-    setDiscount(e.target.value.length === 5)
+    console.log('id:', id)
+    setDiscount(value.length === 5 ? id : false)
   }
-  const handleSupportersDiscountChange = e => {
-    setValues({
-      ...values,
-      supporter_id: e.target.value,
-    })
-    setSupportersDiscount(e.target.value.length === 5)
-  }
+
 
   /* handle package change */
   function onPackageChange(e) {
@@ -192,6 +199,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
       package_id: package_id,
       payment_method_id: package_id === free_package_id ? null : values.payment_method_id,
     })
+    console.table(values)
   }
 
   /* handle payment method change */
@@ -254,7 +262,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
           Router.push('/')
         }
       } catch (error) {
-        console.log('error', error)
+        console.table(error)
         if (error.response) {
           const { data, status } = error.response
           if (status === 422) {
@@ -421,26 +429,32 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         </div>
 
       </div>
-      <h3 className="h3">¿Eres Socio? Obtén un descuento especial</h3>
-        <div className="row">
-          <div className="col-md-6">
-            <div className="data">
-              <FormGroup>
-                <Label htmlFor="supporter_id">Socio {CONFIG.shortClubName}</Label>
-                <Input
-                  disabled={values.alternate_supporter_id}
-                  id="supporter_id"
-                  maxLength={5}
-                  name="supporter_id"
-                  onChange={handleSupportersDiscountChange}
-                  type="text"
-                  style={supportersDiscount ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
-                  value={values.supporter_id}
-                />
-              </FormGroup>
-            </div>
+      {/* <h3 className="h3">¿Eres Socio? Obtén un descuento especial</h3> */}
+      <div className="row">
+      {discounts && discounts.map((d,index) => (
+        <div className="col-md-6">
+          <div className="data">
+            <FormGroup>
+              <Label htmlFor={d.dsc_id}>{d.name}</Label>
+              <Input
+                disabled={discounts.find(
+                  disc => !['',undefined].includes(values[disc.dsc_id]) && disc.id != d.id
+                )}
+                id={d.id}
+                maxLength={5}
+                name={d.dsc_id}
+                onChange={handleDiscountChange}
+                type="text"
+                style={discount ==  d.id ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
+                value={values[d.dsc_id]}
+                key={index}
+              />
+            </FormGroup>
           </div>
-          <div className="col-md-6">
+        </div>
+      ))}
+
+          {/* <div className="col-md-6">
             <div className="localization">
               <FormGroup>
                 <Label htmlFor="alternate_supporter_id">Somos {CONFIG.shortClubName}</Label>
@@ -457,6 +471,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
               </FormGroup>
             </div>
           </div>
+        */}
         </div>
 
 
@@ -467,8 +482,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         onChange: onPackageChange,
         package_id: values.package_id,
         validationError: ! loading && error && error.errors && error.errors.package_id,
-        discount,
-        supportersDiscount,
+        discount_id: discount,
       }} />
 
       {/* payment */}

@@ -1,5 +1,7 @@
 // app imports
 import FormGroup from './layout/AuthModal/FormGroup'
+import { useEffect, useState } from 'react'
+import withApi from '~/components/withApi'
 
 // packages component
 const Packages = ({
@@ -10,25 +12,40 @@ const Packages = ({
   package_id,
   validationError,
   readOnly,
-  discount,
-  supportersDiscount,
+  discount_id,
+  api
 }) => {
+
+  const [discounts, setDiscounts] = useState(false)
+
+  /* get discounts */
+  useEffect(_ => {
+    (async _ => {
+      const { data } = discount_id ? await api.get(`discounts/${discount_id}/packages`) : {}
+      setDiscounts(data)
+    })()
+  }, [discount_id])
+
+
   // error handling
   if (error) {
     return <div>No se pueden cargar paquetes</div>
   }
+
   // return
   return (
     <section className="packages">
       <h3 className="h3">Selecciona tu plan</h3>
       <div className="row gutter-15 packages__list">
-        { items && items.map((item, key) => (
-          <div className="col-6 col-md" {...{key}}>
+        { items && items.map((item, key) => {
+          let discount = discounts ? discounts.find(disc => disc.id == item.id) : null
+
+          return <div className="col-6 col-md" {...{key}}>
             <FormGroup>
-              <PackageRadio {...{onChange, readOnly, discount, supportersDiscount, package_id, plan: item}} />
+              <PackageRadio {...{onChange, readOnly, discount, package_id, plan: item} } />
             </FormGroup>
           </div>
-        )) }
+        }) }
       </div>
       { validationError && (
         <div className="invalid-feedback">{validationError}</div>
@@ -52,43 +69,19 @@ export const PackageRadio = ({
   plan,
   readOnly,
   discount,
-  supportersDiscount,
 }) => {
 
-  if (supportersDiscount) {
-
-    if (plan.name === '1 mes') {
-      plan.amount_with_discount = Math.round(plan.amount * .9)
-    } else if (plan.name === '3 meses') {
-      plan.amount_with_discount = Math.round(plan.amount * .85)
-    } else if (plan.name === '6 meses') {
-      plan.amount_with_discount = Math.round(plan.amount * .8)
-    } else if (plan.name === '1 año') {
-      plan.amount_with_discount = Math.round(plan.amount * .75)
-    } else {
-      plan.amount_with_discount = 0
-    }
-
-  } else if (discount) {
-
-    if (plan.name === '1 mes') {
-      plan.amount_with_discount = Math.round(plan.amount * .95)
-    } else if (plan.name === '3 meses') {
-      plan.amount_with_discount = Math.round(plan.amount * .9)
-    } else {
-      plan.amount_with_discount = Math.round(plan.amount * .85)
-    }
-  }
+  plan.amount_with_discount = discount ? Math.round(plan.amount * ( 1 - discount.pivot.percent)) : 0
 
   return (
-    <label className="text-center">
+    <label className={'text-center' + (readOnly?' readonly':'') }>
       <input
         checked={plan.id == package_id}
         name="package_id"
         onChange={onChange}
         type="radio"
         value={plan.id}
-        readOnly={readOnly}
+        {...{readOnly}}
       />
 
       <span className="fake-input">
@@ -98,14 +91,14 @@ export const PackageRadio = ({
 
         {/* value */}
         { (plan.amount !== plan.amount_with_discount ||
-          plan.amount === 0 && ! (discount || supportersDiscount)) && (
-          <span className={(discount || supportersDiscount) ? 'discount-value' : 'value'}>
+          plan.amount === 0 && !discount ) && (
+          <span className={ discount ? 'discount-value' : 'value'}>
             { (plan.currency === 'ars' ? '$' : '') + plan.amount }
           </span>
         ) }
 
         {/* discount */}
-        {(discount || supportersDiscount) && (
+        {  discount && (
           <span className="value">
             { (plan.currency === 'ars' ? '$' : '') + plan.amount_with_discount }
           </span>
@@ -146,6 +139,9 @@ export const PackageRadio = ({
           margin-right: 5px;
           color: red;
         }
+        .readonly {
+          cursor: default;
+        }
         .value {
         }
       `}</style>
@@ -154,4 +150,4 @@ export const PackageRadio = ({
 }
 
 // export packages
-export default Packages
+export default withApi(Packages)
