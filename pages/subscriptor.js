@@ -16,11 +16,11 @@ export default function Subscriptor({ layoutProps }) {
 
   const playersName = TENANT === 'river' ? 'Franco Armani' :
     TENANT === 'colocolo' ? 'Valdivia' :
-    TENANT === 'lau' ? 'Fernand Cornejo' :
+    TENANT === 'lau' ? 'Walter Damián Montillo' :
     'Todos los jugadores están'
 
   const section2Alt = TENANT === 'river' ? `${playersName} con un trofeo` :
-    TENANT === 'coloclo' ? `${playersName} chutando` :
+    TENANT === 'colocolo' ? `${playersName} chutando` :
     TENANT === 'lau' ? 'Fernando Cornejo mirando hacia adelante con los brazos cruzados' :
     ''
 
@@ -47,7 +47,7 @@ export default function Subscriptor({ layoutProps }) {
             <span>{playersName} en</span> <AppLogo height={23} verticalAlign={0} />
           </H2>
           <SubscriptorSectionText>
-            <p>Mira donde y cuando quieras.</p>
+            <p>{TENANT === 'lau' ? 'Vélo donde y cuando quieras' : 'Mira donde y cuando quieras.'}</p>
           </SubscriptorSectionText>
         </SubscriptorSection>
 
@@ -68,7 +68,7 @@ export default function Subscriptor({ layoutProps }) {
               <p>
               ¡Destacados del club y contenido exclusivo para ver tantas veces como quieras!</p>
             ) : (
-              <p>Mati Zaldivia: mi vida en el Albo</p>
+              <p>Campeones 1994: rompiendo 25 años de maldición</p>
             )}
           </SubscriptorSectionText>
         </SubscriptorSection>
@@ -330,9 +330,6 @@ const SubscriptorSection = (props) => {
           .subscriptor-section .row {
             height: 530px;
           }
-          .subscriptor-section--right .subscriptor-section-text-col {
-            padding-left: 3.5%;
-          }
           .subscriptor-section--left .subscriptor-section-text-col {
             padding-right: 4%;
           }
@@ -401,7 +398,7 @@ const Section1 = () => {
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
             <p>{leadText}</p>
-            <p>Todo por <big>{TENANT === 'river' ? 149 : 1699}</big> pesos mensuales.</p>
+            <p>Todo por <big>{'$'+(TENANT === 'river' ? 149 : '1.699')}</big> mensuales.</p>
           </div>
         </div>
       </div>

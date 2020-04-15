@@ -18,6 +18,7 @@ import UserContext from '../contexts/UserContext'
 import { CONFIG } from '../config'
 import api from '../services/api'
 import withApi from '~/components/withApi'
+import { i18n, withTranslation } from '~/i18n'
 
 // home page
 const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) => {
@@ -40,7 +41,7 @@ const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) 
         <div className="index__contents">
           {contents && contents.map((item, index) => {
             let showBanner = (item.is_paid && user || !item.is_paid && !user)
-            console.log(item.slug)
+            // console.log(item.slug)
             switch(item.contentable_type) {
               case 'categories':  return <HomeCarouselSection category={item.slug} key={index} />
               case 'banners':     return showBanner && <BannerSection id={item.contentable_id} key={index} />
@@ -70,21 +71,21 @@ const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) 
   )
 }
 
-HomePage.getInitialProps = async ctx => {
+HomePage.getInitialProps = async ({ api }) => {
   try {
-    const { data: home_page } = await ctx.api.get('pages/home')
-    const [firstContent,...contents] = home_page.contents
-    const { data: { movie: featuredMedia } } = await ctx.api.get('movie/' + firstContent.slug + '?for=home-cover')
+    const { data: home_page } = await api.get('pages/home')
+    const [ firstContent, ...contents ] = home_page.contents
+    const { data: { movie: featuredMedia } } = await api.get('movie/' + firstContent.slug + '?for=home-cover')
     return { contents, featuredMedia }
   } catch (error) {
     return { featuredMediaError: error }
   }
 }
 
-export default withApi(HomePage)
+export default withTranslation('common')(withApi(HomePage))
 
 // home cover
-const Cover = ({ error, media }) => {
+const Cover = withTranslation('common')(({ error, media, t }) => {
 
   // get user
   const { user } = useContext(UserContext)
@@ -145,7 +146,7 @@ const Cover = ({ error, media }) => {
             { ! user ? (
               <div className="col-auto">
                 <Link href="/subscriptor" passHref>
-                  <Button>¡Empezá Ya!</Button>
+                  <Button>{t('empeza-ya')}</Button>
                 </Link>
               </div>
             ) : <>
@@ -255,7 +256,7 @@ const Cover = ({ error, media }) => {
 
     </div>
   )
-}
+})
 
 // carousel sections
 const HomeCarouselSection = ({ category: categorySlug }) => {

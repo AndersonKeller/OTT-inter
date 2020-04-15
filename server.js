@@ -7,8 +7,13 @@
 // This file doesn't go through babel or webpack transformation.
 // Make sure the syntax and sources this file requires are compatible with the current node version you are running
 // See https://github.com/zeit/next.js/issues/1245 for discussions on Universal Webpack or universal Babel
+
 const express = require('express')
 const next = require('next')
+const dotenv = require('dotenv')
+dotenv.config()
+const nextI18NextMiddleware = require('next-i18next/middleware').default
+const nextI18next = require('./i18n')
 
 const { parse } = require('url')
 const port = parseInt(process.env.PORT, 10) || 3000
@@ -38,52 +43,61 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handleNextRequests = app.getRequestHandler()
 
+/* For some reason, async/await weren't working to me */
+// (async () => {
+//   await app.prepare()
 app.prepare().then(() => {
-
   const server = express()
 
-  /* if (argv.hostname === 'dalecampeon' ||
-    ['dalecampeon.com', 'dalecampeon.now.sh'].includes(req.headers.host)) {
-    process.env.TENANT = argv.hostname
+  // await nextI18next.initPromise
+  nextI18next.initPromise.then(() => {
 
-  } else if (argv.hostname === 'dalecacique' ||
-    ['dalecacique.com', 'dalecacique.now.sh'].includes(req.headers.host)) {
-    process.env.TENANT = argv.hostname
-  } */
+    server.use(nextI18NextMiddleware(nextI18next))
 
-  server.get('/login', (req, res) => {
-    req.query.modal = 'login'
-    return app.render(req, res, '/', req.query)
-  })
+    /* if (argv.hostname === 'dalecampeon' ||
+      ['dalecampeon.com', 'dalecampeon.now.sh'].includes(req.headers.host)) {
+      process.env.TENANT = argv.hostname
 
-  server.get('/gLogin', (req, res) => {
-    req.query.modal = 'login'
-    req.query.socialProvider = 'google'
-    return app.render(req, res, '/', req.query)
-  })
+    } else if (argv.hostname === 'dalecacique' ||
+      ['dalecacique.com', 'dalecacique.now.sh'].includes(req.headers.host)) {
+      process.env.TENANT = argv.hostname
+    } */
 
-  server.get('/fLogin', (req, res) => {
-    req.query.modal = 'login'
-    req.query.socialProvider = 'facebook'
-    return app.render(req, res, '/', req.query)
-  })
+    server.get('/login', (req, res) => {
+      req.query.modal = 'login'
+      return app.render(req, res, '/', req.query)
+    })
 
-  server.get('/register', (req, res) => {
-    req.query.modal = 'register'
-    return app.render(req, res, '/', req.query)
-  })
+    server.get('/gLogin', (req, res) => {
+      req.query.modal = 'login'
+      req.query.socialProvider = 'google'
+      return app.render(req, res, '/', req.query)
+    })
 
-  server.get('/password/reset', (req, res) => {
-    req.query.modal = 'password'
-    return app.render(req, res, '/', req.query)
-  })
+    server.get('/fLogin', (req, res) => {
+      req.query.modal = 'login'
+      req.query.socialProvider = 'facebook'
+      return app.render(req, res, '/', req.query)
+    })
 
-  server.all('*', (req, res) => {
-    return handleNextRequests(req, res)
-  })
+    server.get('/register', (req, res) => {
+      req.query.modal = 'register'
+      return app.render(req, res, '/', req.query)
+    })
 
-  server.listen(port, err => {
-    if (err) throw err
-    console.log(`> Ready on http://localhost:${port}`)
+    server.get('/password/reset', (req, res) => {
+      req.query.modal = 'password'
+      return app.render(req, res, '/', req.query)
+    })
+
+    server.all('*', (req, res) => {
+      return handleNextRequests(req, res)
+    })
+
+    server.listen(port, err => {
+      if (err) throw err
+      console.log(`> Ready on http://localhost:${port}`)
+    })
   })
 })
+// })()

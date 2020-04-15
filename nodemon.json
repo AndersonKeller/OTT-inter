@@ -2,8 +2,10 @@
   "verbose": true,
   "watch": [
     ".env",
+    "i18n.js",
     "next.config.js",
     "nodemon.json",
-    "server.js"
+    "server.js",
+    "static/locales"
   ]
 }

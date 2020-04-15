@@ -25,6 +25,7 @@ import * as gtag              from '~/lib/gtag'
 
 // import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from '~/theme'
+import { appWithTranslation } from '~/i18n'
 // import withBasicAuth from '~/basic-auth'
 
 NProgress.configure({ showSpinner: false })
@@ -132,4 +133,4 @@ class MyApp extends App {
 /* Enable pwd page protection while in development */
 // export default withBasicAuth(MyApp)
 
-export default MyApp
+export default appWithTranslation(MyApp)
