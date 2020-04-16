@@ -389,6 +389,8 @@ const Section1 = () => {
 
   const leadText = `¡${CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos ${TENANT === 'river' ? 'del Más Grande' : CONFIG.appName}!`
 
+  const minPrice = '$'+(TENANT === 'river' ? 149 : '1.699')
+
   return (
     <div className="section1 container-fluid">
       <div className="row">
@@ -401,7 +403,7 @@ const Section1 = () => {
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
             <p>{leadText}</p>
-            <p>Todo por <big>{TENANT === 'river' ? 149 : 1699}</big> pesos mensuales.</p>
+            <p>Todo por <big>{minPrice}</big> mensuales.</p>
           </div>
         </div>
       </div>
