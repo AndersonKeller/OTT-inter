@@ -33,4 +33,4 @@ package-lock.json
 .now
 
 # static next-translate
-/pages
+# /pages

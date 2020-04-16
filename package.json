@@ -2,16 +2,17 @@
   "name": "@somosgad/dale",
   "private": true,
   "scripts": {
-    "build": "next-translate && next build",
-    "dev": "next-translate && next dev",
-    "dev:custom": "nodemon server.js",
+    "build": "next build",
+    "build:static": "next-translate && next build",
+    "dev": "nodemon server.js",
+    "dev:static": "next-translate && next dev",
     "dev:river": "cross-env TENANT=river yarn dev",
     "dev:dalecacique": "cross-env TENANT=dalecacique yarn dev",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
     "docz:serve": "docz build && docz serve",
-    "start": "next start",
-    "start:custom": "cross-env NODE_ENV=production node server.js"
+    "start": "cross-env NODE_ENV=production node server.js",
+    "start:static": "next start"
   },
   "dependencies": {
     "@charlietango/use-script": "^2.1.0",
