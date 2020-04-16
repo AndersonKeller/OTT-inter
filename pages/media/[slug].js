@@ -48,9 +48,12 @@ MediaPage1.getInitialProps = async ctx => {
 
 // cover
 const Cover = ({category, media}) => {
+
   const [open, setOpen] = useState(false)
   const { user } = useContext(UserContext)
   const smDown = useMediaQuery('(max-width: 767px)')
+  const probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
+
   return (
     <div className="cover container-fluid" style={{
       backgroundImage: [
@@ -94,7 +97,7 @@ const Cover = ({category, media}) => {
 
           { ! user ? (
             <Link href="/subscriptor">
-              <Button block={smDown}>Probá Gratis</Button>
+              <Button block={smDown}>{probaGratis}</Button>
             </Link>
           ) : (
             <>

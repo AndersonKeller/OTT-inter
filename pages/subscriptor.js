@@ -127,6 +127,8 @@ const Packages = () => {
     openAuthModal('register', packageId)
   }
 
+  const probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
+
   return (
     <section className="prices text-center container-fluid">
       <div className="entries row">
@@ -155,7 +157,7 @@ const Packages = () => {
                             <Button
                               block
                               onClick={(e) => choosePackage(e, item.id)}
-                            >Probá Gratis</Button>
+                            >{probaGratis}</Button>
                           ) : (
                             <Button
                               block

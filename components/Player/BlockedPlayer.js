@@ -5,6 +5,7 @@ import Player from '~/components/Player'
 import UserContext from '~/contexts/UserContext'
 import { IS_PRODUCTION } from '~/constants/constants'
 import { AuthModalContext } from '~/contexts/AuthModalContext'
+import { CONFIG } from '~/config'
 
 export default function BlockedPlayer({ image = '', media}) {
   const { user } = useContext(UserContext)
@@ -27,6 +28,8 @@ export default function BlockedPlayer({ image = '', media}) {
   const youtube_link = media.movie_links.find(element => {
     return element.movie_link_type_id === youtube_type_id
   })
+
+  const probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
 
   return (
     <div className="player">
@@ -60,7 +63,7 @@ export default function BlockedPlayer({ image = '', media}) {
               <p><strong>Este contenido es exclusivo para los suscriptores</strong></p>
               <p className="d-none d-md-block"><small>Ver los videos cuando y donde quieras.</small></p>
             </div>
-            <Button onClick={e => handleAuth(e)}>Probá Gratis</Button>
+            <Button onClick={e => handleAuth(e)}>{probaGratis}</Button>
             <div className="text-block">
               <p><strong><span className="text-uppercase d-none d-md-inline">Prueba gratis</span><br className="d-none d-md-inline" />
                 ¿Ya ere suscriptor? <span className="text-uppercase">Ház <Link href="/login"><a>login</a></Link></span></strong></p>
