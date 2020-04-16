@@ -13,7 +13,6 @@ export default function BlockedPlayer({ image = '', media}) {
   const autoPlay = IS_PRODUCTION
   const { openAuthModal } = useContext(AuthModalContext)
 
-  // open auth modal
   const handleAuth = e => {
     e.preventDefault()
     openAuthModal('register')
@@ -30,6 +29,11 @@ export default function BlockedPlayer({ image = '', media}) {
   })
 
   const probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
+
+  const handleLogin = e => {
+    e.preventDefault()
+    openAuthModal('login')
+  }
 
   return (
     <div className="player">
@@ -65,8 +69,19 @@ export default function BlockedPlayer({ image = '', media}) {
             </div>
             <Button onClick={e => handleAuth(e)}>{probaGratis}</Button>
             <div className="text-block">
-              <p><strong><span className="text-uppercase d-none d-md-inline">Prueba gratis</span><br className="d-none d-md-inline" />
-                ¿Ya ere suscriptor? <span className="text-uppercase">Ház <Link href="/login"><a>login</a></Link></span></strong></p>
+              <p>
+                <strong>
+                  ¿Ya ere suscriptor?
+                  {' '}
+                  <span>
+                    Ház
+                    {' '}
+                    <Link href="/login">
+                      <a className="text-uppercase" onClick={e => handleLogin(e)}>login</a>
+                    </Link>
+                  </span>
+                </strong>
+              </p>
             </div>
           </div>
         </>
