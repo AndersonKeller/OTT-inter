@@ -280,7 +280,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     setLoading(false)
   }
 
-  const cityLabel = CONFIG.lang === 'es-CL' ? 'Comuna' : 'Ciudad'
+  const cityLabel = CONFIG.lang === 'es-CL' ? 'Provincia' : 'Ciudad'
 
   return (
     <form method="post" onSubmit={handleSubmit}>

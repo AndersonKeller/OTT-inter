@@ -103,7 +103,7 @@ const userDataPage = ({ layoutProps, user, updateUser }) => {
 
 const DataForm = ({isSubmitting, countries, genders})  => {
 
-  const cityLabel = CONFIG.lang === 'es-CL' ? 'Comuna' : 'Ciudad'
+  const cityLabel = CONFIG.lang === 'es-CL' ? 'Provincia' : 'Ciudad'
 
   return (
     <Form>
