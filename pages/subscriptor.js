@@ -16,13 +16,15 @@ export default function Subscriptor({ layoutProps }) {
 
   const playersName = TENANT === 'river' ? 'Franco Armani' :
     TENANT === 'colocolo' ? 'Valdivia' :
-    TENANT === 'lau' ? 'Fernand Cornejo' :
+    TENANT === 'lau' ? 'Walter Damián Montillo' :
     'Todos los jugadores están'
 
   const section2Alt = TENANT === 'river' ? `${playersName} con un trofeo` :
     TENANT === 'coloclo' ? `${playersName} chutando` :
-    TENANT === 'lau' ? 'Fernando Cornejo mirando hacia adelante con los brazos cruzados' :
+    TENANT === 'lau' ? 'Walter Damián Montillo en la firma mostrando sua camisa número 10' :
     ''
+
+  const section2Text = CONFIG.lang === 'es-CL' ? 'Vélo donde y cuando quieras.' : 'Mira donde y cuando quieras.'
 
   return (
     <Layout {...layoutProps} header="closed">
@@ -47,7 +49,7 @@ export default function Subscriptor({ layoutProps }) {
             <span>{playersName} en</span> <AppLogo height={23} verticalAlign={0} />
           </H2>
           <SubscriptorSectionText>
-            <p>Mira donde y cuando quieras.</p>
+            <p>{section2Text}</p>
           </SubscriptorSectionText>
         </SubscriptorSection>
 
@@ -329,9 +331,6 @@ const SubscriptorSection = (props) => {
         @media (min-width: 992px) {
           .subscriptor-section .row {
             height: 530px;
-          }
-          .subscriptor-section--right .subscriptor-section-text-col {
-            padding-left: 3.5%;
           }
           .subscriptor-section--left .subscriptor-section-text-col {
             padding-right: 4%;
