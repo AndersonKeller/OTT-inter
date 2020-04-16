@@ -21,10 +21,12 @@ export default function Subscriptor({ layoutProps }) {
 
   const section2Alt = TENANT === 'river' ? `${playersName} con un trofeo` :
     TENANT === 'coloclo' ? `${playersName} chutando` :
-    TENANT === 'lau' ? 'Walter Damián Montillo en la firma mostrando sua camisa número 10' :
-    ''
+    TENANT === 'lau' ? 'Walter Damián Montillo en la firma mostrando sua camisa número 10' : null
 
   const section2Text = CONFIG.lang === 'es-CL' ? 'Vélo donde y cuando quieras.' : 'Mira donde y cuando quieras.'
+
+  const section3Text = TENANT === 'river' ? '¡Destacados del club y contenido exclusivo para ver tantas veces como quieras!' :
+  TENANT === 'lau' ? 'Campeones 1994: rompiendo 25 años de maldición' : null
 
   return (
     <Layout {...layoutProps} header="closed">
@@ -66,12 +68,7 @@ export default function Subscriptor({ layoutProps }) {
             El mejor contenido
           </H2>
           <SubscriptorSectionText>
-            {TENANT === 'river' ? (
-              <p>
-              ¡Destacados del club y contenido exclusivo para ver tantas veces como quieras!</p>
-            ) : (
-              <p>Mati Zaldivia: mi vida en el Albo</p>
-            )}
+            <p>{section3Text}</p>
           </SubscriptorSectionText>
         </SubscriptorSection>
 
