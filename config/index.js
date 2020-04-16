@@ -17,6 +17,7 @@ import tenantsConfigs from './config.json'
  * @property {array} socialNetworks - club's social networks.
  * @property {string} googleAnalytics - analytics tracking code.
  * @property {string} apiUrl - project api URL.
+ * @property {string} lang - project's main lang.
  */
 /** @type {AppsConfig} */
 export const CONFIG = tenantsConfigs[TENANT]

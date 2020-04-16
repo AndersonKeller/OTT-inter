@@ -13,7 +13,8 @@
       { "name": "Twitter", "link": "https://twitter.com/colocolo" }
     ],
     "googleAnalytics": null,
-    "apiUrl": "https://admin.rivermas.com"
+    "apiUrl": "https://admin.rivermas.com",
+    "lang": "es-CL"
   },
   "river": {
     "appName": "River Mas",
@@ -29,7 +30,8 @@
       { "name": "Twitter", "link": "https://twitter.com/RiverPlate" }
     ],
     "googleAnalytics": "UA-146274840-2",
-    "apiUrl": "https://admin.rivermas.com"
+    "apiUrl": "https://admin.rivermas.com",
+    "lang": "es"
   },
   "lau": {
     "appName": "La U Mas",
@@ -45,6 +47,7 @@
       { "name": "Twitter", "link": "https://www.twitter.com/udechile" }
     ],
     "googleAnalytics": "UA-146274840-3",
-    "apiUrl": "https://admin.laumas.cl"
+    "apiUrl": "https://admin.laumas.cl",
+    "lang": "es-CL"
   }
 }
