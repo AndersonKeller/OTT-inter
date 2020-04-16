@@ -280,6 +280,8 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     setLoading(false)
   }
 
+  const cityLabel = CONFIG.lang === 'es-CL' ? 'Comuna' : 'Ciudad'
+
   return (
     <form method="post" onSubmit={handleSubmit}>
 
@@ -385,7 +387,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
 
             {/* city */}
             <FormGroup>
-              <Label htmlFor="city">Ciudad</Label>
+              <Label htmlFor="city">{cityLabel}</Label>
               <Input
                 id="city"
                 name="city"
