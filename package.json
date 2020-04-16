@@ -2,16 +2,14 @@
   "name": "@somosgad/dale",
   "private": true,
   "scripts": {
-    "build": "next-translate && next build",
-    "dev": "next-translate && next dev",
-    "dev:custom": "nodemon server.js",
+    "build": "next build",
+    "dev": "nodemon server.js",
     "dev:river": "cross-env TENANT=river yarn dev",
     "dev:dalecacique": "cross-env TENANT=dalecacique yarn dev",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
     "docz:serve": "docz build && docz serve",
-    "start": "next start",
-    "start:custom": "cross-env NODE_ENV=production node server.js"
+    "start": "cross-env NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@charlietango/use-script": "^2.1.0",
@@ -31,11 +29,10 @@
     "glamor": "^2.20.40",
     "isomorphic-unfetch": "^3.0.0",
     "json-parse-safe": "^2.0.0",
-    "next": "9.3.2",
+    "next": "9.0.3",
     "next-compose-plugins": "^2.2.0",
     "next-images": "^1.2.0",
     "next-redirect": "^1.0.1",
-    "next-translate": "0.9.0",
     "nookies": "^2.0.8",
     "now": "^17.0.3",
     "nprogress": "^0.2.0",

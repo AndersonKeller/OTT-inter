@@ -10,6 +10,7 @@ const withCSS = require('@zeit/next-css')
 const withImages = require('next-images')
 const withSourceMaps = require('@zeit/next-source-maps')()
 
+
 // next config
 const nextConfig = withSourceMaps({
   env: {

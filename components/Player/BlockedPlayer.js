@@ -1,30 +1,21 @@
 import { useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
-import useTranslation from 'next-translate/useTranslation'
 import Button from '~/components/button'
 import Player from '~/components/Player'
 import UserContext from '~/contexts/UserContext'
 import { IS_PRODUCTION } from '~/constants/constants'
 import { AuthModalContext } from '~/contexts/AuthModalContext'
 
-function BlockedPlayer({ image = '', media }) {
-
+export default function BlockedPlayer({ image = '', media}) {
   const { user } = useContext(UserContext)
   const [ video, setVideo ] = useState(user ? 1 : 0)
   const autoPlay = IS_PRODUCTION
   const { openAuthModal } = useContext(AuthModalContext)
-  const { t } = useTranslation()
-  const probaGratis = t('common:proba-gratis')
 
   // open auth modal
   const handleAuth = e => {
     e.preventDefault()
     openAuthModal('register')
-  }
-
-  const handleLogin = e => {
-    e.preventDefault()
-    openAuthModal('login')
   }
 
   // show or hide video if has user
@@ -69,15 +60,10 @@ function BlockedPlayer({ image = '', media }) {
               <p><strong>Este contenido es exclusivo para los suscriptores</strong></p>
               <p className="d-none d-md-block"><small>Ver los videos cuando y donde quieras.</small></p>
             </div>
-            <Button onClick={e => handleAuth(e)}>{probaGratis}</Button>
+            <Button onClick={e => handleAuth(e)}>Probá Gratis</Button>
             <div className="text-block">
               <p><strong><span className="text-uppercase d-none d-md-inline">Prueba gratis</span><br className="d-none d-md-inline" />
-                ¿Ya ere suscriptor?
-                {' '}
-                <span className="text-uppercase">
-                  Ház <Link href="/login"><a onClick={e => handleLogin(e)}>login</a></Link>
-                </span>
-              </strong></p>
+                ¿Ya ere suscriptor? <span className="text-uppercase">Ház <Link href="/login"><a>login</a></Link></span></strong></p>
             </div>
           </div>
         </>
@@ -135,5 +121,3 @@ function BlockedPlayer({ image = '', media }) {
     </div>
   )
 }
-
-export default BlockedPlayer

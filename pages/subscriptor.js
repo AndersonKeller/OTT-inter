@@ -1,27 +1,26 @@
+import Layout from '../components/layout/Layout'
 import Head from 'next/head'
-import useTranslation from 'next-translate/useTranslation'
-import Layout from '~/components/layout/Layout'
-import H2 from '~/components/h2'
-import Button from '~/components/button'
-import { STATIC_PATH, TENANT } from '~/constants/constants'
-import { CONFIG } from '~/config'
+import H2 from '../components/h2'
+import Button from '../components/button'
+import { STATIC_PATH, TENANT } from '../constants/constants'
+import { CONFIG } from '../config'
 import { useContext, useEffect, useState } from 'react'
-import { AuthModalContext } from '~/contexts/AuthModalContext'
-import UserContext from '~/contexts/UserContext'
-import Loading from '~/components/Loading/Loading'
-import api from '~/services/api'
-import useWindowDimensions from '~/hooks/useWindowDimensions'
+import { AuthModalContext } from '../contexts/AuthModalContext'
+import UserContext from '../contexts/UserContext'
+import Loading from '../components/Loading/Loading'
+import api from '../services/api'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import AppLogo from '~/components/AppLogo'
 
-function Subscriptor({ layoutProps }) {
+export default function Subscriptor({ layoutProps }) {
 
   const playersName = TENANT === 'river' ? 'Franco Armani' :
     TENANT === 'colocolo' ? 'Valdivia' :
-    TENANT === 'lau' ? 'Walter Damián Montillo' :
+    TENANT === 'lau' ? 'Fernand Cornejo' :
     'Todos los jugadores están'
 
   const section2Alt = TENANT === 'river' ? `${playersName} con un trofeo` :
-    TENANT === 'colocolo' ? `${playersName} chutando` :
+    TENANT === 'coloclo' ? `${playersName} chutando` :
     TENANT === 'lau' ? 'Fernando Cornejo mirando hacia adelante con los brazos cruzados' :
     ''
 
@@ -48,7 +47,7 @@ function Subscriptor({ layoutProps }) {
             <span>{playersName} en</span> <AppLogo height={23} verticalAlign={0} />
           </H2>
           <SubscriptorSectionText>
-            <p>{TENANT === 'lau' ? 'Vélo donde y cuando quieras' : 'Mira donde y cuando quieras.'}</p>
+            <p>Mira donde y cuando quieras.</p>
           </SubscriptorSectionText>
         </SubscriptorSection>
 
@@ -69,7 +68,7 @@ function Subscriptor({ layoutProps }) {
               <p>
               ¡Destacados del club y contenido exclusivo para ver tantas veces como quieras!</p>
             ) : (
-              <p>Campeones 1994: rompiendo 25 años de maldición</p>
+              <p>Mati Zaldivia: mi vida en el Albo</p>
             )}
           </SubscriptorSectionText>
         </SubscriptorSection>
@@ -100,15 +99,13 @@ const SubscriptorSectionText = ({ children }) => {
   )
 }
 
-const Packages = _ => {
+const Packages = () => {
 
   const { openAuthModal } = useContext(AuthModalContext)
   const { user } = useContext(UserContext)
   const [ packages, setPackages ] = useState()
   const [ error, setError ] = useState()
   const [ loading, setLoading ] = useState(false)
-  const { t } = useTranslation()
-  const probaGratis = t('common:proba-gratis')
 
   // fetch packages
   useEffect(_ => {
@@ -159,7 +156,7 @@ const Packages = _ => {
                             <Button
                               block
                               onClick={(e) => choosePackage(e, item.id)}
-                            >{probaGratis}</Button>
+                            >Probá Gratis</Button>
                           ) : (
                             <Button
                               block
@@ -333,6 +330,9 @@ const SubscriptorSection = (props) => {
           .subscriptor-section .row {
             height: 530px;
           }
+          .subscriptor-section--right .subscriptor-section-text-col {
+            padding-left: 3.5%;
+          }
           .subscriptor-section--left .subscriptor-section-text-col {
             padding-right: 4%;
           }
@@ -401,7 +401,7 @@ const Section1 = () => {
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
             <p>{leadText}</p>
-            <p>Todo por <big>{'$'+(TENANT === 'river' ? 149 : '1.699')}</big> mensuales.</p>
+            <p>Todo por <big>{TENANT === 'river' ? 149 : 1699}</big> pesos mensuales.</p>
           </div>
         </div>
       </div>
@@ -494,5 +494,3 @@ const Section1 = () => {
     </div>
   )
 }
-
-export default Subscriptor

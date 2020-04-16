@@ -1,9 +1,15 @@
+// react imports
 import { useContext, useState } from 'react'
+
+// next imports
 import Head from 'next/head'
 import Link from 'next/link'
-import useTranslation from 'next-translate/useTranslation'
+
+// material
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Collapse from 'react-bootstrap/Collapse'
+
+// app imports
 import Button from '../../components/button'
 import Layout from '../../components/layout/Layout'
 import MediaLink from '../../components/MediaLink/MediaLink'
@@ -41,14 +47,10 @@ MediaPage1.getInitialProps = async ctx => {
 }
 
 // cover
-const Cover = ({ category, media }) => {
-
+const Cover = ({category, media}) => {
   const [open, setOpen] = useState(false)
   const { user } = useContext(UserContext)
   const smDown = useMediaQuery('(max-width: 767px)')
-  const { t } = useTranslation()
-  const probaGratis = t('common:proba-gratis')
-
   return (
     <div className="cover container-fluid" style={{
       backgroundImage: [
@@ -92,7 +94,7 @@ const Cover = ({ category, media }) => {
 
           { ! user ? (
             <Link href="/subscriptor">
-              <Button block={smDown}>{probaGratis}</Button>
+              <Button block={smDown}>Probá Gratis</Button>
             </Link>
           ) : (
             <>
