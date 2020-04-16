@@ -10,6 +10,7 @@ import Button from '../../button'
 import { AuthModalContext } from '../../../contexts/AuthModalContext'
 import nookies from 'nookies'
 import SocialButtons from './SocialButtons'
+import { CONFIG } from '~/config'
 
 const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
   const [ email, setEmail ] = useState('')
@@ -88,6 +89,8 @@ const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
     changeTab('register')
   }
 
+  const notRegistered = CONFIG.lang === 'es-CL' ? '¿No estás suscrito?' : '¿No es suscriptor?'
+
   return (
     <div>
       <div className="intro-text">
@@ -106,8 +109,8 @@ const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
         </FormGroup>
         <Button block className="enter-btn" size="sm" type="submit">Entrar</Button>
         <div className="already-subscriptor">
-          <span>¿No es suscriptor?</span>
-          &nbsp;
+          <span>{notRegistered}</span>
+          {' '}
           <a className="bold text-uppercase" href="#" onClick={goToRegister}>Regístrate!</a>
         </div>
         <div className="or-enter-with">o entrá con</div>
