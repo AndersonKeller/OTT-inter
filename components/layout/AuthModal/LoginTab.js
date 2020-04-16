@@ -11,6 +11,7 @@ import { AuthModalContext } from '../../../contexts/AuthModalContext'
 import nookies from 'nookies'
 import SocialButtons from './SocialButtons'
 import { CONFIG } from '~/config'
+import OrEnterWith from './OrEnterWith'
 
 const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
   const [ email, setEmail ] = useState('')
@@ -111,10 +112,13 @@ const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
         <div className="already-subscriptor">
           <span>{notRegistered}</span>
           {' '}
-          <a className="bold text-uppercase" href="#" onClick={goToRegister}>Regístrate!</a>
+          <a className="bold text-uppercase" href="/register" onClick={goToRegister}>Regístrate!</a>
         </div>
-        <div className="or-enter-with">o entrá con</div>
+
+        <OrEnterWith />
+
         <SocialButtons socialLogin={socialLogin} />
+
       </form>
     </div>
   )

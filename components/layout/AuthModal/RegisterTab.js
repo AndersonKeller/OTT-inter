@@ -9,6 +9,7 @@ import FormGroup from './FormGroup'
 import Input from './Input'
 import Button from '../../button'
 import SocialButtons from './SocialButtons'
+import OrEnterWith from './OrEnterWith'
 
 const RegisterTab = ({ changeTab, setLoading, socialLogin })  => {
   const [name,setName] = useState('')
@@ -107,11 +108,14 @@ const RegisterTab = ({ changeTab, setLoading, socialLogin })  => {
         <Button block className="enter-btn" size="sm" type="submit">Registrar</Button>
         <div className="already-subscriptor">
           <span>¿Ya eres suscriptor?</span>
-          &nbsp;
-          <a className="bold text-uppercase" href="#" onClick={goToLogin}>Ház Login</a>
+          {' '}
+          <a className="bold text-uppercase" href="/login" onClick={goToLogin}>Ház Login</a>
         </div>
-        <div className="or-enter-with">o entrá con</div>
+
+        <OrEnterWith />
+
         <SocialButtons socialLogin={socialLogin} />
+
       </form>
     </>
   )
