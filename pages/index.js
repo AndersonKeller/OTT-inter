@@ -40,7 +40,6 @@ const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) 
         <div className="index__contents">
           {contents && contents.map((item, index) => {
             let showBanner = (item.is_paid && user || !item.is_paid && !user)
-            console.log(item.slug)
             switch(item.contentable_type) {
               case 'categories':  return <HomeCarouselSection category={item.slug} key={index} />
               case 'banners':     return showBanner && <BannerSection id={item.contentable_id} key={index} />
@@ -96,6 +95,8 @@ const Cover = ({ error, media }) => {
     )
   }
 
+  const empezaYa = CONFIG.lang === 'es-CL' ? '¡Vívelo ahora!' : '¡Empezá Ya!'
+
   // return
   return (
     <div className="cover container-fluid">
@@ -145,7 +146,7 @@ const Cover = ({ error, media }) => {
             { ! user ? (
               <div className="col-auto">
                 <Link href="/subscriptor" passHref>
-                  <Button>¡Empezá Ya!</Button>
+                  <Button>{empezaYa}</Button>
                 </Link>
               </div>
             ) : <>
