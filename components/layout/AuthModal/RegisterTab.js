@@ -10,6 +10,7 @@ import Input from './Input'
 import Button from '../../button'
 import SocialButtons from './SocialButtons'
 import OrEnterWith from './OrEnterWith'
+import { CONFIG } from '~/config'
 
 const RegisterTab = ({ changeTab, setLoading, socialLogin })  => {
   const [name,setName] = useState('')
@@ -53,6 +54,10 @@ const RegisterTab = ({ changeTab, setLoading, socialLogin })  => {
     e.preventDefault()
     changeTab('login')
   }
+
+  const alreadyRegistered = CONFIG.lang === 'es-CL' ? '¿Ya estás suscrito?' : '¿Ya eres suscriptor?'
+
+  const login = CONFIG.lang === 'es-CL' ? 'Inicia sesión' : 'Ház login'
 
   return (
     <>
@@ -106,10 +111,11 @@ const RegisterTab = ({ changeTab, setLoading, socialLogin })  => {
         </FormGroup> */}
 
         <Button block className="enter-btn" size="sm" type="submit">Registrar</Button>
+
         <div className="already-subscriptor">
-          <span>¿Ya eres suscriptor?</span>
+          <span>{alreadyRegistered}</span>
           {' '}
-          <a className="bold text-uppercase" href="/login" onClick={goToLogin}>Ház Login</a>
+          <a className="bold text-uppercase" href="/login" onClick={goToLogin}>{login}</a>
         </div>
 
         <OrEnterWith />

@@ -35,6 +35,10 @@ export default function BlockedPlayer({ image = '', media}) {
     openAuthModal('login')
   }
 
+  const alreadyRegistered = CONFIG.lang === 'es-CL' ? '¿Ya estás suscrito?' : '¿Ya eres suscriptor?'
+
+  const login = CONFIG.lang === 'es-CL' ? 'Inicia sesión' : 'Ház login'
+
   return (
     <div className="player">
       { video ? (
@@ -63,27 +67,23 @@ export default function BlockedPlayer({ image = '', media}) {
         <>
           <img src={image} width="822" height="464" className="img-fluid" />
           <div className="block-msg text-center">
+
             <div className="text-block">
               <p><strong>Este contenido es exclusivo para los suscriptores</strong></p>
               <p className="d-none d-md-block"><small>Ver los videos cuando y donde quieras.</small></p>
             </div>
-            <Button onClick={e => handleAuth(e)}>{probaGratis}</Button>
-            <div className="text-block">
+
+            <Button onClick={handleAuth}>{probaGratis}</Button>
+
+            <div className="bold text-block">
               <p>
-                <strong>
-                  ¿Ya ere suscriptor?
-                  {' '}
-                  <span>
-                    Ház
-                    {' '}
-                    <Link href="/login">
-                      <a className="text-uppercase" onClick={e => handleLogin(e)}>login</a>
-                    </Link>
-                  </span>
-                </strong>
+                {alreadyRegistered}
+                {' '}
+                <a className="text-uppercase" href="/login" onClick={handleLogin}>{login}</a>
               </p>
             </div>
           </div>
+
         </>
       )}
       <style jsx>{`
