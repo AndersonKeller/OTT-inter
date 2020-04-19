@@ -9,6 +9,7 @@ import ActiveLink from '../ActiveLink'
 import SearchContext from '~/contexts/SearchContext'
 import DesktopMenu from './DesktopMenu'
 import AppLogo from '~/components/AppLogo'
+import ClubLogo from '../ClubLogo'
 
 const Header = ({ closed, layoutColor, menus }) => {
   const hasWindow = typeof window !== 'undefined'
@@ -51,7 +52,7 @@ const Header = ({ closed, layoutColor, menus }) => {
 
         {/* club logo */}
         { ! closed && (
-          <ClubLogo />
+          <HeaderClubLogo />
         ) }
 
         {/* logo */}
@@ -115,7 +116,7 @@ const Header = ({ closed, layoutColor, menus }) => {
         }
         @media (min-width: 768px) {
           .header {
-            padding: 10px 30px 13px 30px;
+            padding: 10px 30px;
           }
         }
         .header.closed {
@@ -194,12 +195,12 @@ const Header = ({ closed, layoutColor, menus }) => {
   )
 }
 
-const ClubLogo = _ => {
+const HeaderClubLogo = _ => {
   return (
     <div className="club-logo">
       <Link href="/">
         <a>
-          <img alt={`by ${CONFIG.clubName}`} className="img-fluid" src={`${STATIC_PATH}/logos/club.svg`} />
+          <ClubLogo alt={`by ${CONFIG.clubName}`} />
         </a>
       </Link>
       <style jsx>{`

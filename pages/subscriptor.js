@@ -11,6 +11,7 @@ import Loading from '../components/Loading/Loading'
 import api from '../services/api'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import AppLogo from '~/components/AppLogo'
+import ClubLogo from '~/components/ClubLogo'
 
 export default function Subscriptor({ layoutProps }) {
 
@@ -340,7 +341,7 @@ const SubscriptorSection = (props) => {
             height: 560px;
           }
           .subscriptor-section-text-col :global(.btn) {
-            margin-right: 35px;
+            margin-right: 30px;
           }
         }
       `}</style>
@@ -396,7 +397,7 @@ const Section1 = () => {
           <div className="section1__content">
             <div className="row">
               <div className="col-4 col-md-6">
-                <img className="section1__logo img-fluid" src={`${STATIC_PATH}/logos/club.svg`} width="170" height="212" alt={`${CONFIG.clubName} Logo`} />
+                <ClubLogo alt={`${CONFIG.clubName} Logo`} className="section1__logo" />
               </div>
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
@@ -457,9 +458,9 @@ const Section1 = () => {
         .section1 > .row {
           width: calc(100% + 30px)
         }
-        .section1__logo {
+        .section1 :global(.section1__logo) {
           margin-bottom: 15px;
-          margin-left: 35px;
+          margin-left: 30px;
         }
         .section1__content :global(.section1__title) {
           margin-bottom: 10px;
@@ -486,7 +487,7 @@ const Section1 = () => {
           .section1 {
             min-height: 0;
           }
-          .section1__logo {
+          .section1 :global(.section1__logo) {
             margin-bottom: 45px;
           }
         }

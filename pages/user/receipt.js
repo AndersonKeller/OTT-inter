@@ -1,5 +1,6 @@
 import withApi from '~/components/withApi'
 import { STATIC_PATH } from '~/constants/constants'
+import ClubLogo from '~/components/ClubLogo'
 
 const ReceiptPage = ({ api }) => {
 
@@ -8,7 +9,7 @@ const ReceiptPage = ({ api }) => {
       <div className="receipt">
         <header>
           <div className="logo">
-            <img className="img-fluid" src={`${STATIC_PATH}/logos/club.svg`} />
+            <ClubLogo />
           </div>
           <p className="details">
             <p>Somosgad S.A.S</p>
