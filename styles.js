@@ -39,6 +39,7 @@ export default createGlobalStyle`
     --primary-hover: ${props => props.theme.colors.primaryHover};
     --primary-alpha: ${props => props.theme.colors.primaryAlpha};
     --gray4:         #666; /* 656565 */
+    --loading:       ${props => props.theme.colors.loading};
 
     /* colors by job */
     --descriptions-color: var(--gray);
@@ -84,14 +85,14 @@ export default createGlobalStyle`
   /* nprogress */
   #nprogress {
     .bar {
-      background: var(--primary);
+      background: var(--loading);
     }
     .peg {
-      box-shadow: 0 0 10px var(--primary), 0 0 5px var(--primary);
+      box-shadow: 0 0 10px var(--loading), 0 0 5px var(--loading);
     }
     .spinner-icon {
-      border-top-color: var(--primary);
-      border-left-color: var(--primary);
+      border-top-color: var(--loading);
+      border-left-color: var(--loading);
     }
   }
 
