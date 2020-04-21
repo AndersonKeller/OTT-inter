@@ -12,8 +12,9 @@ import api from '../services/api'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import AppLogo from '~/components/AppLogo'
 import ClubLogo from '~/components/ClubLogo'
+import withApi from '~/components/withApi'
 
-export default function Subscriptor({ layoutProps }) {
+function SubscriptorPage({ layoutProps, mainPackage }) {
 
   const playersName = TENANT === 'river' ? 'Franco Armani' :
     TENANT === 'colocolo' ? 'Valdivia' :
@@ -37,7 +38,7 @@ export default function Subscriptor({ layoutProps }) {
       <div className="subscriptor">
 
         {/* section 1 */}
-        <Section1 />
+        <Section1 mainPackage={mainPackage} />
 
         {/* section 2 */}
         <SubscriptorSection
@@ -98,6 +99,21 @@ const SubscriptorSectionText = ({ children }) => {
     </div>
   )
 }
+
+SubscriptorPage.getInitialProps = async ({ api }) => {
+  const mainPackage = await (async () => {
+    try {
+      const { data: config } = await api.get(`configs`)
+      const { package: value } = config
+      return value
+    } catch(err) {
+      return null
+    }
+  })()
+  return { mainPackage }
+}
+
+export default withApi(SubscriptorPage)
 
 const Packages = () => {
 
@@ -349,7 +365,7 @@ const SubscriptorSection = (props) => {
   )
 }
 
-const Section1 = () => {
+const Section1 = ({ mainPackage }) => {
 
   const iPhone4Height = 480
 
@@ -388,7 +404,13 @@ const Section1 = () => {
 
   const leadText = `¡${CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos ${TENANT === 'river' ? 'del Más Grande' : CONFIG.appName}!`
 
-  const minPrice = '$'+(TENANT === 'river' ? 149 : '1.699')
+  const minPrice = TENANT === 'lau' ? '$1.699' : mainPackage ? '$'+mainPackage.amount : null
+  /*
+  new Intl.NumberFormat('es-AR', {
+    style: 'currency', currency: 'ARS',
+    minimumFractionDigits: 0
+  }).format(number)
+   */
 
   return (
     <div className="section1 container-fluid">
@@ -402,7 +424,9 @@ const Section1 = () => {
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
             <p>{leadText}</p>
-            <p>Todo por <big>{minPrice}</big> mensuales.</p>
+            {minPrice && (
+              <p>Todo por <big>{minPrice}</big> mensuales.</p>
+            )}
           </div>
         </div>
       </div>
