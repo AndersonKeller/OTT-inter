@@ -9,13 +9,13 @@ import * as Yup from 'yup'
 import nookies from 'nookies'
 
 // app imports
-import FormGroup    from '../../components/layout/AuthModal/FormGroup'
-import withAuth     from '../../components/withAuth/withAuth'
-import { FkInput }  from '../../components/Formik/fields'
-import Layout       from '../../components/layout/Layout'
-import Button       from '../../components/button'
-import api          from '../../services/api'
-import { CONFIG }   from '../../config'
+import FormGroup    from '~/components/layout/AuthModal/FormGroup'
+import withAuth     from '~/components/withAuth'
+import { FkInput }  from '~/components/Formik/fields'
+import Layout       from '~/components/layout/Layout'
+import Button       from '~/components/button'
+import api          from '~/services/api'
+import { CONFIG }   from '~/config'
 
 const changeEmailPage = ({ layoutProps, user, updateUser }) => {
 
@@ -44,21 +44,20 @@ const changeEmailPage = ({ layoutProps, user, updateUser }) => {
       </Head>
       <div className="rgpage container-fluid">
         <div className="row">
-          <div className="col-xl-8 offset-xl-2">
+          <div className="col-md-8 offset-md-2">
             <h1 className="h2">Cambiar Email</h1>
-
             { user &&
               <Formik
                 initialValues={
                   (({ email: oldEmail }) => {
-                    return {oldEmail, email: ''}})(user)
+                    return { oldEmail, email: '' }
+                  })(user)
                 }
                 validationSchema={ getYupSchema() }
                 onSubmit={handleSubmit}
                 component={DataForm}
               />
             }
-
           </div>
         </div>
       </div>
@@ -75,38 +74,27 @@ const changeEmailPage = ({ layoutProps, user, updateUser }) => {
           margin-bottom: 15px;
           background-color: white;
         }
-        @media (min-width: 768px) {
-          .card-inputs {
-            margin-top: -21px;
-          }
-        }
       `}</style>
     </Layout>
   );
 }
 
-const DataForm = ({ isSubmitting }) =>
-  <Form>
-    <hr />
-    <div className="row">
-      <div className="col-md-8">
-        <div className="data">
-          <FormGroup>
-            <FkInput name="oldEmail" label="Email Actual" type="email" disabled />
-          </FormGroup>
-          <FormGroup>
-            <FkInput name="email" label="Nuevo Email" type="email" autoFocus />
-          </FormGroup>
-        </div>
-      </div>
-    </div>
+const DataForm = ({ isSubmitting }) => <Form>
+  <FormGroup>
+    <FkInput name="oldEmail" label="Email Actual" type="email" disabled />
+  </FormGroup>
+  <FormGroup>
+    <FkInput name="email" label="Nuevo Email" type="email" />
+  </FormGroup>
 
-    <div className="row align-items-center">
-      <div className="col-md-12 offset-md-2 text-left">
-        <Button color="danger" type="submit" disabled={isSubmitting}>Cambiar datos</Button>
-      </div>
+  <div className="row">
+    <div className="col-md-12 text-right">
+      <Button type="submit" disabled={isSubmitting} loading={isSubmitting}>
+        Cambiar datos
+      </Button>
     </div>
-  </Form>
+  </div>
+</Form>
 
 // create Yup validation Schema
 const getYupSchema = _ => {

@@ -1,27 +1,47 @@
 import Head from 'next/head'
 import Link   from 'next/link'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Accordion, Card, Button, Table } from 'react-bootstrap'
 
-import { PackageRadio } from '../../components/Packages'
-import { CONFIG }       from '../../config'
-import withAuth         from '../../components/withAuth/withAuth'
-import withApi          from '../../components/withApi/withApi'
-import Layout           from '../../components/layout/Layout'
-// import api              from '../../services/api'
+import { PackageRadio } from '~/components/Packages'
+import { CONFIG }       from '~/config'
+import withAuth         from '~/components/withAuth'
+import Layout           from '~/components/layout/Layout'
+// import api              from '~/services/api'
 
-const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
+const PaymentsPage = ({ layoutProps, user, api, packages }) => {
 
-  useEffect(() => {
+  const [ plan, setPlan ] = useState({})
+  const [ subscription, setSubscription ] = useState({})
+  const [ orders, setOrders ] = useState([])
+
+  useEffect(_ => {
+      (async _ => {
+        try{
+          const { data: {package_id, ...data} } = await api.get('subscription')
+          console.log(data)
+          setSubscription(data)
+
+          if(package_id){
+            setPlan(packages.items.find(item => item.id == package_id))
+          }else{
+            setPlan(packages.items.find(item => item.amount == 0))
+          }
+        }catch(error){
+          console.log(error)
+        }
+      })()
+  }, [])
+
+  useEffect(_ => {
     (async _ => {
       try{
-        const subs = await api.get('subscriptions');
-        console.table(subs);
-        return { subs }
+        const { data } = await api.get('cash-orders')
+        console.log(data)
+        setOrders(data)
       }catch(error){
-        console.log(error);
-        return { error }
+        console.log(error)
       }
     })()
   }, [])
@@ -39,33 +59,52 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
               <Card bg="dark" text="white">
                 <Card.Body>
                 <Card.Title>Tu plan</Card.Title>
-                <Card.Text>Todo el contenido de River+ por 6 meses.</Card.Text>
+                <Card.Text>Todo el contenido de {CONFIG.appName} por {plan.name}.</Card.Text>
                   <div className="col-5 col-md-2 text-center" style={{fontSize: '13px', lineHeight: '0.7rem', padding: 0}}>
                     <PackageRadio
                       readOnly
-                      package_id="1"
-                      plan={{
-                        id: '1',
-                        name:'6 meses',
-                        currency: 'ars',
-                        amount: '594'
-                      }}
+                      package_id={plan.id}
+                      plan={plan}
                     />
                   </div>
                 </Card.Body>
                 <Card.Footer style={{fontSize: '12px', lineHeight: 1}}>
-                Próxima factura: 09 de Marzo de 2020.
+                Próxima factura: {subscription.ends_at && subscription.ends_at.split(' ')[0]}
                 </Card.Footer>
               </Card>
               <div className="mobile-table">
-                <div className="mobile-row">
+                {orders && orders.map(order => {
+                  <div className="mobile-row">
+                    <dl>
+                      <dt>Fecha</dt>
+                      <dd><Link href="receipt"><a target="_blank">{order.paid_at && order.paid_at.split(' ')[0]}</a></Link></dd>
+                    </dl>
+                    <dl>
+                      <dt>Descripción</dt>
+                      <dd>{CONFIG.appName}</dd>
+                    </dl>
+                    <dl>
+                      <dt>Periodo</dt>
+                      <dd>{order.paid_at && order.paid_at.split(' ')[0]}-</dd>
+                    </dl>
+                    <dl>
+                      <dt>Medio de Pago</dt>
+                      <dd><Link href="receipt"><a target="_blank">{order.download_link}</a></Link></dd>
+                    </dl>
+                    <dl>
+                      <dt>Total</dt>
+                      <dd>{order.value}</dd>
+                    </dl>
+                  </div>
+                })}
+                {/* <div className="mobile-row">
                   <dl>
                     <dt>Fecha</dt>
-                    <dd><Link href="receipt"><a>09/01/2020</a></Link></dd>
+                    <dd><Link href="receipt"><a target="_blank">09/01/2020</a></Link></dd>
                   </dl>
                   <dl>
                     <dt>Descripción</dt>
-                    <dd>River+</dd>
+                    <dd>{CONFIG.appName}</dd>
                   </dl>
                   <dl>
                     <dt>Periodo</dt>
@@ -79,29 +118,7 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
                     <dt>Total</dt>
                     <dd>$99,00</dd>
                   </dl>
-                </div>
-                <div className="mobile-row">
-                  <dl>
-                    <dt>Fecha</dt>
-                    <dd><Link href="receipt"><a>09/01/2020</a></Link></dd>
-                  </dl>
-                  <dl>
-                    <dt>Descripción</dt>
-                    <dd>River+</dd>
-                  </dl>
-                  <dl>
-                    <dt>Periodo</dt>
-                    <dd>09/01/2020—08/02/2020</dd>
-                  </dl>
-                  <dl>
-                    <dt>Medio de Pago</dt>
-                    <dd>VISA •••• •••• •••• 1627</dd>
-                  </dl>
-                  <dl>
-                    <dt>Total</dt>
-                    <dd>$99,00</dd>
-                  </dl>
-                </div>
+                </div> */}
               </div>
               <Table className="desktop-table" hover variant="dark" size="sm">
                 <thead>
@@ -115,54 +132,24 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  {orders && orders.map(order => {
+                    <tr>
+                      <td>{order.id}</td>
+                      <td><Link href="receipt"><a target="_blank">{order.paid_at && order.paid_at.split(' ')[0]}</a></Link></td>
+                      <td>{CONFIG.appName}</td>
+                      <td>{order.paid_at && order.paid_at.split(' ')[0]}-</td>
+                      <td><Link href="receipt"><a target="_blank">{order.download_link}</a></Link></td>
+                      <td>{order.value}</td>
+                    </tr>
+                  })}
+                  {/* <tr>
                     <td>1</td>
-                    <td><Link href="receipt"><a>09/01/2020</a></Link></td>
-                    <td>River+</td>
+                    <td><Link href="receipt"><a target="_blank">09/01/2020</a></Link></td>
+                    <td>{CONFIG.appName}</td>
                     <td>09/01/2020—08/02/2020</td>
                     <td>VISA •••• •••• •••• 1627</td>
                     <td>$99,00</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td><Link href="receipt"><a>09/01/2020</a></Link></td>
-                    <td>River+</td>
-                    <td>09/02/2020—08/03/2020</td>
-                    <td>VISA •••• •••• •••• 1627</td>
-                    <td>$99,00</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td><Link href="receipt"><a>09/01/2020</a></Link></td>
-                    <td>River+</td>
-                    <td>09/03/2020—08/04/2020</td>
-                    <td>VISA •••• •••• •••• 1627</td>
-                    <td>$99,00</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td><Link href="receipt"><a>09/01/2020</a></Link></td>
-                    <td>River+</td>
-                    <td>09/04/2020—08/05/2020</td>
-                    <td>VISA •••• •••• •••• 1627</td>
-                    <td>$99,00</td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td><Link href="receipt"><a>09/01/2020</a></Link></td>
-                    <td>River+</td>
-                    <td>09/05/2020—08/06/2020</td>
-                    <td>VISA •••• •••• •••• 1627</td>
-                    <td>$99,00</td>
-                  </tr>
-                  <tr>
-                    <td>6</td>
-                    <td><Link href="receipt"><a>09/01/2020</a></Link></td>
-                    <td>River+</td>
-                    <td>09/06/2020—08/07/2020</td>
-                    <td>VISA •••• •••• •••• 1627</td>
-                    <td>$99,00</td>
-                  </tr>
+                  </tr> */}
                 </tbody>
               </Table>
             </div>
@@ -202,7 +189,7 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
               font-size: 14px;
             }
             .table-dark.table-hover tbody tr:hover {
-              background-color: rgba(255, 0, 0, 0.2);
+              background-color: var(--primary-alpha);
             }
             .mobile-table {
               font-size: 16px;
@@ -238,14 +225,21 @@ const PaymentsPage = ({ layoutProps, user, api, ...props }) => {
     </Layout>
 )}
 
-// PaymentsPage.getInitialProps = async ctx => {
-//   // try{
-//     // console.table(subs);
-//     // return { subs }
-//   // }catch(error){
-//   //   console.log(error);
-//   //   return { error }
-//   // }
-// }
+// getInitialProps
+PaymentsPage.getInitialProps = async ctx => {
 
-export default withAuth(withApi(PaymentsPage));
+  const {api, user} = ctx
+
+  let packages
+  try {
+    const { data } = await api.get('packages')
+    packages = { items: data }
+  } catch(error) {
+    packages = { error }
+  }
+
+  // return
+  return { packages, user }
+}
+
+export default withAuth(PaymentsPage);

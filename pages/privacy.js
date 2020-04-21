@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Layout from '~/components/layout/Layout'
 import Policy from '~/components/policy'
-import withApi from '~/components/withApi/withApi'
+import withApi from '~/components/withApi'
 import { CONFIG } from '~/config'
 
 const PrivacyPolicyPage = ({ layoutProps, privacy }) => {
@@ -16,8 +16,8 @@ const PrivacyPolicyPage = ({ layoutProps, privacy }) => {
   )
 }
 
-PrivacyPolicyPage.getInitialProps = async ctx => {
-  const { data } = await ctx.api.get(`/privacypolicy`)
+PrivacyPolicyPage.getInitialProps = async ({api}) => {
+  const { data } = await api.get(`/privacypolicy`)
   return { privacy: data.privacy_policy.privacy_pol }
 }
 

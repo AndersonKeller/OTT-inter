@@ -1,3 +1,8 @@
+/*
+ * Loading example found at:
+ * https://github.com/zeit/next.js/blob/canary/examples/with-loading/
+ */
+
 // react
 import React        from 'react'
 import NProgress    from 'nprogress'
@@ -18,26 +23,18 @@ import { ThemeProvider }      from 'styled-components'
 import { UserProvider }       from '../contexts/UserContext'
 import * as gtag              from '~/lib/gtag'
 
-// import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from '~/theme';
+// import CssBaseline from '@material-ui/core/CssBaseline'
+import theme from '~/theme'
 // import withBasicAuth from '~/basic-auth'
 
-NProgress.configure({ showSpinner: false });
+NProgress.configure({ showSpinner: false })
 
-Router.events.on('routeChangeStart', url => {
-  console.log(`Loading: ${url}`)
-  NProgress.start()
+let isPoppingState = false
+
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+  environment: process.env.TENANT + '_' + (process.env.NODE_ENV || 'testing'),
 })
-
-Router.events.on('routeChangeComplete', url => {
-  NProgress.done()
-  window.scrollTo(0, 0)
-  gtag.pageview(url)
-})
-
-Router.events.on('routeChangeError', _ => NProgress.done())
-
-Sentry.init({ dsn: process.env.SENTRY_DSN })
 
 class MyApp extends App {
 
@@ -60,22 +57,55 @@ class MyApp extends App {
     return { layoutProps, pageProps }
   }
 
+  routeChangeStart(url) {
+    console.log(`Loading ${url}...`)
+    NProgress.start()
+  }
+
+  routeChangeComplete(url) {
+    console.log(`Loaded ${url}!`)
+    NProgress.done()
+    if (isPoppingState) {
+      isPoppingState = false
+    } else {
+      window.scrollTo(0, 0)
+    }
+    gtag.pageview(url)
+  }
+
+  routeChangeError() {
+    NProgress.done()
+  }
+
   componentDidMount() {
     // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
+    const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
+      jssStyles.parentElement.removeChild(jssStyles)
     }
+    Router.events.on('routeChangeStart', this.routeChangeStart)
+    Router.beforePopState(({ url, as, options }) => {
+      isPoppingState = true
+      return true
+    })
+    Router.events.on('routeChangeComplete', this.routeChangeComplete)
+    Router.events.on('routeChangeError', this.routeChangeError)
+  }
+
+  componentWillUnmount() {
+    Router.events.off('routeChangeStart', this.routeChangeStart)
+    Router.events.off('routeChangeComplete', this.routeChangeComplete)
+    Router.events.off('routeChangeError', this.routeChangeError)
   }
 
   componentDidCatch(error, errorInfo) {
     Sentry.withScope((scope) => {
-        Object.keys(errorInfo).forEach((key) => {
-            scope.setExtra(key, errorInfo[key])
-        })
+      Object.keys(errorInfo).forEach((key) => {
+        scope.setExtra(key, errorInfo[key])
+      })
 
-        Sentry.captureException(error)
-    });
+      Sentry.captureException(error)
+    })
 
     super.componentDidCatch(error, errorInfo)
   }

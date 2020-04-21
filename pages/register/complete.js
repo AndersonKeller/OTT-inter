@@ -1,43 +1,24 @@
-// other imports
+import useScript, { ScriptStatus } from '@charlietango/use-script'
 import Head from 'next/head'
 import Link from 'next/link'
 import Router from 'next/router'
-
 import nookies from 'nookies'
 // import sleep from 'sleep-promise'
-
-// app imports
-import Layout from '../../components/layout/Layout'
-import { CONFIG } from '../../config'
-import FormGroup from '../../components/layout/AuthModal/FormGroup'
-import Label from '../../components/layout/AuthModal/Label'
-import Input from '../../components/layout/AuthModal/Input'
-import Button from '../../components/button'
+import Layout from '~/components/layout/Layout'
+import { CONFIG } from '~/config'
+import FormGroup from '~/components/layout/AuthModal/FormGroup'
+import Label from '~/components/layout/AuthModal/Label'
+import Input from '~/components/layout/AuthModal/Input'
+import Button from '~/components/button'
 import { useContext, useEffect, useState } from 'react'
-import UserContext from '../../contexts/UserContext'
-import Packages from '../../components/Packages'
-import Select from '../../components/Select/Select'
-import { IS_PRODUCTION, HAS_WINDOW } from '../../constants/constants'
-import useScript, { ScriptStatus } from '@charlietango/use-script'
-import withApi from '../../components/withApi/withApi'
+import UserContext from '~/contexts/UserContext'
+import Packages from '~/components/Packages'
+import Select from '~/components/Select/Select'
+import { IS_PRODUCTION, HAS_WINDOW } from '~/constants/constants'
+import withAuth from '~/components/withAuth'
 
 // page
-const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
-
-  const { user } = useContext(UserContext)
-
-  // temporary handle user presence
-  useEffect( _ => {
-    const timeout = setTimeout( _ => {
-      if ( ! user) {
-        Router.push('/login')
-      }
-    }, 1000)
-    return function cleanup() {
-      clearTimeout(timeout)
-    }
-  }, [user])
-
+const CompleteRegisterPage = ({ api, layoutProps, packages, user }) => {
   const [ ready, status ] = useScript('https://js.paymentsos.com/v2/latest/secure-fields.min.js')
   const POS = ready && HAS_WINDOW ? window.POS : null
   const payUEnv = 'test'
@@ -94,9 +75,7 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
 
             <h1 className="h2">Completa tu registro</h1>
 
-            { user && (
-              <CompleteRegisterForm {...{api, isPayUReady, packages, POS}} />
-            ) }
+            <CompleteRegisterForm {...{api, isPayUReady, packages, POS}} />
 
           </div>
         </div>
@@ -116,7 +95,7 @@ const CompleteRegisterPage = ({ api, layoutProps, packages }) => {
 
 const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
 
-  const free_package_id = 5
+  const { id: free_package_id } = packages.items.find(item => item.amount == 0) || {}
 
   const debug = false && ! IS_PRODUCTION
   const requireds = IS_PRODUCTION
@@ -125,8 +104,8 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
 
   const [ genders, setGenders ] = useState()
   const [ countries, setCountries ] = useState()
+  const [ discounts, setDiscounts ] = useState(false)
   const [ discount, setDiscount ] = useState(false)
-  const [ supportersDiscount, setSupportersDiscount ] = useState()
 
   const [ values, setValues ] = useState({
     name: '',
@@ -140,8 +119,6 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     payment_os: null,
     cash_payment_method_id: null,
     terms: null,
-    supporter_id: '',
-    alternate_supporter_id: '',
   })
 
   const [ loading, setLoading ] = useState()
@@ -160,6 +137,20 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     (async _ => {
       const {data} = await api.get('countries')
       setCountries(data)
+    })()
+  }, [])
+
+   /* get discounts */
+   useEffect(_ => {
+    (async _ => {
+      var { data } = await api.get('discounts')
+
+      data = data.map( (disc, index) => {
+        disc.dsc_id = 'dsc_' + index
+        return disc
+      })
+
+      setDiscounts(data)
     })()
   }, [])
 
@@ -190,20 +181,15 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     })
   }
 
-  const handleDiscountChange = e => {
+  const handleDiscountChange = ({target:{name, value, id}}) => {
     setValues({
       ...values,
-      alternate_supporter_id: e.target.value,
+      [name]: value,
     })
-    setDiscount(e.target.value.length === 5)
+    console.log('id:', id)
+    setDiscount(value.length === 5 ? id : false)
   }
-  const handleSupportersDiscountChange = e => {
-    setValues({
-      ...values,
-      supporter_id: e.target.value,
-    })
-    setSupportersDiscount(e.target.value.length === 5)
-  }
+
 
   /* handle package change */
   function onPackageChange(e) {
@@ -213,6 +199,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
       package_id: package_id,
       payment_method_id: package_id === free_package_id ? null : values.payment_method_id,
     })
+    console.table(values)
   }
 
   /* handle payment method change */
@@ -275,7 +262,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
           Router.push('/')
         }
       } catch (error) {
-        console.log('error', error)
+        console.table(error)
         if (error.response) {
           const { data, status } = error.response
           if (status === 422) {
@@ -292,6 +279,8 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     }
     setLoading(false)
   }
+
+  const cityLabel = CONFIG.lang === 'es-CL' ? 'Provincia' : 'Ciudad'
 
   return (
     <form method="post" onSubmit={handleSubmit}>
@@ -398,7 +387,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
 
             {/* city */}
             <FormGroup>
-              <Label htmlFor="city">Ciudad</Label>
+              <Label htmlFor="city">{cityLabel}</Label>
               <Input
                 id="city"
                 name="city"
@@ -442,26 +431,32 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         </div>
 
       </div>
-      <h3 className="h3">¿Eres Socio? Obtén un descuento especial</h3>
-        <div className="row">
-          <div className="col-md-6">
-            <div className="data">
-              <FormGroup>
-                <Label htmlFor="supporter_id">Socio {CONFIG.shortClubName}</Label>
-                <Input
-                  disabled={values.alternate_supporter_id}
-                  id="supporter_id"
-                  maxLength={5}
-                  name="supporter_id"
-                  onChange={handleSupportersDiscountChange}
-                  type="text"
-                  style={supportersDiscount ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
-                  value={values.supporter_id}
-                />
-              </FormGroup>
-            </div>
+      {/* <h3 className="h3">¿Eres Socio? Obtén un descuento especial</h3> */}
+      <div className="row">
+      {discounts && discounts.map((d,index) => (
+        <div className="col-md-6">
+          <div className="data">
+            <FormGroup>
+              <Label htmlFor={d.dsc_id}>{d.name}</Label>
+              <Input
+                disabled={discounts.find(
+                  disc => !['',undefined].includes(values[disc.dsc_id]) && disc.id != d.id
+                )}
+                id={d.id}
+                maxLength={5}
+                name={d.dsc_id}
+                onChange={handleDiscountChange}
+                type="text"
+                style={discount ==  d.id ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
+                value={values[d.dsc_id]}
+                key={index}
+              />
+            </FormGroup>
           </div>
-          <div className="col-md-6">
+        </div>
+      ))}
+
+          {/* <div className="col-md-6">
             <div className="localization">
               <FormGroup>
                 <Label htmlFor="alternate_supporter_id">Somos {CONFIG.shortClubName}</Label>
@@ -478,6 +473,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
               </FormGroup>
             </div>
           </div>
+        */}
         </div>
 
 
@@ -488,8 +484,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         onChange: onPackageChange,
         package_id: values.package_id,
         validationError: ! loading && error && error.errors && error.errors.package_id,
-        discount,
-        supportersDiscount,
+        discount_id: discount,
       }} />
 
       {/* payment */}
@@ -611,7 +606,7 @@ const Payment = ({
   // get cash payment methods
   useEffect( _ => {
     const getCashPaymentMethods = async _ => {
-      const { data } = await api.get('payu-argentina-payment-methods')
+      const { data } = await api.get('cash-payment-methods')
       setCashPaymentMethods(data)
     }
     getCashPaymentMethods()
@@ -694,7 +689,9 @@ const Payment = ({
               // cash payment methods
               ) : payment_method_id === 3 && (
                 <FormGroup>
-                  { cashPaymentMethods && cashPaymentMethods.map((item, key) => (
+                  {cashPaymentMethods == null ? (
+                    <p>Cargando...</p>
+                  ) : cashPaymentMethods.length ? cashPaymentMethods.map((item, key) => (
                     <InputRadio
                       key={key}
                       label={item.name}
@@ -703,7 +700,9 @@ const Payment = ({
                       state={cash_payment_method_id}
                       value={item.id}
                     />
-                  )) }
+                  )) : (
+                    <p>Sin método de pago configurado.</p>
+                  )}
                   { ! loading && error && error.errors && error.errors.cash_payment_method_id && (
                     <div className="invalid-feedback">{error.errors.cash_payment_method_id}</div>
                   ) }
@@ -785,25 +784,15 @@ const InputRadio = ({ label, name, onChange, state, value }) => {
 // getInitialProps
 CompleteRegisterPage.getInitialProps = async ctx => {
 
-  // get user
-  let user
-  try {
-    const { data } = await ctx.api.get('user')
-    user = data
-  } catch(error) {
-    return { }
-  }
-
-  // save updated user
-  nookies.set(ctx, 'user', JSON.stringify(user), { path: '/' })
+  const {api, res, user} = ctx
 
   // if user has already completed registry, redirect it
   if (user.register_completed_at) {
     let message = JSON.stringify({ info: "Ya ha completado su registro." })
     nookies.set(ctx, 'flash_message', message, { path: '/' })
-    if (ctx.res) {
-      ctx.res.redirect('/')
-      ctx.res.end()
+    if (res) {
+      res.redirect('/')
+      res.end()
       return { }
     } else {
       Router.back()
@@ -813,7 +802,7 @@ CompleteRegisterPage.getInitialProps = async ctx => {
   // get packages
   let packages
   try {
-    const { data } = await ctx.api.get('packages')
+    const { data } = await api.get('packages')
     packages = { items: data }
   } catch(error) {
     packages = { error }
@@ -824,4 +813,4 @@ CompleteRegisterPage.getInitialProps = async ctx => {
 }
 
 // export
-export default withApi(CompleteRegisterPage)
+export default withAuth(CompleteRegisterPage)

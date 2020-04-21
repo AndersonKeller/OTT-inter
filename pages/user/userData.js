@@ -1,23 +1,17 @@
-// nextjs imports
 import Router from 'next/router'
 import Head   from 'next/head'
 // import Link   from 'next/link'
-
-// react imports
 import { useEffect, useState }  from 'react'
 import { Formik, Form }         from 'formik'
-
 import * as Yup from 'yup'
 import nookies  from 'nookies'
-
-// app imports
-import { FkSelect, FkInput } from '../../components/Formik/fields'
-import FormGroup    from '../../components/layout/AuthModal/FormGroup'
-import withAuth     from '../../components/withAuth/withAuth'
-import Layout       from '../../components/layout/Layout'
-import Button       from '../../components/button'
-import api          from '../../services/api'
-import { CONFIG }   from '../../config'
+import { FkSelect, FkInput } from '~/components/Formik/fields'
+import FormGroup    from '~/components/layout/AuthModal/FormGroup'
+import withAuth     from '~/components/withAuth'
+import Layout       from '~/components/layout/Layout'
+import Button       from '~/components/button'
+import api          from '~/services/api'
+import { CONFIG }   from '~/config'
 
 const userDataPage = ({ layoutProps, user, updateUser }) => {
   const [ genders, setGenders ] = useState([])
@@ -107,46 +101,54 @@ const userDataPage = ({ layoutProps, user, updateUser }) => {
   );
 }
 
-const DataForm = ({isSubmitting, countries, genders})  =>
-  <Form>
-    <div className="row">
-      <div className="col-md-6">
-        <div className="data">
-          <h4>Tus datos</h4>
-          <FormGroup>
-            <FkInput name="name" label="Nombre Completo" autoFocus />
-          </FormGroup>
-          <FormGroup>
-            <FkSelect name="gender" label="Género" list={genders} />
-          </FormGroup>
-          <FormGroup>
-            <FkInput name="document" label="Documento" />
-          </FormGroup>
+const DataForm = ({isSubmitting, countries, genders})  => {
+
+  const cityLabel = CONFIG.lang === 'es-CL' ? 'Provincia' : 'Ciudad'
+
+  return (
+    <Form>
+      <div className="row">
+        <div className="col-md-6">
+          <div className="data">
+            <h4>Tus datos</h4>
+            <FormGroup>
+              <FkInput name="name" label="Nombre Completo" />
+            </FormGroup>
+            <FormGroup>
+              <FkSelect name="gender" label="Género" list={genders} />
+            </FormGroup>
+            <FormGroup>
+              <FkInput name="document" label="Documento" />
+            </FormGroup>
+          </div>
+        </div>
+
+        <div className="col-md-6">
+          <div className="localization">
+            <h3 className="h3">Ubicación</h3>
+            <FormGroup>
+              <FkInput name="address" label="Dirección" />
+            </FormGroup>
+            <FormGroup>
+              <FkInput name="city" label={cityLabel} />
+            </FormGroup>
+            <FormGroup>
+              <FkSelect name="country" label="País" list={countries} />
+            </FormGroup>
+          </div>
         </div>
       </div>
 
-      <div className="col-md-6">
-        <div className="localization">
-          <h3 className="h3">Ubicación</h3>
-          <FormGroup>
-            <FkInput name="address" label="Dirección" />
-          </FormGroup>
-          <FormGroup>
-            <FkInput name="city" label="Ciudad" />
-          </FormGroup>
-          <FormGroup>
-            <FkSelect name="country" label="País" list={countries} />
-          </FormGroup>
+      <div className="row align-items-center">
+        <div className="col-md-12 text-right">
+          <Button type="submit" disabled={isSubmitting} loading={isSubmitting}>
+            Cambiar datos
+          </Button>
         </div>
       </div>
-    </div>
-
-    <div className="row align-items-center">
-      <div className="col-md-12 text-right">
-        <Button color="danger" type="submit" disabled={isSubmitting}>Cambiar datos</Button>
-      </div>
-    </div>
-  </Form>
+    </Form>
+  )
+}
 
 // create Yup validation Schema
 const getYupSchema = (countries, genders) => {

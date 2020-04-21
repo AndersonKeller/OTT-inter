@@ -8,8 +8,9 @@ import { AuthModalContext } from '../../../contexts/AuthModalContext'
 import FormGroup from './FormGroup'
 import Input from './Input'
 import Button from '../../button'
-import { CONFIG } from '../../../config'
-import ReactSVG from 'react-svg'
+import SocialButtons from './SocialButtons'
+import OrEnterWith from './OrEnterWith'
+import { CONFIG } from '~/config'
 
 const RegisterTab = ({ changeTab, setLoading, socialLogin })  => {
   const [name,setName] = useState('')
@@ -53,6 +54,10 @@ const RegisterTab = ({ changeTab, setLoading, socialLogin })  => {
     e.preventDefault()
     changeTab('login')
   }
+
+  const alreadyRegistered = CONFIG.lang === 'es-CL' ? '¿Ya estás suscrito?' : '¿Ya eres suscriptor?'
+
+  const login = CONFIG.lang === 'es-CL' ? 'Inicia sesión' : 'Ház login'
 
   return (
     <>
@@ -106,27 +111,18 @@ const RegisterTab = ({ changeTab, setLoading, socialLogin })  => {
         </FormGroup> */}
 
         <Button block className="enter-btn" size="sm" type="submit">Registrar</Button>
-        <div className="already-subscriptor">
-          <span>¿Ya eres suscriptor?</span>
-          &nbsp;
-          <a className="bold text-uppercase" href="#" onClick={goToLogin}>Ház Login</a>
-        </div>
-        <div className="or-enter-with">o entrá con</div>
-        <Button className="social facebook" type="button" onClick={socialLogin}>
-          <ReactSVG className="icon" src="/static/icons/facebook.svg" />
-          Facebook
-        </Button>
-        <Button className="social google" onClick={socialLogin} type="button">
-          <ReactSVG className="icon" src="/static/icons/google.svg" />
-          Google
-        </Button>
-      </form>
 
-      {/* <style jsx>{`
-        .label-radio {
-          padding-right: 5px;
-        }
-      `}</style> */}
+        <div className="already-subscriptor">
+          <span>{alreadyRegistered}</span>
+          {' '}
+          <a className="bold text-uppercase" href="/login" onClick={goToLogin}>{login}</a>
+        </div>
+
+        <OrEnterWith />
+
+        <SocialButtons socialLogin={socialLogin} />
+
+      </form>
     </>
   )
 }

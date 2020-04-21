@@ -3,14 +3,15 @@ import UserContext from '../../../contexts/UserContext'
 import api, { baseURL } from '../../../services/api'
 import { CLIENT_ID, CLIENT_SECRET } from '../../../constants/constants'
 import { setAccessToken } from '../../../services/auth'
-import { CONFIG } from '../../../config'
 import FormGroup from './FormGroup'
 import Input from './Input'
 import FormText from './FormText'
 import Button from '../../button'
 import { AuthModalContext } from '../../../contexts/AuthModalContext'
-import ReactSVG from 'react-svg'
 import nookies from 'nookies'
+import SocialButtons from './SocialButtons'
+import { CONFIG } from '~/config'
+import OrEnterWith from './OrEnterWith'
 
 const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
   const [ email, setEmail ] = useState('')
@@ -89,6 +90,8 @@ const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
     changeTab('register')
   }
 
+  const notRegistered = CONFIG.lang === 'es-CL' ? '¿No estás suscrito?' : '¿No es suscriptor?'
+
   return (
     <div>
       <div className="intro-text">
@@ -107,19 +110,15 @@ const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
         </FormGroup>
         <Button block className="enter-btn" size="sm" type="submit">Entrar</Button>
         <div className="already-subscriptor">
-          <span>¿No es suscriptor?</span>
-          &nbsp;
-          <a className="bold text-uppercase" href="#" onClick={goToRegister}>Regístrate!</a>
+          <span>{notRegistered}</span>
+          {' '}
+          <a className="bold text-uppercase" href="/register" onClick={goToRegister}>Regístrate!</a>
         </div>
-        <div className="or-enter-with">o entrá con</div>
-          <Button className="social facebook" type="button" onClick={socialLogin}>
-            <ReactSVG className="icon" src="/static/icons/facebook.svg" />
-            Facebook
-          </Button>
-        <Button className="social google" type="button" onClick={socialLogin}>
-          <ReactSVG className="icon" src="/static/icons/google.svg" />
-          Google
-        </Button>
+
+        <OrEnterWith />
+
+        <SocialButtons socialLogin={socialLogin} />
+
       </form>
     </div>
   )

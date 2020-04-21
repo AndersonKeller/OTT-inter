@@ -3,16 +3,14 @@ import { useContext, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { Tab } from 'react-bootstrap'
 import nookies from 'nookies'
-
-import { CONFIG } from '../../../config'
-import { STATIC_PATH } from '../../../constants/constants'
-import { AuthModalContext } from '../../../contexts/AuthModalContext'
-
+import { TENANT } from '~/constants/constants'
+import { AuthModalContext } from '~/contexts/AuthModalContext'
 import LoginTab from './LoginTab'
 import ModalLoading from './ModalLoading'
 import PasswordTab from './PasswordTab'
 import RegisterTab from './RegisterTab'
-import api from '../../../services/api'
+import api from '~/services/api'
+import AppLogo from '~/components/AppLogo'
 
 // Auth Modal
 export default function AuthModal() {
@@ -68,7 +66,7 @@ export default function AuthModal() {
               <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23" />
             </button>
           )}
-          <img alt={CONFIG.appName} height="64" src={`${STATIC_PATH}/logos/app.svg`} width="131" />
+          <AppLogo height={TENANT === 'lau' ? 45 : 30} verticalAlign="middle" />
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -244,6 +242,7 @@ export default function AuthModal() {
         }
         .login-modal .google {
           background-color: ${Color(googleColor)} !important;
+          margin-bottom: 5px;
         }
         .login-modal .google .cls-3 {
           fill: ${Color(googleColor)};
@@ -256,10 +255,10 @@ export default function AuthModal() {
         .login-modal .google:hover .cls-3 {
           fill: ${Color(googleColor).darken(.2)};
         }
-        @media (min-width: 768px) {
-          .login-modal .facebook {
-            margin-right: 5px;
-            margin-bottom: 0;
+        @media (max-width: 768px) {
+          .login-modal .facebook,
+          .login-modal .google {
+            padding: 8px 15px;
           }
         }
       `}</style>

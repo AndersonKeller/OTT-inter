@@ -10,10 +10,25 @@ import UserContext from '../contexts/UserContext'
 import Loading from '../components/Loading/Loading'
 import api from '../services/api'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import AppLogo from '~/components/AppLogo'
+import ClubLogo from '~/components/ClubLogo'
+import withApi from '~/components/withApi'
 
-export default function Subscriptor({ layoutProps }) {
-  const playersName = TENANT === 'river' ? 'Franco Armani' : 'Valdivia'
-  const section2Alt = TENANT === 'river' ? `${playersName} con un trofeo` : `${playersName} chutando`
+function SubscriptorPage({ layoutProps, mainPackage }) {
+
+  const playersName = TENANT === 'river' ? 'Franco Armani' :
+    TENANT === 'colocolo' ? 'Valdivia' :
+    TENANT === 'lau' ? 'Walter Damián Montillo' :
+    'Todos los jugadores están'
+
+  const section2Alt = TENANT === 'river' ? `${playersName} con un trofeo` :
+    TENANT === 'coloclo' ? `${playersName} chutando` :
+    TENANT === 'lau' ? 'Walter Damián Montillo en la firma mostrando sua camisa número 10' : null
+
+  const section2Text = CONFIG.lang === 'es-CL' ? 'Vélo donde y cuando quieras.' : 'Mira donde y cuando quieras.'
+
+  const section3Text = TENANT === 'river' ? '¡Destacados del club y contenido exclusivo para ver tantas veces como quieras!' :
+  TENANT === 'lau' ? 'Campeones 1994: rompiendo 25 años de maldición' : null
 
   return (
     <Layout {...layoutProps} header="closed">
@@ -23,7 +38,7 @@ export default function Subscriptor({ layoutProps }) {
       <div className="subscriptor">
 
         {/* section 1 */}
-        <Section1 />
+        <Section1 mainPackage={mainPackage} />
 
         {/* section 2 */}
         <SubscriptorSection
@@ -35,10 +50,10 @@ export default function Subscriptor({ layoutProps }) {
           imgWidth="870"
         >
           <H2>
-            {playersName} en <img alt={CONFIG.appName} className="text-uppercase" src={`${STATIC_PATH}/logos/app.svg`} width="110" height="23" style={{ verticalAlign: 0 }} />
+            <span>{playersName} en</span> <AppLogo height={23} verticalAlign={0} />
           </H2>
           <SubscriptorSectionText>
-            <p>Mira donde y cuando quieras.</p>
+            <p>{section2Text}</p>
           </SubscriptorSectionText>
         </SubscriptorSection>
 
@@ -55,49 +70,11 @@ export default function Subscriptor({ layoutProps }) {
             El mejor contenido
           </H2>
           <SubscriptorSectionText>
-            {TENANT === 'river' ? (
-              <p>
-              ¡Destacados del club y contenido exclusivo para ver tantas veces como quieras!</p>
-            ) : (
-              <p>Mati Zaldivia: mi vida en el Albo</p>
-            )}
+            <p>{section3Text}</p>
           </SubscriptorSectionText>
         </SubscriptorSection>
 
-        {/* section 4 */}
-        <SubscriptorSection
-          direction="right"
-          gradientSrc="/static/subscriptor/section4-gradient.png"
-          imgAlt=""
-          imgHeight="560"
-          imgSrc={`${STATIC_PATH}/subscriptor/section4-img.png`}
-          imgWidth="870"
-        >
-          <H2>
-            LLeva <img alt={CONFIG.appName} className="text-uppercase" src={`${STATIC_PATH}/logos/app.svg`} width="110" height="23" style={{ verticalAlign: 0 }} />
-          </H2>
-          <SubscriptorSectionText>
-            <p>Mira lo mejor en contenidos, documentales, series y el día a día de tu club.</p>
-          </SubscriptorSectionText>
-        </SubscriptorSection>
-
-        {/* section 5 */}
-        <SubscriptorSection
-          direction="left"
-          gradientSrc="/static/subscriptor/section5-gradient.png"
-          imgAlt=""
-          imgHeight="560"
-          imgSrc={`${STATIC_PATH}/subscriptor/section5-img.png`}
-          imgWidth="870"
-        >
-          <H2>
-            Sin compromiso
-          </H2>
-          <SubscriptorSectionText>
-            <p>¿No quieres continuar? Cancelas cuando quieras en línea y con un Click</p>
-          </SubscriptorSectionText>
-        </SubscriptorSection>
-
+        {/* packages */}
         <Packages />
 
       </div>
@@ -122,6 +99,21 @@ const SubscriptorSectionText = ({ children }) => {
     </div>
   )
 }
+
+SubscriptorPage.getInitialProps = async ({ api }) => {
+  const mainPackage = await (async () => {
+    try {
+      const { data: config } = await api.get(`configs`)
+      const { package: value } = config
+      return value
+    } catch(err) {
+      return null
+    }
+  })()
+  return { mainPackage }
+}
+
+export default withApi(SubscriptorPage)
 
 const Packages = () => {
 
@@ -152,6 +144,8 @@ const Packages = () => {
     openAuthModal('register', packageId)
   }
 
+  const probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
+
   return (
     <section className="prices text-center container-fluid">
       <div className="entries row">
@@ -180,7 +174,7 @@ const Packages = () => {
                             <Button
                               block
                               onClick={(e) => choosePackage(e, item.id)}
-                            >Probá Gratis</Button>
+                            >{probaGratis}</Button>
                           ) : (
                             <Button
                               block
@@ -354,9 +348,6 @@ const SubscriptorSection = (props) => {
           .subscriptor-section .row {
             height: 530px;
           }
-          .subscriptor-section--right .subscriptor-section-text-col {
-            padding-left: 3.5%;
-          }
           .subscriptor-section--left .subscriptor-section-text-col {
             padding-right: 4%;
           }
@@ -366,7 +357,7 @@ const SubscriptorSection = (props) => {
             height: 560px;
           }
           .subscriptor-section-text-col :global(.btn) {
-            margin-right: 35px;
+            margin-right: 30px;
           }
         }
       `}</style>
@@ -374,7 +365,7 @@ const SubscriptorSection = (props) => {
   )
 }
 
-const Section1 = () => {
+const Section1 = ({ mainPackage }) => {
 
   const iPhone4Height = 480
 
@@ -411,6 +402,16 @@ const Section1 = () => {
 
   const imageWidth = percentage * imageDimensions.width
 
+  const leadText = `¡${CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos ${TENANT === 'river' ? 'del Más Grande' : CONFIG.appName}!`
+
+  const minPrice = TENANT === 'lau' ? '$1.699' : mainPackage ? '$'+mainPackage.amount : null
+  /*
+  new Intl.NumberFormat('es-AR', {
+    style: 'currency', currency: 'ARS',
+    minimumFractionDigits: 0
+  }).format(number)
+   */
+
   return (
     <div className="section1 container-fluid">
       <div className="row">
@@ -418,12 +419,14 @@ const Section1 = () => {
           <div className="section1__content">
             <div className="row">
               <div className="col-4 col-md-6">
-                <img className="section1__logo img-fluid" src={`${STATIC_PATH}/logos/club.svg`} width="170" height="212" alt={`${CONFIG.clubName} Logo`} />
+                <ClubLogo alt={`${CONFIG.clubName} Logo`} className="section1__logo" />
               </div>
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
-            <p>{CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos del Más Grande!</p>
-            <p>Todo por <big>149</big> pesos mensuales.</p>
+            <p>{leadText}</p>
+            {minPrice && (
+              <p>Todo por <big>{minPrice}</big> mensuales.</p>
+            )}
           </div>
         </div>
       </div>
@@ -479,9 +482,9 @@ const Section1 = () => {
         .section1 > .row {
           width: calc(100% + 30px)
         }
-        .section1__logo {
+        .section1 :global(.section1__logo) {
           margin-bottom: 15px;
-          margin-left: 35px;
+          margin-left: 30px;
         }
         .section1__content :global(.section1__title) {
           margin-bottom: 10px;
@@ -508,7 +511,7 @@ const Section1 = () => {
           .section1 {
             min-height: 0;
           }
-          .section1__logo {
+          .section1 :global(.section1__logo) {
             margin-bottom: 45px;
           }
         }

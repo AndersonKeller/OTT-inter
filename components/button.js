@@ -1,43 +1,57 @@
-import React, { useContext } from 'react'
-import UserContext from '../contexts/UserContext'
-import { WHITE } from '../constants/colors'
 import Color from 'color'
 import classNames from 'classnames'
+import React from 'react'
+import Spinner from 'react-bootstrap/Spinner'
+import { CONFIG } from '~/config'
 
 const Button = React.forwardRef(({
   block,
   children,
   className = '',
   color = 'primary',
+  disabled,
+  home,
   href,
+  loading,
   onClick,
   outline,
+  size = '',
+  style,
+  target,
+  textColor,
   type,
-  ...props
+  ...rest
 }, ref) => {
-  const textColor = props.textColor ? 'btn--color-white' : ''
-  const size = props.size === 'sm' ? 'btn-sm' : ''
-  const { user } = useContext(UserContext)
-  const style = props.style
+
   const classes = classNames([
+    {'home': home},
     'btn',
     `btn-${color}`,
     {'btn-block': block},
     {'btn-outline': outline},
+    {'btn-sm': size === 'sm'},
+    {'btn--color-white': textColor},
     className,
-    textColor,
-    size,
-    {'logged': user},
   ])
 
   return (
     <>
       { ['button', 'submit'].includes(type) ? (
-        <button className={classes} style={style} {...{href, onClick, ref, type}}>
+        <button className={classes} {...{href, onClick, ref, type, style, disabled}}>
           {children}
+          {'  '}
+          {loading &&
+            <Spinner
+              as="span"
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          }
         </button>
       ) : (
-        <a className={classes} {...{href, onClick, ref}}>
+        <a className={classes} href={href} onClick={onClick} ref={ref} target={target}>
           {children}
         </a>
       ) }
@@ -55,25 +69,20 @@ const Button = React.forwardRef(({
           text-align: center;
           user-select: none;
         }
+        {/* primary */}
         .btn-primary {
           background-color: var(--primary) !important;
           color: var(--white) !important;
         }
         .btn-primary:focus,
+        .btn-primary:active:focus {
+          box-shadow: 0 0 0 .2rem ${Color(CONFIG.color).fade(.5).string()};
+        }
+        .btn-primary:focus,
         .btn-primary:hover {
           background-color: var(--primary-hover) !important;
         }
-        .btn-primary.logged {
-          background-color: var(--white) !important;
-          border: 1px solid var(--white);
-          color: var(--black) !important;
-          padding-top: 8px;
-          padding-bottom: 8px;
-        }
-        .btn-primary.logged:focus,
-        .btn-primary.logged:hover {
-          background-color: ${Color(WHITE).darken(.35)} !important;
-        }
+        {/* secondary */}
         .btn-secondary {
           background-color: var(--mid-gray);
           color: var(--white);
@@ -93,6 +102,7 @@ const Button = React.forwardRef(({
         .btn-secondary.btn-outline.btn--color-white {
           color: var(--white);
         }
+        {/*  */}
         .btn-block {
           display: block;
         }
@@ -105,15 +115,11 @@ const Button = React.forwardRef(({
           padding-bottom: 0;
         }
         @media (max-width: 576px) {
-          .btn {
+          .home.btn {
             font-size: 12px;
             padding: 5px 12px;
           }
-          .btn-primary.logged {
-            padding-top: 5px;
-            padding-bottom: 5px;
-          }
-          .btn-secondary.btn-outline {
+          .home.btn-secondary.btn-outline {
             padding-top: 5px;
             padding-bottom: 5px;
             border: 1px solid white;

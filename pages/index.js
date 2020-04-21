@@ -17,9 +17,10 @@ import WishlistBtn from '../components/wishlist-btn'
 import UserContext from '../contexts/UserContext'
 import { CONFIG } from '../config'
 import api from '../services/api'
+import withApi from '~/components/withApi'
 
 // home page
-const Home = ({ featuredMedia, featuredMediaError, layoutProps }) => {
+const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) => {
 
   // get user
   const { user } = useContext(UserContext)
@@ -35,42 +36,16 @@ const Home = ({ featuredMedia, featuredMediaError, layoutProps }) => {
         {/* cover */}
         <Cover error={featuredMediaError} media={featuredMedia} />
 
+        {/* Contents */}
         <div className="index__contents">
-
-          {/* supporters */}
-          <HomeCarouselSection category="supporters" />
-
-          {/* featured */}
-          { (user)? <BannerSection  bannerID="1" movieID="13"/> : <BannerSection bannerID="6"/> }
-
-          {/* arts */}
-          <HomeCarouselSection category="arts" />
-
-          {/* features */}
-          { (user)? <BannerSection  bannerID="2" movieID="14"/> : <BannerSection bannerID="5"/> }
-
-          {/* podcasts */}
-          <HomeCarouselSection category="podcasts" />
-
-          {/* features */}
-          { (user)? <BannerSection  bannerID="3" movieID="15" /> : <BannerSection bannerID="7"/> }
-
-          {/* news */}
-          <HomeCarouselSection category="news" />
-
-          { (user)? <BannerSection  bannerID="4" movieID="16"/> : <BannerSection bannerID="8"/> }
-
-          {/* family */}
-          <HomeCarouselSection category="family" />
-
-          { (!user)? <BannerSection  bannerID="9" /> : "" }
-
-          {/* children */}
-          <HomeCarouselSection category="children" />
-
-          { (!user)? <BannerSection  bannerID="10" /> : "" }
-
-
+          {contents && contents.map((item, index) => {
+            let showBanner = (item.is_paid && user || !item.is_paid && !user)
+            switch(item.contentable_type) {
+              case 'categories':  return <HomeCarouselSection category={item.slug} key={index} />
+              case 'banners':     return showBanner && <BannerSection id={item.contentable_id} key={index} />
+              case 'movies':      return showBanner && <BannerSection movie={item.slug} key={index} />
+            }
+          })}
         </div>
       </div>
 
@@ -94,16 +69,18 @@ const Home = ({ featuredMedia, featuredMediaError, layoutProps }) => {
   )
 }
 
-Home.getInitialProps = async ctx => {
+HomePage.getInitialProps = async ctx => {
   try {
-    const { data: { movie: featuredMedia } } = await api(ctx).get('movie/marcelo-gallardo-lo-jugamos-como-una-final?for=home-cover')
-    return { featuredMedia }
+    const { data: home_page } = await ctx.api.get('pages/home')
+    const [firstContent,...contents] = home_page.contents
+    const { data: { movie: featuredMedia } } = await ctx.api.get('movie/' + firstContent.slug + '?for=home-cover')
+    return { contents, featuredMedia }
   } catch (error) {
     return { featuredMediaError: error }
   }
 }
 
-export default Home
+export default withApi(HomePage)
 
 // home cover
 const Cover = ({ error, media }) => {
@@ -117,6 +94,8 @@ const Cover = ({ error, media }) => {
       <p>No se puede cargar contenido destacado</p>
     )
   }
+
+  const empezaYa = CONFIG.lang === 'es-CL' ? '¡Vívelo ahora!' : '¡Empezá Ya!'
 
   // return
   return (
@@ -136,18 +115,20 @@ const Cover = ({ error, media }) => {
           <div className="cover__infos">
 
             {/* logo */}
-            <div className="row">
-              <div className="col-8 offset-2 col-md-12 offset-md-0">
-                <h1 className="cover__logo">
-                  <img
-                    className="img-fluid"
-                    height={media.logo.height}
-                    src={media.logo.url}
-                    width={media.logo.width}
-                  />
-                </h1>
+            {media.logo && (
+              <div className="row">
+                <div className="col-8 offset-2 col-md-12 offset-md-0">
+                  <h1 className="cover__logo">
+                    <img
+                      className="img-fluid"
+                      height={media.logo.height}
+                      src={media.logo.url}
+                      width={media.logo.width}
+                    />
+                  </h1>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* description */}
             {media.description && (
@@ -161,11 +142,11 @@ const Cover = ({ error, media }) => {
           </div>
 
           {/* buttons */}
-          <div className="row justify-content-center justify-content-md-start gutter-15">
+          <div className="row justify-content-center gutter-15">
             { ! user ? (
               <div className="col-auto">
                 <Link href="/subscriptor" passHref>
-                  <Button>¡Empezá Ya!</Button>
+                  <Button>{empezaYa}</Button>
                 </Link>
               </div>
             ) : <>
@@ -202,7 +183,7 @@ const Cover = ({ error, media }) => {
           background-image:
             linear-gradient(to bottom, rgba(0,0,0,0) 80%, black 100%),
             radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 25%, rgba(0,0,0,.925) 75%),
-            url(${media.poster_url});
+            url('${media.poster_url}');
           background-position: 50% 0, 50% 0, 75% 0;
           background-repeat: no-repeat, no-repeat, no-repeat;
           background-size: cover, cover, cover;
@@ -223,7 +204,7 @@ const Cover = ({ error, media }) => {
         .cover__logo::before {
           content: '';
           display: block;
-          padding-bottom: ${media.logo.height * 100 / media.logo.width + '%'};
+          padding-bottom: ${media.logo ? media.logo.height * 100 / media.logo.width + '%' : 0};
         }
         .cover__logo img {
           left: 0;
@@ -244,7 +225,7 @@ const Cover = ({ error, media }) => {
             background-image:
               linear-gradient(to bottom, rgba(0,0,0,0) 80%, black 100%),
               radial-gradient(circle at 67.5% 57.5%, rgba(0,0,0,0) 25%, rgba(0,0,0,.925) 42.5%),
-              url(${media.poster_url});
+              url('${media.poster_url}');
             background-position: 50% 0, 50% 0, 40% 50%;
           }
           .cover__img-content::before {
@@ -339,7 +320,7 @@ const HomeCarouselSection = ({ category: categorySlug }) => {
   )
 }
 
-const BannerSection = ({bannerID: id, movieID}) => {
+const BannerSection = ({id, movie}) => {
   const [banner, setBanner] = useState()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
@@ -348,8 +329,9 @@ const BannerSection = ({bannerID: id, movieID}) => {
     async function fetchData() {
       setLoading(true)
       try {
-        const {data} = await api().get(`/banners/${id}`)
+        const { data } = await (id ? api().get(`/banners/${id}`) : api().get(`/movie/${movie}`))
         setBanner(data)
+
       } catch (error) {
         setError(true)
       }
@@ -368,25 +350,22 @@ const BannerSection = ({bannerID: id, movieID}) => {
         </div>
 
         {/* features */}
-        { (banner) && (
-              <div>
-            {(!movieID)? (
-                    <a className="sponsor-link" href={banner.link} target="_blank">
-                      <Featured img={banner.banner_url} />
-                    </a>
-            ) :
-            (
-             <Featured img={banner.banner_url}>
-              <div className="buttons">
-                <Link href={banner.link} passHref>
-                  <Button>Ver más</Button>
-                </Link>
-                <WishlistBtn movieId={movieID} />
-              </div>
-              </Featured>
-            )}
-            </div>
-        )}
+        { banner && id &&
+          <a className="sponsor-link" href={banner.link} target="_blank">
+            <Featured img={banner.banner_url} />
+          </a>
+        }
+
+        { banner && movie &&
+          <MediaLink media={banner.movie} passHref>
+            <a>
+              <Featured
+                className="gradient"
+                img={banner.movie.poster_url}
+              />
+            </a>
+          </MediaLink>
+        }
 
         {/* error */}
         {error && (

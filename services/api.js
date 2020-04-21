@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { backendLogout, frontendLogout, getAccessToken } from './auth'
-import { API_URL } from '../constants/constants'
+import { API_URL } from '~/config'
 
 export const baseURL = API_URL
 

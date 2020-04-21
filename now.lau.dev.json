@@ -1,0 +1,19 @@
+{
+  "alias": ["laumas-dev.now.sh"],
+  "build": {
+    "env": {
+      "TENANT": "lau",
+      "SENTRY_DSN": "https://b7155df9027f4df2b715238ce3e2049e@sentry.io/2105115"
+    }
+  },
+  "github": {
+    "enabled": false
+  },
+  "routes": [
+    { "src": "/fLogin", "dest": "/?modal=login&socialProvider=facebook" },
+    { "src": "/gLogin", "dest": "/?modal=login&socialProvider=google" },
+    { "src": "/login", "dest": "/?modal=login" }
+  ],
+  "scope": "somosgad",
+  "version": 2
+}

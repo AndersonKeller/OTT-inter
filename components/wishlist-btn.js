@@ -2,7 +2,7 @@ import Button from '../components/button'
 import { useEffect, useState } from 'react'
 import api from '../services/api'
 
-const WishlistBtn = ({ block, color, inside, movieId }) => {
+const WishlistBtn = ({ block, color, inside, movieId, home }) => {
 
   const InsideBtn = ({ icon, size, onClick }) => {
 
@@ -67,7 +67,7 @@ const WishlistBtn = ({ block, color, inside, movieId }) => {
       inside ?
         <InsideBtn icon="/static/icons/remove.svg" size="10" onClick={handleToggle} />
       :
-        <Button block={block} onClick={handleToggle}>
+        <Button block={block} home={home} onClick={handleToggle}>
           <img height="13" src="/static/icons/remove.svg" width="13" />
           <span>Mi Lista</span>
         </Button>
@@ -75,7 +75,7 @@ const WishlistBtn = ({ block, color, inside, movieId }) => {
       inside ?
         <InsideBtn icon="/static/icons/add.svg" size="10"  onClick={handleToggle} />
       :
-        <Button block={block} color="secondary" outline textColor={color} onClick={handleToggle}>
+        <Button block={block} home={home} color="secondary" outline textColor={color} onClick={handleToggle}>
           <img height="13" src="/static/icons/add.svg" width="13" />
           <span>Mi Lista</span>
         </Button>

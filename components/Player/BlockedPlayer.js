@@ -5,6 +5,7 @@ import Player from '~/components/Player'
 import UserContext from '~/contexts/UserContext'
 import { IS_PRODUCTION } from '~/constants/constants'
 import { AuthModalContext } from '~/contexts/AuthModalContext'
+import { CONFIG } from '~/config'
 
 export default function BlockedPlayer({ image = '', media}) {
   const { user } = useContext(UserContext)
@@ -12,7 +13,6 @@ export default function BlockedPlayer({ image = '', media}) {
   const autoPlay = IS_PRODUCTION
   const { openAuthModal } = useContext(AuthModalContext)
 
-  // open auth modal
   const handleAuth = e => {
     e.preventDefault()
     openAuthModal('register')
@@ -27,6 +27,17 @@ export default function BlockedPlayer({ image = '', media}) {
   const youtube_link = media.movie_links.find(element => {
     return element.movie_link_type_id === youtube_type_id
   })
+
+  const probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
+
+  const handleLogin = e => {
+    e.preventDefault()
+    openAuthModal('login')
+  }
+
+  const alreadyRegistered = CONFIG.lang === 'es-CL' ? '¿Ya estás suscrito?' : '¿Ya eres suscriptor?'
+
+  const login = CONFIG.lang === 'es-CL' ? 'Inicia sesión' : 'Ház login'
 
   return (
     <div className="player">
@@ -56,16 +67,23 @@ export default function BlockedPlayer({ image = '', media}) {
         <>
           <img src={image} width="822" height="464" className="img-fluid" />
           <div className="block-msg text-center">
+
             <div className="text-block">
               <p><strong>Este contenido es exclusivo para los suscriptores</strong></p>
               <p className="d-none d-md-block"><small>Ver los videos cuando y donde quieras.</small></p>
             </div>
-            <Button onClick={e => handleAuth(e)}>Probá Gratis</Button>
-            <div className="text-block">
-              <p><strong><span className="text-uppercase d-none d-md-inline">Prueba gratis</span><br className="d-none d-md-inline" />
-                ¿Ya ere suscriptor? <span className="text-uppercase">Ház <Link href="/login"><a>login</a></Link></span></strong></p>
+
+            <Button onClick={handleAuth}>{probaGratis}</Button>
+
+            <div className="bold text-block">
+              <p>
+                {alreadyRegistered}
+                {' '}
+                <a className="text-uppercase" href="/login" onClick={handleLogin}>{login}</a>
+              </p>
             </div>
           </div>
+
         </>
       )}
       <style jsx>{`

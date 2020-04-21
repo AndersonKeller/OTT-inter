@@ -6,13 +6,17 @@
     "shortClubName": "Colo-Colo",
     "supportersAKA": "Albos",
     "color": "#e12213",
+    "secondaryColor": "#005d9c",
     "site": "//www.colocolo.cl/",
     "socialNetworks": [
       { "name": "Facebook", "link": "https://www.facebook.com/colocolo/" },
       { "name": "Instagram", "link": "https://www.instagram.com/colocolooficial/" },
       { "name": "Twitter", "link": "https://twitter.com/colocolo" }
     ],
-    "googleAnalytics": null
+    "googleAnalytics": null,
+    "apiUrl": "https://admin.rivermas.com",
+    "lang": "es-CL",
+    "loadingColor": "primary"
   },
   "river": {
     "appName": "River Mas",
@@ -21,12 +25,35 @@
     "shortClubName": "River",
     "supportersAKA": "RiverPlatenses",
     "color": "#ff0000",
+    "secondaryColor": "#fff",
     "site": "https://www.cariverplate.com.ar/",
     "socialNetworks": [
       { "name": "Facebook", "link": "https://www.facebook.com/riverplateoficial/" },
       { "name": "Instagram", "link": "https://www.instagram.com/riverplate/" },
       { "name": "Twitter", "link": "https://twitter.com/RiverPlate" }
     ],
-    "googleAnalytics": "UA-146274840-2"
+    "googleAnalytics": "UA-146274840-2",
+    "apiUrl": "https://admin.rivermas.com",
+    "lang": "es",
+    "loadingColor": "primary"
+  },
+  "lau": {
+    "appName": "La U Mas",
+    "clubName": "Universidad de Chile",
+    "fullClubName": "Club Universidad de Chile",
+    "shortClubName": "La U",
+    "supportersAKA": "Universitários",
+    "color": "#001e60",
+    "secondaryColor": "#9a3324",
+    "site": "https://www.udechile.cl/",
+    "socialNetworks": [
+      { "name": "Facebook", "link": "https://www.facebook.com/ClubUniversidadDeChileOficial" },
+      { "name": "Instagram", "link": "https://instagram.com/udechileoficial" },
+      { "name": "Twitter", "link": "https://www.twitter.com/udechile" }
+    ],
+    "googleAnalytics": "UA-146274840-3",
+    "apiUrl": "https://admin.laumas.cl",
+    "lang": "es-CL",
+    "loadingColor": "secondary"
   }
 }
