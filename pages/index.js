@@ -82,30 +82,31 @@ HomePage.getInitialProps = async ctx => {
 
 export default withApi(HomePage)
 
-// home cover
+// cover component
 const Cover = ({ error, media }) => {
 
-  // get user
-  const { user } = useContext(UserContext)
-
-  // in case of errors
   if (error) {
     return (
       <p>No se puede cargar contenido destacado</p>
     )
   }
-
+  const { user } = useContext(UserContext)
+  const { description, logo, poster_url } = media || {}
+  const {
+    height,
+    url: { default: fallback, png, webp } = {},
+    width,
+  } = logo || {}
   const empezaYa = CONFIG.lang === 'es-CL' ? '¡Vívelo ahora!' : '¡Empezá Ya!'
 
-  // return
   return (
     <div className="cover container-fluid">
 
-      {/* image */}
+      {/* poster backaground banner image */}
       <div className="cover__img row">
         <div className="col p-0">
           <div className="cover__img-content">
-            <img alt="" className="d-none" src={media.poster_url} />
+            <img alt="" className="d-none" src={poster_url} />
           </div>
         </div>
       </div>
@@ -114,34 +115,33 @@ const Cover = ({ error, media }) => {
         <div className="col-12 col-md-4 offset-md-1">
           <div className="cover__infos">
 
-            {/* logo */}
-            {media.logo && (
+            {/* logo overlay image */}
+            {logo && (
               <div className="row">
                 <div className="col-8 offset-2 col-md-12 offset-md-0">
                   <h1 className="cover__logo">
-                    <img
-                      className="img-fluid"
-                      height={media.logo.height}
-                      src={media.logo.url}
-                      width={media.logo.width}
-                    />
+                    {<picture>
+                      <source srcset={webp} type="media/webp" />
+                      <source srcset={png} type="media/png" />
+                      <img className="img-fluid" height={height} src={fallback} width={width} />
+                    </picture>}
                   </h1>
                 </div>
               </div>
             )}
 
-            {/* description */}
-            {media.description && (
+            {/* content's description */}
+            {description && (
               <div className="row cover__description">
                 <div className="col-10 offset-1 col-md-12 offset-md-0">
-                  <p className="mb-0">{media.description}</p>
+                  <p className="mb-0">{description}</p>
                 </div>
               </div>
             )}
 
           </div>
 
-          {/* buttons */}
+          {/* cta buttons */}
           <div className="row justify-content-center gutter-15">
             { ! user ? (
               <div className="col-auto">
@@ -183,7 +183,7 @@ const Cover = ({ error, media }) => {
           background-image:
             linear-gradient(to bottom, rgba(0,0,0,0) 80%, black 100%),
             radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 25%, rgba(0,0,0,.925) 75%),
-            url('${media.poster_url}');
+            url('${poster_url}');
           background-position: 50% 0, 50% 0, 75% 0;
           background-repeat: no-repeat, no-repeat, no-repeat;
           background-size: cover, cover, cover;
@@ -204,12 +204,13 @@ const Cover = ({ error, media }) => {
         .cover__logo::before {
           content: '';
           display: block;
-          padding-bottom: ${media.logo ? media.logo.height * 100 / media.logo.width + '%' : 0};
+          padding-bottom: ${logo ? height * 100 / width + '%' : 0};
         }
         .cover__logo img {
           left: 0;
           position: absolute;
           top: 0;
+        }
         }
         @media (min-width: 768px) {
           .cover {
@@ -225,7 +226,7 @@ const Cover = ({ error, media }) => {
             background-image:
               linear-gradient(to bottom, rgba(0,0,0,0) 80%, black 100%),
               radial-gradient(circle at 67.5% 57.5%, rgba(0,0,0,0) 25%, rgba(0,0,0,.925) 42.5%),
-              url('${media.poster_url}');
+              url('${poster_url}');
             background-position: 50% 0, 50% 0, 40% 50%;
           }
           .cover__img-content::before {
