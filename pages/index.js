@@ -121,8 +121,8 @@ const Cover = ({ error, media }) => {
                 <div className="col-8 offset-2 col-md-12 offset-md-0">
                   <h1 className="cover__logo">
                     {<picture>
-                      <source srcset={webp} type="media/webp" />
-                      <source srcset={png} type="media/png" />
+                      <source srcSet={webp} type="media/webp" />
+                      <source srcSet={png} type="media/png" />
                       <img className="img-fluid" height={height} src={fallback} width={width} />
                     </picture>}
                   </h1>
