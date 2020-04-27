@@ -10,7 +10,7 @@ import FormGroup from '~/components/layout/AuthModal/FormGroup'
 import Label from '~/components/layout/AuthModal/Label'
 import Input from '~/components/layout/AuthModal/Input'
 import Button from '~/components/button'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useCallback } from 'react'
 import UserContext from '~/contexts/UserContext'
 import Packages from '~/components/Packages'
 import Select from '~/components/Select/Select'
@@ -105,7 +105,6 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
   const [ genders, setGenders ] = useState()
   const [ countries, setCountries ] = useState()
   const [ discounts, setDiscounts ] = useState(false)
-  const [ discount, setDiscount ] = useState(false)
 
   const [ values, setValues ] = useState({
     name: '',
@@ -119,6 +118,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     payment_os: null,
     cash_payment_method_id: null,
     terms: null,
+    discount_id: null,
   })
 
   const [ loading, setLoading ] = useState()
@@ -181,26 +181,34 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     })
   }
 
-  const handleDiscountChange = ({target:{name, value, id}}) => {
+  /* handle disocunt change */
+  const handleDiscountChange = ({target:{ name, value, id }}) => {
     setValues({
       ...values,
       [name]: value,
+      discount_id: value.length === 5 ? id : null
     })
-    console.log('id:', id)
-    setDiscount(value.length === 5 ? id : false)
   }
-
 
   /* handle package change */
-  function onPackageChange(e) {
+  const onPackageChange = useCallback( e => {
     const package_id = parseInt(e.target.value, 10)
-    setValues({
-      ...values,
-      package_id: package_id,
+    setValues( oldValues => ({
+      ...oldValues,
+      package_id,
       payment_method_id: package_id === free_package_id ? null : values.payment_method_id,
-    })
-    console.table(values)
-  }
+    }))
+  },[])
+
+  // function onPackageChange(e) {
+  //   const package_id = parseInt(e.target.value, 10)
+  //   setValues({
+  //     ...values,
+  //     package_id: package_id,
+  //     payment_method_id: package_id === free_package_id ? null : values.payment_method_id,
+  //   })
+  //   console.table(values)
+  // }
 
   /* handle payment method change */
   function onPaymentChange(e) {
@@ -447,7 +455,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
                 name={d.dsc_id}
                 onChange={handleDiscountChange}
                 type="text"
-                style={discount ==  d.id ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
+                style={values.discount_id == d.id ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
                 value={values[d.dsc_id]}
                 key={index}
               />
@@ -455,26 +463,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
           </div>
         </div>
       ))}
-
-          {/* <div className="col-md-6">
-            <div className="localization">
-              <FormGroup>
-                <Label htmlFor="alternate_supporter_id">Somos {CONFIG.shortClubName}</Label>
-                <Input
-                  disabled={values.supporter_id}
-                  id="alternate_supporter_id"
-                  maxLength={5}
-                  name="alternate_supporter_id"
-                  onChange={handleDiscountChange}
-                  type="text"
-                  style={discount ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
-                  value={values.alternate_supporter_id}
-                />
-              </FormGroup>
-            </div>
-          </div>
-        */}
-        </div>
+      </div>
 
 
       {/* package selection */}
@@ -484,7 +473,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         onChange: onPackageChange,
         package_id: values.package_id,
         validationError: ! loading && error && error.errors && error.errors.package_id,
-        discount_id: discount,
+        discount_id: values.discount_id,
       }} />
 
       {/* payment */}

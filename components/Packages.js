@@ -1,6 +1,6 @@
 // app imports
 import FormGroup from './layout/AuthModal/FormGroup'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, memo } from 'react'
 import withApi from '~/components/withApi'
 
 // packages component
@@ -16,12 +16,12 @@ const Packages = ({
   api
 }) => {
 
-  const [discounts, setDiscounts] = useState(false)
+  const [discounts, setDiscounts] = useState([])
 
   /* get discounts */
   useEffect(_ => {
     (async _ => {
-      const { data } = discount_id ? await api.get(`discounts/${discount_id}/packages`) : {}
+      const { data } = discount_id ? await api.get(`discounts/${discount_id}/packages`) : []
       setDiscounts(data)
     })()
   }, [discount_id])
@@ -150,4 +150,4 @@ export const PackageRadio = ({
 }
 
 // export packages
-export default withApi(Packages)
+export default withApi(memo(Packages))
