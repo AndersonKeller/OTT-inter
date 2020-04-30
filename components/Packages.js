@@ -13,6 +13,7 @@ const Packages = ({
   validationError,
   readOnly,
   discount_id,
+  setBlockDiscountFields,
   api
 }) => {
 
@@ -21,8 +22,10 @@ const Packages = ({
   /* get discounts */
   useEffect(_ => {
     (async _ => {
+      setBlockDiscountFields(true)
       const { data } = discount_id ? await api.get(`discounts/${discount_id}/packages`) : []
       setDiscounts(data)
+      setBlockDiscountFields(false)
     })()
   }, [discount_id])
 

@@ -1,12 +1,13 @@
 import ClipLoader from 'react-spinners/ClipLoader'
 
-const Loading = ({loadingState}) => {
+const Loading = ({loadingState, size, color, style}) => {
   return (
     <ClipLoader
       sizeUnit={"px"}
-      size={80}
-      color="var(--primary)"
+      size={size || 80}
+      color={color || 'var(--primary)'}
       loading={loadingState}
+      style={style}
     />
   )
 }
