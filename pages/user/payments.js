@@ -38,7 +38,6 @@ const PaymentsPage = ({ layoutProps, user, api, packages }) => {
     (async _ => {
       try{
         const { data } = await api.get('cash-orders')
-        console.log(data)
         setOrders(data)
       }catch(error){
         console.log(error)
@@ -73,8 +72,8 @@ const PaymentsPage = ({ layoutProps, user, api, packages }) => {
                 </Card.Footer>
               </Card>
               <div className="mobile-table">
-                {orders && orders.map(order => {
-                  <div className="mobile-row">
+                {orders.map(order =>
+                  <div className="mobile-row" key={order.id}>
                     <dl>
                       <dt>Fecha</dt>
                       <dd><Link href="receipt"><a target="_blank">{order.paid_at && order.paid_at.split(' ')[0]}</a></Link></dd>
@@ -96,7 +95,7 @@ const PaymentsPage = ({ layoutProps, user, api, packages }) => {
                       <dd>{order.value}</dd>
                     </dl>
                   </div>
-                })}
+                )}
                 {/* <div className="mobile-row">
                   <dl>
                     <dt>Fecha</dt>
@@ -132,8 +131,8 @@ const PaymentsPage = ({ layoutProps, user, api, packages }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {orders && orders.map(order => {
-                    <tr>
+                  {orders.map(order =>
+                    <tr key={order.id}>
                       <td>{order.id}</td>
                       <td><Link href="receipt"><a target="_blank">{order.paid_at && order.paid_at.split(' ')[0]}</a></Link></td>
                       <td>{CONFIG.appName}</td>
@@ -141,15 +140,7 @@ const PaymentsPage = ({ layoutProps, user, api, packages }) => {
                       <td><Link href="receipt"><a target="_blank">{order.download_link}</a></Link></td>
                       <td>{order.value}</td>
                     </tr>
-                  })}
-                  {/* <tr>
-                    <td>1</td>
-                    <td><Link href="receipt"><a target="_blank">09/01/2020</a></Link></td>
-                    <td>{CONFIG.appName}</td>
-                    <td>09/01/2020—08/02/2020</td>
-                    <td>VISA •••• •••• •••• 1627</td>
-                    <td>$99,00</td>
-                  </tr> */}
+                  )}
                 </tbody>
               </Table>
             </div>
