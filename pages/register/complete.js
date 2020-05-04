@@ -16,6 +16,7 @@ import Packages from '~/components/Packages'
 import Select from '~/components/Select/Select'
 import { IS_PRODUCTION, HAS_WINDOW } from '~/constants/constants'
 import withAuth from '~/components/withAuth'
+import Loading from '~/components/Loading/Loading'
 
 // page
 const CompleteRegisterPage = ({ api, layoutProps, packages, user }) => {
@@ -105,6 +106,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
   const [ genders, setGenders ] = useState()
   const [ countries, setCountries ] = useState()
   const [ discounts, setDiscounts ] = useState(false)
+  const [ blockDiscountFields, setBlockDiscountFields ] = useState(false)
 
   const [ values, setValues ] = useState({
     name: '',
@@ -182,12 +184,26 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
   }
 
   /* handle disocunt change */
-  const handleDiscountChange = ({target:{ name, value, id }}) => {
+  const handleDiscountChange = async ({target:{ name, value, id }}) => {
+
+    let valid = await checkDiscount(value)
+    // console.table(valid)
+
     setValues({
       ...values,
       [name]: value,
-      discount_id: value.length === 5 ? id : null
+      discount_id: valid ? id : null
     })
+  }
+
+  /* handle discount change */
+  const checkDiscount = async supporterCode => {
+
+    // Simulate API Call
+    const prom = (delay, value) => new Promise(resolve => setTimeout(resolve, delay, value))
+
+    return await prom(50, supporterCode.length === 5)
+
   }
 
   /* handle package change */
@@ -441,14 +457,14 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
       </div>
       {/* <h3 className="h3">¿Eres Socio? Obtén un descuento especial</h3> */}
       <div className="row">
-      {discounts && discounts.map((d,index) => (
-        <div className="col-md-6">
+      {discounts && discounts.map( d => (
+        <div className="col-md-6" key={d.id}>
           <div className="data">
             <FormGroup>
               <Label htmlFor={d.dsc_id}>{d.name}</Label>
               <Input
                 disabled={discounts.find(
-                  disc => !['',undefined].includes(values[disc.dsc_id]) && disc.id != d.id
+                  disc => (!['',undefined].includes(values[disc.dsc_id]) && disc.id != d.id)
                 )}
                 id={d.id}
                 maxLength={5}
@@ -456,9 +472,9 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
                 onChange={handleDiscountChange}
                 type="text"
                 style={values.discount_id == d.id ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
-                value={values[d.dsc_id]}
-                key={index}
-              />
+                value={values[d.dsc_id] || ''}
+                readOnly={blockDiscountFields}
+              /><div style={{float: 'right', paddingTop:'10px'}}><Loading size="20" color="white" loadingState={values.discount_id == d.id  && blockDiscountFields}/></div>
             </FormGroup>
           </div>
         </div>
@@ -474,6 +490,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
         package_id: values.package_id,
         validationError: ! loading && error && error.errors && error.errors.package_id,
         discount_id: values.discount_id,
+        setBlockDiscountFields,
       }} />
 
       {/* payment */}
@@ -506,7 +523,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
               onChange={handleInputChange}
               required={requireds}
               type="checkbox"
-              value={true}
+              value={`true`}
             />
             <span>He leído y acepto <Link href="/terminos-y-politicas">
                 <a target="_blank">el contrato</a>
