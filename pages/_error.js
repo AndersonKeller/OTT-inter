@@ -1,8 +1,13 @@
 import Error from 'next/error'
 import { STATIC_PATH } from '../constants/constants'
 import * as Sentry from '@sentry/node'
+import Color from 'color'
+import { useContext } from 'react'
+import { ThemeContext } from 'styled-components'
 
 function CustomError({ statusCode }) {
+  const theme = useContext(ThemeContext)
+  const backgroundColor = Color(theme.colors.background).hsl().string()
   return (
     <div className="error">
       <Error
@@ -13,7 +18,7 @@ function CustomError({ statusCode }) {
       />
       <style global jsx>{`
         .error > div {
-          background: #000 !important;
+          background: ${backgroundColor} !important;
           color: #fff !important;
         }
         .error > div > div::after {

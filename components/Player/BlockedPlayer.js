@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from 'react'
-import Link from 'next/link'
 import Button from '~/components/button'
 import Player from '~/components/Player'
 import UserContext from '~/contexts/UserContext'
 import { IS_PRODUCTION } from '~/constants/constants'
 import { AuthModalContext } from '~/contexts/AuthModalContext'
 import { CONFIG } from '~/config'
+import { ThemeContext } from 'styled-components'
+import Color from 'color'
 
-export default function BlockedPlayer({ image = '', media}) {
+export default function BlockedPlayer({ image = '', media }) {
   const { user } = useContext(UserContext)
   const [ video, setVideo ] = useState(user ? 1 : 0)
   const autoPlay = IS_PRODUCTION
@@ -38,6 +39,9 @@ export default function BlockedPlayer({ image = '', media}) {
   const alreadyRegistered = CONFIG.lang === 'es-CL' ? '¿Ya estás suscrito?' : '¿Ya eres suscriptor?'
 
   const login = CONFIG.lang === 'es-CL' ? 'Inicia sesión' : 'Ház login'
+
+  const theme = useContext(ThemeContext)
+  const maskColor = Color(theme.colors.black).fade(.3).hsl().string()
 
   return (
     <div className="player">
@@ -93,7 +97,7 @@ export default function BlockedPlayer({ image = '', media}) {
         }
         .block-msg {
           align-items: center;
-          background-color: rgba(0, 0, 0, .7);
+          background-color: ${maskColor};
           bottom: 0;
           flex-direction: column;
           font-size: 14px;

@@ -1,11 +1,7 @@
-// next imports
 import Head from 'next/head'
 import Link from 'next/link'
-
-// react imports
 import React, { useContext, useEffect, useState } from 'react'
-
-// app imports
+import styled from 'styled-components'
 import Button from '../components/button'
 import MediaCard from '../components/MediaCard/MediaCard'
 import CarouselSection from '../components/carousel-section'
@@ -18,14 +14,10 @@ import UserContext from '../contexts/UserContext'
 import { CONFIG } from '../config'
 import api from '../services/api'
 import withApi from '~/components/withApi'
+import Color from 'color'
 
-// home page
 const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) => {
-
-  // get user
   const { user } = useContext(UserContext)
-
-  // return
   return (
     <Layout {...layoutProps} paddingTop={false}>
       <Head>
@@ -47,9 +39,8 @@ const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) 
             }
           })}
         </div>
-      </div>
 
-      {/* styles */}
+      </div>
       <style jsx>{`
         .index {
           margin-bottom: 75px;
@@ -64,7 +55,6 @@ const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) 
           }
         }
       `}</style>
-
     </Layout>
   )
 }
@@ -82,9 +72,39 @@ HomePage.getInitialProps = async ctx => {
 
 export default withApi(HomePage)
 
-// cover component
-const Cover = ({ error, media }) => {
+const CoverImgContent = styled.div`
+  background-image:
+    linear-gradient(to bottom, ${props => Color(props.theme.colors.background).fade(1).string()} 80%, ${props => props.theme.colors.background} 100%),
+    radial-gradient(circle at 50% 50%, ${props => Color(props.theme.colors.background).fade(1).string()} 25%, ${props => Color(props.theme.colors.background).fade(.075).string()} 75%),
+    url('${props => props.posterUrl}');
+  background-position: 50% 0, 50% 0, 75% 0;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-size: cover, cover, cover;
+  &::before {
+    content: '';
+    display: block;
+    padding-bottom: 112.5%;
+  }
+  @media (min-width: 768px) {
+    background-image:
+      linear-gradient(to bottom, ${props => Color(props.theme.colors.background).fade(1).string()} 80%, ${props => props.theme.colors.background} 100%),
+      radial-gradient(circle at 67.5% 57.5%, ${props => Color(props.theme.colors.background).fade(1).string()} 25%, ${props => Color(props.theme.colors.background).fade(.075).string()} 42.5%),
+      url('${props => props.posterUrl}');
+    background-position: 50% 0, 50% 0, 40% 50%;
+    &::before {
+      padding-bottom: 80%;
+    }
+  }
+  @media (min-width: 1200px) {
+    background-position: 50% 0, 50% 0, 75% 50%;
+    &::before {
+      padding-bottom: 48%;
+    }
+  }
+`
+// ${props.theme.colors.background}
 
+const Cover = ({ error, media }) => {
   if (error) {
     return (
       <p>No se puede cargar contenido destacado</p>
@@ -98,16 +118,15 @@ const Cover = ({ error, media }) => {
     width,
   } = logo || {}
   const empezaYa = CONFIG.lang === 'es-CL' ? '¡Vívelo ahora!' : '¡Empezá Ya!'
-
   return (
     <div className="cover container-fluid">
 
       {/* poster backaground banner image */}
       <div className="cover__img row">
         <div className="col p-0">
-          <div className="cover__img-content">
+          <CoverImgContent posterUrl={poster_url}>
             <img alt="" className="d-none" src={poster_url} />
-          </div>
+          </CoverImgContent>
         </div>
       </div>
 
@@ -179,20 +198,6 @@ const Cover = ({ error, media }) => {
         .cover__img {
           margin-bottom: -90px;
         }
-        .cover__img-content {
-          background-image:
-            linear-gradient(to bottom, rgba(0,0,0,0) 80%, black 100%),
-            radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 25%, rgba(0,0,0,.925) 75%),
-            url('${poster_url}');
-          background-position: 50% 0, 50% 0, 75% 0;
-          background-repeat: no-repeat, no-repeat, no-repeat;
-          background-size: cover, cover, cover;
-        }
-        .cover__img-content::before {
-          content: '';
-          display: block;
-          padding-bottom: 112.5%;
-        }
         .cover__infos {
           margin-bottom: 15px;
         }
@@ -211,7 +216,6 @@ const Cover = ({ error, media }) => {
           position: absolute;
           top: 0;
         }
-        }
         @media (min-width: 768px) {
           .cover {
             font-size: 16px;
@@ -221,16 +225,6 @@ const Cover = ({ error, media }) => {
           }
           .cover__img {
             margin-bottom: 0;
-          }
-          .cover__img-content {
-            background-image:
-              linear-gradient(to bottom, rgba(0,0,0,0) 80%, black 100%),
-              radial-gradient(circle at 67.5% 57.5%, rgba(0,0,0,0) 25%, rgba(0,0,0,.925) 42.5%),
-              url('${poster_url}');
-            background-position: 50% 0, 50% 0, 40% 50%;
-          }
-          .cover__img-content::before {
-            padding-bottom: 80%;
           }
           .cover__contents {
             align-items: center;
@@ -243,14 +237,6 @@ const Cover = ({ error, media }) => {
           }
           .cover__infos {
             margin-bottom: 30px;
-          }
-        }
-        @media (min-width: 1200px) {
-          .cover__img-content {
-            background-position: 50% 0, 50% 0, 75% 50%;
-          }
-          .cover__img-content::before {
-            padding-bottom: 48%;
           }
         }
       `}</style>

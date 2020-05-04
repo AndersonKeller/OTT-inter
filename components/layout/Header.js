@@ -1,15 +1,38 @@
+import Color from 'color'
 import React, { useContext, useEffect, useState, useRef } from 'react'
-import classNames from 'classnames'
 import Link from 'next/link'
 import Router from 'next/router'
+import styled from 'styled-components'
 import { CONFIG } from '~/config'
-import { STATIC_PATH, TENANT }  from '~/constants/constants'
+import { TENANT }  from '~/constants/constants'
 import UserMenu from './UserMenu'
 import ActiveLink from '../ActiveLink'
 import SearchContext from '~/contexts/SearchContext'
 import DesktopMenu from './DesktopMenu'
 import AppLogo from '~/components/AppLogo'
 import ClubLogo from '../ClubLogo'
+
+const StyledHeader = styled.header`
+  background-color: ${props => props.closed ? 'var(--background)' :
+    props.scrolled ? Color(props.theme.colors.background).fade(.1).string() :
+    props.layoutColor === 'white' ? props.theme.colors.background : 'transparent'};
+  box-shadow: 0 0 5px rgba(var(--black-rgb), ${props => props.layoutColor !== 'white' && props.scrolled ? '.9' : '0' });
+  color: var(--gray);
+  font-family: var(--sans-serif);
+  /* font-size: 21.5px; */
+  font-size: 16px;
+  font-weight: bold;
+  min-width: 100%;
+  padding: 10px;
+  position: ${props => props.closed ? 'static' : 'fixed'};
+  transition: ${props => props.closed ? 'background-color .3s, box-shadow .3s' :
+    'background-color .6s, box-shadow .6s'};
+  width: 90%;
+  z-index: 10;
+  @media (min-width: 768px) {
+    padding: 10px 30px;
+  }
+`
 
 const Header = ({ closed, layoutColor, menus }) => {
   const hasWindow = typeof window !== 'undefined'
@@ -30,12 +53,6 @@ const Header = ({ closed, layoutColor, menus }) => {
     }
   }, [])
 
-  // classes
-  const classes = classNames('header', {
-    closed: closed,
-    scrolled: scrolled,
-  })
-
   // submit
   // const [ searchValue, setSearchField ] = useState('')
   const { search, setSearch } = useContext(SearchContext)
@@ -47,7 +64,7 @@ const Header = ({ closed, layoutColor, menus }) => {
   }
 
   return (
-    <header className={classes}>
+    <StyledHeader closed={closed} layoutColor={layoutColor} scrolled={scrolled}>
       <nav className="nav">
 
         {/* club logo */}
@@ -56,7 +73,7 @@ const Header = ({ closed, layoutColor, menus }) => {
         ) }
 
         {/* logo */}
-        <HeaderAppLogo />
+        <HeaderAppLogo closed={closed} />
 
         { ! closed && (
           <>
@@ -99,45 +116,10 @@ const Header = ({ closed, layoutColor, menus }) => {
 
       </nav>
       <style jsx>{`
-        .header {
-          background-color: ${layoutColor === 'white' ? 'var(--black)' : 'transparent'};
-          box-shadow: 0 0 5px rgba(var(--black-rgb), 0);
-          color: var(--gray);
-          font-family: var(--sans-serif);
-          /* font-size: 21.5px; */
-          font-size: 16px;
-          font-weight: bold;
-          min-width: 100%;
-          padding: 10px;
-          position: fixed;
-          transition: background-color .6s, box-shadow .6s;
-          width: 90%;
-          z-index: 10;
-        }
-        @media (min-width: 768px) {
-          .header {
-            padding: 10px 30px;
-          }
-        }
-        .header.closed {
-          background-color: var(--black);
-          position: static;
-        }
-        .header.scrolled {
-          background-color: rgba(var(--black-rgb), .9);
-          box-shadow: 0 0 5px rgba(var(--black-rgb), .9);
-          transition: background-color .3s, box-shadow .3s;
-        }
         .nav {
           display: flex;
           align-items: center;
-          justify-content: space-between;
-        }
-        .header.closed .nav {
-          justify-content: center;
-        }
-        .header.closed :global(.logo) {
-          margin-right: 0;
+          justify-content: ${closed ? 'center' : 'space-between'};
         }
         .form-control {
           background-color: transparent;
@@ -191,7 +173,7 @@ const Header = ({ closed, layoutColor, menus }) => {
           vertical-align: middle;
         }
       `}</style>
-    </header>
+    </StyledHeader>
   )
 }
 
@@ -226,7 +208,7 @@ const HeaderClubLogo = _ => {
   )
 }
 
-const HeaderAppLogo = _ => {
+const HeaderAppLogo = ({ closed }) => {
   return (
     <h1 className="logo">
       <ActiveLink href="/">
@@ -248,7 +230,7 @@ const HeaderAppLogo = _ => {
         }
         @media (min-width: 768px) {
           .logo {
-            margin-right: 20px;
+            margin-right: ${closed ? 0 : '20px'};
           }
         }
       `}</style>

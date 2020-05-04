@@ -1,23 +1,17 @@
-// react
-import React from 'react'
-
-// other imports
+import Color from 'color'
 import classNames from 'classnames'
 import Link from 'next/link'
-import ReactSVG from 'react-svg'
-import { useContext } from 'react'
-
-// react icons
+import React, { useContext } from 'react'
 import { IconContext } from 'react-icons'
 import { FaFacebookSquare } from 'react-icons/fa'
 import { IoLogoInstagram, IoLogoTwitter } from 'react-icons/io'
-
-// app imports
+import ReactSVG from 'react-svg'
 import { CONFIG } from '../../config'
 import UserContext from '../../contexts/UserContext'
 import ActiveLink from '../ActiveLink'
+import { WHITE } from '~/constants/colors'
+import { ThemeContext } from 'styled-components'
 
-// footer
 export default function Footer({ layoutColor }) {
   return (
     <footer className="footer">
@@ -37,7 +31,6 @@ export default function Footer({ layoutColor }) {
   )
 }
 
-// nav footer
 const NavFooter = ({className}) => {
 
   const { user } = useContext(UserContext)
@@ -51,6 +44,10 @@ const NavFooter = ({className}) => {
     // { icon: 'scan', label: 'Escanear', },
   ]
   const classes = classNames('nav-footer', className)
+  const theme = useContext(ThemeContext)
+  const backgroundColor = Color(theme.colors.background).hsl().string()
+  const textAndFillColor = Color(theme.colors.white).fade(.6).hsl().string()
+
   return (
     <nav className={classes}>
       {menu.map((item, key) => (
@@ -66,7 +63,7 @@ const NavFooter = ({className}) => {
       <style jsx>{`
         .nav-footer {
           align-items: flex-end;
-          background-color: var(--black);
+          background-color: ${backgroundColor};
           bottom: 0;
           box-shadow: 0 0 5px rgba(var(--black-rgb), .9);
           display: flex;
@@ -82,10 +79,10 @@ const NavFooter = ({className}) => {
         }
         .nav-footer a {
           align-items: center;
-          color: var(--gray4);
+          color: ${textAndFillColor};
           display: flex;
           flex-direction: column;
-          fill: var(--gray4);
+          fill: ${textAndFillColor};
           text-decoration: none;
         }
         .nav-footer a.active {
@@ -106,7 +103,6 @@ const NavFooter = ({className}) => {
   )
 }
 
-// social networks
 const SocialNetworks = ({ className }) => {
   if ( ! CONFIG.socialNetworks && Array.isArray(CONFIG.socialNetworks) ) return
   return (
@@ -137,7 +133,7 @@ const SocialNetworks = ({ className }) => {
           margin: 5px 0;
         }
         a {
-          color: var(--gray3);
+          color: ${Color(WHITE).fade(.7).string()};
           display: block;
           padding: 2.5px;
           transition: color .3s;
@@ -159,7 +155,6 @@ const SocialNetworks = ({ className }) => {
   )
 }
 
-// terms and policies
 const TermsAndPoliciesBar = ({ layoutColor }) => {
   return (
     <div className="terms-and-policies-bar">
@@ -197,8 +192,8 @@ const TermsAndPoliciesBar = ({ layoutColor }) => {
       </div>
       <style jsx>{`
         .terms-and-policies-bar {
-          background-color: ${layoutColor === 'white' ? 'var(--black)' : 'transparent'};
-          color: var(--gray4);
+          background-color: ${layoutColor === 'white' ? 'var(--background)' : 'transparent'};
+          color: ${Color(WHITE).fade(.6).string()};
           font-size: 11px;
           line-height: 1;
           padding-top: 10px;
@@ -260,7 +255,6 @@ const TermsAndPoliciesBar = ({ layoutColor }) => {
   )
 }
 
-// footer link
 const FooterLink = React.forwardRef(({ children, onClick, href, target }, ref) => {
   return <>
     <a {...{href, onClick, ref, target}}>{children}</a>
@@ -292,7 +286,6 @@ const FooterLink = React.forwardRef(({ children, onClick, href, target }, ref) =
   </>
 })
 
-// gad logo
 const GADLogo = _ => {
   return <>
     <a className="signature d-inline-block" href="//somosgad.com" target="_blank">

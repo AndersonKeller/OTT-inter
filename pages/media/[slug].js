@@ -1,25 +1,19 @@
-// react imports
 import { useContext, useState } from 'react'
-
-// next imports
+import { ThemeContext } from 'styled-components'
 import Head from 'next/head'
 import Link from 'next/link'
-
-// material
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Collapse from 'react-bootstrap/Collapse'
-
-// app imports
-import Button from '../../components/button'
-import Layout from '../../components/layout/Layout'
-import MediaLink from '../../components/MediaLink/MediaLink'
-import WishlistBtn from '../../components/wishlist-btn'
-import UserContext from '../../contexts/UserContext'
-import { CONFIG } from '../../config'
-import api from '../../services/api'
+import Button from '~/components/button'
+import Layout from '~/components/layout/Layout'
+import MediaLink from '~/components/MediaLink/MediaLink'
+import WishlistBtn from '~/components/wishlist-btn'
+import UserContext from '~/contexts/UserContext'
+import { CONFIG } from '~/config'
+import api from '~/services/api'
 import Chevron from '~/components/icons/chevron'
+import Color from 'color'
 
-// page
 function MediaPage1({ category, errorCode, layoutProps, media, related }) {
   return (
     <Layout errorCode={errorCode} {...layoutProps} paddingTop={false}>
@@ -32,35 +26,29 @@ function MediaPage1({ category, errorCode, layoutProps, media, related }) {
   );
 }
 
-// initial props
 MediaPage1.getInitialProps = async ctx => {
-  const { slug, category: categorySlug } = ctx.query;
+  const { query } = ctx
+  const { slug: movieSlug, category: categorySlug } = query;
   try {
-    const response = await api(ctx)
-      .get(`/movie/${slug}` + (categorySlug ? `/category/${categorySlug}` : ''))
-    const { category, movie, related } = response.data
-    return { category, media: movie, related }
+    const { data } = await api(ctx).get(`movie/${movieSlug}` + (categorySlug ? `/category/${categorySlug}` : ''))
+    const { category, movie: media, related } = data
+    return { category, media, related }
   } catch (error) {
     const errorCode = 404
     return { errorCode }
   }
 }
 
-// cover
-const Cover = ({category, media}) => {
-
+const Cover = ({ category, media }) => {
   const [open, setOpen] = useState(false)
   const { user } = useContext(UserContext)
   const smDown = useMediaQuery('(max-width: 767px)')
   const probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
-
+  const theme = useContext(ThemeContext)
+  const maskColor = Color(theme.colors.background)
+  const { poster_url: posterUrl } = media
   return (
-    <div className="cover container-fluid" style={{
-      backgroundImage: [
-        'url(/static/inside-cover-gradient.png)',
-        `url(${media.poster_url})`,
-      ],
-    }}>
+    <div className="cover container-fluid">
       <div className="row align-items-center">
         <div className="col-12 col-md-5 offset-md-1">
           <div className="info">
@@ -112,8 +100,10 @@ const Cover = ({category, media}) => {
       </div>
       <style jsx>{`
         .cover {
-          background-color: #0a0b11;
+          background-color: var(--background);
           background-position: 50% 50%, 100% 50%;
+          background-image: radial-gradient(circle at 95% 75%, ${maskColor.fade(1).string()} 20%, ${maskColor.fade(.075).string()} 60%),
+            url(${posterUrl});
           background-repeat: no-repeat, no-repeat;
           background-size: cover, cover;
           font-size: 15px;
@@ -169,8 +159,7 @@ const Cover = ({category, media}) => {
   )
 }
 
-// individual more card
-const HMediaCard = ({category, media}) => (
+const HMediaCard = ({ category, media }) => (
   <div className="h-media-card row">
     <div className="col-md-4">
       <MediaLink watch {...{category, media}}>
@@ -233,14 +222,15 @@ const HMediaCard = ({category, media}) => (
   </div>
 )
 
-// more cards
-const More = ({category, related}) => {
-  let medias = related
+const More = ({ category, related: medias }) => {
+  const { name: categoryName } = category
+  const theme = useContext(ThemeContext)
+  const backgroundColor = Color(theme.colors.backgroundContrast).hsl().string()
   return (
     <div className="more container-fluid">
       <div className="row">
         <div className="col offset-md-1">
-          <h2 className="h2 text-uppercase">Más {category.name}</h2>
+          <h2 className="h2 text-uppercase">Más {categoryName}</h2>
         </div>
       </div>
       <div className="cards">
@@ -250,7 +240,7 @@ const More = ({category, related}) => {
       </div>
       <style jsx>{`
         .more {
-          background-color: var(--dark-gray3);
+          background-color: ${backgroundColor};
           font-size: 20px;
           line-height: 1.5;
           padding-top: 30px;
@@ -280,5 +270,4 @@ const More = ({category, related}) => {
   );
 }
 
-// export
 export default MediaPage1

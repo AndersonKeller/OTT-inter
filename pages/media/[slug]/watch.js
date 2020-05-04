@@ -1,9 +1,7 @@
 // import { useContext } from 'react'
 import Head from 'next/head'
-
-// app imports
 import BlockedPlayer from '~/components/Player/BlockedPlayer'
-import CommentSection from '~/components/comment-section'
+// import CommentSection from '~/components/comment-section'
 import Layout from '~/components/layout/Layout'
 // import LikeNCommentsBtns from '~/components/like-n-comments-btns'
 import MediaDescription from '~/components/media-description'
@@ -50,8 +48,11 @@ export default function WatchPage({ errorCode, category, media, related, layoutP
           <Related {...{category, medias: related}} />
         </div>
       </div>
-      <MoreContentCarousel {...{category}} />
-      <CommentSection />
+
+      <MoreContentCarousel category={category} />
+
+      {/* <CommentSection /> */}
+
       <style jsx>{`
         .row:first-child {
           margin-bottom: 15px;

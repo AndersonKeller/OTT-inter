@@ -74,9 +74,10 @@ const Layout = ({
 
       <style jsx global>{`
         :root {
-          /* colors by job */
-          --background: var(--${layoutColor === 'white' ? 'white' : 'black'});
           --color: var(--${layoutColor === 'white' ? 'black' : 'white'});
+        }
+        body {
+          ${layoutColor === 'white' ? 'background-color: var(--white) !important;' : ''});
         }
         main {
           flex-grow: 1;

@@ -16,7 +16,9 @@
     "googleAnalytics": null,
     "apiUrl": "https://admin.rivermas.com",
     "lang": "es-CL",
-    "loadingColor": "primary"
+    "loadingColor": "primary",
+    "backgroundColor": "#000",
+    "backgroundContrastColor": "#1a1a1a"
   },
   "river": {
     "appName": "River Mas",
@@ -35,7 +37,9 @@
     "googleAnalytics": "UA-146274840-2",
     "apiUrl": "https://admin.rivermas.com",
     "lang": "es",
-    "loadingColor": "primary"
+    "loadingColor": "primary",
+    "backgroundColor": "#000",
+    "backgroundContrastColor": "#1a1a1a"
   },
   "lau": {
     "appName": "La U Mas",
@@ -43,8 +47,8 @@
     "fullClubName": "Club Universidad de Chile",
     "shortClubName": "La U",
     "supportersAKA": "Universitários",
-    "color": "#001e60",
-    "secondaryColor": "#9a3324",
+    "color": "#9a3324",
+    "secondaryColor": "#001e60",
     "site": "https://www.udechile.cl/",
     "socialNetworks": [
       { "name": "Facebook", "link": "https://www.facebook.com/ClubUniversidadDeChileOficial" },
@@ -54,6 +58,8 @@
     "googleAnalytics": "UA-146274840-3",
     "apiUrl": "https://admin.laumas.cl",
     "lang": "es-CL",
-    "loadingColor": "secondary"
+    "loadingColor": "primary",
+    "backgroundColor": "#202364",
+    "backgroundContrastColor": "#293989"
   }
 }

@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Slider from 'react-slick'
 import css from 'styled-jsx/css'
 import Chevron from './icons/chevron'
+import styled from 'styled-components'
+import Color from 'color'
 
 const arrowsStyles = css`
   .slick-prev,
@@ -39,98 +41,94 @@ function Arrow(props) {
   );
 }
 
-export default class Carousel extends Component {
-  render() {
-    const settings = {
-      dots: false,
-      draggable: false,
-      infinite: false,
-      mobileFirst: true, /* seems to not be working (?) */
-      nextArrow: <Arrow />,
-      prevArrow: <Arrow />,
-      responsive: [
-        {
-          breakpoint: 768,
-          settings: {
-            arrows: false,
-            slidesToScroll: 2,
-            slidesToShow: 2,
-          },
-        },
-      ],
-      slidesToScroll: 6,
-      slidesToShow: 6,
-      speed: 500,
-    };
-    return (
-      <div className={`cards cards--${this.props.color}`}>
-        <div className="cards-container">
-          <Slider {...settings}>
-            { React.Children.map(this.props.children, (card, index) => {
-              return (
-                <div className="slide" key={index}>
-                  {card}
-                </div>
-              )
-            }) }
-          </Slider>
-          <style jsx global>{`
-            .slick-list {
-              overflow: visible;
-            }
-            .slick-track {
-              margin-left: 0;
-            }
-            .cards {
-              /* margin-bottom: 55px; */
-              overflow: hidden;
-              position: relative;
-            }
-            .cards::before,
-            .cards::after {
-              content: '';
-              height: 100%;
-              position: absolute;
-              top: 0;
-              width: 9%;
-              z-index: 2;
-            }
-            .cards::after {
-              right: 0;
-            }
-            .cards.cards--black::before {
-              background-image: linear-gradient(to right, var(--black), rgba(0, 0, 0, 0));
-            }
-            .cards.cards--black::after {
-              background-image: linear-gradient(to left, var(--black), rgba(0, 0, 0, 0));
-            }
-            .cards.cards--gray::before {
-              background-image: linear-gradient(to right, var(--dark-gray3), rgba(26, 26, 26, 0));
-            }
-            .cards.cards--gray::after {
-              background-image: linear-gradient(to left, var(--dark-gray3), rgba(26, 26, 26, 0));
-            }
-            .cards-container {
-              font-size: 0;
-              margin-right: calc(9% - 10px);
-              margin-left: calc(9% - 10px);
-              white-space: nowrap;
-            }
-            .slide {
-              display: inline-block;
-              font-size: 1rem;
-              padding: 5px;
-              white-space: normal;
-              width: 200px;
-            }
-            @media (min-width: 768px) {
-            .slide {
-                padding: 10px;
-              }
-            }
-          `}</style>
-        </div>
-      </div>
-    );
+const Cards = styled.div`
+  overflow: hidden;
+  position: relative;
+  &::before,
+  &::after {
+    content: '';
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 9%;
+    z-index: 2;
   }
+  &::after {
+    right: 0;
+  }
+  &::before {
+    background-image: ${props => props.color === 'contrast' ?
+      `linear-gradient(to right, ${props.theme.colors.backgroundContrast}, ${Color(props.theme.colors.backgroundContrast).fade(1).string()})` :
+      `linear-gradient(to right, ${props.theme.colors.background}, ${Color(props.theme.colors.background).fade(1).string()})`};
+  }
+  &::after {
+    background-image: ${props => props.color === 'contrast' ?
+      `linear-gradient(to left, ${props.theme.colors.backgroundContrast}, ${Color(props.theme.colors.backgroundContrast).fade(1).string()})` :
+      `linear-gradient(to left, ${props.theme.colors.background}, ${Color(props.theme.colors.background).fade(1).string()})`};
+  }
+`;
+
+export default function Carousel({ children, color }) {
+  const settings = {
+    dots: false,
+    draggable: false,
+    infinite: false,
+    mobileFirst: true, /* seems to not be working (?) */
+    nextArrow: <Arrow />,
+    prevArrow: <Arrow />,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: false,
+          slidesToScroll: 2,
+          slidesToShow: 2,
+        },
+      },
+    ],
+    slidesToScroll: 6,
+    slidesToShow: 6,
+    speed: 500,
+  }
+  return (
+    <Cards color={color}>
+      <div className="cards-container">
+        <Slider {...settings}>
+          { React.Children.map(children, (card, index) => {
+            return (
+              <div className="slide" key={index}>
+                {card}
+              </div>
+            )
+          }) }
+        </Slider>
+      </div>
+      <style jsx global>{`
+        .slick-list {
+          overflow: visible;
+        }
+        .slick-track {
+          margin-left: 0;
+        }
+        .cards-container {
+          font-size: 0;
+          margin-right: calc(9% - 10px);
+          margin-left: calc(9% - 10px);
+          white-space: nowrap;
+        }
+        .slide {
+          display: inline-block;
+          font-size: 1rem;
+          padding: 5px;
+          white-space: normal;
+          width: 200px;
+        }
+        @media (min-width: 768px) {
+          .slide {
+            padding: 10px;
+          }
+        }
+      `}</style>
+    </Cards>
+  )
 }

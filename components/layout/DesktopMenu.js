@@ -6,6 +6,7 @@ import ActiveLink from '~/components/ActiveLink'
 import Chevron from '~/components/icons/chevron'
 import { GRAY3 } from '~/constants/colors'
 import UserContext from '~/contexts/UserContext'
+import { ThemeContext } from 'styled-components'
 
 const DesktopMenu = ({ data: menus }) => {
 
@@ -55,6 +56,9 @@ const DesktopMenu = ({ data: menus }) => {
   }
 
   const { user } = useContext(UserContext)
+  const theme = useContext(ThemeContext)
+  const submenuColor = Color(theme.colors.backgroundContrast).fade(.1).hsl().string()
+  const submenuHoverColor = Color(theme.colors.backgroundContrast).darken(.3).fade(.1).hsl().string()
 
   return (
     <ul className="menu d-none d-md-flex">
@@ -165,7 +169,7 @@ const DesktopMenu = ({ data: menus }) => {
           transform: translate3d(-50%, 32px, 0) !important;
         }
         .menu :global(.dropdown-item) {
-          background-color: rgba(var(--gray3-rgb), .9);
+          background-color: ${submenuColor};
           border: .1px solid transparent;
           box-shadow: 0 0 1px var(--black);
           color: inherit;
@@ -175,7 +179,7 @@ const DesktopMenu = ({ data: menus }) => {
         }
         .menu :global(.dropdown-item):focus,
         .menu :global(.dropdown-item):hover {
-          background-color: ${Color(GRAY3).darken(.3).fade(.1)};
+          background-color: ${submenuHoverColor};
         }
         .menu :global(.dropdown-item):focus,
         .menu :global(.dropdown-item):hover,

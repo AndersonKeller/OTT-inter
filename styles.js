@@ -2,7 +2,6 @@
 import Color from 'color'
 import 'nprogress/nprogress.css'
 import { createGlobalStyle } from 'styled-components'
-import { CONFIG } from '~/config'
 import { BLACK, GRAY3 } from '~/constants/colors'
 import { WHITE } from '~/constants/colors'
 
@@ -23,26 +22,25 @@ export default createGlobalStyle`
     --bebas-book: 'Bebas Neue Book', var(--sans-serif-condensed);
 
     /* colors */
-    --white:         ${WHITE};
-    --light-gray:    #c4c4c4;
-    --gray:          #b2b2b2;
-    --gray2:         #808080;
-    --gray2-rgb:     128, 128, 128;
-    --gray3:         ${GRAY3};
-    --gray3-rgb:     51, 51, 51;
-    --gray3-darken:  #282828;
-    --mid-gray:      #4d4d4d;
-    --dark-gray3:    ${Color(GRAY3).darken(.5).string()};
-    --black:         #000;
-    --black-rgb:     0, 0, 0;
-    --primary:       ${props => props.theme.colors.primary};
-    --primary-hover: ${props => props.theme.colors.primaryHover};
-    --primary-alpha: ${props => props.theme.colors.primaryAlpha};
-    --gray4:         #666; /* 656565 */
-    --loading:       ${props => props.theme.colors.loading};
-
-    /* colors by job */
+    --white:              ${WHITE};
+    --light-gray:         #c4c4c4;
+    --gray:               #b2b2b2;
+    --gray2:              #808080;
+    --gray2-rgb:          128, 128, 128;
+    --gray3:              ${GRAY3}; /* aprox. white 30% */
+    --gray3-rgb:          51, 51, 51;
+    --gray3-darken:       #282828;
+    --mid-gray:           #4d4d4d;
+    --dark-gray3:         ${Color(GRAY3).darken(.5).string()}; /* white 10% */
+    --black:              #000;
+    --black-rgb:          0, 0, 0;
+    --primary:            ${props => props.theme.colors.primary};
+    --primary-hover:      ${props => props.theme.colors.primaryHover};
+    --primary-alpha:      ${props => props.theme.colors.primaryAlpha};
+    --gray4:              #666; /* 656565 */ /* 666 = white 40% */
+    --loading:            ${props => props.theme.colors.loading};
     --descriptions-color: var(--gray);
+    --background:         ${props => props.theme.colors.background};
 
     /* font-sizes */
     --font-size: 20px;
@@ -86,9 +84,11 @@ export default createGlobalStyle`
   #nprogress {
     .bar {
       background: var(--loading);
+      height: 5px;
     }
     .peg {
-      box-shadow: 0 0 10px var(--loading), 0 0 5px var(--loading);
+      /* box-shadow: 0 0 10px var(--loading), 0 0 5px var(--loading); */
+      box-shadow: unset;
     }
     .spinner-icon {
       border-top-color: var(--loading);
