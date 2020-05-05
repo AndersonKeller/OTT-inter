@@ -1,3 +1,4 @@
+import Color from 'color'
 import Link from 'next/link'
 import { useContext } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -45,6 +46,10 @@ export default () => {
     signOut()
     closeAuthModal()
   }
+  const theme = useContext(ThemeContext)
+  const backgroundColor1 = theme.colors.backgroundContrast2
+  const backgroundColor2 = theme.colors.backgroundContrast
+  const backgroundColor2Hover = Color(backgroundColor2).darken(.2).hsl().string()
 
   return (
     <div className={`user-select ${user ? 'logged' : ''}`}>
@@ -160,7 +165,7 @@ export default () => {
           fill: var(--white);
         }
         .user-select :global(.dropdown-menu) {
-          background-color: var(--gray2);
+          background-color: ${backgroundColor1};
           border: 0;
           border-radius: 5px;
           margin-top: 5px;
@@ -171,7 +176,7 @@ export default () => {
         .user-select :global(.dropdown-menu)::before {
           border: 13px solid transparent;
           border-top: 0;
-          border-bottom: 12px solid var(--gray2);
+          border-bottom: 12px solid ${backgroundColor1};
           bottom: 100%;
           content: '';
           display: block;
@@ -222,7 +227,7 @@ export default () => {
           margin-bottom: 0;
         }
         .user-select :global(.dropdown-divider) ~ :global(.dropdown-item) {
-          background-color: var(--gray3);
+          background-color: ${backgroundColor2};
         }
 
         /* item style 3 */
@@ -269,7 +274,7 @@ export default () => {
         }
         .user-select :global(.dropdown-item-style3):focus,
         .user-select :global(.dropdown-item-style3):hover {
-          background-color: var(--gray3-darken);
+          background-color: ${backgroundColor2Hover};
         }
 
         /* logged styles */
