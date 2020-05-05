@@ -1,14 +1,14 @@
 import Link from 'next/link'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
-
-import Chevron from '../icons/chevron'
-import UserContext from '../../contexts/UserContext'
-import { AuthModalContext } from '../../contexts/AuthModalContext'
-
+import ReactSVG from 'react-svg'
+import { ThemeContext } from 'styled-components'
+import UserContext from '~/contexts/UserContext'
+import { AuthModalContext } from '~/contexts/AuthModalContext'
 import * as gtag from '~/lib/gtag'
+import Chevron from '../icons/chevron'
 
-export default ({}) => {
+export default () => {
 
   const { signOut, user } = useContext(UserContext)
   const { closeAuthModal, openAuthModal } = useContext(AuthModalContext)
@@ -306,12 +306,12 @@ export default ({}) => {
 }
 
 const Avatar = ({ image }) => {
+  const theme = useContext(ThemeContext)
+  const avatarColor = theme.colors.background
   return (
-    <span className="avatar">
-      { ! image ? (
-        <span className="empty-img">
-          <img alt="Avatar" className="img-fluid" height="20" src="/static/icons/user.svg" width="20" />
-        </span>
+    <span className={'avatar' + (!image ? ' avatar--empty' : '')}>
+      { !image ? (
+        <ReactSVG fallback="Avatar" src="/static/icons/user.svg" wrapper="span" />
       ) : (
         <img alt="Avatar" className="img-fluid" height="30" src={image} width="30" />
       )}
@@ -325,17 +325,21 @@ const Avatar = ({ image }) => {
           overflow: hidden;
           width: 30px;
         }
-        .empty-img {
+        .avatar--empty > :global(span) {
           align-items: center;
           display: flex;
-          height: 100%;
           justify-content: center;
-          padding: 17.5%;
+          height: 100%;
+          padding: 25%;
           width: 100%;
         }
-        .empty-img img {
-          max-height: 100%;
-          filter: brightness(0) saturate(100%);
+        .avatar--empty :global(svg) {
+          display: block;
+          height: 100%;
+          width: 100%;
+        }
+        .avatar--empty :global(path) {
+          fill: ${avatarColor};
         }
         @media (min-width: 768px) {
           .avatar {
