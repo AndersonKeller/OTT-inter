@@ -18,7 +18,8 @@
     "lang": "es-CL",
     "loadingColor": "primary",
     "backgroundColor": "#000",
-    "backgroundContrastColor": "#1a1a1a"
+    "backgroundContrastColor": "#1a1a1a",
+    "backgroundContrastColor2": "#808080"
   },
   "river": {
     "appName": "River Mas",
@@ -39,7 +40,8 @@
     "lang": "es",
     "loadingColor": "primary",
     "backgroundColor": "#000",
-    "backgroundContrastColor": "#1a1a1a"
+    "backgroundContrastColor": "#1a1a1a",
+    "backgroundContrastColor2": "#808080"
   },
   "lau": {
     "appName": "La U Mas",
@@ -59,7 +61,8 @@
     "apiUrl": "https://admin.laumas.cl",
     "lang": "es-CL",
     "loadingColor": "primary",
-    "backgroundColor": "#202364",
-    "backgroundContrastColor": "#293989"
+    "backgroundColor": "#161846",
+    "backgroundContrastColor": "#202364",
+    "backgroundContrastColor2": "#293989"
   }
 }

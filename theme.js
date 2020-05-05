@@ -11,6 +11,7 @@ const theme = {
     loading: CONFIG.loadingColor === 'secondary' ? CONFIG.secondaryColor : CONFIG.color,
     background: CONFIG.backgroundColor,
     backgroundContrast: CONFIG.backgroundContrastColor,
+    backgroundContrast2: CONFIG.backgroundContrastColor2,
     black: BLACK,
     white: WHITE,
   },

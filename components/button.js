@@ -1,7 +1,8 @@
-import Color from 'color'
 import classNames from 'classnames'
-import React from 'react'
+import Color from 'color'
+import React, { useContext } from 'react'
 import Spinner from 'react-bootstrap/Spinner'
+import { ThemeContext } from 'styled-components'
 import { CONFIG } from '~/config'
 
 const Button = React.forwardRef(({
@@ -33,6 +34,9 @@ const Button = React.forwardRef(({
     {'btn--color-white': textColor},
     className,
   ])
+  const theme = useContext(ThemeContext)
+  const secondaryBackground = theme.colors.backgroundContrast2
+  const secondaryHover = Color(secondaryBackground).lighten(.1).hsl().string()
 
   return (
     <>
@@ -84,8 +88,12 @@ const Button = React.forwardRef(({
         }
         {/* secondary */}
         .btn-secondary {
-          background-color: var(--mid-gray);
+          background-color: ${secondaryBackground};
           color: var(--white);
+        }
+        .btn-secondary:focus,
+        .btn-secondary:hover {
+          background-color: ${secondaryHover};
         }
         .btn-secondary.btn-outline {
           background-color: transparent;
