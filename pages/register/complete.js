@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Router from 'next/router'
 import nookies from 'nookies'
 // import sleep from 'sleep-promise'
+import { ThemeContext } from 'styled-components'
 import Layout from '~/components/layout/Layout'
 import { CONFIG } from '~/config'
 import FormGroup from '~/components/layout/AuthModal/FormGroup'
@@ -724,6 +725,8 @@ const Payment = ({
 
 // Radio
 const InputRadio = ({ label, name, onChange, state, value }) => {
+  const theme = useContext(ThemeContext)
+  const radioColor = theme.colors.background
   return (
     <label>
       <input checked={state === value} type="radio" {...{name, onChange, value}} />
@@ -763,7 +766,7 @@ const InputRadio = ({ label, name, onChange, state, value }) => {
           width: 15px;
         }
         .fake-radio::before {
-          background-color: var(--black);
+          background-color: ${radioColor};
           border-radius: 50%;
           content: '';
           display: block;
