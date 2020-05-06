@@ -1,18 +1,12 @@
-// nextjs imports
 import Head   from 'next/head'
 import Link   from 'next/link'
-import Router from 'next/router'
-
-// react
 import { useEffect, useState } from 'react'
-
-// app imports
-import { PackageRadio } from '~/components/Packages'
-import { CONFIG }       from '~/config'
-import withAuth         from '~/components/withAuth'
 import Layout           from '~/components/layout/Layout'
+import { PackageRadio } from '~/components/Packages'
+import withAuth         from '~/components/withAuth'
+import { CONFIG }       from '~/config'
 
-const AccountPage = ({ layoutProps, user, api, packages }) => {
+const AccountPage = ({ api, layoutProps, packages, user }) => {
 
   const [ plan, setPlan ] = useState({})
   const [ subscription, setSubscription ] = useState({})
@@ -35,7 +29,6 @@ const AccountPage = ({ layoutProps, user, api, packages }) => {
     })()
   }, [])
 
-
   return (
     <Layout {...layoutProps}>
       <Head>
@@ -47,20 +40,20 @@ const AccountPage = ({ layoutProps, user, api, packages }) => {
             <h1 className="h2">Mi Cuenta</h1>
             <div className="row">
               <div className="col-md-4">
-                  {/* <Link className="link" as="#" href="#">
-                    <a className="profile-pic">
-                      <Avatar
-                        size="100px"
-                        image={user && user.cropped_image_url ? user.cropped_image_url : null}
-                      />
-                    </a>
-                  </Link> */}
-                  {/* <Link href="changePhoto">  */}
-                    <a><ProfilePic image={user && user.cropped_image_url ? user.cropped_image_url : null} /></a>
-                  {/* </Link> */}
+                {/* <Link className="link" as="#" href="#">
+                  <a className="profile-pic">
+                    <Avatar
+                      size="100px"
+                      image={user && user.cropped_image_url ? user.cropped_image_url : null}
+                    />
+                  </a>
+                </Link> */}
+                {/* <Link href="changePhoto">  */}
+                  <a><ProfilePic image={user && user.cropped_image_url ? user.cropped_image_url : null} /></a>
+                {/* </Link> */}
               </div>
               <div className="col-md-8 vertical-align">
-                 {user && user.name}
+                {user && user.name}
               </div>
             </div>
             <hr />
@@ -96,7 +89,7 @@ const AccountPage = ({ layoutProps, user, api, packages }) => {
                     <p className="info">Datos Personales</p>
                   </div>
                   <div className="col col-md text-right">
-                    <Link href='userData'>
+                    <Link href="/user/data">
                       <a>Cambiar datos</a>
                     </Link>
                   </div>
@@ -199,14 +192,10 @@ const AccountPage = ({ layoutProps, user, api, packages }) => {
         }
       `}</style>
     </Layout>
-  );
+  )
 }
 
-// getInitialProps
-AccountPage.getInitialProps = async ctx => {
-
-  const {api, user} = ctx
-
+AccountPage.getInitialProps = async ({ api, user }) => {
   let packages
   try {
     const { data } = await api.get('packages')
@@ -214,18 +203,15 @@ AccountPage.getInitialProps = async ctx => {
   } catch(error) {
     packages = { error }
   }
-
-  // return
   return { packages, user }
 }
 
-const ProfilePic = ({ image }) => {
-  let src = image || "/static/icons/user.svg";
+const ProfilePic = ({ image: src = "/static/icons/user.svg" }) => {
   return (
     <>
       <div className="avatar">
-          <img alt="Avatar" className="img-fluid" src={src} />
-          {/* <div className="overlay"><p className="title">Cambiar foto</p></div> */}
+        <img alt="Avatar" className="img-fluid" src={src} />
+        {/* <div className="overlay"><p className="title">Cambiar foto</p></div> */}
       </div>
       <style jsx>{`
       .avatar {
