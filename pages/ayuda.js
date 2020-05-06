@@ -23,7 +23,10 @@ const HelpPage = ({ layoutProps, title, faqs }) => {
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={key}>
                   <Card.Body>
-                    <p className="faqs-text">{ item.answer }</p>
+                    <div
+                      className="faqs-text"
+                      dangerouslySetInnerHTML={{ __html: item.answer }}
+                    />
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>
@@ -36,6 +39,7 @@ const HelpPage = ({ layoutProps, title, faqs }) => {
           padding-bottom: 120px;
         }
         .faqs-question{
+          font-weight: bold;
           margin: 0;
         }
         .faqs-title {
@@ -60,8 +64,6 @@ const HelpPage = ({ layoutProps, title, faqs }) => {
           background-color: ${Color(WHITE).darken(.1).string()};
         }
         .faqs-text {
-          font-size: 18px;
-          white-space: pre-wrap;
         }
       `}</style>
     </Layout>
