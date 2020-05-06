@@ -45,7 +45,6 @@ function SubscriptorPage({ layoutProps, mainPackage }) {
         {/* section 2 */}
         <SubscriptorSection
           direction="right"
-          gradientSrc="/static/subscriptor/section2-gradient.png"
           imgAlt={section2Alt}
           imgHeight="560"
           imgSrc={`${STATIC_PATH}/subscriptor/section2-img.png`}
@@ -62,7 +61,6 @@ function SubscriptorPage({ layoutProps, mainPackage }) {
         {/* section 3 */}
         <SubscriptorSection
           direction="left"
-          gradientSrc="/static/subscriptor/section3-gradient.png"
           imgAlt=""
           imgHeight="560"
           imgSrc={`${STATIC_PATH}/subscriptor/section3-img.png`}
@@ -282,22 +280,23 @@ const Packages = () => {
   )
 }
 
-const SubscriptorSection = (props) => {
-  const direction = props.direction || 'right'
+const SubscriptorSection = ({ children, direction = 'right', imgAlt = '', imgHeight, imgSrc, imgWidth }) => {
+  const theme = useContext(ThemeContext)
+  const backgroundColor = Color(theme.colors.background)
   return (
     <div className={`subscriptor-section subscriptor-section--${direction} container-fluid text-${direction}`}>
       <div className="row align-items-center">
         <div className="subscriptor-section-img-col col-12 d-md-none">
           <img
-            alt={props.imgAlt}
+            alt={imgAlt}
             className="img-fluid w-100 d-block"
-            height={props.imgHeight}
-            src={props.imgSrc}
-            width={props.imgWidth}
+            height={imgHeight}
+            src={imgSrc}
+            width={imgWidth}
           />
         </div>
         <div className={`subscriptor-section-text-col col-md-4 offset-md-${direction === 'left' ? '1' : '7'}`}>
-          {props.children}
+          {children}
         </div>
       </div>
       <style jsx>{`
@@ -310,7 +309,7 @@ const SubscriptorSection = (props) => {
           position: relative;
         }
         .subscriptor-section-img-col::after {
-          background-image: url(${props.gradientSrc});
+          background-image: radial-gradient(circle at 50% 50%, ${backgroundColor.fade(1).hsl().string()} 45%, ${backgroundColor.fade(.05).hsl().string()} 95%);
           background-size: cover;
           bottom: 0;
           content: '';
@@ -319,12 +318,6 @@ const SubscriptorSection = (props) => {
           right: 0;
           top: 0;
           z-index: 2;
-        }
-        .subscriptor-section--left .subscriptor-section-img-col::after {
-          background-position: 100% 50%;
-        }
-        .subscriptor-section--right .subscriptor-section-img-col::after {
-          background-position: 0 50%;
         }
         .subscriptor-section-text-col {
           padding-top: 15px;
@@ -340,8 +333,9 @@ const SubscriptorSection = (props) => {
             margin-bottom: 0;
           }
           .subscriptor-section .row {
-            background-image: url(${props.gradientSrc}),
-                              url(${props.imgSrc});
+            background-image:
+              radial-gradient(circle at ${direction === 'left' ? '85% 50%' : '33% 75%'}, ${backgroundColor.fade(1).hsl().string()} 30%, ${backgroundColor.fade(.05).hsl().string()} 55%),
+              url(${imgSrc});
             background-position: ${direction === 'left' ? '50% 50%, 100% 50%' : '50% 50%, 0 50%'};
             background-repeat: no-repeat, no-repeat;
             background-size: cover, contain;
