@@ -1,18 +1,20 @@
-import Layout from '../components/layout/Layout'
+import Color from 'color'
 import Head from 'next/head'
-import H2 from '../components/h2'
-import Button from '../components/button'
-import { STATIC_PATH, TENANT } from '../constants/constants'
-import { CONFIG } from '../config'
 import { useContext, useEffect, useState } from 'react'
-import { AuthModalContext } from '../contexts/AuthModalContext'
-import UserContext from '../contexts/UserContext'
-import Loading from '../components/Loading/Loading'
-import api from '../services/api'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import { ThemeContext } from 'styled-components'
 import AppLogo from '~/components/AppLogo'
 import ClubLogo from '~/components/ClubLogo'
+import Button from '~/components/button'
+import H2 from '~/components/h2'
+import Layout from '~/components/layout/Layout'
+import Loading from '~/components/Loading/Loading'
 import withApi from '~/components/withApi'
+import { CONFIG } from '~/config'
+import { STATIC_PATH, TENANT } from '~/constants/constants'
+import { AuthModalContext } from '~/contexts/AuthModalContext'
+import UserContext from '~/contexts/UserContext'
+import useWindowDimensions from '~/hooks/useWindowDimensions'
+import api from '~/services/api'
 
 function SubscriptorPage({ layoutProps, mainPackage }) {
 
@@ -115,6 +117,7 @@ SubscriptorPage.getInitialProps = async ({ api }) => {
 
 export default withApi(SubscriptorPage)
 
+/* Packages */
 const Packages = () => {
 
   const { openAuthModal } = useContext(AuthModalContext)
@@ -146,7 +149,12 @@ const Packages = () => {
 
   const probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
 
+  const theme = useContext(ThemeContext)
+  const cardColor = theme.colors.backgroundContrast
+  const cardHover = Color(theme.colors.backgroundContrast).darken(.15).hsl().string()
+
   return (
+
     <section className="prices text-center container-fluid">
       <div className="entries row">
         <div className="col-md-10 offset-md-1 col-xl-12 offset-xl-0">
@@ -201,6 +209,7 @@ const Packages = () => {
 
         </div>
       </div>
+
       <style jsx>{`
         .prices {
           border-top: 1px solid #fff;
@@ -217,7 +226,7 @@ const Packages = () => {
           line-height: normal;
         }
         .card {
-          background-color: #282828;
+          background-color: ${cardColor}; /* #282828; */
           display: flex;
           flex-direction: column;
           margin-bottom: 15px;
@@ -226,7 +235,7 @@ const Packages = () => {
           transition: background-color 1s;
         }
         .card:hover {
-          background-color: #1e1e1e;
+          background-color: ${cardHover}; /* #1e1e1e */
           transition: background-color .1s;
         }
         .time,
@@ -268,6 +277,7 @@ const Packages = () => {
           }
         }
       `}</style>
+
     </section>
   )
 }
