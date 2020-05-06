@@ -1,10 +1,10 @@
 import Color from 'color'
 import Head from 'next/head'
+import { Accordion, Card } from 'react-bootstrap'
 import Layout from '~/components/layout/Layout'
+import withApi from '~/components/withApi'
 import { CONFIG } from '~/config'
 import { WHITE } from '~/constants/colors'
-import { Accordion, Card, Button } from 'react-bootstrap'
-import withApi from '~/components/withApi'
 
 const HelpPage = ({ layoutProps, title, faqs }) => {
   return (
@@ -17,7 +17,7 @@ const HelpPage = ({ layoutProps, title, faqs }) => {
           <h3 className="faqs-title">Preguntas Frecuentes</h3>
           <Accordion>
             { faqs.map((item, key) => (
-              <Card className="faqs-card">
+              <Card className="faqs-card" key={key}>
                 <Accordion.Toggle as={Card.Header} className="faqs-header" eventKey={key}>
                   <h5 className="faqs-question">{ item.question }</h5>
                 </Accordion.Toggle>

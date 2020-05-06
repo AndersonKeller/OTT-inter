@@ -18,7 +18,7 @@ export default () => {
     { slug: 'add', label: 'Mi Lista', href: '/wishlist' },
     { slug: 'user', label: 'Mi Cuenta', href: '/user/account' },
     // { slug: 'settings', label: 'Configuración', href: '/settings' },
-    { slug: 'help', label: 'Ayuda', href: '/ayuda' },
+    { slug: 'help', label: 'Ayuda', href: '/help' },
     // { slug: 'info', label: 'Soporte', href: '/soporte' },
     { slug: 'logout', label: 'Salir', href: '/logout', onClick: logout, },
   ]
@@ -113,7 +113,7 @@ export default () => {
               <span>Ajustes</span>
             </Dropdown.Item> */}
 
-            <Dropdown.Item className="dropdown-item-style3" href="/ayuda">
+            <Dropdown.Item className="dropdown-item-style3" href="/help">
               <span className="icon">
                 <img height="24" src="/static/icons/help.svg" width="24" />
               </span>
