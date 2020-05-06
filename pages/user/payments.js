@@ -1,37 +1,34 @@
 import Head from 'next/head'
 import Link   from 'next/link'
-
 import { useEffect, useState } from 'react'
 import { Accordion, Card, Button, Table } from 'react-bootstrap'
-
 import { PackageRadio } from '~/components/Packages'
-import { CONFIG }       from '~/config'
 import withAuth         from '~/components/withAuth'
 import Layout           from '~/components/layout/Layout'
-// import api              from '~/services/api'
+import { CONFIG }       from '~/config'
 
-const PaymentsPage = ({ layoutProps, user, api, packages }) => {
+const PaymentsPage = ({ api, layoutProps, packages, user }) => {
 
   const [ plan, setPlan ] = useState({})
   const [ subscription, setSubscription ] = useState({})
   const [ orders, setOrders ] = useState([])
 
   useEffect(_ => {
-      (async _ => {
-        try{
-          const { data: {package_id, ...data} } = await api.get('subscription')
-          console.log(data)
-          setSubscription(data)
+    (async _ => {
+      try{
+        const { data: {package_id, ...data} } = await api.get('subscription')
+        console.log(data)
+        setSubscription(data)
 
-          if(package_id){
-            setPlan(packages.items.find(item => item.id == package_id))
-          }else{
-            setPlan(packages.items.find(item => item.amount == 0))
-          }
-        }catch(error){
-          console.log(error)
+        if(package_id){
+          setPlan(packages.items.find(item => item.id == package_id))
+        }else{
+          setPlan(packages.items.find(item => item.amount == 0))
         }
-      })()
+      }catch(error){
+        console.log(error)
+      }
+    })()
   }, [])
 
   useEffect(_ => {
@@ -47,12 +44,12 @@ const PaymentsPage = ({ layoutProps, user, api, packages }) => {
 
   return (
     <Layout { ...layoutProps }>
-        <Head>
-           <title>Pagos &lt; {CONFIG.appName} </title>
-        </Head>
-        <div className="faqs-wrapper">
-            <div className="container">
-            <div className="row">
+      <Head>
+        <title>Pagos &lt; {CONFIG.appName} </title>
+      </Head>
+      <div className="faqs-wrapper">
+        <div className="container">
+          <div className="row">
             <div className="col-12">
               <h3 className="title">Pagos</h3>
               <Card bg="dark" text="white">
@@ -144,79 +141,78 @@ const PaymentsPage = ({ layoutProps, user, api, packages }) => {
                 </tbody>
               </Table>
             </div>
+          </div>
         </div>
-        </div>
-        </div>
-       <style global jsx>{`
-            td > a  {
-              color: var(--gray);
-              line-height: 1.5;
-              text-decoration: underline;
-            }
-            dd > a {
-              color: var(--primary);
-            }
-            td > a:hover {
-              color: var(--primary-hover);
-            }
-            dd > a:hover {
-              text-decoration: underline;
-              color: var(--primary-hover);
-            }
+      </div>
+      <style global jsx>{`
+        td > a  {
+          color: var(--gray);
+          line-height: 1.5;
+          text-decoration: underline;
+        }
+        dd > a {
+          color: var(--primary);
+        }
+        td > a:hover {
+          color: var(--primary-hover);
+        }
+        dd > a:hover {
+          text-decoration: underline;
+          color: var(--primary-hover);
+        }
 
-            h3 {
-              margin-bottom: 25px;
-            }
-            .table {
-              margin-top: 15px;
-            }
-            .table-dark {
-              background: transparent;
-            }
-            .table-sm {
-              font-size: 16px;
-            }
-            .card-text {
-              font-size: 14px;
-            }
-            .table-dark.table-hover tbody tr:hover {
-              background-color: var(--primary-alpha);
-            }
-            .mobile-table {
-              font-size: 16px;
-              margin-top: 40px;
-              margin-bottom: 20px;
-              display: none;
-            }
-            .mobile-row {
-              border-top: 1px solid white;
-            }
-            dl:first-child {
-              margin-top: 15px;
-            }
-            dl {
-              margin-bottom: 0.5rem;
-            }
-            dt, dd {
-              font-weight: 300;
-              display: inline;
-            }
-            dd {
-              float:right;
-            }
-            @media only screen and (max-width: 767px) {
-              .mobile-table {
-                display: inherit;
-              }
-              .table {
-                display: none;
-              }
-            }
-        '`}</style>
-    </Layout>
+        h3 {
+          margin-bottom: 25px;
+        }
+        .table {
+          margin-top: 15px;
+        }
+        .table-dark {
+          background: transparent;
+        }
+        .table-sm {
+          font-size: 16px;
+        }
+        .card-text {
+          font-size: 14px;
+        }
+        .table-dark.table-hover tbody tr:hover {
+          background-color: var(--primary-alpha);
+        }
+        .mobile-table {
+          font-size: 16px;
+          margin-top: 40px;
+          margin-bottom: 20px;
+          display: none;
+        }
+        .mobile-row {
+          border-top: 1px solid white;
+        }
+        dl:first-child {
+          margin-top: 15px;
+        }
+        dl {
+          margin-bottom: 0.5rem;
+        }
+        dt, dd {
+          font-weight: 300;
+          display: inline;
+        }
+        dd {
+          float:right;
+        }
+        @media only screen and (max-width: 767px) {
+          .mobile-table {
+            display: inherit;
+          }
+          .table {
+            display: none;
+          }
+        }
+    '`}</style>
+  </Layout>
 )}
 
-// getInitialProps
 PaymentsPage.getInitialProps = async ctx => {
 
   const {api, user} = ctx
@@ -229,7 +225,6 @@ PaymentsPage.getInitialProps = async ctx => {
     packages = { error }
   }
 
-  // return
   return { packages, user }
 }
 
