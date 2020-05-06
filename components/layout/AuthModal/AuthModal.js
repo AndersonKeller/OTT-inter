@@ -1,18 +1,18 @@
 import Color from 'color'
+import nookies from 'nookies'
 import { useContext, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { Tab } from 'react-bootstrap'
-import nookies from 'nookies'
+import { ThemeContext } from 'styled-components'
+import AppLogo from '~/components/AppLogo'
 import { TENANT } from '~/constants/constants'
 import { AuthModalContext } from '~/contexts/AuthModalContext'
+import api from '~/services/api'
 import LoginTab from './LoginTab'
 import ModalLoading from './ModalLoading'
 import PasswordTab from './PasswordTab'
 import RegisterTab from './RegisterTab'
-import api from '~/services/api'
-import AppLogo from '~/components/AppLogo'
 
-// Auth Modal
 export default function AuthModal() {
   const { backTab, changeTab, closeAuthModal, show, tab, tabsHistory, packageId } = useContext(AuthModalContext)
   const facebookColor = '#3B5990'
@@ -52,6 +52,8 @@ export default function AuthModal() {
     }
     // console.table(e.currentTarget.innerText);
   }
+  const theme = useContext(ThemeContext)
+  const headerColor = theme.colors.backgroundContrast
 
   return (
     <Modal backdrop={loading ? 'static' : true} className="login-modal" {...{onHide, show}}>
@@ -87,6 +89,7 @@ export default function AuthModal() {
           </Tab.Content>
         </Tab.Container>
       </Modal.Body>
+
       <style jsx global>{`
         .modal-backdrop.show {
           opacity: .68;
@@ -124,7 +127,7 @@ export default function AuthModal() {
           border-radius: 0;
         }
         .login-modal .modal-header {
-          background-color: var(--dark-gray3);
+          background-color: ${headerColor};
           border-radius: 0;
           justify-content: center;
           padding: 10px;
