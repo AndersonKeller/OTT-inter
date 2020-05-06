@@ -1,15 +1,13 @@
-import withApi from '~/components/withApi'
-import { STATIC_PATH } from '~/constants/constants'
 import ClubLogo from '~/components/ClubLogo'
+import withApi from '~/components/withApi'
 
-const ReceiptPage = ({ api }) => {
-
+const ReceiptPage = () => {
   return (
     <div className="receipt-page">
       <div className="receipt">
         <header>
           <div className="logo">
-            <ClubLogo />
+            <ClubLogo style={{ maxWidth: 80 }} />
           </div>
           <p className="details">
             <p>Somosgad S.A.S</p>
@@ -92,7 +90,7 @@ const ReceiptPage = ({ api }) => {
               <td>$99,00</td>
             </tr>
             <tr>
-              <td colspan="3">TOTAL</td>
+              <td colSpan="3">TOTAL</td>
               <td>$99,00</td>
             </tr>
           </tbody>
@@ -103,7 +101,7 @@ const ReceiptPage = ({ api }) => {
         </dl>
       </div>
       <style jsx>{`
-        .body {
+        :global(body) {
           background: #f1f1f1 !important;
         }
         .receipt {
@@ -114,9 +112,6 @@ const ReceiptPage = ({ api }) => {
         }
         .logo {
           margin-bottom: 25px;
-        }
-        .logo img {
-          max-width: 80px;
         }
         .details {
           font-size: 12px;

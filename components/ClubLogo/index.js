@@ -1,19 +1,18 @@
 import { CONFIG } from "~/config"
 import { STATIC_PATH } from "~/constants/constants"
 
-export default ({alt = CONFIG.clubName, className = '' }) => {
+export default ({ alt = CONFIG.clubName, className = '', style = {} }) => {
 
   const classes = 'img-fluid' + (className !== '' ? ' ' + className : '')
 
   return (
     <>
 
-      <img alt={alt} className={classes} src={`${STATIC_PATH}/logos/club.svg`} />
+      <img alt={alt} className={classes} src={`${STATIC_PATH}/logos/club.svg`} style={style} />
 
       <style jsx>{`
         img {
           display: inline-block;
-          /* height: ${height !== null ? (height + 'px') : 'auto'}; */
         }
       `}</style>
 
