@@ -226,7 +226,7 @@ const Packages = () => {
           line-height: normal;
         }
         .card {
-          background-color: ${cardColor}; /* #282828; */
+          background-color: ${cardColor};
           display: flex;
           flex-direction: column;
           margin-bottom: 15px;
@@ -235,7 +235,7 @@ const Packages = () => {
           transition: background-color 1s;
         }
         .card:hover {
-          background-color: ${cardHover}; /* #1e1e1e */
+          background-color: ${cardHover};
           transition: background-color .1s;
         }
         .time,
@@ -422,6 +422,10 @@ const Section1 = ({ mainPackage }) => {
   }).format(number)
    */
 
+  const { clubName } = CONFIG
+  const theme = useContext(ThemeContext)
+  const backgroundColor = Color(theme.colors.background)
+
   return (
     <div className="section1 container-fluid">
       <div className="row">
@@ -429,7 +433,7 @@ const Section1 = ({ mainPackage }) => {
           <div className="section1__content">
             <div className="row">
               <div className="col-4 col-md-6">
-                <ClubLogo alt={`${CONFIG.clubName} Logo`} className="section1__logo" />
+                <ClubLogo alt={`${clubName} Logo`} className="section1__logo" />
               </div>
             </div>
             <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
@@ -477,7 +481,7 @@ const Section1 = ({ mainPackage }) => {
           z-index: -2;
         }
         .section1::after {
-          background-image: url(/static/subscriptor/featured-gradient.png);
+          background-image: radial-gradient(circle at 75% 45%, ${backgroundColor.fade(1).hsl().string()} 0%, ${backgroundColor.fade(.1).hsl().string()} 60%, ${backgroundColor.fade(.05).hsl().string()} 110%);
           background-position: 50% 0;
           background-size: cover;
           bottom: 0;
