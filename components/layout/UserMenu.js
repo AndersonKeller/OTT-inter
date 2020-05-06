@@ -50,6 +50,8 @@ export default () => {
   const backgroundColor1 = theme.colors.backgroundContrast2
   const backgroundColor2 = theme.colors.backgroundContrast
   const backgroundColor2Hover = Color(backgroundColor2).darken(.2).hsl().string()
+  const blackColor = Color(theme.colors.black)
+  const shadowColor = blackColor.fade(.7).hsl().string()
 
   return (
     <div className={`user-select ${user ? 'logged' : ''}`}>
@@ -166,6 +168,7 @@ export default () => {
         }
         .user-select :global(.dropdown-menu) {
           background-color: ${backgroundColor1};
+          box-shadow: 0 2px 5px ${shadowColor};
           border: 0;
           border-radius: 5px;
           margin-top: 5px;
@@ -233,7 +236,7 @@ export default () => {
         /* item style 3 */
 
         .user-select :global(.dropdown-item-style3) {
-          background-color: var(--gray3);
+          background-color: ${backgroundColor2};
           color: var(--light-gray);
           padding: 10px 30px;
           transition: background-color .2s;
@@ -280,7 +283,8 @@ export default () => {
         /* logged styles */
 
         .user-select.logged :global(.dropdown-menu) {
-          background-color: var(--gray3);
+          background-color: ${backgroundColor2};
+          box-shadow: 0 2px 5px ${shadowColor};
           padding-top: 0;
           padding-bottom: 5px;
         }
