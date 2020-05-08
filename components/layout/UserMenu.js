@@ -46,21 +46,23 @@ export default () => {
     signOut()
     closeAuthModal()
   }
+
   const theme = useContext(ThemeContext)
   const backgroundColor1 = theme.colors.backgroundContrast2
   const backgroundColor2 = theme.colors.backgroundContrast
   const backgroundColor2Hover = Color(backgroundColor2).darken(.2).hsl().string()
   const blackColor = Color(theme.colors.black)
   const shadowColor = blackColor.fade(.7).hsl().string()
+  const lightColor = theme.colors.texts
+  const whiteColor = theme.colors.white
 
   return (
     <div className={`user-select ${user ? 'logged' : ''}`}>
 
       <Dropdown alignRight drop="down" flip={undefined}>
-        <Dropdown.Toggle id={`dropdown-custom-user`}>
 
+        <Dropdown.Toggle id="dropdown-custom-user">
           <Avatar image={user && user.cropped_image_url ? user.cropped_image_url : null} />
-
           <Chevron
             alt=""
             className="chevron d-none d-md-inline"
@@ -74,12 +76,10 @@ export default () => {
         {/* logged menu */}
         { user ? <>
           <Dropdown.Menu>
-
             <Dropdown.Header>
               <div className="user-name">{ getUserName() }</div>
               <div className="user-email">{ user.email }</div>
             </Dropdown.Header>
-
             { loggedMenu.map((item, key) => (
               <Link href={item.href} key={key} passHref>
                 <Dropdown.Item className="dropdown-item-style3" onClick={item.onClick}>
@@ -90,38 +90,31 @@ export default () => {
                 </Dropdown.Item>
               </Link>
             )) }
-
           </Dropdown.Menu>
 
         {/* public menu */}
         </> : (
           <Dropdown.Menu>
-
             <Dropdown.Item as="button"
               className="dropdown-item-style1"
               onClick={enter}>Entrar</Dropdown.Item>
-
             <Link href="/subscriptor">
               <Dropdown.Item className="dropdown-item-style2"
                 href="/subscriptor">Suscripción</Dropdown.Item>
             </Link>
-
             <Dropdown.Divider />
-
             {/* <Dropdown.Item className="dropdown-item-style3" href="/ajustes">
               <span className="icon">
                 <img height="26" src="/static/icons/settings.svg" width="26" />
               </span>
               <span>Ajustes</span>
             </Dropdown.Item> */}
-
             <Dropdown.Item className="dropdown-item-style3" href="/help">
               <span className="icon">
                 <img height="24" src="/static/icons/help.svg" width="24" />
               </span>
               <span>Ayuda</span>
             </Dropdown.Item>
-
           </Dropdown.Menu>
         ) }
 
@@ -153,18 +146,27 @@ export default () => {
             padding-left: 15px;
           }
         }
+        .user-select :global(.dropdown-toggle)::after {
+          display: none;
+        }
+        .user-select :global(.dropdown-toggle) :global(.avatar) {
+          background-color: ${lightColor};
+        }
         .user-select :global(.dropdown-toggle) :global(.chevron) {
           line-height: 1;
         }
         .user-select :global(.dropdown-toggle) :global(.chevron) :global(path) {
-          fill: var(--gray);
+          fill: ${lightColor};
+          transition: ease .2s;
         }
-        .user-select :global(.dropdown-toggle)::after {
-          display: none;
+        .user-select :global(.dropdown-toggle):focus :global(.avatar),
+        .user-select :global(.dropdown-toggle):hover :global(.avatar) {
+          background-color: ${whiteColor};
+          transition: background-color .2s;
         }
         .user-select :global(.dropdown-toggle):focus :global(.chevron) :global(path),
         .user-select :global(.dropdown-toggle):hover :global(.chevron) :global(path) {
-          fill: var(--white);
+          fill: ${whiteColor};
         }
         .user-select :global(.dropdown-menu) {
           background-color: ${backgroundColor1};
@@ -187,7 +189,7 @@ export default () => {
           right: 10px;
         }
         .user-select :global(.dropdown-item) {
-          color: var(--white);
+          color: ${whiteColor};
         }
         .user-select :global(.dropdown-item):focus,
         .user-select :global(.dropdown-item):hover {
@@ -294,7 +296,7 @@ export default () => {
         .user-select.logged :global(.dropdown-header) {
           background-color: var(--primary);
           border-radius: 5px;
-          color: var(--white);
+          color: ${whiteColor};
           line-height: 1;
           padding: 15px 30px 20px;
           text-align: center;
@@ -317,6 +319,7 @@ export default () => {
 const Avatar = ({ image }) => {
   const theme = useContext(ThemeContext)
   const avatarColor = theme.colors.background
+  const lightColor = theme.colors.texts
   return (
     <span className={'avatar' + (!image ? ' avatar--empty' : '')}>
       { !image ? (
@@ -327,11 +330,12 @@ const Avatar = ({ image }) => {
       <style jsx>{`
         .avatar {
           background-clip: padding-box;
-          background-color: var(--white);
+          background-color: ${lightColor};
           border-radius: 50%;
           height: 30px;
           margin: 2.5px;
           overflow: hidden;
+          transition: background-color .2s;
           width: 30px;
         }
         .avatar--empty > :global(span) {
@@ -352,7 +356,6 @@ const Avatar = ({ image }) => {
         }
         @media (min-width: 768px) {
           .avatar {
-            background-color: var(--gray);
             height: 38px;
             margin-right: 10px;
             width: 38px;
