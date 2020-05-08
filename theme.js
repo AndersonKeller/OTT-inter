@@ -14,6 +14,7 @@ const theme = {
     backgroundContrast2: CONFIG.backgroundContrastColor2,
     black: BLACK,
     white: WHITE,
+    texts: CONFIG.textColor,
   },
 }
 

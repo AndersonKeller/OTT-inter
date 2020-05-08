@@ -1,25 +1,25 @@
 import Color from 'color'
-import React, { useContext, useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
-import Router from 'next/router'
-import styled from 'styled-components'
+import { useRouter } from 'next/router'
+import React, { useContext, useEffect, useState, useRef } from 'react'
+import { GoSearch } from 'react-icons/go';
+import styled, { ThemeContext } from 'styled-components'
+import AppLogo from '~/components/AppLogo'
 import { CONFIG } from '~/config'
 import { TENANT }  from '~/constants/constants'
-import UserMenu from './UserMenu'
-import ActiveLink from '../ActiveLink'
 import SearchContext from '~/contexts/SearchContext'
-import DesktopMenu from './DesktopMenu'
-import AppLogo from '~/components/AppLogo'
+import ActiveLink from '../ActiveLink'
 import ClubLogo from '../ClubLogo'
+import DesktopMenu from './DesktopMenu'
+import UserMenu from './UserMenu'
 
 const StyledHeader = styled.header`
   background-color: ${props => props.closed ? 'var(--background)' :
     props.scrolled ? Color(props.theme.colors.background).fade(.1).string() :
     props.layoutColor === 'white' ? props.theme.colors.background : 'transparent'};
   box-shadow: 0 0 5px rgba(var(--black-rgb), ${props => props.layoutColor !== 'white' && props.scrolled ? '.9' : '0' });
-  color: var(--gray);
+  color: ${props => props.theme.colors.texts};
   font-family: var(--sans-serif);
-  /* font-size: 21.5px; */
   font-size: 16px;
   font-weight: bold;
   min-width: 100%;
@@ -53,15 +53,40 @@ const Header = ({ closed, layoutColor, menus }) => {
     }
   }, [])
 
-  // submit
-  // const [ searchValue, setSearchField ] = useState('')
-  const { search, setSearch } = useContext(SearchContext)
-  const searchRef = useRef(null)
-  // const router = useRouter()
-  const handleSearch = e => {
+  const router = useRouter()
+  const searchField = useRef(null)
+  const { setSearch } = useContext(SearchContext)
+  const [ searchFieldValue, setSearchFieldValue ] = useState('')
+
+  function handleSearchBtnFocus(e) {
     e.preventDefault()
-    Router.push('/movies')
+    searchField.current.focus()
   }
+
+  function handleSearchBtnClick(e) {
+    if (!searchFieldValue) {
+      e.preventDefault()
+    }
+  }
+
+  function handleSearchFieldChange(e) {
+    setSearchFieldValue(e.target.value)
+    /* optional: */
+    // setSearch(e.target.value)
+  }
+
+  function handleSearchSubmit(e) {
+    e.preventDefault()
+    setSearch(searchFieldValue)
+    setSearchFieldValue('')
+    if (router.pathname !== '/movies') {
+      router.push('/movies')
+    }
+  }
+
+  const theme = useContext(ThemeContext)
+  const whiteColor = theme.colors.white
+  const lightColor = theme.colors.texts
 
   return (
     <StyledHeader closed={closed} layoutColor={layoutColor} scrolled={scrolled}>
@@ -85,21 +110,26 @@ const Header = ({ closed, layoutColor, menus }) => {
               action="/movies"
               className="d-none d-lg-block search-form"
               method="get"
-              onSubmit={handleSearch}
+              onSubmit={handleSearchSubmit}
             >
-              <button className="search-btn" id="search-btn" type="button" onClick={ _ => searchRef.current.focus() }>
-                <img alt="Buscar" height="28" src="/static/magnify-icon.svg" width="28" />
+              <button
+                className="search-btn"
+                id="search-btn"
+                onClick={handleSearchBtnClick}
+                onFocus={handleSearchBtnFocus}
+                type="submit"
+              >
+                <GoSearch color="inherit" size={28} title="Buscar" />
               </button>
               <input
                 className="form-control"
-                ref={searchRef}
-                // autoFocus={ router.pathname === '/movies'}
-                name="search"
                 id="search"
-                onChange={e => setSearch(e.target.value)}
+                name="search"
+                onChange={handleSearchFieldChange}
                 placeholder="Buscar"
+                ref={searchField}
                 type="search"
-                value={search}
+                value={searchFieldValue}
               />
             </form>
 
@@ -125,28 +155,24 @@ const Header = ({ closed, layoutColor, menus }) => {
           background-color: transparent;
           border: 0;
           display: inline-block;
-          color: #fff;
+          color: ${whiteColor};
           font-family: inherit;
           font-size: inherit;
           font-weight: inherit;
           outline: 0;
           padding: 0;
+          transition: ease .6s;
           vertical-align: middle;
-          width: 95px;
-        }
-        input[type=search] {
           width: 0;
-          transition: ease-in-out 0.7s;
         }
-        input[type=search]:focus {
-          padding: 0px 10px;
+        .form-control:focus {
+          box-shadow: 0 0 0 .1rem var(--primary);
           margin-right: 10px;
+          padding: 0 10px;
           width: 15vw;
-          transition: ease-in-out 0.7s;
-          box-shadow: 0 0 0 0.1rem var(--primary);
         }
         .form-control::placeholder {
-          color: #b2b2b2;
+          color: ${lightColor};
         }
         .search-form {
           margin-left: auto;
@@ -154,14 +180,19 @@ const Header = ({ closed, layoutColor, menus }) => {
         .search-btn {
           background-color: transparent;
           border: 0;
+          color: ${lightColor};
           cursor: pointer;
           margin-right: 10px;
           outline: 0;
           padding: 5px;
           vertical-align: middle;
         }
+        .search-btn :global(svg) {
+          transition: color .2s;
+        }
+        .search-btn:focus,
         .search-btn:hover {
-          /* filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%); */
+          color: var(--white);
         }
         .notifications-btn {
           background-color: transparent;

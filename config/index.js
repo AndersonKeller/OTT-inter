@@ -20,9 +20,10 @@ import tenantsConfigs from './config.json'
  * @property {string} apiUrl - project api URL.
  * @property {string} lang - project's main lang.
  * @property {string} loadingColor - the club's color that should for loading bar, "primary" or "secondary".
- * @property {string} backgroundColor - the project's background color
- * @property {string} backgroundContrastColor - the project's lighter or contrastant color
- * @property {string} backgroundContrastColor2 - used for secondary buttons and something like that
+ * @property {string} backgroundColor - the project's background color.
+ * @property {string} backgroundContrastColor - the project's lighter or contrastant color.
+ * @property {string} backgroundContrastColor2 - used for secondary buttons and something like that.
+ * @property {string} textColor - main text color.
  */
 /** @type {AppsConfig} */
 export const CONFIG = tenantsConfigs[TENANT]

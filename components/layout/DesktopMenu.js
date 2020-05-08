@@ -59,6 +59,7 @@ const DesktopMenu = ({ data: menus }) => {
   const theme = useContext(ThemeContext)
   const submenuColor = Color(theme.colors.backgroundContrast).fade(.1).hsl().string()
   const submenuHoverColor = Color(theme.colors.backgroundContrast).darken(.3).fade(.1).hsl().string()
+  const textsColor = theme.colors.texts
 
   return (
     <ul className="menu d-none d-md-flex">
@@ -149,7 +150,8 @@ const DesktopMenu = ({ data: menus }) => {
           margin-left: 10px;
         }
         .menu :global(.dropdown-toggle) :global(.chevron) :global(path) {
-          fill: var(--gray);
+          fill: ${textsColor};
+          transition: fill .2s;
         }
         .menu :global(.dropdown-toggle):focus :global(.chevron) :global(path),
         .menu :global(.dropdown-toggle):hover :global(.chevron) :global(path) {

@@ -19,7 +19,8 @@
     "loadingColor": "primary",
     "backgroundColor": "#000",
     "backgroundContrastColor": "#1a1a1a",
-    "backgroundContrastColor2": "#808080"
+    "backgroundContrastColor2": "#808080",
+    "textColor": "#b2b2b2"
   },
   "river": {
     "appName": "River Mas",
@@ -41,7 +42,8 @@
     "loadingColor": "primary",
     "backgroundColor": "#000",
     "backgroundContrastColor": "#1a1a1a",
-    "backgroundContrastColor2": "#808080"
+    "backgroundContrastColor2": "#808080",
+    "textColor": "#b2b2b2"
   },
   "lau": {
     "appName": "La U Mas",
@@ -63,6 +65,7 @@
     "loadingColor": "primary",
     "backgroundColor": "#161846",
     "backgroundContrastColor": "#202364",
-    "backgroundContrastColor2": "#293989"
+    "backgroundContrastColor2": "#293989",
+    "textColor": "#bec3db"
   }
 }
