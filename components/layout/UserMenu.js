@@ -2,6 +2,9 @@ import Color from 'color'
 import Link from 'next/link'
 import { useContext } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
+import { GoPerson } from 'react-icons/go';
+import { IoMdAddCircle, IoIosHelpCircle } from 'react-icons/io';
+import { RiLogoutBoxRLine } from 'react-icons/ri';
 import ReactSVG from 'react-svg'
 import { ThemeContext } from 'styled-components'
 import UserContext from '~/contexts/UserContext'
@@ -80,13 +83,23 @@ export default () => {
               <div className="user-name">{ getUserName() }</div>
               <div className="user-email">{ user.email }</div>
             </Dropdown.Header>
-            { loggedMenu.map((item, key) => (
-              <Link href={item.href} key={key} passHref>
-                <Dropdown.Item className="dropdown-item-style3" onClick={item.onClick}>
+            { loggedMenu.map(({ href, label, onClick, slug }, key) => (
+              <Link href={href} key={key} passHref>
+                <Dropdown.Item className="dropdown-item-style3" onClick={onClick}>
                   <span className="icon">
-                    <img className={`img-fluid ${item.slug}`} src={`/static/icons/${item.slug}.svg`} />
+                    {slug === 'add' ? (
+                      <IoMdAddCircle size={24} />
+                    ) : slug === 'help' ? (
+                      <IoIosHelpCircle size={24} />
+                    ) : slug === 'user' ? (
+                      <GoPerson size={24} />
+                    ) : slug === 'logout' ? (
+                      <RiLogoutBoxRLine size={24} />
+                    ) : (
+                      <img className={`img-fluid ${slug}`} src={`/static/icons/${slug}.svg`} />
+                    )}
                   </span>
-                  <span>{item.label}</span>
+                  <span>{label}</span>
                 </Dropdown.Item>
               </Link>
             )) }
@@ -111,7 +124,7 @@ export default () => {
             </Dropdown.Item> */}
             <Dropdown.Item className="dropdown-item-style3" href="/help">
               <span className="icon">
-                <img height="24" src="/static/icons/help.svg" width="24" />
+                <IoIosHelpCircle size={24} />
               </span>
               <span>Ayuda</span>
             </Dropdown.Item>
@@ -120,7 +133,6 @@ export default () => {
 
       </Dropdown>
 
-      {/* styles */}
       <style jsx>{`
         .user-select {
           align-items: center;
@@ -239,14 +251,17 @@ export default () => {
 
         .user-select :global(.dropdown-item-style3) {
           background-color: ${backgroundColor2};
-          color: var(--light-gray);
-          padding: 10px 30px;
-          transition: background-color .2s;
+          color: ${lightColor};
+          padding: 7.5px 25px;
+          transition: background-color .2s, color .2s;
+          vertical-align: middle;
+        }
+        .user-select :global(.dropdown-item-style3) > span {
+          vertical-align: middle;
         }
         .user-select :global(.dropdown-item-style3) .icon {
           display: inline-block;
           margin-right: 15px;
-          vertical-align: middle;
           width: 30px;
         }
         .user-select :global(.dropdown-item-style3) .icon img {
@@ -280,6 +295,7 @@ export default () => {
         .user-select :global(.dropdown-item-style3):focus,
         .user-select :global(.dropdown-item-style3):hover {
           background-color: ${backgroundColor2Hover};
+          color: ${whiteColor};
         }
 
         /* logged styles */

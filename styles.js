@@ -23,7 +23,7 @@ export default createGlobalStyle`
 
     /* colors */
     --white:              ${WHITE};
-    --light-gray:         #c4c4c4;
+    --light-gray:         ${props => props.theme.colors.texts};
     --gray:               #b2b2b2;
     --gray2:              #808080;
     --gray2-rgb:          128, 128, 128;
