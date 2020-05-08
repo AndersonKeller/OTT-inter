@@ -4,6 +4,8 @@ import React from 'react'
 import Category from '../../types/Category'
 import Media from '../../types/Media'
 import WishlistBtn from "../../components/wishlist-btn"
+import { useContext } from 'react'
+import { ThemeContext } from 'styled-components'
 
 const MediaCard = ({
   category = null,
@@ -14,6 +16,9 @@ const MediaCard = ({
   if ( ! media.thumbnail_url) {
     media.thumbnail_url = '//placehold.jp/180x256.png'
   }
+  const theme = useContext(ThemeContext)
+  const lightColor = theme.colors.texts
+  const whiteColor = theme.colors.white
   return (
     <div {...{className}}>
       <MediaLink {...{category, media}}>
@@ -28,15 +33,17 @@ const MediaCard = ({
       </MediaLink>
       <style jsx>{`
         .media-card {
+          color: ${lightColor};
           display: block;
           font-size: 13px;
           line-height: 1;
           outline: 0;
           text-decoration: none;
+          transition: color .2s;
         }
         .media-card:focus,
         .media-card:hover {
-          color: var(--white);
+          color: ${whiteColor};
         }
         .media-card img {
           margin-bottom: 10px;
@@ -44,14 +51,8 @@ const MediaCard = ({
           will-change: opacity;
         }
         .media-card-label {
-          opacity: .4;
           padding-right: 5%;
           padding-left: 5%;
-          transition: opacity .2s;
-        }
-        .media-card:focus .media-card-label,
-        .media-card:hover .media-card-label {
-          opacity: 1;
         }
         .media-card:focus img,
         .media-card:hover img {
