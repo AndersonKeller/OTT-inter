@@ -102,7 +102,6 @@ const CoverImgContent = styled.div`
     }
   }
 `
-// ${props.theme.colors.background}
 
 const Cover = ({ error, media }) => {
   if (error) {
