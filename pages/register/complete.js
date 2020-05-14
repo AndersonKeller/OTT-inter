@@ -105,7 +105,6 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
   const { user, updateUser } = useContext(UserContext)
 
   const [ genders, setGenders ] = useState()
-  const [ countries, setCountries ] = useState()
   const [ discounts, setDiscounts ] = useState(false)
   const [ blockDiscountFields, setBlockDiscountFields ] = useState(false)
 
@@ -113,9 +112,11 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     name: '',
     gender_id: '',
     document: '',
-    address: '',
-    city: '',
     country_id: '',
+    address_1st_level: '',
+    city: '',
+    address_3rd_level: '',
+    address: '',
     package_id: '',
     payment_method_id: null,
     payment_os: null,
@@ -132,14 +133,6 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     (async _ => {
       const {data} = await api.get('genders')
       setGenders(data)
-    })()
-  }, [])
-
-  /* get countries */
-  useEffect(_ => {
-    (async _ => {
-      const {data} = await api.get('countries')
-      setCountries(data)
     })()
   }, [])
 
@@ -268,10 +261,17 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
   const handleSubmit = async e => {
     e.preventDefault()
     setLoading(true)
+    setError(false)
     try {
       const paymentData = values.package_id && values.package_id !== free_package_id &&
         values.payment_method_id && isCardPayment ? await createToken() : null
       const data = { ...values, payment_os: paymentData }
+      if (data.country_id === '') {
+        delete data.country_id
+      }
+      if (data.address_1st_level === '') {
+        delete data.address_1st_level
+      }
       try {
         const { data: { user, order } } = await api.post('register/complete', data)
         updateUser(user)
@@ -287,7 +287,6 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
           Router.push('/')
         }
       } catch (error) {
-        console.table(error)
         if (error.response) {
           const { data, status } = error.response
           if (status === 422) {
@@ -305,8 +304,6 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     setLoading(false)
   }
 
-  const cityLabel = CONFIG.lang === 'es-CL' ? 'Provincia' : 'Ciudad'
-
   return (
     <form method="post" onSubmit={handleSubmit}>
 
@@ -317,7 +314,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
 
       {/* form data debug */}
       { debug && (
-        <pre>
+        <pre style={{ color: '#fff' }}>
           {JSON.stringify(values, null, 2)}
         </pre>
       )}
@@ -340,9 +337,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
                 required={requireds}
                 value={values.name}
               />
-              { ! loading && error && error.errors && error.errors.name && (
-                <div className="invalid-feedback">{error.errors.name}</div>
-              ) }
+              <InvalidFeedback error={error} loading={loading} name="name" />
             </FormGroup>
 
             {/* genre */}
@@ -366,9 +361,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
                   <option disabled value="">Incapaz de cargar géneros</option>
                 ) }
               </Select>
-              { ! loading && error && error.errors && error.errors.gender_id && (
-                <div className="invalid-feedback">{error.errors.gender_id}</div>
-              ) }
+              <InvalidFeedback error={error} loading={loading} name="gender_id" />
             </FormGroup>
 
             {/* document */}
@@ -382,106 +375,48 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
                 type="text"
                 value={values.document}
               />
-              { ! loading && error && error.errors && error.errors.document && (
-                <div className="invalid-feedback">{error.errors.document}</div>
-              ) }
+              <InvalidFeedback error={error} loading={loading} name="document" />
             </FormGroup>
+
+            {discounts && discounts.map( d => (
+              <FormGroup key={d.id}>
+                <Label htmlFor={d.dsc_id}>{d.name}</Label>
+                <Input
+                  disabled={discounts.find(
+                    disc => (!['',undefined].includes(values[disc.dsc_id]) && disc.id != d.id)
+                  )}
+                  id={d.id}
+                  maxLength={5}
+                  name={d.dsc_id}
+                  onChange={handleDiscountChange}
+                  type="text"
+                  style={values.discount_id == d.id ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
+                  value={values[d.dsc_id] || ''}
+                  readOnly={blockDiscountFields}
+                />
+                <div style={{float: 'right', paddingTop:'10px'}}>
+                  <Loading size="20" color="white" loadingState={values.discount_id == d.id  && blockDiscountFields}/>
+                </div>
+              </FormGroup>
+            ))}
 
           </div>
         </div>
 
+        {/* address */}
         <div className="col-md-6">
-          <div className="localization">
-            <h3 className="h3">Ubicación</h3>
-
-            {/* address */}
-            <FormGroup>
-              <Label htmlFor="address">Dirección</Label>
-              <Input
-                id="address"
-                name="address"
-                onChange={handleInputChange}
-                required={requireds}
-                type="text"
-                value={values.address}
-              />
-              { ! loading && error && error.errors && error.errors.address && (
-                <div className="invalid-feedback">{error.errors.address}</div>
-              ) }
-            </FormGroup>
-
-            {/* city */}
-            <FormGroup>
-              <Label htmlFor="city">{cityLabel}</Label>
-              <Input
-                id="city"
-                name="city"
-                onChange={handleInputChange}
-                required={requireds}
-                type="text"
-                value={values.city}
-              />
-              { ! loading && error && error.errors && error.errors.city && (
-                <div className="invalid-feedback">{error.errors.city}</div>
-              ) }
-            </FormGroup>
-
-            {/* country */}
-            <FormGroup>
-              <Label htmlFor="country_id">País</Label>
-              <Select
-                id="country_id"
-                name="country_id"
-                onChange={handleInputChange}
-                required={requireds}
-                value={values.country_id}
-              >
-                { ! countries ? (
-                  <option disabled value="">Cargando...</option>
-                ) : countries.length ? <>
-                  <option disabled value="">Selecciona tu país</option>
-                  { countries.map((country, key) => (
-                    <option {...{key}} value={country.id}>{country.name}</option>
-                  ))}
-                </> : (
-                  <option disabled value="">Incapaz de cargar países</option>
-                ) }
-              </Select>
-              { ! loading && error && error.errors && error.errors.country_id && (
-                <div className="invalid-feedback">{error.errors.country_id}</div>
-              ) }
-            </FormGroup>
-
-          </div>
+          <Address
+            api={api}
+            error={error}
+            handleInputChange={handleInputChange}
+            loading={loading}
+            requireds={requireds}
+            setValues={setValues}
+            values={values}
+          />
         </div>
 
       </div>
-      {/* <h3 className="h3">¿Eres Socio? Obtén un descuento especial</h3> */}
-      <div className="row">
-      {discounts && discounts.map( d => (
-        <div className="col-md-6" key={d.id}>
-          <div className="data">
-            <FormGroup>
-              <Label htmlFor={d.dsc_id}>{d.name}</Label>
-              <Input
-                disabled={discounts.find(
-                  disc => (!['',undefined].includes(values[disc.dsc_id]) && disc.id != d.id)
-                )}
-                id={d.id}
-                maxLength={5}
-                name={d.dsc_id}
-                onChange={handleDiscountChange}
-                type="text"
-                style={values.discount_id == d.id ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
-                value={values[d.dsc_id] || ''}
-                readOnly={blockDiscountFields}
-              /><div style={{float: 'right', paddingTop:'10px'}}><Loading size="20" color="white" loadingState={values.discount_id == d.id  && blockDiscountFields}/></div>
-            </FormGroup>
-          </div>
-        </div>
-      ))}
-      </div>
-
 
       {/* package selection */}
       <Packages {...{
@@ -530,9 +465,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
                 <a target="_blank">el contrato</a>
               </Link> de {CONFIG.appName}</span>
           </label>
-          { ! loading && error && error.errors && error.errors.terms && (
-            <div className="invalid-feedback">{error.errors.terms}</div>
-          ) }
+          <InvalidFeedback error={error} loading={loading} name="terms" />
         </div>
 
         {/* send btn */}
@@ -553,26 +486,206 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
           margin-top: 0;
           margin-bottom: 15px;
         }
-        @media (min-width: 768px) {
-          .card-inputs {
-            margin-top: -21px;
-          }
-        }
         .terms {
           font-size: 18px;
         }
         .terms input {
           margin-right: 5px;
         }
-        .valid-number {
-          background-color: rgb(206, 249, 206);
-        }
       `}</style>
     </form>
   )
 }
 
-// Payment
+const InvalidFeedback = ({error, loading, name}) => {
+  return (
+    <>
+      { ! loading && error && error.errors && error.errors[name] && (
+        <div className="invalid-feedback">{error.errors[name]}</div>
+      )}
+    </>
+  )
+}
+
+const SelectFormGroup = ({ error, label, list, listMapValue = null, loading, name, onChange, pluralLabel, requireds, value }) => {
+  return (
+    <FormGroup>
+      <Label htmlFor={name}>{label}</Label>
+      <Select
+        id={name}
+        name={name}
+        onChange={onChange}
+        required={requireds}
+        value={value}
+      >
+        { ! list ? (
+          <option disabled value="">Cargando...</option>
+        ) : list.length ? <>
+          <option disabled value="">Selecciona tu {label.toLowerCase()}</option>
+          { list.map((item, key) => {
+            const value = listMapValue ? item[listMapValue] : item
+            const optionName = listMapValue ? item.name : item
+            return (
+              <option key={key} value={value}>{optionName}</option>
+            )
+          })}
+        </> : (
+          <option disabled value="">Incapaz de cargar {pluralLabel}</option>
+        ) }
+      </Select>
+      <InvalidFeedback error={error} loading={loading} name={name} />
+    </FormGroup>
+  )
+}
+
+const Address = ({
+  api,
+  error,
+  handleInputChange,
+  setValues,
+  loading,
+  requireds,
+  values,
+}) => {
+
+  const argCountryId = 11
+  const braCountryId = 32
+  const chlCountryId = 48
+
+  const { country_id: countryId, address_1st_level, city, address_3rd_level, address } = values
+
+  const [ countries, setCountries ] = useState()
+
+  useEffect( _ => {
+    (async _ => {
+      const { data } = await api.get('countries')
+      setCountries(data)
+    })()
+  }, [])
+
+  const handleCountryChange = e => {
+    const { name, value } = e.target
+    setValues({
+      ...values,
+      [name]: value,
+      address_1st_level: '',
+    })
+  }
+
+  const firstLevelLabel = countryId == argCountryId ? 'Provincia' :
+  countryId == braCountryId ? 'Estado' :
+  countryId == chlCountryId ? 'Región' :
+  'State'
+
+  const firstLevelPluralLabel = countryId == argCountryId ? 'Provincias' :
+  countryId == braCountryId ? 'Estados' :
+  countryId == chlCountryId ? 'Regiones' :
+  'States'
+
+  const [ firstLevelList, setFirstLevelList ] = useState()
+
+  useEffect(_ => {
+    (async _ => {
+      const parsedCountryId = parseInt(countryId)
+      const { data: addresses } = [argCountryId, braCountryId, chlCountryId].includes(parsedCountryId) ?
+        await api.get('address-1st-levels', {
+          params: {
+            country_id: countryId,
+          },
+        }) : { data: null }
+        setFirstLevelList(addresses)
+    })()
+  }, [countryId])
+
+  const cityLabel = countryId == braCountryId ? 'Cidade' :
+  countryId == chlCountryId ? 'Provincia' :
+  'Ciudad'
+
+  const thirdLevelLabel = countryId == chlCountryId ? 'Comuna' : 'District'
+
+  return (
+    <div className="address">
+      <h3 className="h3">Ubicación</h3>
+
+      {/* country */}
+      <SelectFormGroup
+        error={error}
+        label="País"
+        loading={loading}
+        list={countries}
+        listMapValue="id"
+        name="country_id"
+        onChange={handleCountryChange}
+        pluralLabel="Países"
+        requireds={requireds}
+        value={countryId}
+      />
+
+      {/* 1st level */}
+      {[argCountryId, braCountryId, chlCountryId].map(id => id+'').includes(countryId) && (
+        <SelectFormGroup
+          error={error}
+          label={firstLevelLabel}
+          loading={loading}
+          list={firstLevelList}
+          listMapValue="id"
+          name="address_1st_level"
+          onChange={handleInputChange}
+          pluralLabel={firstLevelPluralLabel}
+          requireds={requireds}
+          value={address_1st_level}
+        />
+      )}
+
+      {/* city */}
+      {[braCountryId, chlCountryId].map(id => id+'').includes(countryId) && (
+        <FormGroup>
+          <Label htmlFor="city">{cityLabel}</Label>
+          <Input
+            id="city"
+            name="city"
+            onChange={handleInputChange}
+            required={requireds}
+            type="text"
+            value={city}
+          />
+          <InvalidFeedback error={error} loading={loading} name="city" />
+        </FormGroup>
+      )}
+
+      {/* 3rd level */}
+      {[chlCountryId].map(id => id+'').includes(countryId) && (
+        <FormGroup>
+          <Label htmlFor="address_3rd_level">{thirdLevelLabel}</Label>
+          <Input
+            id="address_3rd_level"
+            name="address_3rd_level"
+            onChange={handleInputChange}
+            required={requireds}
+            type="text"
+            value={address_3rd_level}
+          />
+          <InvalidFeedback error={error} loading={loading} name="address_3rd_level" />
+        </FormGroup>
+      )}
+
+      <FormGroup>
+        <Label htmlFor="address">Dirección</Label>
+        <Input
+          id="address"
+          name="address"
+          onChange={handleInputChange}
+          required={requireds}
+          type="text"
+          value={address}
+        />
+        <InvalidFeedback error={error} loading={loading} name="address" />
+      </FormGroup>
+
+    </div>
+  )
+}
+
 const Payment = ({
   api,
   cash_payment_method_id,
@@ -661,9 +774,7 @@ const Payment = ({
                   {/* card fields */}
                   <FormGroup>
                     <div id="card-secure-fields" />
-                    { ! loading && error && error.errors && error.errors.payment_os && (
-                      <div className="invalid-feedback">{error.errors.payment_os}</div>
-                    ) }
+                    <InvalidFeedback error={error} loading={loading} name="payment_os" />
                   </FormGroup>
 
                   {/* <FormGroup>
@@ -710,15 +821,20 @@ const Payment = ({
                   )) : (
                     <p>Sin método de pago configurado.</p>
                   )}
-                  { ! loading && error && error.errors && error.errors.cash_payment_method_id && (
-                    <div className="invalid-feedback">{error.errors.cash_payment_method_id}</div>
-                  ) }
+                  <InvalidFeedback error={error} loading={loading} name="cash_payment_method_id" />
                 </FormGroup>
               ) }
               </div>
           </div>
 
       </div>
+      <style jsx>{`
+        @media (min-width: 768px) {
+          .card-inputs {
+            margin-top: -21px;
+          }
+        }
+      `}</style>
     </div>
   )
 }
