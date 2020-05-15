@@ -47,7 +47,7 @@ const NavFooter = ({className}) => {
   const classes = classNames('nav-footer', className)
   const theme = useContext(ThemeContext)
   const backgroundColor = Color(theme.colors.background).hsl().string()
-  const textAndFillColor = Color(theme.colors.white).fade(.6).hsl().string()
+  const textAndFillColor = Color(theme.colors.texts).hsl().string()
 
   return (
     <nav className={classes}>
@@ -105,7 +105,12 @@ const NavFooter = ({className}) => {
 }
 
 const SocialNetworks = ({ className }) => {
-  if ( ! CONFIG.socialNetworks && Array.isArray(CONFIG.socialNetworks) ) return
+  if ( ! CONFIG.socialNetworks && Array.isArray(CONFIG.socialNetworks) ) {
+    return
+  }
+  const theme = useContext(ThemeContext)
+  const color = Color(theme.colors.backgroundContrast2).hsl().string()
+  const colorHover = Color(theme.colors.white).hsl().string()
   return (
     <IconContext.Provider value={{ size: '24px' }}>
       <ul className={`list-inline ${className}`}>
@@ -134,7 +139,7 @@ const SocialNetworks = ({ className }) => {
           margin: 5px 0;
         }
         a {
-          color: ${Color(WHITE).fade(.7).string()};
+          color: ${color};
           display: block;
           padding: 2.5px;
           transition: color .3s;
@@ -148,7 +153,7 @@ const SocialNetworks = ({ className }) => {
         }
         a:focus,
         a:hover {
-          color: var(--white);
+          color: ${colorHover};
           transition: color .125s;
         }
       `}</style>
@@ -161,6 +166,8 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
   const { version: appVersion } = packageJson
   const showVersions = true
   const versionsLine = showVersions ? `v${appVersion}` + (apiVersion ? ` (api ${apiVersion})` : '') : ''
+  const theme = useContext(ThemeContext)
+  const color = Color(theme.colors.texts).hsl().string()
   return (
     <div className="terms-and-policies-bar">
       <div className="container-fluid">
@@ -198,7 +205,7 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
       <style jsx>{`
         .terms-and-policies-bar {
           background-color: ${layoutColor === 'white' ? 'var(--background)' : 'transparent'};
-          color: ${Color(WHITE).fade(.6).string()};
+          color: ${color};
           font-size: 11px;
           line-height: 1;
           padding-top: 10px;
@@ -261,17 +268,20 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
 }
 
 const FooterLink = React.forwardRef(({ children, onClick, href, target }, ref) => {
+  const theme = useContext(ThemeContext)
+  const color = Color(theme.colors.texts).hsl().string()
+  const colorHover = Color(theme.colors.white).hsl().string()
   return <>
     <a {...{href, onClick, ref, target}}>{children}</a>
     <style jsx>{`
       a {
-        color: inherit;
+        color: ${color};
         display: inline-block;
         text-decoration: none;
         transition: color .2s;
       }
       a::after {
-        border-bottom: 1px solid var(--white);
+        border-bottom: 1px solid ${colorHover};
         content: '';
         display: block;
         opacity: 0;
@@ -280,7 +290,7 @@ const FooterLink = React.forwardRef(({ children, onClick, href, target }, ref) =
       }
       a:focus,
       a:hover {
-        color: var(--white);
+        color: ${colorHover};
       }
       a:focus::after,
       a:hover::after {
