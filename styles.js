@@ -39,7 +39,7 @@ export default createGlobalStyle`
     --primary-alpha:      ${props => props.theme.colors.primaryAlpha};
     --gray4:              #666; /* 656565 */ /* 666 = white 40% */
     --loading:            ${props => props.theme.colors.loading};
-    --descriptions-color: var(--gray);
+    --descriptions-color: ${props => props.theme.colors.texts};
     --background:         ${props => props.theme.colors.background};
 
     /* font-sizes */

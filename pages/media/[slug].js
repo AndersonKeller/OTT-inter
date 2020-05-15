@@ -46,24 +46,29 @@ const Cover = ({ category, media }) => {
   const probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
   const theme = useContext(ThemeContext)
   const maskColor = Color(theme.colors.background)
-  const { poster_url: posterUrl } = media
+  const {
+    detail = null,
+    poster_url: posterUrl,
+    publish_year: publishYear = null,
+    title,
+  } = media
   return (
     <div className="cover container-fluid">
       <div className="row align-items-center">
         <div className="col-12 col-md-5 offset-md-1">
           <div className="info">
             <div className="heading">
-              <h1 className="h2">{media.title}</h1>
-              {media.publish_year && (
-                <div className="year">{media.publish_year}</div>
+              <h1 className="h2">{title}</h1>
+              {publishYear && (
+                <div className="year">{publishYear}</div>
               )}
             </div>
-            {media.detail && (
+            {detail && (
               <div className="description" style={{display: 'flex'}}>
                 <div className={smDown && !open && 'short-description'}>
-                    { smDown && !open && media.detail.replace(/^([\s\S]{70}[^\s]*)[\s\S]*/, "$1") }
+                    { smDown && !open && detail.replace(/^([\s\S]{70}[^\s]*)[\s\S]*/, "$1") }
                     <Collapse in={open || !smDown}>
-                      <p>{media.detail}</p>
+                      <p>{detail}</p>
                     </Collapse>
                 </div>
                 <div
