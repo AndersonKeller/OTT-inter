@@ -70,13 +70,13 @@ const DataForm = ({isSubmitting, countries, genders, button})  => {
           <div className="localization">
             <h3 className="h3">Ubicación</h3>
             <FormGroup>
-              <FkInput name="address" label="Dirección" />
+              <FkSelect name="country" label="País" list={countries} />
             </FormGroup>
             <FormGroup>
               <FkInput name="city" label={cityLabel} />
             </FormGroup>
             <FormGroup>
-              <FkSelect name="country" label="País" list={countries} />
+              <FkInput name="address" label="Dirección" />
             </FormGroup>
           </div>
         </div>

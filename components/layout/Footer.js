@@ -11,12 +11,13 @@ import UserContext from '../../contexts/UserContext'
 import ActiveLink from '../ActiveLink'
 import { WHITE } from '~/constants/colors'
 import { ThemeContext } from 'styled-components'
+import packageJson from '~/package.json'
 
-export default function Footer({ layoutColor }) {
+export default function Footer({ apiVersion, layoutColor }) {
   return (
     <footer className="footer">
       <NavFooter className="d-lg-none" />
-      <TermsAndPoliciesBar {...{layoutColor}} />
+      <TermsAndPoliciesBar apiVersion={apiVersion} layoutColor={layoutColor} />
       <style jsx>{`
         .footer {
           padding-bottom: 65px;
@@ -155,14 +156,18 @@ const SocialNetworks = ({ className }) => {
   )
 }
 
-const TermsAndPoliciesBar = ({ layoutColor }) => {
+const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
+  const { appName } = CONFIG
+  const { version: appVersion } = packageJson
+  const showVersions = true
+  const versionsLine = showVersions ? `v${appVersion}` + (apiVersion ? ` (api ${apiVersion})` : '') : ''
   return (
     <div className="terms-and-policies-bar">
       <div className="container-fluid">
         <div className="row align-items-center">
 
           <div className="col-12 col-sm-4 text-md-left">
-            <p>{CONFIG.appName} @ 2020 - Todos los derechos reservados</p>
+            <p>{`${appName} ${versionsLine} @ 2020 - Todos los derechos reservados`}</p>
           </div>
 
           {/* social icons */}

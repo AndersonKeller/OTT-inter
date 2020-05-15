@@ -8,9 +8,10 @@ import Footer from './Footer'
 import loadMenus from '~/lib/load-menus'
 import AuthModal from './AuthModal/AuthModal'
 import CustomError from '~/pages/_error'
+import withApi from '../withApi'
 
-// layout
 const Layout = ({
+  apiVersion,
   children,
   color: layoutColor = 'black',
   errorCode,
@@ -23,7 +24,6 @@ const Layout = ({
   if (errorCode) {
     return <CustomError statusCode={errorCode} />
   }
-
   if (header === 'closed') {
     paddingTop = false
   }
@@ -68,7 +68,7 @@ const Layout = ({
         {children}
       </main>
 
-      <Footer {...{layoutColor}}/>
+      <Footer apiVersion={apiVersion} layoutColor={layoutColor} />
 
       <AuthModal />
 
@@ -92,9 +92,12 @@ const Layout = ({
 }
 
 Layout.getInitialProps = async ctx => {
+  const { api } = ctx
   try {
     const menus = await loadMenus(ctx)
-    return { menus }
+    const { data } = await api.get('version')
+    const { version: apiVersion } = data
+    return { apiVersion, menus }
   } catch (error) {
     if (error.response) {
       console.log(`The request was made and the server responded with a status code
@@ -114,4 +117,4 @@ Layout.getInitialProps = async ctx => {
   }
 }
 
-export default Layout
+export default withApi(Layout)

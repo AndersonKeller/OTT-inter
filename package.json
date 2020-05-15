@@ -1,6 +1,7 @@
 {
   "name": "@somosgad/dale",
   "private": true,
+  "version": "0.2.12",
   "scripts": {
     "build": "next build",
     "dev": "nodemon server.js",
