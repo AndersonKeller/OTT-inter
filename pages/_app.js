@@ -3,26 +3,21 @@
  * https://github.com/zeit/next.js/blob/canary/examples/with-loading/
  */
 
-// react
-import React        from 'react'
-import NProgress    from 'nprogress'
-import * as Sentry  from '@sentry/node'
-
-// next
-import App    from 'next/app'
+import 'nprogress/nprogress.css'
+import 'react-toastify/dist/ReactToastify.min.css'
+import 'shaka-player/dist/controls.css'
+import React from 'react'
+import NProgress from 'nprogress'
+import * as Sentry from '@sentry/node'
+import App from 'next/app'
 import Router from 'next/router'
-
-// app
-import Layout       from '../components/layout/Layout'
-import GlobalStyle  from '~/styles'
-
-// providers
-import { AuthModalProvider }  from '../contexts/AuthModalContext'
-import { SearchProvider }     from '../contexts/SearchContext'
-import { ThemeProvider }      from 'styled-components'
-import { UserProvider }       from '../contexts/UserContext'
-import * as gtag              from '~/lib/gtag'
-
+import Layout from '../components/layout/Layout'
+import GlobalStyle from '~/styles'
+import { AuthModalProvider } from '../contexts/AuthModalContext'
+import { SearchProvider } from '../contexts/SearchContext'
+import { ThemeProvider } from 'styled-components'
+import { UserProvider } from '../contexts/UserContext'
+import * as gtag from '~/lib/gtag'
 // import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from '~/theme'
 // import withBasicAuth from '~/basic-auth'

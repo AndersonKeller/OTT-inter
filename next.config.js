@@ -6,7 +6,6 @@ const withPlugins = require('next-compose-plugins')
 // plugins
 require('dotenv').config()
 require('dotenv-load')()
-const withCSS = require('@zeit/next-css')
 const withImages = require('next-images')
 const withSourceMaps = require('@zeit/next-source-maps')()
 
@@ -30,6 +29,5 @@ const nextConfig = withSourceMaps({
 })
 
 module.exports = withPlugins([
-  [withCSS],
   [withImages],
 ], nextConfig)

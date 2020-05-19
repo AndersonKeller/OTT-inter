@@ -1,6 +1,5 @@
 
 import Color from 'color'
-import 'nprogress/nprogress.css'
 import { createGlobalStyle } from 'styled-components'
 import { BLACK, GRAY3 } from '~/constants/colors'
 import { WHITE } from '~/constants/colors'

@@ -1,5 +1,4 @@
 import React from 'react'
-import 'shaka-player/dist/controls.css'
 import shaka from 'shaka-player/dist/shaka-player.ui.js' // no SSR support
 import { IS_PRODUCTION } from '~/constants/constants'
 

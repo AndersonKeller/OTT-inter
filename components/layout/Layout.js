@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import nookies from 'nookies'
 import { toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.min.css'
 import Header from './Header'
 import Footer from './Footer'
 import loadMenus from '~/lib/load-menus'
