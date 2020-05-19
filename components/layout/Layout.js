@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import nookies from 'nookies'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
-import { IS_PRODUCTION } from '~/constants/constants'
 import Header from './Header'
 import Footer from './Footer'
 import loadMenus from '~/lib/load-menus'
@@ -26,12 +25,6 @@ const Layout = ({
   }
   if (header === 'closed') {
     paddingTop = false
-  }
-
-  /* external imports fallback */
-  if ( ! IS_PRODUCTION) {
-    import('bootstrap/dist/css/bootstrap.min.css')
-    import('slick-carousel/slick/slick.css')
   }
 
   const { flash_message } = nookies.get({}, 'flash_message')

@@ -14,6 +14,7 @@ process.on('uncaughtException', (err) => {
 });
 
 export default class MyDocument extends Document {
+
   static async getInitialProps(ctx) {
     const sheet = new ServerStyleSheet()
     const originalRenderPage = ctx.renderPage
@@ -43,6 +44,7 @@ export default class MyDocument extends Document {
       sheet.seal()
     }
   }
+
   render() {
     return (
       <Html>
@@ -88,7 +90,6 @@ export default class MyDocument extends Document {
               rel="stylesheet"
               type="text/css"
             />
-            {/* slick theme */}
             <link
               href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
               rel="stylesheet"
@@ -100,8 +101,11 @@ export default class MyDocument extends Document {
               rel="stylesheet"
             />
           </> : <>
-            {/* slick theme */}
-            <link rel="stylesheet" href="/static/slick-theme.css" />
+            {/* bootstrap */}
+            <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+            {/* slick */}
+            <link rel="stylesheet" href="/static/css/slick.css" />
+            <link rel="stylesheet" href="/static/css/slick-theme.css" />
             {/* roboto & roboto condensed */}
             <link rel="stylesheet" href="/static/fonts/roboto/stylesheet.css" />
           </> }
