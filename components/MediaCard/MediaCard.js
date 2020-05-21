@@ -78,16 +78,16 @@ const MediaCard = ({
   )
 }
 
-MediaCard.propTypes = {
-  /** Category object containing at least a slug property. */
-  category: Category,
+// MediaCard.propTypes = {
+//   /** Category object containing at least a slug property. */
+//   category: Category,
 
-  /** classNames that should be inserted on the component. */
-  className: PropTypes.string,
+//   /** classNames that should be inserted on the component. */
+//   className: PropTypes.string,
 
-  /** Media object containing slug, thumbnail_url and title. */
-  media: Media,
-}
+//   /** Media object containing slug, thumbnail_url and title. */
+//   media: Media,
+// }
 
 MediaCard.defaultProps = {
   category: null,
