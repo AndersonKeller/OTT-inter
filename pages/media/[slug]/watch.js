@@ -22,10 +22,7 @@ export default function WatchPage({ errorCode, category, media, related, layoutP
       <div className="container-fluid">
         <div className="row align-items-center">
           <div className="col-12 col-lg-8">
-            {/*
-            <BlockedPlayer image={`${STATIC_PATH}/blurred-sample.png`} />
-            */}
-            <BlockedPlayer image={ media.thumbnail2_url } media={media} />
+            <BlockedPlayer image={media.thumbnail2_url} media={media} />
           </div>
           <div className="col-12 col-lg-4 d-none d-md-block">
             <Related {...{category, medias: related}} />

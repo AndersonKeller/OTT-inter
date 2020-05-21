@@ -10,19 +10,19 @@ import Color from 'color'
 
 export default function BlockedPlayer({ image = '', media }) {
   const { user } = useContext(UserContext)
-  const [ video, setVideo ] = useState(user ? 1 : 0)
+  const { is_paid: isPaid } = media
+  const [ showVideo, setShowVideo ] = useState()
   const autoPlay = IS_PRODUCTION
   const { openAuthModal } = useContext(AuthModalContext)
+
+  useEffect(_ => {
+    setShowVideo(!isPaid || isPaid && user)
+  }, [isPaid, user])
 
   const handleAuth = e => {
     e.preventDefault()
     openAuthModal('register')
   }
-
-  // show or hide video if has user
-  useEffect( _ => {
-    setVideo(user ? 1 : 0)
-  }, [user])
 
   const youtube_type_id = 3
   const youtube_link = media.movie_links.find(element => {
@@ -45,7 +45,7 @@ export default function BlockedPlayer({ image = '', media }) {
 
   return (
     <div className="player">
-      { video ? (
+      { showVideo ? (
         (media && media.movie_links && media.movie_links.length && ! youtube_link) ? (
           <div style={{ position:'relative' }}>
             <Player
