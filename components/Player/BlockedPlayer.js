@@ -56,7 +56,7 @@ export default function BlockedPlayer({ image = '', media }) {
               width="100%"
             />
           </div>
-        ) : (
+        ) : youtube_link ? (
           <div className="embed-responsive embed-responsive-16by9" >
             <iframe
               allow={`accelerometer; ${autoPlay ? 'autoplay;' : ''} encrypted-media; gyroscope; picture-in-picture`}
@@ -66,6 +66,8 @@ export default function BlockedPlayer({ image = '', media }) {
               src={`${youtube_link.url}?${autoPlay ? 'autoplay=1' : ''}`}
             ></iframe>
           </div>
+        ) : (
+          "Couldn't parse url"
         )
       ) : (
         <>

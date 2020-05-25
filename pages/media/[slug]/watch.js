@@ -14,19 +14,24 @@ import api from '~/services/api'
 import MediaLink from '~/components/MediaLink/MediaLink'
 
 export default function WatchPage({ errorCode, category, media, related, layoutProps }) {
+  const { appName } = CONFIG
+  const { title: mediaTitle } = media
+  const pageTitle = `${mediaTitle} &lt; ${appName}`
   return (
     <Layout errorCode={errorCode} {...layoutProps}>
       <Head>
-        <title>{media.title} &lt; {CONFIG.appName}</title>
+        <title>{pageTitle}</title>
       </Head>
       <div className="container-fluid">
         <div className="row align-items-center">
           <div className="col-12 col-lg-8">
             <BlockedPlayer image={media.thumbnail2_url} media={media} />
           </div>
-          <div className="col-12 col-lg-4 d-none d-md-block">
-            <Related {...{category, medias: related}} />
-          </div>
+          { related && (
+            <div className="col-12 col-lg-4 d-none d-md-block">
+              <Related {...{category, medias: related}} />
+            </div>
+          )}
         </div>
         <div className="row">
           <div className="col-lg-8">
@@ -41,12 +46,16 @@ export default function WatchPage({ errorCode, category, media, related, layoutP
             <SocialShareBtns />
           </div>
         </div> */}
-        <div className="d-md-none">
-          <Related {...{category, medias: related}} />
-        </div>
+        { related && (
+          <div className="d-md-none">
+            <Related {...{category, medias: related}} />
+          </div>
+        )}
       </div>
 
-      <MoreContentCarousel category={category} />
+      {category && (
+        <MoreContentCarousel category={category} />
+      )}
 
       {/* <CommentSection /> */}
 

@@ -8,29 +8,35 @@ import Button from '~/components/button'
 import Layout from '~/components/layout/Layout'
 import MediaLink from '~/components/MediaLink/MediaLink'
 import WishlistBtn from '~/components/wishlist-btn'
+import withApi from '~/components/withApi'
 import UserContext from '~/contexts/UserContext'
 import { CONFIG } from '~/config'
-import api from '~/services/api'
 import Chevron from '~/components/icons/chevron'
 import Color from 'color'
 
 function MediaPage1({ category, errorCode, layoutProps, media, related }) {
+  const { appName } = CONFIG
+  const { title: mediaTitle } = media
+  const pageTitle = `${mediaTitle} &lt; ${appName}`
   return (
-    <Layout errorCode={errorCode} {...layoutProps} paddingTop={false}>
+    <Layout errorCode={errorCode} paddingTop={false} {...layoutProps}>
       <Head>
-        <title>{media.title} &lt; {CONFIG.appName}</title>
+        <title>{pageTitle}</title>
       </Head>
-      <Cover {...{category, media}} />
-      <More {...{category, related}} />
+      <Cover category={category} media={media} />
+      {category && related && (
+        <More category={category} related={related} />
+      )}
     </Layout>
-  );
+  )
 }
 
 MediaPage1.getInitialProps = async ctx => {
-  const { query } = ctx
+  const { api, query } = ctx
   const { slug: movieSlug, category: categorySlug } = query;
   try {
-    const { data } = await api(ctx).get(`movie/${movieSlug}` + (categorySlug ? `/category/${categorySlug}` : ''))
+    const url = `movie/${movieSlug}` + (categorySlug ? `/category/${categorySlug}` : '')
+    const { data } = await api.get(url)
     const { category, movie: media, related } = data
     return { category, media, related }
   } catch (error) {
@@ -164,68 +170,71 @@ const Cover = ({ category, media }) => {
   )
 }
 
-const HMediaCard = ({ category, media }) => (
-  <div className="h-media-card row">
-    <div className="col-md-4">
-      <MediaLink watch {...{category, media}}>
-        <a>
-          <img
-            className="img-fluid w-100 d-block"
-            height="220"
-            src={media.thumbnail2_url ? media.thumbnail2_url : '//placehold.jp/390x220.png'}
-            width="390"
-          />
-        </a>
-      </MediaLink>
-    </div>
-    <div className="col-md-5">
-      <h3 className="h3">
+const HMediaCard = ({ category, media }) => {
+  const { title } = media
+  return (
+    <div className="h-media-card row">
+      <div className="col-md-4">
         <MediaLink watch {...{category, media}}>
-          <a>{media.title}</a>
+          <a>
+            <img
+              className="img-fluid w-100 d-block"
+              height="220"
+              src={media.thumbnail2_url ? media.thumbnail2_url : '//placehold.jp/390x220.png'}
+              width="390"
+            />
+          </a>
         </MediaLink>
-      </h3>
-      {media.detail && (
-        <div className="description">
-          <p>{media.detail}</p>
-        </div>
-      )}
-    </div>
-    <style jsx>{`
-      .h-media-card {
-        margin-bottom: 30px;
-      }
-      .h-media-card a {
-        color: var(--white);
-        text-decoration: none;
-      }
-      .h-media-card img {
-        margin-bottom: 15px;
-      }
-      .h3 {
-        font-size: inherit;
-        font-weight: bold;
-        margin-top: 15px;
-        margin-bottom: 15px;
-      }
-      .h3 a:focus,
-      .h3 a:hover {
-        text-decoration: underline;
-      }
-      .description {
-        color: var(--descriptions-color);
-        font-size: 15px;
-      }
-      @media (min-width: 768px) {
+      </div>
+      <div className="col-md-5">
+        <h3 className="h3">
+          <MediaLink watch {...{category, media}}>
+            <a>{title}</a>
+          </MediaLink>
+        </h3>
+        {media.detail && (
+          <div className="description">
+            <p>{media.detail}</p>
+          </div>
+        )}
+      </div>
+      <style jsx>{`
         .h-media-card {
-          margin-bottom: 45px;
+          margin-bottom: 30px;
+        }
+        .h-media-card a {
+          color: var(--white);
+          text-decoration: none;
         }
         .h-media-card img {
-          margin-bottom: 0;
+          margin-bottom: 15px;
         }
-      }
-    `}</style>
-  </div>
-)
+        .h3 {
+          font-size: inherit;
+          font-weight: bold;
+          margin-top: 15px;
+          margin-bottom: 15px;
+        }
+        .h3 a:focus,
+        .h3 a:hover {
+          text-decoration: underline;
+        }
+        .description {
+          color: var(--descriptions-color);
+          font-size: 15px;
+        }
+        @media (min-width: 768px) {
+          .h-media-card {
+            margin-bottom: 45px;
+          }
+          .h-media-card img {
+            margin-bottom: 0;
+          }
+        }
+      `}</style>
+    </div>
+  )
+}
 
 const More = ({ category, related: medias }) => {
   const { name: categoryName } = category
@@ -275,4 +284,4 @@ const More = ({ category, related: medias }) => {
   );
 }
 
-export default MediaPage1
+export default withApi(MediaPage1)

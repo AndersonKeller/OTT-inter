@@ -19,6 +19,7 @@ const MediaCard = ({
   const theme = useContext(ThemeContext)
   const lightColor = theme.colors.texts
   const whiteColor = theme.colors.white
+  const { is_paid: isPaid } = media
   return (
     <div {...{className}}>
       <MediaLink {...{category, media}}>
