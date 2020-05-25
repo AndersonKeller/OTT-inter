@@ -17,7 +17,7 @@ import Color from 'color'
 function MediaPage1({ category, errorCode, layoutProps, media, related }) {
   const { appName } = CONFIG
   const { title: mediaTitle } = media
-  const pageTitle = `${mediaTitle} &lt; ${appName}`
+  const pageTitle = `${mediaTitle} < ${appName}`
   return (
     <Layout errorCode={errorCode} paddingTop={false} {...layoutProps}>
       <Head>

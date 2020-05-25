@@ -16,7 +16,7 @@ import MediaLink from '~/components/MediaLink/MediaLink'
 export default function WatchPage({ errorCode, category, media, related, layoutProps }) {
   const { appName } = CONFIG
   const { title: mediaTitle } = media
-  const pageTitle = `${mediaTitle} &lt; ${appName}`
+  const pageTitle = `${mediaTitle} < ${appName}`
   return (
     <Layout errorCode={errorCode} {...layoutProps}>
       <Head>

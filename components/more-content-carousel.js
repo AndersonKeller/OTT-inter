@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import Button from '../components/button'
-import MediaCard from '../components/MediaCard/MediaCard'
 import CarouselSection from '../components/carousel-section'
 import { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
@@ -12,15 +11,7 @@ export default function MoreContentCarousel({ category, uppercase }) {
   return (
     <aside className="more-content">
       <div className="carousel-section">
-        {category && category.name && (
-          <CarouselSection color="contrast" title={category.name} {...{uppercase}}>
-            {category.movies.length &&
-              category.movies.map((item, key) => (
-                <MediaCard {...{category, key, media: item}} />
-              ))
-            }
-          </CarouselSection>
-        )}
+        <CarouselSection category={category} color="contrast" uppercase={uppercase} />
       </div>
       <div className="text-center">
         <Link as={`/category/${category.slug}`} href={'/category/[slug]'} passHref>

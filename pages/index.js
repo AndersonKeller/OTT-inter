@@ -3,7 +3,6 @@ import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Button from '../components/button'
-import MediaCard from '../components/MediaCard/MediaCard'
 import CarouselSection from '../components/carousel-section'
 import Featured from '../components/featured'
 import Layout from '../components/layout/Layout'
@@ -16,26 +15,28 @@ import api from '../services/api'
 import withApi from '~/components/withApi'
 import Color from 'color'
 
-const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) => {
+const HomePage = ({ api, contents, featuredMedia, featuredMediaError, layoutProps }) => {
   const { user } = useContext(UserContext)
+  const { appName: pageTitle } = CONFIG
   return (
-    <Layout {...layoutProps} paddingTop={false}>
+    <Layout paddingTop={false} {...layoutProps}>
       <Head>
-        <title>{CONFIG.appName}</title>
+        <title>{pageTitle}</title>
       </Head>
       <div className="index">
 
         {/* cover */}
         <Cover error={featuredMediaError} media={featuredMedia} />
 
-        {/* Contents */}
+        {/* contents */}
         <div className="index__contents">
           {contents && contents.map((item, index) => {
-            let showBanner = (item.is_paid && user || !item.is_paid && !user)
-            switch(item.contentable_type) {
-              case 'categories':  return <HomeCarouselSection category={item.slug} key={index} />
-              case 'banners':     return showBanner && <BannerSection id={item.contentable_id} key={index} />
-              case 'movies':      return showBanner && <BannerSection movie={item.slug} key={index} />
+            const showBanner = (item.is_paid && user || !item.is_paid && !user)
+            const { contentable_type: contentableType } = item
+            switch(contentableType) {
+              case 'categories': return <HomeCarouselSection api={api} category={item.slug} key={index} />
+              case 'banners':    return showBanner && <BannerSection id={item.contentable_id} key={index} />
+              case 'movies':     return showBanner && <BannerSection movie={item.slug} key={index} />
             }
           })}
         </div>
@@ -60,10 +61,11 @@ const HomePage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) 
 }
 
 HomePage.getInitialProps = async ctx => {
+  const { api } = ctx
   try {
-    const { data: home_page } = await ctx.api.get('pages/home')
-    const [firstContent,...contents] = home_page.contents
-    const { data: { movie: featuredMedia } } = await ctx.api.get('movie/' + firstContent.slug + '?for=home-cover')
+    const { data: homePage } = await api.get('pages/home')
+    const [ firstContent, ...contents ] = homePage.contents
+    const { data: { movie: featuredMedia } } = await api.get('movie/' + firstContent.slug + '?for=home-cover')
     return { contents, featuredMedia }
   } catch (error) {
     return { featuredMediaError: error }
@@ -244,54 +246,43 @@ const Cover = ({ error, media }) => {
   )
 }
 
-// carousel sections
-const HomeCarouselSection = ({ category: categorySlug }) => {
-  const [category, setCategory] = useState()
-  const [error, setError] = useState()
-  const [loading, setLoading] = useState(false)
+const HomeCarouselSection = ({ api, category: categorySlug }) => {
 
-  // fetch data
-  useEffect(_ => {
+  const [ category, setCategory ] = useState(null)
+  const [ error, setError ] = useState(false)
+  const [ loading, setLoading ] = useState(false)
+  const { lang } = CONFIG
+
+  useEffect(() => {
     async function fetchData() {
+      setError(false)
       setLoading(true)
       try {
-        const {data} = await api().get(`/category/${categorySlug}`)
+        const { data } = await api.get(`category/${categorySlug}`)
         setCategory(data)
       } catch (error) {
-        setError(true)
+        const errorMessage = ['es', 'es-CL'].includes(lang) ? 'Error al intentar cargar la categoría'
+          : 'Error trying to load category'
+        setError(errorMessage)
       }
       setLoading(false)
     }
     fetchData()
   }, [categorySlug])
 
-  // return
   return (
-    <div>
-      <div className="section">
-
-        {/* loading */}
+    <div className="section">
+      { loading ? (
         <div className="text-center">
           <Loading loadingState={loading} />
         </div>
-
-        {/* category */}
-        {!loading && category && category.name && (
-          <CarouselSection title={category.name}>
-            {category.movies.length &&
-              category.movies.map((media, key) => (
-                <MediaCard {...{category, key, media}} />
-              ))
-            }
-          </CarouselSection>
-        )}
-
-        {/* error */}
-        {error && (
-          <div className="text-center">Error</div>
-        )}
-
-      </div>
+      ) : category ? (
+        <CarouselSection category={category} />
+      ) : error && (
+        <div className="text-center">
+          {error}
+        </div>
+      ) }
       <style jsx>{`
         .section {
           margin-bottom: 25px;
