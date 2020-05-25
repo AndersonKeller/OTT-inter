@@ -271,29 +271,31 @@ const HomeCarouselSection = ({ api, category: categorySlug }) => {
   }, [categorySlug])
 
   return (
-    <div className="section">
-      { loading ? (
-        <div className="text-center">
-          <Loading loadingState={loading} />
-        </div>
-      ) : category ? (
-        <CarouselSection category={category} />
-      ) : error && (
-        <div className="text-center">
-          {error}
-        </div>
-      ) }
+    <>
+      <div className="home-carousel-section">
+        { loading ? (
+          <div className="text-center">
+            <Loading loadingState={loading} />
+          </div>
+        ) : category ? (
+          <CarouselSection category={category} />
+        ) : error && (
+          <div className="text-center">
+            {error}
+          </div>
+        ) }
+      </div>
       <style jsx>{`
-        .section {
+        .home-carousel-section {
           margin-bottom: 25px;
         }
         @media (min-width: 768px) {
-          .section {
+          .home-carousel-section {
             margin-bottom: 55px;
           }
         }
       `}</style>
-    </div>
+    </>
   )
 }
 
