@@ -272,6 +272,9 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
       if (data.address_1st_level === '') {
         delete data.address_1st_level
       }
+      if (data.address_3rd_level === '') {
+        delete data.address_3rd_level
+      }
       try {
         const { data: { user, order } } = await api.post('register/complete', data)
         updateUser(user)
