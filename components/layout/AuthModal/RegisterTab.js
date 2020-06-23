@@ -38,7 +38,7 @@ const RegisterTab = ({ changeTab, setLoading, socialLogin })  => {
       const userResponse = await api().get('user')
       signIn(userResponse.data, tokenResponse.data)
       closeAuthModal()
-      Router.push('/register/complete')
+      Router.push('/register/wizard/user-data')
     } catch (error) {
       if (error.response) {
         setError(error.response.data)

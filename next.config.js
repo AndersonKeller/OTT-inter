@@ -8,6 +8,8 @@ require('dotenv').config()
 require('dotenv-load')()
 const withImages = require('next-images')
 const withSourceMaps = require('@zeit/next-source-maps')()
+const withSass = require('@zeit/next-sass')
+// const withCss = require('@zeit/next-css')
 
 // next config
 const nextConfig = withSourceMaps({
@@ -29,5 +31,5 @@ const nextConfig = withSourceMaps({
 })
 
 module.exports = withPlugins([
-  [withImages],
+  [withImages, withSass]
 ], nextConfig)

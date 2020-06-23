@@ -69,6 +69,12 @@ export function UserProvider({ children }) {
     setUser(user)
   }
 
+  const completeUserProfile = user => {
+
+
+
+  }
+
   return (
     <UserContext.Provider value={{...{ user, signIn, signOut, updateUser }}}>
       {children}

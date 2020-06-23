@@ -1,21 +1,21 @@
 // app imports
 import FormGroup from './layout/AuthModal/FormGroup'
-import { useEffect, useState, memo } from 'react'
+import { memo, useEffect, useState } from 'react'
 import withApi from '~/components/withApi'
 
 // packages component
 const Packages = ({
-  error,
-  items,
-  loading,
-  onChange,
-  package_id,
-  validationError,
-  readOnly,
-  discount_id,
-  setBlockDiscountFields,
-  api
-}) => {
+                    error,
+                    items,
+                    loading,
+                    onChange,
+                    package_id,
+                    validationError,
+                    readOnly,
+                    discount_id,
+                    setBlockDiscountFields,
+                    api
+                  }) => {
 
   const [discounts, setDiscounts] = useState([])
 
@@ -23,7 +23,7 @@ const Packages = ({
   useEffect(_ => {
     (async _ => {
       setBlockDiscountFields(true)
-      const { data } = discount_id ? await api.get(`discounts/${discount_id}/packages`) : []
+      const { data } = discount_id ? await api.get(`discounts/${ discount_id }/packages`) : []
       setDiscounts(data)
       setBlockDiscountFields(false)
     })()
@@ -39,77 +39,78 @@ const Packages = ({
   return (
     <section className="packages">
       <h3 className="h3">Selecciona tu plan</h3>
+
       <div className="row gutter-15 packages__list">
         { items && items.map((item, key) => {
           let discount = discounts ? discounts.find(disc => disc.id == item.id) : null
 
-          return <div className="col-6 col-md" {...{key}}>
+          return <div className="col-6 col-md" { ...{ key } }>
             <FormGroup>
-              <PackageRadio {...{onChange, readOnly, discount, package_id, plan: item} } />
+              <PackageRadio { ...{ onChange, readOnly, discount, package_id, plan: item } } />
             </FormGroup>
           </div>
         }) }
       </div>
       { validationError && (
-        <div className="invalid-feedback">{validationError}</div>
+        <div className="invalid-feedback">{ validationError }</div>
       ) }
-      <style jsx>{`
+      <style jsx>{ `
         .packages {
           margin-bottom: 15px;
         }
         .packages__list {
           margin-bottom: -15px;
         }
-      `}</style>
+      ` }</style>
     </section>
   )
 }
 
 // radio component
 export const PackageRadio = ({
-  onChange,
-  package_id,
-  plan,
-  readOnly,
-  discount,
-}) => {
+                               onChange,
+                               package_id,
+                               plan,
+                               readOnly,
+                               discount,
+                             }) => {
 
-  plan.amount_with_discount = discount ? Math.round(plan.amount * ( 1 - discount.pivot.percent)) : 0
+  plan.amount_with_discount = discount ? Math.round(plan.amount * (1 - discount.pivot.percent)) : 0
 
   return (
-    <label className={'text-center' + (readOnly?' readonly':'') }>
+    <label className={ 'text-center' + (readOnly ? ' readonly' : '') }>
       <input
-        checked={plan.id == package_id}
+        checked={ plan.id == package_id }
         name="package_id"
-        onChange={onChange}
+        onChange={ onChange }
         type="radio"
-        value={plan.id}
-        {...{readOnly}}
+        value={ plan.id }
+        { ...{ readOnly } }
       />
 
       <span className="fake-input">
 
-        {/* name */}
+        {/* name */ }
         <span className="d-block name">{ plan.name }</span>
 
-        {/* value */}
+        {/* value */ }
         { (plan.amount !== plan.amount_with_discount ||
-          plan.amount === 0 && !discount ) && (
-          <span className={ discount ? 'discount-value' : 'value'}>
+          plan.amount === 0 && !discount) && (
+          <span className={ discount ? 'discount-value' : 'value' }>
             { (plan.currency === 'ars' ? '$' : '') + plan.amount }
           </span>
         ) }
 
-        {/* discount */}
-        {  discount && (
+        {/* discount */ }
+        { discount && (
           <span className="value">
             { (plan.currency === 'ars' ? '$' : '') + plan.amount_with_discount }
           </span>
-        )}
+        ) }
 
       </span>
 
-      <style jsx>{`
+      <style jsx>{ `
         label {
           cursor: pointer;
           display: block;
@@ -147,7 +148,7 @@ export const PackageRadio = ({
         }
         .value {
         }
-      `}</style>
+      ` }</style>
     </label>
   )
 }

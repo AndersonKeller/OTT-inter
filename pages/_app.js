@@ -21,6 +21,7 @@ import * as gtag from '~/lib/gtag'
 // import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from '~/theme'
 // import withBasicAuth from '~/basic-auth'
+import "~/styles/components/multiStepIndicator.scss"
 
 NProgress.configure({ showSpinner: false })
 

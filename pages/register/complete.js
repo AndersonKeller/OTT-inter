@@ -210,16 +210,6 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
     }))
   },[])
 
-  // function onPackageChange(e) {
-  //   const package_id = parseInt(e.target.value, 10)
-  //   setValues({
-  //     ...values,
-  //     package_id: package_id,
-  //     payment_method_id: package_id === free_package_id ? null : values.payment_method_id,
-  //   })
-  //   console.table(values)
-  // }
-
   /* handle payment method change */
   function onPaymentChange(e) {
     setValues({
