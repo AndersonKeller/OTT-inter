@@ -1,4 +1,5 @@
 // import { useContext } from 'react'
+import React, { Component } from 'react';
 import Head from 'next/head'
 import BlockedPlayer from '~/components/Player/BlockedPlayer'
 // import CommentSection from '~/components/comment-section'
@@ -12,85 +13,7 @@ import { CONFIG } from '~/config'
 import { STATIC_PATH, TENANT } from '~/constants/constants'
 import api from '~/services/api'
 import MediaLink from '~/components/MediaLink/MediaLink'
-
-export default function WatchPage({ errorCode, category, media, related, layoutProps }) {
-  const { appName } = CONFIG
-  const { title: mediaTitle } = media
-  const pageTitle = `${mediaTitle} < ${appName}`
-  return (
-    <Layout errorCode={errorCode} {...layoutProps}>
-      <Head>
-        <title>{pageTitle}</title>
-      </Head>
-      <div className="container-fluid">
-        <div className="row align-items-center">
-          <div className="col-12 col-lg-8">
-            <BlockedPlayer image={media.thumbnail2_url} media={media} />
-          </div>
-          { related && (
-            <div className="col-12 col-lg-4 d-none d-md-block">
-              <Related {...{category, medias: related}} />
-            </div>
-          )}
-        </div>
-        <div className="row">
-          <div className="col-lg-8">
-            <MediaDescription {...{media}} />
-          </div>
-        </div>
-        {/* <div className="icons-row row">
-          <div className="col">
-            <LikeNCommentsBtns />
-          </div>
-          <div className="col text-right">
-            <SocialShareBtns />
-          </div>
-        </div> */}
-        { related && (
-          <div className="d-md-none">
-            <Related {...{category, medias: related}} />
-          </div>
-        )}
-      </div>
-
-      {category && (
-        <MoreContentCarousel category={category} />
-      )}
-
-      {/* <CommentSection /> */}
-
-      <style jsx>{`
-        .row:first-child {
-          margin-bottom: 15px;
-        }
-        .icons-row {
-          margin-bottom: 25px;
-        }
-        @media (min-width: 1200px) {
-          .container-fluid {
-            padding-right: 4%;
-            padding-left: 4%;
-          }
-          .row:first-child {
-            margin-bottom: 30px;
-          }
-        }
-      `}</style>
-    </Layout>
-  );
-}
-
-WatchPage.getInitialProps = async (ctx) => {
-  const {slug, category: categorySlug} = ctx.query;
-  try {
-    const response = await api(ctx).get(`/movie/${slug}/category/${categorySlug}`)
-    const { category, movie, related } = response.data
-    return { category, media: movie, related }
-  } catch (error) {
-    const errorCode = 404
-    return { errorCode }
-  }
-}
+import Router from 'next/router'
 
 function Related({category, medias}) {
   return (
@@ -149,4 +72,111 @@ function RelatedVideo({category = null, media}) {
       `}</style>
     </div>
   )
+}
+
+export default class WatchPage extends Component {
+  constructor(props) {
+    super(props);
+    Router.events.on('routeChangeComplete', (_) => {
+      this.setState({player: null});
+      this.setState({
+        player: (
+          <BlockedPlayer 
+            image={this.props.media.thumbnail2_url} 
+            media={this.props.media}
+          />
+        )
+      });
+    });
+  }
+
+  state = {
+    player: (
+      <BlockedPlayer 
+        image={this.props.media.thumbnail2_url} 
+        media={this.props.media}
+      />
+    ),
+  }
+
+  static async getInitialProps(ctx) {
+    const {slug, category: categorySlug} = ctx.query;
+    try {
+      const response = await api(ctx).get(`/movie/${slug}/category/${categorySlug}`)
+      const { category, movie, related } = response.data
+      return { category, media: movie, related }
+    } catch (error) {
+      const errorCode = 404
+      return { errorCode }
+    }
+  }
+
+  render() {
+    let { appName } = CONFIG
+    let { title: mediaTitle } = this.props.media
+    let pageTitle = `${mediaTitle} < ${appName}`
+    
+    return (
+       <Layout errorCode={this.props.errorCode} {...this.props.layoutProps}>
+          <Head>
+            <title>{pageTitle}</title>
+          </Head>
+          <div className="container-fluid">
+            <div className="row align-items-center">
+              <div className="col-12 col-lg-9">
+                {this.state.player}
+              </div>
+              { this.props.related && (
+                <div className="col-12 col-lg-3 d-none d-md-block">
+                  <Related {...{category: this.props.category, medias: this.props.related}} />
+                </div>
+              )}
+            </div>
+            <div className="row">
+              <div className="col-lg-8">
+                <MediaDescription {...{media: this.props.media }} />
+              </div>
+            </div>
+            {/* <div className="icons-row row">
+              <div className="col">
+                <LikeNCommentsBtns />
+              </div>
+              <div className="col text-right">
+                <SocialShareBtns />
+              </div>
+            </div> */}
+            { this.props.related && (
+              <div className="d-md-none">
+                <Related {...{category: this.props.category, medias: this.props.related}} />
+                {/* <Related {...{category, medias: related}} /> */}
+              </div>
+            )}
+          </div>
+
+          {this.props.category && (
+            <MoreContentCarousel category={this.props.category} />
+          )}
+
+          {/* <CommentSection /> */}
+
+          <style jsx>{`
+            .row:first-child {
+              margin-bottom: 15px;
+            }
+            .icons-row {
+              margin-bottom: 25px;
+            }
+            @media (min-width: 1200px) {
+              .container-fluid {
+                padding-right: 4%;
+                padding-left: 4%;
+              }
+              .row:first-child {
+                margin-bottom: 30px;
+              }
+            }
+          `}</style>
+       </Layout>
+    );
+  }
 }
