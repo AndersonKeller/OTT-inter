@@ -134,6 +134,8 @@ Triangle breadcrumb
     /* reset basic style */
     background-color: transparent;
     padding: 0;
+    display: flex;
+    justify-content: center;
   }
   .cd-breadcrumb.triangle li {
     position: relative;

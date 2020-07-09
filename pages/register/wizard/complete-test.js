@@ -11,11 +11,13 @@ import MultiStepIndicator from "~/components/MultiStepIndicator";
 const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
 
-  const handleSubmit = (index) => {
+  const handleSubmit = (index, userData) => {
     setWizardIndex(index);
+    setUserData(userData);
   }
 
   const requireds = IS_PRODUCTION
+  const [userData, setUserData] = useState();
 
   const [values, setValues] = useState({
     package_id: '',
@@ -58,6 +60,9 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
       case 2:
         return <Payment
           { ...{
+            package_id: values.package_id,
+            packages: packages,
+            userData: userData,
             api,
             error,
             requireds,

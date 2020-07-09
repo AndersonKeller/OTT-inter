@@ -82,7 +82,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
 
     try {
 
-      const res = await api.post(`register/complete-user`, {
+      let userData = {
         name: values.name,
         gender_id: values.gender_id,
         document: values.document,
@@ -90,10 +90,13 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
         address_1st_level: values.address_1st_level,
         city: values.city,
         address_3rd_level: values.address_3rd_level,
-        address: values.address
-      })
+        address: values.address,
+        email: user.email
+      }
 
-      handleSubmit(1)
+      const res = await api.post(`register/complete-user`, userData)
+
+      handleSubmit(1, userData)
 
     } catch (error) {
 

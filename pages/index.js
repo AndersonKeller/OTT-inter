@@ -62,6 +62,7 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, layoutProp
 
 HomePage.getInitialProps = async ctx => {
   const { api } = ctx
+  console.log(api);
   try {
     const { data: homePage } = await api.get('pages/home')
     const [ firstContent, ...contents ] = homePage.contents

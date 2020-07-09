@@ -1,22 +1,24 @@
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const Input = ({
-  autoComplete,
-  autoFocus,
-  defaultValue,
-  id,
-  maxLength,
-  name,
-  onChange,
-  onFocus,
-  placeholder,
-  required,
-  style,
-  type = "text",
-  value,
-  readOnly,
-  disabled
-}) => {
+                 autoComplete,
+                 autoFocus,
+                 defaultValue,
+                 id,
+                 maxLength,
+                 name,
+                 onChange,
+                 onFocus,
+                 placeholder,
+                 required,
+                 style,
+                 type = "text",
+                 value,
+                 readOnly,
+                 disabled,
+
+                 onKeyDown
+               }) => {
 
   // autofocus is bugging if has states/onChanges
   const inputRef = useRef()
@@ -28,10 +30,10 @@ const Input = ({
 
   return <>
     <input
-      autoFocus={autoFocus}
+      autoFocus={ autoFocus }
       className="form-control"
-      ref={inputRef}
-      {...{
+      ref={ inputRef }
+      { ...{
         autoComplete,
         defaultValue,
         id,
@@ -45,10 +47,11 @@ const Input = ({
         type,
         value,
         readOnly,
-        disabled
-      }}
+        disabled,
+        onKeyDown,
+      } }
     />
-    <style jsx>{`
+    <style jsx>{ `
       .form-control {
         border-color: rgba(var(--gray2-rgb), .55);
         border-width: 2px;
@@ -57,7 +60,7 @@ const Input = ({
       .form-control[disabled] {
         background-color: var(--gray);
       }
-    `}</style>
+    ` }</style>
   </>
 }
 

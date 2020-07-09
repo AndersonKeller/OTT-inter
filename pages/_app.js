@@ -18,10 +18,12 @@ import { SearchProvider } from '../contexts/SearchContext'
 import { ThemeProvider } from 'styled-components'
 import { UserProvider } from '../contexts/UserContext'
 import * as gtag from '~/lib/gtag'
+
+
 // import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from '~/theme'
 // import withBasicAuth from '~/basic-auth'
-import "~/styles/components/multiStepIndicator.scss"
+import "~/styles/main.scss"
 
 NProgress.configure({ showSpinner: false })
 

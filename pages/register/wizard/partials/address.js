@@ -71,7 +71,7 @@ const Address = ({
     countryId == chlCountryId ? 'Provincia' :
       'Ciudad'
 
-  const thirdLevelLabel = countryId == chlCountryId ? 'Comuna' : 'District'
+  const thirdLevelLabel = countryId == chlCountryId ? 'Ciudad / Comuna' : 'District'
 
   return (
     <div className="address">

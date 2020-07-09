@@ -12,21 +12,21 @@ const RegisterConfirmPage = ({ downloadLink, layoutProps, link }) => {
   const [seconds, setSeconds] = useState(10)
   const [timer, setTimer] = useState(true)
 
-  useEffect(_ => {
-    if (timer) {
-      const interval = setInterval(_ => {
-        setSeconds(seconds => {
-          if (seconds - 1 <= 0) {
-            clearInterval(interval)
-            setTimer(false)
-            window.open(downloadLink, '_self');
-          }
-          return seconds - 1
-        })
-      }, 1000)
-      return _ => clearInterval(interval)
-    }
-  }, [timer])
+  // useEffect(_ => {
+  //   if (timer) {
+  //     const interval = setInterval(_ => {
+  //       setSeconds(seconds => {
+  //         if (seconds - 1 <= 0) {
+  //           clearInterval(interval)
+  //           setTimer(false)
+  //           window.open(downloadLink, '_self');
+  //         }
+  //         return seconds - 1
+  //       })
+  //     }, 1000)
+  //     return _ => clearInterval(interval)
+  //   }
+  // }, [timer])
 
   function handleClick() {
     setTimer(false)
@@ -104,31 +104,31 @@ RegisterConfirmPage.getInitialProps = async ctx => {
     }
   }
 
-  // get download_link and link from router query if it comes
-  let {download_link: downloadLink, link} = query
+  // // get download_link and link from router query if it comes
+  // let {download_link: downloadLink, link} = query
+  //
+  // // if it doesn't come, try to get the last cash order
+  // if (!downloadLink || !link) {
+  //   const {data: cashOrder} = await api.get('cash-orders/last');
+  //
+  //   // if no pending cash order is found, redirect to user account
+  //   if (!cashOrder) {
+  //     const message = JSON.stringify({ info: 'No tiene recibos bancarios abiertos.' })
+  //     nookies.set(ctx, 'flash_message', message, { path: '/' })
+  //     if (res) {
+  //       res.redirect('/user/account')
+  //       res.end()
+  //       return {}
+  //     } else {
+  //       Router.back()
+  //     }
+  //   }
+  //
+  //   downloadLink = cashOrder.download_link
+  //   link = cashOrder.link
+  // }
 
-  // if it doesn't come, try to get the last cash order
-  if (!downloadLink || !link) {
-    const {data: cashOrder} = await api.get('cash-orders/last');
-
-    // if no pending cash order is found, redirect to user account
-    if (!cashOrder) {
-      const message = JSON.stringify({ info: 'No tiene recibos bancarios abiertos.' })
-      nookies.set(ctx, 'flash_message', message, { path: '/' })
-      if (res) {
-        res.redirect('/user/account')
-        res.end()
-        return {}
-      } else {
-        Router.back()
-      }
-    }
-
-    downloadLink = cashOrder.download_link
-    link = cashOrder.link
-  }
-
-  return {downloadLink, link}
+  return {}
 }
 
 export default withAuth(RegisterConfirmPage, true)
