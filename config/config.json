@@ -90,5 +90,28 @@
     "backgroundContrastColor": "#202364",
     "backgroundContrastColor2": "#293989",
     "textColor": "#bec3db"
+  },
+  "atlnacional": {
+    "appName": "Atlético Nacional",
+    "clubName": "Atlético Nacional",
+    "fullClubName": "Atlético Nacional",
+    "shortClubName": "Atl. Nacional",
+    "supportersAKA": "Atl Nacional",
+    "color": "#9a3324",
+    "secondaryColor": "#000",
+    "site": "https://www.udechile.cl/",
+    "socialNetworks": [
+      { "name": "Facebook", "link": "https://www.facebook.com/ClubUniversidadDeChileOficial" },
+      { "name": "Instagram", "link": "https://instagram.com/udechileoficial" },
+      { "name": "Twitter", "link": "https://www.twitter.com/udechile" }
+    ],
+    "googleAnalytics": "UA-146274840-3",
+    "apiUrl": "http://atlnacional.dowhile.com.br",
+    "lang": "es-CL",
+    "loadingColor": "primary",
+    "backgroundColor": "#000",
+    "backgroundContrastColor": "#202364",
+    "backgroundContrastColor2": "#293989",
+    "textColor": "#bec3db"
   }
 }
