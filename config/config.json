@@ -9,9 +9,18 @@
     "secondaryColor": "#005d9c",
     "site": "//www.colocolo.cl/",
     "socialNetworks": [
-      { "name": "Facebook", "link": "https://www.facebook.com/colocolo/" },
-      { "name": "Instagram", "link": "https://www.instagram.com/colocolooficial/" },
-      { "name": "Twitter", "link": "https://twitter.com/colocolo" }
+      {
+        "name": "Facebook",
+        "link": "https://www.facebook.com/colocolo/"
+      },
+      {
+        "name": "Instagram",
+        "link": "https://www.instagram.com/colocolooficial/"
+      },
+      {
+        "name": "Twitter",
+        "link": "https://twitter.com/colocolo"
+      }
     ],
     "googleAnalytics": null,
     "apiUrl": "https://admin.rivermas.com",
@@ -32,9 +41,18 @@
     "secondaryColor": "#005d9c",
     "site": "//www.colocolo.cl/",
     "socialNetworks": [
-      { "name": "Facebook", "link": "https://www.facebook.com/colocolo/" },
-      { "name": "Instagram", "link": "https://www.instagram.com/colocolooficial/" },
-      { "name": "Twitter", "link": "https://twitter.com/colocolo" }
+      {
+        "name": "Facebook",
+        "link": "https://www.facebook.com/colocolo/"
+      },
+      {
+        "name": "Instagram",
+        "link": "https://www.instagram.com/colocolooficial/"
+      },
+      {
+        "name": "Twitter",
+        "link": "https://twitter.com/colocolo"
+      }
     ],
     "googleAnalytics": null,
     "apiUrl": "https://admin.rivermas.com",
@@ -55,9 +73,18 @@
     "secondaryColor": "#fff",
     "site": "https://www.cariverplate.com.ar/",
     "socialNetworks": [
-      { "name": "Facebook", "link": "https://www.facebook.com/riverplateoficial/" },
-      { "name": "Instagram", "link": "https://www.instagram.com/riverplate/" },
-      { "name": "Twitter", "link": "https://twitter.com/RiverPlate" }
+      {
+        "name": "Facebook",
+        "link": "https://www.facebook.com/riverplateoficial/"
+      },
+      {
+        "name": "Instagram",
+        "link": "https://www.instagram.com/riverplate/"
+      },
+      {
+        "name": "Twitter",
+        "link": "https://twitter.com/RiverPlate"
+      }
     ],
     "googleAnalytics": "UA-146274840-2",
     "apiUrl": "https://admin.rivermas.com",
@@ -78,9 +105,18 @@
     "secondaryColor": "#001e60",
     "site": "https://www.udechile.cl/",
     "socialNetworks": [
-      { "name": "Facebook", "link": "https://www.facebook.com/ClubUniversidadDeChileOficial" },
-      { "name": "Instagram", "link": "https://instagram.com/udechileoficial" },
-      { "name": "Twitter", "link": "https://www.twitter.com/udechile" }
+      {
+        "name": "Facebook",
+        "link": "https://www.facebook.com/ClubUniversidadDeChileOficial"
+      },
+      {
+        "name": "Instagram",
+        "link": "https://instagram.com/udechileoficial"
+      },
+      {
+        "name": "Twitter",
+        "link": "https://www.twitter.com/udechile"
+      }
     ],
     "googleAnalytics": "UA-146274840-3",
     "apiUrl": "https://admin.laumas.cl",
@@ -99,15 +135,24 @@
     "supportersAKA": "Atl Nacional",
     "color": "#9a3324",
     "secondaryColor": "#000",
-    "site": "https://www.udechile.cl/",
+    "site": "https://www.atlnacional.com.co/",
     "socialNetworks": [
-      { "name": "Facebook", "link": "https://www.facebook.com/ClubUniversidadDeChileOficial" },
-      { "name": "Instagram", "link": "https://instagram.com/udechileoficial" },
-      { "name": "Twitter", "link": "https://www.twitter.com/udechile" }
+      {
+        "name": "Facebook",
+        "link": "https://www.facebook.com/nacionaloficial/"
+      },
+      {
+        "name": "Instagram",
+        "link": "https://www.instagram.com/nacionaloficial/"
+      },
+      {
+        "name": "Twitter",
+        "link": "https://twitter.com/nacionaloficial"
+      }
     ],
-    "googleAnalytics": "UA-146274840-3",
+    "googleAnalytics": "",
     "apiUrl": "http://atlnacional.dowhile.com.br",
-    "lang": "es-CL",
+    "lang": "es-Co",
     "loadingColor": "primary",
     "backgroundColor": "#000",
     "backgroundContrastColor": "#202364",
