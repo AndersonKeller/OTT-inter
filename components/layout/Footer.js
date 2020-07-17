@@ -174,7 +174,7 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
         <div className="row align-items-center">
 
           <div className="col-12 col-sm-4 text-md-left">
-            <p>{`${appName} ${versionsLine} @ 2020 - Todos los derechos reservados`}</p>
+            <p>{`${appName} @ 2020 - Todos los derechos reservados`}</p>
           </div>
 
           {/* social icons */}

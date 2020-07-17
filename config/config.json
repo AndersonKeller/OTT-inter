@@ -151,7 +151,7 @@
       }
     ],
     "googleAnalytics": "",
-    "apiUrl": "http://atlnacional.dowhile.com.br",
+    "apiUrl": "https://atlnacional.dowhile.com.br",
     "lang": "es-Co",
     "loadingColor": "primary",
     "backgroundColor": "#000",
