@@ -8,7 +8,7 @@ export default ({ alt = CONFIG.clubName, className = '', style = {} }) => {
   return (
     <>
 
-      <img alt={alt} className={classes} src={`${STATIC_PATH}/logos/club.svg`} style={style} />
+      <img alt={alt} className={classes} src={`${STATIC_PATH}/logos/club.png`} style={style} />
 
       <style jsx>{`
         img {

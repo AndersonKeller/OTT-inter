@@ -133,7 +133,7 @@
     "fullClubName": "Atlético Nacional",
     "shortClubName": "Atl. Nacional",
     "supportersAKA": "Atl Nacional",
-    "color": "#9a3324",
+    "color": "#00953f",
     "secondaryColor": "#000",
     "site": "https://www.atlnacional.com.co/",
     "socialNetworks": [
@@ -155,8 +155,8 @@
     "lang": "es-Co",
     "loadingColor": "primary",
     "backgroundColor": "#000",
-    "backgroundContrastColor": "#202364",
-    "backgroundContrastColor2": "#293989",
-    "textColor": "#bec3db"
+    "backgroundContrastColor": "#00953f",
+    "backgroundContrastColor2": "#005a26",
+    "textColor": "#c5dbbe"
   }
 }
