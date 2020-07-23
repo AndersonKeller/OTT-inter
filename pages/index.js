@@ -68,10 +68,8 @@ HomePage.getInitialProps = async ctx => {
   try {
     const [ firstContent, ...contents ] = homePage.contents
     const { data: { movie: featuredMedia } } = await api.get('movie/' + firstContent.slug + '?for=home-cover')
-    console.log("\n\n\nDeu certo\n\n\n");
     return { contents, featuredMedia }
   } catch (error) {
-    console.log("\n\n\nCaiu em erro\n\n\n");
     const [ ...contents ] = homePage.contents;
     return { contents , featuredMediaError: error };
   }
