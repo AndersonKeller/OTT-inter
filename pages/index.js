@@ -27,6 +27,7 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, layoutProp
 
         {/* cover */}
         <Cover error={featuredMediaError} media={featuredMedia} />
+        {/* <Cover media={featuredMedia} /> */}
 
         {/* contents */}
         <div className="index__contents">
@@ -62,14 +63,15 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, layoutProp
 
 HomePage.getInitialProps = async ctx => {
   const { api } = ctx
-  console.log(api);
+  const { data: homePage } = await api.get('pages/home');
+
   try {
-    const { data: homePage } = await api.get('pages/home')
     const [ firstContent, ...contents ] = homePage.contents
     const { data: { movie: featuredMedia } } = await api.get('movie/' + firstContent.slug + '?for=home-cover')
     return { contents, featuredMedia }
   } catch (error) {
-    return { featuredMediaError: error }
+    const [ ...contents ] = homePage.contents;
+    return { contents , featuredMediaError: error };
   }
 }
 
@@ -124,13 +126,17 @@ const Cover = ({ error, media }) => {
     <div className="cover container-fluid">
 
       {/* poster backaground banner image */}
-      <div className="cover__img row">
-        <div className="col p-0">
-          <CoverImgContent posterUrl={poster_url}>
-            <img alt="" className="d-none" src={poster_url} />
-          </CoverImgContent>
+      {
+        poster_url && (
+        <div className="cover__img row">
+          <div className="col p-0">
+            <CoverImgContent posterUrl={poster_url}>
+              <img alt="" className="d-none" src={poster_url} />
+            </CoverImgContent>
+          </div>
         </div>
-      </div>
+        )
+      }
 
       <div className="cover__contents row">
         <div className="col-12 col-md-4 offset-md-1">

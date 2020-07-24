@@ -135,11 +135,13 @@ const DesktopMenu = ({ data: menus }) => {
         .menu a:focus,
         .menu a:hover,
         .menu a.active,
+        .menu a,
         .menu :global(.dropdown-toggle):focus,
         .menu :global(.dropdown-toggle):hover {
           background-color: transparent;
           box-shadow: none !important;
           color: #fff;
+          cursor: pointer;
         }
         .menu :global(.dropdown-toggle)::after {
           display: none;
