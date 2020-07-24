@@ -244,7 +244,7 @@ const Cover = ({ error, media }) => {
             top: 0;
           }
           .cover__infos {
-            margin-bottom: 30px;
+            margin-bottom: 15px;
           }
         }
       `}</style>
