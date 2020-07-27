@@ -167,7 +167,7 @@
     "supportersAKA": "Independiente",
     "color": "#ec1c24",
     "secondaryColor": "#000",
-    "site": "https://www.atlnacional.com.co/",
+    "site": "http://www.clubaindependiente.com/",
     "socialNetworks": [
       {
         "name": "Facebook",
@@ -183,7 +183,7 @@
       }
     ],
     "googleAnalytics": "",
-    "apiUrl": "http://independiente.somosgad.com.br",
+    "apiUrl": "https://independiente.dowhile.com.br",
     "lang": "es-AR",
     "loadingColor": "primary",
     "backgroundColor": "#000000",
