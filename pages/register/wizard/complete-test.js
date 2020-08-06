@@ -1,6 +1,7 @@
 import withAuth from "~/components/withAuth";
 import Layout from "~/components/layout/Layout";
 import UserData from "./user-data";
+import UserAddress from "./user-address"
 import { useState } from "react";
 import { IS_PRODUCTION } from "~/constants/constants";
 
@@ -55,9 +56,14 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
           handleSubmit={ handleSubmit }
         />
       case 1:
+        return <UserAddress
+          api={ api }
+          layoutProps={ layoutProps }
+          handleSubmit={ handleSubmit }/>
+      case 2:
         return <Packages packages={ packages } layoutProps={ layoutProps } selectPackage={ selectPackage }
                          handleSubmit={ handleSubmit }/>
-      case 2:
+      case 3:
         return <Payment
           { ...{
             package_id: values.package_id,
@@ -74,11 +80,37 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
   return (
 
-    <Layout>
-
+    <Layout header={ "hidden" } footer={ "hidden" }>
       <MultiStepIndicator index={ wizardIndex } onClick={ handleSubmit }/>
-
-      { renderComponents() }
+      <div
+        className="d-flex align-items-center justify-content-center h-100"
+        style={ {
+          padding: "50 20",
+          backgroundImage: "url('/static/atlnacional/subs/background.jpg')",
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat'
+        } }>
+        <div className="card" style={ {
+          width: "100%",
+          maxWidth: "800px",
+          margin: "50px 0",
+          backgroundColor: "rgba(255,255,255,0.85)",
+          borderRadius: "0",
+          border: "none"
+        } }>
+          <div className={ "card-header text-center" } style={ {
+            backgroundColor: "#000",
+            padding: "25px 15px",
+            border: "none",
+            borderRadius: "0",
+          } }>
+            <img src="/static/atlnacional/logos/logo_project.png" alt="Nacional Play"/>
+          </div>
+          <div className="card-body">
+            { renderComponents() }
+          </div>
+        </div>
+      </div>
 
     </Layout>
 

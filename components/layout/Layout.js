@@ -9,18 +9,19 @@ import CustomError from '~/pages/_error'
 import withApi from '../withApi'
 
 const Layout = ({
-  apiVersion,
-  children,
-  color: layoutColor = 'black',
-  errorCode,
-  header,
-  menus,
-  menusError,
-  paddingTop = true,
-}) => {
+                  apiVersion,
+                  children,
+                  color: layoutColor = 'black',
+                  errorCode,
+                  header,
+                  menus,
+                  menusError,
+                  paddingTop = true,
+                  footer = ''
+                }) => {
 
   if (errorCode) {
-    return <CustomError statusCode={errorCode} />
+    return <CustomError statusCode={ errorCode }/>
   }
   if (header === 'closed') {
     paddingTop = false
@@ -33,43 +34,58 @@ const Layout = ({
       let messages = JSON.parse(flash_message)
       console.log(messages)
 
-      if(messages.error)
-        toast.error(messages.error, {delay: 500, autoClose: 5000})
+      if (messages.error)
+        toast.error(messages.error, { delay: 500, autoClose: 5000 })
 
-      if(messages.success)
-        toast.success(messages.success, {delay: 500, autoClose: 4000})
+      if (messages.success)
+        toast.success(messages.success, { delay: 500, autoClose: 4000 })
 
-      if(messages.info)
-        toast.info(messages.info, {delay: 500, autoClose: 4000})
+      if (messages.info)
+        toast.info(messages.info, { delay: 500, autoClose: 4000 })
 
       nookies.destroy({}, 'flash_message', { path: '/' })
     }
   }, [flash_message])
 
-  return (
-    <>
-      <ToastContainer newestOnTop />
-
-      <Header {...{
+  function renderHeader() {
+    if (header !== 'hidden') {
+      return <Header { ...{
         closed: header === 'closed',
         layoutColor,
         menus: menusError ? null : menus,
-      }} />
+      } } />
+    }
+    paddingTop = false
+    return null
+  }
 
-      <main className={ ! paddingTop ? 'no-padding' : ''}>
-        {children}
+  function renderFooter() {
+    if (footer !== 'hidden') {
+      return <Footer apiVersion={ apiVersion } layoutColor={ layoutColor }/>
+    }
+    return null
+  }
+
+  return (
+    <>
+      <ToastContainer newestOnTop/>
+
+      { renderHeader() }
+
+      <main className={ !paddingTop ? 'no-padding' : '' }>
+        { children }
       </main>
 
-      <Footer apiVersion={apiVersion} layoutColor={layoutColor} />
+      { renderFooter() }
 
-      <AuthModal />
+      <AuthModal/>
 
-      <style jsx global>{`
+      <style jsx global>{ `
         :root {
-          --color: var(--${layoutColor === 'white' ? 'black' : 'white'});
+          --color: var(--${ layoutColor === 'white' ? 'black' : 'white' });
         }
         body {
-          ${layoutColor === 'white' ? 'background-color: var(--white) !important;' : ''});
+          ${ layoutColor === 'white' ? 'background-color: var(--white) !important;' : '' });
         }
         main {
           flex-grow: 1;
@@ -78,7 +94,7 @@ const Layout = ({
         main.no-padding {
           padding-top: 0;
         }
-      `}</style>
+      ` }</style>
     </>
   );
 }
