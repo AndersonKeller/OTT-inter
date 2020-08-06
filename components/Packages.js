@@ -38,8 +38,6 @@ const Packages = ({
   // return
   return (
     <section className="packages">
-      <h3 className="h3">Selecciona tu plan</h3>
-
       <div className="row gutter-15 packages__list">
         { items && items.map((item, key) => {
           let discount = discounts ? discounts.find(disc => disc.id == item.id) : null
@@ -90,23 +88,26 @@ export const PackageRadio = ({
 
       <span className="fake-input">
 
+        <div className="suscripcion">Suscripción</div>
         {/* name */ }
-        <span className="d-block name">{ plan.name }</span>
+        <div className="d-block name">{ plan.name }</div>
 
         {/* value */ }
         { (plan.amount !== plan.amount_with_discount ||
           plan.amount === 0 && !discount) && (
-          <span className={ discount ? 'discount-value' : 'value' }>
+          <div className={ discount ? 'discount-value' : 'value' }>
             { (plan.currency === 'ars' ? '$' : '') + plan.amount }
-          </span>
+          </div>
         ) }
 
         {/* discount */ }
         { discount && (
-          <span className="value">
+          <div className="value">
             { (plan.currency === 'ars' ? '$' : '') + plan.amount_with_discount }
-          </span>
+          </div>
         ) }
+
+        <div className={ "btn-suscribir" }>Suscribir</div>
 
       </span>
 
@@ -123,16 +124,18 @@ export const PackageRadio = ({
           position: absolute;
         }
         .fake-input {
-          border: 1px solid lightgray;
-          border-radius: 4px;
           display: block;
           padding: 15px;
           transition: border-color .3s;
+          background-color: #282828;
+          color: #FFF;
         }
         input:checked + .fake-input {
-          border-color: var(--primary);
-          border-width: 2px;
+          //border-color: var(--primary);
+          //border-width: 2px;
           padding: 14px;
+          background-color: var(--primary);
+      
         }
         .name {
           font-size: 1.33em;
@@ -147,7 +150,25 @@ export const PackageRadio = ({
           cursor: default;
         }
         .value {
+          margin-top: 1.4em;
+          font-weight: bold;
         }
+    
+        .btn-suscribir {
+          margin-top: 1.3em;
+          background-color: transparent !important;
+          border: 1px solid #FFF !important;
+          font-weight: normal;
+          border-radius: 4.6px;
+          color: #FFF;
+          padding: 0.8em 1em;
+          font-size: 0.8em;
+        }         
+        .suscripcion {
+          margin: 0 0 1.4em 0;
+          font-weight: bold;
+        }
+    
       ` }</style>
     </label>
   )

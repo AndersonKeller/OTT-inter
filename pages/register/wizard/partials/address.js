@@ -75,8 +75,6 @@ const Address = ({
 
   return (
     <div className="address">
-      <h3 className="h3">Ubicación</h3>
-
       {/* country */ }
       <SelectFormGroup
         error={ error }
