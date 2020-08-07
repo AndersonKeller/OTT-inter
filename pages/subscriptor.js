@@ -2,8 +2,8 @@ import Color from 'color'
 import Head from 'next/head'
 import { useContext, useEffect, useState } from 'react'
 import { ThemeContext } from 'styled-components'
-import AppLogo from '~/components/AppLogo'
-import ClubLogo from '~/components/ClubLogo'
+import AppLogo from '~/components/LogoApp'
+import ClubLogo from '~/components/LogoClub'
 import Button from '~/components/button'
 import H2 from '~/components/h2'
 import Layout from '~/components/layout/Layout'
@@ -20,17 +20,17 @@ function SubscriptorPage({ layoutProps, mainPackage }) {
 
   const playersName = TENANT === 'river' ? 'Franco Armani' :
     TENANT === 'colocolo' ? 'Valdivia' :
-    TENANT === 'lau' ? 'Walter Damián Montillo' :
-    'Todos los jugadores están'
+      TENANT === 'lau' ? 'Walter Damián Montillo' :
+        'Todos los jugadores están'
 
   const section2Alt = TENANT === 'river' ? `${playersName} con un trofeo` :
     TENANT === 'coloclo' ? `${playersName} chutando` :
-    TENANT === 'lau' ? 'Walter Damián Montillo en la firma mostrando sua camisa número 10' : null
+      TENANT === 'lau' ? 'Walter Damián Montillo en la firma mostrando sua camisa número 10' : null
 
   const section2Text = CONFIG.lang === 'es-CL' ? 'Vélo donde y cuando quieras.' : 'Mira donde y cuando quieras.'
 
   const section3Text = TENANT === 'river' ? '¡Destacados del club y contenido exclusivo para ver tantas veces como quieras!' :
-  TENANT === 'lau' ? 'Campeones 1994: rompiendo 25 años de maldición' : null
+    TENANT === 'lau' ? 'Campeones 1994: rompiendo 25 años de maldición' : null
 
   return (
     <Layout {...layoutProps} header="closed">
@@ -106,7 +106,7 @@ SubscriptorPage.getInitialProps = async ({ api }) => {
       const { data: config } = await api.get(`configs`)
       const { package: value } = config
       return value
-    } catch(err) {
+    } catch (err) {
       return null
     }
   })()
@@ -120,16 +120,16 @@ const Packages = () => {
 
   const { openAuthModal } = useContext(AuthModalContext)
   const { user } = useContext(UserContext)
-  const [ packages, setPackages ] = useState()
-  const [ error, setError ] = useState()
-  const [ loading, setLoading ] = useState(false)
+  const [packages, setPackages] = useState()
+  const [error, setError] = useState()
+  const [loading, setLoading] = useState(false)
 
   // fetch packages
   useEffect(_ => {
     async function fetchData() {
       setLoading(true)
       try {
-        const {data} = await api().get('/packages')
+        const { data } = await api().get('/packages')
         setPackages(data)
       } catch (error) {
         setError(true)
@@ -161,49 +161,49 @@ const Packages = () => {
           <Loading loadingState={loading} />
 
           {/* prices */}
-          { packages && (
+          {packages && (
             <div>
-              { packages.length ? (
+              {packages.length ? (
                 <div className="cards">
                   <div className="row justify-content-center gutter-15">
-                    { packages.map((item, key) => (
-                      <div className="col-12 col-sm-6 col-lg-4 col-xl" {...{key}}>
+                    {packages.map((item, key) => (
+                      <div className="col-12 col-sm-6 col-lg-4 col-xl" {...{ key }}>
                         <div className={`card ${item.amount === 0 ? 'card--free' : ''}`}>
                           <div className="card-heading">Suscripción</div>
                           <div className="time">{item.name}</div>
-                          { item.amount !== 0 && (
+                          {item.amount !== 0 && (
                             <div className="value">
-                              { item.price }
+                              {item.price}
                             </div>
-                          ) }
-                          { ! user && (item.amount === 0 ? (
+                          )}
+                          {!user && (item.amount === 0 ? (
                             <Button
                               block
                               onClick={(e) => choosePackage(e, item.id)}
                             >{probaGratis}</Button>
                           ) : (
-                            <Button
-                              block
-                              color="secondary"
-                              onClick={(e) => choosePackage(e, item.id)}
-                              outline
-                            >Suscribir</Button>
-                          )) }
+                              <Button
+                                block
+                                color="secondary"
+                                onClick={(e) => choosePackage(e, item.id)}
+                                outline
+                              >Suscribir</Button>
+                            ))}
                         </div>
                       </div>
-                    )) }
+                    ))}
                   </div>
                 </div>
               ) : (
-                <p>No hay paquetes definidos.</p>
-              ) }
+                  <p>No hay paquetes definidos.</p>
+                )}
             </div>
-          ) }
+          )}
 
           {/* error */}
-          { error && (
+          {error && (
             <p>No se pudieron obtener los paquetes.</p>
-          ) }
+          )}
 
         </div>
       </div>
@@ -388,13 +388,13 @@ const Section1 = ({ mainPackage }) => {
 
   const minHeight = windowWidth >= 1400 ? 0 :
     windowWidth >= 1200 ? chromeLaptopHeight - headerHeight :
-    iPhone4Height - headerHeight - footerHeight
+      iPhone4Height - headerHeight - footerHeight
 
   const maxHeight = windowWidth >= 1400 ? 740 :
     windowWidth >= 1200 ? windowHeight :
-    windowWidth >= 992 ? 525 :
-    windowWidth >= 768 ? 450 :
-    windowHeight
+      windowWidth >= 992 ? 525 :
+        windowWidth >= 768 ? 450 :
+          windowHeight
 
   const sectionHeight = Math.max(minHeight,
     Math.min(maxHeight,
@@ -408,7 +408,7 @@ const Section1 = ({ mainPackage }) => {
 
   const leadText = `¡${CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos ${TENANT === 'river' ? 'del Más Grande' : CONFIG.appName}!`
 
-  const minPrice = TENANT === 'lau' ? '$1.699' : mainPackage ? '$'+mainPackage.amount : null
+  const minPrice = TENANT === 'lau' ? '$1.699' : mainPackage ? '$' + mainPackage.amount : null
   /*
   new Intl.NumberFormat('es-AR', {
     style: 'currency', currency: 'ARS',
