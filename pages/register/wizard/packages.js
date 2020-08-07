@@ -1,13 +1,18 @@
 import withApi from "~/components/withApi";
 import Packages from "~/components/Packages";
-import { useCallback, useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import Button from "~/components/button";
+import { ThemeContext } from "styled-components";
+import Color from "color";
 
 const PackagesDetails = ({ packages, layoutProps, selectPackage, handleSubmit }) => {
 
   const [values, setValues] = useState({
     package_id: '',
   })
+
+  const theme = useContext(ThemeContext)
+  const primaryColor = Color(theme.colors.primary).hsl().string()
 
   const [blockDiscountFields, setBlockDiscountFields] = useState(false)
   const [loading, setLoading] = useState()
@@ -21,7 +26,7 @@ const PackagesDetails = ({ packages, layoutProps, selectPackage, handleSubmit })
     try {
       setLoading(true);
       selectPackage(values.package_id);
-      handleSubmit(2);
+      handleSubmit(3);
       setLoading(false);
     } catch (e) {
       console.error(e)
@@ -42,24 +47,60 @@ const PackagesDetails = ({ packages, layoutProps, selectPackage, handleSubmit })
   return (
 
 
-    <div className="col-md-8 offset-2">
-
-      <h1>Selecciona tu plan</h1>
+    <div className="col-md-12">
       <form method="post" onSubmit={ submit }>
+        <div className="register-confirm container text-center">
 
-        <Packages { ...{
-          error: packages.error ? packages.error : null,
-          items: packages.items ? packages.items : null,
-          onChange: onPackageChange,
-          package_id: values.package_id,
-          validationError: !loading && error && error.errors && error.errors.package_id,
-          discount_id: values.discount_id,
-          setBlockDiscountFields,
-        } } />
+          <h2 className="card-title"><span className={ "text-primary" }>¡</span>Sé parte de <strong
+            className="text-primary">NACIONAL</strong>PLAY<span className={ "text-primary" }>!</span></h2>
+          <div className="card-subtitle d-inline-block">
+            ¡Elige tu plan!
+          </div>
 
-        <div className="text-right">
-          <Button block color="secondary" disabled={ loading } loading={ loading } type="submit">Próximo</Button>
+          <Packages { ...{
+            error: packages.error ? packages.error : null,
+            items: packages.items ? packages.items : null,
+            onChange: onPackageChange,
+            package_id: values.package_id,
+            validationError: !loading && error && error.errors && error.errors.package_id,
+            discount_id: values.discount_id,
+            setBlockDiscountFields,
+          } } />
+
+          <div className="row mt-3">
+            <div className="col-md-12">
+              <div className="text-center">
+                <Button color="secondary" disabled={ loading } loading={ loading } type="submit">Siguiente</Button>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <style jsx>{ `
+        
+        h2.card-title {
+          font-weight: normal;
+          color: #000;
+          margin-bottom: 1em;
+          font-size: 1.7em;
+        }
+        div.card-subtitle {
+          font-size: 1.1em;
+          font-weight: 500;
+          margin-bottom: 2.5em;
+          max-width: 380px;
+        }
+        
+        .text-primary {
+           color: ${ primaryColor } !important;
+        }
+        .register-confirm {
+          padding-top: 50px;
+          padding-bottom: 50px;
+          color: #666666;
+        }
+        
+      ` }</style>
       </form>
 
     </div>

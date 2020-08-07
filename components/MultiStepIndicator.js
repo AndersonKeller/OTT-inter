@@ -1,6 +1,6 @@
 const MultiStepIndicator = ({ index, onClick }) => {
   return (
-    <nav>
+    <nav style={ { display: "none" } }>
       <ol className="cd-breadcrumb triangle">
         <li onClick={ () => onClick(0) } className={ index === 0 ? "current" : "" }><a href="javascript:;">Seus
           dados</a></li>

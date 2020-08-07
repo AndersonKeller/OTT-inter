@@ -11,6 +11,8 @@ import Button from "~/components/button";
 import MaskedInput from 'react-text-mask'
 import UserContext from "~/contexts/UserContext";
 import Router from "next/router";
+import { ThemeContext } from "styled-components";
+import Color from "color";
 
 const Payment = ({
                    layoutProps,
@@ -20,6 +22,9 @@ const Payment = ({
                    api,
                    requireds
                  }) => {
+
+  const theme = useContext(ThemeContext)
+  const primaryColor = Color(theme.colors.primary).hsl().string()
 
   const [ready, status] = useScript('https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js')
 
@@ -267,157 +272,184 @@ const Payment = ({
   }
 
   return (
-    <div className="row">
-      <div className="offset-md-2 col-md-8">
+    <div className="register-confirm container text-center">
 
-        <h3 className="h3">Pago</h3>
+      <h2 className="card-title"><span className={ "text-primary" }>¡</span>Sé parte de <strong
+        className="text-primary">NACIONAL</strong>PLAY<span className={ "text-primary" }>!</span></h2>
+      <div className={ "card-subtitle" }>
+        ¡Antes de seguir, queremos saber más de ti!
+      </div>
+      <h3 className="h3">Pago</h3>
 
-        <div className="row">
+      <div className="row">
 
-          <div className="col-md-6 paymentMethod">
-            <div className="row">
-              <div className="row w-100">
+        <div className="col-md-6 paymentMethod">
+          <div className="row">
+            <div className="row w-100">
+              <div className="col-12">
+                <FormGroup>
+                  <Label htmlFor="paymentMethodId" style="margin: 0;">Pague com</Label>
+                  <Select
+                    id="paymentMethodId"
+                    name="paymentMethodId"
+                    required={ requireds }
+                    onChange={ onPaymentChange }
+                    value={ values.paymentMethodId }
+                  >
+                    <option value="0">Selecione</option>
+                    { paymentMethods && paymentMethods.map((paymentMethod, key) => (
+                      <option
+                        key={ paymentMethod.id }
+                        state={ values.paymentMethodId }
+                        value={ paymentMethod.id }
+                      >
+                        { paymentMethod.name }
+                      </option>
+                    )) }
+                  </Select>
+                  <InvalidFeedback error={ error } loading={ loading } name="paymentMethodId"/>
+                </FormGroup>
+              </div>
+            </div>
+            { values.paymentMethodId == 1 && (
+              <div className="row">
                 <div className="col-12">
                   <FormGroup>
-                    <Label htmlFor="paymentMethodId" style="margin: 0;">Pague com</Label>
-                    <Select
-                      id="paymentMethodId"
-                      name="paymentMethodId"
-                      required={ requireds }
-                      onChange={ onPaymentChange }
-                      value={ values.paymentMethodId }
-                    >
-                      <option value="0">Selecione</option>
-                      { paymentMethods && paymentMethods.map((paymentMethod, key) => (
-                        <option
-                          key={ paymentMethod.id }
-                          state={ values.paymentMethodId }
-                          value={ paymentMethod.id }
-                        >
-                          { paymentMethod.name }
-                        </option>
-                      )) }
-                    </Select>
-                    <InvalidFeedback error={ error } loading={ loading } name="paymentMethodId"/>
+                    <Label htmlFor="cardHolderName">Nombre impreso en tarjeta</Label>
+                    <Input id="cardHolderName" name="cardHolderName" required={ requireds } type="text"
+                           onChange={ handleInputChange }/>
                   </FormGroup>
                 </div>
+                <div className="col-12">
+                  <FormGroup>
+                    <Label htmlFor="cardNumber">Nro Cartão</Label>
+                    <img src={ cardImg } className="creditCardBrand"/>
+                    <MaskedInput
+                      mask={ [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/] }
+                      guide={ false }
+                      className={ "form-control" }
+                      onChange={ handleInputChangeCreditCardNumber }
+                      id="cardNumber" name="cardNumber"
+                    />
+                    <InvalidFeedback error={ error } loading={ loading } name="cardNumber"/>
+                  </FormGroup>
+                </div>
+                <div className="col-12">
+                  <FormGroup>
+                    <Label htmlFor="docNumber">Documento</Label>
+                    <Input
+                      className={ "form-control" }
+                      onChange={ handleInputChange }
+                      id="docNumber" name="docNumber"
+                      maxLength={ 20 }
+                    />
+                    <InvalidFeedback error={ error } loading={ loading } name="docNumber"/>
+                  </FormGroup>
+                </div>
+                <div className="col-6">
+                  <FormGroup>
+                    <Label htmlFor="card-duedate">Dt Vencimento</Label>
+                    <MaskedInput
+                      mask={ [/\d/, /\d/, '/', /\d/, /\d/,] }
+                      guide={ false }
+                      className={ "form-control" }
+                      placeholder={ "MM/AA" }
+                      name={ "cardExpirationDate" }
+                      onChange={ handleInputChange }
+                    />
+                    <InvalidFeedback error={ error } loading={ loading } name="cardExpirationDate"/>
+                  </FormGroup>
+                </div>
+                <div className="col-6">
+                  <FormGroup>
+                    <Label htmlFor="card-cvv">CVV</Label>
+                    <MaskedInput
+                      mask={ [/\d/, /\d/, /\d/] }
+                      guide={ false }
+                      className={ "form-control" }
+                      name={ "cardSecurityCode" }
+                      onChange={ handleInputChange }
+                      placeholder={ "***" }
+                    />
+                    <InvalidFeedback error={ error } loading={ loading } name="cardSecurityCode"/>
+                  </FormGroup>
+                </div>
+                <div className="col-12">
+                  <Button block color="secondary" type="button" disabled={ loading }
+                          loading={ loading } onClick={ submitCredit }>Pagar</Button>
+                </div>
               </div>
-              { values.paymentMethodId == 1 && (
-                <div className="row">
-                  <div className="col-12">
-                    <FormGroup>
-                      <Label htmlFor="cardHolderName">Nombre impreso en tarjeta</Label>
-                      <Input id="cardHolderName" name="cardHolderName" required={ requireds } type="text"
-                             onChange={ handleInputChange }/>
-                    </FormGroup>
-                  </div>
-                  <div className="col-12">
-                    <FormGroup>
-                      <Label htmlFor="cardNumber">Nro Cartão</Label>
-                      <img src={ cardImg } className="creditCardBrand"/>
-                      <MaskedInput
-                        mask={ [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/] }
-                        guide={ false }
-                        class={ "form-control" }
-                        onChange={ handleInputChangeCreditCardNumber }
-                        id="cardNumber" name="cardNumber"
-                      />
-                      <InvalidFeedback error={ error } loading={ loading } name="cardNumber"/>
-                    </FormGroup>
-                  </div>
-                  <div className="col-12">
-                    <FormGroup>
-                      <Label htmlFor="docNumber">Documento</Label>
-                      <Input
-                        class={ "form-control" }
-                        onChange={ handleInputChange }
-                        id="docNumber" name="docNumber"
-                        maxLength={ 20 }
-                      />
-                      <InvalidFeedback error={ error } loading={ loading } name="docNumber"/>
-                    </FormGroup>
-                  </div>
-                  <div className="col-6">
-                    <FormGroup>
-                      <Label htmlFor="card-duedate">Dt Vencimento</Label>
-                      <MaskedInput
-                        mask={ [/\d/, /\d/, '/', /\d/, /\d/,] }
-                        guide={ false }
-                        class={ "form-control" }
-                        placeholder={ "MM/AA" }
-                        name={ "cardExpirationDate" }
-                        onChange={ handleInputChange }
-                      />
-                      <InvalidFeedback error={ error } loading={ loading } name="cardExpirationDate"/>
-                    </FormGroup>
-                  </div>
-                  <div className="col-6">
-                    <FormGroup>
-                      <Label htmlFor="card-cvv">CVV</Label>
-                      <MaskedInput
-                        mask={ [/\d/, /\d/, /\d/] }
-                        guide={ false }
-                        class={ "form-control" }
-                        name={ "cardSecurityCode" }
-                        onChange={ handleInputChange }
-                        placeholder={ "***" }
-                      />
-                      <InvalidFeedback error={ error } loading={ loading } name="cardSecurityCode"/>
-                    </FormGroup>
-                  </div>
-                  <div className="col-12">
-                    <Button block color="secondary" type="button" disabled={ loading }
-                            loading={ loading } onClick={ submitCredit }>Pagar</Button>
-                  </div>
-                </div>
-              ) }
+            ) }
 
-              { values.paymentMethodId == 3 && (
-                <div class={ "row" }>
-                  <div className="col-12">
-                    <Button block color="secondary" type="button" disabled={ loading }
-                            loading={ loading } onClick={ submitCredit }>Gerar Boleto</Button>
-                  </div>
+            { values.paymentMethodId == 3 && (
+              <div className={ "row" }>
+                <div className="col-12">
+                  <Button block color="secondary" type="button" disabled={ loading }
+                          loading={ loading } onClick={ submitCredit }>Gerar Boleto</Button>
                 </div>
-              ) }
+              </div>
+            ) }
 
-            </div>
           </div>
+        </div>
 
-          <div className="col-md-6">
-            <div class="product-summary">
-              <div className="product-image">
-                <img src="https://place-hold.it/280x125" alt=""/>
-              </div>
-              <div className={ "product-name-group" }>
+        <div className="col-md-6">
+          <div className="product-summary">
+            <div className="product-image">
+              <img src="https://place-hold.it/280x125" alt=""/>
+            </div>
+            <div className={ "product-name-group" }>
+              <h6>
+                Você está comprando:
+              </h6>
+              <p className={ "product-name" }>
+                Assinatura LaU Play - <strong>{ selectedPackage.name }</strong> recorrente
+              </p>
+            </div>
+            <div className={ "price-breakdown" }>
+              <div className="checkout-total">
                 <h6>
-                  Você está comprando:
+                  Total
                 </h6>
-                <p class={ "product-name" }>
-                  Assinatura LaU Play - <strong>{ selectedPackage.name }</strong> recorrente
+                <p className={ "price" }>
+                  $ { selectedPackage.amount }
                 </p>
               </div>
-              <div class={ "price-breakdown" }>
-                <div className="checkout-total">
-                  <h6>
-                    Total
-                  </h6>
-                  <p class={ "price" }>
-                    $ { selectedPackage.amount }
-                  </p>
-                </div>
+            </div>
+          </div>
+          <div className={ "row pay-methods" }>
+            { payMethods && payMethods.map((m, key) => {
+              return <div className={ "col-3 text-center" }>
+                <img src={ m.thumbnail } alt=""/>
               </div>
-            </div>
-            <div class={"row pay-methods"}>
-              { payMethods && payMethods.map((m, key) => {
-                return <div class={"col-3 text-center"}>
-                  <img src={ m.thumbnail } alt=""/>
-                </div>
-              }) }
-            </div>
+            }) }
           </div>
         </div>
       </div>
+      <style jsx>{ `
+        
+        h2.card-title {
+          font-weight: normal;
+          color: #000;
+          margin-bottom: 1em;
+          font-size: 1.7em;
+        }
+        div.card-subtitle {
+          font-size: 1.1em;
+          font-weight: 500;
+          margin-bottom: 2.5em;
+        }
+        
+        .text-primary {
+           color: ${ primaryColor } !important;
+        }
+        .register-confirm {
+          padding-top: 50px;
+          padding-bottom: 50px;
+          color: #666666;
+        }
+        
+      ` }</style>
     </div>
 
   )
