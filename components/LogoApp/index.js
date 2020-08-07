@@ -15,7 +15,7 @@ function LogoApp() {
   return (
 
     <>
-      <img className="img-fluid" src={` ${link}/images/club/${images.image_projeto}`} />
+      <img className="img-fluid" src={` ${link}/images/club${images.image_projeto}`} />
 
       <style jsx>{`
         img {
