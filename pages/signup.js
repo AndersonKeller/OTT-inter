@@ -1,7 +1,6 @@
 import Layout from "~/components/layout/Layout";
-import { useContext, useState } from "react";
-import { IS_PRODUCTION } from "~/constants/constants";
-import withApi from "~/components/withApi";
+import React, { useContext, useState } from "react";
+import { CLIENT_ID, CLIENT_SECRET, IS_PRODUCTION } from "~/constants/constants";
 import FormGroup from "~/components/layout/AuthModal/FormGroup";
 import Input from "~/components/layout/AuthModal/Input";
 import Button from "~/components/button";
@@ -13,21 +12,35 @@ import { ThemeContext } from "styled-components";
 import Color from "color";
 import Label from "~/components/Form/Label";
 import InvalidFeedback from "~/components/Form/InvalidFeedback";
+import { setAccessToken } from "~/services/auth";
+import Router from "next/router";
+import api from '../services/api'
 
-const Signup = ({ api, layoutProps }) => {
+const Signup = ({  }) => {
 
+
+  const handleInputChange = e => {
+    const { checked, name, value, type } = e.target
+    setValues({
+      ...values,
+      [name]: type === 'checkbox' ?
+        (checked ? (value === 'true' ? true : value) : false) :
+        value,
+    })
+  }
 
   const theme = useContext(ThemeContext)
   const primaryColor = Color(theme.colors.primary).hsl().string()
 
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const { signIn } = useContext(UserContext)
   const requireds = IS_PRODUCTION
-  const [userData, setUserData] = useState();
 
-  const [values, setValues] = useState({})
+  const [values, setValues] = useState({
+    name: '',
+    email: '',
+    password: '',
+    terms: false
+  })
 
   const [loading, setLoading] = useState()
   const [error, setError] = useState()
@@ -47,8 +60,33 @@ const Signup = ({ api, layoutProps }) => {
 
   }
 
-  const handleSubmit = (index, userData) => {
-
+  const handleSubmit = async e => {
+    e.preventDefault()
+    setLoading(true)
+    try {
+      const tokenResponse = await api().post('register', {
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET,
+        email: values.email,
+        name: values.name,
+        password: values.password,
+      })
+      const { access_token, } = tokenResponse.data
+      setAccessToken(access_token)
+      const userResponse = await api().get('user')
+      signIn(userResponse.data, tokenResponse.data)
+      Router.push({
+        pathname: '/subscribe'
+      }, '/register/wizard/complete-test')
+    } catch (error) {
+      if (error.response) {
+        setError(error.response.data)
+      } else {
+        setError('An error has occurred!')
+        console.log('error', error)
+      }
+    }
+    setLoading(false)
   }
 
   return (
@@ -106,43 +144,39 @@ const Signup = ({ api, layoutProps }) => {
                       id="name"
                       name="name"
                       value={ values.name }
+                      onChange={ handleInputChange }
+                      required
                       // onChange={ handleInputChange }
                     />
-                    {/*<InvalidFeedback error={ error } loading={ loading } name="name"/>*/ }
+                    <InvalidFeedback error={ error } loading={ loading } name="name"/>
                   </FormGroup>
 
                   <FormGroup>
                     <Label htmlFor="name" className="text-dark">E-mail</Label>
                     <Input
-                      id="reg_email"
+                      id="email"
                       type="email"
                       name="email"
                       value={ values.email }
-                      // onChange={ handleInputChange }
+                      onChange={ handleInputChange }
+                      required
                     />
 
-                    {/*<InvalidFeedback error={ error } loading={ loading } name="name"/>*/ }
+                    <InvalidFeedback error={ error } loading={ loading } name="email"/>
                   </FormGroup>
 
                   <FormGroup>
                     <Label htmlFor="name" className="text-dark">Clave</Label>
                     <Input
-                      id="reg_password"
-                      // onChange={e => setPassword(e.target.value)}
+                      id="password"
+                      name="password"
                       required
                       type="password"
-                      // value={password}
+                      value={values.password}
+                      onChange={ handleInputChange }
                     />
-                    { error && error.errors && (
-                      <div className="invalid-feedback">{ error.errors.password }</div>
-                    ) }
+                    <InvalidFeedback error={ error } loading={ loading } name="password"/>
                   </FormGroup>
-
-                  {/* <FormGroup>
-          <Label hmtlFor="password_confirmation">Confirmación de Clave</Label>
-          <Input id="password_confirmation" type="password" />
-        </FormGroup> */ }
-
 
                   <div className="already-subscriptor">
                     {/*<span>{ alreadyRegistered }</span>*/ }
@@ -157,7 +191,7 @@ const Signup = ({ api, layoutProps }) => {
                       <input
                         checked={ values.terms }
                         name="terms"
-                        // onChange={ handleInputChange }
+                        onChange={ handleInputChange }
                         // required={ requireds }
                         type="checkbox"
                         value={ `true` }
@@ -173,7 +207,8 @@ const Signup = ({ api, layoutProps }) => {
                     <a className="bold text-uppercase" href="/login">Inicia sesión</a>
                   </div>
 
-                  <Button block className="enter-btn" size="sm" type="submit">Registrar</Button>
+                  <Button block className="enter-btn" size="sm" type="submit" loading={ loading }
+                          disabled={ loading }>Registrar</Button>
                 </form>
               </div>
             </div>
@@ -244,13 +279,5 @@ const Signup = ({ api, layoutProps }) => {
 
 }
 
-Signup.getInitialProps = async ctx => {
 
-  const { api } = ctx
-
-  // return
-  return {}
-}
-
-
-export default withApi(Signup);
+export default Signup;

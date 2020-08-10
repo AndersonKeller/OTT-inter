@@ -50,7 +50,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
     switch (wizardIndex) {
 
-      case 4:
+      case 0:
         return <UserData
           api={ api }
           layoutProps={ layoutProps }
@@ -75,7 +75,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
             requireds,
           } }
         />
-      case 0:
+      case 4:
         return <SubscriptionSuccess
           { ...{
             api
