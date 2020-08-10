@@ -1,4 +1,4 @@
-import ClubLogo from '~/components/ClubLogo'
+import ClubLogo from '~/components/LogoClub'
 import withApi from '~/components/withApi'
 
 const ReceiptPage = () => {

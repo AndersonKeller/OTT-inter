@@ -4,7 +4,8 @@ import { useContext, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { Tab } from 'react-bootstrap'
 import { ThemeContext } from 'styled-components'
-import AppLogo from '~/components/AppLogo'
+import AppLogo from '~/components/LogoApp'
+
 import { TENANT } from '~/constants/constants'
 import { AuthModalContext } from '~/contexts/AuthModalContext'
 import api from '~/services/api'
@@ -17,7 +18,7 @@ export default function AuthModal() {
   const { backTab, changeTab, closeAuthModal, show, tab, tabsHistory, packageId } = useContext(AuthModalContext)
   const facebookColor = '#3B5990'
   const googleColor = '#D44639'
-  const [ loading, setLoading ] = useState()
+  const [loading, setLoading] = useState()
 
   function back(e) {
     e.preventDefault()
@@ -56,35 +57,35 @@ export default function AuthModal() {
   const headerColor = theme.colors.backgroundContrast
 
   return (
-    <Modal backdrop={loading ? 'static' : true} className="login-modal" {...{onHide, show}}>
+    <Modal backdrop={loading ? 'static' : true} className="login-modal" {...{ onHide, show }}>
       <Modal.Header>
         <Modal.Title>
-          { tabsHistory.length > 1 ? (
+          {tabsHistory.length > 1 ? (
             <button className="back" disabled={loading} onClick={back} type="button">
               <img alt="Volver" height="23" src="/static/icons/back.svg" width="23" />
             </button>
           ) : (
-            <button className="close" disabled={loading} onClick={close} type="button">
-              <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23" />
-            </button>
-          )}
+              <button className="close" disabled={loading} onClick={close} type="button">
+                <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23" />
+              </button>
+            )}
           <AppLogo height={TENANT === 'lau' ? 45 : 30} verticalAlign="middle" />
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        { loading && (
+        {loading && (
           <ModalLoading />
         )}
-        <Tab.Container activeKey={tab} id="user-modal-tabs" {...{onSelect}}>
+        <Tab.Container activeKey={tab} id="user-modal-tabs" {...{ onSelect }}>
           <Tab.Content>
             <Tab.Pane eventKey="login">
-              <LoginTab {...{changeTab, setLoading, socialLogin }} />
+              <LoginTab {...{ changeTab, setLoading, socialLogin }} />
             </Tab.Pane>
             <Tab.Pane eventKey="password">
-              <PasswordTab {...{setLoading}} />
+              <PasswordTab {...{ setLoading }} />
             </Tab.Pane>
             <Tab.Pane eventKey="register">
-              <RegisterTab {...{changeTab, setLoading, socialLogin }} />
+              <RegisterTab {...{ changeTab, setLoading, socialLogin }} />
             </Tab.Pane>
           </Tab.Content>
         </Tab.Container>

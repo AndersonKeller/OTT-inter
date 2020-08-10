@@ -4,20 +4,21 @@ import { useRouter } from 'next/router'
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { GoSearch } from 'react-icons/go';
 import styled, { ThemeContext } from 'styled-components'
-import AppLogo from '~/components/AppLogo'
+// import AppLogo from '~/components/AppLogo'
 import { CONFIG } from '~/config'
-import { TENANT }  from '~/constants/constants'
+import { TENANT } from '~/constants/constants'
 import SearchContext from '~/contexts/SearchContext'
 import ActiveLink from '../ActiveLink'
-import ClubLogo from '../ClubLogo'
+import LogoClub from '../LogoClub'
 import DesktopMenu from './DesktopMenu'
 import UserMenu from './UserMenu'
+import LogoApp from '../LogoApp'
 
 const StyledHeader = styled.header`
   background-color: ${props => props.closed ? 'var(--background)' :
     props.scrolled ? Color(props.theme.colors.background).fade(.1).string() :
-    props.layoutColor === 'white' ? props.theme.colors.background : 'transparent'};
-  box-shadow: 0 0 5px rgba(var(--black-rgb), ${props => props.layoutColor !== 'white' && props.scrolled ? '.9' : '0' });
+      props.layoutColor === 'white' ? props.theme.colors.background : 'transparent'};
+  box-shadow: 0 0 5px rgba(var(--black-rgb), ${props => props.layoutColor !== 'white' && props.scrolled ? '.9' : '0'});
   color: ${props => props.theme.colors.texts};
   font-family: var(--sans-serif);
   font-size: 16px;
@@ -42,7 +43,7 @@ const Header = ({ closed, layoutColor, menus }) => {
     return hasWindow ? window.pageYOffset > 1 : false
   }
 
-  const [ scrolled, setScrolled ] = useState(hasScrolled())
+  const [scrolled, setScrolled] = useState(hasScrolled())
   useEffect(_ => {
     const handleScroll = _ => {
       setScrolled(hasScrolled())
@@ -56,7 +57,7 @@ const Header = ({ closed, layoutColor, menus }) => {
   const router = useRouter()
   const searchField = useRef(null)
   const { setSearch } = useContext(SearchContext)
-  const [ searchFieldValue, setSearchFieldValue ] = useState('')
+  const [searchFieldValue, setSearchFieldValue] = useState('')
 
   function handleSearchBtnFocus(e) {
     e.preventDefault()
@@ -89,18 +90,20 @@ const Header = ({ closed, layoutColor, menus }) => {
   const lightColor = theme.colors.texts
 
   return (
+
+
     <StyledHeader closed={closed} layoutColor={layoutColor} scrolled={scrolled}>
       <nav className="nav">
-
         {/* club logo */}
-        { ! closed && (
+        {!closed && (
           <HeaderClubLogo />
-        ) }
+        )}
+
 
         {/* logo */}
         <HeaderAppLogo closed={closed} />
 
-        { ! closed && (
+        {!closed && (
           <>
             {/* menu */}
             <DesktopMenu data={menus} />
@@ -142,7 +145,7 @@ const Header = ({ closed, layoutColor, menus }) => {
             <UserMenu />
 
           </>
-        ) }
+        )}
 
       </nav>
       <style jsx>{`
@@ -204,7 +207,7 @@ const Header = ({ closed, layoutColor, menus }) => {
           vertical-align: middle;
         }
       `}</style>
-    </StyledHeader>
+    </StyledHeader >
   )
 }
 
@@ -213,7 +216,7 @@ const HeaderClubLogo = _ => {
     <div className="club-logo">
       <Link href="/">
         <a>
-          <ClubLogo alt={`by ${CONFIG.clubName}`} />
+          <LogoClub />
         </a>
       </Link>
       <style jsx>{`
@@ -244,7 +247,7 @@ const HeaderAppLogo = ({ closed }) => {
     <h1 className="logo">
       <ActiveLink href="/">
         <a>
-          <AppLogo height={TENANT === 'lau' ? 30 : TENANT === 'river' ? 22 : 25} />
+          <LogoApp height={TENANT === 'lau' ? 30 : TENANT === 'river' ? 22 : 25} />
         </a>
       </ActiveLink>
       <style jsx>{`
