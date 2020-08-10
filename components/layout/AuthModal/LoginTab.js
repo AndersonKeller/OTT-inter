@@ -12,6 +12,7 @@ import nookies from 'nookies'
 import SocialButtons from './SocialButtons'
 import { CONFIG } from '~/config'
 import OrEnterWith from './OrEnterWith'
+import Router from "next/router";
 
 const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
   const [ email, setEmail ] = useState('')
@@ -87,7 +88,13 @@ const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
 
   function goToRegister(e) {
     e.preventDefault()
-    changeTab('register')
+    Router.push({
+      pathname: '/signup',
+      query: {
+        // download_link: order.download_link,
+        // link: order.link,
+      },
+    }, '/signup')
   }
 
   const notRegistered = CONFIG.lang === 'es-CL' ? '¿No estás suscrito?' : '¿No es suscriptor?'
