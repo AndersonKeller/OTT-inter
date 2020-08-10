@@ -51,9 +51,6 @@ const Signup = ({ api, layoutProps }) => {
 
   }
 
-  function renderComponents() {
-  }
-
   return (
 
     <Layout header={ "hidden" } footer={ "hidden" }>
@@ -239,7 +236,6 @@ const Signup = ({ api, layoutProps }) => {
         .already-subscriptor a {
           color: inherit;
         }
-         
       ` }</style>
       </div>
     </Layout>
@@ -250,11 +246,11 @@ const Signup = ({ api, layoutProps }) => {
 
 Signup.getInitialProps = async ctx => {
 
-  const { api, res, user } = ctx
+  const { api } = ctx
 
   // return
   return {}
 }
 
 
-export default Signup;
+export default withApi(Signup);

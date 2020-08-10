@@ -12,9 +12,11 @@ import nookies from 'nookies'
 import SocialButtons from './SocialButtons'
 import { CONFIG } from '~/config'
 import OrEnterWith from './OrEnterWith'
-import Router from "next/router";
+import { useRouter } from "next/router";
+// import Router from "next/router";
 
 const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
+  const router = useRouter()
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ error, setError ] = useState('')
@@ -88,12 +90,8 @@ const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
 
   function goToRegister(e) {
     e.preventDefault()
-    Router.push({
+    router.push({
       pathname: '/signup',
-      query: {
-        // download_link: order.download_link,
-        // link: order.link,
-      },
     }, '/signup')
   }
 
@@ -119,7 +117,7 @@ const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
         <div className="already-subscriptor">
           <span>{notRegistered}</span>
           {' '}
-          <a className="bold text-uppercase" href="/register" onClick={goToRegister}>Regístrate!</a>
+          <a className="bold text-uppercase" href="/signup">Regístrate!</a>
         </div>
 
         <OrEnterWith />
