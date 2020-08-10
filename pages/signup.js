@@ -239,7 +239,7 @@ const Signup = ({ api, layoutProps }) => {
         .already-subscriptor a {
           color: inherit;
         }
-        
+         
       ` }</style>
       </div>
     </Layout>
