@@ -2,6 +2,7 @@ import withAuth from "~/components/withAuth";
 import Layout from "~/components/layout/Layout";
 import UserData from "./user-data";
 import UserAddress from "./user-address"
+import SubscriptionSuccess from "./subscription-success"
 import { useState } from "react";
 import { IS_PRODUCTION } from "~/constants/constants";
 
@@ -49,7 +50,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
     switch (wizardIndex) {
 
-      case 0:
+      case 4:
         return <UserData
           api={ api }
           layoutProps={ layoutProps }
@@ -74,6 +75,12 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
             requireds,
           } }
         />
+      case 0:
+        return <SubscriptionSuccess
+          { ...{
+            api
+          }
+          }/>
 
     }
   }

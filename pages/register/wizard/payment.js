@@ -70,7 +70,7 @@ const Payment = ({
   const isCardPayment = [credit_card_id, debit_card_id].includes(values.paymentMethodId)
 
 
-  const [payMethods, setPayMethods] = useState([]);
+  const [payMethods, setPayMethods] = useState();
 
   useEffect(_ => {
     if (MercadoPago) {
@@ -151,6 +151,7 @@ const Payment = ({
     }
     getPaymentMethods()
   }, [])
+
 
   // cash payment methods
   const [cashPaymentMethods, setCashPaymentMethods] = useState()
@@ -276,11 +277,6 @@ const Payment = ({
 
       <h2 className="card-title"><span className={ "text-primary" }>¡</span>Sé parte de <strong
         className="text-primary">NACIONAL</strong>PLAY<span className={ "text-primary" }>!</span></h2>
-      <div className={ "card-subtitle" }>
-        ¡Antes de seguir, queremos saber más de ti!
-      </div>
-      <h3 className="h3">Pago</h3>
-
       <div className="row">
 
         <div className="col-md-6 paymentMethod">
