@@ -42,7 +42,7 @@ export default function AuthModal() {
     let provider = e.currentTarget.innerText;
     try {
       nookies.set({}, 'pkg_int_id', JSON.stringify(packageId), { path: '/' })
-      const res = await api().get(`auth/${provider}`)
+      const res = await api().get(`auth/${ provider }`)
       // console.table(res)
       // console.log(res.data.url)
       window.location = res.data.url
@@ -57,41 +57,41 @@ export default function AuthModal() {
   const headerColor = theme.colors.backgroundContrast
 
   return (
-    <Modal backdrop={loading ? 'static' : true} className="login-modal" {...{ onHide, show }}>
+    <Modal backdrop={ loading ? 'static' : true } className="login-modal" { ...{ onHide, show } }>
       <Modal.Header>
         <Modal.Title>
-          {tabsHistory.length > 1 ? (
-            <button className="back" disabled={loading} onClick={back} type="button">
-              <img alt="Volver" height="23" src="/static/icons/back.svg" width="23" />
+          { tabsHistory.length > 1 ? (
+            <button className="back" disabled={ loading } onClick={ back } type="button">
+              <img alt="Volver" height="23" src="/static/icons/back.svg" width="23"/>
             </button>
           ) : (
-              <button className="close" disabled={loading} onClick={close} type="button">
-                <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23" />
-              </button>
-            )}
-          <AppLogo height={TENANT === 'lau' ? 45 : 30} verticalAlign="middle" />
+            <button className="close" disabled={ loading } onClick={ close } type="button">
+              <img alt="Cerrar" height="23" src="/static/icons/close.svg" width="23"/>
+            </button>
+          ) }
+          <AppLogo height={ TENANT === 'lau' ? 45 : 30 } verticalAlign="middle"/>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {loading && (
-          <ModalLoading />
-        )}
-        <Tab.Container activeKey={tab} id="user-modal-tabs" {...{ onSelect }}>
+        { loading && (
+          <ModalLoading/>
+        ) }
+        <Tab.Container activeKey={ tab } id="user-modal-tabs" { ...{ onSelect } }>
           <Tab.Content>
             <Tab.Pane eventKey="login">
-              <LoginTab {...{ changeTab, setLoading, socialLogin }} />
+              <LoginTab { ...{ changeTab, setLoading, socialLogin } } />
             </Tab.Pane>
             <Tab.Pane eventKey="password">
-              <PasswordTab {...{ setLoading }} />
+              <PasswordTab { ...{ setLoading } } />
             </Tab.Pane>
             <Tab.Pane eventKey="register">
-              <RegisterTab {...{ changeTab, setLoading, socialLogin }} />
+              <RegisterTab { ...{ changeTab, setLoading, socialLogin } } />
             </Tab.Pane>
           </Tab.Content>
         </Tab.Container>
       </Modal.Body>
 
-      <style jsx global>{`
+      <style jsx global>{ `
         .modal-backdrop.show {
           opacity: .68;
         }
@@ -128,7 +128,7 @@ export default function AuthModal() {
           border-radius: 0;
         }
         .login-modal .modal-header {
-          background-color: ${headerColor};
+          background-color: ${ headerColor };
           border-radius: 0;
           justify-content: center;
           padding: 10px;
@@ -216,12 +216,30 @@ export default function AuthModal() {
         .login-modal .social .icon {
           display: inline-block;
           height: 22px;
-          margin-top: -2px;
+          margin-top: 4px;
           margin-right: 5px;
           margin-left: -10px;
           vertical-align: middle;
           width: 22px;
         }
+        
+        .login-modal .social {
+          padding: 10px 20px !important;
+          width: 130px;
+          text-align: center;
+          justify-content: center;
+          vertical-align: middle;
+          display: flex;
+          line-height: 1.5;
+          align-items: center;
+        }
+        
+        .login-modal .social .icon {
+          margin: 0 10px 0 -10px !important;
+          height: auto;
+          width: auto;
+        }
+        
         .login-modal .social svg {
           display: block;
         }
@@ -230,34 +248,36 @@ export default function AuthModal() {
           transition: fill 150ms;
         }
         .login-modal .facebook {
-          background-color: ${facebookColor} !important;
-          margin-bottom: 5px;
+          //background-color: ${ facebookColor } !important;
+          //margin-bottom: 5px;
+          
         }
         .login-modal .facebook .cls-1 {
-          fill: ${Color(facebookColor)};
+          //fill: ${ Color(facebookColor) };
         }
         .login-modal .facebook:focus,
         .login-modal .facebook:hover {
-          background-color: ${Color(facebookColor).darken(.2)} !important;
+          // background-color: ${ Color(facebookColor).darken(.2) } !important;
         }
         .login-modal .facebook:focus .cls-1,
         .login-modal .facebook:hover .cls-1 {
-          fill: ${Color(facebookColor).darken(.2)};
+          // fill: ${ Color(facebookColor).darken(.2) };
         }
         .login-modal .google {
-          background-color: ${Color(googleColor)} !important;
-          margin-bottom: 5px;
+          // background-color: ${ Color(googleColor) } !important;
+          //margin-bottom: 5px;
+          
         }
         .login-modal .google .cls-3 {
-          fill: ${Color(googleColor)};
+          fill: ${ Color(googleColor) };
         }
         .login-modal .google:focus,
         .login-modal .google:hover {
-          background-color: ${Color(googleColor).darken(.2)} !important;
+          // background-color: ${ Color(googleColor).darken(.2) } !important;
         }
         .login-modal .google:focus .cls-3,
         .login-modal .google:hover .cls-3 {
-          fill: ${Color(googleColor).darken(.2)};
+          //fill: ${ Color(googleColor).darken(.2) };
         }
         @media (max-width: 768px) {
           .login-modal .facebook,
@@ -265,7 +285,7 @@ export default function AuthModal() {
             padding: 8px 15px;
           }
         }
-      `}</style>
+      ` }</style>
     </Modal>
   )
 }
