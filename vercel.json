@@ -1,14 +1,10 @@
 {
   "alias": ["atlnacional.vercel.app"],
-  "build": {
-    "env": {
-    }
-  },
   "routes": [
     { "src": "/fLogin", "dest": "/?modal=login&socialProvider=facebook" },
     { "src": "/gLogin", "dest": "/?modal=login&socialProvider=google" },
     { "src": "/login", "dest": "/?modal=login" }
   ],
   "scope": "somosgad",
-  "version": 10
+  "version": 100
 }
