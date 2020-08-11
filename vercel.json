@@ -6,5 +6,5 @@
     { "src": "/login", "dest": "/?modal=login" }
   ],
   "scope": "somosgad",
-  "version": 100
+  "version": 2
 }
