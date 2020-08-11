@@ -228,7 +228,7 @@ export default function AuthModal() {
           width: 130px;
           text-align: center;
           justify-content: center;
-          vertical-align: middle;
+          vertical-align: middle; 
           display: flex;
           line-height: 1.5;
           align-items: center;
