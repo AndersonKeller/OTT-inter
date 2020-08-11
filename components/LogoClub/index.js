@@ -8,10 +8,13 @@ function LogoApp() {
   const [link, setLink] = useState('https://laumas.s3.sa-east-1.amazonaws.com');
   const [images, setImage] = useState([{ id: '1' }]);
 
-  useEffect(async () => {
-    const res = await api().get(search ? `/search/${search}` : '/club/images')
-    setImage(res.data);
+  useEffect(_ => {
+    (async _ => {
+      const res = await api().get(search ? `/search/${search}` : '/club/images')
+      setImage(res.data);
+    })();
   }, [])
+
   return (
 
     <>
