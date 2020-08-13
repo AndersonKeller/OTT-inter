@@ -9,6 +9,7 @@ import { IS_PRODUCTION } from "~/constants/constants";
 import Payment from "~/pages/register/wizard/payment";
 import Packages from "./packages"
 import MultiStepIndicator from "~/components/MultiStepIndicator";
+import { STATIC_PATH, TENANT } from '~/constants/constants'
 
 const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
@@ -93,7 +94,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
         className="d-flex align-items-center justify-content-center h-100"
         style={ {
           padding: "50 20",
-          backgroundImage: "url('/static/atlnacional/subs/background.jpg')",
+          backgroundImage: `url('/static/${TENANT}/subs/background.jpg')`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat'
         } }>
@@ -111,7 +112,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
             border: "none",
             borderRadius: "0",
           } }>
-            <img src="/static/atlnacional/logos/logo_project.png" alt="Nacional Play"/>
+            <img src={`/static/${TENANT}/logos/logo_project.png`} alt="Nacional Play"/>
           </div>
           <div className="card-body">
             { renderComponents() }

@@ -1,6 +1,6 @@
 import Layout from "~/components/layout/Layout";
 import React, { useContext, useState } from "react";
-import { CLIENT_ID, CLIENT_SECRET, IS_PRODUCTION } from "~/constants/constants";
+import { CLIENT_ID, CLIENT_SECRET, IS_PRODUCTION, TENANT } from "~/constants/constants";
 import FormGroup from "~/components/layout/AuthModal/FormGroup";
 import Input from "~/components/layout/AuthModal/Input";
 import Button from "~/components/button";
@@ -15,8 +15,9 @@ import InvalidFeedback from "~/components/Form/InvalidFeedback";
 import { setAccessToken } from "~/services/auth";
 import Router from "next/router";
 import api from '../services/api'
+import { CONFIG } from '~/config'
 
-const Signup = ({  }) => {
+const Signup = ({}) => {
 
 
   const handleInputChange = e => {
@@ -89,6 +90,17 @@ const Signup = ({  }) => {
     setLoading(false)
   }
 
+  function appName() {
+    if (CONFIG.appName) {
+      return <div style={ { display: 'inline-block' } }>
+        <strong className="text-primary">{ CONFIG.appName.split(' ')[0] }</strong>{ CONFIG.appName.split(' ')[1] }
+      </div>
+    }
+    return <div style={ { display: 'inline-block' } }>
+      <strong className="text-primary">NACIONAL</strong>PLAY
+    </div>
+  }
+
   return (
 
     <Layout header={ "hidden" } footer={ "hidden" }>
@@ -96,7 +108,7 @@ const Signup = ({  }) => {
         className="d-flex align-items-center justify-content-center h-100"
         style={ {
           padding: "50 20",
-          backgroundImage: "url('/static/atlnacional/subs/background.jpg')",
+          backgroundImage: `url('/static/${ TENANT }/subs/background.jpg')`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat'
         } }>
@@ -114,17 +126,17 @@ const Signup = ({  }) => {
             border: "none",
             borderRadius: "0",
           } }>
-            <img src="/static/atlnacional/logos/logo_project.png" alt="Nacional Play"/>
+            <img src={ `/static/${ TENANT }/logos/logo_project.png` } alt="Nacional Play"/>
           </div>
           <div className="card-body" style={
             {
-              backgroundImage: "url('/static/atlnacional/subs/bg_modal.png')",
+              backgroundImage: `url('/static/${ TENANT }/subs/bg_modal.png')`,
               backgroundRepeat: "no-repeat",
               height: "600px"
             }
           }>
-            <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de <strong
-              className="text-primary">NACIONAL</strong>PLAY<span className={ "text-primary" }>!</span></h2>
+            <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { appName() }
+              <span className={ "text-primary" }>!</span></h2>
 
             <div className="row w-100 justify-content-end">
               <div className="col-8">
@@ -172,7 +184,7 @@ const Signup = ({  }) => {
                       name="password"
                       required
                       type="password"
-                      value={values.password}
+                      value={ values.password }
                       onChange={ handleInputChange }
                     />
                     <InvalidFeedback error={ error } loading={ loading } name="password"/>
