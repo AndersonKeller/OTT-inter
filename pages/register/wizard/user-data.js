@@ -10,7 +10,7 @@ import Select from "~/components/Select/Select";
 import Loading from "~/components/Loading/Loading";
 import Button from "~/components/button";
 import InvalidFeedback from "~/components/Form/InvalidFeedback";
-
+import { GoSearch } from 'react-icons/go';
 import Color from 'color'
 import { ThemeContext } from 'styled-components'
 
@@ -25,13 +25,18 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
   const requireds = IS_PRODUCTION
 
   const [loading, setLoading] = useState(false);
+  const [date, setDate] = useState({
+
+    birthdate: null,
+
+  })
 
   const [values, setValues] = useState({
     name: '',
     gender_id: '',
     document: '',
     nickname: '',
-    birthdate: '',
+    birthdate: null,
     registration: '',
     isPartner: ''
   })
@@ -43,6 +48,8 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
   const [blockDiscountFields, setBlockDiscountFields] = useState(false)
 
   const [error, setError] = useState()
+  // const [errorCod, setErrorCod] = useState([])
+
 
   /* get genders */
   useEffect(_ => {
@@ -55,7 +62,10 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
   /* fill user form */
   useEffect(_ => {
     if (user) {
-      console.log(user);
+      setDate({
+        ...date,
+        birthdate: new Date(),
+      })
       setValues({
         ...values,
         name: user.name,
@@ -64,7 +74,9 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
         nickname: user.nickname,
         birthdate: user.birthdate,
         registration: user.registration,
-        isPartner: user.is_partner
+        isPartner: user.is_partner,
+        abonado: user.abonado,
+        terms: user.terms,
       })
     }
   }, [user])
@@ -80,7 +92,6 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
   }
 
   const submit = async e => {
-
     e.preventDefault();
 
     setLoading(true);
@@ -94,16 +105,20 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
         email: user.email,
         nickname: values.nickname,
         registration: values.registration,
-        birthdate: values.birthdate,
-        is_partner: values.isPartner
+        birthdate: date.birthdate,
+        is_partner: values.isPartner,
+        abonado: values.abonado,
+        terms: values.terms,
+
       }
+
+
 
       const res = await api.post(`register/complete-user`, userData)
 
       handleSubmit(1, userData)
 
     } catch (error) {
-
       if (error.response) {
         const { data, status } = error.response
         if (status === 422) {
@@ -137,13 +152,79 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
 
   }
 
+  const submitCod = async e => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    try {
+
+      let params = {
+
+        abonado: values.abonado,
+      }
+
+      const res = await api.get(`register/search-cod/` + params.abonado)
+      if (!res.data.status) {
+        setError({
+          errors: {
+            'abonado': 'Código no encontrado'
+          }
+        });
+        setValues({
+          name: values.name,
+          gender_id: values.gender_id,
+          document: values.document,
+          email: user.email,
+          nickname: values.nickname,
+          registration: values.registration,
+          birthdate: date.birthdate,
+          is_partner: values.isPartner,
+          abonado: values.abonado,
+          terms: false,
+        });
+        setLoading(false);
+      } else {
+        setError();
+        setValues({
+          name: values.name,
+          gender_id: values.gender_id,
+          document: values.document,
+          email: user.email,
+          nickname: values.nickname,
+          registration: values.registration,
+          birthdate: date.birthdate,
+          is_partner: values.isPartner,
+          abonado: values.abonado,
+          terms: true,
+        });
+        setLoading(false);
+      }
+
+    } catch (error) {
+
+
+      if (error.response) {
+        const { data, status } = error.response
+        if (status === 422) {
+          setError(data)
+        }
+      } else if (error.request) {
+        setError(error)
+      } else {
+        setError(error)
+      }
+
+    }
+  }
+
   return (
-    <form method="post" onSubmit={ submit }>
+    <form method="post" onSubmit={submit}>
       <div className="register-confirm container text-center">
 
-        <h2 className="card-title"><span className={ "text-primary" }>¡</span>Sé parte de <strong
-          className="text-primary">NACIONAL</strong>PLAY<span className={ "text-primary" }>!</span></h2>
-        <div className={ "card-subtitle" }>
+        <h2 className="card-title"><span className={"text-primary"}>¡</span>Sé parte de <strong
+          className="text-primary">NACIONAL</strong>PLAY<span className={"text-primary"}>!</span></h2>
+        <div className={"card-subtitle"}>
           ¡Antes de seguir, queremos saber más de ti!
         </div>
 
@@ -156,10 +237,10 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
                   <Input
                     id="name"
                     name="name"
-                    value={ values.name }
-                    onChange={ handleInputChange }
+                    value={values.name}
+                    onChange={handleInputChange}
                   />
-                  <InvalidFeedback error={ error } loading={ loading } name="name"/>
+                  <InvalidFeedback error={error} loading={loading} name="name" />
                 </FormGroup>
               </div>
               <div className="col-md-6">
@@ -168,34 +249,34 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
                   <Select
                     id="gender_id"
                     name="gender_id"
-                    required={ requireds }
-                    onChange={ handleInputChange }
-                    value={ values.gender_id }
+                    required={requireds}
+                    onChange={handleInputChange}
+                    value={values.gender_id}
                   >
-                    { !genders ? (
+                    {!genders ? (
                       <option disabled value="">Cargando...</option>
                     ) : genders.length ? <>
                       <option disabled value="">Selecciona tu género</option>
-                      { genders.map((genre, key) => (
-                        <option { ...{ key } } value={ genre.id }>{ genre.name }</option>
-                      )) }
+                      {genders.map((genre, key) => (
+                        <option {...{ key }} value={genre.id}>{genre.name}</option>
+                      ))}
                     </> : (
-                      <option disabled value="">Incapaz de cargar géneros</option>
-                    ) }
+                          <option disabled value="">Incapaz de cargar géneros</option>
+                        )}
                   </Select>
-                  <InvalidFeedback error={ error } loading={ loading } name="gender_id"/>
+                  <InvalidFeedback error={error} loading={loading} name="gender_id" />
                 </FormGroup>
               </div>
               <div className="col-md-6">
                 <FormGroup>
                   <Label htmlFor="name">Apellidos</Label>
                   <Input
-                    id="name"
-                    name="name"
-                    value={ values.nickname }
-                    onChange={ handleInputChange }
+                    id="nickname"
+                    name="nickname"
+                    value={values.nickname}
+                    onChange={handleInputChange}
                   />
-                  <InvalidFeedback error={ error } loading={ loading } name="name"/>
+                  <InvalidFeedback error={error} loading={loading} name="nickname" />
                 </FormGroup>
               </div>
 
@@ -205,110 +286,146 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
                   <Input
                     id="document"
                     name="document"
-                    onChange={ handleInputChange }
-                    required={ requireds }
+                    onChange={handleInputChange}
+                    required={requireds}
                     type="text"
-                    value={ values.document }
+                    value={values.document}
                   />
-                  <InvalidFeedback error={ error } loading={ loading } name="document"/>
+                  <InvalidFeedback error={error} loading={loading} name="document" />
                 </FormGroup>
               </div>
               <div className="col-md-6">
                 <FormGroup>
                   <Label htmlFor="birth">Fecha de nacimiento</Label>
                   <Flatpickr
-                    className={ "form-control" }
+
+                    id="birthdate"
+                    name=" birthdate"
+                    value={date.birthdate}
+                    onChange={birthdate => {
+                      setDate({ birthdate: birthdate });
+                    }}
+                    className={"form-control"}
                   />
                 </FormGroup>
               </div>
               <div className="col-md-6">
-                <FormGroup>
+                <FormGroup  >
                   <Label htmlFor="document">Abonado</Label>
-                  <Input
-                    id="abonado"
-                    name="abonado"
-                    onChange={ handleInputChange }
-                    required={ requireds }
-                    type="text"
-                    value={ values.abonado }
-                  />
-                  <InvalidFeedback error={ error } loading={ loading } name="abonado"/>
+
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'baseline',
+                    paddingTop: ' 1px'
+                  }
+                  }>
+
+                    <Input
+                      id="abonado"
+                      name="abonado"
+                      onChange={handleInputChange}
+                      required={requireds}
+                      type="text"
+                      value={values.abonado}
+                    />
+
+                    <Button
+                      style={{
+
+                      }} fontSize="14px!important" color="secondary" onClick={submitCod} disabled={loading} loading={loading}>
+                      <div style={{
+                        padding: '0px', fontSize: '14px!important', width: '19px',
+                        height: '16px;'
+                      }}>
+                        <GoSearch style={{ size: '10px', fontSize: '14px!important', padding: 'padding: 12px 16px 7px 16px!importan' }} fontSize={14} padding={0} />
+                      </div>
+                    </Button>
+
+
+                  </div>
+                  <InvalidFeedback error={error} loading={loading} name="abonado" />
+
                 </FormGroup>
+
               </div>
+              {/* </div> */}
               <div className="col-md-6">
                 <FormGroup>
                   <label className="terms">
                     <input
-                      checked={ values.terms }
+                      checked={values.terms}
                       name="terms"
-                      onChange={ handleInputChange }
-                      required={ requireds }
+                      onChange={handleInputChange}
+                      required={requireds}
                       type="checkbox"
-                      value={ `true` }
+                      value={`true`}
                     />
-                    <span style={ { paddingLeft: "10px" } }>Miembro del Club</span>
+                    <span style={{ paddingLeft: "10px" }}>Miembro del Club</span>
                   </label>
-                  <InvalidFeedback error={ error } loading={ loading } name="terms"/>
+                  <InvalidFeedback error={error} loading={loading} name="terms" />
                 </FormGroup>
               </div>
             </div>
 
-            { discounts && discounts.map(d => (
-              <FormGroup key={ d.id }>
-                <Label htmlFor={ d.dsc_id }>{ d.name }</Label>
+            {discounts && discounts.map(d => (
+              <FormGroup key={d.id}>
+                <Label htmlFor={d.dsc_id}>{d.name}</Label>
                 <Input
-                  disabled={ discounts.find(
+                  disabled={discounts.find(
                     disc => (!['', undefined].includes(values[disc.dsc_id]) && disc.id != d.id)
-                  ) }
-                  id={ d.id }
-                  maxLength={ 5 }
-                  name={ d.dsc_id }
-                  onChange={ handleDiscountChange }
+                  )}
+                  id={d.id}
+                  maxLength={5}
+                  name={d.dsc_id}
+                  onChange={handleDiscountChange}
                   type="text"
-                  style={ values.discount_id == d.id ? { backgroundColor: 'rgb(206, 249, 206)' } : {} }
-                  value={ values[d.dsc_id] || '' }
-                  readOnly={ blockDiscountFields }
+                  style={values.discount_id == d.id ? { backgroundColor: 'rgb(206, 249, 206)' } : {}}
+                  value={values[d.dsc_id] || ''}
+                  readOnly={blockDiscountFields}
                 />
-                <div style={ { float: 'right', paddingTop: '10px' } }>
-                  <Loading size="20" color="white" loadingState={ values.discount_id == d.id && blockDiscountFields }/>
+                <div style={{ float: 'right', paddingTop: '10px' }}>
+                  <Loading size="20" color="white" loadingState={values.discount_id == d.id && blockDiscountFields} />
                 </div>
               </FormGroup>
-            )) }
+            ))}
 
             <div className="text-center">
-              <Button color="secondary" type="submit" disabled={ loading }
-                      style={ { width: "150px" } }
-                      loading={ loading }>Siguiente</Button>
+              <Button color="secondary" type="submit" disabled={loading}
+                style={{ width: "150px" }}
+                loading={loading}>Siguiente</Button>
             </div>
 
           </div>
         </div>
       </div>
-      <style jsx>{ `
-        
+      <style jsx>{`
+
         h2.card-title {
           font-weight: normal;
           color: #000;
           margin-bottom: 1em;
           font-size: 1.7em;
         }
+        .pes{
+          display>flex;
+        }
         div.card-subtitle {
           font-size: 1.1em;
           font-weight: 500;
           margin-bottom: 2.5em;
         }
-        
+
         .text-primary {
-           color: ${ primaryColor } !important;
+           color: ${ primaryColor} !important;
         }
         .register-confirm {
           padding-top: 50px;
           padding-bottom: 50px;
           color: #666666;
         }
-        
+
       ` }</style>
-    </form>
+    </form >
   )
 }
 
