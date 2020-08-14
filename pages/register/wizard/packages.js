@@ -27,6 +27,7 @@ const PackagesDetails = ({ packages, layoutProps, selectPackage, handleSubmit })
       setLoading(true);
       selectPackage(values.package_id);
       handleSubmit(3);
+
       setLoading(false);
     } catch (e) {
       console.error(e)

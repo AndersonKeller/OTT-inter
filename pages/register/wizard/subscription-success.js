@@ -39,7 +39,7 @@ const SubscriptionSuccess = ({ layoutProps }) => {
         className="text-primary">{ values.name }</strong></h2>
       <div className={ "card-subtitle" }>
         Gracias por completar tu perfil de <br/>
-        <img src="/static/atlnacional/logos/logo_project.png" alt="Nacional play"/>
+        <img src={`/static/${TENANT}/logos/logo_project.png`} alt="Nacional play"/>
       </div>
 
       <div className="row">
