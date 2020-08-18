@@ -12,8 +12,9 @@ import Loading from '../components/Loading/Loading'
 import MediaList from '../components/MediaList/MediaList'
 import SearchContext from '../contexts/SearchContext'
 
+import Slider from '../components/Slider'
 // movies page
-const MoviesPage = ({layoutProps}) => {
+const MoviesPage = ({ layoutProps }) => {
 
   const [medias, setMedias] = useState();
   const [loading, setLoading] = useState(true)
@@ -29,7 +30,7 @@ const MoviesPage = ({layoutProps}) => {
     const fetchData = async _ => {
       try {
         setLoading(true)
-        const {data: medias} = await api().get(search ? `/search/${search}` : '/movies')
+        const { data: medias } = await api().get(search ? `/search/${search}` : '/movies')
         setMedias(medias)
         setLoading(false)
       } catch (e) {
@@ -62,10 +63,18 @@ const MoviesPage = ({layoutProps}) => {
                 <h1 className="h4">{medias.length} resultados para "{search}"</h1>
               )}
             </header>
+            {/* <Loading loadingState={loading} />
+            {!loading && (
+              <MediaList {...{ medias }} />
+
+            )} */}
+
             <Loading loadingState={loading} />
-            { ! loading && (
-              <MediaList {...{medias}} />
+            {!loading && (
+              <Slider {...{ medias }} />
+
             )}
+
 
           </div>
         </div>
