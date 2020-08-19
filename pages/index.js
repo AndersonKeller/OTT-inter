@@ -18,6 +18,7 @@ import Color from 'color'
 const HomePage = ({ api, contents, featuredMedia, featuredMediaError, layoutProps }) => {
   const { user } = useContext(UserContext)
   const { appName: pageTitle } = CONFIG
+  let [idx, setIdx] = useState(0)
   return (
     <Layout paddingTop={false} {...layoutProps}>
       <Head>
@@ -35,9 +36,12 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, layoutProp
             const showBanner = (item.is_paid && user || !item.is_paid && !user)
             const { contentable_type: contentableType } = item
             switch(contentableType) {
-              case 'categories': return <HomeCarouselSection api={api} category={item.slug} key={index} />
-              case 'banners':    return showBanner && <BannerSection id={item.contentable_id} key={index} />
-              case 'movies':     return showBanner && <BannerSection movie={item.slug} key={index} />
+              case 'categories':
+                return <HomeCarouselSection api={api} category={item.slug} key={index} idx={index} />
+              case 'banners':
+                return showBanner && <BannerSection id={item.contentable_id} key={index} />
+              case 'movies':
+                return showBanner && <BannerSection movie={item.slug} key={index} />
             }
           })}
         </div>
@@ -253,7 +257,7 @@ const Cover = ({ error, media }) => {
   )
 }
 
-const HomeCarouselSection = ({ api, category: categorySlug }) => {
+const HomeCarouselSection = ({ api, category: categorySlug, idx }) => {
 
   const [ category, setCategory ] = useState(null)
   const [ error, setError ] = useState(false)
@@ -266,6 +270,7 @@ const HomeCarouselSection = ({ api, category: categorySlug }) => {
       setLoading(true)
       try {
         const { data } = await api.get(`category/${categorySlug}`)
+        console.log(data);
         setCategory(data)
       } catch (error) {
         const errorMessage = ['es', 'es-CL'].includes(lang) ? 'Error al intentar cargar la categoría'
@@ -277,6 +282,7 @@ const HomeCarouselSection = ({ api, category: categorySlug }) => {
     fetchData()
   }, [categorySlug])
 
+  // alert(key)
   return (
     <>
       <div className="home-carousel-section">
@@ -285,7 +291,7 @@ const HomeCarouselSection = ({ api, category: categorySlug }) => {
             <Loading loadingState={loading} />
           </div>
         ) : category ? (
-          <CarouselSection category={category} />
+          <CarouselSection category={category} idx={idx}/>
         ) : error && (
           <div className="text-center">
             {error}

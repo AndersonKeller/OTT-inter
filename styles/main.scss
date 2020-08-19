@@ -5,3 +5,12 @@
 @import "components/wizard/complete";
 @import "components/wizard/payment";
 @import "~flatpickr/dist/themes/dark.css";
+
+.bob-overlay {
+  .slide-wrapper {
+    z-index: 9;
+  }
+}
+.bob-title-art {
+  z-index: -1 !important;
+}

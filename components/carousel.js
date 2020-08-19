@@ -17,6 +17,7 @@ const arrowsStyles = css`
   .slick-next::before {
     display: none;
   }
+
   .slick-prev {
     left: -8%;
   }
@@ -76,6 +77,7 @@ export default function Carousel({ children, color }) {
     mobileFirst: true, /* seems to not be working (?) */
     nextArrow: <Arrow />,
     prevArrow: <Arrow />,
+    adaptiveHeight: true,
     responsive: [
       {
         breakpoint: 768,
@@ -122,6 +124,20 @@ export default function Carousel({ children, color }) {
           padding: 5px;
           white-space: normal;
           width: 200px;
+        }
+        .slick-list {
+        height: auto !important; 
+        }
+        .slick-slide {
+          transform: translateX(-25%);
+          transition-duration: 500ms;
+          transition-delay: 0ms;
+        }
+        .slick-slide:hover {
+          transform: scale(1.5) !important;
+        }
+        .slick-slide:hover ~ .slick-slide{
+           transform: translateX(25%);
         }
         @media (min-width: 768px) {
           .slide {
