@@ -11,8 +11,6 @@ import api from '../services/api'
 import Loading from '../components/Loading/Loading'
 import MediaList from '../components/MediaList/MediaList'
 import SearchContext from '../contexts/SearchContext'
-
-import Slider from '../components/Slider'
 // movies page
 const MoviesPage = ({ layoutProps }) => {
 
@@ -63,18 +61,11 @@ const MoviesPage = ({ layoutProps }) => {
                 <h1 className="h4">{medias.length} resultados para "{search}"</h1>
               )}
             </header>
-            {/* <Loading loadingState={loading} />
+            <Loading loadingState={loading} />
             {!loading && (
               <MediaList {...{ medias }} />
 
-            )} */}
-
-            <Loading loadingState={loading} />
-            {!loading && (
-              <Slider {...{ medias }} />
-
             )}
-
 
           </div>
         </div>
