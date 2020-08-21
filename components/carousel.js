@@ -35,7 +35,7 @@ function Arrow(props) {
   return (
     <div>
       <div className={className} onClick={onClick} style={style}>
-        <Chevron inline dir={ className.search('slick-prev') !== -1 ? 'left' : 'right' } width="47" height="27" />
+        <Chevron inline dir={className.search('slick-prev') !== -1 ? 'left' : 'right'} width="47" height="27" />
       </div>
       <style jsx>{arrowsStyles}</style>
     </div>
@@ -59,17 +59,18 @@ const Cards = styled.div`
   }
   &::before {
     background-image: ${props => props.color === 'contrast' ?
-      `linear-gradient(to right, ${props.theme.colors.backgroundContrast}, ${Color(props.theme.colors.backgroundContrast).fade(1).string()})` :
-      `linear-gradient(to right, ${props.theme.colors.background}, ${Color(props.theme.colors.background).fade(1).string()})`};
+    `linear-gradient(to right, ${props.theme.colors.backgroundContrast}, ${Color(props.theme.colors.backgroundContrast).fade(1).string()})` :
+    `linear-gradient(to right, ${props.theme.colors.background}, ${Color(props.theme.colors.background).fade(1).string()})`};
   }
   &::after {
     background-image: ${props => props.color === 'contrast' ?
-      `linear-gradient(to left, ${props.theme.colors.backgroundContrast}, ${Color(props.theme.colors.backgroundContrast).fade(1).string()})` :
-      `linear-gradient(to left, ${props.theme.colors.background}, ${Color(props.theme.colors.background).fade(1).string()})`};
+    `linear-gradient(to left, ${props.theme.colors.backgroundContrast}, ${Color(props.theme.colors.backgroundContrast).fade(1).string()})` :
+    `linear-gradient(to left, ${props.theme.colors.background}, ${Color(props.theme.colors.background).fade(1).string()})`};
   }
 `;
 
-export default function Carousel({ children, color }) {
+export default function Carousel({ children, color, additional }) {
+
   const settings = {
     dots: false,
     draggable: false,
@@ -78,6 +79,7 @@ export default function Carousel({ children, color }) {
     nextArrow: <Arrow />,
     prevArrow: <Arrow />,
     adaptiveHeight: true,
+    adaptivewidth: true,
     responsive: [
       {
         breakpoint: 768,
@@ -89,20 +91,20 @@ export default function Carousel({ children, color }) {
       },
     ],
     slidesToScroll: 6,
-    slidesToShow: 6,
-    speed: 500,
+    slidesToShow: additional.horizontal ? 5 : 6,
+    speed: 700,
   }
   return (
     <Cards color={color}>
       <div className="cards-container">
         <Slider {...settings}>
-          { React.Children.map(children, (card, index) => {
+          {React.Children.map(children, (card, index) => {
             return (
               <div className="slide" key={index}>
                 {card}
               </div>
             )
-          }) }
+          })}
         </Slider>
       </div>
       <style jsx global>{`
@@ -111,6 +113,7 @@ export default function Carousel({ children, color }) {
         }
         .slick-track {
           margin-left: 0;
+
         }
         .cards-container {
           font-size: 0;
@@ -123,27 +126,45 @@ export default function Carousel({ children, color }) {
           font-size: 1rem;
           padding: 5px;
           white-space: normal;
-          width: 200px;
+
+
+          height: 131px!important;
+
         }
         .slick-list {
-        height: auto !important; 
+        height: auto !important;
+
         }
         .slick-slide {
           transform: translateX(-25%);
           transition-duration: 500ms;
           transition-delay: 0ms;
-        }
+
+
+      }
+
+       ${additional.horizontal ? `
+        .slick-slide img {
+        height: 146px;
+        width:259px
+      }` : ''}
+
+
         .slick-slide:hover {
           transform: scale(1.5) !important;
-        }
+      }
         .slick-slide:hover ~ .slick-slide{
-           transform: translateX(25%);
-        }
+          transform: translateX(25%);
+     }
         @media (min-width: 768px) {
           .slide {
-            padding: 10px;
-          }
-        }
+          padding: 10px;
+      }
+    }
+
+
+
+}
       `}</style>
     </Cards>
   )

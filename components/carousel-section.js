@@ -20,7 +20,7 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
   })
 
   function SliderContainer(props) {
-    return <div className='slider-container-title'>{ props.videoModel.title }</div>;
+    return <div className='slider-container-title'>{props.videoModel.title}</div>;
   }
 
   function SliderTemplate(props) {
@@ -28,16 +28,16 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
     return (
       <div className='slider-container-wrapper'>
         <Link
-          as={ `/media/${ props.videoModel.slug }` }
-          href={ {
+          as={`/media/${props.videoModel.slug}`}
+          href={{
             pathname: '/media/[slug]',
             query: {
               category: (category ? category.slug : null),
               slug: props.videoModel.slug,
             },
-          } }
+          }}
         >
-          <SliderContainer videoModel={ props.videoModel } model={ props.model }/>
+          <SliderContainer videoModel={props.videoModel} model={props.model} />
         </Link>
       </div>
     );
@@ -46,16 +46,19 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
   function ree() {
     // alert(key)
     if ((idx % 2) === 1) {
+      console.log('nesste');
       return <NetSlider
         className='netslider_title_card'
-        data={ medias }
-        slideTemplate={ props => <SliderTemplate { ...props } /> }
+        data={medias}
+        slideTemplate={props => <SliderTemplate {...props} />}
       />
     } else {
-      return <Carousel color={ color }>
-        { medias.map((media, key) => (
-          <MediaCard category={ category } key={ key } media={ media }/>
-        )) }
+      console.log('eroutror');
+      return <Carousel color={color}
+        additional={category}>
+        {medias.map((media, key) => (
+          <MediaCard category={category} key={key} media={media} />
+        ))}
       </Carousel>
     }
   }
@@ -63,14 +66,14 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
   return (
     <div className="carousel-section">
       <div className="container-fluid">
-        <H2 className={ `carousel-section-title ${ uppercase ? 'text-uppercase' : '' }` }>
-          { title }
+        <H2 className={`carousel-section-title ${uppercase ? 'text-uppercase' : ''}`}>
+          {title}
         </H2>
       </div>
 
 
-     {ree()}
-      <style jsx global>{ `
+      {ree()}
+      <style jsx global>{`
         .carousel-section :global(.carousel-section-title),
         .carousel-section .error-message {
           margin-left: 9%;
