@@ -46,7 +46,7 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
   function ree() {
     // alert(key)
     if ((idx % 2) === 1) {
-      console.log('nesste');
+
       return <NetSlider
         className='netslider_title_card'
         data={medias}

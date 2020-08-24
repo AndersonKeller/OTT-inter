@@ -91,7 +91,7 @@ export default function Carousel({ children, color, additional }) {
       },
     ],
     slidesToScroll: 6,
-    slidesToShow: additional.horizontal ? 5 : 6,
+    slidesToShow: additional.is_horizontal ? 5 : 6,
     speed: 700,
   }
   return (
@@ -143,7 +143,7 @@ export default function Carousel({ children, color, additional }) {
 
       }
 
-       ${additional.horizontal ? `
+       ${additional.is_horizontal ? `
         .slick-slide img {
         height: 146px;
         width:259px
