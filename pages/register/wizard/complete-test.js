@@ -5,11 +5,12 @@ import UserAddress from "./user-address"
 import SubscriptionSuccess from "./subscription-success"
 import { useState } from "react";
 import { IS_PRODUCTION } from "~/constants/constants";
-
+import Header from '~/components/layout/HeaderCad'
 import Payment from "~/pages/register/wizard/payment";
 import Packages from "./packages"
 import MultiStepIndicator from "~/components/MultiStepIndicator";
 import { STATIC_PATH, TENANT } from '~/constants/constants'
+import LogoApp from '~/components/LogoApp';
 
 
 
@@ -20,6 +21,8 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
     setWizardIndex(index);
     setUserData(userData);
   }
+
+
 
   const requireds = IS_PRODUCTION
   const [userData, setUserData] = useState();
@@ -55,72 +58,130 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
       case 0:
         return <UserData
-          api={ api }
-          layoutProps={ layoutProps }
-          handleSubmit={ handleSubmit }
+          api={api}
+          layoutProps={layoutProps}
+          handleSubmit={handleSubmit}
         />
       case 1:
         return <UserAddress
-          api={ api }
-          layoutProps={ layoutProps }
-          handleSubmit={ handleSubmit }/>
+          api={api}
+          layoutProps={layoutProps}
+          handleSubmit={handleSubmit} />
       case 2:
-        return <Packages packages={ packages } layoutProps={ layoutProps } selectPackage={ selectPackage }
-                         handleSubmit={ handleSubmit }/>
+        return <Packages packages={packages} layoutProps={layoutProps} selectPackage={selectPackage}
+          handleSubmit={handleSubmit} />
       case 3:
         return <Payment
-          { ...{
+          {...{
             package_id: values.package_id,
             packages: packages,
             userData: userData,
             api,
             error,
             requireds,
-          } }
+          }}
         />
       case 4:
         return <SubscriptionSuccess
-          { ...{
+          {...{
             api
           }
-          }/>
+          } />
 
     }
   }
 
   return (
 
-    <Layout header={ "hidden" } footer={ "hidden" }>
-      <MultiStepIndicator index={ wizardIndex } onClick={ handleSubmit }/>
+
+
+    <Layout header={"hidden"} footer={"hidden"}>
+      <Header />
+
+
+      <MultiStepIndicator index={wizardIndex} onClick={handleSubmit} />
       <div
-        className="d-flex align-items-center justify-content-center h-100"
-        style={ {
+        className="d-flex align-items-center justify-content-center h-100 responsive"
+        style={{
           padding: "50 20",
           backgroundImage: `url('/static/${TENANT}/subs/background.jpg')`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat'
-        } }>
-        <div className="card" style={ {
+        }}>
+        <div className="card" style={{
           width: "100%",
           maxWidth: "800px",
-          margin: "50px 0",
+          margin: "110px 0",
           backgroundColor: "rgba(255,255,255,0.85)",
           borderRadius: "0",
           border: "none"
-        } }>
-          <div className={ "card-header text-center" } style={ {
-            backgroundColor: "#000",
+        }}>
+          <div className={"card-header text-center"} style={{
+            backgroundColor: "#242627",
             padding: "25px 15px",
             border: "none",
             borderRadius: "0",
-          } }>
-            <img src={`/static/${TENANT}/logos/logo_project.png`} alt="Nacional Play"/>
+            display: "flex",
+            justifyContent: "center"
+          }}>
+            <div className="img-logoApp-card"> <LogoApp /></div>
           </div>
           <div className="card-body">
-            { renderComponents() }
+            {renderComponents()}
           </div>
         </div>
       </div>
+      <style sjx>{`
+
+        .img-logoApp-card{
+          width: 45%;
+          display: flex;
+        }
+         @media(max-width: 765px) {
+
+        .responsive{
+              padding: 127px 30px 15px 30px!important;
+          // padding: 40px!important;
+          padding: 0px;
+          display: flex;
+          flex-wrap: wrap;
+          height:100%!important;
+
+          }
+         .card{
+           height:99%!important;
+           margin:10px 0px!important;
+
+         }
+
+         label {
+              display: inline-block;
+              margin-bottom: .5rem;
+              text-align: center;
+            }
+
+         .justify-content-end {
+           display:flex;
+           justify-content:center!important;
+         }
+         form{
+           padding 0px!important;
+         }
+         .row {
+          display: -ms-flexbox;
+          display: flex;
+          -ms-flex-wrap: wrap;
+           margin-right: 0px;
+           margin-left: 0px;
+          }
+        .col-8 {
+         max-width: 100%!important;
+          }
+        }
+
+      `}
+
+      </style>
 
     </Layout>
 
