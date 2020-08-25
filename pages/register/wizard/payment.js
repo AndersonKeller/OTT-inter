@@ -15,13 +15,13 @@ import { ThemeContext } from "styled-components";
 import Color from "color";
 
 const Payment = ({
-                   layoutProps,
-                   userData,
-                   package_id,
-                   packages,
-                   api,
-                   requireds
-                 }) => {
+  layoutProps,
+  userData,
+  package_id,
+  packages,
+  api,
+  requireds
+}) => {
 
   const theme = useContext(ThemeContext)
   const primaryColor = Color(theme.colors.primary).hsl().string()
@@ -169,7 +169,7 @@ const Payment = ({
     {
       payMethods && payMethods.map((m, key) => {
         return <div className="col-6 col-md">
-          { m.id }
+          {m.id}
         </div>
       })
     }
@@ -273,10 +273,10 @@ const Payment = ({
   }
 
   return (
-    <div className="register-confirm container text-center">
+    <div className="register-confirm container text-center responsive">
 
-      <h2 className="card-title"><span className={ "text-primary" }>¡</span>Sé parte de <strong
-        className="text-primary">NACIONAL</strong>PLAY<span className={ "text-primary" }>!</span></h2>
+      <h2 className="card-title"><span className={"text-primary"}>¡</span>Sé parte de <strong
+        className="text-primary">NACIONAL</strong>PLAY<span className={"text-primary"}>!</span></h2>
       <div className="row">
 
         <div className="col-md-6 paymentMethod">
@@ -288,103 +288,103 @@ const Payment = ({
                   <Select
                     id="paymentMethodId"
                     name="paymentMethodId"
-                    required={ requireds }
-                    onChange={ onPaymentChange }
-                    value={ values.paymentMethodId }
+                    required={requireds}
+                    onChange={onPaymentChange}
+                    value={values.paymentMethodId}
                   >
                     <option value="0">Selecione</option>
-                    { paymentMethods && paymentMethods.map((paymentMethod, key) => (
+                    {paymentMethods && paymentMethods.map((paymentMethod, key) => (
                       <option
-                        key={ paymentMethod.id }
-                        state={ values.paymentMethodId }
-                        value={ paymentMethod.id }
+                        key={paymentMethod.id}
+                        state={values.paymentMethodId}
+                        value={paymentMethod.id}
                       >
-                        { paymentMethod.name }
+                        {paymentMethod.name}
                       </option>
-                    )) }
+                    ))}
                   </Select>
-                  <InvalidFeedback error={ error } loading={ loading } name="paymentMethodId"/>
+                  <InvalidFeedback error={error} loading={loading} name="paymentMethodId" />
                 </FormGroup>
               </div>
             </div>
-            { values.paymentMethodId == 1 && (
+            {values.paymentMethodId == 1 && (
               <div className="row">
                 <div className="col-12">
                   <FormGroup>
                     <Label htmlFor="cardHolderName">Nombre impreso en tarjeta</Label>
-                    <Input id="cardHolderName" name="cardHolderName" required={ requireds } type="text"
-                           onChange={ handleInputChange }/>
+                    <Input id="cardHolderName" name="cardHolderName" required={requireds} type="text"
+                      onChange={handleInputChange} />
                   </FormGroup>
                 </div>
                 <div className="col-12">
                   <FormGroup>
                     <Label htmlFor="cardNumber">Nro Cartão</Label>
-                    <img src={ cardImg } className="creditCardBrand"/>
+                    <img src={cardImg} className="creditCardBrand" />
                     <MaskedInput
-                      mask={ [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/] }
-                      guide={ false }
-                      className={ "form-control" }
-                      onChange={ handleInputChangeCreditCardNumber }
+                      mask={[/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/]}
+                      guide={false}
+                      className={"form-control"}
+                      onChange={handleInputChangeCreditCardNumber}
                       id="cardNumber" name="cardNumber"
                     />
-                    <InvalidFeedback error={ error } loading={ loading } name="cardNumber"/>
+                    <InvalidFeedback error={error} loading={loading} name="cardNumber" />
                   </FormGroup>
                 </div>
                 <div className="col-12">
                   <FormGroup>
                     <Label htmlFor="docNumber">Documento</Label>
                     <Input
-                      className={ "form-control" }
-                      onChange={ handleInputChange }
+                      className={"form-control"}
+                      onChange={handleInputChange}
                       id="docNumber" name="docNumber"
-                      maxLength={ 20 }
+                      maxLength={20}
                     />
-                    <InvalidFeedback error={ error } loading={ loading } name="docNumber"/>
+                    <InvalidFeedback error={error} loading={loading} name="docNumber" />
                   </FormGroup>
                 </div>
                 <div className="col-6">
                   <FormGroup>
                     <Label htmlFor="card-duedate">Dt Vencimento</Label>
                     <MaskedInput
-                      mask={ [/\d/, /\d/, '/', /\d/, /\d/,] }
-                      guide={ false }
-                      className={ "form-control" }
-                      placeholder={ "MM/AA" }
-                      name={ "cardExpirationDate" }
-                      onChange={ handleInputChange }
+                      mask={[/\d/, /\d/, '/', /\d/, /\d/,]}
+                      guide={false}
+                      className={"form-control"}
+                      placeholder={"MM/AA"}
+                      name={"cardExpirationDate"}
+                      onChange={handleInputChange}
                     />
-                    <InvalidFeedback error={ error } loading={ loading } name="cardExpirationDate"/>
+                    <InvalidFeedback error={error} loading={loading} name="cardExpirationDate" />
                   </FormGroup>
                 </div>
                 <div className="col-6">
                   <FormGroup>
                     <Label htmlFor="card-cvv">CVV</Label>
                     <MaskedInput
-                      mask={ [/\d/, /\d/, /\d/] }
-                      guide={ false }
-                      className={ "form-control" }
-                      name={ "cardSecurityCode" }
-                      onChange={ handleInputChange }
-                      placeholder={ "***" }
+                      mask={[/\d/, /\d/, /\d/]}
+                      guide={false}
+                      className={"form-control"}
+                      name={"cardSecurityCode"}
+                      onChange={handleInputChange}
+                      placeholder={"***"}
                     />
-                    <InvalidFeedback error={ error } loading={ loading } name="cardSecurityCode"/>
+                    <InvalidFeedback error={error} loading={loading} name="cardSecurityCode" />
                   </FormGroup>
                 </div>
                 <div className="col-12">
-                  <Button block color="secondary" type="button" disabled={ loading }
-                          loading={ loading } onClick={ submitCredit }>Pagar</Button>
+                  <Button block color="secondary" type="button" disabled={loading}
+                    loading={loading} onClick={submitCredit}>Pagar</Button>
                 </div>
               </div>
-            ) }
+            )}
 
-            { values.paymentMethodId == 3 && (
-              <div className={ "row" }>
+            {values.paymentMethodId == 3 && (
+              <div className={"row"}>
                 <div className="col-12">
-                  <Button block color="secondary" type="button" disabled={ loading }
-                          loading={ loading } onClick={ submitCredit }>Gerar Boleto</Button>
+                  <Button block color="secondary" type="button" disabled={loading}
+                    loading={loading} onClick={submitCredit}>Gerar Boleto</Button>
                 </div>
               </div>
-            ) }
+            )}
 
           </div>
         </div>
@@ -392,59 +392,112 @@ const Payment = ({
         <div className="col-md-6">
           <div className="product-summary">
             <div className="product-image">
-              <img src="https://place-hold.it/280x125" alt=""/>
+              <img src="https://place-hold.it/280x125" alt="" />
             </div>
-            <div className={ "product-name-group" }>
+            <div className={"product-name-group"}>
               <h6>
                 Você está comprando:
               </h6>
-              <p className={ "product-name" }>
-                Assinatura LaU Play - <strong>{ selectedPackage.name }</strong> recorrente
+              <p className={"product-name"}>
+                Assinatura LaU Play - <strong>{selectedPackage.name}</strong> recorrente
               </p>
             </div>
-            <div className={ "price-breakdown" }>
+            <div className={"price-breakdown"}>
               <div className="checkout-total">
                 <h6>
                   Total
                 </h6>
-                <p className={ "price" }>
-                  $ { selectedPackage.amount }
+                <p className={"price"}>
+                  $ {selectedPackage.amount}
                 </p>
               </div>
             </div>
           </div>
-          <div className={ "row pay-methods" }>
-            { payMethods && payMethods.map((m, key) => {
-              return <div className={ "col-3 text-center" }>
-                <img src={ m.thumbnail } alt=""/>
+          <div className={" pay-methods"}>
+            {payMethods && payMethods.map((m, key) => {
+              return <div className={"col-3 text-center"}>
+                <img src={m.thumbnail} alt="" />
               </div>
-            }) }
+            })}
           </div>
         </div>
       </div>
-      <style jsx>{ `
-        
+      <style jsx>{`
+
         h2.card-title {
           font-weight: normal;
           color: #000;
           margin-bottom: 1em;
           font-size: 1.7em;
         }
+
+       .pay-methods {
+    margin: 32px;
+        display: flex;
+        flex-wrap: wrap;
+        }
         div.card-subtitle {
           font-size: 1.1em;
           font-weight: 500;
           margin-bottom: 2.5em;
         }
-        
+
         .text-primary {
-           color: ${ primaryColor } !important;
+           color: ${ primaryColor} !important;
         }
         .register-confirm {
           padding-top: 50px;
           padding-bottom: 50px;
           color: #666666;
         }
-        
+         @media(max-width: 765px) {
+
+        .responsive{
+              padding: 20px 30px 15px 30px!important;
+          // padding: 40px!important;
+          padding: 0px;
+          display: flex;
+          flex-wrap: wrap;
+          height: 100%!importat;
+         justify-content: center;
+          height:100%!important;
+
+          }
+         .card{
+           height:99%!important;
+
+         }
+
+         label {
+              display: inline-block;
+              margin-bottom: .5rem;
+              text-align: center;
+            }
+
+         .justify-content-end {
+           display:flex;
+           justify-content:center!important;
+         }
+         form{
+           padding 0px!important;
+         }
+         .row {
+          display: -ms-flexbox;
+          display: flex;
+          -ms-flex-wrap: wrap;
+           margin-right: 0px;
+           margin-left: 0px;
+          }
+        .col-8 {
+         max-width: 100%!important;
+          }
+         .offset-3{
+          margin-left:0px;
+          }
+
+        }
+
+
       ` }</style>
     </div>
 

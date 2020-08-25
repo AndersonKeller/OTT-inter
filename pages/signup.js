@@ -16,8 +16,11 @@ import { setAccessToken } from "~/services/auth";
 import Router from "next/router";
 import api from '../services/api'
 import { CONFIG } from '~/config'
+import Header from '~/components/layout/HeaderCad'
+import LogoApp from '~/components/LogoApp';
 
-const Signup = ({}) => {
+
+const Signup = ({ }) => {
 
 
   const handleInputChange = e => {
@@ -50,7 +53,7 @@ const Signup = ({}) => {
     let provider = e.currentTarget.innerText;
     try {
       nookies.set({}, 'pkg_int_id', JSON.stringify(packageId), { path: '/' })
-      const res = await api().get(`auth/${ provider }`)
+      const res = await api().get(`auth/${provider}`)
       // console.table(res)
       // console.log(res.data.url)
       window.location = res.data.url
@@ -92,55 +95,59 @@ const Signup = ({}) => {
 
   function appName() {
     if (CONFIG.appName) {
-      return <div style={ { display: 'inline-block' } }>
-        <strong className="text-primary">{ CONFIG.appName.split(' ')[0] }</strong>{ CONFIG.appName.split(' ')[1] }
+      return <div style={{ display: 'inline-block' }}>
+        <strong className="text-primary">{CONFIG.appName.split(' ')[0]}</strong>{CONFIG.appName.split(' ')[1]}
       </div>
     }
-    return <div style={ { display: 'inline-block' } }>
+    return <div style={{ display: 'inline-block' }}>
       <strong className="text-primary">NACIONAL</strong>PLAY
     </div>
   }
 
   return (
 
-    <Layout header={ "hidden" } footer={ "hidden" }>
+    <Layout header={"hidden"} footer={"hidden"}>
+      <Header />
       <div
-        className="d-flex align-items-center justify-content-center h-100"
-        style={ {
+        className="d-flex align-items-center justify-content-center h-100 responsive"
+        style={{
           padding: "50 20",
-          backgroundImage: `url('/static/${ TENANT }/subs/background.jpg')`,
+          backgroundImage: `url('/static/${TENANT}/subs/background.jpg')`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat'
-        } }>
-        <div className="card" style={ {
+        }}
+      >
+        <div className="card" style={{
           width: "100%",
           maxWidth: "800px",
-          margin: "50px 0",
+          margin: "110px 0",
           backgroundColor: "rgba(255,255,255,0.85)",
           borderRadius: "0",
           border: "none"
-        } }>
-          <div className={ "card-header text-center" } style={ {
-            backgroundColor: "#000",
+        }}>
+          <div className={"card-header text-center"} style={{
+            backgroundColor: "#242627",
             padding: "25px 15px",
             border: "none",
             borderRadius: "0",
-          } }>
-            <img src={ `/static/${ TENANT }/logos/logo_project.png` } alt="Nacional Play"/>
+            justifyContent: "center",
+            display: "flex",
+          }}>
+            <div className="img-logoApp-card"> <LogoApp /></div>
           </div>
           <div className="card-body" style={
             {
-              backgroundImage: `url('/static/${ TENANT }/subs/bg_modal.png')`,
+              backgroundImage: `url('/static/${TENANT}/subs/bg_modal.png')`,
               backgroundRepeat: "no-repeat",
               height: "600px"
             }
           }>
-            <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { appName() }
-              <span className={ "text-primary" }>!</span></h2>
+            <h2 className="card-title text-center"><span className={"text-primary"}>¡</span>Sé parte de {appName()}
+              <span className={"text-primary"}>!</span></h2>
 
             <div className="row w-100 justify-content-end">
               <div className="col-8">
-                <form method="post" onSubmit={ handleSubmit } style={
+                <form method="post" onSubmit={handleSubmit} style={
                   {
                     maxWidth: "480px",
                     display: "block",
@@ -148,19 +155,19 @@ const Signup = ({}) => {
                   }
                 }>
 
-                  { error && <div className="invalid-feedback">{ error.message }</div> }
+                  {error && <div className="invalid-feedback">{error.message}</div>}
 
                   <FormGroup>
                     <Label htmlFor="name" className="text-dark">Nombre completo</Label>
                     <Input
                       id="name"
                       name="name"
-                      value={ values.name }
-                      onChange={ handleInputChange }
+                      value={values.name}
+                      onChange={handleInputChange}
                       required
-                      // onChange={ handleInputChange }
+                    // onChange={ handleInputChange }
                     />
-                    <InvalidFeedback error={ error } loading={ loading } name="name"/>
+                    <InvalidFeedback error={error} loading={loading} name="name" />
                   </FormGroup>
 
                   <FormGroup>
@@ -169,12 +176,12 @@ const Signup = ({}) => {
                       id="email"
                       type="email"
                       name="email"
-                      value={ values.email }
-                      onChange={ handleInputChange }
+                      value={values.email}
+                      onChange={handleInputChange}
                       required
                     />
 
-                    <InvalidFeedback error={ error } loading={ loading } name="email"/>
+                    <InvalidFeedback error={error} loading={loading} name="email" />
                   </FormGroup>
 
                   <FormGroup>
@@ -184,50 +191,51 @@ const Signup = ({}) => {
                       name="password"
                       required
                       type="password"
-                      value={ values.password }
-                      onChange={ handleInputChange }
+                      value={values.password}
+                      onChange={handleInputChange}
                     />
-                    <InvalidFeedback error={ error } loading={ loading } name="password"/>
+                    <InvalidFeedback error={error} loading={loading} name="password" />
                   </FormGroup>
 
                   <div className="already-subscriptor">
-                    {/*<span>{ alreadyRegistered }</span>*/ }
-                    { ' ' }
-                    {/*<a className="bold text-uppercase" href="/login" onClick={ goToLogin }>{ login }</a>*/ }
+                    {/*<span>{ alreadyRegistered }</span>*/}
+                    {' '}
+                    {/*<a className="bold text-uppercase" href="/login" onClick={ goToLogin }>{ login }</a>*/}
                   </div>
-                  <OrEnterWith/>
-                  <SocialButtons socialLogin={ socialLogin }/>
-
+                  <OrEnterWith />
+                  <div className="social-buttons">
+                    <SocialButtons socialLogin={socialLogin} />
+                  </div>
                   <FormGroup>
                     <label className="terms">
                       <input
-                        checked={ values.terms }
+                        checked={values.terms}
                         name="terms"
-                        onChange={ handleInputChange }
+                        onChange={handleInputChange}
                         // required={ requireds }
                         type="checkbox"
-                        value={ `true` }
+                        value={`true`}
                       />
-                      <span className="text-dark" style={ { paddingLeft: "10px" } }>He leído y acepto el contrato de NacionalPlay</span>
+                      <span className="text-dark" style={{ paddingLeft: "10px" }}>He leído y acepto el contrato de NacionalPlay</span>
                     </label>
-                    <InvalidFeedback error={ error } loading={ loading } name="terms"/>
+                    <InvalidFeedback error={error} loading={loading} name="terms" />
                   </FormGroup>
 
                   <div className="already-subscriptor">
                     <span>¿Ya estás registrado?</span>
-                    { ' ' }
+                    {' '}
                     <a className="bold text-uppercase" href="/login">Inicia sesión</a>
                   </div>
 
-                  <Button block className="enter-btn" size="sm" type="submit" loading={ loading }
-                          disabled={ loading }>Registrar</Button>
+                  <Button block className="enter-btn" size="sm" type="submit" loading={loading}
+                    disabled={loading}>Registrar</Button>
                 </form>
               </div>
             </div>
           </div>
         </div>
-        <style jsx global>{ `
-        
+        <style jsx global>{`
+
         h2.card-title {
           font-weight: normal;
           color: #000;
@@ -239,15 +247,19 @@ const Signup = ({}) => {
           font-weight: 500;
           margin-bottom: 2.5em;
         }
-        
+        .img-logoApp-card{
+          width: 45%;
+          display: flex;
+        }
+
         .text-primary {
-           color: ${ primaryColor } !important;
+           color: ${ primaryColor} !important;
         }
         .register-confirm {
           padding-top: 50px;
           padding-bottom: 50px;
           color: #666666;
-        } 
+        }
         .or-enter-with {
           align-items: center;
           display: flex;
@@ -273,7 +285,7 @@ const Signup = ({}) => {
         .social-btns {
           margin-bottom: 1.2em;
         }
-        
+
         .already-subscriptor {
           font-size: 16px;
           margin-bottom: 20px;
@@ -283,9 +295,58 @@ const Signup = ({}) => {
         .already-subscriptor a {
           color: inherit;
         }
+
+
+         @media(max-width: 765px) {
+       .social-btns {
+          margin-bottom: 1.2em;
+        flex-direction: column-reverse;
+    text-align: center;
+    flex-wrap: wrap;
+    display: flex;
+    align-content: center;
+        }
+
+        .responsive{
+             padding: 40px!important;
+             padding: 0px;
+            display: flex;
+            flex-wrap: wrap;
+            height:100%!important;
+         }
+         .card{
+           height:99%!important;
+         }
+            label {
+              display: inline-block;
+              margin-bottom: .5rem;
+              text-align: center;
+            }
+
+         .justify-content-end {
+           display:flex;
+           justify-content:center!important;
+         }
+         form{
+           padding 0px!important;
+         }
+         .row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    /* flex-wrap: wrap; */
+     margin-right: 0px;
+     margin-left: 0px;
+}
+.col-8 {
+
+     max-width: 100%!important;
+}
+      }
+
       ` }</style>
-      </div>
-    </Layout>
+      </div >
+    </Layout >
 
   )
 
