@@ -1,10 +1,32 @@
 {
-  "alias": ["atlnacional.vercel.app"],
-  "routes": [
-    { "src": "/fLogin", "dest": "/?modal=login&socialProvider=facebook" },
-    { "src": "/gLogin", "dest": "/?modal=login&socialProvider=google" },
-    { "src": "/login", "dest": "/?modal=login" }
+  "name": "lau-app",
+  "alias": [
+    "lau-app.vercel.app"
   ],
   "scope": "somosgad",
-  "version": 2
+  "version": 2,
+  "env": {
+    "TENANT": "lau",
+    "API_URL": "https://lau.dowhile.com.br"
+  },
+  "build": {
+    "env": {
+      "TENANT": "lau",
+      "API_URL": "https://lau.dowhile.com.br"
+    }
+  },
+  "routes": [
+    {
+      "src": "/fLogin",
+      "dest": "/?modal=login&socialProvider=facebook"
+    },
+    {
+      "src": "/gLogin",
+      "dest": "/?modal=login&socialProvider=google"
+    },
+    {
+      "src": "/login",
+      "dest": "/?modal=login"
+    }
+  ]
 }

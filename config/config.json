@@ -102,7 +102,7 @@
     "shortClubName": "La U",
     "supportersAKA": "Universitários",
     "color": "#9a3324",
-    "secondaryColor": "#001e60",
+    "secondaryColor": "#000",
     "site": "https://www.udechile.cl/",
     "socialNetworks": [
       {
@@ -119,10 +119,10 @@
       }
     ],
     "googleAnalytics": "UA-146274840-3",
-    "apiUrl": "https://admin.laumas.cl",
+    "apiUrl": "https://lau.dowhile.com.br",
     "lang": "es-CL",
     "loadingColor": "primary",
-    "backgroundColor": "#161846",
+    "backgroundColor": "#000000",
     "backgroundContrastColor": "#202364",
     "backgroundContrastColor2": "#293989",
     "textColor": "#bec3db"
