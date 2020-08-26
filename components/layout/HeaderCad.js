@@ -184,8 +184,8 @@ const HeaderCad = ({ closed, layoutColor, menus }) => {
 
         .img-logoApp {
          width: 40%!important;
-         height: 57px!important;
-         padding-top: 18px!important;
+         height: 100%!important;
+         padding: 18px!important;
         }
 
         .item-style3 {
@@ -265,7 +265,7 @@ const HeaderCad = ({ closed, layoutColor, menus }) => {
         }
 
 
-       @media(max-width: 765px) {
+       @media(max-width: 414px) {
 
           .img-display{
           display:none;
@@ -278,7 +278,6 @@ const HeaderCad = ({ closed, layoutColor, menus }) => {
           background: black;
           display: flex;
           justify-content: center;
-          height: 58px;
           display:flex;
         }
 

@@ -249,7 +249,6 @@ const Signup = ({ }) => {
         }
         .img-logoApp-card{
           width: 45%;
-          display: flex;
         }
 
         .text-primary {
@@ -297,61 +296,69 @@ const Signup = ({ }) => {
         }
 
 
-         @media(max-width: 765px) {
-       .social-btns {
-          margin-bottom: 1.2em;
+
+    @media(max-width: 765px) {
+
+
+
+      .social-btns {
+        margin-bottom: 1.2em;
         flex-direction: column-reverse;
-    text-align: center;
-    flex-wrap: wrap;
-    display: flex;
-    align-content: center;
+        text-align: center;
+        flex-wrap: wrap;
+        display: flex;
+        align-content: center;
+
         }
 
-        .responsive{
-             padding: 40px!important;
-             padding: 0px;
-            display: flex;
-            flex-wrap: wrap;
-            height:100%!important;
-
-
-         }
-
-
-         .card{
-           height:99%!important;
-           background-color: rgba(255,255,255,0.85);
-         }
-
-          .card-body{
-           background-image: url()!important;
-         }
-            label {
-              display: inline-block;
-              margin-bottom: .5rem;
-              text-align: center;
-            }
-
-         .justify-content-end {
-           display:flex;
-           justify-content:center!important;
-         }
-         form{
-           padding 0px!important;
-         }
-         .row {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    /* flex-wrap: wrap; */
-     margin-right: 0px;
-     margin-left: 0px;
-}
-.col-8 {
-
-     max-width: 100%!important;
-}
+      .responsive {
+        padding: 40px!important;
+        padding: 0px;
+        display: flex;
+        flex-wrap: wrap;
+        height:100%!important;
       }
+
+
+      .card {
+        height:100%!important;
+        background-color: rgba(255,255,255,0.85);
+      }
+
+      .card-body {
+        background-image: url()!important;
+        height:100%!important;
+
+      }
+
+      label {
+        display: inline-block;
+        margin-bottom: .5rem;
+        text-align: center;
+      }
+
+      .justify-content-end {
+        display:flex;
+        justify-content:center!important;
+      }
+
+      form {
+        padding 0px!important;
+      }
+
+      .row {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        margin-right: 0px;
+        margin-left: 0px;
+      }
+
+      .col-8 {
+        max-width: 100%!important;
+      }
+
+    }
 
       ` }</style>
       </div >

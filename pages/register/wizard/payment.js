@@ -466,10 +466,14 @@ const Payment = ({
          .card{
            height:99%!important;
            background-color: rgba(255,255,255,0.85);
+           height:100%!important;
+
          }
 
           .card-body{
            background-image: url()!important;
+           height:100%!important;
+
          }
 
          label {
