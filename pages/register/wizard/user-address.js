@@ -159,14 +159,16 @@ const UserAddressForm = ({ api, layoutProps, handleSubmit }) => {
           display: flex;
           flex-wrap: wrap;
           height: 100%!importat;
-    justify-content: center;
+          justify-content: center;
           height:100%!important;
 
           }
          .card{
            height:99%!important;
-          background-color: rgba(255,255,255,0.85);
 
+         }
+         .card-body{
+           background-image: url()!important;
          }
 
          label {

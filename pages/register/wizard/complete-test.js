@@ -154,6 +154,9 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
            background-color: rgba(255,255,255,0.85);
 
          }
+           .card-body{
+           background-image: url()!important;
+         }
 
          label {
               display: inline-block;
