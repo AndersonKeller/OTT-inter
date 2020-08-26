@@ -164,12 +164,12 @@ const UserAddressForm = ({ api, layoutProps, handleSubmit }) => {
 
           }
          .card{
-           height:100%!important;
+          //  height:100%!important;
 
          }
          .card-body{
           background-image: url()!important;
-          height:100%!important;
+          // height:100%!important;
 
          }
 

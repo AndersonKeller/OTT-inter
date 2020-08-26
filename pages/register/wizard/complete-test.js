@@ -151,7 +151,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
           }
          .card{
-           height:100%!important;
+          //  height:100%!important;
            margin:10px 0px!important;
            background-color: rgba(255,255,255,0.85);
 
@@ -159,7 +159,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
         .card-body{
           background-image: url()!important;
-          height:100%!important;
+          // height:100%!important;
          }
 
          label {

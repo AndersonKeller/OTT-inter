@@ -321,13 +321,13 @@ const Signup = ({ }) => {
 
 
       .card {
-        height:100%!important;
+        // height:100%!important;
         background-color: rgba(255,255,255,0.85);
       }
 
       .card-body {
         background-image: url()!important;
-        height:100%!important;
+        // height:100%!important;
 
       }
 
