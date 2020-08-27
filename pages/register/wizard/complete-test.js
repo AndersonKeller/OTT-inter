@@ -133,14 +133,16 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
       </div>
       <style sjx>{`
 
+@media(max-width: 411px) {
         .img-logoApp-card{
           width: 45%;
           display: flex;
         }
+      }
          @media(max-width: 765px) {
 
         .responsive{
-              padding: 127px 30px 15px 30px!important;
+         padding: 127px 30px 15px 30px!important;
           // padding: 40px!important;
           padding: 0px;
           display: flex;
@@ -149,15 +151,21 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
           }
          .card{
-           height:99%!important;
+          //  height:100%!important;
            margin:10px 0px!important;
+           background-color: rgba(255,255,255,0.85);
 
          }
 
+        .card-body{
+          background-image: url()!important;
+          // height:100%!important;
+         }
+
          label {
-              display: inline-block;
-              margin-bottom: .5rem;
-              text-align: center;
+        display: inline-block;
+         margin-bottom: .5rem;
+         text-align: center;
             }
 
          .justify-content-end {
