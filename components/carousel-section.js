@@ -13,11 +13,14 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
     : 'No media added to this category'
   const { movies: medias, name: title } = category
 
-  medias.map((el) => {
-    el.image = el.thumbnail2_url
-    el.imageHighRes = el.thumbnail2_url
+  if (medias) {
+    medias.map((el) => {
+      el.image = el.thumbnail2_url
+      el.imageHighRes = el.thumbnail2_url
 
-  })
+    })
+  }
+
 
   function SliderContainer(props) {
     return <div className='slider-container-title'>{props.videoModel.title}</div>;
@@ -45,21 +48,24 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
 
   function ree() {
     // alert(key)
-    if ((idx % 2) === 1) {
-
+    if (medias && category.horizontal) {
       return <NetSlider
         className='netslider_title_card'
         data={medias}
         slideTemplate={props => <SliderTemplate {...props} />}
       />
     } else {
-      console.log('eroutror');
-      return <Carousel color={color}
-        additional={category}>
-        {medias.map((media, key) => (
-          <MediaCard category={category} key={key} media={media} />
-        ))}
-      </Carousel>
+      if (medias && medias.length) {
+        return <Carousel color={color}
+                         additional={category}>
+          {medias.map((media, key) => (
+            <MediaCard category={category} key={key} media={media} />
+          ))}
+        </Carousel>
+      } else {
+        <div className="error-message">{emptyMessage}</div>
+      }
+
     }
   }
 

@@ -160,34 +160,25 @@
     "textColor": "#c5dbbe"
   },
   "independiente": {
-    "appName": "Independiente Play",
+    "appName": "Club Atlético Independiente",
     "clubName": "Club Atlético Independiente",
-    "fullClubName": "Atlético Nacional",
+    "fullClubName": "Independiente",
     "shortClubName": "Independiente",
     "supportersAKA": "Independiente",
     "color": "#ec1c24",
     "secondaryColor": "#000",
     "site": "http://www.clubaindependiente.com/",
     "socialNetworks": [
-      {
-        "name": "Facebook",
-        "link": "https://www.facebook.com/Independiente/"
-      },
-      {
-        "name": "Instagram",
-        "link": "https://www.instagram.com/caindependiente/"
-      },
-      {
-        "name": "Twitter",
-        "link": "https://twitter.com/independiente"
-      }
+      { "name": "Facebook", "link": "https://www.facebook.com/Independiente/" },
+      { "name": "Instagram", "link": "https://www.instagram.com/caindependiente/" },
+      { "name": "Twitter", "link": "https://twitter.com/independiente" }
     ],
     "googleAnalytics": "",
     "apiUrl": "https://independiente.dowhile.com.br",
     "lang": "es-AR",
     "loadingColor": "primary",
     "backgroundColor": "#000000",
-    "backgroundContrastColor": "#CECDBF",
+    "backgroundContrastColor": "#000000",
     "backgroundContrastColor2": "#99090D",
     "textColor": "#ffffff"
   }
