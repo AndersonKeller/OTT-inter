@@ -20,7 +20,7 @@ import Header from '~/components/layout/HeaderCad'
 import LogoApp from '~/components/LogoApp';
 
 
-const Signup = ({ }) => {
+const Signup = ({}) => {
 
 
   const handleInputChange = e => {
@@ -53,7 +53,7 @@ const Signup = ({ }) => {
     let provider = e.currentTarget.innerText;
     try {
       nookies.set({}, 'pkg_int_id', JSON.stringify(packageId), { path: '/' })
-      const res = await api().get(`auth/${provider}`)
+      const res = await api().get(`auth/${ provider }`)
       // console.table(res)
       // console.log(res.data.url)
       window.location = res.data.url
@@ -95,59 +95,44 @@ const Signup = ({ }) => {
 
   function appName() {
     if (CONFIG.appName) {
-      return <div style={{ display: 'inline-block' }}>
-        <strong className="text-primary">{CONFIG.appName.split(' ')[0]}</strong>{CONFIG.appName.split(' ')[1]}
+      return <div style={ { display: 'inline-block' } }>
+        <strong className="text-primary">{ CONFIG.appName.split(' ')[0] }</strong>{ CONFIG.appName.split(' ')[1] }
       </div>
     }
-    return <div style={{ display: 'inline-block' }}>
+    return <div style={ { display: 'inline-block' } }>
       <strong className="text-primary">NACIONAL</strong>PLAY
     </div>
   }
 
   return (
 
-    <Layout header={"hidden"} footer={"hidden"}>
-      <Header />
+    <Layout header={ "hidden" } footer={ "hidden" } customClass={"signup-screen"}>
+      <Header/>
+
       <div
-        className="d-flex align-items-center justify-content-center h-100 responsive"
-        style={{
-          padding: "50 20",
-          backgroundImage: `url('/static/${TENANT}/subs/background.jpg')`,
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat'
-        }}
+        className="card-wrapper d-flex align-items-center justify-content-center h-100"
+        style={ {
+          backgroundImage: `url('/static/${ TENANT }/subs/background.jpg')`,
+        } }
       >
-        <div className="card" style={{
-          width: "100%",
-          maxWidth: "800px",
-          margin: "110px 0",
-          backgroundColor: "rgba(255,255,255,0.85)",
-          borderRadius: "0",
-          border: "none"
-        }}>
-          <div className={"card-header text-center"} style={{
-            backgroundColor: "#242627",
-            padding: "25px 15px",
-            border: "none",
-            borderRadius: "0",
-            justifyContent: "center",
-            display: "flex",
-          }}>
-            <div className="img-logoApp-card"> <LogoApp /></div>
+
+        <div className="card">
+
+          <div className={ "card-header text-center" }>
+            <div className="img-logoApp-card"><LogoApp/></div>
           </div>
+
           <div className="card-body" style={
             {
-              backgroundImage: `url('/static/${TENANT}/subs/bg_modal.png')`,
-              backgroundRepeat: "no-repeat",
-              height: "600px"
+              backgroundImage: `url('/static/${ TENANT }/subs/bg_modal.png')`,
             }
           }>
-            <h2 className="card-title text-center"><span className={"text-primary"}>¡</span>Sé parte de {appName()}
-              <span className={"text-primary"}>!</span></h2>
+            <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { appName() }
+              <span className={ "text-primary" }>!</span></h2>
 
-            <div className="row w-100 justify-content-end">
-              <div className="col-8">
-                <form method="post" onSubmit={handleSubmit} style={
+            <div className="row w-100 justify-content-end justify-content-sm-center">
+              <div className="col-md-8 col-sm-10">
+                <form method="post" onSubmit={ handleSubmit } style={
                   {
                     maxWidth: "480px",
                     display: "block",
@@ -155,19 +140,19 @@ const Signup = ({ }) => {
                   }
                 }>
 
-                  {error && <div className="invalid-feedback">{error.message}</div>}
+                  { error && <div className="invalid-feedback">{ error.message }</div> }
 
                   <FormGroup>
                     <Label htmlFor="name" className="text-dark">Nombre completo</Label>
                     <Input
                       id="name"
                       name="name"
-                      value={values.name}
-                      onChange={handleInputChange}
+                      value={ values.name }
+                      onChange={ handleInputChange }
                       required
-                    // onChange={ handleInputChange }
+                      // onChange={ handleInputChange }
                     />
-                    <InvalidFeedback error={error} loading={loading} name="name" />
+                    <InvalidFeedback error={ error } loading={ loading } name="name"/>
                   </FormGroup>
 
                   <FormGroup>
@@ -176,12 +161,12 @@ const Signup = ({ }) => {
                       id="email"
                       type="email"
                       name="email"
-                      value={values.email}
-                      onChange={handleInputChange}
+                      value={ values.email }
+                      onChange={ handleInputChange }
                       required
                     />
 
-                    <InvalidFeedback error={error} loading={loading} name="email" />
+                    <InvalidFeedback error={ error } loading={ loading } name="email"/>
                   </FormGroup>
 
                   <FormGroup>
@@ -191,50 +176,50 @@ const Signup = ({ }) => {
                       name="password"
                       required
                       type="password"
-                      value={values.password}
-                      onChange={handleInputChange}
+                      value={ values.password }
+                      onChange={ handleInputChange }
                     />
-                    <InvalidFeedback error={error} loading={loading} name="password" />
+                    <InvalidFeedback error={ error } loading={ loading } name="password"/>
                   </FormGroup>
 
                   <div className="already-subscriptor">
-                    {/*<span>{ alreadyRegistered }</span>*/}
-                    {' '}
-                    {/*<a className="bold text-uppercase" href="/login" onClick={ goToLogin }>{ login }</a>*/}
+                    {/*<span>{ alreadyRegistered }</span>*/ }
+                    { ' ' }
+                    {/*<a className="bold text-uppercase" href="/login" onClick={ goToLogin }>{ login }</a>*/ }
                   </div>
-                  <OrEnterWith />
+                  <OrEnterWith/>
                   <div className="social-buttons">
-                    <SocialButtons socialLogin={socialLogin} />
+                    <SocialButtons socialLogin={ socialLogin }/>
                   </div>
                   <FormGroup>
                     <label className="terms">
                       <input
-                        checked={values.terms}
+                        checked={ values.terms }
                         name="terms"
-                        onChange={handleInputChange}
+                        onChange={ handleInputChange }
                         // required={ requireds }
                         type="checkbox"
-                        value={`true`}
+                        value={ `true` }
                       />
-                      <span className="text-dark" style={{ paddingLeft: "10px" }}>He leído y acepto el contrato de NacionalPlay</span>
+                      <span className="text-dark" style={ { paddingLeft: "10px" } }>He leído y acepto el contrato de NacionalPlay</span>
                     </label>
-                    <InvalidFeedback error={error} loading={loading} name="terms" />
+                    <InvalidFeedback error={ error } loading={ loading } name="terms"/>
                   </FormGroup>
 
                   <div className="already-subscriptor">
                     <span>¿Ya estás registrado?</span>
-                    {' '}
+                    { ' ' }
                     <a className="bold text-uppercase" href="/login">Inicia sesión</a>
                   </div>
 
-                  <Button block className="enter-btn" size="sm" type="submit" loading={loading}
-                    disabled={loading}>Registrar</Button>
+                  <Button block className="enter-btn" size="sm" type="submit" loading={ loading }
+                          disabled={ loading }>Registrar</Button>
                 </form>
               </div>
             </div>
           </div>
         </div>
-        <style jsx global>{`
+        <style jsx global>{ `
 
         h2.card-title {
           font-weight: normal;
@@ -252,7 +237,7 @@ const Signup = ({ }) => {
         }
 
         .text-primary {
-           color: ${ primaryColor} !important;
+           color: ${ primaryColor } !important;
         }
         .register-confirm {
           padding-top: 50px;
@@ -298,71 +283,13 @@ const Signup = ({ }) => {
 
 
     @media(max-width: 765px) {
-
-
-
-      .social-btns {
-        margin-bottom: 1.2em;
-        flex-direction: column-reverse;
-        text-align: center;
-        flex-wrap: wrap;
-        display: flex;
-        align-content: center;
-
-        }
-
-      .responsive {
-        padding: 40px!important;
-        padding: 0px;
-        display: flex;
-        flex-wrap: wrap;
-        height:100%!important;
-      }
-
-
-      .card {
-        // height:100%!important;
-        background-color: rgba(255,255,255,0.85);
-      }
-
-      .card-body {
-        background-image: url()!important;
-        // height:100%!important;
-
-      }
-
-      label {
-        display: inline-block;
-        margin-bottom: .5rem;
-        text-align: center;
-      }
-
-      .justify-content-end {
-        display:flex;
-        justify-content:center!important;
-      }
-
       form {
-        padding 0px!important;
+        padding: 0 !important;
       }
-
-      .row {
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-wrap: wrap;
-        margin-right: 0px;
-        margin-left: 0px;
-      }
-
-      .col-8 {
-        max-width: 100%!important;
-      }
-
     }
-
       ` }</style>
-      </div >
-    </Layout >
+      </div>
+    </Layout>
 
   )
 

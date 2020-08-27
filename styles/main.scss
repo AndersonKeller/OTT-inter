@@ -1,10 +1,15 @@
 /**
   COMPONENTS
  */
+@import "~bootstrap";
 @import "components/multiStepIndicator";
 @import "components/wizard/complete";
 @import "components/wizard/payment";
 @import "~flatpickr/dist/themes/dark.css";
+
+
+@import "pages/signup";
+@import "pages/subscripton";
 
 .bob-overlay {
   .slide-wrapper {

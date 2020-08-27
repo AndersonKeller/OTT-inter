@@ -17,7 +17,8 @@ const Layout = ({
                   menus,
                   menusError,
                   paddingTop = true,
-                  footer = ''
+                  footer = '',
+                  customClass = ''
                 }) => {
 
   if (errorCode) {
@@ -67,7 +68,7 @@ const Layout = ({
   }
 
   return (
-    <>
+    <div className={customClass}>
       <ToastContainer newestOnTop/>
 
       { renderHeader() }
@@ -95,7 +96,7 @@ const Layout = ({
           padding-top: 0;
         }
       ` }</style>
-    </>
+    </div>
   );
 }
 

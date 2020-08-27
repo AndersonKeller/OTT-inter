@@ -1,0 +1,104 @@
+.signup-screen, .subscription-screen {
+
+  @include media-breakpoint-down(sm) {
+    nav.logo-app {
+      display: none !important;
+    }
+  }
+
+  .card-wrapper {
+    padding: 50px 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    @include media-breakpoint-down(sm) {
+      padding: 0px 15px;
+      display: flex;
+      flex-wrap: wrap;
+      height: 100% !important;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 800px;
+      margin: 110px 0;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 0;
+      border: none;
+
+      .card-header {
+        background-color: #242627;
+        padding: 25px 15px;
+        border: none;
+        border-radius: 0;
+        justify-content: center;
+        display: flex;
+
+        .img-logoApp-card {
+          img {
+            width: auto;
+          }
+        }
+      }
+
+      .card-body {
+        background-repeat: no-repeat;
+        height: 600px;
+
+        .register-confirm {
+          @include media-breakpoint-down(sm) {
+            padding-left: 0;
+            padding-right: 0;
+          }
+        }
+
+        @include media-breakpoint-down(sm) {
+          height: auto !important;
+          background-image: none !important;
+        }
+
+        .row {
+          @include media-breakpoint-down(sm) {
+            margin-right: 0;
+            margin-left: 0;
+          }
+        }
+
+        .terms {
+          @include media-breakpoint-down(sm) {
+            display: inline-block;
+            margin-bottom: .5rem;
+            text-align: center;
+          }
+        }
+
+        .social-buttons {
+
+          .social-btns {
+            @include media-breakpoint-down(sm) {
+              margin-bottom: 1.2em;
+              flex-direction: column-reverse;
+              text-align: center;
+              flex-wrap: wrap;
+              display: flex;
+              align-content: center;
+
+              button {
+                width: 100%;
+                justify-content: center;
+              }
+              button + button {
+                margin-bottom: 10px;
+                .icon {
+                  margin-left: -16px;
+                }
+              }
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
+
