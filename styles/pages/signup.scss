@@ -1,5 +1,11 @@
 .signup-screen, .subscription-screen {
 
+  header {
+    .nav {
+      display: none;
+    }
+  }
+
   @include media-breakpoint-down(sm) {
     nav.logo-app {
       display: none !important;
@@ -7,9 +13,10 @@
   }
 
   .card-wrapper {
-    padding: 50px 20px;
+    padding: 0px 20px;
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center center;
 
     @include media-breakpoint-down(sm) {
       padding: 0px 15px;
@@ -43,6 +50,8 @@
 
       .card-body {
         background-repeat: no-repeat;
+        background-position-x: left;
+        background-position-y: bottom;
         height: 600px;
 
         .register-confirm {
