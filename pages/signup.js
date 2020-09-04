@@ -138,7 +138,7 @@ const Signup = ({ }) => {
             {
               backgroundImage: `url('/static/${TENANT}/subs/bg_modal.png')`,
               backgroundRepeat: "no-repeat",
-              height: "600px"
+              height: "100%"
             }
           }>
             <h2 className="card-title text-center"><span className={"text-primary"}>¡</span>Sé parte de {appName()}
@@ -301,6 +301,16 @@ const Signup = ({ }) => {
 
 
 
+      .card {
+        // height:100%!important;
+        background-color: rgba(255,255,255,0.85);
+      }
+
+      .card-body {
+        background-image: url()!important;
+        // height:100%!important;
+
+      }
     @media(max-width: 765px) {
       .social-btns {
         margin-bottom: 1.2em;
@@ -320,16 +330,6 @@ const Signup = ({ }) => {
         height:100%!important;
       }
 
-      .card {
-        // height:100%!important;
-        background-color: rgba(255,255,255,0.85);
-      }
-
-      .card-body {
-        background-image: url()!important;
-        // height:100%!important;
-
-      }
 
       label {
         display: inline-block;
@@ -342,9 +342,7 @@ const Signup = ({ }) => {
         justify-content:center!important;
       }
 
-      form {
-        padding 0px!important;
-      }
+
 
       .row {
         display: -ms-flexbox;
@@ -353,12 +351,15 @@ const Signup = ({ }) => {
         margin-right: 0px;
         margin-left: 0px;
       }
-
-      .col-8 {
-        max-width: 100%!important;
-      }
-
     }
+      .col-8 {
+       flex: 0 0 66.66667%;
+       max-width: 89.66667%;
+    }
+  }
+         form {
+        padding 0px!important;
+      }
 
       ` }</style>
       </div >
