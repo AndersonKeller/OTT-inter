@@ -13,7 +13,8 @@ import InvalidFeedback from "~/components/Form/InvalidFeedback";
 import { GoSearch } from 'react-icons/go';
 import Color from 'color'
 import { ThemeContext } from 'styled-components'
-
+import $ from 'jquery';
+import ReactDOM from 'react-dom';
 import Flatpickr from "react-flatpickr";
 
 
@@ -79,6 +80,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
         terms: user.terms,
       })
     }
+
   }, [user])
 
   const handleInputChange = e => {
@@ -89,6 +91,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
         (checked ? (value === 'true' ? true : value) : false) :
         value,
     })
+
   }
 
   const submit = async e => {
@@ -280,20 +283,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
                 </FormGroup>
               </div>
 
-              <div className="col-md-6">
-                <FormGroup>
-                  <Label htmlFor="document">Documento</Label>
-                  <Input
-                    id="document"
-                    name="document"
-                    onChange={handleInputChange}
-                    required={requireds}
-                    type="text"
-                    value={values.document}
-                  />
-                  <InvalidFeedback error={error} loading={loading} name="document" />
-                </FormGroup>
-              </div>
+
               <div className="col-md-6">
                 <FormGroup>
                   <Label htmlFor="birth">Fecha de nacimiento</Label>
@@ -309,7 +299,8 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
                   />
                 </FormGroup>
               </div>
-              <div className="col-md-6">
+
+              <div className="col-md-6 ">
                 <FormGroup  >
                   <Label htmlFor="document">Abonado</Label>
 
@@ -327,6 +318,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
                       required={requireds}
                       type="text"
                       value={values.abonado}
+
                     />
 
                     <Button
@@ -350,6 +342,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
               </div>
               {/* </div> */}
               <div className="col-md-6">
+                <Label></Label>
                 <FormGroup>
                   <label className="terms">
                     <input
@@ -364,8 +357,24 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
                   </label>
                   <InvalidFeedback error={error} loading={loading} name="terms" />
                 </FormGroup>
+                <div className="is-miembro ">
+
+                  <FormGroup>
+                    <Label htmlFor="document">Documento</Label>
+                    <Input
+                      id="document"
+                      name="document"
+                      onChange={handleInputChange}
+                      required={requireds}
+                      type="text"
+                      value={values.document}
+                    />
+                    <InvalidFeedback error={error} loading={loading} name="document" />
+                  </FormGroup>
+                </div>
               </div>
             </div>
+
 
             {discounts && discounts.map(d => (
               <FormGroup key={d.id}>
@@ -423,10 +432,25 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
           padding-bottom: 50px;
           color: #666666;
         }
+        .is-miembro{
+
+          ${values.terms ? `display:block` : `display:none!important; `}
+
+        }
+
+
+
 
       ` }</style>
     </form >
   )
+
+
+
+
 }
+
+
+
 
 export default withAuth(UserDataForm, true);
