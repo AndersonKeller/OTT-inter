@@ -133,7 +133,7 @@ const Signup = ({ }) => {
             justifyContent: "center",
             display: "flex",
           }}>
-            <div className="img-logoApp-card"> <LogoApp /></div>
+            <div className="img-logoApp-card img"> <LogoApp /></div>
           </div>
           <div className="card-body" style={
             {
@@ -248,7 +248,8 @@ const Signup = ({ }) => {
           margin-bottom: 2.5em;
         }
         .img-logoApp-card{
-          width: 45%;
+         height: 78px!important;
+        width: 256px!important;
         }
 
         .text-primary {
@@ -318,6 +319,8 @@ const Signup = ({ }) => {
         flex-wrap: wrap;
         height:100%!important;
       }
+
+
 
 
       .card {

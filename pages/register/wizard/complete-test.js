@@ -132,10 +132,14 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
         </div>
       </div>
       <style sjx>{`
+         .img-logoApp-card{
+         height: 78px!important;
+        width: 256px!important;
+        }
 
-@media(max-width: 411px) {
-        .img-logoApp-card{
-          width: 45%;
+      @media(max-width: 411px) {
+          .img-logoApp-card{
+            width: 45%;
           display: flex;
         }
       }
