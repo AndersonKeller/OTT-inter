@@ -111,9 +111,9 @@ export default () => {
             <Dropdown.Item as="button"
               className="dropdown-item-style1"
               onClick={enter}>Entrar</Dropdown.Item>
-            <Link href="/subscriptor">
+            <Link href="/signup">
               <Dropdown.Item className="dropdown-item-style2"
-                href="/subscriptor">Suscripción</Dropdown.Item>
+                href="/signup">Suscripción</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
             {/* <Dropdown.Item className="dropdown-item-style3" href="/ajustes">

@@ -1,18 +1,18 @@
 {
-  "name": "independiente-app",
+  "name": "lau-app",
   "alias": [
-    "independiente-app.vercel.app"
+    "lau-app.vercel.app"
   ],
   "scope": "somosgad",
   "version": 2,
   "env": {
-    "TENANT": "independiente",
-    "API_URL": "https://independiente.dowhile.com.br"
+    "TENANT": "lau",
+    "API_URL": "https://lau.dowhile.com.br"
   },
   "build": {
     "env": {
-      "TENANT": "independiente",
-      "API_URL": "https://independiente.dowhile.com.br"
+      "TENANT": "lau",
+      "API_URL": "https://lau.dowhile.com.br"
     }
   },
   "routes": [

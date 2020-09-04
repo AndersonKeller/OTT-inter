@@ -3,7 +3,7 @@ import Layout from "~/components/layout/Layout";
 import UserData from "./user-data";
 import UserAddress from "./user-address"
 import SubscriptionSuccess from "./subscription-success"
-import { useState } from "react";
+import React, { useState } from "react";
 import { IS_PRODUCTION } from "~/constants/constants";
 import Header from '~/components/layout/HeaderCad'
 import Payment from "~/pages/register/wizard/payment";
@@ -95,36 +95,28 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
 
 
-    <Layout header={"hidden"} footer={"hidden"}>
+    <Layout header={"hidden"} footer={"hidden"} customClass={"subscription-screen"}>
       <Header />
 
 
       <MultiStepIndicator index={wizardIndex} onClick={handleSubmit} />
       <div
-        className="d-flex align-items-center justify-content-center h-100 responsive"
+        className="card-wrapper d-flex align-items-center justify-content-center h-100 responsive"
         style={{
-          padding: "50 20",
           backgroundImage: `url('/static/${TENANT}/subs/background.jpg')`,
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat'
-        }}>
-        <div className="card" style={{
-          width: "100%",
-          maxWidth: "800px",
-          margin: "110px 0",
-          backgroundColor: "rgba(255,255,255,0.85)",
-          borderRadius: "0",
-          border: "none"
-        }}>
+        }}
+      >
+        <div className="card">
           <div className={"card-header text-center"} style={{
             backgroundColor: "#242627",
             padding: "25px 15px",
             border: "none",
             borderRadius: "0",
+            justifyContent: "center",
             display: "flex",
-            justifyContent: "center"
+            width: "100%",
           }}>
-            <div className="img-logoApp-card"> <LogoApp /></div>
+            <div className="img-logoApp-card img"> <LogoApp /></div>
           </div>
           <div className="card-body">
             {renderComponents()}
@@ -132,17 +124,18 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
         </div>
       </div>
       <style sjx>{`
-         .img-logoApp-card{
-         height: 78px!important;
-        width: 256px!important;
+
+        .signup-screen .card-wrapper .card .card-header
+        .img-logoApp-card img,
+        .subscription-screen .card-wrapper .card .card-header .img-logoApp-card img {
+           width: 100%!important;
         }
 
-      @media(max-width: 411px) {
-          .img-logoApp-card{
-            width: 45%;
-          display: flex;
+        .img-logoApp-card{
+         height: 80px!important;
+        width: 203px!important;
         }
-      }
+
          @media(max-width: 765px) {
 
         .responsive{

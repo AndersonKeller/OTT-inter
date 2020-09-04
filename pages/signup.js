@@ -118,7 +118,6 @@ const Signup = ({ }) => {
         }}
       >
         <div className="card" style={{
-          width: "100%",
           maxWidth: "800px",
           margin: "110px 0",
           backgroundColor: "rgba(255,255,255,0.85)",
@@ -236,6 +235,7 @@ const Signup = ({ }) => {
         </div>
         <style jsx global>{`
 
+
         h2.card-title {
           font-weight: normal;
           color: #000;
@@ -248,8 +248,11 @@ const Signup = ({ }) => {
           margin-bottom: 2.5em;
         }
         .img-logoApp-card{
-         height: 78px!important;
-        width: 256px!important;
+          height: 80px!important;
+          width: 203px!important;
+        }
+        .img{
+           width: 203px!important;
         }
 
         .text-primary {
@@ -299,9 +302,6 @@ const Signup = ({ }) => {
 
 
     @media(max-width: 765px) {
-
-
-
       .social-btns {
         margin-bottom: 1.2em;
         flex-direction: column-reverse;
@@ -319,9 +319,6 @@ const Signup = ({ }) => {
         flex-wrap: wrap;
         height:100%!important;
       }
-
-
-
 
       .card {
         // height:100%!important;
