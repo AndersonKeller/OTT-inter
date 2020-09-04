@@ -96,7 +96,7 @@ RegisterConfirmPage.getInitialProps = async ctx => {
     const message = JSON.stringify({ info: 'Necesitas completar tu registro.' })
     nookies.set(ctx, 'flash_message', message, { path: '/' })
     if (res) {
-      res.redirect('/register/complete')
+      res.redirect('/register/wizard/complete-test')
       res.end()
       return {}
     } else {

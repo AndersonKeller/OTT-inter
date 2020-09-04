@@ -1,10 +1,32 @@
 {
-  "alias": ["atlnacional.vercel.app"],
-  "routes": [
-    { "src": "/fLogin", "dest": "/?modal=login&socialProvider=facebook" },
-    { "src": "/gLogin", "dest": "/?modal=login&socialProvider=google" },
-    { "src": "/login", "dest": "/?modal=login" }
+  "name": "atlnacional",
+  "alias": [
+    "atlnacional.vercel.app"
   ],
   "scope": "somosgad",
-  "version": 2
+  "version": 2,
+  "env": {
+    "TENANT": "atlnacional",
+    "API_URL": "https://atlnacional.dowhile.com.br"
+  },
+  "build": {
+    "env": {
+      "TENANT": "atlnacional",
+      "API_URL": "https://atlnacional.dowhile.com.br"
+    }
+  },
+  "routes": [
+    {
+      "src": "/fLogin",
+      "dest": "/?modal=login&socialProvider=facebook"
+    },
+    {
+      "src": "/gLogin",
+      "dest": "/?modal=login&socialProvider=google"
+    },
+    {
+      "src": "/login",
+      "dest": "/?modal=login"
+    }
+  ]
 }

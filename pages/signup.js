@@ -33,6 +33,7 @@ const Signup = ({}) => {
     })
   }
 
+
   const theme = useContext(ThemeContext)
   const primaryColor = Color(theme.colors.primary).hsl().string()
 
@@ -52,7 +53,7 @@ const Signup = ({}) => {
   const socialLogin = async e => {
     let provider = e.currentTarget.innerText;
     try {
-      nookies.set({}, 'pkg_int_id', JSON.stringify(packageId), { path: '/' })
+      // nookies.set({}, 'pkg_int_id', JSON.stringify(packageId), { path: '/' })
       const res = await api().get(`auth/${ provider }`)
       // console.table(res)
       // console.log(res.data.url)
