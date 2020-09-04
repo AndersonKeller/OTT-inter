@@ -101,20 +101,93 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
       <MultiStepIndicator index={wizardIndex} onClick={handleSubmit} />
       <div
-        className="card-wrapper d-flex align-items-center justify-content-center h-100"
-        style={ {
-          backgroundImage: `url('/static/${ TENANT }/subs/background.jpg')`,
-        } }
+        className="card-wrapper d-flex align-items-center justify-content-center h-100 responsive"
+        style={{
+          backgroundImage: `url('/static/${TENANT}/subs/background.jpg')`,
+        }}
       >
         <div className="card">
-          <div className={"card-header text-center"}>
-            <div className="img-logoApp-card"> <LogoApp /></div>
+          <div className={"card-header text-center"} style={{
+            backgroundColor: "#242627",
+            padding: "25px 15px",
+            border: "none",
+            borderRadius: "0",
+            justifyContent: "center",
+            display: "flex",
+            width: "100%",
+          }}>
+            <div className="img-logoApp-card img"> <LogoApp /></div>
           </div>
           <div className="card-body">
             {renderComponents()}
           </div>
         </div>
       </div>
+      <style sjx>{`
+
+        .signup-screen .card-wrapper .card .card-header
+        .img-logoApp-card img,
+        .subscription-screen .card-wrapper .card .card-header .img-logoApp-card img {
+           width: 100%!important;
+        }
+
+        .img-logoApp-card{
+         height: 80px!important;
+        width: 203px!important;
+        }
+
+         @media(max-width: 765px) {
+
+        .responsive{
+         padding: 127px 30px 15px 30px!important;
+          // padding: 40px!important;
+          padding: 0px;
+          display: flex;
+          flex-wrap: wrap;
+          height:100%!important;
+
+          }
+         .card{
+          //  height:100%!important;
+           margin:10px 0px!important;
+           background-color: rgba(255,255,255,0.85);
+
+         }
+
+        .card-body{
+          background-image: url()!important;
+          // height:100%!important;
+         }
+
+         label {
+        display: inline-block;
+         margin-bottom: .5rem;
+         text-align: center;
+            }
+
+         .justify-content-end {
+           display:flex;
+           justify-content:center!important;
+         }
+         form{
+           padding 0px!important;
+         }
+         .row {
+          display: -ms-flexbox;
+          display: flex;
+          -ms-flex-wrap: wrap;
+           margin-right: 0px;
+           margin-left: 0px;
+          }
+        .col-8 {
+         max-width: 100%!important;
+          }
+        }
+
+      `}
+
+      </style>
+
     </Layout>
 
 

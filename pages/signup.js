@@ -20,7 +20,7 @@ import Header from '~/components/layout/HeaderCad'
 import LogoApp from '~/components/LogoApp';
 
 
-const Signup = ({}) => {
+const Signup = ({ }) => {
 
 
   const handleInputChange = e => {
@@ -131,7 +131,7 @@ const Signup = ({}) => {
             <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { appName() }
               <span className={ "text-primary" }>!</span></h2>
 
-            <div className="row w-100 justify-content-end">
+            <div className="row w-100 justify-content-end justify-content-sm-center">
               <div className="col-md-8 col-sm-10">
                 <form method="post" onSubmit={ handleSubmit } style={
                   {
