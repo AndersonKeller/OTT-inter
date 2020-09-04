@@ -130,6 +130,9 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
         .subscription-screen .card-wrapper .card .card-header .img-logoApp-card img {
            width: 100%!important;
         }
+        .signup-screen .card-wrapper .card .card-body, .subscription-screen .card-wrapper .card .card-body {
+           height:100%!important;
+          }
 
         .img-logoApp-card{
          height: 80px!important;
