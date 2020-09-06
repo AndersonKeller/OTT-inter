@@ -1,9 +1,11 @@
 // import sleep from 'sleep-promise'
 import withAuth from "~/components/withAuth";
-import { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import UserContext from "~/contexts/UserContext";
 import Button from "~/components/button";
 
+import { CLIENT_ID, CLIENT_SECRET, IS_PRODUCTION, TENANT } from "~/constants/constants";
+import { CONFIG } from '~/config'
 import Color from 'color'
 import { ThemeContext } from 'styled-components'
 
@@ -31,6 +33,21 @@ const SubscriptionSuccess = ({ layoutProps }) => {
     }
   }, [user])
 
+  function appName() {
+    if (CONFIG.projectName) {
+      return <div style={ { display: 'inline-block' } }>
+        <strong className="">{ CONFIG.projectName.split(' ')[0] }</strong>{ CONFIG.projectName.split(' ')[1] }
+      </div>
+    } else if (CONFIG.appName) {
+      return <div style={ { display: 'inline-block' } }>
+        <strong className="">{ CONFIG.appName.split(' ')[0] }</strong>{ CONFIG.appName.split(' ')[1] }
+      </div>
+    }
+    return <div style={ { display: 'inline-block' } }>
+      <strong className="">Project</strong>Name!
+    </div>
+  }
+
   return (
     <div className="register-confirm container text-center">
 
@@ -39,7 +56,8 @@ const SubscriptionSuccess = ({ layoutProps }) => {
         className="text-primary">{ values.name }</strong></h2>
       <div className={ "card-subtitle" }>
         Gracias por completar tu perfil de <br/>
-        <img src={`/static/${TENANT}/logos/logo_project.png`} alt="Nacional play"/>
+
+        <img src={`/static/${TENANT}/logos/logo_project_black.png`} alt={CONFIG.appName} width={200} style={{marginTop: "20px"}}/>
       </div>
 
       <div className="row">
@@ -47,11 +65,11 @@ const SubscriptionSuccess = ({ layoutProps }) => {
           <div className="text-center">
             <Button color="secondary" type="button"
                     style={ { width: "250px" } }
-            >Ir a NacionalPlay</Button>
+            >Ir a { appName() }</Button>
           </div>
         </div>
       </div>
-      <style jsx>{ `
+      <style jsx global={true}>{ `
         
         h2.card-title {
           font-weight: normal;
@@ -72,6 +90,10 @@ const SubscriptionSuccess = ({ layoutProps }) => {
           padding-top: 50px;
           padding-bottom: 50px;
           color: #666666;
+        }
+        
+        .text-primary {
+           color: ${ primaryColor } !important;
         }
         
       ` }</style>

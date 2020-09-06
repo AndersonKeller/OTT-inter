@@ -43,8 +43,6 @@ export default function AuthModal() {
     try {
       nookies.set({}, 'pkg_int_id', JSON.stringify(packageId), { path: '/' })
       const res = await api().get(`auth/${ provider }`)
-      // console.table(res)
-      // console.log(res.data.url)
       window.location = res.data.url
 
     } catch (error) {

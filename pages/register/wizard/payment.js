@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FormGroup from "~/components/layout/AuthModal/FormGroup";
 import Label from "~/components/Form/Label";
 import Input from "~/components/layout/AuthModal/Input";
@@ -13,6 +13,7 @@ import UserContext from "~/contexts/UserContext";
 import Router from "next/router";
 import { ThemeContext } from "styled-components";
 import Color from "color";
+import { CONFIG } from '~/config'
 
 const Payment = ({
   layoutProps,
@@ -272,11 +273,26 @@ const Payment = ({
 
   }
 
+  function appName() {
+    if (CONFIG.projectName) {
+      return <div style={ { display: 'inline-block' } }>
+        <strong className="text-primary">{ CONFIG.projectName.split(' ')[0] }</strong>{ CONFIG.projectName.split(' ')[1] }
+      </div>
+    } else if (CONFIG.appName) {
+      return <div style={ { display: 'inline-block' } }>
+        <strong className="text-primary">{ CONFIG.appName.split(' ')[0] }</strong>{ CONFIG.appName.split(' ')[1] }
+      </div>
+    }
+    return <div style={ { display: 'inline-block' } }>
+      <strong className="text-primary">Project</strong>Name!
+    </div>
+  }
+
   return (
     <div className="register-confirm container text-center responsive">
 
-      <h2 className="card-title"><span className={"text-primary"}>¡</span>Sé parte de <strong
-        className="text-primary">NACIONAL</strong>PLAY<span className={"text-primary"}>!</span></h2>
+      <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { appName() }
+        <span className={ "text-primary" }>!</span></h2>
       <div className="row">
 
         <div className="col-md-6 paymentMethod">
@@ -422,7 +438,16 @@ const Payment = ({
           {/*</div>*/}
         </div>
       </div>
-      <style jsx>{`
+      <style jsx global={true}>{` 
+
+        .text-primary {
+           color: ${ primaryColor} !important;
+        }
+        
+        strong.text-primary {
+           color: ${ primaryColor } !important;
+        }
+        
 
         h2.card-title {
           font-weight: normal;

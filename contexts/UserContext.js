@@ -38,7 +38,7 @@ export function UserProvider({ children }) {
     setUser(user)
 
     if ( ! user.register_completed_at) {
-      Router.replace('/register/complete')
+      Router.replace('/register/wizard/complete-test')
     }
   }
 

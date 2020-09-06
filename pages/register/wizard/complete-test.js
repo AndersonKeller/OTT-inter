@@ -56,7 +56,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
     switch (wizardIndex) {
 
-      case 0:
+      case 4:
         return <UserData
           api={api}
           layoutProps={layoutProps}
@@ -81,7 +81,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
             requireds,
           }}
         />
-      case 4:
+      case 0:
         return <SubscriptionSuccess
           {...{
             api
@@ -135,8 +135,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
           }
 
         .img-logoApp-card{
-         height: 80px!important;
-        width: 203px!important;
+          max-width: 200px;
         }
 
          @media(max-width: 765px) {

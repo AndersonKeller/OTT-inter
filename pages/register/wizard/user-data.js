@@ -2,7 +2,7 @@
 import FormGroup from '~/components/layout/AuthModal/FormGroup'
 import Label from '~/components/Form/Label'
 import Input from '~/components/layout/AuthModal/Input'
-import { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import withAuth from '~/components/withAuth'
 import { IS_PRODUCTION } from "~/constants/constants";
 import UserContext from "~/contexts/UserContext";
@@ -16,12 +16,14 @@ import { ThemeContext } from 'styled-components'
 import $ from 'jquery';
 import ReactDOM from 'react-dom';
 import Flatpickr from "react-flatpickr";
+import { CONFIG } from "~/config";
 
 
 const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
 
   const theme = useContext(ThemeContext)
-  const primaryColor = Color(theme.colors.primary).hsl().string()
+  const primaryColor
+    = Color(theme.colors.primary).hsl().string()
 
   const requireds = IS_PRODUCTION
 
@@ -221,12 +223,28 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
     }
   }
 
+  function appName() {
+    if (CONFIG.projectName) {
+      return <div style={ { display: 'inline-block' } }>
+        <strong className="text-primary">{ CONFIG.projectName.split(' ')[0] }</strong>{ CONFIG.projectName.split(' ')[1] }
+      </div>
+    } else if (CONFIG.appName) {
+      return <div style={ { display: 'inline-block' } }>
+        <strong className="text-primary">{ CONFIG.appName.split(' ')[0] }</strong>{ CONFIG.appName.split(' ')[1] }
+      </div>
+    }
+    return <div style={ { display: 'inline-block' } }>
+      <strong className="text-primary">Project</strong>Name!
+    </div>
+  }
+
+
   return (
     <form method="post" onSubmit={submit}>
       <div className="register-confirm container text-center">
 
-        <h2 className="card-title"><span className={"text-primary"}>¡</span>Sé parte de <strong
-          className="text-primary">NACIONAL</strong>PLAY<span className={"text-primary"}>!</span></h2>
+        <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { appName() }
+          <span className={ "text-primary" }>!</span></h2>
         <div className={"card-subtitle"}>
           ¡Antes de seguir, queremos saber más de ti!
         </div>
@@ -407,8 +425,18 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
           </div>
         </div>
       </div>
-      <style jsx>{`
+      <style jsx global={true}>{`
 
+
+
+        .text-primary {
+           color: ${ primaryColor} !important;
+        }
+        
+        strong.text-primary {
+           color: ${ primaryColor } !important;
+        }
+        
         h2.card-title {
           font-weight: normal;
           color: #000;
@@ -416,16 +444,12 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
           font-size: 1.7em;
         }
         .pes{
-          display>flex;
+          display: flex;
         }
         div.card-subtitle {
           font-size: 1.1em;
           font-weight: 500;
           margin-bottom: 2.5em;
-        }
-
-        .text-primary {
-           color: ${ primaryColor} !important;
         }
         .register-confirm {
           padding-top: 50px;
@@ -437,7 +461,6 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
           ${values.terms ? `display:block` : `display:none!important; `}
 
         }
-
 
 
 
