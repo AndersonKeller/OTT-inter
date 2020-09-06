@@ -97,6 +97,7 @@
   },
   "lau": {
     "appName": "La U Mas",
+    "projectName": "LAU PLAY",
     "clubName": "Universidad de Chile",
     "fullClubName": "Club Universidad de Chile",
     "shortClubName": "La U",
@@ -123,7 +124,7 @@
     "lang": "es-CL",
     "loadingColor": "primary",
     "backgroundColor": "#000000",
-    "backgroundContrastColor": "#202364",
+    "backgroundContrastColor": "#1a1a1a",
     "backgroundContrastColor2": "#293989",
     "textColor": "#bec3db"
   },

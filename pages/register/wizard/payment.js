@@ -392,7 +392,7 @@ const Payment = ({
         <div className="col-md-6">
           <div className="product-summary">
             <div className="product-image">
-              <img src="https://place-hold.it/280x125" alt="" />
+              <img src="/static/lau/subs/plan_hero.png" alt="" />
             </div>
             <div className={"product-name-group"}>
               <h6>
@@ -413,13 +413,13 @@ const Payment = ({
               </div>
             </div>
           </div>
-          <div className={" pay-methods"}>
-            {payMethods && payMethods.map((m, key) => {
-              return <div className={"col-3 text-center"}>
-                <img src={m.thumbnail} alt="" />
-              </div>
-            })}
-          </div>
+          {/*<div className={" pay-methods"}>*/}
+          {/*  {payMethods && payMethods.map((m, key) => {*/}
+          {/*    return <div className={"col-3 text-center"}>*/}
+          {/*      <img src={m.thumbnail} alt="" />*/}
+          {/*    </div>*/}
+          {/*  })}*/}
+          {/*</div>*/}
         </div>
       </div>
       <style jsx>{`
