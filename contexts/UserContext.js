@@ -40,7 +40,9 @@ export function UserProvider({ children }) {
     setUser(user)
 
     if ( ! user.register_completed_at) {
-      Router.replace('/welcome')
+      Router.replace('/register/welcome')
+    } else {
+      Router.replace('/')
     }
 
   }

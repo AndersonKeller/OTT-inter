@@ -41,7 +41,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
     nickname: '',
     birthdate: null,
     registration: '',
-    isPartner: ''
+    isPartner: '',
   })
 
   const { user } = useContext(UserContext)
