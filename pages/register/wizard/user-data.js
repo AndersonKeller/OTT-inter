@@ -118,7 +118,6 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
       }
 
 
-
       const res = await api.post(`register/complete-user`, userData)
 
       handleSubmit(1, userData)
@@ -319,44 +318,18 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
               </div>
 
               <div className="col-md-6 ">
-                <FormGroup  >
-                  <Label htmlFor="document">Abonado</Label>
-
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'baseline',
-                    paddingTop: ' 1px'
-                  }
-                  }>
-
-                    <Input
-                      id="abonado"
-                      name="abonado"
-                      onChange={handleInputChange}
-                      required={requireds}
-                      type="text"
-                      value={values.abonado}
-
-                    />
-
-                    <Button
-                      style={{
-
-                      }} fontSize="14px!important" color="secondary" onClick={submitCod} disabled={loading} loading={loading}>
-                      <div style={{
-                        padding: '0px', fontSize: '14px!important', width: '19px',
-                        height: '16px;'
-                      }}>
-                        <GoSearch style={{ size: '10px', fontSize: '14px!important', padding: 'padding: 12px 16px 7px 16px!importan' }} fontSize={14} padding={0} />
-                      </div>
-                    </Button>
-
-
-                  </div>
-                  <InvalidFeedback error={error} loading={loading} name="abonado" />
-
+                <FormGroup>
+                  <Label htmlFor="document">Documento</Label>
+                  <Input
+                    id="document"
+                    name="document"
+                    onChange={handleInputChange}
+                    required={requireds}
+                    type="text"
+                    value={values.document}
+                  />
+                  <InvalidFeedback error={error} loading={loading} name="document" />
                 </FormGroup>
-
               </div>
               {/* </div> */}
               <div className="col-md-6">
@@ -377,17 +350,40 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
                 </FormGroup>
                 <div className="is-miembro ">
 
-                  <FormGroup>
-                    <Label htmlFor="document">Documento</Label>
-                    <Input
-                      id="document"
-                      name="document"
-                      onChange={handleInputChange}
-                      required={requireds}
-                      type="text"
-                      value={values.document}
-                    />
-                    <InvalidFeedback error={error} loading={loading} name="document" />
+                  <FormGroup  >
+                    <Label htmlFor="document">Abonado</Label>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'baseline',
+                      paddingTop: ' 1px'
+                    }
+                    }>
+                      <Input
+                        id="abonado"
+                        name="abonado"
+                        onChange={handleInputChange}
+                        required={requireds}
+                        type="text"
+                        value={values.abonado}
+
+                      />
+
+                      <Button
+                        style={{
+
+                        }} fontSize="14px!important" color="secondary" onClick={submitCod} disabled={loading} loading={loading}>
+                        <div style={{
+                          padding: '0px', fontSize: '14px!important', width: '19px',
+                          height: '16px;'
+                        }}>
+                          <GoSearch style={{ size: '10px', fontSize: '14px!important', padding: 'padding: 12px 16px 7px 16px!importan' }} fontSize={14} padding={0} />
+                        </div>
+                      </Button>
+
+
+                    </div>
+                    <InvalidFeedback error={error} loading={loading} name="abonado" />
+
                   </FormGroup>
                 </div>
               </div>

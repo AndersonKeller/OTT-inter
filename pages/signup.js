@@ -206,7 +206,7 @@ const Signup = ({ }) => {
                         type="checkbox"
                         value={ `true` }
                       />
-                      <span className="text-dark" style={ { paddingLeft: "10px" } }>He leído y acepto el contrato de NacionalPlay</span>
+                      <span className="text-dark" style={ { paddingLeft: "10px" } }>He leído y acepto el contrato de { CONFIG.projectName }</span>
                     </label>
                     <InvalidFeedback error={ error } loading={ loading } name="terms"/>
                   </FormGroup>
