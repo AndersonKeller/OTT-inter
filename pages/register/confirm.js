@@ -1,13 +1,18 @@
 import Router from 'next/router'
 import nookies from 'nookies'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import Button from '~/components/button'
 import H2 from '~/components/h2'
 import Layout from '~/components/layout/Layout'
 import withAuth from '~/components/withAuth'
 import { CONFIG } from '~/config'
+import { STATIC_PATH, TENANT } from '~/constants/constants'
+import LogoApp from '~/components/LogoApp';
+import UserContext from '~/contexts/UserContext'
 
 const RegisterConfirmPage = ({ downloadLink, layoutProps, link }) => {
+
+  const { signOut, user } = useContext(UserContext)
 
   const [seconds, setSeconds] = useState(10)
   const [timer, setTimer] = useState(true)
@@ -32,30 +37,60 @@ const RegisterConfirmPage = ({ downloadLink, layoutProps, link }) => {
     setTimer(false)
   }
 
+    function getUserName() {
+    const nameArray = user.name.split(' ')
+    const userName = nameArray.length > 1 ?
+      `${nameArray[0]} ${nameArray[nameArray.length - 1]}` : nameArray.join('')
+    return userName
+  }
+
   return (
     <Layout {...layoutProps}>
-      <div className="register-confirm container text-center">
+      {/* <div className="register-confirm container text-center"> */}
+           <div
+        className="card-wrapper d-flex align-items-center justify-content-center h-100 responsive"
+        style={{
+          backgroundImage: `url('/static/${TENANT}/subs/background.jpg')`,
+        }}
+      >
+      <div className="card">
+          <div className={"card-header text-center"} style={{
+            backgroundColor: "#242627",
+            padding: "25px 15px",
+            border: "none",
+            borderRadius: "0",
+            justifyContent: "center",
+            display: "flex",
+            width: "100%",
+          }}>
+            <div className="img-logoApp-card img"> <LogoApp /></div>
+          </div>
+          <div className="card-body">
+            <div className="aling-row">
+            {/* {renderComponents()} */}
+            <h2 className="h2" mb={3} uppercase>¡Bienvenido 
+            {/* <span className="nombre-title"> { getUserName() }</span> */}
+            </h2>
+            </div>
 
-        <h1>Gracias</h1>
-
-        <H2 mb={3} uppercase>¡Bienvenido a {CONFIG.appName}!</H2>
-
-        <p className="lead register-confirm__lead">
-          {timer ? <>
-            El recibo bancario se descargará en {seconds} segundos.
-          </> : <>
-            Si la descarga no se inició automáticamente,<br className="d-none d-md-inline" /> ház click en el botón de abajo.
-          </>}
-        </p>
-
-        <div className="register-confirm__btn-container">
-          <Button href={link} onClick={handleClick} target="_blank">Abrir Recibo Bancario</Button>
+        <div className="aling-row">
+          <H2 className="text-center-gracias" style={{color:"#6b6868", width:"305px"}}>Gracias por completar tu perfil de </H2>
         </div>
+        
+         <div className="register-confirm__btn-container btn-confirm">
+          <Button  href="/index" target="_blank">Ir a LaUPlay  <span></span></Button>
+        </div>
+        {/* <div className="register-confirm__btn-container">
+          <Button href={link} onClick={handleClick} target="_blank">Abrir Recibo Bancario</Button>
+        </div> */}
 
         {!timer && (
           <p className="small register-confirm__small">Su plan se activará después de la confirmación del pago.</p>
         )}
+       
 
+          </div>
+        </div>
       </div>
       <style jsx>{`
         .register-confirm {
@@ -73,15 +108,129 @@ const RegisterConfirmPage = ({ downloadLink, layoutProps, link }) => {
         .register-confirm__lead {
           margin-bottom: 30px;
         }
+        .btn-confirm{
+            justify-content: center;
+         display: flex;
+        }
         .register-confirm__btn-container :global(.btn),
         .register-confirm__btn-container :global(.btn):active {
-          border-bottom: 5px solid var(--primary-hover);
+       
+          font-size:24px!important;
           line-height: 1;
+          width: 40%;
+          border: solid 1px;
+          color:red!important;
+          background-color:white!important;
         }
         .register-confirm__small {
           margin-top: 30px;
           opacity: .5;
         }
+
+        h2{
+          color:black!important;
+        }
+
+        .nombre-title{
+          color:red!important;
+        }
+
+
+
+         div.card-subtitle {
+          font-size: 1.1em;
+          font-weight: 500;
+          margin-bottom: 2.5em;
+          max-width: 380px;
+        }
+
+        .register-confirm {
+          padding-top: 50px;
+          padding-bottom: 50px;
+          color: #666666;
+        }
+        
+      .aling-row {
+          display: flex;
+          justify-content: center;
+          padding: 5px;
+         text-align: center;
+      }
+  
+
+      .card {
+        width: 100%;
+        max-width: 800px;
+        margin: 110px 0;
+        background-color: rgba(255, 255, 255, 0.85);
+        border-radius: 0;
+        border: none;
+
+      }
+
+     @media(max-width: 765px) {
+
+        .register-confirm__btn-container :global(.btn),
+        .register-confirm__btn-container :global(.btn):active {
+          width: 80%;
+        }
+
+        .responsive {
+          padding: 20px 30px 15px 30px!important;
+          padding: 0px;
+          display: flex;
+          flex-wrap: wrap;
+          height: 100%!importat;
+          justify-content: center;
+          height:100%!important;
+        }
+
+        .aling-row {
+          display: flex;
+          justify-content: center;
+          padding: 5px;
+          text-align: center;     
+         }
+    
+         .card-body {
+          background-image: url()!important;
+         }
+
+         label {
+          display: inline-block;
+          margin-bottom: .5rem;
+          text-align: center;
+        }
+
+        .justify-content-end {
+          display:flex;
+          justify-content:center!important;
+         }
+
+         form {
+          padding 0px!important;
+         }
+
+        .row {
+       
+          display: -ms-flexbox;
+          display: flex;
+          -ms-flex-wrap: wrap;
+          margin-right: 0px;
+          margin-left: 0px;
+          justify-content: center;
+          padding: 5px;
+        }
+
+        .col-8 {
+          max-width: 100%!important;
+        }
+  
+        .offset-3 {
+         margin-left:0px;
+       }
+
+
       `}</style>
     </Layout>
   )
