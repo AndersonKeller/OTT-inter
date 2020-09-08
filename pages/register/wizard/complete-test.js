@@ -79,6 +79,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
             api,
             error,
             requireds,
+            handleSubmit
           }}
         />
       case 4:

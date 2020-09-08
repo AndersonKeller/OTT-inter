@@ -21,7 +21,8 @@ const Payment = ({
   package_id,
   packages,
   api,
-  requireds
+  requireds,
+  handleSubmit
 }) => {
 
   const theme = useContext(ThemeContext)
@@ -235,17 +236,20 @@ const Payment = ({
           token: token
         })
 
-        Router.push({
-          pathname: '/register/confirm',
-          query: {
-            // download_link: order.download_link,
-            // link: order.link,
-          },
-        }, '/register/confirm')
+
+        handleSubmit(4, null);
+        // Router.push({
+        //   pathname: '/register/confirm',
+        //   query: {
+        //     // download_link: order.download_link,
+        //     // link: order.link,
+        //   },
+        // }, '/register/confirm')
 
         // handleSubmit(1)
 
       } catch (error) {
+
 
         if (error.response) {
           const { data, status } = error.response
@@ -260,6 +264,7 @@ const Payment = ({
 
       } finally {
         setLoading(false)
+        handleSubmit(4, null);
       }
 
 
@@ -429,13 +434,6 @@ const Payment = ({
               </div>
             </div>
           </div>
-          {/*<div className={" pay-methods"}>*/}
-          {/*  {payMethods && payMethods.map((m, key) => {*/}
-          {/*    return <div className={"col-3 text-center"}>*/}
-          {/*      <img src={m.thumbnail} alt="" />*/}
-          {/*    </div>*/}
-          {/*  })}*/}
-          {/*</div>*/}
         </div>
       </div>
       <style jsx global={true}>{` 
@@ -511,7 +509,7 @@ const Payment = ({
            justify-content:center!important;
          }
          form{
-           padding 0px!important;
+           padding: 0px!important;
          }
          .row {
           display: -ms-flexbox;
