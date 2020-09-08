@@ -181,7 +181,7 @@ export default () => {
           fill: ${whiteColor};
         }
         .user-select :global(.dropdown-menu) {
-          background-color: ${backgroundColor1};
+          background-color: #808080;
           box-shadow: 0 2px 5px ${shadowColor};
           border: 0;
           border-radius: 5px;
@@ -244,7 +244,7 @@ export default () => {
           margin-bottom: 0;
         }
         .user-select :global(.dropdown-divider) ~ :global(.dropdown-item) {
-          background-color: ${backgroundColor2};
+          background-color: #333333;
         }
 
         /* item style 3 */

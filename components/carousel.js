@@ -43,7 +43,7 @@ function Arrow(props) {
 }
 
 const Cards = styled.div`
-  overflow: hidden;
+  //overflow: hidden;
   position: relative;
   &::before,
   &::after {

@@ -79,6 +79,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
             api,
             error,
             requireds,
+            handleSubmit
           }}
         />
       case 4:
@@ -135,8 +136,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
           }
 
         .img-logoApp-card{
-         height: 80px!important;
-        width: 203px!important;
+          max-width: 200px;
         }
 
          @media(max-width: 765px) {

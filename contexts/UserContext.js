@@ -34,12 +34,17 @@ export function UserProvider({ children }) {
     localStorage.setItem('refresh_token', refresh_token)
 
     localStorage.setItem('user', JSON.stringify(user))
+
     nookies.set({}, 'user', JSON.stringify(user), { path: '/' })
+
     setUser(user)
 
     if ( ! user.register_completed_at) {
-      Router.replace('/register/complete')
+      Router.replace('/register/welcome')
+    } else {
+      Router.replace('/')
     }
+
   }
 
   const signOut = async _ => {

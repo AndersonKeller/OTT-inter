@@ -95,13 +95,17 @@ const Signup = ({ }) => {
   }
 
   function appName() {
-    if (CONFIG.appName) {
+    if (CONFIG.projectName) {
+      return <div style={ { display: 'inline-block' } }>
+        <strong className="text-primary">{ CONFIG.projectName.split(' ')[0] }</strong>{ CONFIG.projectName.split(' ')[1] }
+      </div>
+    } else if (CONFIG.appName) {
       return <div style={ { display: 'inline-block' } }>
         <strong className="text-primary">{ CONFIG.appName.split(' ')[0] }</strong>{ CONFIG.appName.split(' ')[1] }
       </div>
     }
     return <div style={ { display: 'inline-block' } }>
-      <strong className="text-primary">NACIONAL</strong>PLAY
+      <strong className="text-primary">Project</strong>Name!
     </div>
   }
 
@@ -131,7 +135,7 @@ const Signup = ({ }) => {
             <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { appName() }
               <span className={ "text-primary" }>!</span></h2>
 
-            <div className="row w-100 justify-content-end justify-content-sm-center">
+            <div className="row w-100 justify-content-end">
               <div className="col-md-8 col-sm-10">
                 <form method="post" onSubmit={ handleSubmit } style={
                   {
@@ -202,7 +206,7 @@ const Signup = ({ }) => {
                         type="checkbox"
                         value={ `true` }
                       />
-                      <span className="text-dark" style={ { paddingLeft: "10px" } }>He leído y acepto el contrato de NacionalPlay</span>
+                      <span className="text-dark" style={ { paddingLeft: "10px" } }>He leído y acepto el contrato de { CONFIG.projectName }</span>
                     </label>
                     <InvalidFeedback error={ error } loading={ loading } name="terms"/>
                   </FormGroup>

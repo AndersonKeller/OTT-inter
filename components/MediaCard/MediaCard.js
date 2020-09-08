@@ -57,7 +57,7 @@ const MediaCard = ({
         }
         .media-card:focus img,
         .media-card:hover img {
-          opacity: .75;
+          //opacity: .75;
         }
         .wish {
           position: absolute;

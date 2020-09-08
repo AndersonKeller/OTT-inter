@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FormGroup from "~/components/layout/AuthModal/FormGroup";
 import Label from "~/components/Form/Label";
 import Input from "~/components/layout/AuthModal/Input";
@@ -13,6 +13,7 @@ import UserContext from "~/contexts/UserContext";
 import Router from "next/router";
 import { ThemeContext } from "styled-components";
 import Color from "color";
+import { CONFIG } from '~/config'
 
 const Payment = ({
   layoutProps,
@@ -20,7 +21,8 @@ const Payment = ({
   package_id,
   packages,
   api,
-  requireds
+  requireds,
+  handleSubmit
 }) => {
 
   const theme = useContext(ThemeContext)
@@ -234,17 +236,20 @@ const Payment = ({
           token: token
         })
 
-        Router.push({
-          pathname: '/register/confirm',
-          query: {
-            // download_link: order.download_link,
-            // link: order.link,
-          },
-        }, '/register/confirm')
+
+        handleSubmit(4, null);
+        // Router.push({
+        //   pathname: '/register/confirm',
+        //   query: {
+        //     // download_link: order.download_link,
+        //     // link: order.link,
+        //   },
+        // }, '/register/confirm')
 
         // handleSubmit(1)
 
       } catch (error) {
+
 
         if (error.response) {
           const { data, status } = error.response
@@ -259,6 +264,7 @@ const Payment = ({
 
       } finally {
         setLoading(false)
+        handleSubmit(4, null);
       }
 
 
@@ -272,11 +278,26 @@ const Payment = ({
 
   }
 
+  function appName() {
+    if (CONFIG.projectName) {
+      return <div style={ { display: 'inline-block' } }>
+        <strong className="text-primary">{ CONFIG.projectName.split(' ')[0] }</strong>{ CONFIG.projectName.split(' ')[1] }
+      </div>
+    } else if (CONFIG.appName) {
+      return <div style={ { display: 'inline-block' } }>
+        <strong className="text-primary">{ CONFIG.appName.split(' ')[0] }</strong>{ CONFIG.appName.split(' ')[1] }
+      </div>
+    }
+    return <div style={ { display: 'inline-block' } }>
+      <strong className="text-primary">Project</strong>Name!
+    </div>
+  }
+
   return (
     <div className="register-confirm container text-center responsive">
 
-      <h2 className="card-title"><span className={"text-primary"}>¡</span>Sé parte de <strong
-        className="text-primary">NACIONAL</strong>PLAY<span className={"text-primary"}>!</span></h2>
+      <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { appName() }
+        <span className={ "text-primary" }>!</span></h2>
       <div className="row">
 
         <div className="col-md-6 paymentMethod">
@@ -392,7 +413,7 @@ const Payment = ({
         <div className="col-md-6">
           <div className="product-summary">
             <div className="product-image">
-              <img src="https://place-hold.it/280x125" alt="" />
+              <img src="/static/lau/subs/plan_hero.png" alt="" />
             </div>
             <div className={"product-name-group"}>
               <h6>
@@ -413,16 +434,18 @@ const Payment = ({
               </div>
             </div>
           </div>
-          <div className={" pay-methods"}>
-            {payMethods && payMethods.map((m, key) => {
-              return <div className={"col-3 text-center"}>
-                <img src={m.thumbnail} alt="" />
-              </div>
-            })}
-          </div>
         </div>
       </div>
-      <style jsx>{`
+      <style jsx global={true}>{` 
+
+        .text-primary {
+           color: ${ primaryColor} !important;
+        }
+        
+        strong.text-primary {
+           color: ${ primaryColor } !important;
+        }
+        
 
         h2.card-title {
           font-weight: normal;
@@ -486,7 +509,7 @@ const Payment = ({
            justify-content:center!important;
          }
          form{
-           padding 0px!important;
+           padding: 0px!important;
          }
          .row {
           display: -ms-flexbox;
