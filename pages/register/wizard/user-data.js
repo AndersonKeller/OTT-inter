@@ -42,6 +42,10 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
     birthdate: null,
     registration: '',
     isPartner: '',
+    birth_of_date:'',
+    abonado:null,
+    
+
   })
 
   const { user } = useContext(UserContext)
@@ -78,8 +82,10 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
         birthdate: user.birthdate,
         registration: user.registration,
         isPartner: user.is_partner,
-        abonado: user.abonado,
+        abonado: null,
         terms: user.terms,
+        messageismiembro:'',
+        abonado_select:null
       })
     }
 
@@ -112,15 +118,42 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
         registration: values.registration,
         birthdate: date.birthdate,
         is_partner: values.isPartner,
-        abonado: values.abonado,
+        abonado: values.terms?values.abonado_select:null,
         terms: values.terms,
+         messageismiembro:'',
+         abona_select:null,
 
       }
+     if (userData.abonado == 'undefined' || userData.abonado == null && values.terms==true) {
+        setError({
+          errors: {
+            'abonado': 'Código no encontrado'
+          }
+        });
+        setValues({
+          name: values.name,
+          gender_id: values.gender_id,
+          document: values.document,
+          email: user.email,
+          nickname: values.nickname,
+          registration: values.registration,
+          birthdate: date.birthdate,
+          is_partner: values.isPartner,
+          abonado: '',
+          terms: false,
+           messageismiembro:''
+        });
+        setLoading(false);
+
+       }else{
+          setError();
 
 
       const res = await api.post(`register/complete-user`, userData)
 
       handleSubmit(1, userData)
+
+       }  
 
     } catch (error) {
       if (error.response) {
@@ -169,7 +202,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
       }
 
       const res = await api.get(`register/search-cod/` + params.abonado)
-      if (!res.data.status) {
+      if ((!res.data.status)&& values.terms==true) {
         setError({
           errors: {
             'abonado': 'Código no encontrado'
@@ -184,8 +217,9 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
           registration: values.registration,
           birthdate: date.birthdate,
           is_partner: values.isPartner,
-          abonado: values.abonado,
+          abonado: null,
           terms: false,
+           messageismiembro:''
         });
         setLoading(false);
       } else {
@@ -199,8 +233,10 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
           registration: values.registration,
           birthdate: date.birthdate,
           is_partner: values.isPartner,
-          abonado: values.abonado,
+          abonado_select: res.data.message,
           terms: true,
+          messageismiembro:res.data.message,
+
         });
         setLoading(false);
       }
@@ -305,15 +341,20 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
                 <FormGroup>
                   <Label htmlFor="birth">Fecha de nacimiento</Label>
                   <Flatpickr
-
+  
                     id="birthdate"
                     name=" birthdate"
-                    value={date.birthdate}
+                    options={{  altInput: "true",
+                    altFormat:"d-m-y",
+                    dateFormat: "Y-m-d"}}
+                
                     onChange={birthdate => {
                       setDate({ birthdate: birthdate });
                     }}
                     className={"form-control"}
                   />
+                  <InvalidFeedback error={error} loading={loading} name="birthdate" />
+
                 </FormGroup>
               </div>
 
@@ -330,6 +371,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
                   />
                   <InvalidFeedback error={error} loading={loading} name="document" />
                 </FormGroup>
+
               </div>
               {/* </div> */}
               <div className="col-md-6">
@@ -348,16 +390,22 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
                   </label>
                   <InvalidFeedback error={error} loading={loading} name="terms" />
                 </FormGroup>
-                <div className="is-miembro ">
+                <InvalidFeedback error={error} loading={loading} name="abonado" />
 
+                <div className="is-miembro ">
                   <FormGroup  >
-                    <Label htmlFor="document">Abonado</Label>
+                    <Label htmlFor="document">Abonado
+                   <span className="miembro-encontrado">: {values.messageismiembro}</span>
+
+                    </Label>
+
                     <div style={{
                       display: 'flex',
                       alignItems: 'baseline',
                       paddingTop: ' 1px'
                     }
                     }>
+
                       <Input
                         id="abonado"
                         name="abonado"
@@ -382,9 +430,10 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
 
 
                     </div>
-                    <InvalidFeedback error={error} loading={loading} name="abonado" />
+
 
                   </FormGroup>
+
                 </div>
               </div>
             </div>
@@ -446,6 +495,14 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
           font-size: 1.1em;
           font-weight: 500;
           margin-bottom: 2.5em;
+        }
+
+        .miembro-encontrado{
+          color:green;
+        }
+
+        .text-primary {
+           color: ${ primaryColor} !important;
         }
         .register-confirm {
           padding-top: 50px;
