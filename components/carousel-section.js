@@ -48,13 +48,7 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
 
   function ree() {
     // alert(key)
-    if (medias && category.horizontal) {
-      return <NetSlider
-        className='netslider_title_card'
-        data={medias}
-        slideTemplate={props => <SliderTemplate {...props} />}
-      />
-    } else {
+
       if (medias && medias.length) {
         return <Carousel color={color}
                          additional={category}>
@@ -66,7 +60,6 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
         <div className="error-message">{emptyMessage}</div>
       }
 
-    }
   }
 
   return (

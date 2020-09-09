@@ -128,19 +128,17 @@ export default function Carousel({ children, color, additional }) {
           white-space: normal;
 
 
-          height: 131px!important;
+          // height: 131px!important;
 
         }
         .slick-list {
         height: auto !important;
-
+ 
         }
         .slick-slide {
           transform: translateX(-25%);
-          transition-duration: 500ms;
-          transition-delay: 0ms;
-
-
+          transition-duration: 300ms;
+          transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
       }
 
 
@@ -152,7 +150,7 @@ export default function Carousel({ children, color, additional }) {
      }
         @media (min-width: 768px) {
           .slide {
-          padding: 10px;
+          padding: 2px;
       }
     }
 

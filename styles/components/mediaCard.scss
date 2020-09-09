@@ -1,0 +1,87 @@
+
+.media-card {
+  display: block;
+  font-size: 13px;
+  line-height: 1;
+  outline: 0;
+  text-decoration: none;
+  transition: color .2s;
+
+  &:after {
+    content: '\A';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 100%);
+    opacity: 0;
+    transition: all 1s;
+    -webkit-transition: all 1s;
+  }
+
+  &:focus, &:hover {
+
+    &:after {
+      opacity: 1;
+    }
+
+    .wish {
+      opacity: 1;
+    }
+
+    .media-card-label {
+      opacity: 1;
+    }
+
+    .media-chip {
+      opacity: 1;
+    }
+  }
+
+  img {
+    margin-bottom: 10px;
+    transition: opacity .2s;
+    will-change: opacity;
+  }
+
+  .media-card-label {
+    position: absolute;
+    bottom: 40px;
+    padding-right: 5%;
+    padding-left: 5%;
+    margin: 0 auto;
+    z-index: 99;
+    opacity: 0;
+    text-align: left;
+
+    svg {
+      margin-bottom: 10px;
+    }
+  }
+
+  .media-chip {
+    opacity: 0;
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    transition: opacity 0.2s ease 0s;
+    transform: scale(0.7);
+  }
+
+  .wish {
+    position: absolute;
+    z-index: 2;
+    opacity: 0;
+    text-align: left;
+  }
+
+}
+
+
+@media (min-width: 768px) {
+  .media-card {
+    font-size: 16px;
+  }
+}

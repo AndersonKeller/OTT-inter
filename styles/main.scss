@@ -5,9 +5,8 @@
 @import "components/multiStepIndicator";
 @import "components/wizard/complete";
 @import "components/wizard/payment";
+@import "components/mediaCard";
 @import "~flatpickr/dist/themes/dark.css";
-
-
 @import "pages/signup";
 @import "pages/subscripton";
 
@@ -16,6 +15,7 @@
     z-index: 9;
   }
 }
+
 .bob-title-art {
   z-index: -1 !important;
 }
