@@ -128,7 +128,7 @@ export default function Carousel({ children, color, additional }) {
           white-space: normal;
 
 
-          height: 131px!important;
+          // height: 131px!important;
 
         }
         .slick-list {
