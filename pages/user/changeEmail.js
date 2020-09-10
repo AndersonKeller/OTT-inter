@@ -1,6 +1,6 @@
 // nextjs imports
 import Router from 'next/router'
-import Head   from 'next/head'
+import Head from 'next/head'
 
 // react imports
 import { Formik, Form } from 'formik'
@@ -9,13 +9,15 @@ import * as Yup from 'yup'
 import nookies from 'nookies'
 
 // app imports
-import FormGroup    from '~/components/layout/AuthModal/FormGroup'
-import withAuth     from '~/components/withAuth'
-import { FkInput }  from '~/components/Formik/fields'
-import Layout       from '~/components/layout/Layout'
-import Button       from '~/components/button'
-import api          from '~/services/api'
-import { CONFIG }   from '~/config'
+import FormGroup from '~/components/layout/AuthModal/FormGroup'
+import withAuth from '~/components/withAuth'
+import { FkInput } from '~/components/Formik/fields'
+import Layout from '~/components/layout/Layout'
+import Button from '~/components/button'
+import api from '~/services/api'
+import { CONFIG } from '~/config'
+import CardLogoHeader from '~/components/CardLogoHeader/index'
+import { StyleForm } from '~/components/layout/changeEmail/index'
 
 const changeEmailPage = ({ layoutProps, user, updateUser }) => {
 
@@ -23,79 +25,78 @@ const changeEmailPage = ({ layoutProps, user, updateUser }) => {
     var msg = ''
 
     try {
-      const res = await api().post('email',fields)
+      const res = await api().post('email', fields)
       updateUser(res.data)
       msg = JSON.stringify({ success: "Acceda al correo electrónico para confirmación" })
 
-    }catch(error) {
+    } catch (error) {
       var { message } = error.message ? error : error.response ? error.response.data : ''
       console.table(error);
       msg = JSON.stringify({ error: "An Error Occured while updating: " + message })
-    }finally {
-      nookies.set({}, 'flash_message', msg , { path: '/' })
+    } finally {
+      nookies.set({}, 'flash_message', msg, { path: '/' })
       Router.push('/user/account')
     }
   }
 
   return (
     <Layout {...layoutProps}>
-      <Head>
-        <title>Cambiar Email &lt; {CONFIG.appName}</title>
-      </Head>
-      <div className="rgpage container-fluid">
-        <div className="row">
-          <div className="col-md-8 offset-md-2">
-            <h1 className="h2">Cambiar Email</h1>
-            { user &&
-              <Formik
-                initialValues={
-                  (({ email: oldEmail }) => {
-                    return { oldEmail, email: '' }
-                  })(user)
-                }
-                validationSchema={ getYupSchema() }
-                onSubmit={handleSubmit}
-                component={DataForm}
-              />
+
+
+      <div className="detail">
+
+        {user &&
+          <Formik
+            initialValues={
+              (({ email: oldEmail }) => {
+                return { oldEmail, email: '' }
+              })(user)
             }
-          </div>
-        </div>
+            validationSchema={getYupSchema()}
+            onSubmit={handleSubmit}
+            component={DataForm}
+          />
+        }
       </div>
-      <style jsx>{`
-        .rgpage {
-          padding-top: 40px;
-          padding-bottom: 120px;
-        }
-        .h2 {
-          margin-bottom: 10px;
-        }
-        hr {
-          margin-top: 25px;
-          margin-bottom: 15px;
-          background-color: white;
-        }
-      `}</style>
+
+
     </Layout>
   );
 }
 
+
+
 const DataForm = ({ isSubmitting }) => <Form>
-  <FormGroup>
-    <FkInput name="oldEmail" label="Email Actual" type="email" disabled />
-  </FormGroup>
-  <FormGroup>
-    <FkInput name="email" label="Nuevo Email" type="email" />
-  </FormGroup>
 
-  <div className="row">
-    <div className="col-md-12 text-right">
-      <Button type="submit" disabled={isSubmitting} loading={isSubmitting}>
-        Cambiar datos
+
+
+  <CardLogoHeader>
+    <StyleForm>
+      <h1 className="h2">Cambiar Email</h1>
+      <div class="painel">
+        <div className="row">
+          <div style={{ width: "100%" }}>
+            <FormGroup className="form-input">
+              <FkInput name="oldEmail" label="Email Actual" type="email" disabled />
+            </FormGroup>
+          </div>
+        </div>
+      </div>
+      <div className="row row-aling " >
+        <div className="input-aling">
+          <FormGroup className="form-input">
+            <FkInput name="email" label="Nuevo Email" type="email" />
+          </FormGroup>
+        </div>
+        <div style={{ padding: " 20px" }} >
+          <Button style={{ bakground: "#008e38!important" }} type="submit" disabled={isSubmitting} loading={isSubmitting}>
+            Aceptar
       </Button>
-    </div>
-  </div>
-</Form>
-
+        </div>
+      </div>
+    </StyleForm>
+  </CardLogoHeader >
+</Form >
 // create Yup validation Schema
 const getYupSchema = _ => {
   const nullable3CharMinString = Yup.string()

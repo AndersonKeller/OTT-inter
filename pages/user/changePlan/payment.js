@@ -2,9 +2,9 @@
 import { useEffect, useState } from 'react'
 
 //components
-import FormGroup    from '~/components/layout/AuthModal/FormGroup'
-import Label        from '~/components/layout/AuthModal/Label'
-import Input        from '~/components/layout/AuthModal/Input'
+import FormGroup from '~/components/layout/AuthModal/FormGroup'
+import Label from '~/components/layout/AuthModal/Label'
+import Input from '~/components/layout/AuthModal/Input'
 
 // Payment
 const Payment = ({
@@ -23,9 +23,9 @@ const Payment = ({
 }) => {
 
   // payment methods
-  const [ paymentMethods, setPaymentMethods ] = useState()
+  const [paymentMethods, setPaymentMethods] = useState()
   // cash payment methods
-  const [ cashPaymentMethods, setCashPaymentMethods ] = useState()
+  const [cashPaymentMethods, setCashPaymentMethods] = useState()
 
   // get payment methods
   useEffect(_ => {
@@ -57,7 +57,7 @@ const Payment = ({
 
           <div className="col-md-6">
             <FormGroup>
-              { paymentMethods && paymentMethods.map((paymentMethod, key) => (
+              {paymentMethods && paymentMethods.map((paymentMethod, key) => (
                 <InputRadio
                   key={key}
                   label={paymentMethod.name}
@@ -66,10 +66,10 @@ const Payment = ({
                   state={payment_method_id}
                   value={paymentMethod.id}
                 />
-              )) }
-              { validationError && (
+              ))}
+              {validationError && (
                 <div className="invalid-feedback">{validationError}</div>
-              ) }
+              )}
             </FormGroup>
           </div>
 
@@ -88,13 +88,13 @@ const Payment = ({
                 {/* card fields */}
                 <FormGroup>
                   <div id="card-secure-fields" />
-                  { ! loading && error && error.errors && error.errors.payment_os && (
+                  {!loading && error && error.errors && error.errors.payment_os && (
                     <div className="invalid-feedback">{error.errors.payment_os}</div>
-                  ) }
+                  )}
                 </FormGroup>
               </div>
 
-            // cash payment methods
+              // cash payment methods
             ) : payment_method_id === 3 && (
               <FormGroup>
                 {cashPaymentMethods == null ? (
@@ -109,13 +109,13 @@ const Payment = ({
                     value={item.id}
                   />
                 )) : (
-                  <p>Sin método de pago configurado.</p>
-                )}
-                { ! loading && error && error.errors && error.errors.cash_payment_method_id && (
+                      <p>Sin método de pago configurado.</p>
+                    )}
+                {!loading && error && error.errors && error.errors.cash_payment_method_id && (
                   <div className="invalid-feedback">{error.errors.cash_payment_method_id}</div>
-                ) }
+                )}
               </FormGroup>
-            ) }
+            )}
           </div>
         </div>
       </div>
@@ -128,7 +128,7 @@ const Payment = ({
 const InputRadio = ({ label, name, onChange, state, value }) => {
   return (
     <label>
-      <input checked={state === value} type="radio" {...{name, onChange, value}} />
+      <input checked={state === value} type="radio" {...{ name, onChange, value }} />
       <span className="fake-input">
         <span className="fake-radio"></span>
         <span>{label}</span>
