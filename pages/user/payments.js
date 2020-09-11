@@ -1,32 +1,34 @@
 import Head from 'next/head'
-import Link   from 'next/link'
+import Link from 'next/link'
 import { useEffect, useState, useContext } from 'react'
 import { Card, Table } from 'react-bootstrap'
 import { ThemeContext } from 'styled-components'
 import { PackageRadio } from '~/components/Packages'
-import withAuth         from '~/components/withAuth'
-import Layout           from '~/components/layout/Layout'
-import { CONFIG }       from '~/config'
+import withAuth from '~/components/withAuth'
+import Layout from '~/components/layout/Layout'
+import { CONFIG } from '~/config'
+import { StylePayment } from '~/components/layout/Payments/index'
+import CardLogoHeader from '~/components/CardLogoHeader/index'
 
 const PaymentsPage = ({ api, layoutProps, packages, user }) => {
 
-  const [ plan, setPlan ] = useState({})
-  const [ subscription, setSubscription ] = useState({})
-  const [ orders, setOrders ] = useState([])
+  const [plan, setPlan] = useState({})
+  const [subscription, setSubscription] = useState({})
+  const [orders, setOrders] = useState([])
 
   useEffect(_ => {
     (async _ => {
-      try{
-        const { data: {package_id, ...data} } = await api.get('subscription')
+      try {
+        const { data: { package_id, ...data } } = await api.get('subscription')
         console.log(data)
         setSubscription(data)
 
-        if(package_id){
+        if (package_id) {
           setPlan(packages.items.find(item => item.id == package_id))
-        }else{
+        } else {
           setPlan(packages.items.find(item => item.amount == 0))
         }
-      }catch(error){
+      } catch (error) {
         console.log(error)
       }
     })()
@@ -34,10 +36,10 @@ const PaymentsPage = ({ api, layoutProps, packages, user }) => {
 
   useEffect(_ => {
     (async _ => {
-      try{
+      try {
         const { data } = await api.get('cash-orders')
         setOrders(data)
-      }catch(error){
+      } catch (error) {
         console.log(error)
       }
     })()
@@ -47,29 +49,36 @@ const PaymentsPage = ({ api, layoutProps, packages, user }) => {
   const backgroundColor = theme.colors.backgroundContrast
 
   return (
-    <Layout { ...layoutProps }>
-      <Head>
-        <title>Pagos &lt; {CONFIG.appName} </title>
-      </Head>
-      <div className="payments-wrapper">
-        <div className="container">
-          <h3 className="title">Pagos</h3>
-          <Card bg="dark" text="white">
-            <Card.Body>
+    <Layout {...layoutProps}>
+      <CardLogoHeader>
+        <StylePayment>
+          <Head>
+            <title>Pagos &lt; {CONFIG.appName} </title>
+          </Head>
+          {/* <div className="payments-wrapper">
+            <div className="container"> */}
+
+          <h1 className="h2">Detalles de la compra</h1>
+
+          {/* <Card bg="dark" text="white"> */}
+          <div className="painel">
+            <div className="detail-compra">
               <Card.Title>Tu plan</Card.Title>
               <Card.Text>Todo el contenido de {CONFIG.appName} por {plan.name}.</Card.Text>
-              <div className="col-5 col-md-2 text-center" style={{fontSize: '13px', lineHeight: '0.7rem', padding: 0}}>
-                <PackageRadio
-                  readOnly
-                  package_id={plan.id}
-                  plan={plan}
-                />
-              </div>
-            </Card.Body>
-            <Card.Footer style={{fontSize: '12px', lineHeight: 1}}>
-              Próxima factura: {subscription.ends_at && subscription.ends_at.split(' ')[0]}
-            </Card.Footer>
-          </Card>
+            </div>
+            <div className="col-5 col-md-2 text-center" style={{ fontSize: '13px', lineHeight: '0.7rem', padding: 0 }}>
+              <PackageRadio
+                readOnly
+                package_id={plan.id}
+                plan={plan}
+              />
+            </div>
+          </div>
+
+          <Card.Footer style={{ fontSize: '12px', lineHeight: 1 }}>
+            Próxima factura: {subscription.ends_at && subscription.ends_at.split(' ')[0]}
+          </Card.Footer>
+          {/* </Card> */}
           <div className="mobile-table">
             {orders.map(order =>
               <div className="mobile-row" key={order.id}>
@@ -142,88 +151,20 @@ const PaymentsPage = ({ api, layoutProps, packages, user }) => {
               )}
             </tbody>
           </Table>
-        </div>
-      </div>
-      <style global jsx>{`
-        .payments-wrapper .bg-dark {
-          background-color: ${backgroundColor} !important;
-          /* It's appearing a compiler error here on dev at Windows,
-          but apparently it has already been resolved in newer versions of next and styled-jsx:
-          https://github.com/zeit/next.js/issues/9065 */
-        }
-        td > a  {
-          color: var(--gray);
-          line-height: 1.5;
-          text-decoration: underline;
-        }
-        dd > a {
-          color: var(--primary);
-        }
-        td > a:hover {
-          color: var(--primary-hover);
-        }
-        dd > a:hover {
-          text-decoration: underline;
-          color: var(--primary-hover);
-        }
-        h3 {
-          margin-bottom: 25px;
-        }
-        .table {
-          margin-top: 15px;
-        }
-        .table-dark {
-          background: transparent;
-        }
-        .table-sm {
-          font-size: 16px;
-        }
-        .card-text {
-          font-size: 14px;
-        }
-        .table-dark.table-hover tbody tr:hover {
-          background-color: var(--primary-alpha);
-        }
-        .mobile-table {
-          font-size: 16px;
-          margin-top: 40px;
-          margin-bottom: 20px;
-          display: none;
-        }
-        .mobile-row {
-          border-top: 1px solid white;
-        }
-        dl:first-child {
-          margin-top: 15px;
-        }
-        dl {
-          margin-bottom: 0.5rem;
-        }
-        dt, dd {
-          font-weight: 300;
-          display: inline;
-        }
-        dd {
-          float:right;
-        }
-        @media only screen and (max-width: 767px) {
-          .mobile-table {
-            display: inherit;
-          }
-          .table {
-            display: none;
-          }
-        }
-    `}</style>
-  </Layout>
-)}
+          {/* </div>
+          </div> */}
+        </StylePayment>
+      </CardLogoHeader >
+    </Layout >
+  )
+}
 
 PaymentsPage.getInitialProps = async ({ api, user }) => {
   let packages
   try {
     const { data } = await api.get('packages')
     packages = { items: data }
-  } catch(error) {
+  } catch (error) {
     packages = { error }
   }
   return { packages, user }
