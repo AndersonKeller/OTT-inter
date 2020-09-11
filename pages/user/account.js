@@ -184,7 +184,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
             padding: 24px;
       }
 
-          color: var(--gray);
+          color: #565656;
         .rgpage {
           padding-top: 40px;
           padding-bottom: 120px;
@@ -197,7 +197,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
         a {
           display: inline-block;
           font-size: 17px;
-          color: var(--gray);
+          color: #565656;
           line-height: 1.5;
         }
         a:hover {

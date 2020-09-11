@@ -34,7 +34,7 @@ const MediaCard = ({
               <WishlistBtn movieId={ media.id } inside={ true }/>
             </div>
           }
-          <img className="img-fluid" src={ category.horizontal ? media.thumbnail2_url : media.thumbnail_url }/>
+          <img className="img-fluid" src={ category ? (category.horizontal ? media.thumbnail2_url : media.thumbnail_url) :  media.thumbnail_url}/>
           <div className="media-card-label">
             <FontAwesomeIcon icon={faPlayCircle} />
             <div className={"text"}>

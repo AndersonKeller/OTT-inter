@@ -44,7 +44,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
     isPartner: '',
     birth_of_date:'',
     abonado:null,
-    
+
 
   })
 
@@ -153,7 +153,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
 
       handleSubmit(1, userData)
 
-       }  
+       }
 
     } catch (error) {
       if (error.response) {
@@ -341,13 +341,13 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
                 <FormGroup>
                   <Label htmlFor="birth">Fecha de nacimiento</Label>
                   <Flatpickr
-  
+
                     id="birthdate"
                     name=" birthdate"
                     options={{  altInput: "true",
                     altFormat:"d-m-y",
                     dateFormat: "Y-m-d"}}
-                
+
                     onChange={birthdate => {
                       setDate({ birthdate: birthdate });
                     }}
@@ -382,7 +382,6 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
                       checked={values.terms}
                       name="terms"
                       onChange={handleInputChange}
-                      required={requireds}
                       type="checkbox"
                       value={`true`}
                     />
