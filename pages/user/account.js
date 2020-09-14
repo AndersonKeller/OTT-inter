@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Layout from '~/components/layout/Layout'
 import { PackageRadio } from '~/components/Packages'
+import Packages from "~/pages/register/wizard/packages"
 import withAuth from '~/components/withAuth'
 import { CONFIG } from '~/config'
 import CardLogoHeader from '~/components/CardLogoHeader/index'
@@ -39,14 +40,14 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
 
 
         <Head>
-          <title>Mi Cuenta &lt; {CONFIG.appName}</title>
+          <title className="style-title">Mi Cuenta &lt; {CONFIG.appName}</title>
         </Head>
         <div className="rgpage container-fluid">
           <div className="row">
             <div className="detail ">
 
               <div className="row">
-                <div className="col-md-4">
+                <div className="profile-photo">
                   {/* <Link className="link" as="#" href="#">
                   <a className="profile-pic">
                     <Avatar
@@ -60,11 +61,11 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                   {/* </Link> */}
 
                 </div>
-                <div className="col-md-8">
+                <div className="">
                   <div className="detail-profile">
                     <h1 className="h2">Mi Cuenta</h1>
                     <div style={{
-                      color: "#008e38", padding: " 0px",
+                      color: "var(--primary)", padding: " 0px",
                       fontWeight: "bolder"
                     }} className="col-md-8 vertical-align">
                       {user && user.name}
@@ -87,7 +88,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                     </div>
                     <div className="col col-md text-right">
                       <Link href="changeEmail">
-                        <a>Cambiar email</a>
+                        <a className="negrito">Cambiar email</a>
                       </Link>
                     </div>
                   </div>
@@ -97,7 +98,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                     </div>
                     <div className="col col-md text-right">
                       <Link href="changePassword">
-                        <a>Cambiar la contraseña</a>
+                        <a className="negrito">Cambiar la contraseña</a>
                       </Link>
                     </div>
                   </div>
@@ -107,14 +108,14 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                     </div>
                     <div className="col col-md text-right">
                       <Link href="/user/data">
-                        <a>Cambiar datos</a>
+                        <a className="negrito">Cambiar datos</a>
                       </Link>
                     </div>
                   </div>
                   <hr />
                   <div className="row">
                     <div className="col col-md text-left">
-                      <p className="info">Medio de Pago:</p>
+                      <p className="info negrito">Medio de Pago:</p>
                     </div>
                     <div className="col col-md-auto text-right">
                       {/* <Link as="#" href="#">
@@ -128,7 +129,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                     </div>
                     <div className="col col-md-auto text-right">
                       <Link href="payments">
-                        <a>Detalles de compra</a>
+                        <a className="negrito">Detalles de compra</a>
                       </Link>
                     </div>
                   </div>
@@ -180,8 +181,16 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
         padding: 41px;
 
       }
+
+      .style-title {
+            padding-left: 104px;
+      }
       .detail-profile{
-            padding: 24px;
+         padding-left: 115px;
+         padding-top:40px;
+      }
+      .profile-photo {
+        padding-left: 20px;
       }
 
           color: #565656;
@@ -196,7 +205,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
         }
         a {
           display: inline-block;
-          font-size: 17px;
+          font-size: 14px;
           color: #565656;
           line-height: 1.5;
         }
@@ -217,30 +226,46 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
         hr {
           margin-top: 25px;
           margin-bottom: 15px;
-          background-color: white;
+          background:black;
         }
-      @media(max-width: 765px) {
+
+        .negrito {
+              font-weight: 700;
+        }
+      @media(max-width:765px) {
+        .detail-profile {
+              justify-content: center;
+               text-align: center;
+        }
+
          .detail{
            padding:2px!important;
          }
         .text-right {
-           text-align: center !important;
+           text-align:justify !important;
           }
          .row{
            display: contents!important;
-            text-align: center!important;
+            // text-align: center!important;
          }
         .info{
-           text-aling:center!important;
+           text-aling:justify!important;
          }
         .text-left {
-          text-align: center!important;
+          text-align: juntify!important;
         }
         .detail-profile{
           padding:2px;
         }
+        .data {
+          justify-content: center;
+          display: flex;
+        }
 
-
+        .profile-photo {
+         justify-content: center;
+          display: flex;
+        }
      }
 
 
@@ -281,13 +306,13 @@ const ProfilePic = ({ image: src = "/static/icons/user.svg" }) => {
       .avatar img {
         height: 120px;
         width:120px;
-        border: solid 4px;
-        color: #008e38;
+
       }
       .title {
         color: var(--gray);
         font-size: 12px;
         align-self:center;
+
       }
       .title:hover {
         color: var(--primary-hover);
@@ -309,6 +334,8 @@ const ProfilePic = ({ image: src = "/static/icons/user.svg" }) => {
       .avatar:hover .overlay {
         display: flex;
       }
+
+
 
 
     `}</style>

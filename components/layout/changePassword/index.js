@@ -8,10 +8,16 @@ export const StyleChangePassword = styled.div`
     padding:20px;
 
      label {
-       color: var(--gray);
+        color: var(--black);
+            text-align: initial;
+
      }
-     .row{
+     hr {
+       background: var(--black);
+     }
+     .row {
        width:100%;
+       padding-top:20px;
 
      }
 
@@ -24,9 +30,9 @@ export const StyleChangePassword = styled.div`
      }
 
      .btn {
-      background-color: rgb(0, 142, 56)!important;
+      background-color: var(--primary);
       height: 34px;
-      padding: 0px;
+      padding: 0px!important;
       font-size: 15px;
       width: 150px;
     }
@@ -47,6 +53,8 @@ export const StyleChangePassword = styled.div`
         justify-content: center;
         color: black;
         padding:10px;
+        text-align: center;
+
      }
 
      .painel {
@@ -54,6 +62,9 @@ export const StyleChangePassword = styled.div`
      }
 
     @media(max-width:765px) {
+      label {
+        text-align: initial;
+      }
 
       .painel {
        width: 100%;
