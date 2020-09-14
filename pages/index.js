@@ -14,6 +14,7 @@ import { CONFIG } from '../config'
 import api from '../services/api'
 import withApi from '~/components/withApi'
 import Color from 'color'
+import { TENANT } from "~/constants/constants";
 
 const HomePage = ({ api, contents, featuredMedia, featuredMediaError, layoutProps }) => {
   const { user } = useContext(UserContext)
@@ -23,6 +24,13 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, layoutProp
     <Layout paddingTop={false} {...layoutProps}>
       <Head>
         <title>{pageTitle}</title>
+        <link rel="apple-touch-icon" sizes="180x180" href={`/static/${TENANT}/favicon/apple-touch-icon.png`}/>
+        <link rel="icon" type="image/png" sizes="32x32" href={`/static/${TENANT}/favicon/favicon-32x32.png`}/>
+        <link rel="icon" type="image/png" sizes="16x16" href={`/static/${TENANT}/favicon/favicon-16x16.png`}/>
+        <link rel="manifest" href={`/static/${TENANT}/favicon/site.webmanifest`}/>
+        <link rel="mask-icon" href={`/static/${TENANT}/favicon/safari-pinned-tab.svg`} color="#5bbad5"/>
+        <meta name="msapplication-TileColor" content="#da532c"/>
+        <meta name="theme-color" content="#ffffff"/>
       </Head>
       <div className="index">
 
