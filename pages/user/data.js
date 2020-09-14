@@ -53,23 +53,23 @@ const userDataPage = ({ layoutProps, user, updateUser }) => {
         </div> */}
       </CardLogoHeader>
       <style jsx>{`
-        .rgpage {
-          padding-top: 40px;
-          padding-bottom: 120px;
-        }
-        .h2 {
-          margin-bottom: 10px;
-        }
-        :global(.h3) {
-          font-size: 20px;
-          font-weight: bold;
-          margin-bottom: 10px;
-        }
-        hr {
-          margin-top: 25px;
-          margin-bottom: 15px;
-          background-color: white;
-        }
+        // .rgpage {
+        //   padding-top: 40px;
+        //   padding-bottom: 120px;
+        // }
+        // .h2 {
+        //   margin-bottom: 10px;
+        // }
+        // :global(.h3) {
+        //   font-size: 20px;
+        //   font-weight: bold;
+        //   margin-bottom: 10px;
+        // }
+        // hr {
+        //   margin-top: 25px;
+        //   margin-bottom: 15px;
+        //   background-color: white;
+        // }
       `}</style>
     </Layout>
   );

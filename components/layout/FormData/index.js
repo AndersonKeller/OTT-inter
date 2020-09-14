@@ -8,10 +8,25 @@ export const StyleFormData = styled.div`
     padding:20px;
 
      label {
-       color: var(--gray);
+       color: var(--black);
      }
      .row{
        width:100%;
+
+     }
+
+     hr {
+       background:var(--black);
+     }
+
+     h4 {
+       color:var(--primary);
+       text-align:center;
+     }
+
+     h3 {
+      color:var(--primary);
+      text-align:center;
 
      }
 
@@ -26,9 +41,9 @@ export const StyleFormData = styled.div`
      }
 
      .btn {
-      background-color: rgb(0, 142, 56)!important;
+      background-color: var(--primary);
       height: 34px;
-      padding: 0px;
+      padding: 0px!important;
       font-size: 15px;
       width: 150px;
     }
@@ -39,7 +54,8 @@ export const StyleFormData = styled.div`
         justify-content: center;
         color: black;
         padding:10px;
-     }
+        text-align: center;
+        }
 
 
     @media(max-width:765px) {
@@ -52,6 +68,7 @@ export const StyleFormData = styled.div`
         padding: 7px;
 
       }
+
 
       .aling-button {
         display: flex;
