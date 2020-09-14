@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 export const StylePayment = styled.div`
 
-    color: var(--gray);
+    color: var(--black);
    .payments - wrapper.bg - dark {
   /* It's appearing a compiler error here on dev at Windows,
   but apparently it has already been resolved in newer versions of next and styled-jsx:
@@ -33,7 +33,7 @@ export const StylePayment = styled.div`
     }
 
     td > a  {
-    color: var(--gray);
+    color: var(--black);
     line - height: 1.5;
     text - decoration: underline;
     }
@@ -71,8 +71,8 @@ export const StylePayment = styled.div`
     }
 
     .table-sm {
-      font-size: 16px;
-      color: var(--gray);
+      font-size: 9px;
+      color: var(--black);
     }
 
     }
@@ -82,31 +82,10 @@ export const StylePayment = styled.div`
      }
 
     .table - dark.table - hover tbody tr: hover {
-      // background - color: var(--primary - alpha);
+       background - color: var(--black);
     }
 
-    .mobile - table {
-     font - size: 16px;
-     margin - top: 40px;
-     margin - bottom: 20px;
-     display: none;
-    }
-    .mobile - row {
-     border - top: 1px solid white;
-    }
-    dl: first - child {
-      margin - top: 15px;
-    }
-    // dl {
-    //   margin - bottom: 0.5rem;
-    // }
-    // dt, dd {
-    //   font - weight: 300;
-    //   display: inline;
-    // }
-    // dd {
-    // float: right;
-    // }
+
 
     th {
     border-color: transparent!important;
@@ -114,23 +93,21 @@ export const StylePayment = styled.div`
     border: none;
 
 
-    }
+      }
     }
 
 
     @media(max-width:765px) {
 
-    .mobile - table {
-    display: inherit;
-    }
+   h1 {
+    padding: 34px;
+    text-align: center;
+   }
 
-    // .table {
-    // display: none;
-    // }
 
     th {
     font-weight: 100;
-    font-size: 11px;
+    font-size: 9px;
     }
 
 }
