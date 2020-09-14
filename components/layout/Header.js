@@ -95,7 +95,7 @@ const Header = ({ closed, layoutColor, menus }) => {
     <StyledHeader closed={closed} layoutColor={layoutColor} scrolled={scrolled}>
       <nav className="nav">
         {/* club logo */}
-        {!closed && (
+        {(!closed && (TENANT !== 'lau'))&& (
           <HeaderClubLogo />
         )}
 
