@@ -89,7 +89,7 @@ const DataForm = ({ isSubmitting }) => <Form>
           </FormGroup>
         </div>
         <div style={{ padding: " 20px" }} >
-          <Button style={{ bakground: "#008e38!important" }} type="submit" disabled={isSubmitting} loading={isSubmitting}>
+          <Button type="submit" disabled={isSubmitting} loading={isSubmitting}>
             Aceptar
       </Button>
         </div>

@@ -8,15 +8,18 @@ export const StyleForm = styled.div`
     padding:20px;
 
      label {
-       color: var(--gray);
+       color: var(--black);
+     }
+     .row {
+       margin-top: 25px;
      }
 
      .btn {
-      background-color: rgb(0, 142, 56)!important;
+      background-color: --var(primary);
       height: 34px;
-      padding: 0px;
+      padding: 0px!important;
       font-size: 15px;
-          width: 150px;
+      width: 150px;
     }
 
     .input-aling {
@@ -31,7 +34,7 @@ export const StyleForm = styled.div`
         display: flex;
         justify-content: center;
         color: black;
-        padding:2px;
+        padding: 0px 0px 20px 0px;
      }
 
      .painel {
@@ -50,7 +53,7 @@ export const StyleForm = styled.div`
       justify-content:center
       }
       .input-aling {
-         width: 88%;
+         width: 100%;
 
       }
 
