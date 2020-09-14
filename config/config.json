@@ -96,7 +96,7 @@
     "textColor": "#b2b2b2"
   },
   "lau": {
-    "appName": "La U Mas",
+    "appName": "LaU Play",
     "projectName": "LaU Play",
     "clubName": "Universidad de Chile",
     "fullClubName": "Club Universidad de Chile",
@@ -170,9 +170,18 @@
     "secondaryColor": "#000",
     "site": "http://www.clubaindependiente.com/",
     "socialNetworks": [
-      { "name": "Facebook", "link": "https://www.facebook.com/Independiente/" },
-      { "name": "Instagram", "link": "https://www.instagram.com/caindependiente/" },
-      { "name": "Twitter", "link": "https://twitter.com/independiente" }
+      {
+        "name": "Facebook",
+        "link": "https://www.facebook.com/Independiente/"
+      },
+      {
+        "name": "Instagram",
+        "link": "https://www.instagram.com/caindependiente/"
+      },
+      {
+        "name": "Twitter",
+        "link": "https://twitter.com/independiente"
+      }
     ],
     "googleAnalytics": "",
     "apiUrl": "https://independiente.dowhile.com.br",
