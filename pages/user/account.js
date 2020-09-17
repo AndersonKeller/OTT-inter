@@ -7,6 +7,7 @@ import Packages from "~/pages/register/wizard/packages"
 import withAuth from '~/components/withAuth'
 import { CONFIG } from '~/config'
 import CardLogoHeader from '~/components/CardLogoHeader/index'
+import ImageProfile, { imageProfile } from '~/pages/user/changeImage/index'
 const AccountPage = ({ api, layoutProps, packages, user }) => {
 
   const [plan, setPlan] = useState({})
@@ -56,8 +57,10 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                     />
                   </a>
                 </Link> */}
-                  {/* <Link href="changePhoto">  */}
-                  <a><ProfilePic image={user && user.cropped_image_url ? user.cropped_image_url : null} /></a>
+                  {/* <a><ProfilePic image={user && user.cropped_image_url ? user.cropped_image_url : null} /></a> */}
+                  <ImageProfile src={user && user.cropped_image_url ? user.cropped_image_url : "/static/icons/user.svg"}></ImageProfile>
+
+
                   {/* </Link> */}
 
                 </div>
@@ -67,7 +70,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                     <div style={{
                       color: "var(--primary)", padding: " 0px",
                       fontWeight: "bolder"
-                    }} className="col-md-8 vertical-align">
+                    }} >
                       {user && user.name}
                     </div>
                   </div>
@@ -265,6 +268,8 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
         .profile-photo {
          justify-content: center;
           display: flex;
+          padding-left: 0px;
+
         }
      }
 
@@ -286,61 +291,6 @@ AccountPage.getInitialProps = async ({ api, user }) => {
   return { packages, user }
 }
 
-const ProfilePic = ({ image: src = "/static/icons/user.svg" }) => {
-  return (
-    <>
-      <div className="avatar">
-        <img alt="Avatar" className="img-fluid" src="https://claudia.abril.com.br/wp-content/uploads/2019/05/gatinho-destaque.jpg" />
-        {/* <div className="overlay"><p className="title">Cambiar foto</p></div> */}
-      </div>
-      <style jsx>{`
-      .avatar {
-        position: relative;
-        display: block;
-        height: 120px;
-        width: 120px;
-        margin-top: 15px;
 
-      }
-
-      .avatar img {
-        height: 120px;
-        width:120px;
-
-      }
-      .title {
-        color: var(--gray);
-        font-size: 12px;
-        align-self:center;
-
-      }
-      .title:hover {
-        color: var(--primary-hover);
-        /* text-decoration: underline; */
-      }
-      .overlay {
-        height: 40%;
-        width: 100%;
-        background: rgba(0,0,0,.8);
-        position: absolute;
-        display: none;
-        top: 60%;
-        left: 0;
-        justify-content: center;
-      }
-      .img-fluid {
-        border-radius: 50%;
-      }
-      .avatar:hover .overlay {
-        display: flex;
-      }
-
-
-
-
-    `}</style>
-    </>
-  )
-}
 
 export default withAuth(AccountPage)
