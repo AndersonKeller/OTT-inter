@@ -1,6 +1,4 @@
 
-
-
 import styled from 'styled-components'
 export const StyleChangePassword = styled.div`
 
@@ -9,7 +7,7 @@ export const StyleChangePassword = styled.div`
 
      label {
         color: var(--black);
-            text-align: initial;
+        text-align: initial;
 
      }
      hr {
