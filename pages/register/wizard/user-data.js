@@ -409,7 +409,6 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
                         id="abonado"
                         name="abonado"
                         onChange={handleInputChange}
-                        required={requireds}
                         type="text"
                         value={values.abonado}
 

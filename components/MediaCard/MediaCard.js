@@ -7,8 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons'
 
 
-
-
 const MediaCard = ({
                      category = null,
                      className,
@@ -21,8 +19,15 @@ const MediaCard = ({
   const theme = useContext(ThemeContext)
   const lightColor = theme.colors.texts
   const whiteColor = theme.colors.white
-  console.log(media);
   const { is_paid: isPaid } = media
+
+  function statusChip() {
+    if (isPaid) {
+      return <Chip label={ "Premium" } color={ "primary" }/>
+    } else {
+      return <Chip label={ "Gratis" }/>
+    }
+  }
 
   return (
     <div { ...{ className } }>
@@ -34,30 +39,18 @@ const MediaCard = ({
               <WishlistBtn movieId={ media.id } inside={ true }/>
             </div>
           }
-          <img className="img-fluid" src={ category ? (category.horizontal ? media.thumbnail2_url : media.thumbnail_url) :  media.thumbnail_url}/>
+          <img className="img-fluid"
+               src={ category ? (category.horizontal ? media.thumbnail2_url : media.thumbnail_url) : media.thumbnail_url }/>
           <div className="media-card-label">
-            <FontAwesomeIcon icon={faPlayCircle} />
-            <div className={"text"}>
+            <FontAwesomeIcon icon={ faPlayCircle }/>
+            <div className={ "text" }>
               { media.title }
             </div>
           </div>
 
           <span className="media-chip">
 
-            {
-              isPaid &&
-              <>
-                <Chip label={ "Premium" } color={ "primary" }/>
-              </>
-
-            }
-
-            {
-              !isPaid &&
-              <>
-                <Chip label={ "Gratis" }/>
-              </>
-            }
+            { statusChip() }
 
           </span>
 

@@ -21,35 +21,8 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
     })
   }
 
-
-  function SliderContainer(props) {
-    return <div className='slider-container-title'>{props.videoModel.title}</div>;
-  }
-
-  function SliderTemplate(props) {
-    console.log(props)
-    return (
-      <div className='slider-container-wrapper'>
-        <Link
-          as={`/media/${props.videoModel.slug}`}
-          href={{
-            pathname: '/media/[slug]',
-            query: {
-              category: (category ? category.slug : null),
-              slug: props.videoModel.slug,
-            },
-          }}
-        >
-          <SliderContainer videoModel={props.videoModel} model={props.model} />
-        </Link>
-      </div>
-    );
-  }
-
   function ree() {
-    // alert(key)
-
-      if (medias && medias.length) {
+     if (medias && medias.length) {
         return <Carousel color={color}
                          additional={category}>
           {medias.map((media, key) => (
@@ -70,8 +43,8 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
         </H2>
       </div>
 
-
       {ree()}
+
       <style jsx global>{`
         .carousel-section :global(.carousel-section-title),
         .carousel-section .error-message {
