@@ -1,18 +1,18 @@
 {
-  "name": "lau-app",
+  "name": "atlnacional",
   "alias": [
-    "lau-app.vercel.app"
+    "atlnacional.vercel.app"
   ],
   "scope": "somosgad",
   "version": 2,
   "env": {
-    "TENANT": "lau",
-    "API_URL": "https://lau.dowhile.com.br"
+    "TENANT": "atlnacional",
+    "API_URL": "https://atlnacional.dowhile.com.br"
   },
   "build": {
     "env": {
-      "TENANT": "lau",
-      "API_URL": "https://lau.dowhile.com.br"
+      "TENANT": "atlnacional",
+      "API_URL": "https://atlnacional.dowhile.com.br"
     }
   },
   "routes": [

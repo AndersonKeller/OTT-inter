@@ -133,7 +133,7 @@ const Cover = ({ error, media }) => {
     url: { default: fallback, png, webp } = {},
     width,
   } = logo || {}
-  const empezaYa = CONFIG.lang === 'es-CL' ? '¡Vívelo ahora!' : '¡Empezá Ya!'
+  const empezaYa = CONFIG.lang === 'es-CL' ? '¡Vívelo ahora!' : '¡Empieza Ya!'
   return (
     <div className="cover container-fluid">
 
@@ -184,7 +184,7 @@ const Cover = ({ error, media }) => {
           <div className="row justify-content-center gutter-15">
             { ! user ? (
               <div className="col-auto">
-                <Link href="/subscriptor" passHref>
+                <Link href="/signup" passHref>
                   <Button>{empezaYa}</Button>
                 </Link>
               </div>

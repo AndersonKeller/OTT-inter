@@ -413,14 +413,14 @@ const Payment = ({
         <div className="col-md-6">
           <div className="product-summary">
             <div className="product-image">
-              <img src="/static/lau/subs/plan_hero.png" alt="" />
+              {/*<img src="/static/lau/subs/plan_hero.png" alt="" />*/}
             </div>
             <div className={"product-name-group"}>
               <h6>
                 Você está comprando:
               </h6>
               <p className={"product-name"}>
-                Assinatura LaU Play - <strong>{selectedPackage.name}</strong> recorrente
+                Assinatura - <strong>{selectedPackage.name}</strong> recorrente
               </p>
             </div>
             <div className={"price-breakdown"}>
