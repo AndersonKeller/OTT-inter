@@ -22,16 +22,16 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
   }
 
   function ree() {
-     if (medias && medias.length) {
-        return <Carousel color={color}
-                         additional={category}>
-          {medias.map((media, key) => (
-            <MediaCard category={category} key={key} media={media} />
-          ))}
-        </Carousel>
-      } else {
-        <div className="error-message">{emptyMessage}</div>
-      }
+    if (medias && medias.length) {
+      return <Carousel color={color}
+        additional={category}>
+        {medias.map((media, key) => (
+          <MediaCard category={category} key={key} media={media} />
+        ))}
+      </Carousel>
+    } else {
+      <div className="error-message">{emptyMessage}</div>
+    }
 
   }
 
@@ -39,7 +39,7 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
     <div className="carousel-section">
       <div className="container-fluid">
         <H2 className={`carousel-section-title ${uppercase ? 'text-uppercase' : ''}`}>
-          {title}
+          <p > {title}</p>
         </H2>
       </div>
 
@@ -48,7 +48,7 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
       <style jsx global>{`
         .carousel-section :global(.carousel-section-title),
         .carousel-section .error-message {
-          margin-left: 9%;
+          margin-left: 4%;
         }
       ` }</style>
     </div>

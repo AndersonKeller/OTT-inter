@@ -3,12 +3,19 @@ import { spacing } from '@material-ui/system'
 
 const StyledH2 = styled.h2`
   ${spacing}
-  text-transform: ${props => props.uppercase ? 'uppercase': 'none'};
+  text-transform: ${props => props.uppercase ? 'uppercase' : 'none'};
   @media (min-width: 768px) {
     --font-size: 22px;
   }
   @media (min-width: 992px) {
     --font-size: 31px;
+  }
+  p {
+    font-size: 24px;
+    text-transform: lowercase;
+  }
+  p:first-letter {
+    text-transform: uppercase;
   }
 `
 

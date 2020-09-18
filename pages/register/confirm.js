@@ -68,7 +68,7 @@ const RegisterConfirmPage = ({ downloadLink, layoutProps, link }) => {
           <div className="card-body">
             <div className="aling-row">
             {/* {renderComponents()} */}
-            <h2 className="h2" mb={3} uppercase>¡Bienvenido 
+            <h2 className="h2" mb={3} uppercase>¡Bienvenido
             {/* <span className="nombre-title"> { getUserName() }</span> */}
             </h2>
             </div>
@@ -76,9 +76,9 @@ const RegisterConfirmPage = ({ downloadLink, layoutProps, link }) => {
         <div className="aling-row">
           <H2 className="text-center-gracias" style={{color:"#6b6868", width:"305px"}}>Gracias por completar tu perfil de </H2>
         </div>
-        
+
          <div className="register-confirm__btn-container btn-confirm">
-          <Button  href="/index" target="_blank">Ir a LaUPlay  <span></span></Button>
+          <Button  href="/index" target="_blank">Ir a La UPlay  <span></span></Button>
         </div>
         {/* <div className="register-confirm__btn-container">
           <Button href={link} onClick={handleClick} target="_blank">Abrir Recibo Bancario</Button>
@@ -87,7 +87,7 @@ const RegisterConfirmPage = ({ downloadLink, layoutProps, link }) => {
         {!timer && (
           <p className="small register-confirm__small">Su plan se activará después de la confirmación del pago.</p>
         )}
-       
+
 
           </div>
         </div>
@@ -114,7 +114,7 @@ const RegisterConfirmPage = ({ downloadLink, layoutProps, link }) => {
         }
         .register-confirm__btn-container :global(.btn),
         .register-confirm__btn-container :global(.btn):active {
-       
+
           font-size:24px!important;
           line-height: 1;
           width: 40%;
@@ -149,14 +149,14 @@ const RegisterConfirmPage = ({ downloadLink, layoutProps, link }) => {
           padding-bottom: 50px;
           color: #666666;
         }
-        
+
       .aling-row {
           display: flex;
           justify-content: center;
           padding: 5px;
          text-align: center;
       }
-  
+
 
       .card {
         width: 100%;
@@ -189,9 +189,9 @@ const RegisterConfirmPage = ({ downloadLink, layoutProps, link }) => {
           display: flex;
           justify-content: center;
           padding: 5px;
-          text-align: center;     
+          text-align: center;
          }
-    
+
          .card-body {
           background-image: url()!important;
          }
@@ -212,7 +212,7 @@ const RegisterConfirmPage = ({ downloadLink, layoutProps, link }) => {
          }
 
         .row {
-       
+
           display: -ms-flexbox;
           display: flex;
           -ms-flex-wrap: wrap;
@@ -225,7 +225,7 @@ const RegisterConfirmPage = ({ downloadLink, layoutProps, link }) => {
         .col-8 {
           max-width: 100%!important;
         }
-  
+
         .offset-3 {
          margin-left:0px;
        }
