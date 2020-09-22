@@ -8,13 +8,13 @@ import { faPlayCircle } from '@fortawesome/free-solid-svg-icons'
 
 
 const MediaCard = ({
-                     category = null,
-                     className,
-                     media,
-                     wishlist
-                   }) => {
+  category = null,
+  className,
+  media,
+  wishlist
+}) => {
   if (!media.thumbnail_url) {
-    media.thumbnail_url = '//placehold.jp/180x256.png'
+    // media.thumbnail_url = '//placehold.jp/180x256.png'
   }
   const theme = useContext(ThemeContext)
   const lightColor = theme.colors.texts
@@ -23,47 +23,47 @@ const MediaCard = ({
 
   function statusChip() {
     if (isPaid) {
-      return <Chip label={ "Premium" } color={ "primary" }/>
+      return <Chip label={"Premium"} color={"primary"} />
     } else {
-      return <Chip label={ "Gratis" }/>
+      return <Chip label={"Gratis"} />
     }
   }
 
   return (
-    <div { ...{ className } }>
-      <MediaLink { ...{ category, media } }>
+    <div {...{ className }}>
+      <MediaLink {...{ category, media }}>
         <a className="media-card text-center">
           {
             wishlist &&
             <div className="wish">
-              <WishlistBtn movieId={ media.id } inside={ true }/>
+              <WishlistBtn movieId={media.id} inside={true} />
             </div>
           }
           <img className="img-fluid"
-               src={ category ? (category.horizontal ? media.thumbnail2_url : media.thumbnail_url) : media.thumbnail_url }/>
+            src={category ? (category.horizontal ? media.thumbnail2_url : media.thumbnail_url) : media.thumbnail_url} />
           <div className="media-card-label">
-            <FontAwesomeIcon icon={ faPlayCircle }/>
-            <div className={ "text" }>
-              { media.title }
+            <FontAwesomeIcon icon={faPlayCircle} />
+            <div className={"text"}>
+              {media.title}çll
             </div>
           </div>
 
           <span className="media-chip">
 
-            { statusChip() }
+            {statusChip()}
 
           </span>
 
         </a>
       </MediaLink>
-      <style jsx>{ `
-    
+      <style jsx>{`
+
           .media-card {
-            color: ${ lightColor };
-          }     
+            color: ${ lightColor};
+          }
           .media-card:focus,
           .media-card:hover {
-            color: ${ whiteColor };
+            color: ${ whiteColor};
           }
 
       ` }</style>

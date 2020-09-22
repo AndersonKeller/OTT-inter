@@ -14,22 +14,31 @@ import { CONFIG } from '~/config'
 import Chevron from '~/components/icons/chevron'
 import Color from 'color'
 
+import StyleChangeImage from '~/components/layout/changeImage'
+
 function MediaPage1({ category, errorCode, layoutProps, media, related }) {
   const { appName } = CONFIG
   const { title: mediaTitle } = media
   const pageTitle = `${mediaTitle} < ${appName}`
+
+
   return (
-    <Layout errorCode={errorCode} paddingTop={false} {...layoutProps}>
-      <Head>
-        <title>{pageTitle}</title>
-      </Head>
-      <Cover category={category} media={media} />
-      {category && related && (
-        <More category={category} related={related} />
-      )}
-    </Layout>
+    <>
+      <Layout errorCode={errorCode} paddingTop={false} {...layoutProps}>
+        <Head>
+          <title>{pageTitle}</title>
+        </Head>
+
+        <Cover category={category} media={media} />
+        {category && related && (
+          <More category={category} related={related} />
+        )}
+      </Layout>
+    </>
   )
 }
+
+
 
 MediaPage1.getInitialProps = async ctx => {
   const { api, query } = ctx
@@ -45,6 +54,7 @@ MediaPage1.getInitialProps = async ctx => {
   }
 }
 
+
 const Cover = ({ category, media }) => {
   const [open, setOpen] = useState(false)
   const { user } = useContext(UserContext)
@@ -52,6 +62,8 @@ const Cover = ({ category, media }) => {
   const probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
   const theme = useContext(ThemeContext)
   const maskColor = Color(theme.colors.background)
+
+
   const {
     detail = null,
     poster_url: posterUrl,
@@ -59,57 +71,66 @@ const Cover = ({ category, media }) => {
     title,
   } = media
   return (
-    <div className="cover container-fluid">
-      <div className="row align-items-center">
-        <div className="col-12 col-md-5 offset-md-1">
-          <div className="info">
-            <div className="heading">
-              <h1 className="h2">{title}</h1>
-              {publishYear && (
-                <div className="year">{publishYear}</div>
-              )}
-            </div>
-            {detail && (
-              <div className="description" style={{display: 'flex'}}>
-                <div className={smDown && !open && 'short-description'}>
-                    { smDown && !open && detail.replace(/^([\s\S]{70}[^\s]*)[\s\S]*/, "$1") }
+
+    <div>
+      <div className="header-entre" >
+        <h3>Entrevistas</h3>
+      </div>
+
+      <div className="cover container-fluid">
+        <div className="row align-items-center">
+          <div className="col-12 col-md-5 offset-md-1">
+            <div className="info">
+              <div className="heading">
+                <h1 className="h2">{title}</h1>
+                {publishYear && (
+                  <div className="year">{publishYear}</div>
+                )}
+              </div>
+
+              {detail && (
+                <div className="description" style={{ display: 'flex' }}>
+                  <div className={smDown && !open && 'short-description'}>
+                    {smDown && !open && detail.replace(/^([\s\S]{70}[^\s]*)[\s\S]*/, "$1")}
                     <Collapse in={open || !smDown}>
                       <p>{detail}</p>
                     </Collapse>
+                  </div>
+                  <div
+                    className={'chevron-collapse ' + (!smDown && 'd-none')}
+                    onClick={_ => setOpen(!open)}
+                    aria-controls="description"
+                    aria-expanded={open}
+                  >
+                    <Chevron
+                      dir={!open && "bottom"}
+                      alt="mas" className="chevron"
+                      height="10" width="17"
+                      inline
+                    />
+                  </div>
                 </div>
-                <div
-                  className={ 'chevron-collapse ' + (!smDown && 'd-none') }
-                  onClick={_ => setOpen(!open)}
-                  aria-controls="description"
-                  aria-expanded={open}
-                >
-                  <Chevron
-                    dir={!open && "bottom"}
-                    alt="mas" className="chevron"
-                    height="10" width="17"
-                    inline
-                  />
-                </div>
+              )}
             </div>
-            )}
-          </div>
 
-          { ! user ? (
+            {/* {!user ? (
             <Link href="/subscriptor">
               <Button block={smDown}>{probaGratis}</Button>
             </Link>
           ) : (
-            <>
-              <MediaLink {...{category, media}} watch>
-                <Button>Mira</Button>
-              </MediaLink>
-              <WishlistBtn movieId={media.id} />
-            </>
-          ) }
+              <>
+                <MediaLink {...{ category, media }} watch>
+                  <Button>Mira</Button>
+                </MediaLink>
+                <WishlistBtn movieId={media.id} />
+              </>
+            )} */}
 
+          </div>
         </div>
       </div>
       <style jsx>{`
+
         .cover {
           background-color: var(--background);
           background-position: 50% 50%, 100% 50%;
@@ -152,6 +173,9 @@ const Cover = ({ category, media }) => {
         .chevron-collapse {
           padding-left: 10px;
         }
+        .header-entre {
+          display:none;
+        }
         @media (min-width: 768px) {
           .cover .row {
             height: 560px;
@@ -165,8 +189,38 @@ const Cover = ({ category, media }) => {
             content: "";
           }
         }
+
+        @media(max-width:768px){
+          h1 {
+            text-align: center;
+            font-size: 18px;
+            padding: 161px 0px 18px 0px;
+          }
+          .heading {
+            margin-bottom: -19px;
+          }
+          .container-fluid, .container-sm, .container-md, .container-lg, .container-xl {
+            width: 90%;
+            padding-right: 15px;
+            padding-left: -13px;
+           }
+
+           h3 {
+            padding-left: 8px;
+            font-size: 22px;
+            font-weight: 600;
+           }
+
+          .header-entre{
+           background:#090a0a;;
+           display:block;
+           margin-top: 30%;
+           padding-left: 10px;
+          }
+        }
       `}</style>
     </div>
+
   )
 }
 
@@ -175,7 +229,7 @@ const HMediaCard = ({ category, media }) => {
   return (
     <div className="h-media-card row">
       <div className="col-md-4">
-        <MediaLink watch {...{category, media}}>
+        <MediaLink watch {...{ category, media }}>
           <a>
             <img
               className="img-fluid w-100 d-block"
@@ -188,7 +242,7 @@ const HMediaCard = ({ category, media }) => {
       </div>
       <div className="col-md-5">
         <h3 className="h3">
-          <MediaLink watch {...{category, media}}>
+          <MediaLink watch {...{ category, media }}>
             <a>{title}</a>
           </MediaLink>
         </h3>
@@ -236,23 +290,65 @@ const HMediaCard = ({ category, media }) => {
   )
 }
 
+
 const More = ({ category, related: medias }) => {
   const { name: categoryName } = category
   const theme = useContext(ThemeContext)
   const backgroundColor = Color(theme.colors.backgroundContrast).hsl().string()
+  const [display, setDisplay] = useState("none")
+  function visible() {
+
+    if (display == "block") {
+      setDisplay("none")
+    } else {
+      setDisplay("block")
+    }
+  }
   return (
-    <div className="more container-fluid">
-      <div className="row">
-        <div className="col offset-md-1">
-          <h2 className="h2 text-uppercase">Más {categoryName}</h2>
+
+    <>
+      <div className="is_visivel">
+        <a onClick={() => visible()} className="btn-mas">Ver Más</a>
+        <style jsx>{`
+          .is_visivel {
+            display:none;
+            padding:24px;
+          }
+         @media (max-width:768px) {
+           .is_visivel {
+             display:flex;
+             justify-content: center;
+           }
+           .btn-mas {
+             font-weight: 700;
+             color: var(--gray2);
+             background:var(--white);
+             border:0px;
+             border-radius: 4px;
+             padding: 5px;
+             width: 28%;
+             text-align: center;
+             font-size: 14px;
+           }
+         }
+
+
+      `}</style>
+      </div>
+
+      <div className="more container-fluid">
+
+        <div className="row">
+          <div className="col offset-md-1">
+            <h2 className="h2 text-uppercase">Más {categoryName}</h2>
+          </div>
         </div>
-      </div>
-      <div className="cards">
-        { medias.map((media, i) => (
-          <HMediaCard key={i} {...{category, media}} />
-        )) }
-      </div>
-      <style jsx>{`
+        <div className="cards">
+          {medias.map((media, i) => (
+            <HMediaCard key={i} {...{ category, media }} />
+          ))}
+        </div>
+        <style jsx>{`
         .more {
           background-color: ${backgroundColor};
           font-size: 20px;
@@ -264,23 +360,38 @@ const More = ({ category, related: medias }) => {
           margin-top: 0;
           margin-bottom: 30px;
         }
+
+
         .cards {
           overflow: hidden;
         }
-        @media (min-width: 768px) {
+        @media (max-width:768px) {
           .more {
             padding-top: 45px;
           }
+
+
           .h2 {
             font-size: 31px;
             margin-bottom: 60px;
+            display:none;
+
           }
           .cards {
             padding-left: 4%;
+
+
+          }
+          .container-fluid {
+            display:flex;
+            justify-content:center;
+              display: ${display};
           }
         }
       `}</style>
-    </div>
+      </div>
+    </>
+
   );
 }
 
