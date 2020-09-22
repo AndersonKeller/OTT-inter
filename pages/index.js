@@ -24,13 +24,13 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, layoutProp
     <Layout paddingTop={false} {...layoutProps}>
       <Head>
         <title>{pageTitle}</title>
-        <link rel="apple-touch-icon" sizes="180x180" href={`/static/${TENANT}/favicon/apple-touch-icon.png`}/>
-        <link rel="icon" type="image/png" sizes="32x32" href={`/static/${TENANT}/favicon/favicon-32x32.png`}/>
-        <link rel="icon" type="image/png" sizes="16x16" href={`/static/${TENANT}/favicon/favicon-16x16.png`}/>
-        <link rel="manifest" href={`/static/${TENANT}/favicon/site.webmanifest`}/>
-        <link rel="mask-icon" href={`/static/${TENANT}/favicon/safari-pinned-tab.svg`} color="#5bbad5"/>
-        <meta name="msapplication-TileColor" content="#da532c"/>
-        <meta name="theme-color" content="#ffffff"/>
+        <link rel="apple-touch-icon" sizes="180x180" href={`/static/${TENANT}/favicon/apple-touch-icon.png`} />
+        <link rel="icon" type="image/png" sizes="32x32" href={`/static/${TENANT}/favicon/favicon-32x32.png`} />
+        <link rel="icon" type="image/png" sizes="16x16" href={`/static/${TENANT}/favicon/favicon-16x16.png`} />
+        <link rel="manifest" href={`/static/${TENANT}/favicon/site.webmanifest`} />
+        <link rel="mask-icon" href={`/static/${TENANT}/favicon/safari-pinned-tab.svg`} color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
       </Head>
       <div className="index">
 
@@ -43,7 +43,7 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, layoutProp
           {contents && contents.map((item, index) => {
             const showBanner = (item.is_paid && user || !item.is_paid && !user)
             const { contentable_type: contentableType } = item
-            switch(contentableType) {
+            switch (contentableType) {
               case 'categories':
                 return <HomeCarouselSection api={api} category={item.slug} key={index} idx={index} />
               case 'banners':
@@ -78,12 +78,12 @@ HomePage.getInitialProps = async ctx => {
   const { data: homePage } = await api.get('pages/home');
 
   try {
-    const [ firstContent, ...contents ] = homePage.contents
+    const [firstContent, ...contents] = homePage.contents
     const { data: { movie: featuredMedia } } = await api.get('movie/' + firstContent.slug + '?for=home-cover')
     return { contents, featuredMedia }
   } catch (error) {
-    const [ ...contents ] = homePage.contents;
-    return { contents , featuredMediaError: error };
+    const [...contents] = homePage.contents;
+    return { contents, featuredMediaError: error };
   }
 }
 
@@ -140,13 +140,13 @@ const Cover = ({ error, media }) => {
       {/* poster backaground banner image */}
       {
         poster_url && (
-        <div className="cover__img row">
-          <div className="col p-0">
-            <CoverImgContent posterUrl={poster_url}>
-              <img alt="" className="d-none" src={poster_url} />
-            </CoverImgContent>
+          <div className="cover__img row">
+            <div className="col p-0">
+              <CoverImgContent posterUrl={poster_url}>
+                <img alt="" className="d-none" src={poster_url} />
+              </CoverImgContent>
+            </div>
           </div>
-        </div>
         )
       }
 
@@ -182,22 +182,22 @@ const Cover = ({ error, media }) => {
 
           {/* cta buttons */}
           <div className="row justify-content-center gutter-15">
-            { ! user ? (
+            {!user ? (
               <div className="col-auto">
                 <Link href="/signup" passHref>
                   <Button>{empezaYa}</Button>
                 </Link>
               </div>
             ) : <>
-              <div className="col-auto">
-                <MediaLink {...{media}} passHref>
-                  <Button>Mira</Button>
-                </MediaLink>
-              </div>
-              <div className="col-auto">
-                <WishlistBtn movieId={media.id} />
-              </div>
-            </> }
+                <div className="col-auto">
+                  <MediaLink {...{ media }} passHref>
+                    <Button>Mira</Button>
+                  </MediaLink>
+                </div>
+                <div className="col-auto">
+                  <WishlistBtn movieId={media.id} />
+                </div>
+              </>}
           </div>
 
         </div>
@@ -267,9 +267,9 @@ const Cover = ({ error, media }) => {
 
 const HomeCarouselSection = ({ api, category: categorySlug, idx }) => {
 
-  const [ category, setCategory ] = useState(null)
-  const [ error, setError ] = useState(false)
-  const [ loading, setLoading ] = useState(false)
+  const [category, setCategory] = useState(null)
+  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
   const { lang } = CONFIG
 
   useEffect(() => {
@@ -294,18 +294,19 @@ const HomeCarouselSection = ({ api, category: categorySlug, idx }) => {
   return (
     <>
       <div className="home-carousel-section">
-        { loading ? (
+        {loading ? (
           <div className="text-center">
             <Loading loadingState={loading} />
           </div>
         ) : category ? (
-          <CarouselSection category={category} idx={idx}/>
+          <CarouselSection category={category} idx={idx} />
         ) : error && (
           <div className="text-center">
             {error}
           </div>
-        ) }
+        )}
       </div>
+      <br></br>
       <style jsx>{`
         .home-carousel-section {
             margin-bottom: 75px;
@@ -321,7 +322,7 @@ const HomeCarouselSection = ({ api, category: categorySlug, idx }) => {
   )
 }
 
-const BannerSection = ({id, movie}) => {
+const BannerSection = ({ id, movie }) => {
   const [banner, setBanner] = useState()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
@@ -351,13 +352,13 @@ const BannerSection = ({id, movie}) => {
         </div>
 
         {/* features */}
-        { banner && id &&
+        {banner && id &&
           <a className="sponsor-link" href={banner.link} target="_blank">
             <Featured img={banner.banner_url} />
           </a>
         }
 
-        { banner && movie &&
+        {banner && movie &&
           <MediaLink media={banner.movie} passHref>
             <a>
               <Featured
