@@ -32,7 +32,7 @@ export default function Footer({ apiVersion, layoutColor }) {
   )
 }
 
-const NavFooter = ({className}) => {
+const NavFooter = ({ className }) => {
 
   const { user } = useContext(UserContext)
   const menu = [
@@ -52,7 +52,7 @@ const NavFooter = ({className}) => {
   return (
     <nav className={classes}>
       {menu.map((item, key) => (
-        <ActiveLink href={item.href} {...{key}}>
+        <ActiveLink href={item.href} {...{ key }}>
           <a>
             <span className="icon">
               <ReactSVG src={`/static/icons/${item.icon}.svg`} />
@@ -105,7 +105,7 @@ const NavFooter = ({className}) => {
 }
 
 const SocialNetworks = ({ className }) => {
-  if ( ! CONFIG.socialNetworks && Array.isArray(CONFIG.socialNetworks) ) {
+  if (!CONFIG.socialNetworks && Array.isArray(CONFIG.socialNetworks)) {
     return
   }
   const theme = useContext(ThemeContext)
@@ -113,26 +113,39 @@ const SocialNetworks = ({ className }) => {
   const colorHover = Color(theme.colors.white).hsl().string()
   return (
     <IconContext.Provider value={{ size: '24px' }}>
-      <ul className={`list-inline ${className}`}>
-        { CONFIG.socialNetworks.map((item, key) => {
+      <ul className={`list-inline ${className} `}>
+        {CONFIG.socialNetworks.map((item, key) => {
           const slug = item.name.toLowerCase()
-          if ( ! ['facebook', 'instagram', 'twitter'].includes(slug)) return
+          if (!['facebook', 'instagram', 'twitter'].includes(slug)) return
           return (
             <li key={key}>
               <a href={item.link} target="_blank" title={`${CONFIG.clubName} ${item.name}`}>
-                { slug === 'facebook' ?
+                {slug === 'facebook' ?
                   <FaFacebookSquare />
-                : slug === 'instagram' ?
-                  <IoLogoInstagram />
-                : slug === 'twitter' &&
-                  <IoLogoTwitter />
+                  : slug === 'instagram' ?
+                    <IoLogoInstagram />
+                    : slug === 'twitter' &&
+                    <IoLogoTwitter />
                 }
               </a>
+
             </li>
+
           )
-        }) }
+        })}
       </ul>
+      <div className="logo-gad" ><GADLogo /></div>
+
       <style jsx>{`
+       @media (max-width: 768px) {
+        .logo-gad {
+        padding-left:38px;
+       }
+      }
+        .logo-gad {
+          display:none;
+
+        }
         ul {
           display: inline-flex;
           justify-content: center;
@@ -144,7 +157,7 @@ const SocialNetworks = ({ className }) => {
           padding: 2.5px;
           transition: color .3s;
         }
-        @media (min-width: 768px) {
+
           a {
             margin-right: 1px;
             margin-left: 1px;
@@ -182,7 +195,7 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
             <SocialNetworks className="social-networks" />
           </div>
 
-          <div className="col-8 col-sm-4 text-md-right">
+          <div className="col-8 col-sm-4 text-md-right aling">
             <ul>
 
               {/* privacy policy */}
@@ -195,7 +208,7 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
                 <FooterLink>Términos y políticas</FooterLink>
               </Link></li>
 
-              <li><GADLogo /></li>
+              <li className="logo-gad"><GADLogo /></li>
 
             </ul>
           </div>
@@ -203,6 +216,7 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
         </div>
       </div>
       <style jsx>{`
+
         .terms-and-policies-bar {
           background-color: ${layoutColor === 'white' ? 'var(--background)' : 'transparent'};
           color: ${color};
@@ -212,6 +226,12 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
           padding-bottom: 5px;
         }
         @media (max-width: 767px) {
+          .aling {
+            margin-top: -10px;
+          }
+          .logo-gad {
+            display:none!important;
+          }
           .terms-and-policies-bar__social-networks-col {
             padding-right: 0;
           }
@@ -272,7 +292,7 @@ const FooterLink = React.forwardRef(({ children, onClick, href, target }, ref) =
   const color = Color(theme.colors.texts).hsl().string()
   const colorHover = Color(theme.colors.white).hsl().string()
   return <>
-    <a {...{href, onClick, ref, target}}>{children}</a>
+    <a {...{ href, onClick, ref, target }}>{children}</a>
     <style jsx>{`
       a {
         color: ${color};
@@ -320,3 +340,6 @@ const GADLogo = _ => {
     `}</style>
   </>
 }
+// display: grid;
+// flex - wrap: nowrap;
+// grid - template - columns: 35px 27px;
