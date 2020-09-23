@@ -8,6 +8,7 @@ import Button from "~/components/button";
 import { ThemeContext } from "styled-components";
 import Color from "color";
 import { CONFIG } from "~/config";
+import NameProject from '~/components/NameProject/index'
 
 
 
@@ -96,28 +97,14 @@ const UserAddressForm = ({ api, layoutProps, handleSubmit }) => {
 
   }
 
-  function appName() {
-    if (CONFIG.projectName) {
-      return <div style={ { display: 'inline-block' } }>
-        <strong className="text-primary">{ CONFIG.projectName.split(' ')[0] }</strong>{ CONFIG.projectName.split(' ')[1] }
-      </div>
-    } else if (CONFIG.appName) {
-      return <div style={ { display: 'inline-block' } }>
-        <strong className="text-primary">{ CONFIG.appName.split(' ')[0] }</strong>{ CONFIG.appName.split(' ')[1] }
-      </div>
-    }
-    return <div style={ { display: 'inline-block' } }>
-      <strong className="text-primary">Project</strong>Name!
-    </div>
-  }
 
 
   return (
     <form method="post" onSubmit={submit}>
       <div className="register-confirm container text-center responsive">
 
-        <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { appName() }
-          <span className={ "text-primary" }>!</span></h2>
+        <h2 className="card-title text-center"><span className={"text-primary"}>¡</span>Sé parte de {<NameProject />}
+          <span className={"text-primary"}>!</span></h2>
         <div className="card-subtitle d-inline-block">
           ¡Conéctate con otros usuarios a tu alrededor, sin tener que salir de casa!
         </div>
@@ -145,16 +132,16 @@ const UserAddressForm = ({ api, layoutProps, handleSubmit }) => {
         </div>
       </div>
       <style jsx global={true}>{`
- 
+
         .text-primary {
            color: ${ primaryColor} !important;
         }
-        
+
         strong.text-primary {
-           color: ${ primaryColor } !important;
+           color: ${ primaryColor} !important;
         }
-        
-        
+
+
         h2.card-title {
           font-weight: normal;
           color: #000;
@@ -227,9 +214,9 @@ const UserAddressForm = ({ api, layoutProps, handleSubmit }) => {
           margin-left:0px;
           }
         }
-        
+
           .text-primary {
-           color: ${ primaryColor } !important;
+           color: ${ primaryColor} !important;
         }
 
       ` }</style>

@@ -80,52 +80,57 @@ const Cover = ({ category, media }) => {
       <div className="cover container-fluid">
         <div className="row align-items-center">
           <div className="col-12 col-md-5 offset-md-1">
-            <div className="info">
-              <div className="heading">
-                <h1 className="h2">{title}</h1>
-                {publishYear && (
-                  <div className="year">{publishYear}</div>
+            <MediaLink {...{ category, media }} watch>
+              <div className="info">
+                <div className="heading">
+                  <h1 className="h2">{title}</h1>
+                  {publishYear && (
+                    <div className="year">{publishYear}</div>
+                  )}
+                </div>
+
+                {detail && (
+                  <div className="description" style={{ display: 'flex' }}>
+                    <div className={smDown && !open && 'short-description'}>
+                      {smDown && !open && detail.replace(/^([\s\S]{70}[^\s]*)[\s\S]*/, "$1")}
+                      <Collapse in={open || !smDown}>
+                        <p>{detail}</p>
+                      </Collapse>
+                    </div>
+                    <div
+                      className={'chevron-collapse ' + (!smDown && 'd-none')}
+                      onClick={_ => setOpen(!open)}
+                      aria-controls="description"
+                      aria-expanded={open}
+                    >
+                      <Chevron
+                        dir={!open && "bottom"}
+                        alt="mas" className="chevron"
+                        height="10" width="17"
+                        inline
+                      />
+                    </div>
+                  </div>
                 )}
               </div>
+            </MediaLink>
 
-              {detail && (
-                <div className="description" style={{ display: 'flex' }}>
-                  <div className={smDown && !open && 'short-description'}>
-                    {smDown && !open && detail.replace(/^([\s\S]{70}[^\s]*)[\s\S]*/, "$1")}
-                    <Collapse in={open || !smDown}>
-                      <p>{detail}</p>
-                    </Collapse>
-                  </div>
-                  <div
-                    className={'chevron-collapse ' + (!smDown && 'd-none')}
-                    onClick={_ => setOpen(!open)}
-                    aria-controls="description"
-                    aria-expanded={open}
-                  >
-                    <Chevron
-                      dir={!open && "bottom"}
-                      alt="mas" className="chevron"
-                      height="10" width="17"
-                      inline
-                    />
-                  </div>
-                </div>
-              )}
+
+            <div className="buttons">
+
+              {!user ? (
+                <Link href="/subscriptor">
+                  <Button block={smDown}>{probaGratis}</Button>
+                </Link>
+              ) : (
+                  <>
+                    <MediaLink {...{ category, media }} watch>
+                      <Button>Mira</Button>
+                    </MediaLink>
+                    <WishlistBtn movieId={media.id} />
+                  </>
+                )}
             </div>
-
-            {/* {!user ? (
-            <Link href="/subscriptor">
-              <Button block={smDown}>{probaGratis}</Button>
-            </Link>
-          ) : (
-              <>
-                <MediaLink {...{ category, media }} watch>
-                  <Button>Mira</Button>
-                </MediaLink>
-                <WishlistBtn movieId={media.id} />
-              </>
-            )} */}
-
           </div>
         </div>
       </div>
@@ -191,6 +196,9 @@ const Cover = ({ category, media }) => {
         }
 
         @media(max-width:768px){
+          .buttons {
+            display:none!important;
+          }
           h1 {
             text-align: center;
             font-size: 18px;
