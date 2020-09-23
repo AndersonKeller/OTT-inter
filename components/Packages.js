@@ -107,7 +107,7 @@ export const PackageRadio = ({
           </div>
         )}
 
-        <div className={"btn-suscribir"}> Cambiar plano</div>
+        <div className={"btn-suscribir"}>Cambiar plan</div>
 
       </span>
 

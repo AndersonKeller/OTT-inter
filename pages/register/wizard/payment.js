@@ -14,6 +14,8 @@ import Router from "next/router";
 import { ThemeContext } from "styled-components";
 import Color from "color";
 import { CONFIG } from '~/config'
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const Payment = ({
   layoutProps,
@@ -198,6 +200,9 @@ const Payment = ({
       email: user.email
     }, async (statusCode, response) => {
 
+      console.log('RESPONSE FROM MERCADO PAGO')
+      console.log(response)
+      console.log(statusCode)
       let token = "";
 
       if (response && response.cause && response.cause.length > 0) {
@@ -238,24 +243,22 @@ const Payment = ({
 
 
         handleSubmit(4, null);
-        // Router.push({
-        //   pathname: '/register/confirm',
-        //   query: {
-        //     // download_link: order.download_link,
-        //     // link: order.link,
-        //   },
-        // }, '/register/confirm')
-
-        // handleSubmit(1)
 
       } catch (error) {
 
 
         if (error.response) {
+          
           const { data, status } = error.response
+
+          MercadoPago.clearSession();
+
+          toast.error(data.message, { delay: 500, autoClose: 5000 })
+
           if (status === 422) {
             setError(data)
           }
+
         } else if (error.request) {
           setError(error)
         } else {
@@ -264,7 +267,6 @@ const Payment = ({
 
       } finally {
         setLoading(false)
-        handleSubmit(4, null);
       }
 
 
@@ -295,6 +297,7 @@ const Payment = ({
 
   return (
     <div className="register-confirm container text-center responsive">
+    
 
       <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { appName() }
         <span className={ "text-primary" }>!</span></h2>
