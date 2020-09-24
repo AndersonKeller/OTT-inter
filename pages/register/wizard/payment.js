@@ -55,7 +55,7 @@ const Payment = ({
     cardExpirationDate: null,
     cardSecurityCode: null,
     paymentMethodCode: null,
-    docType: "CPF",
+    docType: "RUT",
     docNumber: null,
   })
 
@@ -64,7 +64,7 @@ const Payment = ({
 
   const [loading, setLoading] = useState();
 
-  const businessUnitPublicKey = 'TEST-7205c1be-9805-4308-bf00-6557c5b56b88'
+  const businessUnitPublicKey = 'TEST-5121749c-2a58-4b7d-b98c-9b9932a3a4cc'
   const [isMercadoPagoReady, setIsMercadoPagoReady] = useState(false)
   const MercadoPago = ready && HAS_WINDOW ? window.Mercadopago : null
 
@@ -192,92 +192,112 @@ const Payment = ({
       expirationYear = values.cardExpirationDate.split('/')[1];
     }
 
+    switch (values.paymentMethodId) {
+      case 1:
+        MercadoPago.createToken({
+          cardNumber: values.cardNumber,
+          cardholderName: values.cardHolderName,
+          cardExpirationMonth: expirationMonth,
+          cardExpirationYear: expirationYear,
+          securityCode: values.cardSecurityCode,
+          docType: values.docType,
+          docNumber: values.docNumber,
+          email: user.email
+        }, async (statusCode, response) => {
 
-    MercadoPago.createToken({
-      cardNumber: values.cardNumber,
-      cardholderName: values.cardHolderName,
-      cardExpirationMonth: expirationMonth,
-      cardExpirationYear: expirationYear,
-      securityCode: values.cardSecurityCode,
-      docType: values.docType,
-      docNumber: values.docNumber,
-      email: user.email
-    }, async (statusCode, response) => {
+          let token = "";
 
-      let token = "";
+          if (response && response.cause && response.cause.length > 0) {
+            let errors = [];
+            for (let error of response.cause) {
+              if (error.code === "E301") {
+                errors["cardNumber"] = "Há algo de errado com esse número. Digite novamente."
+              }
+              if (error.code === "E302") {
+                errors["cardSecurityCode"] = "Confira o código de segurança."
+              }
+              if (error.code === "316") {
+                error["cardHolderName"] = "Por favor, digite um nome válido."
+              }
+              if (error.code === "324") {
+                errors["docType"] = "Confira seu documento.";
+              }
+              if (error.code === "325" || error.code === "326") {
+                errors["cardExpirationDate"] = "Confira a data.";
+              }
+            }
+            setError({
+              errors: errors
+            });
+          }
 
-      if (response && response.cause && response.cause.length > 0) {
-        let errors = [];
-        for (let error of response.cause) {
-          if (error.code === "E301") {
-            errors["cardNumber"] = "Há algo de errado com esse número. Digite novamente."
+
+          try {
+
+            token = response.id;
+
+            const res = await api.post(`register/subscribe`, {
+              package_id: package_id,
+              payment_method_id: values.paymentMethodId,
+              payment_method_code: values.paymentMethodCode,
+              token: token
+            })
+
+
+            handleSubmit(4, null);
+
+          } catch (error) {
+
+
+            if (error.response) {
+
+              const { data, status } = error.response
+
+              MercadoPago.clearSession();
+
+              toast.error(data.message, { delay: 500, autoClose: 5000 })
+
+              if (status === 422) {
+                setError(data)
+              }
+
+            } else if (error.request) {
+              setError(error)
+            } else {
+              setError(error)
+            }
+
+          } finally {
+            setLoading(false)
           }
-          if (error.code === "E302") {
-            errors["cardSecurityCode"] = "Confira o código de segurança."
-          }
-          if (error.code === "316") {
-            error["cardHolderName"] = "Por favor, digite um nome válido."
-          }
-          if (error.code === "324") {
-            errors["docType"] = "Confira seu documento.";
-          }
-          if (error.code === "325" || error.code === "326") {
-            errors["cardExpirationDate"] = "Confira a data.";
-          }
-        }
-        setError({
-          errors: errors
+
+
+          setLoading(false);
+
         });
-      }
+        break;
+      case 3:
 
+        try {
 
-      try {
+          const res = await api.post(`register/subscribe`, {
+            package_id: package_id,
+            payment_method_id: values.paymentMethodId,
+            payment_method_code: values.paymentMethodCode,
+          })
 
-        token = response.id;
+          setLoading(false)
 
-        const res = await api.post(`register/subscribe`, {
-          package_id: package_id,
-          payment_method_id: values.paymentMethodId,
-          payment_method_code: values.paymentMethodCode,
-          token: token
-        })
-
-
-        handleSubmit(4, null);
-
-      } catch (error) {
-
-
-        if (error.response) {
-
-          const { data, status } = error.response
-
-          MercadoPago.clearSession();
-
-          toast.error(data.message, { delay: 500, autoClose: 5000 })
-
-          if (status === 422) {
-            setError(data)
-          }
-
-        } else if (error.request) {
-          setError(error)
-        } else {
-          setError(error)
+        } catch (e) {
+          setLoading(false)
+          console.log(e)
         }
 
-      } finally {
-        setLoading(false)
-      }
+
+        break;
 
 
-      setLoading(false);
-
-    });
-
-
-    // const data = { ...values, payment_os: paymentData }
-    //
+    }
 
   }
 
