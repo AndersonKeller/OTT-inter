@@ -29,7 +29,13 @@ const PackagesDetails = ({ packages, layoutProps, selectPackage, handleSubmit })
     try {
       setLoading(true);
       selectPackage(values.package_id);
-      handleSubmit(3);
+
+      if (values.package_id === free_package_id) {
+        handleSubmit(4, null);
+      } else {
+        handleSubmit(3);
+      }
+
 
       setLoading(false);
     } catch (e) {

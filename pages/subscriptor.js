@@ -15,6 +15,7 @@ import { AuthModalContext } from '~/contexts/AuthModalContext'
 import UserContext from '~/contexts/UserContext'
 import useWindowDimensions from '~/hooks/useWindowDimensions'
 import api from '~/services/api'
+import Router from "next/router";
 
 function SubscriptorPage({ layoutProps, mainPackage }) {
 
@@ -142,7 +143,8 @@ const Packages = () => {
   // choose package / register
   function choosePackage(e, packageId) {
     e.preventDefault()
-    openAuthModal('register', packageId)
+    Router.push('/signup')
+    // openAuthModal('register', packageId)
   }
 
   const probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'

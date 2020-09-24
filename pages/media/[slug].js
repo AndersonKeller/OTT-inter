@@ -33,6 +33,12 @@ function MediaPage1({ category, errorCode, layoutProps, media, related }) {
           <More category={ category } related={ related }/>
         ) }
       </Layout>
+      <style jsx global>{ `
+        .footer {
+            padding-bottom: 0px !important;
+            margin-top: 57px !important;
+         }
+      `}</style>
     </>
   )
 }
@@ -71,7 +77,7 @@ const Cover = ({ category, media }) => {
 
     <div>
       <div className="header-entre">
-        <h3>Entrevistas</h3>
+        <h3>{ category.name }</h3>
       </div>
 
       <div className="cover container-fluid">
@@ -133,11 +139,12 @@ const Cover = ({ category, media }) => {
       </div>
       <style jsx>{ `
 
+
         .cover {
           background-color: var(--background);
           background-position: 50% 50%, 100% 50%;
-          background-image: radial-gradient(circle at 95% 75%, ${ maskColor.fade(1).string() } 20%, ${ maskColor.fade(.075).string() } 60%),
-            url(${ posterUrl });
+            
+          background-image: radial-gradient(circle at 95% 75%, ${ maskColor.fade(1).string() } 20%, ${ maskColor.fade(.075).string() } 60%), url(${ posterUrl });
           background-repeat: no-repeat, no-repeat;
           background-size: cover, cover;
           font-size: 15px;
@@ -193,6 +200,9 @@ const Cover = ({ category, media }) => {
         }
 
         @media(max-width:768px){
+        .cover {
+          background-image: url(${ posterUrl });
+        }
           .buttons {
             display:none!important;
           }
@@ -230,7 +240,6 @@ const Cover = ({ category, media }) => {
 }
 
 const HMediaCard = ({ category, media }) => {
-  console.log(media);
   const { title } = media
   return (
     <div className="h-media-card row">

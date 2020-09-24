@@ -36,7 +36,6 @@ const Payment = ({
   let selectedPackage = null
   if (packages && package_id) {
     selectedPackage = packages.items.find(i => i.id == package_id)
-    console.log(selectedPackage)
   }
 
   const { user } = useContext(UserContext)
@@ -185,9 +184,14 @@ const Payment = ({
     e.preventDefault();
 
     setLoading(true);
+    let expirationMonth = "";
+    let expirationYear = ""
 
-    let expirationMonth = values.cardExpirationDate.split('/')[0];
-    let expirationYear = values.cardExpirationDate.split('/')[1];
+    if (values.cardExpirationDate) {
+      expirationMonth = values.cardExpirationDate.split('/')[0];
+      expirationYear = values.cardExpirationDate.split('/')[1];
+    }
+
 
     MercadoPago.createToken({
       cardNumber: values.cardNumber,

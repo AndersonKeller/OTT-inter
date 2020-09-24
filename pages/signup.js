@@ -190,7 +190,7 @@ const Signup = ({ }) => {
                         checked={values.terms}
                         name="terms"
                         onChange={handleInputChange}
-                        // required={ requireds }
+                        required={ true }
                         type="checkbox"
                         value={`true`}
                       />

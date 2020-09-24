@@ -112,7 +112,7 @@ export default () => {
             <Dropdown.Item as="button"
               className="dropdown-item-style1"
               onClick={enter}>Entrar</Dropdown.Item>
-            <Link href={ TENANT === 'lau' ? "/suscriptor" : "/signup"}>
+            <Link href={ TENANT === 'lau' ? "/subscriptor" : "/signup"}>
               <Dropdown.Item className="dropdown-item-style2"
                 href="/signup">Suscripción</Dropdown.Item>
             </Link>

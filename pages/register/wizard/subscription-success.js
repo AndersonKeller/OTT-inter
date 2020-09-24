@@ -8,6 +8,7 @@ import { CLIENT_ID, CLIENT_SECRET, IS_PRODUCTION, TENANT } from "~/constants/con
 import { CONFIG } from '~/config'
 import Color from 'color'
 import { ThemeContext } from 'styled-components'
+import Router from "next/router";
 
 
 const SubscriptionSuccess = ({ layoutProps }) => {
@@ -57,19 +58,23 @@ const SubscriptionSuccess = ({ layoutProps }) => {
       <div className={ "card-subtitle" }>
         Gracias por completar tu perfil de <br/>
 
-        <img src={`/static/${TENANT}/logos/logo_project_black.png`} alt={CONFIG.appName} width={200} style={{marginTop: "20px"}}/>
+        <img src={ `/static/${ TENANT }/logos/logo_project_black.png` } alt={ CONFIG.appName } width={ 200 }
+             style={ { marginTop: "20px" } }/>
       </div>
 
       <div className="row">
         <div className="col-md-12">
           <div className="text-center">
-            <Link color="secondary" type="button"
+            <Button color="secondary" type="button"
                     style={ { width: "250px" } }
-            >Ir a { appName() }</Link>
+                    onClick={ () => Router.push({
+                      pathname: '/'
+                    }, '/')}
+            >Ir a { appName() }</Button>
           </div>
         </div>
       </div>
-      <style jsx global={true}>{ `
+      <style jsx global={ true }>{ `
         
         h2.card-title {
           font-weight: normal;
