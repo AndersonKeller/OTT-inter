@@ -1,19 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
-import FormGroup from "~/components/layout/AuthModal/FormGroup";
-import Label from "~/components/Form/Label";
-import Input from "~/components/layout/AuthModal/Input";
-import withAuth from "~/components/withAuth";
-import InvalidFeedback from "~/components/Form/InvalidFeedback"
-import { HAS_WINDOW } from "~/constants/constants";
 import useScript from "@charlietango/use-script";
-import Select from "~/components/Select/Select";
-import Button from "~/components/button";
-import MaskedInput from 'react-text-mask'
-import UserContext from "~/contexts/UserContext";
-import Router from "next/router";
-import { ThemeContext } from "styled-components";
 import Color from "color";
-import { CONFIG } from '~/config'
+import React, { useContext, useEffect, useState, Fragment } from "react";
+import MaskedInput from 'react-text-mask';
+import { ThemeContext } from "styled-components";
+import Button from "~/components/button";
+import InvalidFeedback from "~/components/Form/InvalidFeedback";
+import Label from "~/components/Form/Label";
+import FormGroup from "~/components/layout/AuthModal/FormGroup";
+import Input from "~/components/layout/AuthModal/Input";
+import Select from "~/components/Select/Select";
+import withAuth from "~/components/withAuth";
+import { CONFIG } from '~/config';
+import { HAS_WINDOW } from "~/constants/constants";
+import UserContext from "~/contexts/UserContext";
 
 const Payment = ({
   layoutProps,
@@ -22,7 +21,8 @@ const Payment = ({
   packages,
   api,
   requireds,
-  handleSubmit
+  handleSubmit,
+  handleFormState
 }) => {
 
   const theme = useContext(ThemeContext)
@@ -294,6 +294,7 @@ const Payment = ({
   }
 
   return (
+    <Fragment>
     <div className="register-confirm container text-center responsive">
 
       <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { appName() }
@@ -436,16 +437,16 @@ const Payment = ({
           </div>
         </div>
       </div>
-      <style jsx global={true}>{` 
+      <style jsx global={true}>{`
 
         .text-primary {
            color: ${ primaryColor} !important;
         }
-        
+
         strong.text-primary {
            color: ${ primaryColor } !important;
         }
-        
+
 
         h2.card-title {
           font-weight: normal;
@@ -531,6 +532,13 @@ const Payment = ({
       ` }</style>
     </div>
 
+    <Button
+          onClick={() => handleFormState(3)}
+          color="primary"
+        >
+        Volver
+        </Button>
+    </Fragment>
   )
 }
 

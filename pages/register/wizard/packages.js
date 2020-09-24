@@ -6,7 +6,7 @@ import { ThemeContext } from "styled-components";
 import Color from "color";
 import { CONFIG } from "~/config";
 
-const PackagesDetails = ({ packages, layoutProps, selectPackage, handleSubmit }) => {
+const PackagesDetails = ({ packages, layoutProps, selectPackage, handleSubmit, handleFormState }) => {
 
   const [values, setValues] = useState({
     package_id: '',
@@ -87,6 +87,13 @@ const PackagesDetails = ({ packages, layoutProps, selectPackage, handleSubmit })
           <div className="row mt-3">
             <div className="col-md-12">
               <div className="text-center">
+                <Button
+                  onClick={() => handleFormState(2)}
+                  color="primary"
+                >
+                Volver
+                </Button>
+
                 <Button color="secondary" disabled={ loading } loading={ loading } type="submit">Siguiente</Button>
               </div>
             </div>
@@ -94,15 +101,15 @@ const PackagesDetails = ({ packages, layoutProps, selectPackage, handleSubmit })
         </div>
 
         <style jsx global={true}>{ `
-        
+
          .text-primary {
            color: ${ primaryColor} !important;
         }
-        
+
         strong.text-primary {
            color: ${ primaryColor } !important;
         }
-        
+
         h2.card-title {
           font-weight: normal;
           color: #000;
@@ -115,7 +122,7 @@ const PackagesDetails = ({ packages, layoutProps, selectPackage, handleSubmit })
           margin-bottom: 2.5em;
           max-width: 380px;
         }
-        
+
         .text-primary {
            color: ${ primaryColor } !important;
         }
@@ -124,7 +131,7 @@ const PackagesDetails = ({ packages, layoutProps, selectPackage, handleSubmit })
           padding-bottom: 50px;
           color: #666666;
         }
-        
+
       ` }</style>
       </form>
 

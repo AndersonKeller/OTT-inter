@@ -10,7 +10,8 @@ import Color from 'color'
 import { ThemeContext } from 'styled-components'
 
 
-const SubscriptionSuccess = ({ layoutProps }) => {
+const SubscriptionSuccess = ({ handleFormState }) => {
+// const SubscriptionSuccess = ({ layoutProps }) => {
 
   const theme = useContext(ThemeContext)
 
@@ -70,7 +71,7 @@ const SubscriptionSuccess = ({ layoutProps }) => {
         </div>
       </div>
       <style jsx global={true}>{ `
-        
+
         h2.card-title {
           font-weight: normal;
           color: #000;
@@ -82,7 +83,7 @@ const SubscriptionSuccess = ({ layoutProps }) => {
           font-weight: 500;
           margin-bottom: 2.5em;
         }
-        
+
         .text-primary {
            color: ${ primaryColor } !important;
         }
@@ -91,11 +92,11 @@ const SubscriptionSuccess = ({ layoutProps }) => {
           padding-bottom: 50px;
           color: #666666;
         }
-        
+
         .text-primary {
            color: ${ primaryColor } !important;
         }
-        
+
       ` }</style>
     </div>
   )
