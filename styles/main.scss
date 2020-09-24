@@ -2,6 +2,8 @@
   COMPONENTS
  */
 @import "~bootstrap";
+@import "~bootstrap/scss/variables";
+@import "_variables";
 @import "components/multiStepIndicator";
 @import "components/wizard/complete";
 @import "components/wizard/payment";

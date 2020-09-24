@@ -63,9 +63,9 @@ const SubscriptionSuccess = ({ layoutProps }) => {
       <div className="row">
         <div className="col-md-12">
           <div className="text-center">
-            <Button color="secondary" type="button"
+            <Link color="secondary" type="button"
                     style={ { width: "250px" } }
-            >Ir a { appName() }</Button>
+            >Ir a { appName() }</Link>
           </div>
         </div>
       </div>

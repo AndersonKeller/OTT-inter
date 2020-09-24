@@ -15,6 +15,7 @@ import { ThemeContext } from "styled-components";
 import Color from "color";
 import { CONFIG } from '~/config'
 import NameProject from "~/components/NameProject";
+import {toast} from "react-toastify";
 
 const Payment = ({
   layoutProps,

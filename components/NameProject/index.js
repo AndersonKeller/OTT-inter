@@ -10,16 +10,25 @@ import { CONFIG } from '~/config'
 
 // }
 function NameProject() {
-  if (CONFIG.projectName) {
-    return <div style={{ display: 'inline-block' }}>
-      <strong className="text-primary">{CONFIG.projectName.split(' ')[0]} {CONFIG.projectName.split(' ')[1]} </strong>{CONFIG.projectName.split(' ')[2]}   </div>
-  } else if (CONFIG.appName) {
-    return <div style={{ display: 'inline-block' }}>
-      <strong className="text-primary">{CONFIG.appName.split(' ')[0]} {CONFIG.appName.split(' ')[1]} </strong>{CONFIG.appName.split(' ')[2]}   </div>
-  }
-  return <div style={{ display: 'inline-block' }}>
-    <strong className="text-primary">Project</strong>Name!
+  if (CONFIG.prefixAppName) {
+    return <div style={ { display: 'inline-block' } }>
+      <strong
+        className="text-primary">{ CONFIG.prefixAppName } </strong>{ CONFIG.suffixAppName }
     </div>
+  } else if (CONFIG.projectName) {
+    return <div style={ { display: 'inline-block' } }>
+      <strong
+        className="text-primary">{ CONFIG.projectName.split(' ')[0] } { CONFIG.projectName.split(' ')[1] } </strong>{ CONFIG.projectName.split(' ')[2] }
+    </div>
+  } else if (CONFIG.appName) {
+    return <div style={ { display: 'inline-block' } }>
+      <strong
+        className="text-primary">{ CONFIG.appName.split(' ')[0] } { CONFIG.appName.split(' ')[1] } </strong>{ CONFIG.appName.split(' ')[2] }
+    </div>
+  }
+  return <div style={ { display: 'inline-block' } }>
+    <strong className="text-primary">Project</strong>Name!
+  </div>
 }
 
 

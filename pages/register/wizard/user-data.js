@@ -17,6 +17,7 @@ import $ from 'jquery';
 import ReactDOM from 'react-dom';
 import Flatpickr from "react-flatpickr";
 import { CONFIG } from "~/config";
+import NameProject from "~/components/NameProject";
 
 
 const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
@@ -278,7 +279,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
     <form method="post" onSubmit={submit}>
       <div className="register-confirm container text-center">
 
-        <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { appName() }
+        <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { <NameProject/> }
           <span className={ "text-primary" }>!</span></h2>
         <div className={"card-subtitle"}>
           ¡Antes de seguir, queremos saber más de ti!

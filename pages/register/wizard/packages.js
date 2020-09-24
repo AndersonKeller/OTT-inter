@@ -57,8 +57,8 @@ const PackagesDetails = ({ packages, layoutProps, selectPackage, handleSubmit })
       <form method="post" onSubmit={submit}>
         <div className="register-confirm container text-center">
 
-          <h2 className="card-title text-center"><span className={"text-primary"}>¡</span>Sé parte de {<NameProject />}
-            <span className={"text-primary"}>!</span></h2>
+          <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { <NameProject/> }
+            <span className={ "text-primary" }>!</span></h2>
           <div className="card-subtitle d-inline-block">
             ¡Elige tu plan!
           </div>

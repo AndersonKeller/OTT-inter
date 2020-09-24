@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import nookies from 'nookies'
 import { toast, ToastContainer } from 'react-toastify'
 import Header from './Header'
@@ -7,6 +7,8 @@ import loadMenus from '~/lib/load-menus'
 import AuthModal from './AuthModal/AuthModal'
 import CustomError from '~/pages/_error'
 import withApi from '../withApi'
+import Color from "color";
+import { ThemeContext } from "styled-components";
 
 const Layout = ({
                   apiVersion,
@@ -20,6 +22,10 @@ const Layout = ({
                   footer = '',
                   customClass = ''
                 }) => {
+
+  const theme = useContext(ThemeContext)
+  const primaryColor
+    = Color(theme.colors.primary).hsl().string()
 
   if (errorCode) {
     return <CustomError statusCode={ errorCode }/>
@@ -82,6 +88,7 @@ const Layout = ({
       <AuthModal/>
 
       <style jsx global>{ `
+        
         :root {
           --color: var(--${ layoutColor === 'white' ? 'black' : 'white' });
         }

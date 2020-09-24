@@ -101,6 +101,8 @@
     "clubName": "Universidad de Chile",
     "fullClubName": "Club Universidad de Chile",
     "shortClubName": "La U",
+    "prefixAppName": "La U",
+    "suffixAppName": "Play",
     "supportersAKA": "Universitários",
     "color": "#D80000",
     "secondaryColor": "#000",
