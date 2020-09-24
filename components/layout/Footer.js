@@ -183,7 +183,7 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
   const color = Color(theme.colors.texts).hsl().string()
   return (
     <div className="terms-and-policies-bar">
-      <div className="container-fluid">
+      <div className="desktop container-fluid">
         <div className="row align-items-center">
 
           <div className="col-12 col-sm-4 text-md-left">
@@ -212,7 +212,32 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
 
             </ul>
           </div>
+        </div>
+      </div>
+      <div className="container-fluid mobile">
+        <div className="row align-items-center">
 
+          <div className="gad-logo col-12 text-center">
+            <GADLogo />
+          </div>
+          <div className="copyright col-12 text-center">
+            <p>{`${appName} @ 2020`}</p>
+            <p>Todos los derechos reservados</p>
+          </div>
+
+          <div className="links col-12">
+            <ul>
+              <li><Link href="/privacy" passHref>
+                <FooterLink>Política de Privacidad</FooterLink>
+              </Link></li>
+              <li><Link href="/terminos-y-politicas" passHref>
+                <FooterLink>Términos y políticas</FooterLink>
+              </Link></li>
+            </ul>
+          </div>
+          <div className="col-12 text-center terms-and-policies-bar__social-networks-col">
+            <SocialNetworks className="social-networks" />
+          </div>
         </div>
       </div>
       <style jsx>{`
@@ -225,7 +250,38 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
           padding-top: 10px;
           padding-bottom: 5px;
         }
+        
+        .terms-and-policies-bar .mobile {
+          display: none;
+        }
+        
+        .terms-and-policies-bar .desktop {
+          display: flex;
+        }
+        
         @media (max-width: 767px) {
+        
+          .terms-and-policies-bar .mobile {
+            display: flex;
+          }
+          .terms-and-policies-bar .desktop {
+            display: none;
+          }
+          
+          .gad-logo {
+            margin: 15px 0;
+          }
+          
+          .copyright {
+            
+          }
+          
+          .links {
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+          }
+          
           .aling {
             margin-top: -10px;
           }

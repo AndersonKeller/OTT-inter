@@ -40,7 +40,7 @@ export const StyleCard = styled.div`
     width: 60%;
     max-width: 800px;
     margin: 110px 0;
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: #FFF;
     border-radius: 0;
     border: none;
   }
