@@ -12,11 +12,19 @@ import api from "~/services/api";
 function Related({ category, medias }) {
   return (
     <Fragment>
-      <div style={{"display": "flex", "flexFlow": "row wrap"}}>
+      <div className={"related-videos"} style={{"display": "flex", "flexFlow": "row wrap"}}>
         {medias.map((media, key) => (
           <RelatedVideo {...{ category, media, key }} />
         ))}
       </div>
+      <style jsx>{`
+        @media (max-width: 1024px) {
+      
+          .related-videos {
+            padding-top: 25px;
+          }
+        }
+      `}</style>
     </Fragment>
   );
 }
@@ -27,7 +35,7 @@ function RelatedVideo({ category = null, media }) {
       <MediaLink {...{ category, media }} watch>
         <a>
           <div className="row align-items-center gutter-15">
-            <div className="col-md-7">
+            <div className="col-md-7 card-img">
               <img
                 className="img-fluid"
                 height="123"
@@ -39,7 +47,7 @@ function RelatedVideo({ category = null, media }) {
                 width="220"
               />
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4 card-title">
               <p>
                 <strong>{media.title}</strong>
               </p>
@@ -73,14 +81,28 @@ function RelatedVideo({ category = null, media }) {
           }
         }
 
-        @media (max-width: 768px) {
-          .col-md-4 {
-            display: none;
-          }
-
+        @media (max-width: 1024px) {
+        
+        .related-videos {
+          padding-top: 25px;
+        }
           .more-card {
-            width: 50%;
+            width: 100%;
             padding: 5px 10px;
+          }
+          
+          .more-card a .row {
+            display: flex;
+            flex-direction: column;
+          }
+          
+          .more-card > .card-img {
+          
+          }
+          .more-card  .card-title {
+            text-align: center;
+            font-size: 1rem;
+            padding-top: 20px;
           }
         }
 
@@ -140,7 +162,14 @@ export default class WatchPage extends Component {
         </Head>
         <div className="container-fluid">
           <div className="row align-items-center">
-            <div className="col-12 col-lg-9">{this.state.player}</div>
+            <div className="col-12 col-lg-9">
+              {this.state.player}
+
+              <div className="play-description-mobile">
+                  <MediaDescription {...{ media: this.props.media }} />
+              </div>
+
+            </div>
             {this.props.related && (
               <div className="col-12 col-lg-3 d-none d-md-block">
                 <Related
@@ -152,7 +181,7 @@ export default class WatchPage extends Component {
               </div>
             )}
           </div>
-          <div className="row">
+          <div className="row media-desktop">
             <div className="col-lg-8">
               <MediaDescription {...{ media: this.props.media }} />
             </div>
@@ -178,6 +207,12 @@ export default class WatchPage extends Component {
         {/* <CommentSection /> */}
 
         <style jsx>{`
+          .play-description-mobile {
+          display: none;
+          }
+          .media-desktop {
+          display: block;
+          }
           .row:first-child {
             margin-bottom: 15px;
           }
@@ -191,6 +226,16 @@ export default class WatchPage extends Component {
             }
             .row:first-child {
               margin-bottom: 30px;
+            }
+          }
+          
+          @media (max-width: 1024px) {
+            .play-description-mobile {
+              display: block;
+              padding-top: 20px;
+            }
+            .media-desktop {
+            display: none;
             }
           }
         `}</style>

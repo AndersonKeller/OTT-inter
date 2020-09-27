@@ -184,7 +184,7 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
   return (
     <div className="terms-and-policies-bar">
       <div className="desktop container-fluid">
-        <div className="row align-items-center">
+        <div className="row align-items-center w-100">
 
           <div className="col-12 col-sm-4 text-md-left">
             <p>{`${appName} @ 2020 - Todos los derechos reservados`}</p>
