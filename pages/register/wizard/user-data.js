@@ -286,7 +286,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
         </div>
 
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-12" style={{padding: 0}}>
             <div className="row">
               <div className="col-md-6">
                 <FormGroup>
@@ -471,8 +471,6 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
       </div>
       <style jsx global={true}>{`
 
-
-
         .text-primary {
            color: ${ primaryColor} !important;
         }
@@ -504,8 +502,8 @@ const UserDataForm = ({ api, layoutProps, handleSubmit }) => {
            color: ${ primaryColor} !important;
         }
         .register-confirm {
-          padding-top: 50px;
-          padding-bottom: 50px;
+          padding-top: 0;
+          padding-bottom: 0;
           color: #666666;
         }
         .is-miembro{

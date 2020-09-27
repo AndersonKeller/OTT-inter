@@ -159,22 +159,16 @@ const UserAddressForm = ({ api, layoutProps, handleSubmit }) => {
            color: ${ primaryColor} !important;
         }
         .register-confirm {
-          padding-top: 50px;
-          padding-bottom: 50px;
           color: #666666;
         }
 
          @media(max-width: 765px) {
 
         .responsive{
-              padding: 20px 30px 15px 30px!important;
-          // padding: 40px!important;
           padding: 0px;
           display: flex;
           flex-wrap: wrap;
-          height: 100%!importat;
           justify-content: center;
-          height:100%!important;
 
           }
          .card{
@@ -198,7 +192,7 @@ const UserAddressForm = ({ api, layoutProps, handleSubmit }) => {
            justify-content:center!important;
          }
          form{
-           padding 0px!important;
+           padding: 0px!important;
          }
          .row {
           display: -ms-flexbox;

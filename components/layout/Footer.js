@@ -217,9 +217,6 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
       <div className="container-fluid mobile">
         <div className="row align-items-center">
 
-          <div className="gad-logo col-12 text-center">
-            <GADLogo />
-          </div>
           <div className="copyright col-12 text-center">
             <p>{`${appName} @ 2020`}</p>
             <p>Todos los derechos reservados</p>
@@ -238,6 +235,11 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
           <div className="col-12 text-center terms-and-policies-bar__social-networks-col">
             <SocialNetworks className="social-networks" />
           </div>
+
+          <div className="gad-logo col-12 text-center">
+            <GADLogo />
+          </div>
+
         </div>
       </div>
       <style jsx>{`
@@ -273,7 +275,7 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
           }
           
           .copyright {
-            
+            margin-top: 15px;
           }
           
           .links {

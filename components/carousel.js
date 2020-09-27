@@ -67,6 +67,15 @@ const Cards = styled.div`
     `linear-gradient(to left, ${props.theme.colors.backgroundContrast}, ${Color(props.theme.colors.backgroundContrast).fade(1).string()})` :
     `linear-gradient(to left, ${props.theme.colors.background}, ${Color(props.theme.colors.background).fade(1).string()})`};
   }
+  
+  @media(max-width: 765px) {
+  &::before {
+    background-image: none;
+  }
+  &::after {
+    background-image: none;
+  }
+  }
 `;
 
 export default function Carousel({ children, color, additional }) {
@@ -151,6 +160,17 @@ export default function Carousel({ children, color, additional }) {
         @media (min-width: 768px) {
           .slide {
           padding: 2px;
+      }
+      
+    }
+    
+    @media (max-width: 768px) {
+    .cards-container {
+        padding-left: 15px;
+       }
+       
+       .slick-slide:hover {
+          transform: none;
       }
     }
 

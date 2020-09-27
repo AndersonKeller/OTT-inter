@@ -143,9 +143,9 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
          @media(max-width: 765px) {
 
         .responsive{
-         padding: 127px 30px 15px 30px!important;
+         // padding: 127px 30px 15px 30px!important;
+         //  padding: 110px 0;
           // padding: 40px!important;
-          padding: 0px;
           display: flex;
           flex-wrap: wrap;
           height:100%!important;
@@ -153,7 +153,6 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
           }
          .card{
           //  height:100%!important;
-           margin:10px 0px!important;
            background-color: rgba(255,255,255,0.85);
 
          }
