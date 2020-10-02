@@ -11,6 +11,7 @@ import UserContext from '~/contexts/UserContext'
 import { AuthModalContext } from '~/contexts/AuthModalContext'
 import * as gtag from '~/lib/gtag'
 import Chevron from '../icons/chevron'
+import { TENANT } from "~/constants/constants";
 
 export default () => {
 
@@ -111,7 +112,7 @@ export default () => {
             <Dropdown.Item as="button"
               className="dropdown-item-style1"
               onClick={enter}>Entrar</Dropdown.Item>
-            <Link href="/signup">
+            <Link href={ TENANT === 'lau' ? "/subscriptor" : "/signup"}>
               <Dropdown.Item className="dropdown-item-style2"
                 href="/signup">Suscripción</Dropdown.Item>
             </Link>

@@ -19,6 +19,11 @@ export default function MoreContentCarousel({ category, uppercase }) {
         </Link>
       </div>
       <style jsx>{`
+        
+        .carousel-section {
+          overflow: hidden;
+        }
+        
         .more-content {
           background-color: ${backgroundColor};
           margin-bottom: 30px;

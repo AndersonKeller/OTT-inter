@@ -25,6 +25,7 @@ import theme from '~/theme'
 // import withBasicAuth from '~/basic-auth'
 import "~/styles/main.scss"
 import 'netslider/dist/styles.min.css';
+import Loading from "~/components/Loading/Loading";
 
 NProgress.configure({ showSpinner: false })
 
@@ -36,6 +37,14 @@ Sentry.init({
 })
 
 class MyApp extends App {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true
+    };
+  }
+
 
   static async getInitialProps({ Component, router, ctx }) {
     let layoutPropsTasks = { }, pagePropsTasks = { }
@@ -89,6 +98,10 @@ class MyApp extends App {
     })
     Router.events.on('routeChangeComplete', this.routeChangeComplete)
     Router.events.on('routeChangeError', this.routeChangeError)
+
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, 1000)
   }
 
   componentWillUnmount() {
@@ -113,6 +126,7 @@ class MyApp extends App {
     const { Component, layoutProps, pageProps } = this.props
     return (
       <ThemeProvider theme={theme}>
+        {this.state.loading && <div className={"super-loading"}><Loading loadingState={this.state.loading} /></div>}
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         {/* <CssBaseline /> */}
         <GlobalStyle />

@@ -13,38 +13,42 @@ import UserContext from '~/contexts/UserContext'
 import { CONFIG } from '~/config'
 import Chevron from '~/components/icons/chevron'
 import Color from 'color'
-
-import StyleChangeImage from '~/components/layout/changeImage'
+import { TENANT } from "~/constants/constants";
 
 function MediaPage1({ category, errorCode, layoutProps, media, related }) {
   const { appName } = CONFIG
   const { title: mediaTitle } = media
-  const pageTitle = `${mediaTitle} < ${appName}`
+  const pageTitle = `${ mediaTitle } < ${ appName }`
 
 
   return (
     <>
-      <Layout errorCode={errorCode} paddingTop={false} {...layoutProps}>
+      <Layout errorCode={ errorCode } paddingTop={ false } { ...layoutProps }>
         <Head>
-          <title>{pageTitle}</title>
+          <title>{ pageTitle }</title>
         </Head>
 
-        <Cover category={category} media={media} />
-        {category && related && (
-          <More category={category} related={related} />
-        )}
+        <Cover category={ category } media={ media }/>
+        { category && related && (
+          <More category={ category } related={ related }/>
+        ) }
       </Layout>
+      <style jsx global>{ `
+        .footer {
+            padding-bottom: 0px !important;
+            margin-top: 57px !important;
+         }
+      `}</style>
     </>
   )
 }
-
 
 
 MediaPage1.getInitialProps = async ctx => {
   const { api, query } = ctx
   const { slug: movieSlug, category: categorySlug } = query;
   try {
-    const url = `movie/${movieSlug}` + (categorySlug ? `/category/${categorySlug}` : '')
+    const url = `movie/${ movieSlug }` + (categorySlug ? `/category/${ categorySlug }` : '')
     const { data } = await api.get(url)
     const { category, movie: media, related } = data
     return { category, media, related }
@@ -63,7 +67,6 @@ const Cover = ({ category, media }) => {
   const theme = useContext(ThemeContext)
   const maskColor = Color(theme.colors.background)
 
-
   const {
     detail = null,
     poster_url: posterUrl,
@@ -73,69 +76,75 @@ const Cover = ({ category, media }) => {
   return (
 
     <div>
-      <div className="header-entre" >
-        <h3>Entrevistas</h3>
+      <div className="header-entre">
+        <h3>{ category.name }</h3>
       </div>
 
       <div className="cover container-fluid">
         <div className="row align-items-center">
           <div className="col-12 col-md-5 offset-md-1">
-            <div className="info">
-              <div className="heading">
-                <h1 className="h2">{title}</h1>
-                {publishYear && (
-                  <div className="year">{publishYear}</div>
-                )}
-              </div>
-
-              {detail && (
-                <div className="description" style={{ display: 'flex' }}>
-                  <div className={smDown && !open && 'short-description'}>
-                    {smDown && !open && detail.replace(/^([\s\S]{70}[^\s]*)[\s\S]*/, "$1")}
-                    <Collapse in={open || !smDown}>
-                      <p>{detail}</p>
-                    </Collapse>
-                  </div>
-                  <div
-                    className={'chevron-collapse ' + (!smDown && 'd-none')}
-                    onClick={_ => setOpen(!open)}
-                    aria-controls="description"
-                    aria-expanded={open}
-                  >
-                    <Chevron
-                      dir={!open && "bottom"}
-                      alt="mas" className="chevron"
-                      height="10" width="17"
-                      inline
-                    />
-                  </div>
+            <MediaLink { ...{ category, media } } watch>
+              <div className="info">
+                <div className="heading">
+                  <h1 className="h2">{ title }</h1>
+                  { publishYear && (
+                    <div className="year">{ publishYear }</div>
+                  ) }
                 </div>
-              )}
+
+                { detail && (
+                  <div className="description" style={ { display: 'flex' } }>
+                    <div className={ smDown && !open && 'short-description' }>
+                      { smDown && !open && detail.replace(/^([\s\S]{70}[^\s]*)[\s\S]*/, "$1") }
+                      <Collapse in={ open || !smDown }>
+                        <p>{ detail }</p>
+                      </Collapse>
+                    </div>
+                    <div
+                      className={ 'chevron-collapse ' + (!smDown && 'd-none') }
+                      onClick={ _ => setOpen(!open) }
+                      aria-controls="description"
+                      aria-expanded={ open }
+                    >
+                      <Chevron
+                        dir={ !open && "bottom" }
+                        alt="mas" className="chevron"
+                        height="10" width="17"
+                        inline
+                      />
+                    </div>
+                  </div>
+                ) }
+              </div>
+            </MediaLink>
+
+
+            <div className="buttons">
+
+              { !user ? (
+                <Link href={ TENANT === 'lau' ? "/subscriptor" : "/signup" }>
+                  <Button block={ smDown }>{ probaGratis }</Button>
+                </Link>
+              ) : (
+                <>
+                  <MediaLink { ...{ category, media } } watch>
+                    <Button>Mira</Button>
+                  </MediaLink>
+                  <WishlistBtn movieId={ media.id }/>
+                </>
+              ) }
             </div>
-
-            {/* {!user ? (
-            <Link href="/subscriptor">
-              <Button block={smDown}>{probaGratis}</Button>
-            </Link>
-          ) : (
-              <>
-                <MediaLink {...{ category, media }} watch>
-                  <Button>Mira</Button>
-                </MediaLink>
-                <WishlistBtn movieId={media.id} />
-              </>
-            )} */}
-
           </div>
         </div>
       </div>
-      <style jsx>{`
+      <style jsx>{ `
+
 
         .cover {
           background-color: var(--background);
           background-position: 50% 50%, 100% 50%;
-          background-image: radial-gradient(circle at 95% 75%, ${maskColor.fade(1).string()} 20%, ${maskColor.fade(.075).string()} 60%),
-            url(${posterUrl});
+            
+          background-image: radial-gradient(circle at 95% 75%, ${ maskColor.fade(1).string() } 20%, ${ maskColor.fade(.075).string() } 60%), url(${ posterUrl });
           background-repeat: no-repeat, no-repeat;
           background-size: cover, cover;
           font-size: 15px;
@@ -191,6 +200,12 @@ const Cover = ({ category, media }) => {
         }
 
         @media(max-width:768px){
+        .cover {
+          background-image: url(${ posterUrl });
+        }
+          .buttons {
+            display:none!important;
+          }
           h1 {
             text-align: center;
             font-size: 18px;
@@ -218,7 +233,7 @@ const Cover = ({ category, media }) => {
            padding-left: 10px;
           }
         }
-      `}</style>
+      ` }</style>
     </div>
 
   )
@@ -229,12 +244,12 @@ const HMediaCard = ({ category, media }) => {
   return (
     <div className="h-media-card row">
       <div className="col-md-4">
-        <MediaLink watch {...{ category, media }}>
+        <MediaLink watch { ...{ category, media } }>
           <a>
             <img
               className="img-fluid w-100 d-block"
               height="220"
-              src={media.thumbnail2_url ? media.thumbnail2_url : '//placehold.jp/390x220.png'}
+              src={ media.thumbnail2_url ? media.thumbnail2_url : '//placehold.jp/390x220.png' }
               width="390"
             />
           </a>
@@ -242,17 +257,17 @@ const HMediaCard = ({ category, media }) => {
       </div>
       <div className="col-md-5">
         <h3 className="h3">
-          <MediaLink watch {...{ category, media }}>
-            <a>{title}</a>
+          <MediaLink watch { ...{ category, media } }>
+            <a>{ title }</a>
           </MediaLink>
         </h3>
-        {media.detail && (
+        { media.detail && (
           <div className="description">
-            <p>{media.detail}</p>
+            <p>{ media.detail }</p>
           </div>
-        )}
+        ) }
       </div>
-      <style jsx>{`
+      <style jsx>{ `
         .h-media-card {
           margin-bottom: 30px;
         }
@@ -285,7 +300,7 @@ const HMediaCard = ({ category, media }) => {
             margin-bottom: 0;
           }
         }
-      `}</style>
+      ` }</style>
     </div>
   )
 }
@@ -296,6 +311,7 @@ const More = ({ category, related: medias }) => {
   const theme = useContext(ThemeContext)
   const backgroundColor = Color(theme.colors.backgroundContrast).hsl().string()
   const [display, setDisplay] = useState("none")
+
   function visible() {
 
     if (display == "block") {
@@ -304,12 +320,13 @@ const More = ({ category, related: medias }) => {
       setDisplay("block")
     }
   }
+
   return (
 
     <>
       <div className="is_visivel">
-        <a onClick={() => visible()} className="btn-mas">Ver Más</a>
-        <style jsx>{`
+        <a onClick={ () => visible() } className="btn-mas btn-primary">Ver Más</a>
+        <style jsx>{ `
           .is_visivel {
             display:none;
             padding:24px;
@@ -321,8 +338,7 @@ const More = ({ category, related: medias }) => {
            }
            .btn-mas {
              font-weight: 700;
-             color: var(--gray2);
-             background:var(--white);
+             background-color: var(--primary);
              border:0px;
              border-radius: 4px;
              padding: 5px;
@@ -333,24 +349,24 @@ const More = ({ category, related: medias }) => {
          }
 
 
-      `}</style>
+      ` }</style>
       </div>
 
       <div className="more container-fluid">
 
         <div className="row">
           <div className="col offset-md-1">
-            <h2 className="h2 text-uppercase">Más {categoryName}</h2>
+            <h2 className="h2 text-uppercase">Más { categoryName }</h2>
           </div>
         </div>
         <div className="cards">
-          {medias.map((media, i) => (
-            <HMediaCard key={i} {...{ category, media }} />
-          ))}
+          { medias.map((media, i) => (
+            <HMediaCard key={ i } { ...{ category, media } } />
+          )) }
         </div>
-        <style jsx>{`
+        <style jsx>{ `
         .more {
-          background-color: ${backgroundColor};
+          background-color: ${ backgroundColor };
           font-size: 20px;
           line-height: 1.5;
           padding-top: 30px;
@@ -385,10 +401,10 @@ const More = ({ category, related: medias }) => {
           .container-fluid {
             display:flex;
             justify-content:center;
-              display: ${display};
+              display: ${ display };
           }
         }
-      `}</style>
+      ` }</style>
       </div>
     </>
 

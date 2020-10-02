@@ -309,12 +309,12 @@ const HomeCarouselSection = ({ api, category: categorySlug, idx }) => {
       <br></br>
       <style jsx>{`
         .home-carousel-section {
-            margin-bottom: 75px;
-            margin-top: 75px;
+            //margin-bottom: 75px;
+            //margin-top: 75px;
         }
         @media (min-width: 768px) {
           .home-carousel-section {
-            margin-bottom: 55px;
+            //margin-bottom: 55px;
           }
         }
       `}</style>

@@ -71,6 +71,7 @@ const PaymentsPage = ({ api, layoutProps, packages, user }) => {
                 readOnly
                 package_id={plan.id}
                 plan={plan}
+                buttonLabel={"Cambiar Plan"}
               />
             </div>
           </div>

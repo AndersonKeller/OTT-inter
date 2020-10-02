@@ -1,19 +1,20 @@
-import Color from "color";
-import React, { useContext, useEffect, useState } from "react";
-import Flatpickr from "react-flatpickr";
-import { GoSearch } from "react-icons/go";
-import { ThemeContext } from "styled-components";
-import Button from "~/components/button";
-import InvalidFeedback from "~/components/Form/InvalidFeedback";
-import Label from "~/components/Form/Label";
-import FormGroup from "~/components/layout/AuthModal/FormGroup";
-import Input from "~/components/layout/AuthModal/Input";
-import Loading from "~/components/Loading/Loading";
-import Select from "~/components/Select/Select";
-import withAuth from "~/components/withAuth";
-import { CONFIG } from "~/config";
+import FormGroup from '~/components/layout/AuthModal/FormGroup'
+import Label from '~/components/Form/Label'
+import Input from '~/components/layout/AuthModal/Input'
+import React, { useContext, useEffect, useState } from 'react'
+import withAuth from '~/components/withAuth'
 import { IS_PRODUCTION } from "~/constants/constants";
 import UserContext from "~/contexts/UserContext";
+import Select from "~/components/Select/Select";
+import Loading from "~/components/Loading/Loading";
+import Button from "~/components/button";
+import InvalidFeedback from "~/components/Form/InvalidFeedback";
+import { GoSearch } from 'react-icons/go';
+import Color from 'color'
+import { ThemeContext } from 'styled-components'
+import Flatpickr from "react-flatpickr";
+import { CONFIG } from "~/config";
+import NameProject from "~/components/NameProject";
 
 const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData }) => {
 
@@ -141,6 +142,8 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
 
   useEffect(() => {
     if (Object.values(formData).filter(x => x != null).length > 0) {
+      console.log(`\n\n\nAqui o formData -- ${JSON.stringify(formData)}\n\n\n`);
+
       for (let key in formData) {
         if (values.hasOwnProperty(key) && values[key] != null) {
           values[key] = formData[key];
@@ -226,6 +229,9 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
         const res = await api.post(`register/complete-user`, userData);
 
         setFormData({...values});
+
+        console.log(`\n\n\nAqui o userData -- ${JSON.stringify(userData)}\n\n\n`);
+
         handleSubmit(1, userData);
       }
     } catch (error) {
@@ -337,16 +343,17 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
   return (
     <form method="post" onSubmit={submit}>
       <div className="register-confirm container text-center">
+
         <h2 className="card-title text-center">
-          <span className={"text-primary"}>¡</span>Sé parte de {appName()}
-          <span className={"text-primary"}>!</span>
+          <span className={ "text-primary" }>¡</span>Sé parte de { <NameProject/> }<span className={ "text-primary" }>!</span>
         </h2>
+
         <div className={"card-subtitle"}>
           ¡Antes de seguir, queremos saber más de ti!
         </div>
 
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-12" style={{padding: 0}}>
             <div className="row">
               <div className="col-md-6">
                 <FormGroup>
@@ -597,6 +604,10 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
         </div>
       </div>
       <style jsx global={true}>{`
+<<<<<<< HEAD
+=======
+
+>>>>>>> 68c5fa473e9e95d931e1dc642df1b7d2b34dd511
         .text-primary {
           color: ${primaryColor} !important;
         }
@@ -628,8 +639,8 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
           color: ${primaryColor} !important;
         }
         .register-confirm {
-          padding-top: 50px;
-          padding-bottom: 50px;
+          padding-top: 0;
+          padding-bottom: 0;
           color: #666666;
         }
         .is-miembro {

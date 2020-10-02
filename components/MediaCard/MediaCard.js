@@ -44,7 +44,7 @@ const MediaCard = ({
           <div className="media-card-label">
             <FontAwesomeIcon icon={faPlayCircle} />
             <div className={"text"}>
-              {media.title}çll
+              {media.title}
             </div>
           </div>
 

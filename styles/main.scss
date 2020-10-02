@@ -2,6 +2,8 @@
   COMPONENTS
  */
 @import "~bootstrap";
+@import "~bootstrap/scss/variables";
+@import "_variables";
 @import "components/multiStepIndicator";
 @import "components/wizard/complete";
 @import "components/wizard/payment";
@@ -25,4 +27,17 @@
   //overflow: hidden;
   overflow-x: hidden;
   //overflow-y: auto;
+}
+
+.super-loading {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }

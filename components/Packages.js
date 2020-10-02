@@ -71,6 +71,7 @@ export const PackageRadio = ({
   plan,
   readOnly,
   discount,
+  buttonLabel
 }) => {
 
   plan.amount_with_discount = discount ? Math.round(plan.amount * (1 - discount.pivot.percent)) : 0
@@ -107,7 +108,7 @@ export const PackageRadio = ({
           </div>
         )}
 
-        <div className={"btn-suscribir"}> Cambiar plano</div>
+        <div className={"btn-suscribir"}>{buttonLabel ? buttonLabel : "Suscribir"}</div>
 
       </span>
 

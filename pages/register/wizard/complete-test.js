@@ -12,6 +12,7 @@ import MultiStepIndicator from "~/components/MultiStepIndicator";
 import { STATIC_PATH, TENANT } from "~/constants/constants";
 import LogoApp from "~/components/LogoApp";
 
+
 const CompleteTest = ({ api, layoutProps, packages, user }) => {
   const handleSubmit = (index, userData) => {
     setWizardIndex(index);
@@ -167,15 +168,13 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
       @media(max-width: 765px) {
 
         .responsive {
-          padding: 127px 30px 15px 30px!important;
-          padding: 0px;
           display: flex;
           flex-wrap: wrap;
           height:100%!important;
         }
 
-        .card {
-          margin:10px 0px!important;
+          }
+        .card{
           background-color: rgba(255,255,255,0.85);
         }
 

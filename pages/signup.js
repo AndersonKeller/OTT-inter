@@ -18,6 +18,7 @@ import api from '../services/api'
 import { CONFIG } from '~/config'
 import Header from '~/components/layout/HeaderCad'
 import LogoApp from '~/components/LogoApp';
+import NameProject from '~/components/NameProject/index'
 
 
 const Signup = ({ }) => {
@@ -54,7 +55,7 @@ const Signup = ({ }) => {
     let provider = e.currentTarget.innerText;
     try {
       // nookies.set({}, 'pkg_int_id', JSON.stringify(packageId), { path: '/' })
-      const res = await api().get(`auth/${ provider }`)
+      const res = await api().get(`auth/${provider}`)
       // console.table(res)
       // console.log(res.data.url)
       window.location = res.data.url
@@ -94,50 +95,37 @@ const Signup = ({ }) => {
     setLoading(false)
   }
 
-  function appName() {
-    if (CONFIG.projectName) {
-      return <div style={ { display: 'inline-block' } }>
-        <strong className="text-primary">{ CONFIG.projectName.split(' ')[0] }</strong>{ CONFIG.projectName.split(' ')[1] }
-      </div>
-    } else if (CONFIG.appName) {
-      return <div style={ { display: 'inline-block' } }>
-        <strong className="text-primary">{ CONFIG.appName.split(' ')[0] }</strong>{ CONFIG.appName.split(' ')[1] }
-      </div>
-    }
-    return <div style={ { display: 'inline-block' } }>
-      <strong className="text-primary">Project</strong>Name!
-    </div>
-  }
+
 
   return (
 
-    <Layout header={ "hidden" } footer={ "hidden" } customClass={"signup-screen"}>
-      <Header/>
+    <Layout header={"hidden"} footer={"hidden"} customClass={"signup-screen"}>
+      <Header />
 
       <div
         className="card-wrapper d-flex align-items-center justify-content-center h-100"
-        style={ {
-          backgroundImage: `url('/static/${ TENANT }/subs/background.jpg')`,
-        } }
+        style={{
+          backgroundImage: `url('/static/${TENANT}/subs/background.jpg')`,
+        }}
       >
 
         <div className="card">
 
-          <div className={ "card-header text-center" }>
-            <div className="img-logoApp-card"><LogoApp/></div>
+          <div className={"card-header text-center"}>
+            <div className="img-logoApp-card"><LogoApp /></div>
           </div>
 
           <div className="card-body" style={
             {
-              backgroundImage: `url('/static/${ TENANT }/subs/bg_modal.png')`,
+              backgroundImage: `url('/static/${TENANT}/subs/bg_modal.png')`,
             }
           }>
-            <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { appName() }
-              <span className={ "text-primary" }>!</span></h2>
+            <h2 className="card-title text-center"><span className={"text-primary"}>¡</span>Sé parte de {<NameProject />}
+              <span className={"text-primary"}>!</span></h2>
 
             <div className="row w-100 justify-content-end">
               <div className="col-md-8 col-sm-10">
-                <form method="post" onSubmit={ handleSubmit } style={
+                <form method="post" onSubmit={handleSubmit} style={
                   {
                     maxWidth: "480px",
                     display: "block",
@@ -145,19 +133,19 @@ const Signup = ({ }) => {
                   }
                 }>
 
-                  { error && <div className="invalid-feedback">{ error.message }</div> }
+                  {error && <div className="invalid-feedback">{error.message}</div>}
 
                   <FormGroup>
                     <Label htmlFor="name" className="text-dark">Nombre completo</Label>
                     <Input
                       id="name"
                       name="name"
-                      value={ values.name }
-                      onChange={ handleInputChange }
+                      value={values.name}
+                      onChange={handleInputChange}
                       required
-                      // onChange={ handleInputChange }
+                    // onChange={ handleInputChange }
                     />
-                    <InvalidFeedback error={ error } loading={ loading } name="name"/>
+                    <InvalidFeedback error={error} loading={loading} name="name" />
                   </FormGroup>
 
                   <FormGroup>
@@ -166,12 +154,12 @@ const Signup = ({ }) => {
                       id="email"
                       type="email"
                       name="email"
-                      value={ values.email }
-                      onChange={ handleInputChange }
+                      value={values.email}
+                      onChange={handleInputChange}
                       required
                     />
 
-                    <InvalidFeedback error={ error } loading={ loading } name="email"/>
+                    <InvalidFeedback error={error} loading={loading} name="email" />
                   </FormGroup>
 
                   <FormGroup>
@@ -181,50 +169,50 @@ const Signup = ({ }) => {
                       name="password"
                       required
                       type="password"
-                      value={ values.password }
-                      onChange={ handleInputChange }
+                      value={values.password}
+                      onChange={handleInputChange}
                     />
-                    <InvalidFeedback error={ error } loading={ loading } name="password"/>
+                    <InvalidFeedback error={error} loading={loading} name="password" />
                   </FormGroup>
 
                   <div className="already-subscriptor">
-                    {/*<span>{ alreadyRegistered }</span>*/ }
-                    { ' ' }
-                    {/*<a className="bold text-uppercase" href="/login" onClick={ goToLogin }>{ login }</a>*/ }
+                    {/*<span>{ alreadyRegistered }</span>*/}
+                    {' '}
+                    {/*<a className="bold text-uppercase" href="/login" onClick={ goToLogin }>{ login }</a>*/}
                   </div>
-                  <OrEnterWith/>
+                  <OrEnterWith />
                   <div className="social-buttons">
-                    <SocialButtons socialLogin={ socialLogin }/>
+                    <SocialButtons socialLogin={socialLogin} />
                   </div>
                   <FormGroup>
                     <label className="terms">
                       <input
-                        checked={ values.terms }
+                        checked={values.terms}
                         name="terms"
-                        onChange={ handleInputChange }
-                        // required={ requireds }
+                        onChange={handleInputChange}
+                        required={ true }
                         type="checkbox"
-                        value={ `true` }
+                        value={`true`}
                       />
-                      <span className="text-dark" style={ { paddingLeft: "10px" } }>He leído y acepto el contrato de { CONFIG.projectName }</span>
+                      <span className="text-dark" style={{ paddingLeft: "10px" }}>He leído y acepto el contrato de {CONFIG.projectName}</span>
                     </label>
-                    <InvalidFeedback error={ error } loading={ loading } name="terms"/>
+                    <InvalidFeedback error={error} loading={loading} name="terms" />
                   </FormGroup>
 
                   <div className="already-subscriptor">
                     <span>¿Ya estás registrado?</span>
-                    { ' ' }
+                    {' '}
                     <a className="bold text-uppercase" href="/login">Inicia sesión</a>
                   </div>
 
-                  <Button block className="enter-btn" size="sm" type="submit" loading={ loading }
-                          disabled={ loading }>Registrar</Button>
+                  <Button block className="enter-btn" size="sm" type="submit" loading={loading}
+                    disabled={loading}>Registrar</Button>
                 </form>
               </div>
             </div>
           </div>
         </div>
-        <style jsx global>{ `
+        <style jsx global>{`
 
         h2.card-title {
           font-weight: normal;
@@ -242,7 +230,7 @@ const Signup = ({ }) => {
         }
 
         .text-primary {
-           color: ${ primaryColor } !important;
+           color: ${ primaryColor} !important;
         }
         .register-confirm {
           padding-top: 50px;

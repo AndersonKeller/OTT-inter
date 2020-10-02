@@ -51,7 +51,7 @@ export default class MyDocument extends Document {
         <Head>
 
           <meta charSet="utf-8" />
-          <meta name="viewport" content="initial-scale=1, shrink-to-fit=no, width=device-width" />
+          <meta name="viewport" content="initial-scale=1, shrink-to-fit=yes, width=device-width" />
 
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.colors.primary} />
