@@ -604,10 +604,6 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
         </div>
       </div>
       <style jsx global={true}>{`
-<<<<<<< HEAD
-=======
-
->>>>>>> 68c5fa473e9e95d931e1dc642df1b7d2b34dd511
         .text-primary {
           color: ${primaryColor} !important;
         }

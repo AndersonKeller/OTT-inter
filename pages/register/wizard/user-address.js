@@ -17,6 +17,13 @@ const UserAddressForm = ({
   formData,
   setFormData
 }) => {
+
+  const formDataHasProperties = formData.hasOwnProperty("country_id")
+                              && formData.hasOwnProperty("address_1st_level")
+                              && formData.hasOwnProperty("city")
+                              && formData.hasOwnProperty("address_3rd_level")
+                              && formData.hasOwnProperty("address");
+
   const theme = useContext(ThemeContext);
   const primaryColor = Color(theme.colors.primary)
     .hsl()
@@ -41,23 +48,25 @@ const UserAddressForm = ({
   useEffect(
     _ => {
       if (user) {
-        setValues({
-          ...values,
-          address: user.address ? user.address : "",
-          city: user.city ? user.city : "",
-          country_id: user.country_id ? user.country_id : "",
-          address_1st_level: user.address_1st_level_id,
-          address_3rd_level: user.address_3rd_level
-        });
+        console.log("Primeiro useEffect (componentDidMount)")
 
-        setFormData({
-          ...formData,
-          address: user.address ? user.address : "",
-          city: user.city ? user.city : "",
-          country_id: user.country_id ? user.country_id : "",
-          address_1st_level: user.address_1st_level_id,
-          address_3rd_level: user.address_3rd_level
-        });
+        console.log(`\n\n user --  ${JSON.stringify(user)} \n\n`);
+
+        console.log(`\n\n formData before set ${JSON.stringify(formData)} \n\n`);
+
+        if (!formDataHasProperties) {
+          setFormData({
+            ...formData,
+            address: user.address ? user.address : "",
+            city: user.city ? user.city : "",
+            country_id: user.country_id ? user.country_id : "",
+            address_1st_level: user.address_1st_level_id,
+            address_3rd_level: user.address_3rd_level
+          });
+        }
+
+        console.log(`\n\n formData after set ${JSON.stringify(formData)} \n\n`);
+
       }
     },
     [user]
@@ -65,17 +74,17 @@ const UserAddressForm = ({
 
   const handleInputChange = e => {
     const { checked, name, value, type } = e.target;
-    setValues({
-      ...values,
-      [name]:
-        type === "checkbox"
-          ? checked
-            ? value === "true"
-              ? true
-              : value
-            : false
-          : value
-    });
+    // setValues({
+    //   ...values,
+    //   [name]:
+    //     type === "checkbox"
+    //       ? checked
+    //         ? value === "true"
+    //           ? true
+    //           : value
+    //         : false
+    //       : value
+    // });
 
     setFormData({
       ...formData,
@@ -96,42 +105,43 @@ const UserAddressForm = ({
     setLoading(true);
 
     try {
+      let userData = {
+        country_id: formData.country_id,
+        address_1st_level: formData.address_1st_level,
+        city: formData.city,
+        address_3rd_level: formData.address_3rd_level,
+        address: formData.address,
+        email: user.email
+      };
 
-      // Isso NÂO É uma boa prática. Deve ser mudado. Porém a estrutura de estado do app impede outra implementação.
-      let formDataHasProperties = formData.hasOwnProperty("country_id")
-                                  && formData.hasOwnProperty("address_1st_level")
-                                  && formData.hasOwnProperty("city")
-                                  && formData.hasOwnProperty("address_3rd_level")
-                                  && formData.hasOwnProperty("address");
+      // let userData;
 
-      let userData;
-
-      if (formDataHasProperties) {
-        userData = {
-          country_id: formData.country_id,
-          address_1st_level: formData.address_1st_level,
-          city: formData.city,
-          address_3rd_level: formData.address_3rd_level,
-          address: formData.address,
-          email: user.email
-        };
-      } else {
-        userData = {
-          country_id: values.country_id,
-          address_1st_level: values.address_1st_level,
-          city: values.city,
-          address_3rd_level: values.address_3rd_level,
-          address: values.address,
-          email: user.email
-        };
-      }
+      // if (formDataHasProperties) {
+      //   userData = {
+      //     country_id: formData.country_id,
+      //     address_1st_level: formData.address_1st_level,
+      //     city: formData.city,
+      //     address_3rd_level: formData.address_3rd_level,
+      //     address: formData.address,
+      //     email: user.email
+      //   };
+      // } else {
+      //   userData = {
+      //     country_id: values.country_id,
+      //     address_1st_level: values.address_1st_level,
+      //     city: values.city,
+      //     address_3rd_level: values.address_3rd_level,
+      //     address: values.address,
+      //     email: user.email
+      //   };
+      // }
 
       const res = await api.post(`register/complete-user-address`, userData);
 
       // setFormData({...values});
-      setFormData({...formData});
+      // setFormData({...formData});
 
-      console.log(`\n\n formData ${formData}`);
+      // console.log(`\n\n formData ${JSON.stringify(formData)}`);
 
       handleSubmit(2, userData);
     } catch (error) {

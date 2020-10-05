@@ -23,19 +23,20 @@ const Address = ({
   const chlCountryId = 48;
 
   // Isso NÂO É uma boa prática. Deve ser mudado. Porém a estrutura de estado do app impede outra implementação.
-  let formDataHasProperties = formData.hasOwnProperty("country_id")
-                              && formData.hasOwnProperty("address_1st_level")
-                              && formData.hasOwnProperty("city")
-                              && formData.hasOwnProperty("address_3rd_level")
-                              && formData.hasOwnProperty("address");
+  // let formDataHasProperties = formData.hasOwnProperty("country_id")
+  //                             && formData.hasOwnProperty("address_1st_level")
+  //                             && formData.hasOwnProperty("city")
+  //                             && formData.hasOwnProperty("address_3rd_level")
+  //                             && formData.hasOwnProperty("address");
 
-  const {
-    country_id: countryId,
-    address_1st_level,
-    city,
-    address_3rd_level,
-    address
-  } = formDataHasProperties ? formData : values;
+  // const {
+  //   country_id: countryId,
+  //   address_1st_level,
+  //   city,
+  //   address_3rd_level,
+  //   address
+  // } = formData;
+  // } = formDataHasProperties ? formData : values;
 
   const [countries, setCountries] = useState();
 
@@ -48,11 +49,11 @@ const Address = ({
 
   const handleCountryChange = e => {
     const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-      address_1st_level: ""
-    });
+    // setValues({
+    //   ...values,
+    //   [name]: value,
+    //   address_1st_level: ""
+    // });
 
     setFormData({
       ...formData,
@@ -61,19 +62,19 @@ const Address = ({
     });
   };
 
-  const firstLevelLabel = countryId == argCountryId
+  const firstLevelLabel = formData.country_id == argCountryId
     ? "Provincia"
-    : countryId == braCountryId
+    : formData.country_id == braCountryId
       ? "Estado"
-      : countryId == chlCountryId
+      : formData.country_id == chlCountryId
         ? "Región"
         : "State";
 
-  const firstLevelPluralLabel = countryId == argCountryId
+  const firstLevelPluralLabel = formData.country_id == argCountryId
     ? "Provincias"
-    : countryId == braCountryId
+    : formData.country_id == braCountryId
       ? "Estados"
-      : countryId == chlCountryId
+      : formData.country_id == chlCountryId
         ? "Regiones"
         : "States";
 
@@ -82,7 +83,7 @@ const Address = ({
   useEffect(
     _ => {
       (async _ => {
-        const parsedCountryId = parseInt(countryId);
+        const parsedCountryId = parseInt(formData.country_id);
         const { data: addresses } = [
           argCountryId,
           braCountryId,
@@ -90,24 +91,24 @@ const Address = ({
         ].includes(parsedCountryId)
           ? await api.get("address-1st-levels", {
               params: {
-                country_id: countryId
+                country_id: formData.country_id
               }
             })
           : { data: null };
         setFirstLevelList(addresses);
       })();
     },
-    [countryId]
+    []
   );
 
-  const cityLabel = countryId == braCountryId
+  const cityLabel = formData.country_id == braCountryId
     ? "Cidade"
-    : countryId == chlCountryId
+    : formData.country_id == chlCountryId
       ? "Provincia"
       : "Ciudad";
 
   const thirdLevelLabel =
-    countryId == chlCountryId ? "Ciudad / Comuna" : "District";
+  formData.country_id == chlCountryId ? "Ciudad / Comuna" : "District";
 
   return (
     <div className="address">
@@ -122,13 +123,13 @@ const Address = ({
         onChange={handleCountryChange}
         pluralLabel="Países"
         requireds={requireds}
-        value={formData.country_id || countryId}
+        value={formData.country_id}
       />
 
       {/* 1st level */}
       {[argCountryId, braCountryId, chlCountryId]
         .map(id => id + "")
-        .includes(countryId) && (
+        .includes(formData.country_id) && (
         <SelectFormGroup
           error={error}
           label={firstLevelLabel}
@@ -139,12 +140,12 @@ const Address = ({
           onChange={handleInputChange}
           pluralLabel={firstLevelPluralLabel}
           requireds={requireds}
-          value={formData.address_1st_level || address_1st_level}
+          value={formData.address_1st_level}
         />
       )}
 
       {/* city */}
-      {[braCountryId, chlCountryId].map(id => id + "").includes(countryId) && (
+      {[braCountryId, chlCountryId].  map(id => id + "").includes(formData.country_id) && (
         <FormGroup>
           <Label htmlFor="city">{cityLabel}</Label>
           <Input
@@ -153,14 +154,14 @@ const Address = ({
             onChange={handleInputChange}
             required={requireds}
             type="text"
-            value={formData.city || city}
+            value={formData.city}
           />
           <InvalidFeedback error={error} loading={loading} name="city" />
         </FormGroup>
       )}
 
       {/* 3rd level */}
-      {[chlCountryId].map(id => id + "").includes(countryId) && (
+      {[chlCountryId].map(id => id + "").includes(formData.country_id) && (
         <FormGroup>
           <Label htmlFor="address_3rd_level">{thirdLevelLabel}</Label>
           <Input
@@ -169,7 +170,7 @@ const Address = ({
             onChange={handleInputChange}
             required={requireds}
             type="text"
-            value={formData.address_3rd_level || address_3rd_level}
+            value={formData.address_3rd_level}
           />
           <InvalidFeedback
             error={error}
@@ -187,7 +188,7 @@ const Address = ({
           onChange={handleInputChange}
           required={requireds}
           type="text"
-          value={formData.address || address}
+          value={formData.address}
         />
         <InvalidFeedback error={error} loading={loading} name="address" />
       </FormGroup>
