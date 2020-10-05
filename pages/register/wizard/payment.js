@@ -23,30 +23,10 @@ const Payment = ({
   api,
   requireds,
   handleSubmit,
+  handleFormState,
   formData,
   setFormData
 }) => {
-  useEffect(
-    _ => {
-      setFormData({
-        ...formData,
-        package_id: "",
-        paymentMethodId: null,
-        payment_os: null,
-        cash_paymentMethodId: null,
-        terms: null,
-        discount_id: null,
-        cardNumber: null,
-        cardHolderName: null,
-        cardExpirationDate: null,
-        cardSecurityCode: null,
-        paymentMethodCode: null,
-        docType: "RUT",
-        docNumber: null
-      });
-    }
-  );
-
   const theme = useContext(ThemeContext);
   const primaryColor = Color(theme.colors.primary)
     .hsl()
@@ -66,23 +46,21 @@ const Payment = ({
     errors: {}
   });
 
-
-
-  // const [values, setValues] = useState({
-  //   package_id: "",
-  //   paymentMethodId: null,
-  //   payment_os: null,
-  //   cash_paymentMethodId: null,
-  //   terms: null,
-  //   discount_id: null,
-  //   cardNumber: null,
-  //   cardHolderName: null,
-  //   cardExpirationDate: null,
-  //   cardSecurityCode: null,
-  //   paymentMethodCode: null,
-  //   docType: "RUT",
-  //   docNumber: null
-  // });
+  const [values, setValues] = useState({
+    package_id: "",
+    paymentMethodId: null,
+    payment_os: null,
+    cash_paymentMethodId: null,
+    terms: null,
+    discount_id: null,
+    cardNumber: null,
+    cardHolderName: null,
+    cardExpirationDate: null,
+    cardSecurityCode: null,
+    paymentMethodCode: null,
+    docType: "RUT",
+    docNumber: null
+  });
 
   const [cardImg, setCardImg] = useState(null);
   const [creditCard, setCreditCard] = useState(null);
@@ -96,7 +74,7 @@ const Payment = ({
   const credit_card_id = 1;
   const debit_card_id = 2;
   const isCardPayment = [credit_card_id, debit_card_id].includes(
-    formData.paymentMethodId
+    values.paymentMethodId
   );
 
   const [payMethods, setPayMethods] = useState();
@@ -115,16 +93,23 @@ const Payment = ({
   /* handle payment method change */
   function onPaymentChange(e) {
     setValues({
-      ...formData,
+      ...values,
       paymentMethodId: parseInt(e.target.value, 10),
       cash_paymentMethodId: null
+    });
+  }
+
+  function onCashPaymentMethodChange(e) {
+    setValues({
+      ...values,
+      cash_paymentMethodId: parseInt(e.target.value, 10)
     });
   }
 
   const handleInputChange = e => {
     const { checked, name, value, type } = e.target;
     setValues({
-      ...formData,
+      ...values,
       [name]:
         type === "checkbox"
           ? checked
@@ -140,7 +125,7 @@ const Payment = ({
     const { name, value } = e.target;
 
     setValues({
-      ...formData,
+      ...values,
       [name]: value
     });
 
@@ -158,7 +143,7 @@ const Payment = ({
             setCardImg(details[0].secure_thumbnail);
             setCreditCard(details[0]);
             setValues({
-              ...formData,
+              ...values,
               ["paymentMethodCode"]: details[0].id,
               ["cardNumber"]: cardnumber
             });
@@ -208,22 +193,22 @@ const Payment = ({
     let expirationMonth = "";
     let expirationYear = "";
 
-    if (formData.cardExpirationDate) {
-      expirationMonth = formData.cardExpirationDate.split("/")[0];
-      expirationYear = formData.cardExpirationDate.split("/")[1];
+    if (values.cardExpirationDate) {
+      expirationMonth = values.cardExpirationDate.split("/")[0];
+      expirationYear = values.cardExpirationDate.split("/")[1];
     }
 
-    switch (formData.paymentMethodId) {
+    switch (values.paymentMethodId) {
       case 1:
         MercadoPago.createToken(
           {
-            cardNumber: formData.cardNumber,
-            cardholderName: formData.cardHolderName,
+            cardNumber: values.cardNumber,
+            cardholderName: values.cardHolderName,
             cardExpirationMonth: expirationMonth,
             cardExpirationYear: expirationYear,
-            securityCode: formData.cardSecurityCode,
-            docType: formData.docType,
-            docNumber: formData.docNumber,
+            securityCode: values.cardSecurityCode,
+            docType: values.docType,
+            docNumber: values.docNumber,
             email: user.email
           },
           async (statusCode, response) => {
@@ -257,13 +242,12 @@ const Payment = ({
             try {
               token = response.id;
 
-              // TODO: Descomentar - Não é possível testar em homolog
-              // const res = await api.post(`register/subscribe`, {
-              //   package_id: package_id,
-              //   payment_method_id: formData.paymentMethodId,
-              //   payment_method_code: formData.paymentMethodCode,
-              //   token: token
-              // });
+              const res = await api.post(`register/subscribe`, {
+                package_id: package_id,
+                payment_method_id: values.paymentMethodId,
+                payment_method_code: values.paymentMethodCode,
+                token: token
+              });
 
               handleSubmit(4, null);
             } catch (error) {
@@ -294,8 +278,8 @@ const Payment = ({
         try {
           const res = await api.post(`register/subscribe`, {
             package_id: package_id,
-            payment_method_id: formData.paymentMethodId,
-            payment_method_code: formData.paymentMethodCode
+            payment_method_id: values.paymentMethodId,
+            payment_method_code: values.paymentMethodCode
           });
 
           setLoading(false);
@@ -307,21 +291,6 @@ const Payment = ({
         break;
     }
   };
-
-  // function appName() {
-  //   if (CONFIG.projectName) {
-  //     return <div style={ { display: 'inline-block' } }>
-  //       <strong className="text-primary">{ CONFIG.projectName.split(' ')[0] }</strong>{ CONFIG.projectName.split(' ')[1] }
-  //     </div>
-  //   } else if (CONFIG.appName) {
-  //     return <div style={ { display: 'inline-block' } }>
-  //       <strong className="text-primary">{ CONFIG.appName.split(' ')[0] }</strong>{ CONFIG.appName.split(' ')[1] }
-  //     </div>
-  //   }
-  //   return <div style={ { display: 'inline-block' } }>
-  //     <strong className="text-primary">Project</strong>Name!
-  //   </div>
-  // }
 
   return (
     <div className="register-confirm container text-center responsive">
@@ -343,14 +312,14 @@ const Payment = ({
                     name="paymentMethodId"
                     required={requireds}
                     onChange={onPaymentChange}
-                    value={formData.paymentMethodId}
+                    value={values.paymentMethodId}
                   >
                     <option value="0">Selecione</option>
                     {paymentMethods &&
                       paymentMethods.map((paymentMethod, key) => (
                         <option
                           key={paymentMethod.id}
-                          state={formData.paymentMethodId}
+                          state={values.paymentMethodId}
                           value={paymentMethod.id}
                         >
                           {paymentMethod.name}
@@ -365,7 +334,7 @@ const Payment = ({
                 </FormGroup>
               </div>
             </div>
-            {formData.paymentMethodId == 1 && (
+            {values.paymentMethodId == 1 && (
               <div className="row">
                 <div className="col-12">
                   <FormGroup>
@@ -484,11 +453,14 @@ const Payment = ({
                   >
                     Pagar
                   </Button>
+                  <Button color="primary" onClick={() => handleFormState(3)}>
+                    Volver
+                  </Button>
                 </div>
               </div>
             )}
 
-            {formData.paymentMethodId == 3 && (
+            {values.paymentMethodId == 3 && (
               <div className={"row"}>
                 <div className="col-12">
                   <Button
@@ -500,6 +472,9 @@ const Payment = ({
                     onClick={submitCredit}
                   >
                     Gerar Boleto
+                  </Button>
+                  <Button color="primary" onClick={() => handleFormState(3)}>
+                    Volver
                   </Button>
                 </div>
               </div>
@@ -524,9 +499,6 @@ const Payment = ({
                 <p className={"price"}>$ {selectedPackage.amount}</p>
               </div>
             </div>
-            <Button color="primary" onClick={() => handleFormState(2)}>
-              Volver
-            </Button>
           </div>
         </div>
       </div>
