@@ -62,7 +62,7 @@ const Payment = ({
 
   const [loading, setLoading] = useState();
 
-  const businessUnitPublicKey = 'TEST-5121749c-2a58-4b7d-b98c-9b9932a3a4cc'
+  const businessUnitPublicKey = 'APP_USR-fe20d55f-f7d1-49e0-855b-4d5c147ddd0b'
   const [isMercadoPagoReady, setIsMercadoPagoReady] = useState(false)
   const MercadoPago = ready && HAS_WINDOW ? window.Mercadopago : null
 
@@ -450,7 +450,7 @@ const Payment = ({
                   Total
                 </h6>
                 <p className={ "price" }>
-                  $ { selectedPackage.amount }
+                  { selectedPackage.amount }
                 </p>
               </div>
             </div>
