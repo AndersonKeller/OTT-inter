@@ -73,6 +73,8 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
             layoutProps={layoutProps}
             handleSubmit={handleSubmit}
             handleFormState={handleFormState}
+            formData={formData}
+            setFormData={setFormData}
           />
         );
       case 2:
