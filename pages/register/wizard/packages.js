@@ -115,6 +115,7 @@ const PackagesDetails = ({
                   disabled={loading}
                   loading={loading}
                   type="submit"
+                  style={ { marginLeft: "20px"} }
                 >
                   Siguiente
                 </Button>

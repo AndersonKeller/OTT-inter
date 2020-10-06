@@ -193,13 +193,12 @@ const UserAddressForm = ({
               <Button color="primary" onClick={() => handleFormState(1)}>
                 Volver
               </Button>
-            </div>
-            <div className="text-center">
               <Button
                 color="secondary"
                 type="submit"
                 disabled={loading}
                 loading={loading}
+                style={ { marginLeft: "20px"} }
               >
                 Siguiente
               </Button>

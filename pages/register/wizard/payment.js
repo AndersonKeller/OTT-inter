@@ -67,9 +67,9 @@ const Payment = ({
 
   const [loading, setLoading] = useState();
 
-  const businessUnitPublicKey = "TEST-5121749c-2a58-4b7d-b98c-9b9932a3a4cc";
-  const [isMercadoPagoReady, setIsMercadoPagoReady] = useState(false);
-  const MercadoPago = ready && HAS_WINDOW ? window.Mercadopago : null;
+  const businessUnitPublicKey = 'APP_USR-fe20d55f-f7d1-49e0-855b-4d5c147ddd0b'
+  const [isMercadoPagoReady, setIsMercadoPagoReady] = useState(false)
+  const MercadoPago = ready && HAS_WINDOW ? window.Mercadopago : null
 
   const credit_card_id = 1;
   const debit_card_id = 2;
@@ -300,7 +300,6 @@ const Payment = ({
       </h2>
       <div className="row">
         <div className="col-md-6 paymentMethod">
-          <div className="row">
             <div className="row w-100">
               <div className="col-12">
                 <FormGroup>
@@ -453,9 +452,6 @@ const Payment = ({
                   >
                     Pagar
                   </Button>
-                  <Button color="primary" onClick={() => handleFormState(3)}>
-                    Volver
-                  </Button>
                 </div>
               </div>
             )}
@@ -473,16 +469,9 @@ const Payment = ({
                   >
                     Gerar Boleto
                   </Button>
-                  <Button color="primary" onClick={() => handleFormState(3)}>
-                    Volver
-                  </Button>
                 </div>
               </div>
             )}
-          </div>
-          <Button color="primary" onClick={() => handleFormState(3)}>
-            Volver
-          </Button>
         </div>
 
         <div className="col-md-6">
@@ -499,10 +488,13 @@ const Payment = ({
             <div className={"price-breakdown"}>
               <div className="checkout-total">
                 <h6>Total</h6>
-                <p className={"price"}>$ {selectedPackage.amount}</p>
+                <p className={"price"}> {selectedPackage.amount}</p>
               </div>
             </div>
           </div>
+          <Button color="primary" onClick={() => handleFormState(3)}>
+            Volver
+          </Button>
         </div>
       </div>
       <style jsx global={true}>{`
