@@ -16,7 +16,7 @@ import withApi from '~/components/withApi'
 import Color from 'color'
 import { TENANT } from "~/constants/constants";
 
-const HomePage = ({ api, contents, featuredMedia, featuredMediaError, layoutProps }) => {
+const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, layoutProps }) => {
   const { user } = useContext(UserContext)
   const { appName: pageTitle } = CONFIG
   let [idx, setIdx] = useState(0)
@@ -134,77 +134,86 @@ const Cover = ({ error, media }) => {
     width,
   } = logo || {}
   const empezaYa = CONFIG.lang === 'es-CL' ? '¡Vívelo ahora!' : '¡Empieza Ya!'
-  return (
-    <div className="cover container-fluid">
+  return (<MediaLink watch {...{ media }}>
+    <a>
+      <div className="cover container-fluid">
 
-      {/* poster backaground banner image */}
-      {
-        poster_url && (
+        {/* poster backaground banner image */}
+
+        {poster_url && (
           <div className="cover__img row">
             <div className="col p-0">
+
               <CoverImgContent posterUrl={poster_url}>
+
                 <img alt="" className="d-none" src={poster_url} />
+
+
               </CoverImgContent>
+
+
             </div>
           </div>
         )
-      }
+        }
 
-      <div className="cover__contents row">
-        <div className="col-12 col-md-4 offset-md-1">
-          <div className="cover__infos">
 
-            {/* logo overlay image */}
-            {logo && (
-              <div className="row">
-                <div className="col-8 offset-2 col-md-12 offset-md-0">
-                  <h1 className="cover__logo">
-                    <picture>
-                      <source srcSet={webp} type="media/webp" />
-                      <source srcSet={png} type="media/png" />
-                      <img className="img-fluid" height={height} src={fallback} width={width} />
-                    </picture>
-                  </h1>
+
+        <div className="cover__contents row">
+          <div className="col-12 col-md-4 offset-md-1">
+            <div className="cover__infos">
+
+              {/* logo overlay image */}
+              {logo && (
+                <div className="row">
+                  <div className="col-8 offset-2 col-md-12 offset-md-0">
+                    <h1 className="cover__logo">
+                      <picture>
+                        <source srcSet={webp} type="media/webp" />
+                        <source srcSet={png} type="media/png" />
+                        <img className="img-fluid" height={height} src={fallback} width={width} />
+                      </picture>
+                    </h1>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* content's description */}
-            {description && (
-              <div className="row cover__description">
-                <div className="col-10 offset-1 col-md-12 offset-md-0">
-                  <p className="mb-0">{description}</p>
+              {/* content's description */}
+              {description && (
+                <div className="row cover__description">
+                  <div className="col-10 offset-1 col-md-12 offset-md-0">
+                    <p className="mb-0">{description}</p>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+
+            </div>
+
+            {/* cta buttons */}
+            <div className="row justify-content-center gutter-15">
+              {!user ? (
+                <div className="col-auto">
+                  <Link href="/signup" passHref>
+                    <Button>{empezaYa}</Button>
+                  </Link>
+                </div>
+              ) : <>
+                  <div className="col-auto">
+                    <MediaLink {...{ media }} passHref>
+                      <Button>Mira</Button>
+                    </MediaLink>
+                  </div>
+                  <div className="col-auto">
+                    <WishlistBtn movieId={media.id} />
+                  </div>
+                </>}
+            </div>
 
           </div>
-
-          {/* cta buttons */}
-          <div className="row justify-content-center gutter-15">
-            {!user ? (
-              <div className="col-auto">
-                <Link href="/signup" passHref>
-                  <Button>{empezaYa}</Button>
-                </Link>
-              </div>
-            ) : <>
-                <div className="col-auto">
-                  <MediaLink {...{ media }} passHref>
-                    <Button>Mira</Button>
-                  </MediaLink>
-                </div>
-                <div className="col-auto">
-                  <WishlistBtn movieId={media.id} />
-                </div>
-              </>}
-          </div>
-
         </div>
-      </div>
 
-      {/* styles */}
-      <style jsx>{`
+        {/* styles */}
+        <style jsx>{`
         .cover {
           font-size: 12px;
           line-height: 1.4;
@@ -261,7 +270,8 @@ const Cover = ({ error, media }) => {
         }
       `}</style>
 
-    </div>
+      </div >   </a>
+  </MediaLink>
   )
 }
 
