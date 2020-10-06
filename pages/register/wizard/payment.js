@@ -192,6 +192,7 @@ const Payment = ({
 
     switch (values.paymentMethodId) {
       case 1:
+      case 2:
         MercadoPago.createToken({
           cardNumber: values.cardNumber,
           cardholderName: values.cardHolderName,
@@ -284,6 +285,8 @@ const Payment = ({
             payment_method_code: values.paymentMethodCode,
           })
 
+          open(res.data.url);
+
           setLoading(false)
 
         } catch (e) {
@@ -299,6 +302,12 @@ const Payment = ({
 
   }
 
+  function open(url) {
+    const win = window.open(url, '_blank');
+    if (win != null) {
+      win.focus();
+    }
+  }
   // function appName() {
   //   if (CONFIG.projectName) {
   //     return <div style={ { display: 'inline-block' } }>
@@ -349,7 +358,7 @@ const Payment = ({
                 </FormGroup>
               </div>
             </div>
-            { values.paymentMethodId == 1 && (
+            { values.paymentMethodId == 1 || values.paymentMethodId == 2 && (
               <div className="row">
                 <div className="col-12">
                   <FormGroup>
@@ -427,6 +436,8 @@ const Payment = ({
                 </div>
               </div>
             ) }
+
+
 
           </div>
         </div>
