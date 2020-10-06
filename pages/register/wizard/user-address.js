@@ -7,106 +7,169 @@ import Address from "~/pages/register/wizard/partials/address"
 import Button from "~/components/button";
 import { ThemeContext } from "styled-components";
 import Color from "color";
-import { CONFIG } from "~/config";
 import NameProject from '~/components/NameProject/index'
 
+const UserAddressForm = ({
+  api,
+  layoutProps,
+  handleSubmit,
+  handleFormState,
+  formData,
+  setFormData
+}) => {
 
+  const formDataHasProperties = formData.hasOwnProperty("country_id")
+                              && formData.hasOwnProperty("address_1st_level")
+                              && formData.hasOwnProperty("city")
+                              && formData.hasOwnProperty("address_3rd_level")
+                              && formData.hasOwnProperty("address");
 
-const UserAddressForm = ({ api, layoutProps, handleSubmit }) => {
+  const theme = useContext(ThemeContext);
+  const primaryColor = Color(theme.colors.primary)
+    .hsl()
+    .string();
 
-  const theme = useContext(ThemeContext)
-  const primaryColor = Color(theme.colors.primary).hsl().string()
-
-  const requireds = IS_PRODUCTION
+  const requireds = IS_PRODUCTION;
 
   const [loading, setLoading] = useState(false);
 
   const [values, setValues] = useState({
-    country_id: '',
-    address_1st_level: '',
-    city: '',
-    address_3rd_level: '',
-    address: '',
-  })
+    country_id: "",
+    address_1st_level: "",
+    city: "",
+    address_3rd_level: "",
+    address: ""
+  });
 
-  const { user } = useContext(UserContext)
-  const [error, setError] = useState()
+  const { user } = useContext(UserContext);
+  const [error, setError] = useState();
 
   /* fill user form */
-  useEffect(_ => {
-    if (user) {
-      console.log(user);
-      setValues({
-        ...values,
-        address: user.address ? user.address : '',
-        city: user.city ? user.city : '',
-        country_id: user.country_id ? user.country_id : '',
-        address_1st_level: user.address_1st_level_id,
-        address_3rd_level: user.address_3rd_level
-      })
-    }
-  }, [user])
+  useEffect(
+    _ => {
+      if (user) {
+        console.log("Primeiro useEffect (componentDidMount)")
+
+        console.log(`\n\n user --  ${JSON.stringify(user)} \n\n`);
+
+        console.log(`\n\n formData before set ${JSON.stringify(formData)} \n\n`);
+
+        if (!formDataHasProperties) {
+          setFormData({
+            ...formData,
+            address: user.address ? user.address : "",
+            city: user.city ? user.city : "",
+            country_id: user.country_id ? user.country_id : "",
+            address_1st_level: user.address_1st_level_id,
+            address_3rd_level: user.address_3rd_level
+          });
+        }
+
+        console.log(`\n\n formData after set ${JSON.stringify(formData)} \n\n`);
+
+      }
+    },
+    [user]
+  );
 
   const handleInputChange = e => {
-    const { checked, name, value, type } = e.target
-    setValues({
-      ...values,
-      [name]: type === 'checkbox' ?
-        (checked ? (value === 'true' ? true : value) : false) :
-        value,
-    })
-  }
+    const { checked, name, value, type } = e.target;
+    // setValues({
+    //   ...values,
+    //   [name]:
+    //     type === "checkbox"
+    //       ? checked
+    //         ? value === "true"
+    //           ? true
+    //           : value
+    //         : false
+    //       : value
+    // });
+
+    setFormData({
+      ...formData,
+      [name]:
+        type === "checkbox"
+          ? checked
+            ? value === "true"
+              ? true
+              : value
+            : false
+          : value
+    });
+  };
 
   const submit = async e => {
-
     e.preventDefault();
 
     setLoading(true);
 
     try {
-
       let userData = {
-        country_id: values.country_id,
-        address_1st_level: values.address_1st_level,
-        city: values.city,
-        address_3rd_level: values.address_3rd_level,
-        address: values.address,
+        country_id: formData.country_id,
+        address_1st_level: formData.address_1st_level,
+        city: formData.city,
+        address_3rd_level: formData.address_3rd_level,
+        address: formData.address,
         email: user.email
-      }
+      };
 
-      const res = await api.post(`register/complete-user-address`, userData)
+      // let userData;
 
-      handleSubmit(2, userData)
+      // if (formDataHasProperties) {
+      //   userData = {
+      //     country_id: formData.country_id,
+      //     address_1st_level: formData.address_1st_level,
+      //     city: formData.city,
+      //     address_3rd_level: formData.address_3rd_level,
+      //     address: formData.address,
+      //     email: user.email
+      //   };
+      // } else {
+      //   userData = {
+      //     country_id: values.country_id,
+      //     address_1st_level: values.address_1st_level,
+      //     city: values.city,
+      //     address_3rd_level: values.address_3rd_level,
+      //     address: values.address,
+      //     email: user.email
+      //   };
+      // }
 
+      const res = await api.post(`register/complete-user-address`, userData);
+
+      // setFormData({...values});
+      // setFormData({...formData});
+
+      // console.log(`\n\n formData ${JSON.stringify(formData)}`);
+
+      handleSubmit(2, userData);
     } catch (error) {
-
       if (error.response) {
-        const { data, status } = error.response
+        const { data, status } = error.response;
         if (status === 422) {
-          setError(data)
+          setError(data);
         }
       } else if (error.request) {
-        setError(error)
+        setError(error);
       } else {
-        setError(error)
+        setError(error);
       }
-
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-
-  }
-
-
+  };
 
   return (
     <form method="post" onSubmit={submit}>
       <div className="register-confirm container text-center responsive">
-
-        <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Sé parte de { <NameProject/> }
-          <span className={ "text-primary" }>!</span></h2>
+        <h2 className="card-title text-center">
+          <span className={"text-primary"}>¡</span>Sé parte de {<NameProject />}
+          <span className={"text-primary"}>!</span>
+        </h2>
         <div className="card-subtitle d-inline-block">
-          ¡Conéctate con otros usuarios a tu alrededor, sin tener que salir de casa!
+          ¡Conéctate con otros usuarios a tu alrededor, sin tener que salir de
+          casa!
         </div>
 
         <div className="row">
@@ -119,14 +182,26 @@ const UserAddressForm = ({ api, layoutProps, handleSubmit }) => {
               requireds={requireds}
               setValues={setValues}
               values={values}
+              formData={formData}
+              setFormData={setFormData}
             />
           </div>
         </div>
         <div className="row mt-3">
           <div className="col-md-12">
             <div className="text-center">
-              <Button color="secondary" type="submit" disabled={loading}
-                loading={loading}>Siguiente</Button>
+              <Button color="primary" onClick={() => handleFormState(1)}>
+                Volver
+              </Button>
+              <Button
+                color="secondary"
+                type="submit"
+                disabled={loading}
+                loading={loading}
+                style={ { marginLeft: "20px"} }
+              >
+                Siguiente
+              </Button>
             </div>
           </div>
         </div>
@@ -134,11 +209,11 @@ const UserAddressForm = ({ api, layoutProps, handleSubmit }) => {
       <style jsx global={true}>{`
 
         .text-primary {
-           color: ${ primaryColor} !important;
+          color: ${primaryColor} !important;
         }
 
         strong.text-primary {
-           color: ${ primaryColor} !important;
+           color: ${primaryColor} !important;
         }
 
 
@@ -156,66 +231,64 @@ const UserAddressForm = ({ api, layoutProps, handleSubmit }) => {
         }
 
         .text-primary {
-           color: ${ primaryColor} !important;
+          color: ${primaryColor} !important;
         }
+
         .register-confirm {
           color: #666666;
         }
 
-         @media(max-width: 765px) {
-
-        .responsive{
-          padding: 0px;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-
+        @media(max-width: 765px) {
+          .responsive{
+            padding: 0px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
           }
-         .card{
-          //  height:100%!important;
 
-         }
-         .card-body{
-          background-image: url()!important;
-          // height:100%!important;
-
-         }
-
-         label {
-              display: inline-block;
-              margin-bottom: .5rem;
-              text-align: center;
-            }
-
-         .justify-content-end {
-           display:flex;
-           justify-content:center!important;
-         }
-         form{
-           padding: 0px!important;
-         }
-         .row {
-          display: -ms-flexbox;
-          display: flex;
-          -ms-flex-wrap: wrap;
-           margin-right: 0px;
-           margin-left: 0px;
+          .card-body{
+            background-image: url()!important;
           }
-        .col-8 {
-         max-width: 100%!important;
+
+          label {
+            display: inline-block;
+            margin-bottom: .5rem;
+            text-align: center;
           }
-         .offset-3{
-          margin-left:0px;
+
+          .justify-content-end {
+            display:flex;
+            justify-content:center!important;
           }
-        }
+
+          form{
+            padding: 0px!important;
+          }
+
+          .row {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            margin-right: 0px;
+            margin-left: 0px;
+          }
+
+          .col-8 {
+            max-width: 100%!important;
+          }
 
           .text-primary {
-           color: ${ primaryColor} !important;
+            color: ${primaryColor} !important;
+          }
         }
 
-      ` }</style>
+      .text-primary {
+        color: ${primaryColor} !important;
+      }
+
+      `}</style>
     </form>
-  )
-}
+  );
+};
 
 export default withAuth(UserAddressForm, true);
