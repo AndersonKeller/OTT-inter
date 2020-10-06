@@ -480,6 +480,9 @@ const Payment = ({
               </div>
             )}
           </div>
+          <Button color="primary" onClick={() => handleFormState(3)}>
+            Volver
+          </Button>
         </div>
 
         <div className="col-md-6">
