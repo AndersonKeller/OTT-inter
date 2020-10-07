@@ -21,7 +21,7 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
   const { appName: pageTitle } = CONFIG
   let [idx, setIdx] = useState(0)
   return (
-    <Layout paddingTop={false} {...layoutProps}>
+    <Layout paddingTop={false} {...layoutProps} media={featuredMedia}>
       <Head>
         <title>{pageTitle}</title>
         <link rel="apple-touch-icon" sizes="180x180" href={`/static/${TENANT}/favicon/apple-touch-icon.png`} />
@@ -69,7 +69,7 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
           }
         }
       `}</style>
-    </Layout>
+    </Layout >
   )
 }
 

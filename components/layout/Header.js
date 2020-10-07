@@ -1,5 +1,6 @@
 import Color from 'color'
 import Link from 'next/link'
+import MediaLink from '~/components/MediaLink/MediaLink'
 import { useRouter } from 'next/router'
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { GoSearch } from 'react-icons/go';
@@ -35,7 +36,7 @@ const StyledHeader = styled.header`
   }
 `
 
-const Header = ({ closed, layoutColor, menus }) => {
+const Header = ({ closed, layoutColor, menus, media }) => {
   const hasWindow = typeof window !== 'undefined'
 
   // scrolled state
@@ -92,16 +93,16 @@ const Header = ({ closed, layoutColor, menus }) => {
   return (
 
 
-    <StyledHeader closed={closed} layoutColor={layoutColor} scrolled={scrolled}>
+    <StyledHeader closed={closed} layoutColor={layoutColor} scrolled={scrolled} media={media}>
       <nav className="nav">
         {/* club logo */}
-        {(!closed && (TENANT !== 'lau'))&& (
+        {(!closed && (TENANT !== 'lau')) && (
           <HeaderClubLogo />
         )}
 
 
         {/* logo */}
-        <HeaderAppLogo closed={closed} />
+        <HeaderAppLogo closed={closed} media={media} />
 
         {!closed && (
           <>
@@ -242,14 +243,16 @@ const HeaderClubLogo = _ => {
   )
 }
 
-const HeaderAppLogo = ({ closed }) => {
+const HeaderAppLogo = ({ closed, media }) => {
+
   return (
     <h1 className="logo">
-      <ActiveLink href="/">
+
+      <MediaLink {...{ media }} watch>
         <a>
           <LogoApp height={TENANT === 'lau' ? 30 : TENANT === 'river' ? 22 : 25} />
         </a>
-      </ActiveLink>
+      </MediaLink>
       <style jsx>{`
         .logo {
           align-items: center;
@@ -268,7 +271,7 @@ const HeaderAppLogo = ({ closed }) => {
           }
         }
       `}</style>
-    </h1>
+    </h1 >
   )
 }
 

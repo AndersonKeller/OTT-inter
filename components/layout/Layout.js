@@ -11,24 +11,24 @@ import Color from "color";
 import { ThemeContext } from "styled-components";
 
 const Layout = ({
-                  apiVersion,
-                  children,
-                  color: layoutColor = 'black',
-                  errorCode,
-                  header,
-                  menus,
-                  menusError,
-                  paddingTop = true,
-                  footer = '',
-                  customClass = ''
-                }) => {
-
+  media,
+  apiVersion,
+  children,
+  color: layoutColor = 'black',
+  errorCode,
+  header,
+  menus,
+  menusError,
+  paddingTop = true,
+  footer = '',
+  customClass = ''
+}, ) => {
   const theme = useContext(ThemeContext)
   const primaryColor
     = Color(theme.colors.primary).hsl().string()
 
   if (errorCode) {
-    return <CustomError statusCode={ errorCode }/>
+    return <CustomError statusCode={errorCode} />
   }
   if (header === 'closed') {
     paddingTop = false
@@ -54,13 +54,14 @@ const Layout = ({
     }
   }, [flash_message])
 
-  function renderHeader() {
+  function renderHeader(media) {
     if (header !== 'hidden') {
-      return <Header { ...{
+      return <Header {...{
         closed: header === 'closed',
         layoutColor,
         menus: menusError ? null : menus,
-      } } />
+        media
+      }} />
     }
     paddingTop = false
     return null
@@ -68,32 +69,32 @@ const Layout = ({
 
   function renderFooter() {
     if (footer !== 'hidden') {
-      return <Footer apiVersion={ apiVersion } layoutColor={ layoutColor }/>
+      return <Footer apiVersion={apiVersion} layoutColor={layoutColor} />
     }
     return null
   }
 
   return (
     <div className={customClass}>
-      <ToastContainer newestOnTop/>
+      <ToastContainer newestOnTop />
 
-      { renderHeader() }
+      {renderHeader(media)}
 
-      <main className={ !paddingTop ? 'no-padding' : '' }>
-        { children }
+      <main className={!paddingTop ? 'no-padding' : ''}>
+        {children}
       </main>
 
-      { renderFooter() }
+      {renderFooter()}
 
-      <AuthModal/>
+      <AuthModal />
 
-      <style jsx global>{ `
-        
+      <style jsx global>{`
+
         :root {
-          --color: var(--${ layoutColor === 'white' ? 'black' : 'white' });
+          --color: var(--${ layoutColor === 'white' ? 'black' : 'white'});
         }
         body {
-          ${ layoutColor === 'white' ? 'background-color: var(--white) !important;' : '' });
+          ${ layoutColor === 'white' ? 'background-color: var(--white) !important;' : ''});
         }
         main {
           flex-grow: 1;
@@ -112,8 +113,10 @@ Layout.getInitialProps = async ctx => {
   try {
     const menus = await loadMenus(ctx)
     const { data } = await api.get('version')
-    const { version: apiVersion } = data
-    return { apiVersion, menus }
+    const { version: apiVersion } = data;
+    const media = ctx.query;
+
+    return { apiVersion, menus, media }
   } catch (error) {
     if (error.response) {
       console.log(`The request was made and the server responded with a status code
