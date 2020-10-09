@@ -121,7 +121,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
   return (
     <Layout
       header={"hidden"}
-      footer={"hidden"}
+      footer={"show"}
       customClass={"subscription-screen"}
     >
       <Header />

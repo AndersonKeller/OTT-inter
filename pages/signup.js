@@ -19,6 +19,7 @@ import { CONFIG } from '~/config'
 import Header from '~/components/layout/HeaderCad'
 import LogoApp from '~/components/LogoApp';
 import NameProject from '~/components/NameProject/index'
+import Footer from '~/components/layout/Footer'
 
 
 const Signup = ({ }) => {
@@ -190,7 +191,7 @@ const Signup = ({ }) => {
                         checked={values.terms}
                         name="terms"
                         onChange={handleInputChange}
-                        required={ true }
+                        required={true}
                         type="checkbox"
                         value={`true`}
                       />
@@ -282,6 +283,8 @@ const Signup = ({ }) => {
     }
       ` }</style>
       </div>
+      <div> <Footer /></div>
+
     </Layout>
 
   )
