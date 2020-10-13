@@ -35,7 +35,8 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
       <div className="index">
 
         {/* cover */}
-        <Cover error={featuredMediaError} media={featuredMedia} />
+        <div>
+          <Cover error={featuredMediaError} media={featuredMedia} /></div><br></br>
         {/* <Cover media={featuredMedia} /> */}
 
         {/* contents */}
@@ -52,7 +53,7 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
                 return showBanner && <BannerSection movie={item.slug} key={index} />
             }
           })}
-        </div>
+        </div><br></br>
 
       </div>
       <style jsx>{`
@@ -90,38 +91,38 @@ HomePage.getInitialProps = async ctx => {
 export default withApi(HomePage)
 
 const CoverImgContent = styled.div`
-  background-image:
+    background-image:
     linear-gradient(to bottom, ${props => Color(props.theme.colors.background).fade(1).string()} 80%, ${props => props.theme.colors.background} 100%),
     radial-gradient(circle at 50% 50%, ${props => Color(props.theme.colors.background).fade(1).string()} 25%, ${props => Color(props.theme.colors.background).fade(.075).string()} 75%),
     url('${props => props.posterUrl}');
-  background-position: 50% 0, 50% 0, 75% 0;
-  background-repeat: no-repeat, no-repeat, no-repeat;
-  background-size: cover, cover, cover;
+    background-position: 50% 0, 50% 0, 75% 0;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-size: cover, cover, cover;
   &::before {
-    content: '';
-    display: block;
-    padding-bottom: 112.5%;
-  }
+        content: '';
+      display: block;
+      padding-bottom: 112.5%;
+    }
   @media (min-width: 768px) {
-    background-image:
+        background - image:
       linear-gradient(to bottom, ${props => Color(props.theme.colors.background).fade(1).string()} 80%, ${props => props.theme.colors.background} 100%),
       radial-gradient(circle at 67.5% 57.5%, ${props => Color(props.theme.colors.background).fade(1).string()} 25%, ${props => Color(props.theme.colors.background).fade(.075).string()} 42.5%),
       url('${props => props.posterUrl}');
     background-position: 50% 0, 50% 0, 40% 50%;
     &::before {
-      padding-bottom: 80%;
+        padding - bottom: 80%;
     }
   }
   @media (min-width: 1200px) {
-    background-position: 50% 0, 50% 0, 75% 50%;
+        background - position: 50% 0, 50% 0, 75% 50%;
     &::before {
-      padding-bottom: 48%;
+        padding - bottom: 48%;
     }
   }
 `
 
 const Cover = ({ error, media }) => {
-  console.log('erro :', error);
+
   if (error) {
     return (
       <p>No se puede cargar contenido destacado</p>
@@ -135,89 +136,86 @@ const Cover = ({ error, media }) => {
     width,
   } = logo || {}
   const empezaYa = CONFIG.lang === 'es-CL' ? '¡Vívelo ahora!' : '¡Empieza Ya!'
-  return (
+  return (<MediaLink watch {...{ media }}>
+    <a>
+      <div className="cover container-fluid">
 
-    <Link href={media && media.video_file ? `/media/${media.slug}/watch` : '/'} >
+        {/* poster backaground banner image */}
 
-      <a>
-        <div className="cover container-fluid">
+        {poster_url && (
+          <div className="cover__img row">
+            <div className="col p-0">
 
-          {/* poster backaground banner image */}
+              <CoverImgContent posterUrl={poster_url}>
 
-          {poster_url && (
-            <div className="cover__img row">
-              <div className="col p-0">
-
-                <CoverImgContent posterUrl={poster_url}>
-
-                  <img alt="" className="d-none" src={poster_url} />
+                <img alt="" className="d-none" src={poster_url} />
 
 
-                </CoverImgContent>
+              </CoverImgContent>
 
-
-              </div>
-            </div>
-          )
-          }
-
-
-
-          <div className="cover__contents row">
-            <div className="col-12 col-md-4 offset-md-1">
-              <div className="cover__infos">
-
-                {/* logo overlay image */}
-                {logo && (
-                  <div className="row">
-                    <div className="col-8 offset-2 col-md-12 offset-md-0">
-                      <h1 className="cover__logo">
-                        <picture>
-                          <source srcSet={webp} type="media/webp" />
-                          <source srcSet={png} type="media/png" />
-                          <img className="img-fluid" height={height} src={fallback} width={width} />
-                        </picture>
-                      </h1>
-                    </div>
-                  </div>
-                )}
-
-                {/* content's description */}
-                {description && (
-                  <div className="row cover__description">
-                    <div className="col-10 offset-1 col-md-12 offset-md-0">
-                      <p className="mb-0">{description}</p>
-                    </div>
-                  </div>
-                )}
-
-              </div>
-
-              {/* cta buttons */}
-              <div className="row justify-content-center gutter-15">
-                {!user ? (
-                  <div className="col-auto">
-                    <Link href="/signup" passHref>
-                      <Button>{empezaYa}</Button>
-                    </Link>
-                  </div>
-                ) : <>
-                    <div className="col-auto">
-                      <MediaLink {...{ media }} passHref>
-                        <Button>Mira</Button>
-                      </MediaLink>
-                    </div>
-                    <div className="col-auto">
-                      <WishlistBtn movieId={media.id} />
-                    </div>
-                  </>}
-              </div>
 
             </div>
           </div>
+        )
+        }
 
-          {/* styles */}
-          <style jsx>{`
+
+
+        <div className="cover__contents row">
+          <div className="col-12 col-md-4 offset-md-1">
+            <div className="cover__infos">
+
+              {/* logo overlay image */}
+              {logo && (
+                <div className="row">
+                  <div className="col-8 offset-2 col-md-12 offset-md-0">
+                    <h1 className="cover__logo">
+                      <picture>
+                        <source srcSet={webp} type="media/webp" />
+                        <source srcSet={png} type="media/png" />
+                        <img className="img-fluid" height={height} src={fallback} width={width} />
+                      </picture>
+                    </h1>
+                  </div>
+                </div>
+              )}
+
+              {/* content's description */}
+              {description && (
+                <div className="row cover__description">
+                  <div className="col-10 offset-1 col-md-12 offset-md-0">
+                    <p className="mb-0">{description}</p>
+                  </div>
+                </div>
+              )}
+
+            </div>
+
+            {/* cta buttons */}
+            <div className="row justify-content-center gutter-15">
+              {!user ? (
+                <div className="col-auto">
+                  <Link href="/signup" passHref>
+                    <Button>{empezaYa}</Button>
+                  </Link>
+                </div>
+              ) : <>
+                  <div className="col-auto">
+                    <MediaLink {...{ media }} passHref>
+                      <Button>Mira</Button>
+                    </MediaLink>
+                  </div>
+                  <div className="col-auto">
+                    <WishlistBtn movieId={media.id} />
+                  </div>
+                </>}
+            </div>
+
+          </div>
+        </div>
+
+        {/* styles */}
+        <style jsx>{`
         .cover {
           font-size: 12px;
           line-height: 1.4;
@@ -274,8 +272,8 @@ const Cover = ({ error, media }) => {
         }
       `}</style>
 
-        </div >   </a>
-    </Link>
+      </div >   </a>
+  </MediaLink>
   )
 }
 
