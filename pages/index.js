@@ -63,13 +63,17 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
           position: relative;
           z-index: 2;
         }
+
+        .home-carousel-section:first-child {
+          padding: 3.5em 0;
+        }
         @media (min-width: 768px) {
           .index {
             margin-bottom: 30px;
           }
         }
-      `}</style>
-    </Layout >
+      ` }</style>
+    </Layout>
   )
 }
 
@@ -162,7 +166,6 @@ const Cover = ({ error, media }) => {
         }
 
 
-
         <div className="cover__contents row">
           <div className="col-12 col-md-4 offset-md-1">
             <div className="cover__infos">
@@ -212,10 +215,9 @@ const Cover = ({ error, media }) => {
                   </div>
                 </>}
             </div>
-
           </div>
-        </div>
 
+        </div>
         {/* styles */}
         <style jsx>{`
         .cover {
@@ -242,7 +244,7 @@ const Cover = ({ error, media }) => {
         .cover__logo::before {
           content: '';
           display: block;
-          padding-bottom: ${logo ? height * 100 / width + '%' : 0};
+          padding-bottom: ${ logo ? height * 100 / width + '%' : 0};
         }
         .cover__logo img {
           left: 0;
@@ -272,10 +274,10 @@ const Cover = ({ error, media }) => {
             margin-bottom: 15px;
           }
         }
-      `}</style>
+      ` }</style>
 
       </div >
-    </Link>
+    </Link >
   )
 }
 
@@ -301,6 +303,7 @@ const HomeCarouselSection = ({ api, category: categorySlug, idx }) => {
       }
       setLoading(false)
     }
+
     fetchData()
   }, [categorySlug])
 
@@ -331,7 +334,7 @@ const HomeCarouselSection = ({ api, category: categorySlug, idx }) => {
             //margin-bottom: 55px;
           }
         }
-      `}</style>
+      ` }</style>
     </>
   )
 }
@@ -353,6 +356,7 @@ const BannerSection = ({ id, movie }) => {
       }
       setLoading(false)
     }
+
     fetchData()
   }, [id])
 
@@ -402,7 +406,7 @@ const BannerSection = ({ id, movie }) => {
           color: white !important;
           text-decoration: none;
         }
-      `}</style>
+      ` }</style>
     </div>
   );
 }
