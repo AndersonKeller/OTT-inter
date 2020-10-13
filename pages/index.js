@@ -21,41 +21,41 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
   const { appName: pageTitle } = CONFIG
   let [idx, setIdx] = useState(0)
   return (
-    <Layout paddingTop={false} {...layoutProps} media={featuredMedia}>
+    <Layout paddingTop={ false } { ...layoutProps } media={ featuredMedia }>
       <Head>
-        <title>{pageTitle}</title>
-        <link rel="apple-touch-icon" sizes="180x180" href={`/static/${TENANT}/favicon/apple-touch-icon.png`} />
-        <link rel="icon" type="image/png" sizes="32x32" href={`/static/${TENANT}/favicon/favicon-32x32.png`} />
-        <link rel="icon" type="image/png" sizes="16x16" href={`/static/${TENANT}/favicon/favicon-16x16.png`} />
-        <link rel="manifest" href={`/static/${TENANT}/favicon/site.webmanifest`} />
-        <link rel="mask-icon" href={`/static/${TENANT}/favicon/safari-pinned-tab.svg`} color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
+        <title>{ pageTitle }</title>
+        <link rel="apple-touch-icon" sizes="180x180" href={ `/static/${ TENANT }/favicon/apple-touch-icon.png` }/>
+        <link rel="icon" type="image/png" sizes="32x32" href={ `/static/${ TENANT }/favicon/favicon-32x32.png` }/>
+        <link rel="icon" type="image/png" sizes="16x16" href={ `/static/${ TENANT }/favicon/favicon-16x16.png` }/>
+        <link rel="manifest" href={ `/static/${ TENANT }/favicon/site.webmanifest` }/>
+        <link rel="mask-icon" href={ `/static/${ TENANT }/favicon/safari-pinned-tab.svg` } color="#5bbad5"/>
+        <meta name="msapplication-TileColor" content="#da532c"/>
+        <meta name="theme-color" content="#ffffff"/>
       </Head>
       <div className="index">
 
-        {/* cover */}
+        {/* cover */ }
         <Cover error={featuredMediaError} media={featuredMedia} />
-        {/* <Cover media={featuredMedia} /> */}
+        {/* <Cover media={featuredMedia} /> */ }
 
-        {/* contents */}
+        {/* contents */ }
         <div className="index__contents">
-          {contents && contents.map((item, index) => {
+          { contents && contents.map((item, index) => {
             const showBanner = (item.is_paid && user || !item.is_paid && !user)
             const { contentable_type: contentableType } = item
             switch (contentableType) {
               case 'categories':
-                return <HomeCarouselSection api={api} category={item.slug} key={index} idx={index} />
+                return <HomeCarouselSection api={ api } category={ item.slug } key={ index } idx={ index }/>
               case 'banners':
-                return showBanner && <BannerSection id={item.contentable_id} key={index} />
+                return showBanner && <BannerSection id={ item.contentable_id } key={ index }/>
               case 'movies':
-                return showBanner && <BannerSection movie={item.slug} key={index} />
+                return showBanner && <BannerSection movie={ item.slug } key={ index }/>
             }
-          })}
+          }) }
         </div>
 
       </div>
-      <style jsx>{`
+      <style jsx>{ `
         .index {
           margin-bottom: 75px;
         }
@@ -72,8 +72,8 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
             margin-bottom: 30px;
           }
         }
-      `}</style>
-    </Layout >
+      ` }</style>
+    </Layout>
   )
 }
 
@@ -94,32 +94,32 @@ HomePage.getInitialProps = async ctx => {
 export default withApi(HomePage)
 
 const CoverImgContent = styled.div`
-  background-image:
-    linear-gradient(to bottom, ${props => Color(props.theme.colors.background).fade(1).string()} 80%, ${props => props.theme.colors.background} 100%),
-    radial-gradient(circle at 50% 50%, ${props => Color(props.theme.colors.background).fade(1).string()} 25%, ${props => Color(props.theme.colors.background).fade(.075).string()} 75%),
-    url('${props => props.posterUrl}');
-  background-position: 50% 0, 50% 0, 75% 0;
-  background-repeat: no-repeat, no-repeat, no-repeat;
-  background-size: cover, cover, cover;
-  &::before {
-    content: '';
-    display: block;
-    padding-bottom: 112.5%;
-  }
-  @media (min-width: 768px) {
     background-image:
-      linear-gradient(to bottom, ${props => Color(props.theme.colors.background).fade(1).string()} 80%, ${props => props.theme.colors.background} 100%),
-      radial-gradient(circle at 67.5% 57.5%, ${props => Color(props.theme.colors.background).fade(1).string()} 25%, ${props => Color(props.theme.colors.background).fade(.075).string()} 42.5%),
-      url('${props => props.posterUrl}');
+    linear-gradient(to bottom, ${ props => Color(props.theme.colors.background).fade(1).string() } 80%, ${ props => props.theme.colors.background } 100%),
+    radial-gradient(circle at 50% 50%, ${ props => Color(props.theme.colors.background).fade(1).string() } 25%, ${ props => Color(props.theme.colors.background).fade(.075).string() } 75%),
+    url('${ props => props.posterUrl }');
+    background-position: 50% 0, 50% 0, 75% 0;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-size: cover, cover, cover;
+  &::before {
+        content: '';
+      display: block;
+      padding-bottom: 112.5%;
+    }
+  @media (min-width: 768px) {
+        background - image:
+      linear-gradient(to bottom, ${ props => Color(props.theme.colors.background).fade(1).string() } 80%, ${ props => props.theme.colors.background } 100%),
+      radial-gradient(circle at 67.5% 57.5%, ${ props => Color(props.theme.colors.background).fade(1).string() } 25%, ${ props => Color(props.theme.colors.background).fade(.075).string() } 42.5%),
+      url('${ props => props.posterUrl }');
     background-position: 50% 0, 50% 0, 40% 50%;
     &::before {
-      padding-bottom: 80%;
+        padding - bottom: 80%;
     }
   }
   @media (min-width: 1200px) {
-    background-position: 50% 0, 50% 0, 75% 50%;
+        background - position: 50% 0, 50% 0, 75% 50%;
     &::before {
-      padding-bottom: 48%;
+        padding - bottom: 48%;
     }
   }
 `
@@ -139,87 +139,84 @@ const Cover = ({ error, media }) => {
     width,
   } = logo || {}
   const empezaYa = CONFIG.lang === 'es-CL' ? '¡Vívelo ahora!' : '¡Empieza Ya!'
-  return (
+  return (<MediaLink watch { ...{ media } }>
+      <div className="cover container-fluid">
 
-    <Link href={media && media.video_file ? `/media/${media.slug}/watch` : '/'} >
+        {/* poster backaground banner image */ }
 
-        <div className="cover container-fluid">
+        { poster_url && (
+          <div className="cover__img row">
+            <div className="col p-0">
 
-          {/* poster backaground banner image */}
+              <CoverImgContent posterUrl={ poster_url }>
 
-          {poster_url && (
-            <div className="cover__img row">
-              <div className="col p-0">
-
-                <CoverImgContent posterUrl={poster_url}>
-
-                  <img alt="" className="d-none" src={poster_url} />
+                <img alt="" className="d-none" src={ poster_url }/>
 
 
-                </CoverImgContent>
+              </CoverImgContent>
 
 
-              </div>
             </div>
-          )
-          }
-
-
-
-          <div className="cover__contents row">
-            <div className="col-12 col-md-4 offset-md-1">
-              <div className="cover__infos">
-
-                {/* logo overlay image */}
-                {logo && (
-                  <div className="row">
-                    <div className="col-8 offset-2 col-md-12 offset-md-0">
-                      <h1 className="cover__logo">
-                        <picture>
-                          <source srcSet={webp} type="media/webp" />
-                          <source srcSet={png} type="media/png" />
-                          <img className="img-fluid" height={height} src={fallback} width={width} />
-                        </picture>
-                      </h1>
-                    </div>
-                  </div>
-                )}
-
-                {/* content's description */}
-                {description && (
-                  <div className="row cover__description">
-                    <div className="col-10 offset-1 col-md-12 offset-md-0">
-                      <p className="mb-0">{description}</p>
-                    </div>
-                  </div>
-                )}
-
-              </div>
-
-              {/* cta buttons */}
-              <div className="row justify-content-center gutter-15">
-                {!user ? (
-                  <div className="col-auto">
-                    <Link href="/signup" passHref>
-                      <Button>{empezaYa}</Button>
-                    </Link>
-                  </div>
-                ) : <>
-                    <div className="col-auto">
-                      <MediaLink {...{ media }} passHref>
-                        <Button>Mira</Button>
-                      </MediaLink>
-                    </div>
-                    <div className="col-auto">
-                      <WishlistBtn movieId={media.id} />
-                    </div>
-                  </>}
-              </div>
-            </div>
-
           </div>
-          {/* styles */}
-          <style jsx>{`
+        )
+        }
+
+
+
+        <div className="cover__contents row">
+          <div className="col-12 col-md-4 offset-md-1">
+            <div className="cover__infos">
+
+              {/* logo overlay image */ }
+              { logo && (
+                <div className="row">
+                  <div className="col-8 offset-2 col-md-12 offset-md-0">
+                    <h1 className="cover__logo">
+                      <picture>
+                        <source srcSet={ webp } type="media/webp"/>
+                        <source srcSet={ png } type="media/png"/>
+                        <img className="img-fluid" height={ height } src={ fallback } width={ width }/>
+                      </picture>
+                    </h1>
+                  </div>
+                </div>
+              ) }
+
+              {/* content's description */ }
+              { description && (
+                <div className="row cover__description">
+                  <div className="col-10 offset-1 col-md-12 offset-md-0">
+                    <p className="mb-0">{ description }</p>
+                  </div>
+                </div>
+              ) }
+
+            </div>
+
+            {/* cta buttons */ }
+            <div className="row justify-content-center gutter-15">
+              { !user ? (
+                <div className="col-auto">
+                  <Link href="/signup" passHref>
+                    <Button>{ empezaYa }</Button>
+                  </Link>
+                </div>
+              ) : <>
+                <div className="col-auto">
+                  <MediaLink { ...{ media } } passHref>
+                    <Button>Mira</Button>
+                  </MediaLink>
+                </div>
+                <div className="col-auto">
+                  <WishlistBtn movieId={ media.id }/>
+                </div>
+              </> }
+            </div>
+          </div>
+
+        </div>
+        {/* styles */ }
+        <style jsx>{ `
         .cover {
           font-size: 12px;
           line-height: 1.4;
@@ -244,7 +241,7 @@ const Cover = ({ error, media }) => {
         .cover__logo::before {
           content: '';
           display: block;
-          padding-bottom: ${logo ? height * 100 / width + '%' : 0};
+          padding-bottom: ${ logo ? height * 100 / width + '%' : 0 };
         }
         .cover__logo img {
           left: 0;
@@ -274,9 +271,10 @@ const Cover = ({ error, media }) => {
             margin-bottom: 15px;
           }
         }
-      `}</style>
-        </div>
-    </Link>
+      ` }</style>
+
+      </div>
+    </MediaLink>
   )
 }
 
@@ -292,7 +290,7 @@ const HomeCarouselSection = ({ api, category: categorySlug, idx }) => {
       setError(false)
       setLoading(true)
       try {
-        const { data } = await api.get(`category/${categorySlug}`)
+        const { data } = await api.get(`category/${ categorySlug }`)
         console.log(data);
         setCategory(data)
       } catch (error) {
@@ -302,6 +300,7 @@ const HomeCarouselSection = ({ api, category: categorySlug, idx }) => {
       }
       setLoading(false)
     }
+
     fetchData()
   }, [categorySlug])
 
@@ -309,20 +308,20 @@ const HomeCarouselSection = ({ api, category: categorySlug, idx }) => {
   return (
     <>
       <div className="home-carousel-section">
-        {loading ? (
+        { loading ? (
           <div className="text-center">
-            <Loading loadingState={loading} />
+            <Loading loadingState={ loading }/>
           </div>
         ) : category ? (
-          <CarouselSection category={category} idx={idx} />
+          <CarouselSection category={ category } idx={ idx }/>
         ) : error && (
           <div className="text-center">
-            {error}
+            { error }
           </div>
-        )}
+        ) }
       </div>
       <br></br>
-      <style jsx>{`
+      <style jsx>{ `
         .home-carousel-section {
             //margin-bottom: 75px;
             //margin-top: 75px;
@@ -332,7 +331,7 @@ const HomeCarouselSection = ({ api, category: categorySlug, idx }) => {
             //margin-bottom: 55px;
           }
         }
-      `}</style>
+      ` }</style>
     </>
   )
 }
@@ -346,7 +345,7 @@ const BannerSection = ({ id, movie }) => {
     async function fetchData() {
       setLoading(true)
       try {
-        const { data } = await (id ? api().get(`/banners/${id}`) : api().get(`/movie/${movie}`))
+        const { data } = await (id ? api().get(`/banners/${ id }`) : api().get(`/movie/${ movie }`))
         setBanner(data)
 
       } catch (error) {
@@ -354,6 +353,7 @@ const BannerSection = ({ id, movie }) => {
       }
       setLoading(false)
     }
+
     fetchData()
   }, [id])
 
@@ -361,36 +361,36 @@ const BannerSection = ({ id, movie }) => {
     <div>
       <div className="section">
 
-        {/* loading */}
+        {/* loading */ }
         <div className="text-center">
-          <Loading loadingState={loading} />
+          <Loading loadingState={ loading }/>
         </div>
 
-        {/* features */}
-        {banner && id &&
-          <a className="sponsor-link" href={banner.link} target="_blank">
-            <Featured img={banner.banner_url} />
+        {/* features */ }
+        { banner && id &&
+        <a className="sponsor-link" href={ banner.link } target="_blank">
+          <Featured img={ banner.banner_url }/>
+        </a>
+        }
+
+        { banner && movie &&
+        <MediaLink media={ banner.movie } passHref>
+          <a>
+            <Featured
+              className="gradient"
+              img={ banner.movie.poster_url }
+            />
           </a>
+        </MediaLink>
         }
 
-        {banner && movie &&
-          <MediaLink media={banner.movie} passHref>
-            <a>
-              <Featured
-                className="gradient"
-                img={banner.movie.poster_url}
-              />
-            </a>
-          </MediaLink>
-        }
-
-        {/* error */}
-        {error && (
+        {/* error */ }
+        { error && (
           <div className="text-center">Error</div>
-        )}
+        ) }
 
       </div>
-      <style jsx>{`
+      <style jsx>{ `
         .sponsor-link {
           color: white !important;
           text-decoration: none;
@@ -403,7 +403,7 @@ const BannerSection = ({ id, movie }) => {
           color: white !important;
           text-decoration: none;
         }
-      `}</style>
+      ` }</style>
     </div>
   );
 }

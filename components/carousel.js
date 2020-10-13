@@ -67,7 +67,7 @@ const Cards = styled.div`
     `linear-gradient(to left, ${props.theme.colors.backgroundContrast}, ${Color(props.theme.colors.backgroundContrast).fade(1).string()})` :
     `linear-gradient(to left, ${props.theme.colors.background}, ${Color(props.theme.colors.background).fade(1).string()})`};
   }
-  
+
   @media(max-width: 765px) {
   &::before {
     background-image: none;
@@ -105,6 +105,7 @@ export default function Carousel({ children, color, additional }) {
   }
   return (
     <Cards color={color}>
+      <br></br>
       <div className="cards-container">
         <Slider {...settings}>
           {React.Children.map(children, (card, index) => {
@@ -142,7 +143,7 @@ export default function Carousel({ children, color, additional }) {
         }
         .slick-list {
         height: auto !important;
- 
+
         }
         .slick-slide {
           transform: translateX(-25%);
@@ -152,7 +153,7 @@ export default function Carousel({ children, color, additional }) {
 
 
         .slick-slide:hover {
-          transform: scale(1.5) !important;
+          transform: scale(1.5, 1.1) !important;
       }
         .slick-slide:hover ~ .slick-slide{
           transform: translateX(25%);
@@ -161,14 +162,14 @@ export default function Carousel({ children, color, additional }) {
           .slide {
           padding: 2px;
       }
-      
+
     }
-    
+
     @media (max-width: 768px) {
     .cards-container {
         padding-left: 15px;
        }
-       
+
        .slick-slide:hover {
           transform: none;
       }
