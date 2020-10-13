@@ -36,120 +36,121 @@ const StyledHeader = styled.header`
   }
 `
 
-const Header = ({ closed, layoutColor, menus, media }) => {
-  const hasWindow = typeof window !== 'undefined'
+const Header =
+  ({ closed, layoutColor, menus, media }) => {
+    const hasWindow = typeof window !== 'undefined'
 
-  // scrolled state
-  const hasScrolled = _ => {
-    return hasWindow ? window.pageYOffset > 1 : false
-  }
-
-  const [scrolled, setScrolled] = useState(hasScrolled())
-  useEffect(_ => {
-    const handleScroll = _ => {
-      setScrolled(hasScrolled())
+    // scrolled state
+    const hasScrolled = _ => {
+      return hasWindow ? window.pageYOffset > 1 : false
     }
-    window.addEventListener('scroll', handleScroll)
-    return _ => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
 
-  const router = useRouter()
-  const searchField = useRef(null)
-  const { setSearch } = useContext(SearchContext)
-  const [searchFieldValue, setSearchFieldValue] = useState('')
+    const [scrolled, setScrolled] = useState(hasScrolled())
+    useEffect(_ => {
+      const handleScroll = _ => {
+        setScrolled(hasScrolled())
+      }
+      window.addEventListener('scroll', handleScroll)
+      return _ => {
+        window.removeEventListener('scroll', handleScroll)
+      }
+    }, [])
 
-  function handleSearchBtnFocus(e) {
-    e.preventDefault()
-    searchField.current.focus()
-  }
+    const router = useRouter()
+    const searchField = useRef(null)
+    const { setSearch } = useContext(SearchContext)
+    const [searchFieldValue, setSearchFieldValue] = useState('')
 
-  function handleSearchBtnClick(e) {
-    if (!searchFieldValue) {
+    function handleSearchBtnFocus(e) {
       e.preventDefault()
+      searchField.current.focus()
     }
-  }
 
-  function handleSearchFieldChange(e) {
-    setSearchFieldValue(e.target.value)
-    /* optional: */
-    // setSearch(e.target.value)
-  }
-
-  function handleSearchSubmit(e) {
-    e.preventDefault()
-    setSearch(searchFieldValue)
-    setSearchFieldValue('')
-    if (router.pathname !== '/movies') {
-      router.push('/movies')
+    function handleSearchBtnClick(e) {
+      if (!searchFieldValue) {
+        e.preventDefault()
+      }
     }
-  }
 
-  const theme = useContext(ThemeContext)
-  const whiteColor = theme.colors.white
-  const lightColor = theme.colors.texts
+    function handleSearchFieldChange(e) {
+      setSearchFieldValue(e.target.value)
+      /* optional: */
+      // setSearch(e.target.value)
+    }
 
-  return (
+    function handleSearchSubmit(e) {
+      e.preventDefault()
+      setSearch(searchFieldValue)
+      setSearchFieldValue('')
+      if (router.pathname !== '/movies') {
+        router.push('/movies')
+      }
+    }
+
+    const theme = useContext(ThemeContext)
+    const whiteColor = theme.colors.white
+    const lightColor = theme.colors.texts
+
+    return (
 
 
-    <StyledHeader closed={closed} layoutColor={layoutColor} scrolled={scrolled} media={media}>
-      <nav className="nav">
-        {/* club logo */}
-        {(!closed && (TENANT !== 'lau')) && (
-          <HeaderClubLogo />
-        )}
+      <StyledHeader closed={closed} layoutColor={layoutColor} scrolled={scrolled} media={media}>
+        <nav className="nav">
+          {/* club logo */}
+          {(!closed && (TENANT !== 'lau')) && (
+            <HeaderClubLogo />
+          )}
 
 
-        {/* logo */}
-        <HeaderAppLogo closed={closed} media={media} />
+          {/* logo */}
+          <HeaderAppLogo closed={closed} media={media} />
 
-        {!closed && (
-          <>
-            {/* menu */}
-            <DesktopMenu data={menus} />
+          {!closed && (
+            <>
+              {/* menu */}
+              <DesktopMenu data={menus} />
 
-            {/* form */}
-            <form
-              action="/movies"
-              className="d-none d-lg-block search-form"
-              method="get"
-              onSubmit={handleSearchSubmit}
-            >
-              <button
-                className="search-btn"
-                id="search-btn"
-                onClick={handleSearchBtnClick}
-                onFocus={handleSearchBtnFocus}
-                type="submit"
+              {/* form */}
+              <form
+                action="/movies"
+                className="d-none d-lg-block search-form"
+                method="get"
+                onSubmit={handleSearchSubmit}
               >
-                <GoSearch color="inherit" size={28} title="Buscar" />
-              </button>
-              <input
-                className="form-control"
-                id="search"
-                name="search"
-                onChange={handleSearchFieldChange}
-                placeholder="Buscar"
-                ref={searchField}
-                type="search"
-                value={searchFieldValue}
-              />
-            </form>
+                <button
+                  className="search-btn"
+                  id="search-btn"
+                  onClick={handleSearchBtnClick}
+                  onFocus={handleSearchBtnFocus}
+                  type="submit"
+                >
+                  <GoSearch color="inherit" size={28} title="Buscar" />
+                </button>
+                <input
+                  className="form-control"
+                  id="search"
+                  name="search"
+                  onChange={handleSearchFieldChange}
+                  placeholder="Buscar"
+                  ref={searchField}
+                  type="search"
+                  value={searchFieldValue}
+                />
+              </form>
 
-            {/* notifications */}
-            {/* <button className="notifications-btn d-none d-md-inline-block" type="button">
+              {/* notifications */}
+              {/* <button className="notifications-btn d-none d-md-inline-block" type="button">
               <img alt="Notificações" height="27" src="/static/notification-icon.svg" width="18" />
             </button> */}
 
-            {/* user */}
-            <UserMenu />
+              {/* user */}
+              <UserMenu />
 
-          </>
-        )}
+            </>
+          )}
 
-      </nav>
-      <style jsx>{`
+        </nav>
+        <style jsx>{`
         .nav {
           display: flex;
           align-items: center;
@@ -208,9 +209,9 @@ const Header = ({ closed, layoutColor, menus, media }) => {
           vertical-align: middle;
         }
       `}</style>
-    </StyledHeader >
-  )
-}
+      </StyledHeader >
+    )
+  }
 
 const HeaderClubLogo = _ => {
   return (
@@ -244,15 +245,16 @@ const HeaderClubLogo = _ => {
 }
 
 const HeaderAppLogo = ({ closed, media }) => {
-
+ 
   return (
     <h1 className="logo">
-
-      <MediaLink {...{ media }} watch>
+      <Link href={media && media.video_file ? `/media/${media.slug}/watch` : '/'} >
         <a>
           <LogoApp height={TENANT === 'lau' ? 30 : TENANT === 'river' ? 22 : 25} />
         </a>
-      </MediaLink>
+      </Link>
+
+
       <style jsx>{`
         .logo {
           align-items: center;
