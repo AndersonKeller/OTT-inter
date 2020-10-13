@@ -35,8 +35,7 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
       <div className="index">
 
         {/* cover */}
-        <div>
-          <Cover error={featuredMediaError} media={featuredMedia} /></div><br></br>
+        <Cover error={featuredMediaError} media={featuredMedia} />
         {/* <Cover media={featuredMedia} /> */}
 
         {/* contents */}
@@ -53,7 +52,7 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
                 return showBanner && <BannerSection movie={item.slug} key={index} />
             }
           })}
-        </div><br></br>
+        </div>
 
       </div>
       <style jsx>{`
@@ -91,32 +90,32 @@ HomePage.getInitialProps = async ctx => {
 export default withApi(HomePage)
 
 const CoverImgContent = styled.div`
-    background-image:
+  background-image:
     linear-gradient(to bottom, ${props => Color(props.theme.colors.background).fade(1).string()} 80%, ${props => props.theme.colors.background} 100%),
     radial-gradient(circle at 50% 50%, ${props => Color(props.theme.colors.background).fade(1).string()} 25%, ${props => Color(props.theme.colors.background).fade(.075).string()} 75%),
     url('${props => props.posterUrl}');
-    background-position: 50% 0, 50% 0, 75% 0;
-    background-repeat: no-repeat, no-repeat, no-repeat;
-    background-size: cover, cover, cover;
+  background-position: 50% 0, 50% 0, 75% 0;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-size: cover, cover, cover;
   &::before {
-        content: '';
-      display: block;
-      padding-bottom: 112.5%;
-    }
+    content: '';
+    display: block;
+    padding-bottom: 112.5%;
+  }
   @media (min-width: 768px) {
-        background - image:
+    background-image:
       linear-gradient(to bottom, ${props => Color(props.theme.colors.background).fade(1).string()} 80%, ${props => props.theme.colors.background} 100%),
       radial-gradient(circle at 67.5% 57.5%, ${props => Color(props.theme.colors.background).fade(1).string()} 25%, ${props => Color(props.theme.colors.background).fade(.075).string()} 42.5%),
       url('${props => props.posterUrl}');
     background-position: 50% 0, 50% 0, 40% 50%;
     &::before {
-        padding - bottom: 80%;
+      padding-bottom: 80%;
     }
   }
   @media (min-width: 1200px) {
-        background - position: 50% 0, 50% 0, 75% 50%;
+    background-position: 50% 0, 50% 0, 75% 50%;
     &::before {
-        padding - bottom: 48%;
+      padding-bottom: 48%;
     }
   }
 `
@@ -136,8 +135,11 @@ const Cover = ({ error, media }) => {
     width,
   } = logo || {}
   const empezaYa = CONFIG.lang === 'es-CL' ? '¡Vívelo ahora!' : '¡Empieza Ya!'
-  return (<MediaLink watch {...{ media }}>
-    <a>
+  return (
+
+    <Link href={media && media.video_file ? `/media/${media.slug}/watch` : '/'} >
+
+
       <div className="cover container-fluid">
 
         {/* poster backaground banner image */}
@@ -272,8 +274,8 @@ const Cover = ({ error, media }) => {
         }
       `}</style>
 
-      </div >   </a>
-  </MediaLink>
+      </div >
+    </Link>
   )
 }
 
