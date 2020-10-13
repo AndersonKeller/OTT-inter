@@ -63,6 +63,10 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
           position: relative;
           z-index: 2;
         }
+        
+        .home-carousel-section:first-child {
+          padding: 3.5em 0;
+        } 
         @media (min-width: 768px) {
           .index {
             margin-bottom: 30px;
@@ -139,7 +143,6 @@ const Cover = ({ error, media }) => {
 
     <Link href={media && media.video_file ? `/media/${media.slug}/watch` : '/'} >
 
-      <a>
         <div className="cover container-fluid">
 
           {/* poster backaground banner image */}
@@ -212,10 +215,9 @@ const Cover = ({ error, media }) => {
                     </div>
                   </>}
               </div>
-
             </div>
-          </div>
 
+          </div>
           {/* styles */}
           <style jsx>{`
         .cover {
@@ -273,8 +275,7 @@ const Cover = ({ error, media }) => {
           }
         }
       `}</style>
-
-        </div >   </a>
+        </div>
     </Link>
   )
 }
