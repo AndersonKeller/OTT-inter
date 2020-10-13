@@ -66,22 +66,14 @@ const Cover = ({ category, media }) => {
   const smDown = useMediaQuery('(max-width: 767px)')
   const probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
   const theme = useContext(ThemeContext)
-  const maskColor = Color(theme.colors.background)
-
+  const maskColor = Color(theme.colors.background);
   const {
     detail = null,
     poster_url: posterUrl,
-    logo_url: {
-      default: defaulturl,
-      png: png,
-      webp: web
-    },
-
-
     publish_year: publishYear = null,
     title,
   } = media;
-  console.log(defaulturl);
+
   return (
 
     <div>
@@ -98,7 +90,7 @@ const Cover = ({ category, media }) => {
 
               <div className="heading">
                 <h1 className="h2">
-                  <img className="image-logo" src={defaulturl}></img>
+                  <img className="image-logo" src={media.logo_url ? media.logo_url.default : ''}></img>
                 </h1>
                 {publishYear && (
                   <div className="year">{publishYear}</div>
