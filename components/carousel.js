@@ -126,6 +126,7 @@ export default function Carousel({ children, color, additional }) {
 
         }
         .cards-container {
+          height:359px!important;
           font-size: 0;
           margin-right: calc(9% - 10px);
           margin-left: calc(9% - 10px);
@@ -153,7 +154,7 @@ export default function Carousel({ children, color, additional }) {
 
 
         .slick-slide:hover {
-          transform: scale(1.5, 1.1) !important;
+          transform: scale(1.3) !important;
       }
         .slick-slide:hover ~ .slick-slide{
           transform: translateX(25%);
