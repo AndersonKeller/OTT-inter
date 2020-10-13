@@ -35,7 +35,9 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
       <div className="index">
 
         {/* cover */ }
-        <Cover error={featuredMediaError} media={featuredMedia} />
+        <div>
+          <Cover error={ featuredMediaError } media={ featuredMedia }/></div>
+        <br></br>
         {/* <Cover media={featuredMedia} /> */ }
 
         {/* contents */ }
@@ -53,6 +55,7 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
             }
           }) }
         </div>
+        <br></br>
 
       </div>
       <style jsx>{ `
@@ -125,7 +128,7 @@ const CoverImgContent = styled.div`
 `
 
 const Cover = ({ error, media }) => {
-  console.log('erro :', error);
+
   if (error) {
     return (
       <p>No se puede cargar contenido destacado</p>
@@ -160,7 +163,6 @@ const Cover = ({ error, media }) => {
           </div>
         )
         }
-
 
 
         <div className="cover__contents row">
