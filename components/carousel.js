@@ -154,7 +154,8 @@ export default function Carousel({ children, color, additional }) {
 
 
         .slick-slide:hover {
-          transform: scale(1.3) !important;
+          // transform: scale(1.3) !important;
+              transform: scale(1.5 ,1.3) !important;
       }
         .slick-slide:hover ~ .slick-slide{
           transform: translateX(25%);
