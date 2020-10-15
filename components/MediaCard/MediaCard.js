@@ -40,7 +40,7 @@ const MediaCard = ({
             </div>
           }
           <img className="img-fluid"
-            src={category ? (category.horizontal ? media.thumbnail2_url : media.thumbnail_url) : media.thumbnail_url} />
+            src={category ? (category.is_horizontal ? media.thumbnail2_url : media.thumbnail_url) : media.thumbnail_url} />
           <div className="media-card-label">
             <FontAwesomeIcon icon={faPlayCircle} />
             <div className={"text"}>

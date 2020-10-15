@@ -34,10 +34,10 @@ function Arrow(props) {
   const { className, style, onClick } = props;
   return (
     <div>
-      <div className={className} onClick={onClick} style={style}>
-        <Chevron inline dir={className.search('slick-prev') !== -1 ? 'left' : 'right'} width="47" height="27" />
+      <div className={ className } onClick={ onClick } style={ style }>
+        <Chevron inline dir={ className.search('slick-prev') !== -1 ? 'left' : 'right' } width="47" height="27"/>
       </div>
-      <style jsx>{arrowsStyles}</style>
+      <style jsx>{ arrowsStyles }</style>
     </div>
   );
 }
@@ -58,14 +58,14 @@ const Cards = styled.div`
     right: 0;
   }
   &::before {
-    background-image: ${props => props.color === 'contrast' ?
-    `linear-gradient(to right, ${props.theme.colors.backgroundContrast}, ${Color(props.theme.colors.backgroundContrast).fade(1).string()})` :
-    `linear-gradient(to right, ${props.theme.colors.background}, ${Color(props.theme.colors.background).fade(1).string()})`};
+    background-image: ${ props => props.color === 'contrast' ?
+  `linear-gradient(to right, ${ props.theme.colors.backgroundContrast }, ${ Color(props.theme.colors.backgroundContrast).fade(1).string() })` :
+  `linear-gradient(to right, ${ props.theme.colors.background }, ${ Color(props.theme.colors.background).fade(1).string() })` };
   }
   &::after {
-    background-image: ${props => props.color === 'contrast' ?
-    `linear-gradient(to left, ${props.theme.colors.backgroundContrast}, ${Color(props.theme.colors.backgroundContrast).fade(1).string()})` :
-    `linear-gradient(to left, ${props.theme.colors.background}, ${Color(props.theme.colors.background).fade(1).string()})`};
+    background-image: ${ props => props.color === 'contrast' ?
+  `linear-gradient(to left, ${ props.theme.colors.backgroundContrast }, ${ Color(props.theme.colors.backgroundContrast).fade(1).string() })` :
+  `linear-gradient(to left, ${ props.theme.colors.background }, ${ Color(props.theme.colors.background).fade(1).string() })` };
   }
 
   @media(max-width: 765px) {
@@ -85,8 +85,8 @@ export default function Carousel({ children, color, additional }) {
     draggable: false,
     infinite: false,
     mobileFirst: true, /* seems to not be working (?) */
-    nextArrow: <Arrow />,
-    prevArrow: <Arrow />,
+    nextArrow: <Arrow/>,
+    prevArrow: <Arrow/>,
     adaptiveHeight: true,
     adaptivewidth: true,
     responsive: [
@@ -99,34 +99,40 @@ export default function Carousel({ children, color, additional }) {
         },
       },
     ],
-    slidesToScroll: 6,
-    slidesToShow: additional.horizontal ? 5 : 6,
+    slidesToScroll: 4,
+    slidesToShow: additional.is_horizontal ? 4 : 6,
     speed: 700,
   }
   return (
-    <Cards color={color}>
+    <Cards color={ color }>
       <br></br>
-      <div className="cards-container">
-        <Slider {...settings}>
-          {React.Children.map(children, (card, index) => {
+      <div className={ additional.is_horizontal ? "cards-container is_horizontal" : "cards-container" }>
+        <Slider { ...settings }>
+          { React.Children.map(children, (card, index) => {
             return (
-              <div className="slide" key={index}>
-                {card}
+              <div className="slide" key={ index }>
+                { card }
               </div>
             )
-          })}
+          }) }
         </Slider>
       </div>
-      <style jsx global>{`
+      <style jsx global>{ `
         .slick-list {
           overflow: visible;
         }
+        
         .slick-track {
           margin-left: 0;
-
+          margin-top: -20px;
         }
+        
+        .is_horizontal  .slick-track {
+          margin-left: 25px !important;
+        }
+        
         .cards-container {
-          height:359px!important;
+          //height:359px!important;
           font-size: 0;
           margin-right: calc(9% - 10px);
           margin-left: calc(9% - 10px);
@@ -154,7 +160,7 @@ export default function Carousel({ children, color, additional }) {
 
 
         .slick-slide:hover {
-          transform: scale(1.3) !important;
+          transform: scale(1.5) !important;
       }
         .slick-slide:hover ~ .slick-slide{
           transform: translateX(25%);
@@ -179,7 +185,7 @@ export default function Carousel({ children, color, additional }) {
 
 
 }
-      `}</style>
+      ` }</style>
     </Cards>
   )
 }

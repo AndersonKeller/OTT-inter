@@ -4,7 +4,6 @@ import { useContext } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import ActiveLink from '~/components/ActiveLink'
 import Chevron from '~/components/icons/chevron'
-import { GRAY3 } from '~/constants/colors'
 import UserContext from '~/contexts/UserContext'
 import { ThemeContext } from 'styled-components'
 
@@ -17,7 +16,7 @@ const DesktopMenu = ({ data: menus }) => {
       href = menuItem.link
     } else if (menuItem.link_type_id === 2) {
       href = '/category/[slug]'
-      as_href = `/category/${menuItem.category && menuItem.category.slug}`
+      as_href = `/category/${ menuItem.category && menuItem.category.slug }`
     }
     return {
       as: as_href,
@@ -29,9 +28,9 @@ const DesktopMenu = ({ data: menus }) => {
 
   function isExternalLink(str) {
     return str && (str.startsWith('//') ||
-    str.startsWith('http://') ||
-    str.startsWith('https://') ||
-    str.startsWith('www.'));
+      str.startsWith('http://') ||
+      str.startsWith('https://') ||
+      str.startsWith('www.'));
   }
 
   let menu = null
@@ -66,15 +65,15 @@ const DesktopMenu = ({ data: menus }) => {
       { menu ? (
         <>
           { menu.map(({ as, dropdown, href, label, visibility }, i) => {
-            return ( ! visibility ||
+            return (!visibility ||
               visibility === 'public' ||
-              visibility === 'publicOnly' && ! user ||
+              visibility === 'publicOnly' && !user ||
               visibility === 'private' && user) && (
-              <li key={i}>
+              <li key={ i }>
                 { dropdown && dropdown.length ? (
                   <Dropdown>
-                    <Dropdown.Toggle id={`dropdown-custom-${i}`}>
-                      {label}
+                    <Dropdown.Toggle id={ `dropdown-custom-${ i }` }>
+                      { label }
                       <Chevron
                         alt=""
                         className="chevron"
@@ -87,20 +86,20 @@ const DesktopMenu = ({ data: menus }) => {
                     <Dropdown.Menu>
                       { dropdown.map(({ as: sub_as, href: sub_href, label: sub_label }, key) => (
                         isExternalLink(sub_href) ? (
-                          <Dropdown.Item href={sub_href} key={key} target="_blank">{sub_label}</Dropdown.Item>
+                          <Dropdown.Item href={ sub_href } key={ key } target="_blank">{ sub_label }</Dropdown.Item>
                         ) : (
-                          <Link as={sub_as} href={sub_href} key={key} passHref>
-                            <Dropdown.Item href={sub_as}>{sub_label}</Dropdown.Item>
+                          <Link as={ sub_as } href={ sub_href } key={ key } passHref>
+                            <Dropdown.Item href={ sub_as }>{ sub_label }</Dropdown.Item>
                           </Link>
                         )
                       )) }
                     </Dropdown.Menu>
                   </Dropdown>
                 ) : isExternalLink(href) ? (
-                  <a href={href} target="_blank">{label}</a>
+                  <a href={ href } target="_blank">{ label }</a>
                 ) : (
-                  <ActiveLink as={as} href={href}>
-                    <a>{label}</a>
+                  <ActiveLink as={ as } href={ href != null && href != "" ? href : "/" }>
+                    <a>{ label }</a>
                   </ActiveLink>
                 ) }
               </li>
@@ -110,7 +109,7 @@ const DesktopMenu = ({ data: menus }) => {
       ) : (
         <li>No se pueden cargar los menús</li>
       ) }
-      <style jsx>{`
+      <style jsx>{ `
         .menu {
           display: none;
           justify-content: space-between;
@@ -152,7 +151,7 @@ const DesktopMenu = ({ data: menus }) => {
           margin-left: 10px;
         }
         .menu :global(.dropdown-toggle) :global(.chevron) :global(path) {
-          fill: ${textsColor};
+          fill: ${ textsColor };
           transition: fill .2s;
         }
         .menu :global(.dropdown-toggle):focus :global(.chevron) :global(path),
@@ -173,7 +172,7 @@ const DesktopMenu = ({ data: menus }) => {
           transform: translate3d(-50%, 32px, 0) !important;
         }
         .menu :global(.dropdown-item) {
-          background-color: ${submenuColor};
+          background-color: ${ submenuColor };
           border: .1px solid transparent;
           box-shadow: 0 0 1px var(--black);
           color: inherit;
@@ -183,14 +182,14 @@ const DesktopMenu = ({ data: menus }) => {
         }
         .menu :global(.dropdown-item):focus,
         .menu :global(.dropdown-item):hover {
-          background-color: ${submenuHoverColor};
+          background-color: ${ submenuHoverColor };
         }
         .menu :global(.dropdown-item):focus,
         .menu :global(.dropdown-item):hover,
         .menu :global(.dropdown-item.active) {
           color: var(--white);
         }
-      `}</style>
+      ` }</style>
     </ul>
   )
 }

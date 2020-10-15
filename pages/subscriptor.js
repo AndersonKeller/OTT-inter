@@ -410,7 +410,7 @@ const Section1 = ({ mainPackage }) => {
 
   const leadText = `¡${CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos ${TENANT === 'river' ? 'del Más Grande' : CONFIG.appName}!`
 
-  const minPrice = TENANT === 'lau' ? '$1.699' : mainPackage ? '$' + mainPackage.amount : null
+  const minPrice = TENANT === 'lau' ? '$1.690' : mainPackage ? '$' + mainPackage.amount : null
   /*
   new Intl.NumberFormat('es-AR', {
     style: 'currency', currency: 'ARS',

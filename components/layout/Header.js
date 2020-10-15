@@ -217,9 +217,7 @@ const HeaderClubLogo = _ => {
   return (
     <div className="club-logo">
       <Link href="/">
-        <a>
           <LogoClub />
-        </a>
       </Link>
       <style jsx>{`
         .club-logo {
@@ -245,7 +243,7 @@ const HeaderClubLogo = _ => {
 }
 
 const HeaderAppLogo = ({ closed, media }) => {
- 
+
   return (
     <h1 className="logo">
       <Link href={media && media.video_file ? `/media/${media.slug}/watch` : '/'} >
