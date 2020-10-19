@@ -84,11 +84,9 @@ export default function Carousel({ children, color, additional }) {
     dots: false,
     draggable: false,
     infinite: false,
-    mobileFirst: true, /* seems to not be working (?) */
+    mobileFirst: true, /* seems to noFt be working (?) */
     nextArrow: <Arrow/>,
     prevArrow: <Arrow/>,
-    adaptiveHeight: true,
-    adaptivewidth: true,
     responsive: [
       {
         breakpoint: 768,
@@ -125,6 +123,10 @@ export default function Carousel({ children, color, additional }) {
         .slick-track {
           margin-left: 0;
           margin-top: -20px;
+        }
+        
+        .slick-list {
+        
         }
         
         .is_horizontal  .slick-track {

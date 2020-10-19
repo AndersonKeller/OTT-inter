@@ -534,7 +534,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
                             padding: "0px",
                             fontSize: "14px!important",
                             width: "19px",
-                            height: "16px;"
+                            height: "16px"
                           }}
                         >
                           <GoSearch
