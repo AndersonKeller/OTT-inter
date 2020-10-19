@@ -29,6 +29,8 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
   const [date, setDate] = useState({
     birthdate: null
   });
+  let minDate = new Date().getFullYear() - 18;
+  const [initialDate, setinitialDate] = useState(`${minDate}-12-31`);
 
   const [values, setValues] = useState({
     name: "",
@@ -96,17 +98,17 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
       }
       // setValues({
       //   ...values,
-        // name: user.name,
-        // gender_id: user.gender_id,
-        // document: user.document,
-        // nickname: user.nickname,
-        // birthdate: user.birthdate,
-        // registration: user.registration,
-        // isPartner: user.is_partner,
-        // abonado: null,
-        // terms: user.terms,
-        // messageismiembro: "",
-        // abonado_select: null
+      // name: user.name,
+      // gender_id: user.gender_id,
+      // document: user.document,
+      // nickname: user.nickname,
+      // birthdate: user.birthdate,
+      // registration: user.registration,
+      // isPartner: user.is_partner,
+      // abonado: null,
+      // terms: user.terms,
+      // messageismiembro: "",
+      // abonado_select: null
       // });
     }
   }, [user]);
@@ -149,10 +151,12 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
           values[key] = formData[key];
         }
       }
+
     }
   }, [values])
 
   const handleInputChange = e => {
+
     const { checked, name, value, type } = e.target;
 
     setValues({
@@ -176,7 +180,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
               : value
             : false
           : value
-      }
+    }
     );
   };
 
@@ -228,7 +232,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
 
         const res = await api.post(`register/complete-user`, userData);
 
-        setFormData({...values});
+        setFormData({ ...values });
 
         console.log(`\n\n\nAqui o userData -- ${JSON.stringify(userData)}\n\n\n`);
 
@@ -345,7 +349,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
       <div className="register-confirm container text-center">
 
         <h2 className="card-title text-center">
-          <span className={ "text-primary" }>¡</span>Sé parte de { <NameProject/> }<span className={ "text-primary" }>!</span>
+          <span className={"text-primary"}>¡</span>Sé parte de {<NameProject />}<span className={"text-primary"}>!</span>
         </h2>
 
         <div className={"card-subtitle"}>
@@ -353,7 +357,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
         </div>
 
         <div className="row">
-          <div className="col-md-12" style={{padding: 0}}>
+          <div className="col-md-12" style={{ padding: 0 }}>
             <div className="row">
               <div className="col-md-6">
                 <FormGroup>
@@ -397,10 +401,10 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
                         ))}
                       </>
                     ) : (
-                      <option disabled value="">
-                        Incapaz de cargar géneros
+                          <option disabled value="">
+                            Incapaz de cargar géneros
                       </option>
-                    )}
+                        )}
                   </Select>
                   <InvalidFeedback
                     error={error}
@@ -435,7 +439,8 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
                     options={{
                       altInput: "true",
                       altFormat: "d-m-y",
-                      dateFormat: "Y-m-d"
+                      dateFormat: "Y-m-d",
+                      maxDate: initialDate
                     }}
                     onChange={birthdate => {
                       setDate({ birthdate: birthdate });
