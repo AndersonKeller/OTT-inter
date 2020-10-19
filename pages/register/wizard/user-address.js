@@ -19,10 +19,10 @@ const UserAddressForm = ({
 }) => {
 
   const formDataHasProperties = formData.hasOwnProperty("country_id")
-                              && formData.hasOwnProperty("address_1st_level")
-                              && formData.hasOwnProperty("city")
-                              && formData.hasOwnProperty("address_3rd_level")
-                              && formData.hasOwnProperty("address");
+    && formData.hasOwnProperty("address_1st_level")
+    && formData.hasOwnProperty("city")
+    && formData.hasOwnProperty("address_3rd_level")
+    && formData.hasOwnProperty("address");
 
   const theme = useContext(ThemeContext);
   const primaryColor = Color(theme.colors.primary)
@@ -173,7 +173,7 @@ const UserAddressForm = ({
         </div>
 
         <div className="row">
-          <div className="col-md-6 offset-3">
+          <div className="col-md-6 aling-items">
             <Address
               api={api}
               error={error}
@@ -198,7 +198,7 @@ const UserAddressForm = ({
                 type="submit"
                 disabled={loading}
                 loading={loading}
-                style={ { marginLeft: "20px"} }
+                style={{ marginLeft: "20px" }}
               >
                 Siguiente
               </Button>
@@ -236,6 +236,12 @@ const UserAddressForm = ({
 
         .register-confirm {
           color: #666666;
+        }
+
+        @media(min-width:765px){
+          .aling-items {
+            margin-left: 25%;
+          }
         }
 
         @media(max-width: 765px) {
