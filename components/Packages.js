@@ -97,7 +97,7 @@ export const PackageRadio = ({
         {(plan.amount !== plan.amount_with_discount ||
           plan.amount === 0 && !discount) && (
             <div className={discount ? 'discount-value' : 'value'}>
-              {(plan.currency === 'ars' ? '' : '') + plan.amount}
+              {(plan.currency === 'ars' ? '' : '') + plan.amount == "$0" ? <br></br> : plan.amount}
             </div>
           )}
 
