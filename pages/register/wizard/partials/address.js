@@ -39,6 +39,7 @@ const Address = ({
   // } = formDataHasProperties ? formData : values;
 
   const [countries, setCountries] = useState();
+  const [selectedCountry, setSelectedCountry] = useState();
 
   useEffect(_ => {
     (async _ => {
@@ -54,12 +55,14 @@ const Address = ({
     //   [name]: value,
     //   address_1st_level: ""
     // });
-
     setFormData({
       ...formData,
       [name]: value,
       address_1st_level: ""
     });
+
+    onChangeCountry()
+
   };
 
   const firstLevelLabel = formData.country_id == argCountryId
@@ -83,23 +86,27 @@ const Address = ({
   useEffect(
     _ => {
       (async _ => {
-        const parsedCountryId = parseInt(formData.country_id);
-        const { data: addresses } = [
-          argCountryId,
-          braCountryId,
-          chlCountryId
-        ].includes(parsedCountryId)
-          ? await api.get("address-1st-levels", {
-              params: {
-                country_id: formData.country_id
-              }
-            })
-          : { data: null };
-        setFirstLevelList(addresses);
+        onChangeCountry();
       })();
     },
     []
   );
+
+  let onChangeCountry = async () => {
+    const parsedCountryId = parseInt(formData.country_id);
+    const { data: addresses } = [
+      argCountryId,
+      braCountryId,
+      chlCountryId
+    ].includes(parsedCountryId)
+      ? await api.get("address-1st-levels", {
+        params: {
+          country_id: formData.country_id
+        }
+      })
+      : { data: null };
+    setFirstLevelList(addresses);
+  }
 
   const cityLabel = formData.country_id == braCountryId
     ? "Cidade"

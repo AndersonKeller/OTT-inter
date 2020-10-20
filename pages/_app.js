@@ -67,12 +67,14 @@ class MyApp extends App {
 
   routeChangeStart(url) {
     console.log(`Loading ${url}...`)
-    NProgress.start()
+    // NProgress.start()
+    this.setState({ loading: true });
   }
 
   routeChangeComplete(url) {
     console.log(`Loaded ${url}!`)
-    NProgress.done()
+    // NProgress.done()
+    this.setState({ loading: false });
     if (isPoppingState) {
       isPoppingState = false
     } else {
@@ -91,12 +93,12 @@ class MyApp extends App {
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles)
     }
-    Router.events.on('routeChangeStart', this.routeChangeStart)
+    Router.events.on('routeChangeStart', this.routeChangeStart.bind(this))
     Router.beforePopState(({ url, as, options }) => {
       isPoppingState = true
       return true
     })
-    Router.events.on('routeChangeComplete', this.routeChangeComplete)
+    Router.events.on('routeChangeComplete', this.routeChangeComplete.bind(this))
     Router.events.on('routeChangeError', this.routeChangeError)
 
     setTimeout(() => {

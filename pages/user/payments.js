@@ -48,6 +48,26 @@ const PaymentsPage = ({ api, layoutProps, packages, user }) => {
   const theme = useContext(ThemeContext)
   const backgroundColor = theme.colors.backgroundContrast
 
+
+  let packageSection;
+
+  if (plan) {
+    packageSection = <div className="painel">
+      <div className="detail-compra">
+        <Card.Title>Tu plan</Card.Title>
+        <Card.Text>Todo el contenido de {CONFIG.appName} por {plan.name}.</Card.Text>
+      </div>
+      <div className="col-5 col-md-2 text-center" style={{ fontSize: '13px', lineHeight: '0.7rem', padding: 0 }}>
+        <PackageRadio
+          readOnly
+          package_id={plan.id}
+          plan={plan}
+          buttonLabel={"Cambiar Plan"}
+        />
+      </div>
+    </div>
+  }
+
   return (
     <Layout {...layoutProps}>
       <CardLogoHeader>
@@ -59,22 +79,9 @@ const PaymentsPage = ({ api, layoutProps, packages, user }) => {
             <div className="container"> */}
 
           <h1 className="h2">Detalles de la compra</h1>
-
+          {packageSection}
           {/* <Card bg="dark" text="white"> */}
-          <div className="painel">
-            <div className="detail-compra">
-              <Card.Title>Tu plan</Card.Title>
-              <Card.Text>Todo el contenido de {CONFIG.appName} por {plan.name}.</Card.Text>
-            </div>
-            <div className="col-5 col-md-2 text-center" style={{ fontSize: '13px', lineHeight: '0.7rem', padding: 0 }}>
-              <PackageRadio
-                readOnly
-                package_id={plan.id}
-                plan={plan}
-                buttonLabel={"Cambiar Plan"}
-              />
-            </div>
-          </div>
+
 
           <Card.Footer style={{ fontSize: '12px', lineHeight: 1 }}>
             Próxima factura: {subscription.ends_at && subscription.ends_at.split(' ')[0]}

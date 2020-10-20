@@ -125,7 +125,7 @@
     "apiUrl": "https://lau.dowhile.com.br",
     "lang": "es-CL",
     "loadingColor": "primary",
-    "backgroundColor": "#000000",
+    "backgroundColor": "#000c33",
     "backgroundContrastColor": "#1a1a1a",
     "backgroundContrastColor2": "#293989",
     "textColor": "#bec3db"

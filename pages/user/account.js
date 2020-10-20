@@ -3,11 +3,11 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Layout from '~/components/layout/Layout'
 import { PackageRadio } from '~/components/Packages'
-import Packages from "~/pages/register/wizard/packages"
 import withAuth from '~/components/withAuth'
 import { CONFIG } from '~/config'
 import CardLogoHeader from '~/components/CardLogoHeader/index'
-import ImageProfile, { imageProfile } from '~/pages/user/changeImage/index'
+import ImageProfile from '~/pages/user/changeImage/index'
+
 const AccountPage = ({ api, layoutProps, packages, user }) => {
 
   const [plan, setPlan] = useState({})
@@ -31,17 +31,37 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
     })()
   }, [])
 
+  const packageSection = function () {
+
+    if (plan) {
+      return <div
+        className="col col-md-4 text-left vertical-align"
+        style={ { fontSize: '16px', lineHeight: 1 } }
+      >
+
+        <PackageRadio
+          readOnly
+          package_id={ plan.id }
+          plan={ plan }
+          buttonLabel={ "Cambiar Plan" }
+        />
+      </div>
+    } else {
+      return <div></div>
+    }
+
+
+  }
+
   return (
 
 
-
-    <Layout {...layoutProps}>
+    <Layout { ...layoutProps }>
       <CardLogoHeader>
 
 
-
         <Head>
-          <title className="style-title">Mi Cuenta &lt; {CONFIG.appName}</title>
+          <title className="style-title">Mi Cuenta &lt; { CONFIG.appName }</title>
         </Head>
         <div className="rgpage container-fluid">
           <div className="row">
@@ -56,28 +76,29 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                       image={user && user.cropped_image_url ? user.cropped_image_url : null}
                     />
                   </a>
-                </Link> */}
-                  {/* <a><ProfilePic image={user && user.cropped_image_url ? user.cropped_image_url : null} /></a> */}
-                  <ImageProfile src={user && user.cropped_image_url ? user.cropped_image_url : "/static/icons/user.svg"}></ImageProfile>
+                </Link> */ }
+                  {/* <a><ProfilePic image={user && user.cropped_image_url ? user.cropped_image_url : null} /></a> */ }
+                  <ImageProfile
+                    src={ user && user.cropped_image_url ? user.cropped_image_url : "/static/icons/user.svg" }></ImageProfile>
 
 
-                  {/* </Link> */}
+                  {/* </Link> */ }
 
                 </div>
                 <div className="">
                   <div className="detail-profile">
                     <h1 className="h2">Mi Cuenta</h1>
-                    <div style={{
+                    <div style={ {
                       color: "var(--primary)", padding: " 0px",
                       fontWeight: "bolder"
-                    }} >
-                      {user && user.name}
+                    } }>
+                      { user && user.name }
                     </div>
                   </div>
                 </div>
 
               </div>
-              <hr />
+              <hr/>
               <div className="row">
                 <div className="col-md-4">
                   <div className="data">
@@ -87,7 +108,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                 <div className="col-md-8">
                   <div className="row">
                     <div className="col col-md text-left">
-                      <p className="info">{user && user.email}</p>
+                      <p className="info">{ user && user.email }</p>
                     </div>
                     <div className="col col-md text-right">
                       <Link href="changeEmail">
@@ -115,7 +136,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                       </Link>
                     </div>
                   </div>
-                  <hr />
+                  <hr/>
                   <div className="row">
                     <div className="col col-md text-left">
                       <p className="info negrito">Medio de Pago:</p>
@@ -123,12 +144,13 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                     <div className="col col-md-auto text-right">
                       {/* <Link as="#" href="#">
                     <a>Actualización de pago</a>
-                  </Link> */}
+                  </Link> */ }
                     </div>
                   </div>
                   <div className="row">
                     <div className="col col-md text-left">
-                      <p className="info">Fecha de vencimiento: {subscription.ends_at && subscription.ends_at.split(' ')[0]}</p>
+                      <p className="info">Fecha de
+                        vencimiento: { subscription.ends_at && subscription.ends_at.split(' ')[0] }</p>
                     </div>
                     <div className="col col-md-auto text-right">
                       <Link href="payments">
@@ -138,7 +160,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                   </div>
                 </div>
               </div>
-              <hr />
+              <hr/>
               <div className="row">
                 <div className="col-md-4">
                   <div className="data">
@@ -157,18 +179,9 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                   </div>
                   <div className="col col-md-3 text-right">
                     Cambiar plan
-                  </div> */}
-                    <div
-                      className="col col-md-4 text-left vertical-align"
-                      style={{ fontSize: '16px', lineHeight: 1 }}>
+                  </div> */ }
+                    {packageSection}
 
-                      <PackageRadio
-                        readOnly
-                        package_id={plan.id}
-                        plan={plan}
-                        buttonLabel={"Cambiar Plan"}
-                      />
-                    </div>
                     <div className="col col-md-8 text-right vertical-align">
                     </div>
                   </div>
@@ -179,7 +192,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
         </div>
       </CardLogoHeader>
 
-      <style jsx>{`
+      <style jsx>{ `
       .detail{
         width: 100%;
         padding: 41px;
@@ -276,8 +289,8 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
 
 
        }
-      `}</style>
-    </Layout >
+      ` }</style>
+    </Layout>
   )
 }
 
@@ -291,7 +304,6 @@ AccountPage.getInitialProps = async ({ api, user }) => {
   }
   return { packages, user }
 }
-
 
 
 export default withAuth(AccountPage)

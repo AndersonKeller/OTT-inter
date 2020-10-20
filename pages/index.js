@@ -62,6 +62,7 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
         .index__contents {
           position: relative;
           z-index: 2;
+          padding-bottom: 4em;
         }
 
         .home-carousel-section:first-child {
@@ -96,7 +97,6 @@ export default withApi(HomePage)
 const CoverImgContent = styled.div`
   background-image:
     linear-gradient(to bottom, ${props => Color(props.theme.colors.background).fade(1).string()} 80%, ${props => props.theme.colors.background} 100%),
-    radial-gradient(circle at 50% 50%, ${props => Color(props.theme.colors.background).fade(1).string()} 25%, ${props => Color(props.theme.colors.background).fade(.075).string()} 75%),
     url('${props => props.posterUrl}');
   background-position: 50% 0, 50% 0, 75% 0;
   background-repeat: no-repeat, no-repeat, no-repeat;
@@ -108,8 +108,7 @@ const CoverImgContent = styled.div`
   }
   @media (min-width: 768px) {
     background-image:
-      linear-gradient(to bottom, ${props => Color(props.theme.colors.background).fade(1).string()} 80%, ${props => props.theme.colors.background} 100%),
-      radial-gradient(circle at 67.5% 57.5%, ${props => Color(props.theme.colors.background).fade(1).string()} 25%, ${props => Color(props.theme.colors.background).fade(.075).string()} 42.5%),
+      linear-gradient(to bottom, ${props => Color(props.theme.colors.background).fade(1).string()} 65%, ${props => props.theme.colors.background} 100%),
       url('${props => props.posterUrl}');
     background-position: 50% 0, 50% 0, 40% 50%;
     &::before {
@@ -328,6 +327,8 @@ const HomeCarouselSection = ({ api, category: categorySlug, idx }) => {
         .home-carousel-section {
             //margin-bottom: 75px;
             //margin-top: 75px;
+            //padding: 1.5em 0;
+            //overflow: hidden;
         }
         @media (min-width: 768px) {
           .home-carousel-section {
