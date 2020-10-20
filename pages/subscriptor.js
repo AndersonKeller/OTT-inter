@@ -50,12 +50,18 @@ function SubscriptorPage({ layoutProps, mainPackage }) {
           imgHeight="560"
           imgSrc={`${STATIC_PATH}/subscriptor/section2-img.png`}
           imgWidth="870"
+
         >
-          <H2>
-            <span>{playersName} en</span> <AppLogo height={23} verticalAlign={0} />
-          </H2>
+          <div style={{ textAlign: "justify" }}>
+            <H2>
+              <span >{playersName} en</span>
+              <div style={{ maxWidth: "60%!important", padding: " 15px 15px 15px 0px" }}>
+                <AppLogo height={13} verticalAlign={0} />
+              </div>
+            </H2>
+          </div>
           <SubscriptorSectionText>
-            <p>{section2Text}</p>
+            <p className="aling-text">{section2Text}</p>
           </SubscriptorSectionText>
         </SubscriptorSection>
 
@@ -83,8 +89,11 @@ function SubscriptorPage({ layoutProps, mainPackage }) {
         .subscriptor {
           line-height: 1.5;
         }
+        .aling-text {
+          text-align: justify;
+        }
       `}</style>
-    </Layout>
+    </Layout >
   );
 }
 
@@ -173,12 +182,12 @@ const Packages = () => {
                         <div className={`card ${item.amount === 0 ? 'card--free' : ''}`}>
                           <div className="card-heading">Suscripción</div>
                           <div className="time">{item.name}</div>
-                          {item.amount !== 0 && (
+                          {item.amount !== "$0" && (
                             <div className="value">
                               {item.price}
                             </div>
                           )}
-                          {!user && (item.amount === 0 ? (
+                          {!user && (item.amount === "$0" ? (
                             <Button
                               block
                               onClick={(e) => choosePackage(e, item.id)}
@@ -305,6 +314,9 @@ const SubscriptorSection = ({ children, direction = 'right', imgAlt = '', imgHei
         .subscriptor-section {
           margin-bottom: 30px;
         }
+        .aling-text {
+         text-align: justify;
+        }
         .subscriptor-section-img-col {
           padding-right: 0;
           padding-left: 0;
@@ -407,8 +419,7 @@ const Section1 = ({ mainPackage }) => {
   const percentage = sectionHeight / imageDimensions.height
 
   const imageWidth = percentage * imageDimensions.width
-
-  const leadText = `¡${CONFIG.fullClubName} te da la bienvenida a la plataforma de contenidos ${TENANT === 'river' ? 'del Más Grande' : CONFIG.appName}!`
+  const leadText = `¡El ${CONFIG.fullClubName} te da la bienvenida a la primera plataforma digital en su tipo de contenidos exclusivos del Romántico Viajero, ${TENANT === 'river' ? 'del Más Grande' : CONFIG.appName}!`
 
   const minPrice = TENANT === 'lau' ? '$1.690' : mainPackage ? '$' + mainPackage.amount : null
   /*
@@ -428,11 +439,11 @@ const Section1 = ({ mainPackage }) => {
         <div className="col-md-4 offset-md-1">
           <div className="section1__content">
             <div className="row">
-              <div className="col-4 col-md-6">
+              <div className="col-4 col-md-6 aling-logo">
                 <ClubLogo alt={`${clubName} Logo`} className="section1__logo" />
               </div>
             </div>
-            <H2 className="text-uppercase section1__title">¡Bienvenidos!</H2>
+            <H2 className="text-uppercase section1__title aling-h2">¡Bienvenidos!</H2>
             <p>{leadText}</p>
             {minPrice && (
               <p>Todo por <big>{minPrice}</big> mensuales.</p>
@@ -441,6 +452,8 @@ const Section1 = ({ mainPackage }) => {
         </div>
       </div>
       <style jsx>{`
+
+
         @keyframes sliding {
           0% {
             transform: translateX(0)
@@ -448,6 +461,10 @@ const Section1 = ({ mainPackage }) => {
           100% {
             transform: translateX(-50%);
           }
+        }
+
+        .aling-logo {
+         margin-bottom: 40px;
         }
         .section1 {
           align-items: center;
