@@ -15,6 +15,7 @@ import { ThemeContext } from 'styled-components'
 import Flatpickr from "react-flatpickr";
 import { CONFIG } from "~/config";
 import NameProject from "~/components/NameProject";
+import { es } from "flatpickr/dist/l10n/es.js"
 
 const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData }) => {
 
@@ -440,6 +441,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
                       altInput: "true",
                       altFormat: "d-m-y",
                       dateFormat: "Y-m-d",
+                      locale: "es",
                       maxDate: initialDate
                     }}
                     onChange={birthdate => {
