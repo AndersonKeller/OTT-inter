@@ -205,7 +205,7 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
 
               {/* terms of use */}
               <li><Link href="/terminos-y-politicas" passHref>
-                <FooterLink>Términos y políticas</FooterLink>
+                <FooterLink>Términos y condiciones</FooterLink>
               </Link></li>
 
               <li className="logo-gad"><GADLogo /></li>
@@ -228,7 +228,7 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
                 <FooterLink>Política de Privacidad</FooterLink>
               </Link></li>
               <li><Link href="/terminos-y-politicas" passHref>
-                <FooterLink>Términos y políticas</FooterLink>
+                <FooterLink>Términos y condiciones</FooterLink>
               </Link></li>
             </ul>
           </div>
@@ -252,38 +252,38 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
           padding-top: 10px;
           padding-bottom: 5px;
         }
-        
+
         .terms-and-policies-bar .mobile {
           display: none;
         }
-        
+
         .terms-and-policies-bar .desktop {
           display: flex;
         }
-        
+
         @media (max-width: 767px) {
-        
+
           .terms-and-policies-bar .mobile {
             display: flex;
           }
           .terms-and-policies-bar .desktop {
             display: none;
           }
-          
+
           .gad-logo {
             margin: 15px 0;
           }
-          
+
           .copyright {
             margin-top: 15px;
           }
-          
+
           .links {
             margin: 10px 0;
             display: flex;
             justify-content: center;
           }
-          
+
           .aling {
             margin-top: -10px;
           }

@@ -6,11 +6,11 @@ import Policy from '../components/policy'
 import api from '../services/api'
 
 const TermsAndPolitics = ({ layoutProps, privacy }) => {
-  const title = "Términos y políticas";
+  const title = "Términos y condiciones";
   return (
     <Layout color="white" {...layoutProps}>
       <Head>
-          <title>{title} &lt; {CONFIG.appName}</title>
+        <title>{title} &lt; {CONFIG.appName}</title>
       </Head>
       <Policy title={title} policy={privacy} />
     </Layout>
@@ -20,7 +20,7 @@ const TermsAndPolitics = ({ layoutProps, privacy }) => {
 TermsAndPolitics.getInitialProps = async ctx => {
   const res = await api(ctx).get(`/privacypolicy`);
   const data = await res.data;
-  return { privacy: data.privacy_policy.terms_condition}  ;
+  return { privacy: data.privacy_policy.terms_condition };
 }
 
 export default TermsAndPolitics

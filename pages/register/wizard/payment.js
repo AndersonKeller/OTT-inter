@@ -16,17 +16,17 @@ import NameProject from "~/components/NameProject";
 import { toast } from "react-toastify";
 
 const Payment = ({
-                   layoutProps,
-                   userData,
-                   package_id,
-                   packages,
-                   api,
-                   requireds,
-                   handleSubmit,
-                   handleFormState,
-                   formData,
-                   setFormData
-                 }) => {
+  layoutProps,
+  userData,
+  package_id,
+  packages,
+  api,
+  requireds,
+  handleSubmit,
+  handleFormState,
+  formData,
+  setFormData
+}) => {
   const theme = useContext(ThemeContext);
   const primaryColor = Color(theme.colors.primary)
     .hsl()
@@ -113,10 +113,10 @@ const Payment = ({
       [name]:
         type === "checkbox"
           ? checked
-          ? value === "true"
-            ? true
-            : value
-          : false
+            ? value === "true"
+              ? true
+              : value
+            : false
           : value
     });
   };
@@ -180,9 +180,9 @@ const Payment = ({
   let payMethodsHtml = () => {
     {
       payMethods &&
-      payMethods.map((m, key) => {
-        return <div className="col-6 col-md">{ m.id }</div>;
-      });
+        payMethods.map((m, key) => {
+          return <div className="col-6 col-md">{m.id}</div>;
+        });
     }
   };
 
@@ -307,8 +307,8 @@ const Payment = ({
   return (
     <div className="register-confirm container text-center responsive">
       <h2 className="card-title text-center">
-        <span className={ "text-primary" }>¡</span>Sé parte de { <NameProject/> }
-        <span className={ "text-primary" }>!</span>
+        <span className={"text-primary"}>¡</span>Sé parte de {<NameProject />}
+        <span className={"text-primary"}>!</span>
       </h2>
       <div className="row">
         <div className="col-md-6 paymentMethod">
@@ -316,36 +316,36 @@ const Payment = ({
             <div className="col-12">
               <FormGroup>
                 <Label htmlFor="paymentMethodId" style="margin: 0;">
-                  Pague com
+                  Paga con
                 </Label>
                 <Select
                   id="paymentMethodId"
                   name="paymentMethodId"
-                  required={ requireds }
-                  onChange={ onPaymentChange }
-                  value={ values.paymentMethodId }
+                  required={requireds}
+                  onChange={onPaymentChange}
+                  value={values.paymentMethodId}
                 >
                   <option value="0">Selecione</option>
-                  { paymentMethods &&
-                  paymentMethods.map((paymentMethod, key) => (
-                    <option
-                      key={ paymentMethod.id }
-                      state={ values.paymentMethodId }
-                      value={ paymentMethod.id }
-                    >
-                      { paymentMethod.name }
-                    </option>
-                  )) }
+                  {paymentMethods &&
+                    paymentMethods.map((paymentMethod, key) => (
+                      <option
+                        key={paymentMethod.id}
+                        state={values.paymentMethodId}
+                        value={paymentMethod.id}
+                      >
+                        {paymentMethod.name}
+                      </option>
+                    ))}
                 </Select>
                 <InvalidFeedback
-                  error={ error }
-                  loading={ loading }
+                  error={error}
+                  loading={loading}
                   name="paymentMethodId"
                 />
               </FormGroup>
             </div>
           </div>
-          { values.paymentMethodId == 1 || values.paymentMethodId == 2 && (
+          {values.paymentMethodId == 1 || values.paymentMethodId == 2 && (
             <div className="row">
               <div className="col-12">
                 <FormGroup>
@@ -355,18 +355,18 @@ const Payment = ({
                   <Input
                     id="cardHolderName"
                     name="cardHolderName"
-                    required={ requireds }
+                    required={requireds}
                     type="text"
-                    onChange={ handleInputChange }
+                    onChange={handleInputChange}
                   />
                 </FormGroup>
               </div>
               <div className="col-12">
                 <FormGroup>
                   <Label htmlFor="cardNumber">Nro Cartão</Label>
-                  <img src={ cardImg } className="creditCardBrand"/>
+                  <img src={cardImg} className="creditCardBrand" />
                   <MaskedInput
-                    mask={ [
+                    mask={[
                       /\d/,
                       /\d/,
                       /\d/,
@@ -386,16 +386,16 @@ const Payment = ({
                       /\d/,
                       /\d/,
                       /\d/
-                    ] }
-                    guide={ false }
-                    className={ "form-control" }
-                    onChange={ handleInputChangeCreditCardNumber }
+                    ]}
+                    guide={false}
+                    className={"form-control"}
+                    onChange={handleInputChangeCreditCardNumber}
                     id="cardNumber"
                     name="cardNumber"
                   />
                   <InvalidFeedback
-                    error={ error }
-                    loading={ loading }
+                    error={error}
+                    loading={loading}
                     name="cardNumber"
                   />
                 </FormGroup>
@@ -404,15 +404,15 @@ const Payment = ({
                 <FormGroup>
                   <Label htmlFor="docNumber">Documento</Label>
                   <Input
-                    className={ "form-control" }
-                    onChange={ handleInputChange }
+                    className={"form-control"}
+                    onChange={handleInputChange}
                     id="docNumber"
                     name="docNumber"
-                    maxLength={ 20 }
+                    maxLength={20}
                   />
                   <InvalidFeedback
-                    error={ error }
-                    loading={ loading }
+                    error={error}
+                    loading={loading}
                     name="docNumber"
                   />
                 </FormGroup>
@@ -421,16 +421,16 @@ const Payment = ({
                 <FormGroup>
                   <Label htmlFor="card-duedate">Dt Vencimento</Label>
                   <MaskedInput
-                    mask={ [/\d/, /\d/, "/", /\d/, /\d/] }
-                    guide={ false }
-                    className={ "form-control" }
-                    placeholder={ "MM/AA" }
-                    name={ "cardExpirationDate" }
-                    onChange={ handleInputChange }
+                    mask={[/\d/, /\d/, "/", /\d/, /\d/]}
+                    guide={false}
+                    className={"form-control"}
+                    placeholder={"MM/AA"}
+                    name={"cardExpirationDate"}
+                    onChange={handleInputChange}
                   />
                   <InvalidFeedback
-                    error={ error }
-                    loading={ loading }
+                    error={error}
+                    loading={loading}
                     name="cardExpirationDate"
                   />
                 </FormGroup>
@@ -439,16 +439,16 @@ const Payment = ({
                 <FormGroup>
                   <Label htmlFor="card-cvv">CVV</Label>
                   <MaskedInput
-                    mask={ [/\d/, /\d/, /\d/] }
-                    guide={ false }
-                    className={ "form-control" }
-                    name={ "cardSecurityCode" }
-                    onChange={ handleInputChange }
-                    placeholder={ "***" }
+                    mask={[/\d/, /\d/, /\d/]}
+                    guide={false}
+                    className={"form-control"}
+                    name={"cardSecurityCode"}
+                    onChange={handleInputChange}
+                    placeholder={"***"}
                   />
                   <InvalidFeedback
-                    error={ error }
-                    loading={ loading }
+                    error={error}
+                    loading={loading}
                     name="cardSecurityCode"
                   />
                 </FormGroup>
@@ -458,32 +458,32 @@ const Payment = ({
                   block
                   color="secondary"
                   type="button"
-                  disabled={ loading }
-                  loading={ loading }
-                  onClick={ submitCredit }
+                  disabled={loading}
+                  loading={loading}
+                  onClick={submitCredit}
                 >
                   Pagar
                 </Button>
               </div>
             </div>
-          ) }
+          )}
 
-          { values.paymentMethodId == 3 && (
-            <div className={ "row" }>
+          {values.paymentMethodId == 3 && (
+            <div className={"row"}>
               <div className="col-12">
                 <Button
                   block
                   color="secondary"
                   type="button"
-                  disabled={ loading }
-                  loading={ loading }
-                  onClick={ submitCredit }
+                  disabled={loading}
+                  loading={loading}
+                  onClick={submitCredit}
                 >
                   Gerar Boleto
                 </Button>
               </div>
             </div>
-          ) }
+          )}
 
 
         </div>
@@ -491,36 +491,36 @@ const Payment = ({
         <div className="col-md-6">
           <div className="product-summary">
             <div className="product-image">
-              {/*<img src="/static/lau/subs/plan_hero.png" alt="" />*/ }
+              {/*<img src="/static/lau/subs/plan_hero.png" alt="" />*/}
             </div>
-            <div className={ "product-name-group" }>
-              <h6>Você está comprando:</h6>
-              <p className={ "product-name" }>
-                Assinatura - <strong>{ selectedPackage.name }</strong> recorrente
+            <div className={"product-name-group"}>
+              <h6>Estás comprando:</h6>
+              <p className={"product-name"}>
+                Suscripción - <strong>{selectedPackage.name}</strong> recurrente
               </p>
             </div>
-            <div className={ "price-breakdown" }>
+            <div className={"price-breakdown"}>
               <div className="checkout-total">
                 <h6>Total</h6>
-                <p className={ "price" }> { selectedPackage.amount }</p>
+                <p className={"price"}> {selectedPackage.amount}</p>
               </div>
             </div>
           </div>
-          <Button color="primary" onClick={ () => handleFormState(3) }>
+          <Button color="primary" onClick={() => handleFormState(3)}>
             Volver
           </Button>
         </div>
       </div>
-      <style jsx global={ true }>{ `
+      <style jsx global={true}>{`
         .card {
           min-height: 600px;
         }
         .text-primary {
-          color: ${ primaryColor } !important;
+          color: ${ primaryColor} !important;
         }
 
         strong.text-primary {
-          color: ${ primaryColor } !important;
+          color: ${ primaryColor} !important;
         }
 
         h2.card-title {
@@ -542,7 +542,7 @@ const Payment = ({
         }
 
         .text-primary {
-          color: ${ primaryColor } !important;
+          color: ${ primaryColor} !important;
         }
         .register-confirm {
           color: #666666;

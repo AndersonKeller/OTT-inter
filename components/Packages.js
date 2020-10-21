@@ -95,7 +95,7 @@ export const PackageRadio = ({
 
         {/* value */}
         {(plan.amount !== plan.amount_with_discount ||
-          plan.amount === 0 && !discount) && (
+          plan.amount === "$0" && !discount) && (
             <div className={discount ? 'discount-value' : 'value'}>
               {(plan.currency === 'ars' ? '' : '') + plan.amount == "$0" ? <br></br> : plan.amount}
             </div>
@@ -104,7 +104,7 @@ export const PackageRadio = ({
         {/* discount */}
         {discount && (
           <div className="value">
-            {(plan.currency === 'ars' ? '$' : '') + plan.amount_with_discount}
+            {(plan.currency === 'ars' ? '' : '') + plan.amount_with_discount}
           </div>
         )}
 

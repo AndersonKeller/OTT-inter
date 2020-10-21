@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import Router from 'next/router';
 import Layout from "~/components/layout/Layout";
 import React, { useContext, useState } from "react";
 import { CLIENT_ID, CLIENT_SECRET, IS_PRODUCTION, TENANT } from "~/constants/constants";
@@ -13,7 +15,6 @@ import Color from "color";
 import Label from "~/components/Form/Label";
 import InvalidFeedback from "~/components/Form/InvalidFeedback";
 import { setAccessToken } from "~/services/auth";
-import Router from "next/router";
 import api from '../services/api'
 import { CONFIG } from '~/config'
 import Header from '~/components/layout/HeaderCad'
@@ -195,7 +196,11 @@ const Signup = ({ }) => {
                         type="checkbox"
                         value={`true`}
                       />
-                      <span className="text-dark" style={{ paddingLeft: "10px" }}>He leído y acepto el contrato de {CONFIG.projectName}</span>
+
+
+                      <span className="text-dark" style={{ paddingLeft: "10px" }}>
+                        <Link href="/terminos-y-politicas">
+                          He leído y acepto el contrato</Link> de {CONFIG.projectName}</span>
                     </label>
                     <InvalidFeedback error={error} loading={loading} name="terms" />
                   </FormGroup>

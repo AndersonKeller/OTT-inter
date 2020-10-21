@@ -55,7 +55,7 @@ function SubscriptorPage({ layoutProps, mainPackage }) {
           <div style={{ textAlign: "justify" }}>
             <H2>
               <span >{playersName} en</span>
-              <div style={{ maxWidth: "60%!important", padding: " 15px 15px 15px 0px" }}>
+              <div style={{ maxWidth: "60%", padding: " 15px 15px 15px 0px" }}>
                 <AppLogo height={13} verticalAlign={0} />
               </div>
             </H2>
@@ -198,7 +198,7 @@ const Packages = () => {
                                 color="secondary"
                                 onClick={(e) => choosePackage(e, item.id)}
                                 outline
-                              >Suscribir</Button>
+                              >Suscribirme</Button>
                             ))}
                         </div>
                       </div>

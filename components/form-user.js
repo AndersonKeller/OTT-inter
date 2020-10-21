@@ -89,7 +89,7 @@ const DataForm = ({ isSubmitting, countries, genders, button }) => {
         {button && <div className="row align-items-center">
           <div className="aling-button">
             <Button type="submit" disabled={isSubmitting} loading={isSubmitting}>
-              Cambiar datos
+              Guardar cambios
           </Button>
           </div>
         </div>}
