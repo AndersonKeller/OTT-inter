@@ -55,13 +55,14 @@ const Address = ({
     //   [name]: value,
     //   address_1st_level: ""
     // });
+    setSelectedCountry(value);
     setFormData({
       ...formData,
       [name]: value,
       address_1st_level: ""
     });
 
-    onChangeCountry()
+    // onChangeCountry()
 
   };
 
@@ -85,28 +86,27 @@ const Address = ({
 
   useEffect(
     _ => {
-      (async _ => {
-        onChangeCountry();
-      })();
+      const parsedCountryId = parseInt(selectedCountry);
+      if ([
+        argCountryId,
+        braCountryId,
+        chlCountryId
+      ].includes(parsedCountryId)) {
+        api.get("address-1st-levels", {
+          params: {
+            country_id: parsedCountryId
+          }
+        }).then(data => {
+          setFirstLevelList(data.data);
+        });
+
+      } else {
+        setFirstLevelList(null);
+      }
+
     },
     []
   );
-
-  let onChangeCountry = async () => {
-    const parsedCountryId = parseInt(formData.country_id);
-    const { data: addresses } = [
-      argCountryId,
-      braCountryId,
-      chlCountryId
-    ].includes(parsedCountryId)
-      ? await api.get("address-1st-levels", {
-        params: {
-          country_id: formData.country_id
-        }
-      })
-      : { data: null };
-    setFirstLevelList(addresses);
-  }
 
   const cityLabel = formData.country_id == braCountryId
     ? "Cidade"

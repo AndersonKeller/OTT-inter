@@ -98,7 +98,7 @@ export default function Carousel({ children, color, additional }) {
       },
     ],
     slidesToScroll: 4,
-    slidesToShow: additional.is_horizontal ? 4 : 6,
+    slidesToShow: additional.is_horizontal ? 4 : 5,
     speed: 700,
   }
   return (

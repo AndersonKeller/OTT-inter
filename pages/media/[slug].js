@@ -97,7 +97,7 @@ const Cover = ({ category, media }) => {
                 )}
 
 
-                {detail && (
+                {(detail && media.logo_url == null) && (
                   <div className="description" style={{ display: 'flex' }}>
                     <div className={smDown && !open && 'short-description'}>
                       {smDown && !open && detail.replace(/^([\s\S]{70}[^\s]*)[\s\S]*/, "$1")}

@@ -38,11 +38,11 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
     gender_id: "",
     document: "",
     nickname: "",
-    birthdate: null,
+    birthdate: "",
     registration: "",
     isPartner: "",
     birth_of_date: "",
-    abonado: null
+    abonado: ""
   });
 
   const { user } = useContext(UserContext);

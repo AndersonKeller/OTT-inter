@@ -345,7 +345,7 @@ const Payment = ({
               </FormGroup>
             </div>
           </div>
-          {values.paymentMethodId == 1 || values.paymentMethodId == 2 && (
+          {(values.paymentMethodId == 1 || values.paymentMethodId == 2) && (
             <div className="row">
               <div className="col-12">
                 <FormGroup>
