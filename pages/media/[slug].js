@@ -68,6 +68,7 @@ const Cover = ({ category, media }) => {
   const theme = useContext(ThemeContext)
   const maskColor = Color(theme.colors.background);
   const {
+    banner_description = null,
     detail = null,
     poster_url: posterUrl,
     publish_year: publishYear = null,
@@ -96,13 +97,13 @@ const Cover = ({ category, media }) => {
                   <div className="year">{publishYear}</div>
                 )}
 
-
-                {detail && (
+                  <br></br>
+                {banner_description && (
                   <div className="description" style={{ display: 'flex' }}>
                     <div className={smDown && !open && 'short-description'}>
                       {smDown && !open && detail.replace(/^([\s\S]{70}[^\s]*)[\s\S]*/, "$1")}
                       <Collapse in={open || !smDown}>
-                        <p>{detail}</p>
+                        <p>{banner_description}</p>
                       </Collapse>
                     </div>
                     <div
