@@ -481,7 +481,7 @@ const Section1 = ({ mainPackage }) => {
         }
         .section1::before {
           animation: sliding 200s linear infinite normal;
-          background-image: url(${STATIC_PATH}/subscriptor/featured-background.png);
+          background-image: url(${STATIC_PATH}/subscriptor/section1-img.png);
           background-position: 50% 0;
           background-size: ${imageWidth + 'px'} 100%;
           content: '';
