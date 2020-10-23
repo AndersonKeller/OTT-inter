@@ -21,7 +21,7 @@ export default function Custom404Page() {
           color: ${whiteColor} !important;
         }
         .error > div > div::after {
-          content: url(${STATIC_PATH}/logos/app.svg);
+          content: url(${STATIC_PATH}/logos/logo-lau.png);
           display: block;
           height: auto;
           margin-right: auto;
