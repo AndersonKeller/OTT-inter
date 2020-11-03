@@ -50,20 +50,11 @@ const Address = ({
 
   const handleCountryChange = e => {
     const { name, value } = e.target;
-    // setValues({
-    //   ...values,
-    //   [name]: value,
-    //   address_1st_level: ""
-    // });
-    setSelectedCountry(value);
     setFormData({
       ...formData,
       [name]: value,
       address_1st_level: ""
     });
-
-    // onChangeCountry()
-
   };
 
   const firstLevelLabel = formData.country_id == argCountryId
@@ -86,7 +77,8 @@ const Address = ({
 
   useEffect(
     _ => {
-      const parsedCountryId = parseInt(selectedCountry);
+      const parsedCountryId = parseInt(formData.country_id);
+      // debugger;
       if ([
         argCountryId,
         braCountryId,
@@ -105,7 +97,9 @@ const Address = ({
       }
 
     },
-    []
+    [
+      formData.country_id
+    ]
   );
 
   const cityLabel = formData.country_id == braCountryId
