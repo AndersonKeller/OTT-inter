@@ -15,11 +15,14 @@ import api from '../services/api'
 import withApi from '~/components/withApi'
 import Color from 'color'
 import { TENANT } from "~/constants/constants";
+import Router from "next/router";
 
 const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, layoutProps }) => {
+
   const { user } = useContext(UserContext)
   const { appName: pageTitle } = CONFIG
   let [idx, setIdx] = useState(0)
+
   return (
     <Layout paddingTop={false} {...layoutProps} media={featuredMedia}>
       <Head>

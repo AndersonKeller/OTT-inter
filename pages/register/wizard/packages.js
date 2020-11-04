@@ -86,7 +86,7 @@ const PackagesDetails = ({
             {<NameProject />}
             <span className={"text-primary"}>!</span>
           </h2>
-          <div className="card-subtitle d-inline-block">¡Elige tu plan!</div>
+          <div className="card-subtitle d-inline-block">Elige tu plan</div>
 
           <Packages
             {...{

@@ -18,6 +18,20 @@ const nextConfig = withSourceMaps({
     API_URL: process.env.API_URL,
     SENTRY_DSN: process.env.SENTRY_DSN
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/signup',
+        permanent: true,
+      },
+      {
+        source: '',
+        destination: '/signup',
+        permanent: true,
+      },
+    ]
+  },
   webpack(config, options) {
     config.resolve.alias['~'] = path.resolve(__dirname)
 

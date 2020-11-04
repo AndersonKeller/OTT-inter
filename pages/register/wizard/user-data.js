@@ -460,7 +460,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
 
               <div className="col-md-6 ">
                 <FormGroup>
-                  <Label htmlFor="document">Documento</Label>
+                  <Label htmlFor="document">RUT</Label>
                   <Input
                     id="document"
                     name="document"
@@ -477,88 +477,88 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
                 </FormGroup>
               </div>
               {/* </div> */}
-              <div className="col-md-6">
-                <Label></Label>
-                <FormGroup>
-                  <label className="terms">
-                    <input
-                      checked={formData.terms || values.terms}
-                      name="terms"
-                      onChange={handleInputChange}
-                      type="checkbox"
-                      value={`true`}
-                    />
-                    <span style={{ paddingLeft: "10px" }}>
-                      Miembro del Club
-                    </span>
-                  </label>
-                  <InvalidFeedback
-                    error={error}
-                    loading={loading}
-                    name="terms"
-                  />
-                </FormGroup>
-                <InvalidFeedback
-                  error={error}
-                  loading={loading}
-                  name="abonado"
-                />
+              {/*<div className="col-md-6">*/}
+              {/*  <Label></Label>*/}
+              {/*  <FormGroup>*/}
+              {/*    <label className="terms">*/}
+              {/*      <input*/}
+              {/*        checked={formData.terms || values.terms}*/}
+              {/*        name="terms"*/}
+              {/*        onChange={handleInputChange}*/}
+              {/*        type="checkbox"*/}
+              {/*        value={`true`}*/}
+              {/*      />*/}
+              {/*      <span style={{ paddingLeft: "10px" }}>*/}
+              {/*        Miembro del Club*/}
+              {/*      </span>*/}
+              {/*    </label>*/}
+              {/*    <InvalidFeedback*/}
+              {/*      error={error}*/}
+              {/*      loading={loading}*/}
+              {/*      name="terms"*/}
+              {/*    />*/}
+              {/*  </FormGroup>*/}
+              {/*  <InvalidFeedback*/}
+              {/*    error={error}*/}
+              {/*    loading={loading}*/}
+              {/*    name="abonado"*/}
+              {/*  />*/}
 
-                <div className="is-miembro ">
-                  <FormGroup>
-                    <Label htmlFor="document">
-                      Abonado
-                      <span className="miembro-encontrado">
-                        : {formData.messageismiembro || values.messageismiembro}
-                      </span>
-                    </Label>
+              {/*  <div className="is-miembro ">*/}
+              {/*    <FormGroup>*/}
+              {/*      <Label htmlFor="document">*/}
+              {/*        Abonado*/}
+              {/*        <span className="miembro-encontrado">*/}
+              {/*          : {formData.messageismiembro || values.messageismiembro}*/}
+              {/*        </span>*/}
+              {/*      </Label>*/}
 
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "baseline",
-                        paddingTop: " 1px"
-                      }}
-                    >
-                      <Input
-                        id="abonado"
-                        name="abonado"
-                        onChange={handleInputChange}
-                        type="text"
-                        value={formData.abonado || values.abonado}
-                      />
+              {/*      <div*/}
+              {/*        style={{*/}
+              {/*          display: "flex",*/}
+              {/*          alignItems: "baseline",*/}
+              {/*          paddingTop: " 1px"*/}
+              {/*        }}*/}
+              {/*      >*/}
+              {/*        <Input*/}
+              {/*          id="abonado"*/}
+              {/*          name="abonado"*/}
+              {/*          onChange={handleInputChange}*/}
+              {/*          type="text"*/}
+              {/*          value={formData.abonado || values.abonado}*/}
+              {/*        />*/}
 
-                      <Button
-                        style={{}}
-                        fontSize="14px!important"
-                        color="secondary"
-                        onClick={submitCod}
-                        disabled={loading}
-                        loading={loading}
-                      >
-                        <div
-                          style={{
-                            padding: "0px",
-                            fontSize: "14px!important",
-                            width: "19px",
-                            height: "16px"
-                          }}
-                        >
-                          <GoSearch
-                            style={{
-                              size: "10px",
-                              fontSize: "14px!important",
-                              padding: "padding: 12px 16px 7px 16px!importan"
-                            }}
-                            fontSize={14}
-                            padding={0}
-                          />
-                        </div>
-                      </Button>
-                    </div>
-                  </FormGroup>
-                </div>
-              </div>
+              {/*        <Button*/}
+              {/*          style={{}}*/}
+              {/*          fontSize="14px!important"*/}
+              {/*          color="secondary"*/}
+              {/*          onClick={submitCod}*/}
+              {/*          disabled={loading}*/}
+              {/*          loading={loading}*/}
+              {/*        >*/}
+              {/*          <div*/}
+              {/*            style={{*/}
+              {/*              padding: "0px",*/}
+              {/*              fontSize: "14px!important",*/}
+              {/*              width: "19px",*/}
+              {/*              height: "16px"*/}
+              {/*            }}*/}
+              {/*          >*/}
+              {/*            <GoSearch*/}
+              {/*              style={{*/}
+              {/*                size: "10px",*/}
+              {/*                fontSize: "14px!important",*/}
+              {/*                padding: "padding: 12px 16px 7px 16px!importan"*/}
+              {/*              }}*/}
+              {/*              fontSize={14}*/}
+              {/*              padding={0}*/}
+              {/*            />*/}
+              {/*          </div>*/}
+              {/*        </Button>*/}
+              {/*      </div>*/}
+              {/*    </FormGroup>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
             </div>
 
             {discounts &&
