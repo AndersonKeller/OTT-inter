@@ -168,7 +168,7 @@ const UserAddressForm = ({
           <span className={"text-primary"}>!</span>
         </h2>
         <div className="card-subtitle d-inline-block">
-          Conéctate sin tener de salir de casa
+          Conéctate sin tener que salir de casa
         </div>
 
         <div className="row">

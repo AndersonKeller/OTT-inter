@@ -458,9 +458,9 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
                 </FormGroup>
               </div>
 
-              <div className="col-md-6 ">
+              <div className="col-md-6">
                 <FormGroup>
-                  <Label htmlFor="document">RUT</Label>
+                  <Label htmlFor="document">RUT (sin puntos y con guion)</Label>
                   <Input
                     id="document"
                     name="document"

@@ -21,7 +21,7 @@ function CustomError({ statusCode }) {
           color: #fff !important;
         }
         .error > div > div::after {
-          content: url(${STATIC_PATH}/logos/app.svg);
+          content: url(${STATIC_PATH}/logos/logo_project@2x.png);
           display: block;
           height: auto;
           margin-right: auto;
