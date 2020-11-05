@@ -160,7 +160,9 @@ const Payment = ({
   useEffect(_ => {
     const getPaymentMethods = async _ => {
       const { data } = await api.get("payment-methods");
-      setPaymentMethods(data);
+      const tempList = [];
+      tempList.push(data[0]);
+      setPaymentMethods(tempList);
     };
     getPaymentMethods();
   }, []);
@@ -325,7 +327,7 @@ const Payment = ({
                   onChange={onPaymentChange}
                   value={values.paymentMethodId}
                 >
-                  <option value="0">Selecione</option>
+                  <option value="0">Seleccione</option>
                   {paymentMethods &&
                     paymentMethods.map((paymentMethod, key) => (
                       <option
@@ -363,7 +365,24 @@ const Payment = ({
               </div>
               <div className="col-12">
                 <FormGroup>
-                  <Label htmlFor="cardNumber">Nro Cartão</Label>
+                  <Label htmlFor="docNumber">RUT</Label>
+                  <Input
+                    className={"form-control"}
+                    onChange={handleInputChange}
+                    id="docNumber"
+                    name="docNumber"
+                    maxLength={20}
+                  />
+                  <InvalidFeedback
+                    error={error}
+                    loading={loading}
+                    name="docNumber"
+                  />
+                </FormGroup>
+              </div>
+              <div className="col-12">
+                <FormGroup>
+                  <Label htmlFor="cardNumber">Número de Tarjeta</Label>
                   <img src={cardImg} className="creditCardBrand" />
                   <MaskedInput
                     mask={[
@@ -371,17 +390,14 @@ const Payment = ({
                       /\d/,
                       /\d/,
                       /\d/,
-                      " ",
                       /\d/,
                       /\d/,
                       /\d/,
                       /\d/,
-                      " ",
                       /\d/,
                       /\d/,
                       /\d/,
                       /\d/,
-                      " ",
                       /\d/,
                       /\d/,
                       /\d/,
@@ -400,26 +416,10 @@ const Payment = ({
                   />
                 </FormGroup>
               </div>
-              <div className="col-12">
-                <FormGroup>
-                  <Label htmlFor="docNumber">Documento</Label>
-                  <Input
-                    className={"form-control"}
-                    onChange={handleInputChange}
-                    id="docNumber"
-                    name="docNumber"
-                    maxLength={20}
-                  />
-                  <InvalidFeedback
-                    error={error}
-                    loading={loading}
-                    name="docNumber"
-                  />
-                </FormGroup>
-              </div>
+
               <div className="col-6">
                 <FormGroup>
-                  <Label htmlFor="card-duedate">Dt Vencimento</Label>
+                  <Label htmlFor="card-duedate">Expiración</Label>
                   <MaskedInput
                     mask={[/\d/, /\d/, "/", /\d/, /\d/]}
                     guide={false}

@@ -199,14 +199,14 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
             <ul>
 
               {/* privacy policy */}
-              <li><Link href="/privacy" passHref>
-                <FooterLink>Política de Privacidad</FooterLink>
-              </Link></li>
+              {/*<li><Link href="/privacy" passHref>*/}
+              {/*  <FooterLink>Política de Privacidad</FooterLink>*/}
+              {/*</Link></li>*/}
 
-              {/* terms of use */}
-              <li><Link href="/terminos-y-politicas" passHref>
-                <FooterLink>Términos y condiciones</FooterLink>
-              </Link></li>
+              {/*/!* terms of use *!/*/}
+              {/*<li><Link href="/terminos-y-politicas" passHref>*/}
+              {/*  <FooterLink>Términos y condiciones</FooterLink>*/}
+              {/*</Link></li>*/}
 
               <li className="logo-gad"><GADLogo /></li>
 

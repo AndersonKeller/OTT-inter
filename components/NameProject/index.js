@@ -12,8 +12,7 @@ import { CONFIG } from '~/config'
 function NameProject() {
   if (CONFIG.prefixAppName) {
     return <div style={ { display: 'inline-block' } }>
-      <strong
-        className="text-primary">{ CONFIG.prefixAppName } </strong>{ CONFIG.suffixAppName }
+      La <strong className="text-primary">U</strong> { CONFIG.suffixAppName }
     </div>
   } else if (CONFIG.projectName) {
     return <div style={ { display: 'inline-block' } }>

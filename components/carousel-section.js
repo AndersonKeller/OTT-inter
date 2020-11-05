@@ -38,7 +38,7 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
   return (
     <div className="carousel-section">
       <div className="container-fluid">
-        <H2 className={`carousel-section-title ${uppercase ? 'text-uppercase' : ''}`}>
+        <H2 className={`carousel-section-title`}>
           <p > {title}</p>
         </H2>
       </div>

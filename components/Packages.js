@@ -19,6 +19,8 @@ const Packages = ({
 
   const [discounts, setDiscounts] = useState([])
 
+  const [, ...rest] = items;
+
   /* get discounts */
   useEffect(_ => {
     (async _ => {
@@ -39,7 +41,7 @@ const Packages = ({
   return (
     <section className="packages">
       <div className="row gutter-15 packages__list">
-        {items && items.map((item, key) => {
+        {rest && rest.map((item, key) => {
           let discount = discounts ? discounts.find(disc => disc.id == item.id) : null
 
           return <div className="col-6 col-md" {...{ key }}>
@@ -97,14 +99,14 @@ export const PackageRadio = ({
         {(plan.amount !== plan.amount_with_discount ||
           plan.amount === "$0" && !discount) && (
             <div className={discount ? 'discount-value' : 'value'}>
-              {(plan.currency === 'ars' ? '' : '') + plan.amount == "$0" ? <br></br> : plan.amount}
+              { plan.amount}
             </div>
           )}
 
         {/* discount */}
         {discount && (
           <div className="value">
-            {(plan.currency === 'ars' ? '' : '') + plan.amount_with_discount}
+            {plan.amount_with_discount}
           </div>
         )}
 

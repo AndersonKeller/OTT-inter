@@ -12,7 +12,7 @@ const StyledH2 = styled.h2`
   }
   p {
     font-size: 24px;
-    text-transform: lowercase;
+    //text-transform: lowercase;
   }
   p:first-letter {
     text-transform: uppercase;
