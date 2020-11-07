@@ -2,8 +2,6 @@ import Carousel from '../components/carousel'
 import H2 from '../components/h2'
 import MediaCard from './MediaCard/MediaCard'
 import { CONFIG } from '~/config'
-import NetSlider from 'netslider';
-import Link from "next/link";
 import React from "react";
 
 

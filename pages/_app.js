@@ -24,7 +24,6 @@ import * as gtag from '~/lib/gtag'
 import theme from '~/theme'
 // import withBasicAuth from '~/basic-auth'
 import "~/styles/main.scss"
-import 'netslider/dist/styles.min.css';
 import Loading from "~/components/Loading/Loading";
 
 NProgress.configure({ showSpinner: false })
