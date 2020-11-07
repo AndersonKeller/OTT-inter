@@ -1,0 +1,52 @@
+{
+  "./ShakaPlayer": [
+    {
+      "id": "hoKK",
+      "name": "./node_modules/shaka-player/dist/shaka-player.ui.js",
+      "file": "static/chunks/0f4231a3.98e743b67e35d582e862.js",
+      "publicPath": "static/chunks/0f4231a3.98e743b67e35d582e862.js"
+    },
+    {
+      "id": "1OyB",
+      "name": "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js",
+      "file": "static/chunks/74.5538c6d7a52cc652b1e0.js",
+      "publicPath": "static/chunks/74.5538c6d7a52cc652b1e0.js"
+    },
+    {
+      "id": "Ji7U",
+      "name": "./node_modules/@babel/runtime/helpers/esm/inherits.js",
+      "file": "static/chunks/74.5538c6d7a52cc652b1e0.js",
+      "publicPath": "static/chunks/74.5538c6d7a52cc652b1e0.js"
+    },
+    {
+      "id": "PTA2",
+      "name": "./components/Player/ShakaPlayer.js",
+      "file": "static/chunks/74.5538c6d7a52cc652b1e0.js",
+      "publicPath": "static/chunks/74.5538c6d7a52cc652b1e0.js"
+    },
+    {
+      "id": "U8pU",
+      "name": "./node_modules/@babel/runtime/helpers/esm/typeof.js",
+      "file": "static/chunks/74.5538c6d7a52cc652b1e0.js",
+      "publicPath": "static/chunks/74.5538c6d7a52cc652b1e0.js"
+    },
+    {
+      "id": "foSv",
+      "name": "./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js",
+      "file": "static/chunks/74.5538c6d7a52cc652b1e0.js",
+      "publicPath": "static/chunks/74.5538c6d7a52cc652b1e0.js"
+    },
+    {
+      "id": "md7G",
+      "name": "./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js",
+      "file": "static/chunks/74.5538c6d7a52cc652b1e0.js",
+      "publicPath": "static/chunks/74.5538c6d7a52cc652b1e0.js"
+    },
+    {
+      "id": "vuIU",
+      "name": "./node_modules/@babel/runtime/helpers/esm/createClass.js",
+      "file": "static/chunks/74.5538c6d7a52cc652b1e0.js",
+      "publicPath": "static/chunks/74.5538c6d7a52cc652b1e0.js"
+    }
+  ]
+}
