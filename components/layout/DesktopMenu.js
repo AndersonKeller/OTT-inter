@@ -56,6 +56,7 @@ const DesktopMenu = ({ data: menus }) => {
 
   const { user } = useContext(UserContext)
   const theme = useContext(ThemeContext)
+  const backgroundColor = Color(theme.colors.background)
   const submenuColor = Color(theme.colors.backgroundContrast).fade(.1).hsl().string()
   const submenuHoverColor = Color(theme.colors.backgroundContrast).darken(.3).fade(.1).hsl().string()
   const textsColor = theme.colors.texts
@@ -123,7 +124,7 @@ const DesktopMenu = ({ data: menus }) => {
         .menu :global(.dropdown-toggle) {
           background-color: transparent;
           border: 0;
-          color: inherit;
+          color: #FFF;
           display: block;
           font-size: inherit;
           font-weight: inherit;
@@ -151,7 +152,7 @@ const DesktopMenu = ({ data: menus }) => {
           margin-left: 10px;
         }
         .menu :global(.dropdown-toggle) :global(.chevron) :global(path) {
-          fill: ${ textsColor };
+          //fill: ${ textsColor };
           transition: fill .2s;
         }
         .menu :global(.dropdown-toggle):focus :global(.chevron) :global(path),
@@ -162,7 +163,7 @@ const DesktopMenu = ({ data: menus }) => {
           background-color: transparent;
           border: 0;
           border-radius: 0;
-          color: inherit;
+          color: #FFF;
           font-size: inherit;
           left: 50% !important;
           margin-top: 22px;
@@ -172,10 +173,10 @@ const DesktopMenu = ({ data: menus }) => {
           transform: translate3d(-50%, 32px, 0) !important;
         }
         .menu :global(.dropdown-item) {
-          background-color: ${ submenuColor };
+          background-color: ${ backgroundColor };
           border: .1px solid transparent;
           box-shadow: 0 0 1px var(--black);
-          color: inherit;
+          color: #FFF;
           font-weight: inherit;
           padding: .33rem 1rem;
           transition: background-color .2s, color .2s;

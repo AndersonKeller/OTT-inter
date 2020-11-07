@@ -7,7 +7,7 @@ import Color from 'color'
 
 export default function MoreContentCarousel({ category, uppercase }) {
   const theme = useContext(ThemeContext)
-  const backgroundColor = Color(theme.colors.backgroundContrast).hsl().string()
+  const backgroundColor = Color(theme.colors.background).hsl().string()
   return (
     <aside className="more-content">
       <div className="carousel-section">

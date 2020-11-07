@@ -322,7 +322,7 @@ const HMediaCard = ({ category, media }) => {
 const More = ({ category, related: medias }) => {
   const { name: categoryName } = category
   const theme = useContext(ThemeContext)
-  const backgroundColor = Color(theme.colors.backgroundContrast).hsl().string()
+  const backgroundColor = Color(theme.colors.background).hsl().string()
   const [display, setDisplay] = useState("none")
 
   function visible() {

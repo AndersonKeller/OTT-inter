@@ -33,3 +33,8 @@ package-lock.json
 .now
 
 .vercel
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
