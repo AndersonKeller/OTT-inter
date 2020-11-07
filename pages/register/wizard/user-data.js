@@ -79,7 +79,9 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
           abonado: null,
           terms: user.terms,
           messageismiembro: "",
-          abonado_select: null
+          abonado_select: null,
+          is_miembro: false
+
         });
       } else {
         setValues({
@@ -94,7 +96,8 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
           abonado: null,
           terms: formData.terms,
           messageismiembro: "",
-          abonado_select: null
+          abonado_select: null,
+          is_miembro: false
         });
       }
       // setValues({
@@ -203,7 +206,8 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
         abonado: values.terms ? values.abonado_select : null,
         terms: values.terms,
         messageismiembro: "",
-        abona_select: null
+        abona_select: null,
+        is_miembro: false
       };
       if (
         userData.abonado == "undefined" ||
@@ -255,6 +259,11 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
     }
 
   };
+
+  async function buscaCod() {
+    let searchUser = await api.get(`register/search-cod/` + values.document);
+    values.is_miembro = searchUser.data.status == true ? true : false;
+  }
 
   const submitCod = async e => {
     e.preventDefault();
@@ -598,6 +607,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
 
             <div className="text-center">
               <Button
+                onClick={buscaCod}
                 color="secondary"
                 type="submit"
                 disabled={loading}

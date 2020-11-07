@@ -86,7 +86,9 @@ const PackagesDetails = ({
             {<NameProject />}
             <span className={"text-primary"}>!</span>
           </h2>
-          <div className="card-subtitle d-inline-block">Elige tu plan</div>
+          <div className="card-subtitle d-inline-block">Elige tu plan</div><br></br>
+          <div className="card-subtitle d-inline-block">{formData.is_miembro ? 'Es miembro del club' : ''}</div>
+
 
           <Packages
             {...{
@@ -94,10 +96,10 @@ const PackagesDetails = ({
               items: packages.items ? packages.items : null,
               onChange: onPackageChange,
               package_id: formData.package_id,
-              validationError:  !loading
-                                && error
-                                && error.errors
-                                && error.errors.package_id,
+              validationError: !loading
+                && error
+                && error.errors
+                && error.errors.package_id,
               discount_id: formData.discount_id,
               setBlockDiscountFields
             }}
@@ -115,7 +117,7 @@ const PackagesDetails = ({
                   disabled={loading}
                   loading={loading}
                   type="submit"
-                  style={ { marginLeft: "20px"} }
+                  style={{ marginLeft: "20px" }}
                 >
                   Siguiente
                 </Button>
