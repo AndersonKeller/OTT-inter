@@ -1,19 +1,18 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
+node_modules/
+.pnp
 .pnp.js
 .idea/
 # testing
-/coverage
+coverage/
 
 # next.js
-/.next/
-/out/
-
+.next/
+out/
 # production
-/build
+build/
 
 # misc
 .DS_Store
@@ -28,11 +27,9 @@ yarn-error.log*
 package-lock.json
 
 # docz
-.docz
-
-.now
-
-.vercel
+.docz/
+.now/
+.vercel/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
@@ -40,7 +37,6 @@ package-lock.json
 !.elasticbeanstalk/*.global.yml
 
 # dependencies
-node_modules/
 # repository/project stuff
 .git/
 .gitlab-ci.yml
