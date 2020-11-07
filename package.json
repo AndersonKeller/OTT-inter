@@ -16,7 +16,6 @@
     "start": "next start -p $PORT"
   },
   "dependencies": {
-    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@charlietango/use-script": "^2.1.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
@@ -74,6 +73,7 @@
   },
   "devDependencies": {
     "@zeit/next-source-maps": "0.0.4-canary.1",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "babel-plugin-styled-components": "^1.10.7",
     "docz": "^2.3.1",
     "nodemon": "^2.0.4",
