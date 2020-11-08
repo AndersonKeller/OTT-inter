@@ -2,9 +2,6 @@
   "name": "@somosgad/dale",
   "private": true,
   "version": "1.0.0",
-  "engines": {
-    "node": "12.18.0"
-  },
   "scripts": {
     "build": "next build",
     "dev": "nodemon server.js",

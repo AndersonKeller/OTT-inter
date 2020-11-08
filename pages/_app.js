@@ -18,8 +18,6 @@ import { SearchProvider } from '../contexts/SearchContext'
 import { ThemeProvider } from 'styled-components'
 import { UserProvider } from '../contexts/UserContext'
 import * as gtag from '~/lib/gtag'
-
-
 // import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from '~/theme'
 // import withBasicAuth from '~/basic-auth'
@@ -46,7 +44,7 @@ class MyApp extends App {
 
 
   static async getInitialProps({ Component, router, ctx }) {
-    let layoutPropsTasks = { }, pagePropsTasks = { }
+    let layoutPropsTasks = {}, pagePropsTasks = {}
 
     if (Layout.getInitialProps) {
       layoutPropsTasks = Layout.getInitialProps(ctx)
@@ -56,7 +54,7 @@ class MyApp extends App {
       pagePropsTasks = Component.getInitialProps(ctx)
     }
 
-    const [ layoutProps, pageProps ] = await Promise.all([
+    const [layoutProps, pageProps] = await Promise.all([
       layoutPropsTasks,
       pagePropsTasks,
     ])
@@ -65,13 +63,13 @@ class MyApp extends App {
   }
 
   routeChangeStart(url) {
-    console.log(`Loading ${url}...`)
+    console.log(`Loading ${ url }...`)
     // NProgress.start()
     this.setState({ loading: true });
   }
 
   routeChangeComplete(url) {
-    console.log(`Loaded ${url}!`)
+    console.log(`Loaded ${ url }!`)
     // NProgress.done()
     this.setState({ loading: false });
     if (isPoppingState) {
@@ -126,15 +124,16 @@ class MyApp extends App {
   render() {
     const { Component, layoutProps, pageProps } = this.props
     return (
-      <ThemeProvider theme={theme}>
-        {this.state.loading && <div className={"super-loading"}><Loading loadingState={this.state.loading} /></div>}
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        {/* <CssBaseline /> */}
-        <GlobalStyle />
+      <ThemeProvider theme={ theme }>
+        { this.state.loading &&
+        <div className={ "super-loading" }><Loading loadingState={ this.state.loading }/></div> }
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */ }
+        {/* <CssBaseline /> */ }
+        <GlobalStyle/>
         <UserProvider>
           <AuthModalProvider>
             <SearchProvider>
-              <Component layoutProps={layoutProps} {...pageProps} />
+              <Component layoutProps={ layoutProps } { ...pageProps } />
             </SearchProvider>
           </AuthModalProvider>
         </UserProvider>
