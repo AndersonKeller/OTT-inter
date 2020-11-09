@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[13],{v7au:function(t,a,n){"use strict";n.d(a,"a",(function(){return h}));var i=n("Lnxd"),h=function(t){return Object(i.a)({tag:"svg",attr:{viewBox:"0 0 24 24"},child:[{tag:"g",attr:{},child:[{tag:"path",attr:{fill:"none",d:"M0 0h24v24H0z"}},{tag:"path",attr:{d:"M5 22a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v3h-2V4H6v16h12v-2h2v3a1 1 0 0 1-1 1H5zm13-6v-3h-7v-2h7V8l5 4-5 4z"}}]}]})(t)};h.displayName="RiLogoutBoxRLine"}}]);
-//# sourceMappingURL=78e521c3.2bf17a027576bad8add0.js.map

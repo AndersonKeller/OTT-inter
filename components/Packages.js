@@ -19,7 +19,7 @@ const Packages = ({
 
   const [discounts, setDiscounts] = useState([])
 
-  const [, ...rest] = items;
+  const [...rest] = items;
 
   /* get discounts */
   useEffect(_ => {

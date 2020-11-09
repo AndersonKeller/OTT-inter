@@ -89,11 +89,11 @@ HomePage.getInitialProps = async ctx => {
     const [firstContent, ...contents] = homePage.contents
     const { data: { movie: featuredMedia } } = await api.get('movie/' + firstContent.slug + '?for=home-cover')
 
-    // typeof window !== 'undefined'
-    //   ? Router.push('/signup')
-    //   : ctx.res.writeHead(302, { Location: '/signup' }).end()
+    typeof window !== 'undefined'
+      ? Router.push('/signup')
+      : ctx.res.writeHead(302, { Location: '/signup' }).end()
 
-    return { contents, featuredMedia }
+    // return { contents, featuredMedia }
   } catch (error) {
     const [...contents] = homePage.contents;
     return { contents, featuredMediaError: error };

@@ -82,7 +82,7 @@ const PackagesDetails = ({
       <form method="post" onSubmit={submit}>
         <div className="register-confirm container text-center">
           <h2 className="card-title text-center">
-            <span className={"text-primary"}>¡</span>Sé parte de{" "}
+            <span className={"text-primary"}>¡</span>Únete a{" "}
             {<NameProject />}
             <span className={"text-primary"}>!</span>
           </h2>

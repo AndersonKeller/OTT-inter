@@ -309,7 +309,7 @@ const Payment = ({
   return (
     <div className="register-confirm container text-center responsive">
       <h2 className="card-title text-center">
-        <span className={"text-primary"}>¡</span>Sé parte de {<NameProject />}
+        <span className={"text-primary"}>¡</span>Únete a {<NameProject />}
         <span className={"text-primary"}>!</span>
       </h2>
       <div className="row">

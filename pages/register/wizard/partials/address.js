@@ -105,11 +105,11 @@ const Address = ({
   const cityLabel = formData.country_id == braCountryId
     ? "Cidade"
     : formData.country_id == chlCountryId
-      ? "Provincia"
+      ? "Provincia / Ciudad"
       : "Ciudad";
 
   const thirdLevelLabel =
-  formData.country_id == chlCountryId ? "Ciudad / Comuna" : "District";
+  formData.country_id == chlCountryId ? "Comuna" : "District";
 
   return (
     <div className="address">

@@ -16,7 +16,7 @@ import packageJson from '~/package.json'
 export default function Footer({ apiVersion, layoutColor }) {
   return (
     <footer className="footer">
-      <NavFooter className="d-lg-none" />
+      {/*<NavFooter className="d-lg-none" /> TODO: Remover*/}
       <TermsAndPoliciesBar apiVersion={apiVersion} layoutColor={layoutColor} />
       <style jsx>{`
         .footer {

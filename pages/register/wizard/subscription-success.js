@@ -2,18 +2,11 @@
 import withAuth from "~/components/withAuth";
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "~/contexts/UserContext";
-import Button from "~/components/button";
 
-import {
-  CLIENT_ID,
-  CLIENT_SECRET,
-  IS_PRODUCTION,
-  TENANT
-} from "~/constants/constants";
+import { TENANT } from "~/constants/constants";
 import { CONFIG } from "~/config";
 import Color from "color";
 import { ThemeContext } from "styled-components";
-import Router from "next/router";
 
 const SubscriptionSuccess = ({ handleFormState }) => {
   // const SubscriptionSuccess = ({ layoutProps }) => {
@@ -47,21 +40,21 @@ const SubscriptionSuccess = ({ handleFormState }) => {
   function appName() {
     if (CONFIG.projectName) {
       return (
-        <div style={{ display: "inline-block" }}>
-          <strong className="">{CONFIG.projectName.split(" ")[0]}</strong>
-          {CONFIG.projectName.split(" ")[1]}
+        <div style={ { display: "inline-block" } }>
+          <strong className="">{ CONFIG.projectName.split(" ")[0] }</strong>
+          { CONFIG.projectName.split(" ")[1] }
         </div>
       );
     } else if (CONFIG.appName) {
       return (
-        <div style={{ display: "inline-block" }}>
-          <strong className="">{CONFIG.appName.split(" ")[0]}</strong>
-          {CONFIG.appName.split(" ")[1]}
+        <div style={ { display: "inline-block" } }>
+          <strong className="">{ CONFIG.appName.split(" ")[0] }</strong>
+          { CONFIG.appName.split(" ")[1] }
         </div>
       );
     }
     return (
-      <div style={{ display: "inline-block" }}>
+      <div style={ { display: "inline-block" } }>
         <strong className="">Project</strong>Name!
       </div>
     );
@@ -70,40 +63,52 @@ const SubscriptionSuccess = ({ handleFormState }) => {
   return (
     <div className="register-confirm container text-center">
       <h2 className="card-title">
-        Bienvenido <strong className="text-primary">{values.name}</strong>
+        Bienvenido <strong className="text-primary">{ values.name }</strong>
       </h2>
-      <div className={"card-subtitle"}>
-        Gracias por completar tu perfil de <br />
+      <div className={ "card-subtitle" }>
+        Gracias por completar tu suscripción a La U Play en esta etapa.
+
+        <br/>
+
+        Tu plan comenzará a correr desde el día del lanzamiento oficial, mismo tiempo desde el cual podrás disfrutar de
+        esta nueva experiencia.
+
+        <br/>
+
+        Te llegará un correo electrónico a la dirección que registraste con todos los detalles del pago.
+
+        <br/>
+
         <img
-          src={`/static/${TENANT}/logos/logo_project_black.png`}
-          alt={CONFIG.appName}
-          width={200}
-          style={{ marginTop: "20px" }}
+          src={ `/static/${ TENANT }/logos/logo_project_black.png` }
+          alt={ CONFIG.appName }
+          width={ 200 }
+          style={ { marginTop: "20px" } }
         />
       </div>
 
-      {/*<div className="row">*/}
-      {/*  <div className="col-md-12">*/}
-      {/*    <div className="text-center">*/}
-      {/*      <Button*/}
-      {/*        color="secondary"*/}
-      {/*        type="button"*/}
-      {/*        style={{ width: "250px" }}*/}
-      {/*        onClick={() =>*/}
-      {/*          Router.push(*/}
-      {/*            {*/}
-      {/*              pathname: "/"*/}
-      {/*            },*/}
-      {/*            "/"*/}
-      {/*          )*/}
-      {/*        }*/}
-      {/*      >*/}
-      {/*        Ir a {appName()}*/}
-      {/*      </Button>*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
-      <style jsx global={true}>{`
+      {/*<div className="row">*/ }
+      {/*  <div className="col-md-12">*/ }
+      {/*    <div className="text-center">*/ }
+      {/*      <Button*/ }
+      {/*        color="secondary"*/ }
+      {/*        type="button"*/ }
+      {/*        style={{ width: "250px" }}*/ }
+      {/*        onClick={() =>*/ }
+      {/*          Router.push(*/ }
+      {/*            {*/ }
+      {/*              pathname: "/"*/ }
+      {/*            },*/ }
+      {/*            "/"*/ }
+      {/*          )*/ }
+      {/*        }*/ }
+      {/*      >*/ }
+      {/*        Ir a {appName()}*/ }
+      {/*      </Button>*/ }
+      {/*    </div>*/ }
+      {/*  </div>*/ }
+      {/*</div>*/ }
+      <style jsx global={ true }>{ `
         h2.card-title {
           font-weight: normal;
           color: #000;
@@ -118,7 +123,7 @@ const SubscriptionSuccess = ({ handleFormState }) => {
         }
 
         .text-primary {
-          color: ${primaryColor} !important;
+          color: ${ primaryColor } !important;
         }
 
         .register-confirm {
@@ -128,9 +133,9 @@ const SubscriptionSuccess = ({ handleFormState }) => {
         }
 
         .text-primary {
-          color: ${primaryColor} !important;
+          color: ${ primaryColor } !important;
         }
-      `}</style>
+      ` }</style>
     </div>
   );
 };

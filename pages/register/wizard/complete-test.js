@@ -3,7 +3,7 @@ import Layout from "~/components/layout/Layout";
 import UserData from "./user-data";
 import UserAddress from "./user-address";
 import SubscriptionSuccess from "./subscription-success";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { IS_PRODUCTION } from "~/constants/constants";
 import Header from "~/components/layout/HeaderCad";
 import Payment from "~/pages/register/wizard/payment";
@@ -11,6 +11,8 @@ import Packages from "./packages";
 import MultiStepIndicator from "~/components/MultiStepIndicator";
 import { STATIC_PATH, TENANT } from "~/constants/constants";
 import LogoApp from "~/components/LogoApp";
+import { ThemeContext } from "styled-components";
+import Color from "color";
 
 
 const CompleteTest = ({ api, layoutProps, packages, user }) => {
@@ -43,6 +45,11 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
+
+  const theme = useContext(ThemeContext);
+  const backgroundColor = Color(theme.colors.background)
+    .hsl()
+    .string();
 
   const changeIndex = idx => {
     setWizardIndex(idx);
@@ -137,7 +144,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
           <div
             className={"card-header text-center"}
             style={{
-              backgroundColor: "#242627",
+              backgroundColor: backgroundColor,
               padding: "25px 15px",
               border: "none",
               borderRadius: "0",

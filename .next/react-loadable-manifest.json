@@ -1,36 +1,8 @@
 {
-  "./ShakaPlayer": [
+  "./dev/noop": [
     {
-      "id": "hoKK",
-      "file": "static/chunks/0f4231a3.c3fc92ab1a90432212ba.js"
-    },
-    {
-      "id": "1OyB",
-      "file": "static/chunks/73.d3c3700a91cf9f71b690.js"
-    },
-    {
-      "id": "Ji7U",
-      "file": "static/chunks/73.d3c3700a91cf9f71b690.js"
-    },
-    {
-      "id": "PTA2",
-      "file": "static/chunks/73.d3c3700a91cf9f71b690.js"
-    },
-    {
-      "id": "U8pU",
-      "file": "static/chunks/73.d3c3700a91cf9f71b690.js"
-    },
-    {
-      "id": "foSv",
-      "file": "static/chunks/73.d3c3700a91cf9f71b690.js"
-    },
-    {
-      "id": "md7G",
-      "file": "static/chunks/73.d3c3700a91cf9f71b690.js"
-    },
-    {
-      "id": "vuIU",
-      "file": "static/chunks/73.d3c3700a91cf9f71b690.js"
+      "id": "./node_modules/next/dist/client/dev/noop.js",
+      "file": "static/chunks/0.js"
     }
   ]
 }
