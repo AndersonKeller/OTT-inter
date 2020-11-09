@@ -7,9 +7,13 @@
     "dev": "nodemon server.js",
     "dev:river": "cross-env TENANT=river yarn dev",
     "dev:dalecacique": "cross-env TENANT=dalecacique yarn dev",
-    "start": "next start -p $PORT"
+    "docz:dev": "docz dev",
+    "docz:build": "docz build",
+    "docz:serve": "docz build && docz serve",
+    "start": "cross-env NODE_ENV=production node server.js"
   },
   "dependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@charlietango/use-script": "^2.1.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
@@ -23,18 +27,23 @@
     "bootstrap": "^4.5.0",
     "classnames": "^2.2.6",
     "color": "^3.1.2",
+    "cross-env": "^6.0.3",
+    "dotenv": "^8.2.0",
+    "dotenv-load": "^2.0.0",
     "express": "^4.17.1",
     "formik": "^2.1.4",
     "glamor": "^2.20.40",
     "hls.js": "^0.14.8",
     "isomorphic-unfetch": "^3.0.0",
     "json-parse-safe": "^2.0.0",
-    "next": "^10.0.1",
+    "netslider": "^1.3.4",
+    "next": "^9.4.1",
     "next-compose-plugins": "^2.2.0",
     "next-images": "^1.4.0",
     "next-redirect": "^1.0.1",
     "node-sass": "^4.14.1",
     "nookies": "^2.3.0",
+    "now": "^19.0.1",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
@@ -57,18 +66,14 @@
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.1.0",
     "video-react": "^0.14.1",
+    "webpack": "^4.43.0",
     "yup": "^0.28.5"
   },
   "devDependencies": {
     "@zeit/next-source-maps": "0.0.4-canary.1",
-    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "babel-plugin-styled-components": "^1.10.7",
+    "docz": "^2.3.1",
     "nodemon": "^2.0.4",
-    "now": "^19.0.1",
-    "sleep-promise": "^8.0.1",
-    "cross-env": "^6.0.3",
-    "dotenv": "^8.2.0",
-    "dotenv-load": "^2.0.0",
-    "webpack": "^4.43.0"
+    "sleep-promise": "^8.0.1"
   }
 }

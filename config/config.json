@@ -106,7 +106,7 @@
     "supportersAKA": "Universitários",
     "color": "#D80000",
     "secondaryColor": "#000",
-    "site": "https://www.udechile.cl/",
+    "site": "https://play.udechile.cl/",
     "socialNetworks": [
       {
         "name": "Facebook",
@@ -122,7 +122,7 @@
       }
     ],
     "googleAnalytics": "UA-146274840-3",
-    "apiUrl": "https://lau.dowhile.com.br",
+    "apiUrl": "https://api.udechile.cl",
     "lang": "es-CL",
     "loadingColor": "primary",
     "backgroundColor": "#000c33",

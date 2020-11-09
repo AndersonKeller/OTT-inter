@@ -39,12 +39,12 @@ export function UserProvider({ children }) {
 
     setUser(user)
 
-    if ( ! user.register_completed_at) {
+    // if ( ! user.register_completed_at) {
       Router.replace('/register/welcome')
-    } else {
-      Router.replace('/')
-    }
-
+    // } else {
+    //   Router.replace('/')
+    // }
+   // TODO: Fix
   }
 
   const signOut = async _ => {

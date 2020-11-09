@@ -61,14 +61,14 @@ app.prepare().then(() => {
 
     req.query.socialProvider = 'google'
 
-    return app.render(req, res, '/', req.query)
+    return app.render(req, res, '/signup', req.query)
   })
 
   server.get('/fLogin', (req, res) => {
     req.query.modal = 'login'
     req.query.socialProvider = 'facebook'
 
-    return app.render(req, res, '/', req.query)
+    return app.render(req, res, '/signup', req.query)
   })
 
   server.get('/register', (req, res) => {

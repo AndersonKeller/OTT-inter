@@ -4,11 +4,13 @@ import Layout from '../components/layout/Layout'
 import { CONFIG } from '../config'
 import Policy from '../components/policy'
 import api from '../services/api'
+import React from "react";
 
 const TermsAndPolitics = ({ layoutProps, privacy }) => {
   const title = "Términos y condiciones";
   return (
-    <Layout color="white" {...layoutProps}>
+    <Layout color="white" {...layoutProps} header={"hidden"}
+            footer={"show"}>
       <Head>
         <title>{title} &lt; {CONFIG.appName}</title>
       </Head>

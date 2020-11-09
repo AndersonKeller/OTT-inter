@@ -205,11 +205,11 @@ const Signup = ({ }) => {
                     <InvalidFeedback error={error} loading={loading} name="terms" />
                   </FormGroup>
 
-                  <div className="already-subscriptor">
-                    <span>¿Ya estás registrado?</span>
-                    {' '}
-                    <a className="bold text-uppercase" href="/login">Inicia sesión</a>
-                  </div>
+                  {/*<div className="already-subscriptor">*/}
+                  {/*  <span>¿Ya estás registrado?</span>*/}
+                  {/*  {' '}*/}
+                  {/*  <a className="bold text-uppercase" href="/login">Inicia sesión</a>*/}
+                  {/*</div>*/}
 
                   <Button block className="enter-btn" size="sm" type="submit" loading={loading}
                     disabled={loading}>Registrar</Button>
@@ -288,7 +288,9 @@ const Signup = ({ }) => {
     }
       ` }</style>
       </div>
-      <div> <Footer /></div>
+      <div>
+        <Footer />
+      </div>
 
     </Layout>
 
