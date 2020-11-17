@@ -41,12 +41,12 @@ const MediaCard = ({
           }
           <img className="img-fluid"
             src={category ? (category.is_horizontal ? media.thumbnail2_url : media.thumbnail_url) : media.thumbnail_url} />
-          <div className="media-card-label">
-            <FontAwesomeIcon icon={faPlayCircle} />
-            <div className={"text"}>
-              {media.title}
-            </div>
-          </div>
+          {/*<div className="media-card-label">*/}
+          {/*  <FontAwesomeIcon icon={faPlayCircle} />*/}
+          {/*  <div className={"text"}>*/}
+          {/*    {media.title}*/}
+          {/*  </div>*/}
+          {/*</div>*/}
 
           <span className="media-chip">
 

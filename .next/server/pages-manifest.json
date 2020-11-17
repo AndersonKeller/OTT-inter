@@ -2,6 +2,6 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/register/wizard/complete-test": "pages/register/wizard/complete-test.js",
-  "/signup": "pages/signup.js"
+  "/media/[slug]": "pages/media/[slug].js",
+  "/": "pages/index.js"
 }

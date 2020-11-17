@@ -1,31 +1,27 @@
 import withApi from "~/components/withApi";
 import Packages from "~/components/Packages";
-import React, { useCallback, useContext, useState, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Button from "~/components/button";
 import { ThemeContext } from "styled-components";
 import Color from "color";
 import NameProject from "~/components/NameProject/index";
 
 const PackagesDetails = ({
-  packages,
-  layoutProps,
-  selectPackage,
-  handleSubmit,
-  handleFormState,
-  formData,
-  setFormData
-}) => {
+                           packages,
+                           layoutProps,
+                           selectPackage,
+                           handleSubmit,
+                           handleFormState,
+                           formData,
+                           setFormData
+                         }) => {
 
   useEffect(
     _ => {
       console.log(`\n\n packages.js first useEffect (componentDidMount)`)
-      console.log(`\n\n formData ${JSON.stringify(formData)} \n\n`)
+      console.log(`\n\n formData ${ JSON.stringify(formData) } \n\n`)
     }
   );
-
-  // const [values, setValues] = useState({
-  //   package_id: ""
-  // });
 
   const theme = useContext(ThemeContext);
   const primaryColor = Color(theme.colors.primary)
@@ -37,7 +33,7 @@ const PackagesDetails = ({
   const [error, setError] = useState();
 
   const { id: free_package_id } =
-    packages.items.find(item => item.amount == 0) || {};
+  packages.items.find(item => item.amount == 0) || {};
 
   const submit = async e => {
     e.preventDefault();
@@ -79,19 +75,21 @@ const PackagesDetails = ({
 
   return (
     <div className="col-md-12">
-      <form method="post" onSubmit={submit}>
+      <form method="post" onSubmit={ submit }>
         <div className="register-confirm container text-center">
           <h2 className="card-title text-center">
-            <span className={"text-primary"}>¡</span>Únete a{" "}
-            {<NameProject />}
-            <span className={"text-primary"}>!</span>
+            <span className={ "text-primary" }>¡</span>Únete a{ " " }
+            { <NameProject/> }
+            <span className={ "text-primary" }>!</span>
           </h2>
-          <div className="card-subtitle d-inline-block">Elige tu plan</div><br></br>
-          <div className="card-subtitle d-inline-block">{formData.is_miembro ? 'Es miembro del club' : ''}</div>
+          <div className="card-subtitle d-inline-block">Elige tu plan</div>
+          <br></br>
+          <div
+            className="card-subtitle d-inline-block">{ formData.is_miembro ? 'Por ser Abonado del Club, tienes un descuento que se verá reflejado al realizar el pago' : '' }</div>
 
 
           <Packages
-            {...{
+            { ...{
               error: packages.error ? packages.error : null,
               items: packages.items ? packages.items : null,
               onChange: onPackageChange,
@@ -102,22 +100,22 @@ const PackagesDetails = ({
                 && error.errors.package_id,
               discount_id: formData.discount_id,
               setBlockDiscountFields
-            }}
+            } }
           />
 
           <div className="row mt-3">
             <div className="col-md-12">
               <div className="text-center">
-                <Button onClick={() => handleFormState(2)} color="primary">
+                <Button onClick={ () => handleFormState(2) } color="primary">
                   Volver
                 </Button>
 
                 <Button
                   color="secondary"
-                  disabled={loading}
-                  loading={loading}
+                  disabled={ loading }
+                  loading={ loading }
                   type="submit"
-                  style={{ marginLeft: "20px" }}
+                  style={ { marginLeft: "20px" } }
                 >
                   Siguiente
                 </Button>
@@ -126,13 +124,13 @@ const PackagesDetails = ({
           </div>
         </div>
 
-        <style jsx global={true}>{`
+        <style jsx global={ true }>{ `
           .text-primary {
-            color: ${primaryColor} !important;
+            color: ${ primaryColor } !important;
           }
 
           strong.text-primary {
-            color: ${primaryColor} !important;
+            color: ${ primaryColor } !important;
           }
 
           h2.card-title {
@@ -150,7 +148,7 @@ const PackagesDetails = ({
           }
 
           .text-primary {
-            color: ${primaryColor} !important;
+            color: ${ primaryColor } !important;
           }
 
           .register-confirm {
@@ -158,7 +156,7 @@ const PackagesDetails = ({
             padding-bottom: 50px;
             color: #666666;
           }
-        `}</style>
+        ` }</style>
       </form>
     </div>
   );

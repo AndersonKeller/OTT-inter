@@ -163,13 +163,13 @@ export default () => {
           display: none;
         }
         .user-select :global(.dropdown-toggle) :global(.avatar) {
-          background-color: ${lightColor};
+          background-color: #FFF;
         }
         .user-select :global(.dropdown-toggle) :global(.chevron) {
           line-height: 1;
         }
         .user-select :global(.dropdown-toggle) :global(.chevron) :global(path) {
-          fill: ${lightColor};
+          fill: #FFF;
           transition: ease .2s;
         }
         .user-select :global(.dropdown-toggle):focus :global(.avatar),

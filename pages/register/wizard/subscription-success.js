@@ -63,28 +63,32 @@ const SubscriptionSuccess = ({ handleFormState }) => {
   return (
     <div className="register-confirm container text-center">
       <h2 className="card-title">
-        Bienvenido <strong className="text-primary">{ values.name }</strong>
+        Bienvenido(a) <strong className="text-primary">{ values.name }</strong>
       </h2>
       <div className={ "card-subtitle" }>
-        Gracias por completar tu suscripción a La U Play en esta etapa.
+
+        <p>
+          Gracias por completar tu suscripción a La U Play en esta etapa.
+        </p>
 
         <br/>
 
-        Tu plan comenzará a correr desde el día del lanzamiento oficial, mismo tiempo desde el cual podrás disfrutar de
-        esta nueva experiencia.
+        <p>
+          Tu plan comenzará a correr desde el día del lanzamiento oficial, mismo tiempo desde el cual podrás disfrutar de
+          esta nueva experiencia.
+        </p>
 
         <br/>
 
-        Te llegará un correo electrónico a la dirección que registraste con todos los detalles del pago.
+        <p>
+          Te llegará un correo electrónico a la dirección que registraste con todos los detalles del pago.
+        </p>
 
         <br/>
 
-        <img
-          src={ `/static/${ TENANT }/logos/logo_project_black.png` }
-          alt={ CONFIG.appName }
-          width={ 200 }
-          style={ { marginTop: "20px" } }
-        />
+        <img src={ `/static/${ TENANT }/logos/logo_gray.png` } alt={ CONFIG.appName } width={ 300 }
+             style={ { marginTop: "20px" } }/>
+
       </div>
 
       {/*<div className="row">*/ }
@@ -108,6 +112,7 @@ const SubscriptionSuccess = ({ handleFormState }) => {
       {/*    </div>*/ }
       {/*  </div>*/ }
       {/*</div>*/ }
+      
       <style jsx global={ true }>{ `
         h2.card-title {
           font-weight: normal;

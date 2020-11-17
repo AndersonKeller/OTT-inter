@@ -185,7 +185,7 @@ const Header =
         .search-btn {
           background-color: transparent;
           border: 0;
-          color: ${lightColor};
+          color: #FFF;
           cursor: pointer;
           margin-right: 10px;
           outline: 0;

@@ -3,7 +3,7 @@ import Layout from "~/components/layout/Layout";
 import UserData from "./user-data";
 import UserAddress from "./user-address";
 import SubscriptionSuccess from "./subscription-success";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IS_PRODUCTION } from "~/constants/constants";
 import Header from "~/components/layout/HeaderCad";
 import Payment from "~/pages/register/wizard/payment";
@@ -29,8 +29,10 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
     }
   }
 
+
   const requireds = IS_PRODUCTION;
   const [userData, setUserData] = useState();
+  const [packs, setPacks] = useState();
 
   const [values, setValues] = useState({
     package_id: "",
@@ -50,6 +52,22 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
   const backgroundColor = Color(theme.colors.background)
     .hsl()
     .string();
+
+
+  useEffect(_ => {
+    (async () => {
+
+      let p;
+      try {
+        const { data } = await api.get("packages");
+        p = { items: data };
+        setPacks(p);
+      } catch (error) {
+        p = { error };
+        setPacks(p);
+      }
+    })();
+  }, [wizardIndex]);
 
   const changeIndex = idx => {
     setWizardIndex(idx);
@@ -87,7 +105,8 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
       case 2:
         return (
           <Packages
-            packages={packages}
+            api={api}
+            packages={packs}
             layoutProps={layoutProps}
             selectPackage={selectPackage}
             handleSubmit={handleSubmit}
@@ -101,7 +120,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
           <Payment
             {...{
               package_id: values.package_id,
-              packages: packages,
+              packages: packs,
               userData: userData,
               api,
               error,

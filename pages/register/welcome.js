@@ -16,13 +16,16 @@ import Router from "next/router";
 
 const Welcome = ({ layoutProps }) => {
 
-  const theme = useContext(ThemeContext)
-
-  const primaryColor = Color(theme.colors.primary).hsl().string()
 
   const [values, setValues] = useState({
     name: '',
   })
+
+  const theme = useContext(ThemeContext);
+  const primaryColor = Color(theme.colors.primary).hsl().string()
+  const backgroundColor = Color(theme.colors.background)
+    .hsl()
+    .string();
 
   const { user } = useContext(UserContext)
 
@@ -68,7 +71,7 @@ const Welcome = ({ layoutProps }) => {
       >
         <div className="card">
           <div className={ "card-header text-center" } style={ {
-            backgroundColor: "#242627",
+            backgroundColor: backgroundColor,
             padding: "25px 15px",
             border: "none",
             borderRadius: "0",
@@ -83,12 +86,12 @@ const Welcome = ({ layoutProps }) => {
             <div className="register-confirm container text-center">
 
               <h2 className="card-title">
-                Bienvenido <strong
+                Bienvenido(a) <strong
                 className="text-primary">{ values.name }</strong></h2>
               <div className={ "card-subtitle" }>
                 Gracias por unirte a <br/>
 
-                <img src={ `/static/${ TENANT }/logos/logo_project_black.png` } alt={ CONFIG.appName } width={ 200 }
+                <img src={ `/static/${ TENANT }/logos/logo_gray.png` } alt={ CONFIG.appName } width={ 300 }
                      style={ { marginTop: "20px" } }/>
               </div>
               <div className="row">

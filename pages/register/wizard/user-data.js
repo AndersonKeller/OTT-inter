@@ -194,6 +194,8 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
     setLoading(true);
 
     try {
+      await buscaCod();
+
       let userData = {
         name: values.name,
         gender_id: values.gender_id,
@@ -229,7 +231,8 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
           is_partner: values.isPartner,
           abonado: "",
           terms: false,
-          messageismiembro: ""
+          messageismiembro: "",
+          is_miembro: values.is_miembro
         });
         setLoading(false);
       } else {
@@ -607,7 +610,6 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
 
             <div className="text-center">
               <Button
-                onClick={buscaCod}
                 color="secondary"
                 type="submit"
                 disabled={loading}

@@ -66,6 +66,7 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
           position: relative;
           z-index: 2;
           padding-bottom: 4em;
+          padding-top: 2em;
         }
 
         .home-carousel-section:first-child {
@@ -89,15 +90,16 @@ HomePage.getInitialProps = async ctx => {
     const [firstContent, ...contents] = homePage.contents
     const { data: { movie: featuredMedia } } = await api.get('movie/' + firstContent.slug + '?for=home-cover')
 
-    typeof window !== 'undefined'
-      ? Router.push('/signup')
-      : ctx.res.writeHead(302, { Location: '/signup' }).end()
+    // typeof window !== 'undefined'
+    //   ? Router.push('/signup')
+    //   : ctx.res.writeHead(302, { Location: '/signup' }).end()
 
-    // return { contents, featuredMedia }
+    return { contents, featuredMedia }
   } catch (error) {
     const [...contents] = homePage.contents;
     return { contents, featuredMediaError: error };
   }
+
 }
 
 export default withApi(HomePage)
@@ -163,7 +165,6 @@ const Cover = ({ error, media }) => {
 
                 <img alt="" className="d-none" src={poster_url} />
 
-
               </CoverImgContent>
 
 
@@ -174,20 +175,18 @@ const Cover = ({ error, media }) => {
 
 
         <div className="cover__contents row">
-          <div className="col-12 col-md-4 offset-md-1">
+          <div className="col-12 col-md-4 offset-md-1" style={{ height: "100%", marginTop: "30px" }}>
             <div className="cover__infos">
 
               {/* logo overlay image */}
               {logo && (
                 <div className="row">
                   <div className="col-8 offset-2 col-md-12 offset-md-0">
-                    <h1 className="cover__logo">
                       <picture>
                         <source srcSet={webp} type="media/webp" />
                         <source srcSet={png} type="media/png" />
-                        <img className="img-fluid" height={height} src={fallback} width={width} />
+                        <img src={fallback}  width="200px"/>
                       </picture>
-                    </h1>
                   </div>
                 </div>
               )}
@@ -204,7 +203,7 @@ const Cover = ({ error, media }) => {
             </div>
 
             {/* cta buttons */}
-            <div className="row justify-content-center gutter-15">
+            <div className="row justify-content-center justify-content-md-start gutter-15">
               {!user ? (
                 <div className="col-auto">
                   <Link href="/signup" passHref>

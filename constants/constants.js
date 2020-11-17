@@ -29,7 +29,7 @@ export const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 export const ONLINE = IS_PRODUCTION
 export const CLIENT_SECRET = 'IxY0z1pn27XwHNeFD5mj34ok34uqbEa5cehhQza4'
 export const CLIENT_ID = 2
-export const LOCAL_API_URL = process.env.API_URL || 'https://lau.dowhile.com.br'
+export const LOCAL_API_URL = process.env.API_URL || 'http://localhost:8000'
 
 /**
  * @constant

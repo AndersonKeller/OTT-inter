@@ -236,6 +236,7 @@ const HeaderCad = ({ closed, layoutColor, menus }) => {
         }
         .search-form {
           margin-left: auto;
+          color: #FFF;
         }
         .search-btn {
           background-color: transparent;
