@@ -91,28 +91,28 @@ const SubscriptionSuccess = ({ handleFormState }) => {
 
       </div>
 
-      {/*<div className="row">*/ }
-      {/*  <div className="col-md-12">*/ }
-      {/*    <div className="text-center">*/ }
-      {/*      <Button*/ }
-      {/*        color="secondary"*/ }
-      {/*        type="button"*/ }
-      {/*        style={{ width: "250px" }}*/ }
-      {/*        onClick={() =>*/ }
-      {/*          Router.push(*/ }
-      {/*            {*/ }
-      {/*              pathname: "/"*/ }
-      {/*            },*/ }
-      {/*            "/"*/ }
-      {/*          )*/ }
-      {/*        }*/ }
-      {/*      >*/ }
-      {/*        Ir a {appName()}*/ }
-      {/*      </Button>*/ }
-      {/*    </div>*/ }
-      {/*  </div>*/ }
-      {/*</div>*/ }
-      
+      <div className="row">
+        <div className="col-md-12">
+          <div className="text-center">
+            <Button
+              color="secondary"
+              type="button"
+              style={{ width: "250px" }}
+              onClick={() =>
+                Router.push(
+                  {
+                    pathname: "/"
+                  },
+                  "/"
+                )
+              }
+            >
+              Ir a {appName()}
+            </Button>
+          </div>
+        </div>
+      </div>
+
       <style jsx global={ true }>{ `
         h2.card-title {
           font-weight: normal;

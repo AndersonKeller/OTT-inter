@@ -177,11 +177,11 @@ const Signup = ({ }) => {
                     <InvalidFeedback error={error} loading={loading} name="password" />
                   </FormGroup>
 
-                  <div className="already-subscriptor">
+                  {/*<div className="already-subscriptor">*/}
                     {/*<span>{ alreadyRegistered }</span>*/}
                     {' '}
                     {/*<a className="bold text-uppercase" href="/login" onClick={ goToLogin }>{ login }</a>*/}
-                  </div>
+                  {/*</div>*/}
                   <OrEnterWith />
                   <div className="social-buttons">
                     <SocialButtons socialLogin={socialLogin} />
@@ -205,11 +205,11 @@ const Signup = ({ }) => {
                     <InvalidFeedback error={error} loading={loading} name="terms" />
                   </FormGroup>
 
-                  {/*<div className="already-subscriptor">*/}
-                  {/*  <span>¿Ya estás registrado?</span>*/}
-                  {/*  {' '}*/}
-                  {/*  <a className="bold text-uppercase" href="/login">Inicia sesión</a>*/}
-                  {/*</div>*/}
+                  <div className="already-subscriptor">
+                    <span>¿Ya estás registrado?</span>
+                    {' '}
+                    <a className="bold text-uppercase" href="/login">Inicia sesión</a>
+                  </div>
 
                   <Button block className="enter-btn" size="sm" type="submit" loading={loading}
                     disabled={loading}>Registrar</Button>

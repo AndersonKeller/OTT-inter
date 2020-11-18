@@ -222,19 +222,19 @@ const Payment = ({
               for (let error of response.cause) {
                 if (error.code === "E301") {
                   errors["cardNumber"] =
-                    "Há algo de errado com esse número. Digite novamente.";
+                    "Hay un error con ese número. Digita nuevamente.";
                 }
                 if (error.code === "E302") {
-                  errors["cardSecurityCode"] = "Confira o código de segurança.";
+                  errors["cardSecurityCode"] = "Ingresa el código de seguridad o CVV.";
                 }
                 if (error.code === "316") {
-                  error["cardHolderName"] = "Por favor, digite um nome válido.";
+                  error["cardHolderName"] = "Por favor ingresa un nombre válido.";
                 }
                 if (error.code === "324") {
-                  errors["docType"] = "Confira seu documento.";
+                  errors["docType"] = "Confirma tu documento.";
                 }
                 if (error.code === "325" || error.code === "326") {
-                  errors["cardExpirationDate"] = "Confira a data.";
+                  errors["cardExpirationDate"] = "Ingresa una fecha.";
                 }
               }
               setError({
