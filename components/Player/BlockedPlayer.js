@@ -8,15 +8,24 @@ import { CONFIG } from '~/config'
 import { ThemeContext } from 'styled-components'
 import Color from 'color'
 
-export default function BlockedPlayer({ image = '', media }) {
+export default function BlockedPlayer({ image = '', media, sub = null }) {
   const { user } = useContext(UserContext)
   const { is_paid: isPaid } = media
-  const [ showVideo, setShowVideo ] = useState()
+  const [showVideo, setShowVideo] = useState()
   const autoPlay = IS_PRODUCTION
   const { openAuthModal } = useContext(AuthModalContext)
 
   useEffect(_ => {
-    setShowVideo(!isPaid || isPaid && user)
+    if (isPaid && !sub.package_id) {
+      setShowVideo(false);
+    } else if (isPaid && sub != null && sub.package_id !== 1) {
+      setShowVideo(true)
+    } else if (!isPaid && user) {
+      setShowVideo(true)
+    } else if (!isPaid && !user) {
+      setShowVideo(false)
+    }
+
   }, [isPaid, user])
 
   const handleAuth = e => {
@@ -46,24 +55,24 @@ export default function BlockedPlayer({ image = '', media }) {
   return (
     <div className="player">
       { showVideo ? (
-        (media && media.movie_links && media.movie_links.length && ! youtube_link) ? (
-          <div style={{ position:'relative' }}>
+        (media && media.movie_links && media.movie_links.length && !youtube_link) ? (
+          <div style={ { position: 'relative' } }>
             <Player
               height="100%"
-              media={media}
-              poster={image}
-              style={{ padding: '56.44% 0 0 0', position: 'relative' }}
+              media={ media }
+              poster={ image }
+              style={ { padding: '56.44% 0 0 0', position: 'relative' } }
               width="100%"
             />
           </div>
         ) : youtube_link ? (
-          <div className="embed-responsive embed-responsive-16by9" >
+          <div className="embed-responsive embed-responsive-16by9">
             <iframe
-              allow={`accelerometer; ${autoPlay ? 'autoplay;' : ''} encrypted-media; gyroscope; picture-in-picture`}
+              allow={ `accelerometer; ${ autoPlay ? 'autoplay;' : '' } encrypted-media; gyroscope; picture-in-picture` }
               allowFullScreen
-              className={`embed-responsive-item`}
+              className={ `embed-responsive-item` }
               frameBorder="0"
-              src={`${youtube_link.url}?${autoPlay ? 'autoplay=1' : ''}`}
+              src={ `${ youtube_link.url }?${ autoPlay ? 'autoplay=1' : '' }` }
             ></iframe>
           </div>
         ) : (
@@ -71,7 +80,7 @@ export default function BlockedPlayer({ image = '', media }) {
         )
       ) : (
         <>
-          <img src={image} width="822" height="464" className="img-fluid" />
+          <img src={ image } width="822" height="464" className="img-fluid"/>
           <div className="block-msg text-center">
 
             <div className="text-block">
@@ -79,27 +88,27 @@ export default function BlockedPlayer({ image = '', media }) {
               <p className="d-none d-md-block"><small>Ver los videos cuando y donde quieras.</small></p>
             </div>
 
-            <Button onClick={handleAuth}>{probaGratis}</Button>
+            <Button onClick={ handleAuth }>{ probaGratis }</Button>
 
             <div className="bold text-block">
               <p>
-                {alreadyRegistered}
-                {' '}
-                <a className="text-uppercase" href="/login" onClick={handleLogin}>{login}</a>
+                { alreadyRegistered }
+                { ' ' }
+                <a className="text-uppercase" href="/login" onClick={ handleLogin }>{ login }</a>
               </p>
             </div>
           </div>
 
         </>
-      )}
-      <style jsx>{`
+      ) }
+      <style jsx>{ `
         .player {
           overflow: hidden;
           position: relative;
         }
         .block-msg {
           align-items: center;
-          background-color: ${maskColor};
+          background-color: ${ maskColor };
           bottom: 0;
           flex-direction: column;
           font-size: 14px;
@@ -141,7 +150,7 @@ export default function BlockedPlayer({ image = '', media }) {
             margin-top: 10px;
           }
         }
-      `}</style>
+      ` }</style>
     </div>
   )
 }

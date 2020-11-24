@@ -121,6 +121,7 @@ export default class WatchPage extends Component {
           <BlockedPlayer
             image={this.props.media.thumbnail2_url}
             media={this.props.media}
+            sub={this.props.sub}
           />
         )
       });
@@ -130,8 +131,9 @@ export default class WatchPage extends Component {
   state = {
     player: (
       <BlockedPlayer
-        image={this.props.media.thumbnail2_url}
-        media={this.props.media}
+        image={this.props.media?.thumbnail2_url}
+        media={this.props?.media}
+        sub={this.props.sub}
       />
     )
   };
@@ -139,11 +141,23 @@ export default class WatchPage extends Component {
   static async getInitialProps(ctx) {
     const { slug, category: categorySlug } = ctx.query;
     try {
+
       const response = await api(ctx).get(
         `/movie/${slug}/category/${categorySlug}`
       );
+
+      let subscription = null;
+      try {
+        subscription = await api(ctx).get(`subscription`);
+      } catch(e) {
+
+      }
+
+      console.log(subscription)
+
       const { category, movie, related } = response.data;
-      return { category, media: movie, related };
+
+      return { category, media: movie, related, sub: subscription?.data };
     } catch (error) {
       const errorCode = 404;
       return { errorCode };
