@@ -1,14 +1,4 @@
 {
-  "./ShakaPlayer": [
-    {
-      "id": "./components/Player/ShakaPlayer.js",
-      "file": "static/chunks/1.js"
-    },
-    {
-      "id": "./node_modules/shaka-player/dist/shaka-player.ui.js",
-      "file": "static/chunks/1.js"
-    }
-  ],
   "./dev/noop": [
     {
       "id": "./node_modules/next/dist/client/dev/noop.js",

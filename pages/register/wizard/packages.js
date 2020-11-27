@@ -106,7 +106,7 @@ const PackagesDetails = ({
           <div className={ "plans-description" }>
             <div className="row">
               <div className="col-md-6 text-left">
-                <h3 className={ "h3" }>Plan Gratis</h3>
+                <h3 className={ "h3" }>Suscripción Gratis</h3>
                 <p>
                   Acesso limitado sólo a los videos gratuitos.
                 </p>
@@ -115,9 +115,9 @@ const PackagesDetails = ({
                 </p>
               </div>
               <div className="col-md-6 divider text-left">
-                <h3>Plan Premium</h3>
+                <h3>Planes Premium</h3>
                 <p>
-                  Acesso ilimitado a todo el conteido audiovisual de La U Play.
+                  Acesso ilimitado a todo el contenidos audiovisual de La U Play.
                 </p>
                 <p>
                   Derecho a participar de todos los sorteos que apliquen a la generalidad de suscriptores premium.
@@ -136,7 +136,7 @@ const PackagesDetails = ({
 
                 <Button
                   color="secondary"
-                  disabled={ loading }
+                  disabled={ loading || !formData.package_id }
                   loading={ loading }
                   type="submit"
                   style={ { marginLeft: "20px" } }

@@ -8,6 +8,7 @@ import { CONFIG } from "~/config";
 import Color from "color";
 import { ThemeContext } from "styled-components";
 import Button from "~/components/button";
+import Router from "next/router";
 
 const SubscriptionSuccess = ({ formData, handleFormState }) => {
   // const SubscriptionSuccess = ({ layoutProps }) => {
@@ -39,26 +40,7 @@ const SubscriptionSuccess = ({ formData, handleFormState }) => {
   );
 
   function appName() {
-    if (CONFIG.projectName) {
-      return (
-        <div style={ { display: "inline-block" } }>
-          <strong className="">{ CONFIG.projectName.split(" ")[0] }</strong>
-          { CONFIG.projectName.split(" ")[1] }
-        </div>
-      );
-    } else if (CONFIG.appName) {
-      return (
-        <div style={ { display: "inline-block" } }>
-          <strong className="">{ CONFIG.appName.split(" ")[0] }</strong>
-          { CONFIG.appName.split(" ")[1] }
-        </div>
-      );
-    }
-    return (
-      <div style={ { display: "inline-block" } }>
-        <strong className="">Project</strong>Name!
-      </div>
-    );
+    return "La U Play";
   }
 
   function renderText() {
@@ -119,7 +101,7 @@ const SubscriptionSuccess = ({ formData, handleFormState }) => {
                 )
               }
             >
-              Ir a {appName()}
+              { formData.package_id === 1 ? `Volver al menú principal` : `Ir a ${appName()}`}
             </Button>
           </div>
         </div>
