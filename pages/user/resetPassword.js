@@ -81,7 +81,7 @@ const ResetPassword = ({layoutProps}) => {
               <Form.Group>
                 {notice && <div className="valid-feedback">{notice.message}</div>}
                 {error && <div className="invalid-feedback">{error.message}</div>}
-                <Form.Control id="email" type="email" placeholder="Correo electronico"  onChange={e => setEmail(e.target.value)} value={email} />
+                <Form.Control id="email" type="email" placeholder="Correo electronico" readonly={"readonly"} onChange={e => setEmail(e.target.value)} value={email} />
                 {error && error.errors &&  (<div className="invalid-feedback">{error.errors.email}</div>)}
               </Form.Group>
               <Form.Group>

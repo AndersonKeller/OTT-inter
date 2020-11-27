@@ -38,6 +38,21 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/media/[slug].js"
+    ],
+    "/media/[slug]/watch": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/media/[slug]/watch.js"
+    ],
+    "/register/wizard/complete-test": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/register/wizard/complete-test.js"
+    ],
+    "/subscriptor": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/subscriptor.js"
     ]
   },
   "ampFirstPages": []

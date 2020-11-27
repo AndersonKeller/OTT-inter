@@ -7,8 +7,9 @@ import { TENANT } from "~/constants/constants";
 import { CONFIG } from "~/config";
 import Color from "color";
 import { ThemeContext } from "styled-components";
+import Button from "~/components/button";
 
-const SubscriptionSuccess = ({ handleFormState }) => {
+const SubscriptionSuccess = ({ formData, handleFormState }) => {
   // const SubscriptionSuccess = ({ layoutProps }) => {
 
   const theme = useContext(ThemeContext);
@@ -60,6 +61,25 @@ const SubscriptionSuccess = ({ handleFormState }) => {
     );
   }
 
+  function renderText() {
+    if (formData.package_id != 1) {
+      return <div>
+        <p>
+          Tu plan comenzará a correr desde el día del lanzamiento oficial, mismo tiempo desde el cual podrás disfrutar de
+          esta nueva experiencia.
+        </p>
+
+        <br/>
+
+        <p>
+          Te llegará un correo electrónico a la dirección que registraste con todos los detalles del pago.
+        </p>
+      </div>
+    } else {
+      return <div></div>
+    }
+  }
+
   return (
     <div className="register-confirm container text-center">
       <h2 className="card-title">
@@ -73,16 +93,8 @@ const SubscriptionSuccess = ({ handleFormState }) => {
 
         <br/>
 
-        <p>
-          Tu plan comenzará a correr desde el día del lanzamiento oficial, mismo tiempo desde el cual podrás disfrutar de
-          esta nueva experiencia.
-        </p>
 
-        <br/>
-
-        <p>
-          Te llegará un correo electrónico a la dirección que registraste con todos los detalles del pago.
-        </p>
+        { renderText() }
 
         <br/>
 

@@ -7,6 +7,7 @@ import { AuthModalContext } from '~/contexts/AuthModalContext'
 import { CONFIG } from '~/config'
 import { ThemeContext } from 'styled-components'
 import Color from 'color'
+import Router from "next/router";
 
 export default function BlockedPlayer({ image = '', media, sub = null }) {
   const { user } = useContext(UserContext)
@@ -30,7 +31,12 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
   const handleAuth = e => {
     e.preventDefault()
-    openAuthModal('register')
+    if (sub.package_id === 1) {
+      Router.push('/register/wizard/complete-test');
+    } else {
+      openAuthModal('register')
+    }
+
   }
 
   const youtube_type_id = 3
@@ -38,14 +44,22 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
     return element.movie_link_type_id === youtube_type_id
   })
 
-  const probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
+  let probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
+
+  if (sub.package_id === 1) {
+    probaGratis = 'Activa un plan premium'
+  }
 
   const handleLogin = e => {
     e.preventDefault()
     openAuthModal('login')
   }
 
-  const alreadyRegistered = CONFIG.lang === 'es-CL' ? '¿Ya estás suscrito?' : '¿Ya eres suscriptor?'
+  let alreadyRegistered = CONFIG.lang === 'es-CL' ? '¿Ya estás suscrito?' : '¿Ya eres suscriptor?'
+
+  if (sub.package_id === 1) {
+    alreadyRegistered = "¿Ya estás suscrito a algún plan premium?";
+  }
 
   const login = CONFIG.lang === 'es-CL' ? 'Inicia sesión' : 'Ház login'
 
@@ -84,8 +98,8 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
           <div className="block-msg text-center">
 
             <div className="text-block">
-              <p><strong>Este contenido es exclusivo para los suscriptores</strong></p>
-              <p className="d-none d-md-block"><small>Ver los videos cuando y donde quieras.</small></p>
+              <p><strong>Este contenido es exclusivo para los suscriptores de algún plan premium</strong></p>
+              <p className="d-none d-md-block"><small>Vuélvete premium y accede a todo el contenido cuando y donde quieras!</small></p>
             </div>
 
             <Button onClick={ handleAuth }>{ probaGratis }</Button>

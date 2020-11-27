@@ -365,7 +365,7 @@ const Payment = ({
               </div>
               <div className="col-12">
                 <FormGroup>
-                  <Label htmlFor="docNumber">RUT</Label>
+                  <Label htmlFor="docNumber">RUT/RUN/DNI asociado a la tarjeta</Label>
                   <Input
                     className={"form-control"}
                     onChange={handleInputChange}

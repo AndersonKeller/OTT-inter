@@ -33,7 +33,7 @@ const PackagesDetails = ({
   const [error, setError] = useState();
 
   const { id: free_package_id } =
-  packages.items.find(item => item.amount == 0) || {};
+  packages.items.find(item => item.amount == "$0") || {};
 
   const submit = async e => {
     e.preventDefault();
@@ -102,6 +102,30 @@ const PackagesDetails = ({
               setBlockDiscountFields
             } }
           />
+
+          <div className={ "plans-description" }>
+            <div className="row">
+              <div className="col-md-6 text-left">
+                <h3 className={ "h3" }>Plan Gratis</h3>
+                <p>
+                  Acesso limitado sólo a los videos gratuitos.
+                </p>
+                <p>
+                  Sin derecho a participar de sorteos ni a material premium.
+                </p>
+              </div>
+              <div className="col-md-6 divider text-left">
+                <h3>Plan Premium</h3>
+                <p>
+                  Acesso ilimitado a todo el conteido audiovisual de La U Play.
+                </p>
+                <p>
+                  Derecho a participar de todos los sorteos que apliquen a la generalidad de suscriptores premium.
+                </p>
+              </div>
+            </div>
+          </div>
+
 
           <div className="row mt-3">
             <div className="col-md-12">

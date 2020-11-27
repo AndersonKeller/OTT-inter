@@ -44,7 +44,7 @@ const Packages = ({
         {rest && rest.map((item, key) => {
           let discount = discounts ? discounts.find(disc => disc.id == item.id) : null
 
-          return <div className="col-6 col-md" {...{ key }}>
+          return <div className="col" {...{ key }}>
             <FormGroup>
               <PackageRadio {...{ onChange, readOnly, discount, package_id, plan: item }} />
             </FormGroup>

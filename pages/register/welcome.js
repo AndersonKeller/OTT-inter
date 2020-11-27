@@ -105,14 +105,6 @@ const Welcome = ({ layoutProps }) => {
                   </div>
                 </div>
 
-                <div className="col-md-12">
-                  <div className="text-center">
-                    <Button color="secondary" type="button" style={ { width: "250px" } }
-                            onClick={ () => Router.push('/') }
-                    >Volver a Menu Principal</Button>
-                  </div>
-                </div>
-
               </div>
               <style jsx global={ true }>{ `
         

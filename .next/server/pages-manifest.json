@@ -2,7 +2,10 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
+  "/media/[slug]/watch": "pages/media/[slug]/watch.js",
+  "/register/wizard/complete-test": "pages/register/wizard/complete-test.js",
   "/": "pages/index.js",
   "/media/[slug]": "pages/media/[slug].js",
-  "/404": "pages/404.js"
+  "/404": "pages/404.js",
+  "/subscriptor": "pages/subscriptor.js"
 }
