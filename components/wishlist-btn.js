@@ -9,7 +9,7 @@ const WishlistBtn = ({ block, color, inside, movieId, home }) => {
     return (
       <>
         <button className={`btn inside-btn`} onClick={onClick}>
-          <img height={size} src={icon} width={size} />
+          <img className={`aling`} height={size} src={icon} width={size} />
           <span>Mi Lista</span>
         </button>
 
@@ -18,9 +18,8 @@ const WishlistBtn = ({ block, color, inside, movieId, home }) => {
             z-index: 3;
             width: 65px;
             padding: 2px 5px;
-            margin:0px;
             display: flex;
-            margin: 5px;
+            margin: 15px 2px 3px 7px;
             color: black;
             background-color: white;
           }
@@ -32,6 +31,9 @@ const WishlistBtn = ({ block, color, inside, movieId, home }) => {
           .inside-btn:hover {
             background-color: lightgray;
           }
+          .aling {
+             margin: 1px 1px 2px 2px;
+          }
         `}</style>
       </>
     )
@@ -41,12 +43,12 @@ const WishlistBtn = ({ block, color, inside, movieId, home }) => {
 
   const handleToggle = async e => {
     e.preventDefault()
-    try{
-      const response = await api().post('/wishlist',{id : movieId})
-      const {attached, detached } = response.data
-      const inList = attached.includes(movieId) && ! detached.includes(movieId)
+    try {
+      const response = await api().post('/wishlist', { id: movieId })
+      const { attached, detached } = response.data
+      const inList = attached.includes(movieId) && !detached.includes(movieId)
       setWishlisted(inList)
-    }catch(error){
+    } catch (error) {
       console.log(error)
     }
   }
@@ -60,23 +62,23 @@ const WishlistBtn = ({ block, color, inside, movieId, home }) => {
     }
   }
 
-  useEffect( _ => { wishlist() }, [])
+  useEffect(_ => { wishlist() }, [])
 
   return (
     wishlisted ?
       inside ?
-        <InsideBtn icon="/static/icons/remove.svg" size="10" onClick={handleToggle} />
-      :
+        <InsideBtn padding="5" icon="/static/icons/remove.svg" size="10" onClick={handleToggle} />
+        :
         <Button block={block} home={home} onClick={handleToggle}>
-          <img height="13" src="/static/icons/remove.svg" width="13" />
+          <img height="13" src="/static/icons/remove.svg" width="13" padding="5" />
           <span>Mi Lista</span>
         </Button>
-    :
-      inside ?
-        <InsideBtn icon="/static/icons/add.svg" size="10"  onClick={handleToggle} />
       :
+      inside ?
+        <InsideBtn icon="/static/icons/add.svg" size="10" padding="5" onClick={handleToggle} />
+        :
         <Button block={block} home={home} color="secondary" outline textColor={color} onClick={handleToggle}>
-          <img height="13" src="/static/icons/add.svg" width="13" />
+          <img height="13" padding="5" src="/static/icons/add.svg" width="13" />
           <span>Mi Lista</span>
         </Button>
   )
