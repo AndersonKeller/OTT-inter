@@ -107,7 +107,7 @@ const Signup = ({ }) => {
       <div
         className="card-wrapper d-flex align-items-center justify-content-center h-100"
         style={{
-          backgroundImage: `url('/static/${TENANT}/subs/background.jpg')`,
+          backgroundImage: `url('/static/${TENANT}/subs/background.jpeg')`,
         }}
       >
 
@@ -178,9 +178,9 @@ const Signup = ({ }) => {
                   </FormGroup>
 
                   {/*<div className="already-subscriptor">*/}
-                    {/*<span>{ alreadyRegistered }</span>*/}
-                    {' '}
-                    {/*<a className="bold text-uppercase" href="/login" onClick={ goToLogin }>{ login }</a>*/}
+                  {/*<span>{ alreadyRegistered }</span>*/}
+                  {' '}
+                  {/*<a className="bold text-uppercase" href="/login" onClick={ goToLogin }>{ login }</a>*/}
                   {/*</div>*/}
                   <OrEnterWith />
                   <div className="social-buttons">
@@ -206,9 +206,9 @@ const Signup = ({ }) => {
                   </FormGroup>
 
                   <div className="already-subscriptor">
-                    <span>¿Ya estás registrado?</span>
+                    {/* <span>¿Ya estás registrado?</span> */}
                     {' '}
-                    <a className="bold text-uppercase" href="/login">Inicia sesión</a>
+                    {/* <a className="bold text-uppercase" href="/login">Inicia sesión</a> */}
                   </div>
 
                   <Button block className="enter-btn" size="sm" type="submit" loading={loading}

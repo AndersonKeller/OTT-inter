@@ -68,61 +68,61 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
   return (
     <div className="player">
-      { showVideo ? (
+      {showVideo ? (
         (media && media.movie_links && media.movie_links.length && !youtube_link) ? (
-          <div style={ { position: 'relative' } }>
+          <div style={{ position: 'relative' }}>
             <Player
               height="100%"
-              media={ media }
-              poster={ image }
-              style={ { padding: '56.44% 0 0 0', position: 'relative' } }
+              media={media}
+              poster={image}
+              style={{ padding: '56.44% 0 0 0', position: 'relative' }}
               width="100%"
             />
           </div>
         ) : youtube_link ? (
           <div className="embed-responsive embed-responsive-16by9">
             <iframe
-              allow={ `accelerometer; ${ autoPlay ? 'autoplay;' : '' } encrypted-media; gyroscope; picture-in-picture` }
+              allow={`accelerometer; ${autoPlay ? 'autoplay;' : ''} encrypted-media; gyroscope; picture-in-picture`}
               allowFullScreen
-              className={ `embed-responsive-item` }
+              className={`embed-responsive-item`}
               frameBorder="0"
-              src={ `${ youtube_link.url }?${ autoPlay ? 'autoplay=1' : '' }` }
+              src={`${youtube_link.url}?${autoPlay ? 'autoplay=1' : ''}`}
             ></iframe>
           </div>
         ) : (
-          "Couldn't parse url"
-        )
+              "Couldn't parse url"
+            )
       ) : (
-        <>
-          <img src={ image } width="822" height="464" className="img-fluid"/>
-          <div className="block-msg text-center">
+          <>
+            <img src={image} width="822" height="464" className="img-fluid" />
+            <div className="block-msg text-center">
 
-            <div className="text-block">
-              <p><strong>Este contenido es exclusivo para los suscriptores de algún plan premium</strong></p>
-              <p className="d-none d-md-block"><small>Vuélvete premium y accede a todo el contenido cuando y donde quieras!</small></p>
-            </div>
+              <div className="text-block">
+                <p><strong>Este contenido es exclusivo para los suscriptores de algún plan premium</strong></p>
+                <p className="d-none d-md-block"><small>Vuélvete premium y accede a todo el contenido cuando y donde quieras!</small></p>
+              </div>
 
-            <Button onClick={ handleAuth }>{ probaGratis }</Button>
+              <Button onClick={handleAuth}>{probaGratis}</Button>
 
-            <div className="bold text-block">
-              <p>
-                { alreadyRegistered }
+              <div className="bold text-block">
+                <p>
+                  {/* { alreadyRegistered }
                 { ' ' }
-                <a className="text-uppercase" href="/login" onClick={ handleLogin }>{ login }</a>
-              </p>
+                <a className="text-uppercase" href="/login" onClick={ handleLogin }>{ login }</a> */}
+                </p>
+              </div>
             </div>
-          </div>
 
-        </>
-      ) }
-      <style jsx>{ `
+          </>
+        )}
+      <style jsx>{`
         .player {
           overflow: hidden;
           position: relative;
         }
         .block-msg {
           align-items: center;
-          background-color: ${ maskColor };
+          background-color: ${ maskColor};
           bottom: 0;
           flex-direction: column;
           font-size: 14px;

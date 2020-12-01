@@ -25,7 +25,7 @@ const CardLogoHeader = ({ children }) => {
       <div
         className="card-wrapper d-flex align-items-center justify-content-center h-100 responsive"
         style={{
-          backgroundImage: `url('/static/${TENANT}/subs/background.jpg')`,
+          backgroundImage: `url('/static/${TENANT}/subs/background.jpeg')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
