@@ -18,7 +18,7 @@ export function UserProvider({ children }) {
   const userCookie = SafeJSONParse(userString).value
   const [user, setUser] = useState(userCookie)
 
-  const signIn = (user, tokenResponse) => {
+  const signIn = (user, tokenResponse, toComplete = false) => {
 
     const {
       access_token,
@@ -39,12 +39,11 @@ export function UserProvider({ children }) {
 
     setUser(user)
 
-    if (!user.register_completed_at) {
+    if (toComplete) {
       Router.replace('/register/welcome')
     } else {
       Router.replace('/')
     }
-    // TODO: Fix
   }
 
   const signOut = async _ => {

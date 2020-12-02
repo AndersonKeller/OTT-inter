@@ -38,7 +38,7 @@ const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
         setAccessToken(access_token)
         const userResponse = await api().get('/user')
         setLoading(false)
-        signIn(userResponse.data, tokenResponse.data)
+        signIn(userResponse.data, tokenResponse.data, false)
         closeAuthModal()
     } catch(error){
       console.table(error);
@@ -65,7 +65,7 @@ const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
       const { access_token, } = tokenResponse.data
       setAccessToken(access_token)
       const userResponse = await api().get('/user')
-      signIn(userResponse.data, tokenResponse.data)
+      signIn(userResponse.data, tokenResponse.data, false)
       closeAuthModal()
     } catch (error) {
       if (error.response) {
