@@ -61,7 +61,7 @@ const Welcome = ({ layoutProps }) => {
 
   return (
 
-    <Layout header={ "hidden" } footer={ "hidden" } customClass={ "subscription-screen" }>
+    <Layout header={ "hidden" } footer={ "show" } customClass={ "subscription-screen" }>
       <Header/>
       <div
         className="card-wrapper d-flex align-items-center justify-content-center h-100 responsive"

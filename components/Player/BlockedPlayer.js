@@ -31,7 +31,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
   const handleAuth = e => {
     e.preventDefault()
-    if (sub.package_id === 1) {
+    if (!sub.package_id || sub.package_id == 1) {
       Router.push('/register/wizard/complete-test');
     } else {
       openAuthModal('register')
@@ -46,7 +46,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
   let probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
 
-  if (sub.package_id === 1) {
+  if (!sub.package_id || sub.package_id == 1) {
     probaGratis = 'Activa un plan premium'
   }
 
