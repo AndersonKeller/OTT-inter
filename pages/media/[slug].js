@@ -97,7 +97,7 @@ const Cover = ({ category, media }) => {
                   <div className="year">{publishYear}</div>
                 )}
 
-                  <br></br>
+                <br></br>
                 {banner_description && (
                   <div className="description" style={{ display: 'flex' }}>
                     <div className={smDown && !open && 'short-description'}>
@@ -240,7 +240,6 @@ const Cover = ({ category, media }) => {
            }
 
           .header-entre{
-           background:#090a0a;;
            display:block;
            margin-top: 30%;
            padding-left: 10px;
