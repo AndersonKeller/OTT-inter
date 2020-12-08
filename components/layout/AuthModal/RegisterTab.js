@@ -36,7 +36,7 @@ const RegisterTab = ({ changeTab, setLoading, socialLogin })  => {
       const { access_token, } = tokenResponse.data
       setAccessToken(access_token)
       const userResponse = await api().get('user')
-      signIn(userResponse.data, tokenResponse.data)
+      signIn(userResponse.data, tokenResponse.data, true)
       closeAuthModal()
       Router.push({
         pathname: '/subscribe'

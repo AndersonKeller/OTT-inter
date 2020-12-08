@@ -82,7 +82,7 @@ const Signup = ({ }) => {
       const { access_token, } = tokenResponse.data
       setAccessToken(access_token)
       const userResponse = await api().get('user')
-      signIn(userResponse.data, tokenResponse.data)
+      signIn(userResponse.data, tokenResponse.data, true)
       Router.push({
         pathname: '/subscribe'
       }, '/register/wizard/complete-test')

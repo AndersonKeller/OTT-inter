@@ -2,7 +2,5 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/": "pages/index.js",
-  "/register/welcome": "pages/register/welcome.js",
-  "/register/wizard/complete-test": "pages/register/wizard/complete-test.js"
+  "/": "pages/index.js"
 }
