@@ -1,9 +1,8 @@
 import React from 'react'
 import shaka from 'shaka-player/dist/shaka-player.ui.js' // no SSR support
 import { IS_PRODUCTION } from '~/constants/constants'
-
-class ShakaPlayer extends React.PureComponent
-{
+import api from "~/services/api";
+class ShakaPlayer extends React.PureComponent {
   constructor(props) {
     super(props)
     this.autoPlay = this.props.autoPlay || true
@@ -12,10 +11,31 @@ class ShakaPlayer extends React.PureComponent
     this.onErrorEvent = this.onErrorEvent.bind(this)
     this.onError = this.onError.bind(this)
     this.media = this.props.media
+    this.user = this.props.user
     this.poster = this.props.poster ? this.props.poster : null
     this.height = this.props.height ? this.props.height : 400
     this.width = this.props.width ? this.props.width : 600
+
   }
+
+  async handleVisit() {
+
+    try {
+
+      let id_movie = this.media.id;
+      let movietype = this.media.type;
+      let visitor = this.user.user_id;
+
+      let { visitByMovie } = await api().post('/movie/visit/', {
+        id_movie, visitor, movietype
+      })
+
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+
 
   onErrorEvent(event) {
     this.onError(event.detail)
@@ -25,7 +45,11 @@ class ShakaPlayer extends React.PureComponent
     console.error('Error code', error.code, 'object', error)
   }
 
-  componentDidMount(){
+  componentDidMount() {
+
+
+
+
     // Install built-in polyfills to patch browser incompatibilities.
     shaka.polyfill.installAll()
 
@@ -45,6 +69,11 @@ class ShakaPlayer extends React.PureComponent
     const videoContainer = this.videoContainer.current
     var player = new shaka.Player(video)
 
+    setTimeout(() => {
+      this.handleVisit();
+    }, 7000);
+
+
     // player language configurations
     player.configure('preferredTextLanguage', 'es')
     player.configure('preferredAudioLanguage', 'es')
@@ -52,7 +81,7 @@ class ShakaPlayer extends React.PureComponent
     const bufferingGoal = 60 * minutes
     player.configure('streaming.bufferingGoal', bufferingGoal)
 
-		//Setting up shaka player UI
+    //Setting up shaka player UI
     const ui = new shaka.ui.Overlay(player, videoContainer, video)
     ui.getControls()
     const uiConfig = {
@@ -91,15 +120,20 @@ class ShakaPlayer extends React.PureComponent
 
     // Try to load a manifest.
     // This is an asynchronous process.
-    player.load(manifestUri).then(function() {
+    player.load(manifestUri).then(function () {
       // This runs if the asynchronous load is successful.
       console.log('The video has now been loaded!')
     }).catch(this.onError)  // onError is executed if the asynchronous load fails.
   }
 
+
+
   render() {
+
     return (
+
       <div className="video-container" ref={this.videoContainer}>
+
         <video
           autoPlay={this.autoPlay}
           className='video-player'
@@ -110,6 +144,7 @@ class ShakaPlayer extends React.PureComponent
           style={{ outline: 0 }}
           width={this.width}
         />
+
         <style jsx>{`
           .video-container :global(.shaka-bottom-controls) {
             display: flex;

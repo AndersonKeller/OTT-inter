@@ -75,6 +75,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
               height="100%"
               media={media}
               poster={image}
+              user={sub}
               style={{ padding: '56.44% 0 0 0', position: 'relative' }}
               width="100%"
             />
