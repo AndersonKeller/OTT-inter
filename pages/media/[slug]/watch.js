@@ -12,14 +12,14 @@ import api from "~/services/api";
 function Related({ category, medias }) {
   return (
     <Fragment>
-      <div className={"related-videos"} style={{"display": "flex", "flexFlow": "row wrap"}}>
+      <div className={"related-videos"} style={{ "display": "flex", "flexFlow": "row wrap" }}>
         {medias.map((media, key) => (
           <RelatedVideo {...{ category, media, key }} />
         ))}
       </div>
       <style jsx>{`
         @media (max-width: 1024px) {
-      
+
           .related-videos {
             padding-top: 25px;
           }
@@ -82,7 +82,7 @@ function RelatedVideo({ category = null, media }) {
         }
 
         @media (max-width: 1024px) {
-        
+
         .related-videos {
           padding-top: 25px;
         }
@@ -90,14 +90,14 @@ function RelatedVideo({ category = null, media }) {
             width: 100%;
             padding: 5px 10px;
           }
-          
+
           .more-card a .row {
             display: flex;
             flex-direction: column;
           }
-          
+
           .more-card > .card-img {
-          
+
           }
           .more-card  .card-title {
             text-align: center;
@@ -149,8 +149,8 @@ export default class WatchPage extends Component {
       let subscription = null;
       try {
         subscription = await api(ctx).get(`subscription`);
-      } catch(e) {
-
+      } catch (e) {
+        console.log(e);
       }
 
       console.log(subscription)
@@ -180,7 +180,7 @@ export default class WatchPage extends Component {
               {this.state.player}
 
               <div className="play-description-mobile">
-                  <MediaDescription {...{ media: this.props.media }} />
+                <MediaDescription {...{ media: this.props.media }} />
               </div>
 
             </div>
@@ -242,7 +242,7 @@ export default class WatchPage extends Component {
               margin-bottom: 30px;
             }
           }
-          
+
           @media (max-width: 1024px) {
             .play-description-mobile {
               display: block;
