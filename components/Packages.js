@@ -6,7 +6,9 @@ import withApi from '~/components/withApi'
 // packages component
 const Packages = ({
   error,
+  packages,
   items,
+  pack,
   loading,
   onChange,
   package_id,
@@ -22,14 +24,14 @@ const Packages = ({
   const [...rest] = items;
 
   /* get discounts */
-  useEffect(_ => {
-    (async _ => {
-      setBlockDiscountFields(true)
-      const { data } = discount_id ? await api.get(`discounts/${discount_id}/packages`) : []
-      setDiscounts(data)
-      setBlockDiscountFields(false)
-    })()
-  }, [discount_id])
+  // useEffect(_ => {
+  //   (async _ => {
+  //     setBlockDiscountFields(true)
+  //     const { data } = discount_id ? await api.get(`discounts/${discount_id}/packages`) : []
+  //     setDiscounts(data)
+  //     setBlockDiscountFields(false)
+  //   })()
+  // }, [discount_id])
 
 
   // error handling
@@ -76,7 +78,7 @@ export const PackageRadio = ({
   buttonLabel
 }) => {
 
-  plan.amount_with_discount = discount ? Math.round(plan.amount * (1 - discount.pivot.percent)) : 0
+  // plan.amount_with_discount = discount ? Math.round(plan.amount * (1 - discount.pivot.percent)) : 0
 
   return (
     <label className={'text-center' + (readOnly ? ' readonly' : '')}>
@@ -91,7 +93,7 @@ export const PackageRadio = ({
 
       <span className="fake-input">
 
-        <div className="suscripcion">{ plan.id === 1 ? "Suscripción" : "Premium" }</div>
+        <div className="suscripcion">{plan.id === 1 ? "Suscripción" : "Premium"}</div>
         {/* name */}
         <div className="d-block name">{plan.name}</div>
 
@@ -99,7 +101,7 @@ export const PackageRadio = ({
         {(plan.amount !== plan.amount_with_discount ||
           plan.amount === "$0" && !discount) && (
             <div className={discount ? 'discount-value' : 'value'}>
-              { plan.amount}
+              {plan.amount}
             </div>
           )}
 

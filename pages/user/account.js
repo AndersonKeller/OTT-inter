@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Link from 'next/link'
+
 import { useEffect, useState } from 'react'
 import Layout from '~/components/layout/Layout'
 import { PackageRadio } from '~/components/Packages'
@@ -7,7 +7,9 @@ import withAuth from '~/components/withAuth'
 import { CONFIG } from '~/config'
 import CardLogoHeader from '~/components/CardLogoHeader/index'
 import ImageProfile from '~/pages/user/changeImage/index'
-
+import ChangePlanPage from '~/pages/user/changePlan'
+import Link from 'next/link'
+import Router, { useRouter } from 'next/router'
 const AccountPage = ({ api, layoutProps, packages, user }) => {
 
   const [plan, setPlan] = useState({})
@@ -17,10 +19,10 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
     (async _ => {
       try {
         const { data: { package_id, ...data } } = await api.get('subscription')
-        console.log(data)
         setSubscription(data)
 
         if (package_id) {
+
           setPlan(packages.items.find(item => item.id == package_id))
         } else {
           setPlan(packages.items.find(item => item.amount == 0))
@@ -36,17 +38,18 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
     if (plan) {
       return <div
         className="col col-md-4 text-left vertical-align"
-        style={ { fontSize: '16px', lineHeight: 1 } }
+        style={{ fontSize: '16px', lineHeight: 1 }}
       >
 
         <PackageRadio
           readOnly
-          package_id={ plan.id }
-          plan={ plan }
-          buttonLabel={ "Cambiar Plan" }
+          package_id={plan.id}
+          plan={plan}
+          buttonLabel={"Cambiar Plan"}
         />
       </div>
     } else {
+      console.log('não tem plan');
       return <div></div>
     }
 
@@ -56,12 +59,12 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
   return (
 
 
-    <Layout { ...layoutProps }>
+    <Layout {...layoutProps}>
       <CardLogoHeader>
 
 
         <Head>
-          <title className="style-title">Mi Cuenta &lt; { CONFIG.appName }</title>
+          <title className="style-title">Mi Cuenta &lt; {CONFIG.appName}</title>
         </Head>
         <div className="rgpage container-fluid">
           <div className="row">
@@ -77,28 +80,28 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                     />
                   </a>
                 </Link> */ }
-                  {/* <a><ProfilePic image={user && user.cropped_image_url ? user.cropped_image_url : null} /></a> */ }
+                  {/* <a><ProfilePic image={user && user.cropped_image_url ? user.cropped_image_url : null} /></a> */}
                   <ImageProfile
-                    src={ user && user.cropped_image_url ? user.cropped_image_url : "/static/icons/user.svg" }></ImageProfile>
+                    src={user && user.cropped_image_url ? user.cropped_image_url : "/static/icons/user.svg"}></ImageProfile>
 
 
-                  {/* </Link> */ }
+                  {/* </Link> */}
 
                 </div>
                 <div className="">
                   <div className="detail-profile">
                     <h1 className="h2">Mi Cuenta</h1>
-                    <div style={ {
+                    <div style={{
                       color: "var(--primary)", padding: " 0px",
                       fontWeight: "bolder"
-                    } }>
-                      { user && user.name }
+                    }}>
+                      {user && user.name}
                     </div>
                   </div>
                 </div>
 
               </div>
-              <hr/>
+              <hr />
               <div className="row">
                 <div className="col-md-4">
                   <div className="data">
@@ -108,7 +111,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                 <div className="col-md-8">
                   <div className="row">
                     <div className="col col-md text-left">
-                      <p className="info">{ user && user.email }</p>
+                      <p className="info">{user && user.email}</p>
                     </div>
                     <div className="col col-md text-right">
                       <Link href="changeEmail">
@@ -136,7 +139,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                       </Link>
                     </div>
                   </div>
-                  <hr/>
+                  <hr />
                   <div className="row">
                     <div className="col col-md text-left">
                       <p className="info negrito">Medio de Pago:</p>
@@ -150,7 +153,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                   <div className="row">
                     <div className="col col-md text-left">
                       <p className="info">Fecha de
-                        vencimiento: { subscription.ends_at && subscription.ends_at.split(' ')[0] }</p>
+                        vencimiento: {subscription.ends_at && subscription.ends_at.split(' ')[0]}</p>
                     </div>
                     <div className="col col-md-auto text-right">
                       <Link href="payments">
@@ -160,7 +163,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                   </div>
                 </div>
               </div>
-              <hr/>
+              <hr />
               <div className="row">
                 <div className="col-md-4">
                   <div className="data">
@@ -169,17 +172,21 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                 </div>
                 <div className="col-md-8">
                   <div className="row">
-                    {/* <div className="col col-md-9 text-left">
-                    <Packages
-                      {...{
-                        items: [{id: 2, name:'3 meses', amount: 99, currency: 'ars'}],
-                        package_id: 2,
-                      }}
-                    />
-                  </div>
-                  <div className="col col-md-3 text-right">
-                    Cambiar plan
-                  </div> */ }
+                    <div className="col col-md-9 text-left">
+                      <PackageRadio
+                        plan={{ id: plan.id, name: plan.name, amount: plan.amount, currency: plan.currency }}
+                        package_id={plan.id}
+
+                      />
+                    </div>
+                    <div className="col col-md-3 text-right">
+                      <Link
+                        href="/user/changePlan"  >
+                        <a className="negrito">     Cambiar plan</a>
+                      </Link>
+
+                    </div>
+
                     {packageSection}
 
                     <div className="col col-md-8 text-right vertical-align">
@@ -192,7 +199,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
         </div>
       </CardLogoHeader>
 
-      <style jsx>{ `
+      <style jsx>{`
       .detail{
         width: 100%;
         padding: 41px;
@@ -290,7 +297,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
 
        }
       ` }</style>
-    </Layout>
+    </Layout >
   )
 }
 
@@ -298,6 +305,7 @@ AccountPage.getInitialProps = async ({ api, user }) => {
   let packages
   try {
     const { data } = await api.get('packages')
+
     packages = { items: data }
   } catch (error) {
     packages = { error }
