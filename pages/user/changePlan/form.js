@@ -257,7 +257,7 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
 
 
       {/* payment */}
-      {values.package_id && values.package_id !== free_package_id && (
+      {/* {values.package_id && values.package_id !== free_package_id && (
         <Payment {...{
           api,
           cash_payment_method_id: values.cash_payment_method_id,
@@ -272,7 +272,7 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
           requireds,
           validationError: !loading && error && error.errors && error.errors.payment_method_id,
         }} />
-      )}
+      )} */}
 
       {/* footer */}
       <div className="row align-items-center">
@@ -298,9 +298,22 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
         </div>
 
         {/* send btn */}
+        <div className="col-md-2">
+          <Link
+            as="/user/changePlan/pay"
+            href={{
+              pathname: "/user/changePlan/pay",
+              query: {
+                package_id: values.package_id,
+                required: requireds
+              },
 
-        <Button block color="secondary" disabled={loading} >Enviar</Button>
+            }}
+          >
+            <Button block color="secondary" disabled={loading} >Seguir{values.package_id}</Button>
+          </Link>
 
+        </div>
 
 
       </div>
