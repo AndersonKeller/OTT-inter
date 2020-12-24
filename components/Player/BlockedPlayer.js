@@ -8,26 +8,91 @@ import { CONFIG } from '~/config'
 import { ThemeContext } from 'styled-components'
 import Color from 'color'
 import Router from "next/router";
-
+import apiService from '~/services/api'
+import { date } from 'yup'
 export default function BlockedPlayer({ image = '', media, sub = null }) {
   const { user } = useContext(UserContext)
   const { is_paid: isPaid } = media
   const [showVideo, setShowVideo] = useState()
+  const { package_id } = sub
   const autoPlay = IS_PRODUCTION
   const { openAuthModal } = useContext(AuthModalContext)
+  const [isValid, setIsValid] = useState()
+  const [plan, setPlan] = useState(true)
+
+
+
+
 
   useEffect(_ => {
-    if (isPaid && !sub.package_id) {
-      setShowVideo(false);
-    } else if (isPaid && sub != null && sub.package_id !== 1) {
-      setShowVideo(true)
-    } else if (!isPaid && user) {
-      setShowVideo(true)
-    } else if (!isPaid && !user) {
-      setShowVideo(false)
-    }
+
+    (async _ => {
+      let periodo;
+      let op_plan;
+
+      const packdata = await apiService().get('packages')
+      let pack = packdata.data
+      let packages = { items: pack }
+
+      if (sub.package_id) {
+        op_plan = (packages.items.find(item => item.id == package_id))
+        setPlan(packages.items.find(item => item.id == package_id))
+
+      } else {
+        setPlan(packages.items.find(item => item.amount == 0))
+      }
+
+      switch (op_plan.plan_id) {
+        case '1-mes':
+          periodo = 1;
+          break;
+        case '3-mes':
+          periodo = 3;
+          break;
+
+        case '6-mes':
+          periodo = 6
+          break;
+
+        case '1-ano':
+          periodo = 6
+          break;
+
+        case '1-ano2':
+          periodo = 6
+          break;
+      }
+      if (periodo) {
+
+        let date_end = new Date(sub.starts_at);
+        let hj = new Date();
+        date_end.setMonth(date_end.getMonth() + periodo);
+
+        if (date_end < hj) {
+          setIsValid(false)
+        } else {
+          setIsValid(true)
+        }
+
+      }
+
+      if (isPaid && !sub.package_id) {
+        setShowVideo(false);
+      } else if (isPaid && sub != null && sub.package_id !== 1 && isValid == true) {
+        setShowVideo(true)
+      } else if (!isPaid && user && isValid == true) {
+        setShowVideo(true)
+      } else if (!isPaid && !user) {
+        setShowVideo(false)
+      }
+
+
+
+    })(isValid);
 
   }, [isPaid, user])
+
+
 
   const handleAuth = e => {
     e.preventDefault()
@@ -46,7 +111,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
   let probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
 
-  if (!sub.package_id || sub.package_id == 1) {
+  if (!sub.package_id || sub.package_id == 1 || isValid == false) {
     probaGratis = 'Activa un plan premium'
   }
 

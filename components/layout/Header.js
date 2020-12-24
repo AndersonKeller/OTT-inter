@@ -14,6 +14,7 @@ import LogoClub from '../LogoClub'
 import DesktopMenu from './DesktopMenu'
 import UserMenu from './UserMenu'
 import LogoApp from '../LogoApp'
+import ExAssinatura from '../exAssinatura'
 
 const StyledHeader = styled.header`
   background-color: ${props => props.closed ? 'var(--background)' :
@@ -149,6 +150,9 @@ const Header =
             </>
           )}
 
+          <ExAssinatura ></ExAssinatura>
+
+
         </nav>
         <style jsx>{`
         .nav {
@@ -217,7 +221,7 @@ const HeaderClubLogo = _ => {
   return (
     <div className="club-logo">
       <Link href="/">
-          <LogoClub />
+        <LogoClub />
       </Link>
       <style jsx>{`
         .club-logo {
@@ -274,5 +278,7 @@ const HeaderAppLogo = ({ closed, media }) => {
     </h1 >
   )
 }
+
+
 
 export default Header
