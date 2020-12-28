@@ -17,10 +17,8 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
   const { package_id } = sub
   const autoPlay = IS_PRODUCTION
   const { openAuthModal } = useContext(AuthModalContext)
-  const [isValid, setIsValid] = useState()
+  const [isValid, setIsValid] = useState(true)
   const [plan, setPlan] = useState(true)
-
-
 
 
 
@@ -55,44 +53,59 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
           break;
 
         case '1-ano':
-          periodo = 6
+          periodo = 12
           break;
 
         case '1-ano2':
-          periodo = 6
+          periodo = 12
           break;
       }
       if (periodo) {
 
-        let date_end = new Date(sub.starts_at);
-        let hj = new Date();
+        let date_end = new Date(sub.starts_at)
         date_end.setMonth(date_end.getMonth() + periodo);
 
-        if (date_end < hj) {
-          setIsValid(false)
-        } else {
+        let hj = new Date();
+
+
+        if ((date_end.getUTCFullYear()) > (hj.getUTCFullYear())) {
           setIsValid(true)
+
+        } else if ((date_end.getUTCMonth() + 1) > (hj.getUTCMonth() + 1) && date_end.getUTCFullYear() == hj.getUTCFullYear()) {
+          setIsValid(true)
+
+        } else if (date_end.getDate() > hj.getDate() && (date_end.getUTCMonth() + 1) == (hj.getUTCMonth() + 1) && date_end.getUTCFullYear() == hj.getUTCFullYear()) {
+          setIsValid(true)
+
+        } else {
+          setIsValid(false)
         }
 
       }
 
-      if (isPaid && !sub.package_id) {
-        setShowVideo(false);
-      } else if (isPaid && sub != null && sub.package_id !== 1 && isValid == true) {
-        setShowVideo(true)
-      } else if (!isPaid && user && isValid == true) {
-        setShowVideo(true)
-      } else if (!isPaid && !user) {
-        setShowVideo(false)
-      }
+    })();
+
+  }, [isValid])
 
 
 
-    })(isValid);
 
-  }, [isPaid, user])
+  useEffect(_ => {
 
+    if (isPaid && !sub.package_id) {
+      setShowVideo(false);
 
+    } else if (isPaid && sub != null && sub.package_id !== 1 && isValid == true) {
+      setShowVideo(true)
+
+    } else if (!isPaid && user && isValid == true) {
+      setShowVideo(true)
+
+    } else if (!isPaid && !user) {
+      setShowVideo(false)
+    }
+
+  }, [isPaid, user, isValid])
 
   const handleAuth = e => {
     e.preventDefault()
@@ -111,7 +124,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
   let probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
 
-  if (!sub.package_id || sub.package_id == 1 || isValid == false) {
+  if (!sub.package_id || sub.package_id == 1) {
     probaGratis = 'Activa un plan premium'
   }
 
@@ -133,7 +146,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
   return (
     <div className="player">
-      {showVideo ? (
+      {showVideo && isValid ? (
         (media && media.movie_links && media.movie_links.length && !youtube_link) ? (
           <div style={{ position: 'relative' }}>
             <Player

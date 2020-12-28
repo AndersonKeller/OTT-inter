@@ -4,8 +4,9 @@ import UserContext from '~/contexts/UserContext'
 import Style from './style'
 import { createContext, useState, useContext, useEffect } from 'react'
 import apiService from '~/services/api'
-
-
+import Link from 'next/link'
+// env
+import { IS_PRODUCTION } from '~/constants/constants'
 
 const ExAssinatura = () => {
 
@@ -13,6 +14,7 @@ const ExAssinatura = () => {
   const [subscription, setSubscription] = useState()
   const [show, setShow] = useState(false)
   const [plan, setPlan] = useState()
+  const requireds = IS_PRODUCTION
   useEffect(_ => {
     (async _ => {
       try {
@@ -23,11 +25,9 @@ const ExAssinatura = () => {
         const { data: { package_id, ...data } } = await apiService().get('subscription')
         setSubscription(data)
 
-        console.log('__subscritoo', data)
         const packdata = await apiService().get('packages')
         let pack = packdata.data
         let packages = { items: pack }
-        console.log('pacotes', packages);
 
         if (package_id) {
           op_plan = (packages.items.find(item => item.id == package_id))
@@ -39,7 +39,6 @@ const ExAssinatura = () => {
 
         switch (op_plan.plan_id) {
           case '1-mes':
-            console.log('umm mes');
             periodo = 1;
             break;
           case '3-mes':
@@ -59,16 +58,24 @@ const ExAssinatura = () => {
             break;
         }
 
+
         if (periodo) {
-          let date_end = new Date(data.starts_at);
-          date_end.setMonth(date_end.getMonth() + periodo)
-          console.log('header data > ', date_end, new Date());
-          if (date_end < new Date()) {
+
+          let date_end = new Date(data.starts_at)
+          date_end.setMonth(date_end.getMonth() + periodo);
+
+          let hj = new Date();
+
+          if ((date_end.getUTCFullYear()) > (hj.getUTCFullYear())) {
+            setShow(false)
+          } else if ((date_end.getUTCMonth() + 1) > (hj.getUTCMonth() + 1) && date_end.getUTCFullYear() == hj.getUTCFullYear()) {
+            setShow(false)
+          } else if (date_end.getDate() > hj.getDate() && (date_end.getUTCMonth() + 1) == (hj.getUTCMonth() + 1) && date_end.getUTCFullYear() == hj.getUTCFullYear()) {
+            setShow(false)
+          } else {
             setShow(true)
           }
-
         }
-
 
       } catch (error) {
         console.log('error')
@@ -85,8 +92,24 @@ const ExAssinatura = () => {
 
         <span > Assinatura expirada </span>
 
-        <Button className="btn-sm" >Renovar</Button>
 
+        <div className="col-md-2">
+          <Link
+            as="/user/changePlan/pay"
+            href={{
+              pathname: "/user/changePlan/pay",
+              query: {
+                package_id: plan.id,
+                required: requireds
+              },
+
+            }}
+          >
+            {/* <Button block color="secondary" disabled={loading} >Seguir{values.package_id}</Button> */}
+            <Button className="btn-sm" >Renovar </Button>
+          </Link>
+
+        </div>
       </div >)}
     </Style >
 
