@@ -10,16 +10,21 @@ import Color from 'color'
 import Router from "next/router";
 import apiService from '~/services/api'
 import { date } from 'yup'
+import moment from "moment";
+
 export default function BlockedPlayer({ image = '', media, sub = null }) {
   const { user } = useContext(UserContext)
   const { is_paid: isPaid } = media
   const [showVideo, setShowVideo] = useState()
-  const { package_id } = sub
+  const [expired, setExpired] = useState();
+  if (!sub) {
+    sub = {}
+  }
+
   const autoPlay = IS_PRODUCTION
   const { openAuthModal } = useContext(AuthModalContext)
   const [isValid, setIsValid] = useState(true)
   const [plan, setPlan] = useState(true)
-
 
 
   useEffect(_ => {
@@ -33,54 +38,23 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
       let packages = { items: pack }
 
       if (sub.package_id) {
-        op_plan = (packages.items.find(item => item.id == package_id))
-        setPlan(packages.items.find(item => item.id == package_id))
-
+        setPlan(packages.items.find(item => item.id == sub.package_id))
       } else {
         setPlan(packages.items.find(item => item.amount == 0))
       }
 
-      switch (op_plan.plan_id) {
-        case '1-mes':
-          periodo = 1;
-          break;
-        case '3-mes':
-          periodo = 3;
-          break;
 
-        case '6-mes':
-          periodo = 6
-          break;
+      let date_end = moment(sub.ends_at)
+      let hj = moment();
 
-        case '1-ano':
-          periodo = 12
-          break;
-
-        case '1-ano2':
-          periodo = 12
-          break;
-      }
-      if (periodo) {
-
-        let date_end = new Date(sub.starts_at)
-        date_end.setMonth(date_end.getMonth() + periodo);
-
-        let hj = new Date();
-
-
-        if ((date_end.getUTCFullYear()) > (hj.getUTCFullYear())) {
-          setIsValid(true)
-
-        } else if ((date_end.getUTCMonth() + 1) > (hj.getUTCMonth() + 1) && date_end.getUTCFullYear() == hj.getUTCFullYear()) {
-          setIsValid(true)
-
-        } else if (date_end.getDate() > hj.getDate() && (date_end.getUTCMonth() + 1) == (hj.getUTCMonth() + 1) && date_end.getUTCFullYear() == hj.getUTCFullYear()) {
-          setIsValid(true)
-
-        } else {
-          setIsValid(false)
+      if (hj > date_end) {
+        setIsValid(false)
+        if (sub.package_id !== 1) {
+          setExpired(true);
         }
-
+      } else {
+        // window.alert('b');
+        setIsValid(true)
       }
 
     })();
@@ -88,19 +62,14 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
   }, [isValid])
 
 
-
-
   useEffect(_ => {
 
     if (isPaid && !sub.package_id) {
       setShowVideo(false);
-
     } else if (isPaid && sub != null && sub.package_id !== 1 && isValid == true) {
       setShowVideo(true)
-
     } else if (!isPaid && user && isValid == true) {
       setShowVideo(true)
-
     } else if (!isPaid && !user) {
       setShowVideo(false)
     }
@@ -109,7 +78,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
   const handleAuth = e => {
     e.preventDefault()
-    if (!sub.package_id || sub.package_id == 1) {
+    if (!sub.package_id || sub.package_id == 1 || expired) {
       Router.push('/register/wizard/complete-test');
     } else {
       openAuthModal('register')
@@ -146,62 +115,84 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
   return (
     <div className="player">
-      {showVideo && isValid ? (
+      {
+        expired ? (
+            <>
+              <img src={ image } width="822" height="464" className="img-fluid"/>
+              <div className="block-msg text-center">
+
+                <div className="text-block">
+                  <p><strong>Actualiza tu información de pago para continuar</strong></p>
+                  <p className="d-none d-md-block"><small>No fue posible procesar tu último pago. Actualiza tus datos para seguir viendo La U Play</small></p>
+                </div>
+
+                <Button onClick={ handleAuth }>Actualizar tu pago</Button>
+
+                <div className="bold text-block">
+                  <p>
+                  </p>
+                </div>
+              </div>
+
+            </>
+          )
+        : showVideo && isValid ? (
         (media && media.movie_links && media.movie_links.length && !youtube_link) ? (
-          <div style={{ position: 'relative' }}>
+          <div style={ { position: 'relative' } }>
             <Player
               height="100%"
-              media={media}
-              poster={image}
-              user={sub}
-              style={{ padding: '56.44% 0 0 0', position: 'relative' }}
+              media={ media }
+              poster={ image }
+              user={ sub }
+              style={ { padding: '56.44% 0 0 0', position: 'relative' } }
               width="100%"
             />
           </div>
         ) : youtube_link ? (
           <div className="embed-responsive embed-responsive-16by9">
             <iframe
-              allow={`accelerometer; ${autoPlay ? 'autoplay;' : ''} encrypted-media; gyroscope; picture-in-picture`}
+              allow={ `accelerometer; ${ autoPlay ? 'autoplay;' : '' } encrypted-media; gyroscope; picture-in-picture` }
               allowFullScreen
-              className={`embed-responsive-item`}
+              className={ `embed-responsive-item` }
               frameBorder="0"
-              src={`${youtube_link.url}?${autoPlay ? 'autoplay=1' : ''}`}
+              src={ `${ youtube_link.url }?${ autoPlay ? 'autoplay=1' : '' }` }
             ></iframe>
           </div>
         ) : (
-              "Couldn't parse url"
-            )
+          "Couldn't parse url"
+        )
       ) : (
-          <>
-            <img src={image} width="822" height="464" className="img-fluid" />
-            <div className="block-msg text-center">
+        <>
+          <img src={ image } width="822" height="464" className="img-fluid"/>
+          <div className="block-msg text-center">
 
-              <div className="text-block">
-                <p><strong>Este contenido es exclusivo para los suscriptores de algún plan premium</strong></p>
-                <p className="d-none d-md-block"><small>Vuélvete premium y accede a todo el contenido cuando y donde quieras!</small></p>
-              </div>
-
-              <Button onClick={handleAuth}>{probaGratis}</Button>
-
-              <div className="bold text-block">
-                <p>
-                  {/* { alreadyRegistered }
-                { ' ' }
-                <a className="text-uppercase" href="/login" onClick={ handleLogin }>{ login }</a> */}
-                </p>
-              </div>
+            <div className="text-block">
+              <p><strong>Este contenido es exclusivo para los suscriptores de algún plan premium</strong></p>
+              <p className="d-none d-md-block"><small>Vuélvete premium y accede a todo el contenido cuando y donde
+                quieras!</small></p>
             </div>
 
-          </>
-        )}
-      <style jsx>{`
+            <Button onClick={ handleAuth }>{ probaGratis }</Button>
+
+            <div className="bold text-block">
+              <p>
+                {/* { alreadyRegistered }
+                { ' ' }
+                <a className="text-uppercase" href="/login" onClick={ handleLogin }>{ login }</a> */ }
+              </p>
+            </div>
+          </div>
+
+        </>
+      ) }
+      <style jsx>{ `
         .player {
           overflow: hidden;
           position: relative;
         }
         .block-msg {
           align-items: center;
-          background-color: ${ maskColor};
+          background-color: ${ maskColor };
           bottom: 0;
           flex-direction: column;
           font-size: 14px;
