@@ -310,7 +310,7 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
 
             }}
           >
-            <Button block color="secondary" disabled={loading} >Seguir{values.package_id}</Button>
+            <Button block color="secondary" disabled={loading} >Seguir</Button>
           </Link>
 
         </div>

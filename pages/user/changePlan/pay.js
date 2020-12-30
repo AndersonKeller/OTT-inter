@@ -17,9 +17,9 @@ import Color from "color";
 import { HAS_WINDOW } from "~/constants/constants";
 import useScript from "@charlietango/use-script";
 import CardLogoHeader from '~/components/CardLogoHeader/index'
+import { toast } from "react-toastify";
 
-
-const pay = withRouter(({ packages }) => {
+const pay = withRouter(({ packages, handleSubmit, }) => {
 
   const router = useRouter()
   const {
@@ -48,13 +48,18 @@ const pay = withRouter(({ packages }) => {
     "https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"
   );
 
-  const MercadoPago = ready && HAS_WINDOW ? window.Mercadopago : null
-
 
   const theme = useContext(ThemeContext);
   const primaryColor = Color(theme.colors.primary)
   const [cardImg, setCardImg] = useState(null);
+  const MercadoPago = ready && HAS_WINDOW ? window.Mercadopago : null
+  const businessUnitPublicKey = 'APP_USR-fe20d55f-f7d1-49e0-855b-4d5c147ddd0b'
+  // const businessUnitPublicKey = "TEST-5121749c-2a58-4b7d-b98c-9b9932a3a4cc";
 
+
+  const [isMercadoPagoReady, setIsMercadoPagoReady] = useState(false)
+  const [payMethods, setPayMethods] = useState();
+  const [creditCard, setCreditCard] = useState(null);
   // // get packages
 
   let selectedPackage = null;
@@ -67,6 +72,19 @@ const pay = withRouter(({ packages }) => {
   const [error, setError] = useState({
     errors: {}
   });
+
+
+
+  useEffect(
+    _ => {
+      if (MercadoPago) {
+        MercadoPago.setPublishableKey(businessUnitPublicKey);
+        setIsMercadoPagoReady(true);
+        setPayMethods(MercadoPago.getPaymentMethods());
+      }
+    },
+    [MercadoPago]
+  );
 
   const [loading, setLoading] = useState();
 
@@ -157,7 +175,6 @@ const pay = withRouter(({ packages }) => {
     switch (values.paymentMethodId) {
       case 1:
       case 2:
-        console.log('pagamento CARTÃO DE CREDITO')
         MercadoPago.createToken(
           {
             cardNumber: values.cardNumber,
@@ -169,9 +186,10 @@ const pay = withRouter(({ packages }) => {
             docNumber: values.docNumber,
             email: user.email
           },
+
           async (statusCode, response) => {
+
             let token = "";
-            console.log('repsonse', response);
             if (response && response.cause && response.cause.length > 0) {
               let errors = [];
               for (let error of response.cause) {
@@ -200,7 +218,7 @@ const pay = withRouter(({ packages }) => {
 
             try {
               token = response.id;
-              console.log('token', token)
+
 
               const res = await api().post(`register/subscribe`, {
                 package_id: package_id,
@@ -209,7 +227,8 @@ const pay = withRouter(({ packages }) => {
                 token: token
               });
 
-              handleSubmit(4, null);
+              // handleSubmit(4, null);
+
             } catch (error) {
               if (error.response) {
                 const { data, status } = error.response;
