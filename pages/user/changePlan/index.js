@@ -18,7 +18,7 @@ import ChangePlanForm from './form'
 import withAuth from '~/components/withAuth'
 
 
-const ChangePlanPage = ({ api, layoutProps, packages, user }) => {
+const ChangePlanPage = ({ api, layoutProps, plan_atual, user, packages }) => {
 
   const [ready, status] = useScript('https://js.paymentsos.com/v2/latest/secure-fields.min.js')
   const [isPayUReady, setIsPayUReady] = useState(false)
@@ -69,18 +69,22 @@ const ChangePlanPage = ({ api, layoutProps, packages, user }) => {
     }
   }, [POS])
 
+  const [subscription, setSubscription] = useState({})
+
   useEffect(_ => {
-    // //filter
-    let package_id = user.package_id;
-    // const { datafilter: { package_id, ...datafilter } } = await api.get('subscription')
+    (async _ => {
+      try {
+        // const { data: { package_id, ...data } } = await api.get('subscription')
+        // setSubscription(data)
 
-    if (package_id) {
-      setPlan(packages.items.find(item => item.id == package_id))
+        console.log('dentro do plan atual', plan_atual, packages)
 
-    } else {
-      setPlan(packages.items.find(item => item.amount == 0))
-    }
+        setPlan(plan_atual)
 
+      } catch (error) {
+        console.log(error)
+      }
+    })()
   }, [])
 
   return (
@@ -123,17 +127,28 @@ const ChangePlanPage = ({ api, layoutProps, packages, user }) => {
 ChangePlanPage.getInitialProps = async ctx => {
 
   const { api } = ctx
-
+  const { data: { package_id, ...data } } = await api.get('subscription')
+  let plan_atual;
   // get packages
   let packages
   try {
-    const { data } = await api.get('packages')
-    packages = { items: data }
+    let packagesData = await api.get('packages')
+
+    packages = { items: packagesData.data }
   } catch (error) {
     packages = { error }
   }
 
-  return { packages }
+
+  if (package_id) {
+    plan_atual = packages.items.find(item => item.id == package_id)
+  } else {
+    plan_atual = packages.items.find(item => item.amount == 0);
+  }
+
+
+
+  return { plan_atual, packages }
 }
 
 export default withAuth(ChangePlanPage)

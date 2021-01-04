@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { useRouter, withRouter } from 'next/router'
-
+import Router from 'next/router'
 import api from '../../../services/api'
 import NameProject from "~/components/NameProject";
 import FormGroup from "~/components/layout/AuthModal/FormGroup";
@@ -53,8 +53,8 @@ const pay = withRouter(({ packages, handleSubmit, }) => {
   const primaryColor = Color(theme.colors.primary)
   const [cardImg, setCardImg] = useState(null);
   const MercadoPago = ready && HAS_WINDOW ? window.Mercadopago : null
-  const businessUnitPublicKey = 'APP_USR-fe20d55f-f7d1-49e0-855b-4d5c147ddd0b'
-  // const businessUnitPublicKey = "TEST-5121749c-2a58-4b7d-b98c-9b9932a3a4cc";
+  // const businessUnitPublicKey = 'APP_USR-fe20d55f-f7d1-49e0-855b-4d5c147ddd0b'
+  const businessUnitPublicKey = "TEST-5121749c-2a58-4b7d-b98c-9b9932a3a4cc";
 
 
   const [isMercadoPagoReady, setIsMercadoPagoReady] = useState(false)
@@ -194,6 +194,7 @@ const pay = withRouter(({ packages, handleSubmit, }) => {
               let errors = [];
               for (let error of response.cause) {
                 if (error.code === "E301") {
+                  console.log('ERROR', error)
                   errors["cardNumber"] =
                     "Hay un error con ese número. Digita nuevamente.";
                 }
@@ -219,7 +220,6 @@ const pay = withRouter(({ packages, handleSubmit, }) => {
             try {
               token = response.id;
 
-
               const res = await api().post(`register/subscribe`, {
                 package_id: package_id,
                 payment_method_id: values.paymentMethodId,
@@ -228,8 +228,10 @@ const pay = withRouter(({ packages, handleSubmit, }) => {
               });
 
               // handleSubmit(4, null);
+              Router.push('/user/changePlan/done');
 
             } catch (error) {
+
               if (error.response) {
                 const { data, status } = error.response;
 
@@ -253,6 +255,8 @@ const pay = withRouter(({ packages, handleSubmit, }) => {
           }
         );
         break;
+
+
       case 3:
         try {
           const res = await api().post(`register/subscribe`, {
@@ -263,7 +267,10 @@ const pay = withRouter(({ packages, handleSubmit, }) => {
 
           open(res.data.url);
 
+
           setLoading(false)
+
+
 
         } catch (e) {
           setLoading(false);
@@ -382,11 +389,11 @@ const pay = withRouter(({ packages, handleSubmit, }) => {
                       id="cardNumber"
                       name="cardNumber"
                     />
-                    <InvalidFeedback
+                    {/* <InvalidFeedback
                       error={error}
                       loading={loading}
                       name="cardNumber"
-                    />
+                    /> */}
                   </FormGroup>
                 </div>
 

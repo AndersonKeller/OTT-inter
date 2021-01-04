@@ -33,6 +33,19 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
     })()
   }, [])
 
+  function changePlan() {
+    console.log('este e o lan atual', plan);
+
+    Router.push(
+      {
+        as: 'user/changePlan',
+        pathname: "/user/changePlan",
+        // query: {
+        //   plan_actual: plan,
+        // },
+      })
+  }
+
   const packageSection = function () {
 
     if (plan) {
@@ -180,10 +193,8 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                       />
                     </div>
                     <div className="col col-md-3 text-right">
-                      <Link
-                        href="/user/changePlan"  >
-                        <a className="negrito">     Cambiar plan</a>
-                      </Link>
+
+                      {plan.id && (<a className="negrito" onClick={changePlan}> Cambiar plan</a>)}
 
                     </div>
 

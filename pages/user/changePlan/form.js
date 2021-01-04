@@ -5,7 +5,7 @@ import Router from 'next/router'
 // react
 import { useField } from 'formik'
 import { useContext, useEffect, useState } from 'react'
-
+import { toast, ToastContainer } from 'react-toastify'
 // components
 import UserContext from '~/contexts/UserContext'
 import Packages from '~/components/Packages'
@@ -61,7 +61,8 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
 
   useEffect(_ => {
     function filterByID(obj) {
-      if (obj.id > user.package_id) {
+      console.log(obj.id > user.package_id);
+      if (obj.id > user.package_id && obj.id != user.package_id) {
         return true;
       } else {
         return false;
@@ -151,40 +152,44 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
   const handleSubmit = async e => {
     e.preventDefault()
     setLoading(true)
+
+
     try {
-      const paymentData = values.package_id && values.package_id !== free_package_id &&
-        values.payment_method_id && isCardPayment ? await createToken() : null
-      const data = { ...values, payment_os: paymentData }
-      try {
-        const { data: { user, order } } = await api.post('register/changePlan', data)
-        updateUser(user)
-        if (order) {
-          Router.push({
-            pathname: '/account/confirm',
-            query: {
-              download_link: order.download_link,
-              link: order.link,
-            },
-          }, '/register/confirm')
-        } else {
-          Router.push('/')
-        }
-      } catch (error) {
-        console.log('error', error)
-        if (error.response) {
-          const { data, status } = error.response
-          if (status === 422) {
-            setError(data)
-          }
-        } else if (error.request) {
-          setError(error)
-        } else {
-          setError(error)
+
+      if (values.terms && values.package_id) {
+        Router.push({
+          pathname: "/user/changePlan/pay",
+          query: {
+            package_id: values.package_id,
+            required: requireds
+          },
+        })
+      } else {
+
+        if (!values.terms) {
+          toast.error('Es necesario aceptar los términos', { delay: 500, autoClose: 5000 });
+
         }
       }
+      if (!values.package_id) {
+        toast.error('Es necesario seleccionar un plan', { delay: 500, autoClose: 5000 });
+
+      }
+
     } catch (error) {
-      setError(error.description ? { errors: { payment_os: error.description } } : error)
+      console.log('error', error)
+      if (error.response) {
+        const { data, status } = error.response
+        if (status === 422) {
+          setError(data)
+        }
+      } else if (error.request) {
+        setError(error)
+      } else {
+        setError(error)
+      }
     }
+
     setLoading(false)
   }
 
@@ -299,20 +304,15 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
 
         {/* send btn */}
         <div className="col-md-2">
-          <Link
-            as="/user/changePlan/pay"
-            href={{
-              pathname: "/user/changePlan/pay",
-              query: {
-                package_id: values.package_id,
-                required: requireds
-              },
 
-            }}
-          >
-            <Button block color="secondary" disabled={loading} >Seguir</Button>
-          </Link>
-
+          <Button
+            block
+            color="secondary"
+            type="button"
+            disabled={loading}
+            loading={loading}
+            onClick={handleSubmit}
+          >Seguir</Button>
         </div>
 
 
