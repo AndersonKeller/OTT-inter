@@ -105,7 +105,7 @@ const ChangePlanPage = ({ api, layoutProps, plan_atual, user, packages }) => {
               />)}
             </div>
             <h1 className="h2">Nuevo Plan</h1>
-            <ChangePlanForm {...{ api, isPayUReady, packages, POS }} />
+            {plan && (<ChangePlanForm {...{ api, isPayUReady, packages, plan, POS }} />)}
 
           </div>
         </div>

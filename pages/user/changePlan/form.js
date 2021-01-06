@@ -24,7 +24,7 @@ import Input from '~/components/layout/AuthModal/Input'
 
 
 
-const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
+const ChangePlanForm = ({ api, isPayUReady, packages, POS, plan }) => {
 
 
   const { id: free_package_id } = packages.items.find(item => item.amount == 0) || {}
@@ -33,7 +33,7 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
   const debug = false && !IS_PRODUCTION
 
   const { user, updateUser } = useContext(UserContext)
-
+  console.log('pacotes', packages);
 
   const [discount, setDiscount] = useState(false)
   const [supportersDiscount, setSupportersDiscount] = useState()
@@ -61,8 +61,9 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
 
   useEffect(_ => {
     function filterByID(obj) {
-      console.log(obj.id > user.package_id);
-      if (obj.id > user.package_id && obj.id != user.package_id) {
+      obj.amount = (obj.amount).replace('$', "");
+      plan.amount = (plan.amount).replace('$', "");
+      if (parseInt(obj.amount) > parseInt(plan.amount)) {
         return true;
       } else {
         return false;
@@ -71,7 +72,6 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
     let packageAvailable = { items: (packages.items).filter(filterByID) };
     setPack(packageAvailable);
   }, [])
-
 
 
   /* handle general input change */
