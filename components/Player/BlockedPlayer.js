@@ -47,7 +47,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
       let date_end = moment(sub.ends_at)
       let hj = moment();
 
-      if (hj > date_end) {
+      if (isPaid && (hj > date_end)) {
         setIsValid(false)
         if (sub.package_id !== 1) {
           setExpired(true);
@@ -116,7 +116,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
   return (
     <div className="player">
       {
-        expired ? (
+        expired && isPaid ? (
             <>
               <img src={ image } width="822" height="464" className="img-fluid"/>
               <div className="block-msg text-center">
