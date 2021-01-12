@@ -5,7 +5,7 @@ import { ThemeContext } from 'styled-components'
 import { Chip } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons'
-
+import UserContext from '~/contexts/UserContext'
 
 const MediaCard = ({
   category = null,
@@ -16,6 +16,7 @@ const MediaCard = ({
   if (!media.thumbnail_url) {
     // media.thumbnail_url = '//placehold.jp/180x256.png'
   }
+  const { user } = useContext(UserContext)
   const theme = useContext(ThemeContext)
   const lightColor = theme.colors.texts
   const whiteColor = theme.colors.white
@@ -34,7 +35,7 @@ const MediaCard = ({
       <MediaLink {...{ category, media }}>
         <a className="media-card text-center">
           {
-            wishlist &&
+            user &&
             <div className="wish">
               <WishlistBtn movieId={media.id} inside={true} />
             </div>
