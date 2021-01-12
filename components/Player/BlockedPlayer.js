@@ -47,7 +47,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
       let date_end = moment(sub.ends_at)
       let hj = moment();
 
-      if (hj > date_end) {
+      if (isPaid && (hj > date_end)) {
         setIsValid(false)
         if (sub.package_id !== 1) {
           setExpired(true);
