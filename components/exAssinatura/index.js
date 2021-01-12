@@ -55,12 +55,12 @@ const ExAssinatura = () => {
 
     <Style>
 
-      {show && (<div>
+      {show && (<div className="renovar" >
 
         <span > Assinatura expirada </span>
 
 
-        <div className="col-md-2">
+        <div >
           <Link
             as="/user/changePlan/pay"
             href={{
@@ -77,7 +77,8 @@ const ExAssinatura = () => {
           </Link>
 
         </div>
-      </div >)}
+      </div >)
+      }
     </Style >
 
 

@@ -11,6 +11,16 @@ const Assinatura = Styled.div`
     span {
     padding: 7px;
     }
+    .renovar {
+       display: flex;
+    }
+
+
+  }
+
+
+
+
 
 
 
