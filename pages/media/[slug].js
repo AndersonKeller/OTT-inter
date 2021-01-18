@@ -153,7 +153,7 @@ const Cover = ({ category, media }) => {
           background-color: var(--background);
           background-position: 50% 50%, 100% 50%;
 
-          background-image: url(${posterUrl});
+          background-image: url('${posterUrl}');
           background-repeat: no-repeat, no-repeat;
           background-size: cover, cover;
           font-size: 15px;
