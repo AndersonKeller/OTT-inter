@@ -125,7 +125,7 @@ const Header =
                   onFocus={handleSearchBtnFocus}
                   type="submit"
                 >
-                  <GoSearch color="inherit" size={28} title="Buscar" />
+                  <GoSearch color="inherit" size={20} title="Buscar" />
                 </button>
                 <input
                   className="form-control"

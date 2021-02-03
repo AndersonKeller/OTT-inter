@@ -19,16 +19,16 @@ export default function MoreContentCarousel({ category, uppercase }) {
         </Link>
       </div>
       <style jsx>{`
-        
+
         .carousel-section {
           overflow: hidden;
         }
-        
+
         .more-content {
           background-color: ${backgroundColor};
-          margin-bottom: 30px;
-          padding-top: 30px;
-          padding-bottom: 45px;
+          // margin-bottom: 30px;
+          padding-top: 20px;
+          padding-bottom: 25px;
         }
         @media (min-width: 768px) {
           .more-content {
