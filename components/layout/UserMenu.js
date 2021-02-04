@@ -139,7 +139,7 @@ export default () => {
           align-items: center;
           display: flex;
           position: relative;
-          margin-left:auto;
+
         }
         @media (min-width: 768px) {
           .user-select {
