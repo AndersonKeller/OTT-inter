@@ -48,10 +48,9 @@ const Cards = styled.div`
   &::before,
   &::after {
     content: '';
-    height:${props => props.is_horizontal ? '255px' : '477px'};
-    margin-top:${props => props.is_horizontal ? '-35px' : '-73px'};
+    height:94%
     position: absolute;
-    top: 0;
+    top: 15px;
     width: 9%;
     z-index: 2;
   }
@@ -69,6 +68,22 @@ const Cards = styled.div`
     `linear-gradient(to left, ${props.theme.colors.background}, ${Color(props.theme.colors.backgroundContrast).fade(1).string()})` :
     `linear-gradient(to left, ${props.theme.colors.background}, ${Color(props.theme.colors.background).fade(1).string()})`};
   }
+
+
+
+  &:hover::before,
+  &:hover::after {
+    content: '';
+    transform: scale(1.5) !important;
+    height:92%;
+    position: absolute;
+    top: 10px;
+    width: 9%;
+    z-index: 2;
+  }
+
+
+
 
   @media(max-width: 765px) {
   &::before {
