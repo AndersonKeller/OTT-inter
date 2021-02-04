@@ -10,7 +10,7 @@ export default function MoreContentCarousel({ category, uppercase }) {
   const backgroundColor = Color(theme.colors.background).hsl().string()
   return (
     <aside className="more-content">
-      <div className="carousel-section">
+      <div className="home-carousel-section">
         <CarouselSection category={category} color="contrast" uppercase={uppercase} />
       </div>
       <div className="text-center">
