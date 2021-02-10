@@ -141,9 +141,9 @@ export default () => {
           position: relative;
 
         }
-        @media (min-width: 768px) {
-          .user-select {
-            margin-right: -15px;
+        @media(max-width:768px) {
+              .user-select {
+                margin-left:auto!important;
           }
         }
         .user-select :global(.dropdown-toggle) {
