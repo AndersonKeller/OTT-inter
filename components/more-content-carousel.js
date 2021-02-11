@@ -10,7 +10,7 @@ export default function MoreContentCarousel({ category, uppercase }) {
   const backgroundColor = Color(theme.colors.background).hsl().string()
   return (
     <aside className="more-content">
-      <div className="carousel-section">
+      <div className="home-carousel-section">
         <CarouselSection category={category} color="contrast" uppercase={uppercase} />
       </div>
       <div className="text-center">
@@ -19,16 +19,16 @@ export default function MoreContentCarousel({ category, uppercase }) {
         </Link>
       </div>
       <style jsx>{`
-        
+
         .carousel-section {
           overflow: hidden;
         }
-        
+
         .more-content {
           background-color: ${backgroundColor};
-          margin-bottom: 30px;
-          padding-top: 30px;
-          padding-bottom: 45px;
+          // margin-bottom: 30px;
+          padding-top: 20px;
+          padding-bottom: 25px;
         }
         @media (min-width: 768px) {
           .more-content {

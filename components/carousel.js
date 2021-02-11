@@ -34,10 +34,10 @@ function Arrow(props) {
   const { className, style, onClick } = props;
   return (
     <div>
-      <div className={ className } onClick={ onClick } style={ style }>
-        <Chevron inline dir={ className.search('slick-prev') !== -1 ? 'left' : 'right' } width="47" height="27"/>
+      <div className={className} onClick={onClick} style={style}>
+        <Chevron inline dir={className.search('slick-prev') !== -1 ? 'left' : 'right'} width="47" height="27" />
       </div>
-      <style jsx>{ arrowsStyles }</style>
+      <style jsx>{arrowsStyles}</style>
     </div>
   );
 }
@@ -48,9 +48,9 @@ const Cards = styled.div`
   &::before,
   &::after {
     content: '';
-    height: 100%;
+    height:94%
     position: absolute;
-    top: 0;
+    top: 15px;
     width: 9%;
     z-index: 2;
   }
@@ -59,14 +59,31 @@ const Cards = styled.div`
   }
   &::before {
     background-image: ${ props => props.color === 'contrast' ?
-  `linear-gradient(to right, ${ props.theme.colors.backgroundContrast }, ${ Color(props.theme.colors.backgroundContrast).fade(1).string() })` :
-  `linear-gradient(to right, ${ props.theme.colors.background }, ${ Color(props.theme.colors.background).fade(1).string() })` };
+    `linear-gradient(to right, ${props.theme.colors.background}, ${Color(props.theme.colors.backgroundContrast).fade(1).string()})` :
+    `linear-gradient(to right, ${props.theme.colors.background}, ${Color(props.theme.colors.background).fade(1).string()})`};
+
   }
   &::after {
     background-image: ${ props => props.color === 'contrast' ?
-  `linear-gradient(to left, ${ props.theme.colors.backgroundContrast }, ${ Color(props.theme.colors.backgroundContrast).fade(1).string() })` :
-  `linear-gradient(to left, ${ props.theme.colors.background }, ${ Color(props.theme.colors.background).fade(1).string() })` };
+    `linear-gradient(to left, ${props.theme.colors.background}, ${Color(props.theme.colors.backgroundContrast).fade(1).string()})` :
+    `linear-gradient(to left, ${props.theme.colors.background}, ${Color(props.theme.colors.background).fade(1).string()})`};
   }
+
+
+
+  &:hover::before,
+  &:hover::after {
+    content: '';
+    transform: scale(1.5) !important;
+    height:92%;
+    position: absolute;
+    top: 10px;
+    width: 9%;
+    z-index: 2;
+  }
+
+
+
 
   @media(max-width: 765px) {
   &::before {
@@ -85,8 +102,8 @@ export default function Carousel({ children, color, additional }) {
     draggable: false,
     infinite: false,
     mobileFirst: true, /* seems to noFt be working (?) */
-    nextArrow: <Arrow/>,
-    prevArrow: <Arrow/>,
+    nextArrow: <Arrow />,
+    prevArrow: <Arrow />,
     responsive: [
       {
         breakpoint: 768,
@@ -102,43 +119,44 @@ export default function Carousel({ children, color, additional }) {
     speed: 700,
   }
   return (
-    <Cards color={ color }>
+    <Cards is_horizontal={additional.is_horizontal} color={color}>
       <br></br>
-      <div className={ additional.is_horizontal ? "cards-container is_horizontal" : "cards-container" }>
-        <Slider { ...settings }>
-          { React.Children.map(children, (card, index) => {
+      <div className={additional.is_horizontal ? "cards-container is_horizontal" : "cards-container"}>
+        <Slider {...settings}>
+          {React.Children.map(children, (card, index) => {
             return (
-              <div className="slide" key={ index }>
-                { card }
+              <div className="slide" key={index}>
+                {card}
               </div>
             )
-          }) }
+          })}
         </Slider>
       </div>
-      <style jsx global>{ `
+      <style jsx global>{`
         .slick-list {
           overflow: visible;
         }
-        
+
         .slick-track {
           margin-left: 0;
           margin-top: -20px;
         }
-        
+
         .slick-list {
-        
+
         }
-        
+
         .is_horizontal  .slick-track {
           margin-left: 25px !important;
         }
-        
+
         .cards-container {
           //height:359px!important;
           font-size: 0;
           margin-right: calc(9% - 10px);
           margin-left: calc(9% - 10px);
           white-space: nowrap;
+              // margin-top: 30px;
         }
         .slide {
           display: inline-block;

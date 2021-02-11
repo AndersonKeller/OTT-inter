@@ -78,13 +78,13 @@ export default () => {
         </Dropdown.Toggle>
 
         {/* logged menu */}
-        { user ? <>
+        {user ? <>
           <Dropdown.Menu>
             <Dropdown.Header>
-              <div className="user-name">{ getUserName() }</div>
-              <div className="user-email">{ user.email }</div>
+              <div className="user-name">{getUserName()}</div>
+              <div className="user-email">{user.email}</div>
             </Dropdown.Header>
-            { loggedMenu.map(({ href, label, onClick, slug }, key) => (
+            {loggedMenu.map(({ href, label, onClick, slug }, key) => (
               <Link href={href} key={key} passHref>
                 <Dropdown.Item className="dropdown-item-style3" onClick={onClick}>
                   <span className="icon">
@@ -97,40 +97,40 @@ export default () => {
                     ) : slug === 'logout' ? (
                       <RiLogoutBoxRLine size={24} />
                     ) : (
-                      <img className={`img-fluid ${slug}`} src={`/static/icons/${slug}.svg`} />
-                    )}
+                              <img className={`img-fluid ${slug}`} src={`/static/icons/${slug}.svg`} />
+                            )}
                   </span>
                   <span>{label}</span>
                 </Dropdown.Item>
               </Link>
-            )) }
+            ))}
           </Dropdown.Menu>
 
-        {/* public menu */}
+          {/* public menu */}
         </> : (
-          <Dropdown.Menu>
-            <Dropdown.Item as="button"
-              className="dropdown-item-style1"
-              onClick={enter}>Entrar</Dropdown.Item>
-            <Link href={ TENANT === 'lau' ? "/subscriptor" : "/signup"}>
-              <Dropdown.Item className="dropdown-item-style2"
-                href="/signup">Suscripción</Dropdown.Item>
-            </Link>
-            <Dropdown.Divider />
-            {/* <Dropdown.Item className="dropdown-item-style3" href="/ajustes">
+            <Dropdown.Menu>
+              <Dropdown.Item as="button"
+                className="dropdown-item-style1"
+                onClick={enter}>Entrar</Dropdown.Item>
+              <Link href={TENANT === 'lau' ? "/subscriptor" : "/signup"}>
+                <Dropdown.Item className="dropdown-item-style2"
+                  href="/signup">Suscripción</Dropdown.Item>
+              </Link>
+              <Dropdown.Divider />
+              {/* <Dropdown.Item className="dropdown-item-style3" href="/ajustes">
               <span className="icon">
                 <img height="26" src="/static/icons/settings.svg" width="26" />
               </span>
               <span>Ajustes</span>
             </Dropdown.Item> */}
-            <Dropdown.Item className="dropdown-item-style3" href="/help">
-              <span className="icon">
-                <IoIosHelpCircle size={24} />
-              </span>
-              <span>Ayuda</span>
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        ) }
+              <Dropdown.Item className="dropdown-item-style3" href="/help">
+                <span className="icon">
+                  <IoIosHelpCircle size={24} />
+                </span>
+                <span>Ayuda</span>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          )}
 
       </Dropdown>
 
@@ -139,10 +139,11 @@ export default () => {
           align-items: center;
           display: flex;
           position: relative;
+
         }
-        @media (min-width: 768px) {
-          .user-select {
-            margin-right: -15px;
+        @media(max-width:768px) {
+              .user-select {
+                margin-left:auto!important;
           }
         }
         .user-select :global(.dropdown-toggle) {
@@ -339,11 +340,11 @@ const Avatar = ({ image }) => {
   const lightColor = theme.colors.texts
   return (
     <span className={'avatar' + (!image ? ' avatar--empty' : '')}>
-      { !image ? (
+      {!image ? (
         <ReactSVG fallback="Avatar" src="/static/icons/user.svg" wrapper="span" />
       ) : (
-        <img alt="Avatar" className="img-fluid" height="30" src={image} width="30" />
-      )}
+          <img alt="Avatar" className="img-fluid" height="30" src={image} width="30" />
+        )}
       <style jsx>{`
         .avatar {
           background-clip: padding-box;

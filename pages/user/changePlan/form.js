@@ -1,39 +1,43 @@
 // next
-import Link   from 'next/link'
+import Link from 'next/link'
 import Router from 'next/router'
 
 // react
 import { useField } from 'formik'
 import { useContext, useEffect, useState } from 'react'
-
+import { toast, ToastContainer } from 'react-toastify'
 // components
-import UserContext  from '~/contexts/UserContext'
-import Packages     from '~/components/Packages'
-import Payment      from './payment'
-import Button       from '~/components/button'
-import FormGroup    from '~/components/layout/AuthModal/FormGroup'
+import UserContext from '~/contexts/UserContext'
+import Packages from '~/components/Packages'
+import Payment from './payment'
+import Button from '~/components/button'
+import FormGroup from '~/components/layout/AuthModal/FormGroup'
 
 // env
 import { IS_PRODUCTION } from '~/constants/constants'
 import { CONFIG } from '~/config'
 
 // import Select       from '../Select/Select'
-import Label        from '~/components/layout/AuthModal/Label'
-import Input        from '~/components/layout/AuthModal/Input'
+import Label from '~/components/layout/AuthModal/Label'
+import Input from '~/components/layout/AuthModal/Input'
 
 
-const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
+
+
+const ChangePlanForm = ({ api, isPayUReady, packages, POS, plan }) => {
+
 
   const { id: free_package_id } = packages.items.find(item => item.amount == 0) || {}
 
   const requireds = IS_PRODUCTION
-  const debug = false && ! IS_PRODUCTION
+  const debug = false && !IS_PRODUCTION
 
   const { user, updateUser } = useContext(UserContext)
+  console.log('pacotes', packages);
 
-  const [ discount, setDiscount ] = useState(false)
-  const [ supportersDiscount, setSupportersDiscount ] = useState()
-  const [ values, setValues ] = useState({
+  const [discount, setDiscount] = useState(false)
+  const [supportersDiscount, setSupportersDiscount] = useState()
+  const [values, setValues] = useState({
     package_id: '',
     payment_method_id: null,
     payment_os: null,
@@ -42,9 +46,9 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
     supporter_id: '',
     alternate_supporter_id: '',
   })
-
-  const [ loading, setLoading ] = useState()
-  const [ error, setError ] = useState()
+  const [pack, setPack] = useState()
+  const [loading, setLoading] = useState()
+  const [error, setError] = useState()
 
   /* fill user form */
   useEffect(_ => {
@@ -54,6 +58,21 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
       })
     }
   }, [user])
+
+  useEffect(_ => {
+    function filterByID(obj) {
+      obj.amount = (obj.amount).replace('$', "");
+      plan.amount = (plan.amount).replace('$', "");
+      if (parseInt(obj.amount) > parseInt(plan.amount)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    let packageAvailable = { items: (packages.items).filter(filterByID) };
+    setPack(packageAvailable);
+  }, [])
+
 
   /* handle general input change */
   const handleInputChange = e => {
@@ -133,40 +152,44 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
   const handleSubmit = async e => {
     e.preventDefault()
     setLoading(true)
+
+
     try {
-      const paymentData = values.package_id && values.package_id !== free_package_id &&
-        values.payment_method_id && isCardPayment ? await createToken() : null
-      const data = { ...values, payment_os: paymentData }
-      try {
-        const { data: { user, order } } = await api.post('register/changePlan', data)
-        updateUser(user)
-        if (order) {
-          Router.push({
-            pathname: '/account/confirm',
-            query: {
-              download_link: order.download_link,
-              link: order.link,
-            },
-          }, '/register/confirm')
-        } else {
-          Router.push('/')
-        }
-      } catch (error) {
-        console.log('error', error)
-        if (error.response) {
-          const { data, status } = error.response
-          if (status === 422) {
-            setError(data)
-          }
-        } else if (error.request) {
-          setError(error)
-        } else {
-          setError(error)
+
+      if (values.terms && values.package_id) {
+        Router.push({
+          pathname: "/user/changePlan/pay",
+          query: {
+            package_id: values.package_id,
+            required: requireds
+          },
+        })
+      } else {
+
+        if (!values.terms) {
+          toast.error('Es necesario aceptar los términos', { delay: 500, autoClose: 5000 });
+
         }
       }
+      if (!values.package_id) {
+        toast.error('Es necesario seleccionar un plan', { delay: 500, autoClose: 5000 });
+
+      }
+
     } catch (error) {
-      setError(error.description ? { errors: { payment_os: error.description } } : error)
+      console.log('error', error)
+      if (error.response) {
+        const { data, status } = error.response
+        if (status === 422) {
+          setError(data)
+        }
+      } else if (error.request) {
+        setError(error)
+      } else {
+        setError(error)
+      }
     }
+
     setLoading(false)
   }
 
@@ -174,69 +197,72 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
     <form method="post" onSubmit={handleSubmit}>
 
       {/* main error msg */}
-      { error && error.message && (
+      {error && error.message && (
         <div className="invalid-feedback">{error.message}</div>
-      ) }
+      )}
 
       {/* form data debug */}
-      { debug && (
+      {debug && (
         <pre>
           {JSON.stringify(values, null, 2)}
         </pre>
       )}
 
-      <h3 className="h3">¿Eres Socio? Obtén un descuento especial</h3>
-        <div className="row">
-          <div className="col-md-6">
-            <div className="data">
-              <FormGroup>
-                <Label htmlFor="supporter_id">Socio {CONFIG.shortClubName}</Label>
-                <Input
-                  disabled={values.alternate_supporter_id}
-                  id="supporter_id"
-                  maxLength={5}
-                  name="supporter_id"
-                  onChange={handleSupportersDiscountChange}
-                  type="text"
-                  style={supportersDiscount ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
-                  value={values.supporter_id}
-                />
-              </FormGroup>
-            </div>
+      <h3 className="h3">¿Eres Socio? Obtén un descuento especial </h3>
+      <div className="row">
+        {/* <div className="col-md-6">
+          <div className="data">
+            <FormGroup>
+              <Label htmlFor="supporter_id">Socio {CONFIG.shortClubName}</Label>
+              <Input
+                disabled={values.alternate_supporter_id}
+                id="supporter_id"
+                maxLength={5}
+                name="supporter_id"
+                onChange={handleSupportersDiscountChange}
+                type="text"
+                style={supportersDiscount ? { backgroundColor: 'rgb(206, 249, 206)' } : {}}
+                value={values.supporter_id}
+              />
+            </FormGroup>
           </div>
-          <div className="col-md-6">
-            <div className="localization">
-              <FormGroup>
-                <Label htmlFor="alternate_supporter_id">Somos {CONFIG.shortClubName}</Label>
-                <Input
-                  disabled={values.supporter_id}
-                  id="alternate_supporter_id"
-                  maxLength={5}
-                  name="alternate_supporter_id"
-                  onChange={handleDiscountChange}
-                  type="text"
-                  style={discount ? {backgroundColor: 'rgb(206, 249, 206)'} : {}}
-                  value={values.alternate_supporter_id}
-                />
-              </FormGroup>
-            </div>
+        </div> */}
+        {/* <div className="col-md-6">
+          <div className="localization">
+            <FormGroup>
+              <Label htmlFor="alternate_supporter_id">Somos {CONFIG.shortClubName}</Label>
+              <Input
+                disabled={values.supporter_id}
+                id="alternate_supporter_id"
+                maxLength={5}
+                name="alternate_supporter_id"
+                onChange={handleDiscountChange}
+                type="text"
+                style={discount ? { backgroundColor: 'rgb(206, 249, 206)' } : {}}
+                value={values.alternate_supporter_id}
+              />
+            </FormGroup>
           </div>
-        </div>
+        </div> */}
+      </div>
 
 
       {/* package selection */}
-      <Packages {...{
-        error: packages.error ? packages.error : null,
-        items: packages.items ? packages.items : null,
-        onChange: onPackageChange,
-        package_id: values.package_id,
-        validationError: ! loading && error && error.errors && error.errors.package_id,
-        discount,
-        supportersDiscount,
-      }} />
+      {pack && (<Packages pack={pack}
+        packages={packages} {...{
+
+          error: packages.error ? packages.error : null,
+          items: pack.items ? pack.items : null,
+          onChange: onPackageChange,
+          package_id: values.package_id,
+          validationError: !loading && error && error.errors && error.errors.package_id,
+          discount,
+          supportersDiscount,
+        }} />)}
+
 
       {/* payment */}
-      { values.package_id && values.package_id !== free_package_id && (
+      {/* {values.package_id && values.package_id !== free_package_id && (
         <Payment {...{
           api,
           cash_payment_method_id: values.cash_payment_method_id,
@@ -249,9 +275,9 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
           payment_method_id: values.payment_method_id,
           POS,
           requireds,
-          validationError: ! loading && error && error.errors && error.errors.payment_method_id,
+          validationError: !loading && error && error.errors && error.errors.payment_method_id,
         }} />
-      ) }
+      )} */}
 
       {/* footer */}
       <div className="row align-items-center">
@@ -268,18 +294,27 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS }) => {
               value={true}
             />
             <span>He leído y acepto <Link href="/terminos-y-politicas">
-                <a target="_blank">el contrato</a>
-              </Link> de {CONFIG.appName}</span>
+              <a target="_blank">el contrato</a>
+            </Link> de {CONFIG.appName}</span>
           </label>
-          { ! loading && error && error.errors && error.errors.terms && (
+          {!loading && error && error.errors && error.errors.terms && (
             <div className="invalid-feedback">{error.errors.terms}</div>
-          ) }
+          )}
         </div>
 
         {/* send btn */}
-        <div className="col-md-2 text-right">
-          <Button block color="secondary" disabled={loading} type="submit">Enviar</Button>
+        <div className="col-md-2">
+
+          <Button
+            block
+            color="secondary"
+            type="button"
+            disabled={loading}
+            loading={loading}
+            onClick={handleSubmit}
+          >Seguir</Button>
         </div>
+
 
       </div>
 
@@ -320,9 +355,9 @@ export const FkInput = ({ style, label, ...props }) => {
 
   return (
     <>
-      { props.type == 'hidden' ? '' : <Label htmlFor={props.id || props.name}>{label}</Label> }
-      <Input style={{color: 'black', ...style}}  {...field} {...props} />
-      {meta.touched && meta.error ? ( <div className="invalid-feedback">{ meta.error }</div> ) : null}
+      {props.type == 'hidden' ? '' : <Label htmlFor={props.id || props.name}>{label}</Label>}
+      <Input style={{ color: 'black', ...style }}  {...field} {...props} />
+      {meta.touched && meta.error ? (<div className="invalid-feedback">{meta.error}</div>) : null}
     </>
   )
 }

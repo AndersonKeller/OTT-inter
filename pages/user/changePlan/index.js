@@ -2,25 +2,28 @@
 import Head from 'next/head'
 
 // env
-import { CONFIG }     from '~/config'
+import { CONFIG } from '~/config'
 import { HAS_WINDOW } from '~/constants/constants'
 
 // react
 import { useEffect, useState } from 'react'
-
-import useScript, { ScriptStatus }  from '@charlietango/use-script'
-import nookies                      from 'nookies'
+import { useRouter } from 'next/router'
+import useScript, { ScriptStatus } from '@charlietango/use-script'
+import nookies from 'nookies'
 
 // components
-import Layout           from '~/components/layout/Layout'
+import Layout from '~/components/layout/Layout'
 import { PackageRadio } from '~/components/Packages'
-import ChangePlanForm   from './form'
-import withAuth         from '~/components/withAuth'
+import ChangePlanForm from './form'
+import withAuth from '~/components/withAuth'
 
-// page
-const ChangePlanPage = ({ api, layoutProps, packages }) => {
-  const [ ready, status ] = useScript('https://js.paymentsos.com/v2/latest/secure-fields.min.js')
-  const [ isPayUReady, setIsPayUReady ] = useState(false)
+
+const ChangePlanPage = ({ api, layoutProps, plan_atual, user, packages }) => {
+
+  const [ready, status] = useScript('https://js.paymentsos.com/v2/latest/secure-fields.min.js')
+  const [isPayUReady, setIsPayUReady] = useState(false)
+  const [plan, setPlan] = useState()
+
 
   const businessUnitPublicKey = '88985036-6530-4b5a-a7ec-c4e07ec07f6c'
   const POS = ready && HAS_WINDOW ? window.POS : null
@@ -32,15 +35,15 @@ const ChangePlanPage = ({ api, layoutProps, packages }) => {
       backgroundColor: 'white',
       height: 'calc(1.5em + .75rem + 2px)',
       fontSize: '12px',
-      padding:'0px 3px',
+      padding: '0px 3px',
       marginLeft: '5px',
       cardImage: {
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0,
         margin: 0,
       },
-      pan:{
-        width:'160px',
+      pan: {
+        width: '160px',
         borderTopLeftRadius: 0,
         borderBottomLeftRadius: 0,
         marginLeft: 0,
@@ -66,6 +69,24 @@ const ChangePlanPage = ({ api, layoutProps, packages }) => {
     }
   }, [POS])
 
+  const [subscription, setSubscription] = useState({})
+
+  useEffect(_ => {
+    (async _ => {
+      try {
+        // const { data: { package_id, ...data } } = await api.get('subscription')
+        // setSubscription(data)
+
+        console.log('dentro do plan atual', plan_atual, packages)
+
+        setPlan(plan_atual)
+
+      } catch (error) {
+        console.log(error)
+      }
+    })()
+  }, [])
+
   return (
     <Layout {...layoutProps}>
       <Head>
@@ -76,25 +97,15 @@ const ChangePlanPage = ({ api, layoutProps, packages }) => {
           <div className="col-xl-8 offset-xl-2">
 
             <h1 className="h2">Tú Plan Actual</h1>
-            {/* <PackageRadio readOnly package_id="1"
-              plan={{ id: '1', name:'6 meses', currency: 'ars', amount: '594'}}
-            /> */}
-
-            <div className="col col-md-4 text-left vertical-align" style={{fontSize: '16px', lineHeight: 1}}>
-              <PackageRadio
+            <div className="col col-md-4 text-left vertical-align" style={{ fontSize: '16px', lineHeight: 1 }}>
+              {plan && (<PackageRadio
                 readOnly
-                package_id="1"
-                plan={{
-                  id: '1',
-                  name:'6 meses',
-                  currency: 'ars',
-                  amount: '594'
-                }}
-              />
+                plan={{ id: plan.id, name: plan.name, amount: plan.amount, currency: plan.currency }}
+                package_id={plan.id}
+              />)}
             </div>
-
             <h1 className="h2">Nuevo Plan</h1>
-            <ChangePlanForm {...{api, isPayUReady, packages, POS}} />
+            {plan && (<ChangePlanForm {...{ api, isPayUReady, packages, plan, POS }} />)}
 
           </div>
         </div>
@@ -116,17 +127,28 @@ const ChangePlanPage = ({ api, layoutProps, packages }) => {
 ChangePlanPage.getInitialProps = async ctx => {
 
   const { api } = ctx
-
+  const { data: { package_id, ...data } } = await api.get('subscription')
+  let plan_atual;
   // get packages
   let packages
   try {
-    const { data } = await api.get('packages')
-    packages = { items: data }
-  } catch(error) {
+    let packagesData = await api.get('packages')
+
+    packages = { items: packagesData.data }
+  } catch (error) {
     packages = { error }
   }
 
-  return { packages }
+
+  if (package_id) {
+    plan_atual = packages.items.find(item => item.id == package_id)
+  } else {
+    plan_atual = packages.items.find(item => item.amount == 0);
+  }
+
+
+
+  return { plan_atual, packages }
 }
 
 export default withAuth(ChangePlanPage)

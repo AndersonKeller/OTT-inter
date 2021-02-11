@@ -16,9 +16,9 @@ export function UserProvider({ children }) {
 
   const { user: userString } = nookies.get({}, 'user')
   const userCookie = SafeJSONParse(userString).value
-  const [ user, setUser ] = useState(userCookie)
+  const [user, setUser] = useState(userCookie)
 
-  const signIn = (user, tokenResponse) => {
+  const signIn = (user, tokenResponse, toComplete = false) => {
 
     const {
       access_token,
@@ -39,12 +39,11 @@ export function UserProvider({ children }) {
 
     setUser(user)
 
-    // if ( ! user.register_completed_at) {
+    if (toComplete) {
       Router.replace('/register/welcome')
-    // } else {
-    //   Router.replace('/')
-    // }
-   // TODO: Fix
+    } else {
+      Router.replace('/')
+    }
   }
 
   const signOut = async _ => {
@@ -81,7 +80,7 @@ export function UserProvider({ children }) {
   }
 
   return (
-    <UserContext.Provider value={{...{ user, signIn, signOut, updateUser }}}>
+    <UserContext.Provider value={{ ...{ user, signIn, signOut, updateUser } }}>
       {children}
     </UserContext.Provider>
   )

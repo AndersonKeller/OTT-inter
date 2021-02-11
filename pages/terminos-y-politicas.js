@@ -9,8 +9,7 @@ import React from "react";
 const TermsAndPolitics = ({ layoutProps, privacy }) => {
   const title = "Términos y condiciones";
   return (
-    <Layout color="white" {...layoutProps} header={"hidden"}
-            footer={"show"}>
+    <Layout color="white" {...layoutProps} footer={"show"}>
       <Head>
         <title>{title} &lt; {CONFIG.appName}</title>
       </Head>

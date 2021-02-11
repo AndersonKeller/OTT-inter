@@ -1,100 +1,4 @@
 {
-  "colocolo": {
-    "appName": "Colo-Colo",
-    "clubName": "Colo-Colo",
-    "fullClubName": "Club Social y Deportivo Colo-Colo",
-    "shortClubName": "Colo-Colo",
-    "supportersAKA": "Albos",
-    "color": "#e12213",
-    "secondaryColor": "#005d9c",
-    "site": "//www.colocolo.cl/",
-    "socialNetworks": [
-      {
-        "name": "Facebook",
-        "link": "https://www.facebook.com/colocolo/"
-      },
-      {
-        "name": "Instagram",
-        "link": "https://www.instagram.com/colocolooficial/"
-      },
-      {
-        "name": "Twitter",
-        "link": "https://twitter.com/colocolo"
-      }
-    ],
-    "googleAnalytics": null,
-    "apiUrl": "https://admin.rivermas.com",
-    "lang": "es-CL",
-    "loadingColor": "primary",
-    "backgroundColor": "#000",
-    "backgroundContrastColor": "#1a1a1a",
-    "backgroundContrastColor2": "#808080",
-    "textColor": "#b2b2b2"
-  },
-  "dalecacique": {
-    "appName": "Dale Cacique",
-    "clubName": "Colo-Colo",
-    "fullClubName": "Club Social y Deportivo Colo-Colo",
-    "shortClubName": "Colo-Colo",
-    "supportersAKA": "Albos",
-    "color": "#e12213",
-    "secondaryColor": "#005d9c",
-    "site": "//www.colocolo.cl/",
-    "socialNetworks": [
-      {
-        "name": "Facebook",
-        "link": "https://www.facebook.com/colocolo/"
-      },
-      {
-        "name": "Instagram",
-        "link": "https://www.instagram.com/colocolooficial/"
-      },
-      {
-        "name": "Twitter",
-        "link": "https://twitter.com/colocolo"
-      }
-    ],
-    "googleAnalytics": null,
-    "apiUrl": "https://admin.rivermas.com",
-    "lang": "es-CL",
-    "loadingColor": "primary",
-    "backgroundColor": "#000",
-    "backgroundContrastColor": "#1a1a1a",
-    "backgroundContrastColor2": "#808080",
-    "textColor": "#b2b2b2"
-  },
-  "river": {
-    "appName": "River Mas",
-    "clubName": "River Plate",
-    "fullClubName": "Club Atlético River Plate",
-    "shortClubName": "River",
-    "supportersAKA": "RiverPlatenses",
-    "color": "#ff0000",
-    "secondaryColor": "#fff",
-    "site": "https://www.cariverplate.com.ar/",
-    "socialNetworks": [
-      {
-        "name": "Facebook",
-        "link": "https://www.facebook.com/riverplateoficial/"
-      },
-      {
-        "name": "Instagram",
-        "link": "https://www.instagram.com/riverplate/"
-      },
-      {
-        "name": "Twitter",
-        "link": "https://twitter.com/RiverPlate"
-      }
-    ],
-    "googleAnalytics": "UA-146274840-2",
-    "apiUrl": "https://admin.rivermas.com",
-    "lang": "es",
-    "loadingColor": "primary",
-    "backgroundColor": "#000",
-    "backgroundContrastColor": "#1a1a1a",
-    "backgroundContrastColor2": "#808080",
-    "textColor": "#b2b2b2"
-  },
   "lau": {
     "appName": "La U Play",
     "projectName": "La U Play",
@@ -121,7 +25,7 @@
         "link": "https://www.twitter.com/udechile"
       }
     ],
-    "googleAnalytics": "UA-146274840-3",
+    "googleAnalytics": "UA-184672645-1",
     "apiUrl": "https://api.udechile.cl",
     "lang": "es-CL",
     "loadingColor": "primary",
@@ -129,69 +33,5 @@
     "backgroundContrastColor": "#1a1a1a",
     "backgroundContrastColor2": "#293989",
     "textColor": "#bec3db"
-  },
-  "atlnacional": {
-    "appName": "Nacional Play",
-    "clubName": "Atlético Nacional",
-    "fullClubName": "Atlético Nacional",
-    "shortClubName": "Atl. Nacional",
-    "supportersAKA": "Atl Nacional",
-    "color": "#008C3E",
-    "secondaryColor": "#000",
-    "site": "https://www.atlnacional.com.co/",
-    "socialNetworks": [
-      {
-        "name": "Facebook",
-        "link": "https://www.facebook.com/nacionaloficial/"
-      },
-      {
-        "name": "Instagram",
-        "link": "https://www.instagram.com/nacionaloficial/"
-      },
-      {
-        "name": "Twitter",
-        "link": "https://twitter.com/nacionaloficial"
-      }
-    ],
-    "googleAnalytics": "",
-    "apiUrl": "https://atlnacional.dowhile.com.br",
-    "lang": "es-Co",
-    "loadingColor": "primary",
-    "backgroundColor": "#000",
-    "backgroundContrastColor": "#000",
-    "backgroundContrastColor2": "#005a26",
-    "textColor": "#c5dbbe"
-  },
-  "independiente": {
-    "appName": "Club Atlético Independiente",
-    "clubName": "Club Atlético Independiente",
-    "fullClubName": "Independiente",
-    "shortClubName": "Independiente",
-    "supportersAKA": "Independiente",
-    "color": "#ec1c24",
-    "secondaryColor": "#000",
-    "site": "http://www.clubaindependiente.com/",
-    "socialNetworks": [
-      {
-        "name": "Facebook",
-        "link": "https://www.facebook.com/Independiente/"
-      },
-      {
-        "name": "Instagram",
-        "link": "https://www.instagram.com/caindependiente/"
-      },
-      {
-        "name": "Twitter",
-        "link": "https://twitter.com/independiente"
-      }
-    ],
-    "googleAnalytics": "",
-    "apiUrl": "https://independiente.dowhile.com.br",
-    "lang": "es-AR",
-    "loadingColor": "primary",
-    "backgroundColor": "#000000",
-    "backgroundContrastColor": "#000000",
-    "backgroundContrastColor2": "#99090D",
-    "textColor": "#ffffff"
   }
 }

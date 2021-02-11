@@ -7,8 +7,10 @@ import { TENANT } from "~/constants/constants";
 import { CONFIG } from "~/config";
 import Color from "color";
 import { ThemeContext } from "styled-components";
+import Button from "~/components/button";
+import Router from "next/router";
 
-const SubscriptionSuccess = ({ handleFormState }) => {
+const SubscriptionSuccess = ({ formData, handleFormState }) => {
   // const SubscriptionSuccess = ({ layoutProps }) => {
 
   const theme = useContext(ThemeContext);
@@ -38,26 +40,26 @@ const SubscriptionSuccess = ({ handleFormState }) => {
   );
 
   function appName() {
-    if (CONFIG.projectName) {
-      return (
-        <div style={ { display: "inline-block" } }>
-          <strong className="">{ CONFIG.projectName.split(" ")[0] }</strong>
-          { CONFIG.projectName.split(" ")[1] }
-        </div>
-      );
-    } else if (CONFIG.appName) {
-      return (
-        <div style={ { display: "inline-block" } }>
-          <strong className="">{ CONFIG.appName.split(" ")[0] }</strong>
-          { CONFIG.appName.split(" ")[1] }
-        </div>
-      );
-    }
-    return (
-      <div style={ { display: "inline-block" } }>
-        <strong className="">Project</strong>Name!
+    return "La U Play";
+  }
+
+  function renderText() {
+    if (formData.package_id != 1) {
+      return <div>
+        <p>
+          Tu plan comenzará a correr desde el día del lanzamiento oficial, mismo tiempo desde el cual podrás disfrutar de
+          esta nueva experiencia.
+        </p>
+
+        <br/>
+
+        <p>
+          Te llegará un correo electrónico a la dirección que registraste con todos los detalles del pago.
+        </p>
       </div>
-    );
+    } else {
+      return <div></div>
+    }
   }
 
   return (
@@ -73,16 +75,8 @@ const SubscriptionSuccess = ({ handleFormState }) => {
 
         <br/>
 
-        <p>
-          Tu plan comenzará a correr desde el día del lanzamiento oficial, mismo tiempo desde el cual podrás disfrutar de
-          esta nueva experiencia.
-        </p>
 
-        <br/>
-
-        <p>
-          Te llegará un correo electrónico a la dirección que registraste con todos los detalles del pago.
-        </p>
+        { renderText() }
 
         <br/>
 
@@ -91,28 +85,28 @@ const SubscriptionSuccess = ({ handleFormState }) => {
 
       </div>
 
-      {/*<div className="row">*/ }
-      {/*  <div className="col-md-12">*/ }
-      {/*    <div className="text-center">*/ }
-      {/*      <Button*/ }
-      {/*        color="secondary"*/ }
-      {/*        type="button"*/ }
-      {/*        style={{ width: "250px" }}*/ }
-      {/*        onClick={() =>*/ }
-      {/*          Router.push(*/ }
-      {/*            {*/ }
-      {/*              pathname: "/"*/ }
-      {/*            },*/ }
-      {/*            "/"*/ }
-      {/*          )*/ }
-      {/*        }*/ }
-      {/*      >*/ }
-      {/*        Ir a {appName()}*/ }
-      {/*      </Button>*/ }
-      {/*    </div>*/ }
-      {/*  </div>*/ }
-      {/*</div>*/ }
-      
+      <div className="row">
+        <div className="col-md-12">
+          <div className="text-center">
+            <Button
+              color="secondary"
+              type="button"
+              style={{ width: "250px" }}
+              onClick={() =>
+                Router.push(
+                  {
+                    pathname: "/"
+                  },
+                  "/"
+                )
+              }
+            >
+              { formData.package_id === 1 ? `Volver al menú principal` : `Ir a ${appName()}`}
+            </Button>
+          </div>
+        </div>
+      </div>
+
       <style jsx global={ true }>{ `
         h2.card-title {
           font-weight: normal;

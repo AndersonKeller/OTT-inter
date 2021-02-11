@@ -374,7 +374,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
             <div className="row">
               <div className="col-md-6">
                 <FormGroup>
-                  <Label htmlFor="name">Nombre completo</Label>
+                  <Label htmlFor="name">Nombre</Label>
                   <Input
                     id="name"
                     name="name"

@@ -14,7 +14,7 @@ import LogoApp from "~/components/LogoApp";
 import Router from "next/router";
 
 
-const Welcome = ({ layoutProps }) => {
+const Done = ({ layoutProps }) => {
 
 
   const [values, setValues] = useState({
@@ -32,7 +32,7 @@ const Welcome = ({ layoutProps }) => {
   /* fill user form */
   useEffect(_ => {
     if (user) {
-      console.log(user);
+
       setValues({
         ...values,
         name: user.name,
@@ -41,36 +41,36 @@ const Welcome = ({ layoutProps }) => {
   }, [user])
 
   function completeProfile() {
-    Router.push('/register/wizard/complete-test');
+    Router.push('/');
   }
 
   function appName() {
     if (CONFIG.projectName) {
-      return <div style={ { display: 'inline-block' } }>
-        <strong className="">{ CONFIG.projectName.split(' ')[0] }</strong>{ CONFIG.projectName.split(' ')[1] }
+      return <div style={{ display: 'inline-block' }}>
+        <strong className="">{CONFIG.projectName.split(' ')[0]}</strong>{CONFIG.projectName.split(' ')[1]}
       </div>
     } else if (CONFIG.appName) {
-      return <div style={ { display: 'inline-block' } }>
-        <strong className="">{ CONFIG.appName.split(' ')[0] }</strong>{ CONFIG.appName.split(' ')[1] }
+      return <div style={{ display: 'inline-block' }}>
+        <strong className="">{CONFIG.appName.split(' ')[0]}</strong>{CONFIG.appName.split(' ')[1]}
       </div>
     }
-    return <div style={ { display: 'inline-block' } }>
+    return <div style={{ display: 'inline-block' }}>
       <strong className="">Project</strong>Name!
     </div>
   }
 
   return (
 
-    <Layout header={ "hidden" } footer={ "show" } customClass={ "subscription-screen" }>
-      <Header/>
+    <Layout header={"hidden"} footer={"show"} customClass={"subscription-screen"}>
+      <Header />
       <div
         className="card-wrapper d-flex align-items-center justify-content-center h-100 responsive"
-        style={ {
-          backgroundImage: `url('/static/${ TENANT }/subs/background.jpeg')`,
-        } }
+        style={{
+          backgroundImage: `url('/static/${TENANT}/subs/background.jpeg')`,
+        }}
       >
         <div className="card">
-          <div className={ "card-header text-center" } style={ {
+          <div className={"card-header text-center"} style={{
             backgroundColor: backgroundColor,
             padding: "25px 15px",
             border: "none",
@@ -78,36 +78,34 @@ const Welcome = ({ layoutProps }) => {
             justifyContent: "center",
             display: "flex",
             width: "100%",
-          } }>
-            <div className="img-logoApp-card img"><LogoApp/></div>
+          }}>
+            <div className="img-logoApp-card img"><LogoApp /></div>
           </div>
           <div className="card-body">
 
             <div className="register-confirm container text-center">
 
               <h2 className="card-title">
-                Bienvenido(a) <strong
-                className="text-primary">{ values.name }</strong></h2>
-              <div className={ "card-subtitle" }>
-                Gracias por unirte a <br/>
-
-                <img src={ `/static/${ TENANT }/logos/logo_gray.png` } alt={ CONFIG.appName } width={ 300 }
-                     style={ { marginTop: "20px" } }/>
+                ¡Hecho! <strong
+                  className="text-primary">{values.name}</strong></h2>
+              <div className={"card-subtitle"}>
+                <img src={`/static/${TENANT}/logos/logo_gray.png`} alt={CONFIG.appName} width={300}
+                  style={{ marginTop: "20px" }} />
               </div>
               <div className="row">
 
-                <div className="col-md-12" style={ { marginBottom: "20px" } }>
+                <div className="col-md-12" style={{ marginBottom: "20px" }}>
                   <div className="text-center">
                     <Button color="secondary" type="button"
-                            style={ { width: "250px" } }
-                            onClick={ () => completeProfile() }
-                    >Completa tu perfil</Button>
+                      style={{ width: "250px" }}
+                      onClick={() => completeProfile()}
+                    >Ir a la página de inicio</Button>
                   </div>
                 </div>
 
               </div>
-              <style jsx global={ true }>{ `
-        
+              <style jsx global={true}>{`
+
         h2.card-title {
           font-weight: normal;
           color: #000;
@@ -119,29 +117,29 @@ const Welcome = ({ layoutProps }) => {
           font-weight: 500;
           margin-bottom: 2.5em;
         }
-        
+
         .text-primary {
-           color: ${ primaryColor } !important;
+           color: ${ primaryColor} !important;
         }
         .register-confirm {
           padding-top: 50px;
           padding-bottom: 50px;
           color: #666666;
         }
-        
+
         .text-primary {
-           color: ${ primaryColor } !important;
+           color: ${ primaryColor} !important;
         }
-        
+
       ` }</style>
             </div>
 
           </div>
         </div>
       </div>
-      <style sjx>{ `
+      <style sjx>{`
 
-    
+
         .signup-screen .card-wrapper .card .card-header
         .img-logoApp-card img,
         .subscription-screen .card-wrapper .card .card-header .img-logoApp-card img {
@@ -215,4 +213,4 @@ const Welcome = ({ layoutProps }) => {
 }
 
 
-export default withAuth(Welcome, true);
+export default withAuth(Done, true);

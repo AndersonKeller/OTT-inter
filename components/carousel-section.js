@@ -48,6 +48,8 @@ const CarouselSection = ({ category, color = 'background', uppercase = true, idx
         .carousel-section .error-message {
           margin-left: 4%;
         }
+    
+
       ` }</style>
     </div>
   )

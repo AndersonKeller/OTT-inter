@@ -82,7 +82,7 @@ const Signup = ({ }) => {
       const { access_token, } = tokenResponse.data
       setAccessToken(access_token)
       const userResponse = await api().get('user')
-      signIn(userResponse.data, tokenResponse.data)
+      signIn(userResponse.data, tokenResponse.data, true)
       Router.push({
         pathname: '/subscribe'
       }, '/register/wizard/complete-test')
@@ -107,7 +107,7 @@ const Signup = ({ }) => {
       <div
         className="card-wrapper d-flex align-items-center justify-content-center h-100"
         style={{
-          backgroundImage: `url('/static/${TENANT}/subs/background.jpg')`,
+          backgroundImage: `url('/static/${TENANT}/subs/background.jpeg')`,
         }}
       >
 
@@ -177,11 +177,11 @@ const Signup = ({ }) => {
                     <InvalidFeedback error={error} loading={loading} name="password" />
                   </FormGroup>
 
-                  <div className="already-subscriptor">
-                    {/*<span>{ alreadyRegistered }</span>*/}
-                    {' '}
-                    {/*<a className="bold text-uppercase" href="/login" onClick={ goToLogin }>{ login }</a>*/}
-                  </div>
+                  {/*<div className="already-subscriptor">*/}
+                  {/*<span>{ alreadyRegistered }</span>*/}
+                  {' '}
+                  {/*<a className="bold text-uppercase" href="/login" onClick={ goToLogin }>{ login }</a>*/}
+                  {/*</div>*/}
                   <OrEnterWith />
                   <div className="social-buttons">
                     <SocialButtons socialLogin={socialLogin} />
@@ -205,11 +205,11 @@ const Signup = ({ }) => {
                     <InvalidFeedback error={error} loading={loading} name="terms" />
                   </FormGroup>
 
-                  {/*<div className="already-subscriptor">*/}
-                  {/*  <span>¿Ya estás registrado?</span>*/}
-                  {/*  {' '}*/}
-                  {/*  <a className="bold text-uppercase" href="/login">Inicia sesión</a>*/}
-                  {/*</div>*/}
+                  <div className="already-subscriptor">
+                    {/* <span>¿Ya estás registrado?</span> */}
+                    {' '}
+                    {/* <a className="bold text-uppercase" href="/login">Inicia sesión</a> */}
+                  </div>
 
                   <Button block className="enter-btn" size="sm" type="submit" loading={loading}
                     disabled={loading}>Registrar</Button>

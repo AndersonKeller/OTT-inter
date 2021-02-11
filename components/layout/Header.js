@@ -14,6 +14,7 @@ import LogoClub from '../LogoClub'
 import DesktopMenu from './DesktopMenu'
 import UserMenu from './UserMenu'
 import LogoApp from '../LogoApp'
+import ExAssinatura from '../exAssinatura'
 
 const StyledHeader = styled.header`
   background-color: ${props => props.closed ? 'var(--background)' :
@@ -124,7 +125,7 @@ const Header =
                   onFocus={handleSearchBtnFocus}
                   type="submit"
                 >
-                  <GoSearch color="inherit" size={28} title="Buscar" />
+                  <GoSearch color="inherit" size={20} title="Buscar" />
                 </button>
                 <input
                   className="form-control"
@@ -148,6 +149,9 @@ const Header =
 
             </>
           )}
+
+          <ExAssinatura ></ExAssinatura>
+
 
         </nav>
         <style jsx>{`
@@ -217,7 +221,7 @@ const HeaderClubLogo = _ => {
   return (
     <div className="club-logo">
       <Link href="/">
-          <LogoClub />
+        <LogoClub />
       </Link>
       <style jsx>{`
         .club-logo {
@@ -274,5 +278,7 @@ const HeaderAppLogo = ({ closed, media }) => {
     </h1 >
   )
 }
+
+
 
 export default Header

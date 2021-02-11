@@ -7,21 +7,83 @@ import { AuthModalContext } from '~/contexts/AuthModalContext'
 import { CONFIG } from '~/config'
 import { ThemeContext } from 'styled-components'
 import Color from 'color'
+import Router from "next/router";
+import apiService from '~/services/api'
+import { date } from 'yup'
+import moment from "moment";
 
-export default function BlockedPlayer({ image = '', media }) {
+export default function BlockedPlayer({ image = '', media, sub = null }) {
   const { user } = useContext(UserContext)
   const { is_paid: isPaid } = media
-  const [ showVideo, setShowVideo ] = useState()
+  const [showVideo, setShowVideo] = useState()
+  const [expired, setExpired] = useState();
+  if (!sub) {
+    sub = {}
+  }
+
   const autoPlay = IS_PRODUCTION
   const { openAuthModal } = useContext(AuthModalContext)
+  const [isValid, setIsValid] = useState(true)
+  const [plan, setPlan] = useState(true)
+
 
   useEffect(_ => {
-    setShowVideo(!isPaid || isPaid && user)
-  }, [isPaid, user])
+
+    (async _ => {
+      let periodo;
+      let op_plan;
+
+      const packdata = await apiService().get('packages')
+      let pack = packdata.data
+      let packages = { items: pack }
+
+      if (sub.package_id) {
+        setPlan(packages.items.find(item => item.id == sub.package_id))
+      } else {
+        setPlan(packages.items.find(item => item.amount == 0))
+      }
+
+
+      let date_end = moment(sub.ends_at)
+      let hj = moment();
+
+      if (isPaid && (hj > date_end)) {
+        setIsValid(false)
+        if (sub.package_id !== 1) {
+          setExpired(true);
+        }
+      } else {
+        // window.alert('b');
+        setIsValid(true)
+      }
+
+    })();
+
+  }, [isValid])
+
+
+  useEffect(_ => {
+
+    if (isPaid && !sub.package_id) {
+      setShowVideo(false);
+    } else if (isPaid && sub != null && sub.package_id !== 1 && isValid == true) {
+      setShowVideo(true)
+    } else if (!isPaid && user && isValid == true) {
+      setShowVideo(true)
+    } else if (!isPaid && !user) {
+      setShowVideo(false)
+    }
+
+  }, [isPaid, user, isValid])
 
   const handleAuth = e => {
     e.preventDefault()
-    openAuthModal('register')
+    if (!sub.package_id || sub.package_id == 1 || expired) {
+      Router.push('/register/wizard/complete-test');
+    } else {
+      openAuthModal('register')
+    }
+
   }
 
   const youtube_type_id = 3
@@ -29,14 +91,28 @@ export default function BlockedPlayer({ image = '', media }) {
     return element.movie_link_type_id === youtube_type_id
   })
 
-  const probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
+  let probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
+
+  if (!sub.package_id || sub.package_id == 1) {
+    probaGratis = 'Activa un plan premium'
+  }
+
+  if (!sub.package_id || sub.package_id == 1 && !user) {
+    probaGratis = 'Registrarse'
+
+  }
+
 
   const handleLogin = e => {
     e.preventDefault()
     openAuthModal('login')
   }
 
-  const alreadyRegistered = CONFIG.lang === 'es-CL' ? '¿Ya estás suscrito?' : '¿Ya eres suscriptor?'
+  let alreadyRegistered = CONFIG.lang === 'es-CL' ? '¿Ya estás suscrito?' : '¿Ya eres suscriptor?'
+
+  if (sub.package_id === 1) {
+    alreadyRegistered = "¿Ya estás suscrito a algún plan premium?";
+  }
 
   const login = CONFIG.lang === 'es-CL' ? 'Inicia sesión' : 'Ház login'
 
@@ -45,53 +121,100 @@ export default function BlockedPlayer({ image = '', media }) {
 
   return (
     <div className="player">
-      { showVideo ? (
-        (media && media.movie_links && media.movie_links.length && ! youtube_link) ? (
-          <div style={{ position:'relative' }}>
-            <Player
-              height="100%"
-              media={media}
-              poster={image}
-              style={{ padding: '56.44% 0 0 0', position: 'relative' }}
-              width="100%"
-            />
-          </div>
-        ) : youtube_link ? (
-          <div className="embed-responsive embed-responsive-16by9" >
-            <iframe
-              allow={`accelerometer; ${autoPlay ? 'autoplay;' : ''} encrypted-media; gyroscope; picture-in-picture`}
-              allowFullScreen
-              className={`embed-responsive-item`}
-              frameBorder="0"
-              src={`${youtube_link.url}?${autoPlay ? 'autoplay=1' : ''}`}
-            ></iframe>
-          </div>
-        ) : (
-          "Couldn't parse url"
+      {
+        expired ? (
+          <>
+            <img src={image} width="822" height="464" className="img-fluid" />
+            <div className="block-msg text-center">
+
+              <div className="text-block">
+                <p><strong>Actualiza tu información de pago para continuar</strong></p>
+                <p className="d-none d-md-block"><small>No fue posible procesar tu último pago. Actualiza tus datos para seguir viendo La U Play</small></p>
+              </div>
+
+              <Button onClick={handleAuth}>Actualizar tu pago</Button>
+
+              <div className="bold text-block">
+                <p>
+                </p>
+              </div>
+            </div>
+
+          </>
         )
-      ) : (
-        <>
-          <img src={image} width="822" height="464" className="img-fluid" />
-          <div className="block-msg text-center">
+          : showVideo && isValid ? (
+            (media && media.movie_links && media.movie_links.length && !youtube_link) ? (
+              <div style={{ position: 'relative' }}>
+                <Player
+                  height="100%"
+                  media={media}
+                  poster={image}
+                  user={sub}
+                  style={{ padding: '56.44% 0 0 0', position: 'relative' }}
+                  width="100%"
+                />
+              </div>
+            ) : youtube_link ? (
+              <div className="embed-responsive embed-responsive-16by9">
+                <iframe
+                  allow={`accelerometer; ${autoPlay ? 'autoplay;' : ''} encrypted-media; gyroscope; picture-in-picture`}
+                  allowFullScreen
+                  className={`embed-responsive-item`}
+                  frameBorder="0"
+                  src={`${youtube_link.url}?${autoPlay ? 'autoplay=1' : ''}`}
+                ></iframe>
+              </div>
+            ) : (
+                  "Couldn't parse url"
+                )
+          ) : user ? (
+            <>
+              <img src={image} width="822" height="464" className="img-fluid" />
+              <div className="block-msg text-center">
 
-            <div className="text-block">
-              <p><strong>Este contenido es exclusivo para los suscriptores</strong></p>
-              <p className="d-none d-md-block"><small>Ver los videos cuando y donde quieras.</small></p>
-            </div>
+                <div className="text-block">
+                  <p><strong>Este contenido es exclusivo para los suscriptores de algún plan premium</strong></p>
+                  <p className="d-none d-md-block"><small>Vuélvete premium y accede a todo el contenido cuando y donde
+                quieras!</small></p>
+                </div>
 
-            <Button onClick={handleAuth}>{probaGratis}</Button>
+                <Button onClick={handleAuth}>{probaGratis}</Button>
 
-            <div className="bold text-block">
-              <p>
-                {alreadyRegistered}
-                {' '}
-                <a className="text-uppercase" href="/login" onClick={handleLogin}>{login}</a>
-              </p>
-            </div>
-          </div>
+                <div className="bold text-block">
+                  <p>
+                    {/* { alreadyRegistered }
+                { ' ' }
+                <a className="text-uppercase" href="/login" onClick={ handleLogin }>{ login }</a> */ }
+                  </p>
+                </div>
+              </div>
 
-        </>
-      )}
+            </>
+          ) : (
+                <>
+                  <img src={image} width="822" height="464" className="img-fluid" />
+                  <div className="block-msg text-center">
+
+                    <div className="text-block">
+                      <p><strong>
+                        Es necesario registrarse para ver el contenido</strong></p>
+
+                    </div>
+
+                    <Button onClick={handleAuth}>{probaGratis}</Button>
+
+                    <div className="bold text-block">
+                      <p>
+                        {/* { alreadyRegistered }
+                { ' ' }
+                <a className="text-uppercase" href="/login" onClick={ handleLogin }>{ login }</a> */ }
+                      </p>
+                    </div>
+                  </div>
+
+                </>
+
+              )}
       <style jsx>{`
         .player {
           overflow: hidden;
@@ -99,7 +222,7 @@ export default function BlockedPlayer({ image = '', media }) {
         }
         .block-msg {
           align-items: center;
-          background-color: ${maskColor};
+          background-color: ${ maskColor};
           bottom: 0;
           flex-direction: column;
           font-size: 14px;
@@ -141,7 +264,7 @@ export default function BlockedPlayer({ image = '', media }) {
             margin-top: 10px;
           }
         }
-      `}</style>
+      ` }</style>
     </div>
   )
 }

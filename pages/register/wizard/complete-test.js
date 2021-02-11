@@ -136,6 +136,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
         return (
           <SubscriptionSuccess
             handleFormState={handleFormState}
+            formData={formData}
             {...{
               api
             }}
@@ -156,7 +157,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
       <div
         className="card-wrapper d-flex align-items-center justify-content-center h-100 responsive"
         style={{
-          backgroundImage: `url('/static/${TENANT}/subs/background.jpg')`
+          backgroundImage: `url('/static/${TENANT}/subs/background.jpeg')`
         }}
       >
         <div className="card">

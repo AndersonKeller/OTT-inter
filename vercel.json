@@ -7,12 +7,12 @@
   "version": 2,
   "env": {
     "TENANT": "lau",
-    "API_URL": "https://lau.dowhile.com.br"
+    "API_URL": "https://api.udechile.cl"
   },
   "build": {
     "env": {
       "TENANT": "lau",
-      "API_URL": "https://lau.dowhile.com.br"
+      "API_URL": "https://api.udechile.cl"
     }
   },
   "routes": [

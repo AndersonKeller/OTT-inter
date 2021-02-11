@@ -18,15 +18,15 @@
   "routes": [
     {
       "src": "/fLogin",
-      "dest": "/?modal=login&socialProvider=facebook"
+      "dest": "/signup?modal=login&socialProvider=facebook"
     },
     {
       "src": "/gLogin",
-      "dest": "/?modal=login&socialProvider=google"
+      "dest": "/signup?modal=login&socialProvider=google"
     },
     {
       "src": "/login",
-      "dest": "/?modal=login"
+      "dest": "/signup?modal=login"
     }
   ]
 }

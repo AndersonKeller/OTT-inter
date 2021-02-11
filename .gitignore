@@ -51,3 +51,5 @@ README.md
 # non prod env files
 .env.development
 .env.test
+
+.vercel
