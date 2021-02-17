@@ -1,18 +1,18 @@
 {
-  "name": "lau-app",
+  "name": "klg-seven",
   "alias": [
-    "lau-app.vercel.app"
+    "klg-seven.vercel.app"
   ],
   "scope": "somosgad",
   "version": 2,
   "env": {
-    "TENANT": "lau",
-    "API_URL": "https://api.udechile.cl"
+    "TENANT": "klg",
+    "API_URL": "https://klg.dowhile.com.br"
   },
   "build": {
     "env": {
-      "TENANT": "lau",
-      "API_URL": "https://api.udechile.cl"
+      "TENANT": "klg",
+      "API_URL": "https://klg.dowhile.com.br"
     }
   },
   "routes": [

@@ -13,7 +13,7 @@ import * as gtag from '~/lib/gtag'
 import Chevron from '../icons/chevron'
 import { TENANT } from "~/constants/constants";
 
-export default () => {
+const UserMenu = () => {
 
   const { signOut, user } = useContext(UserContext)
   const { closeAuthModal, openAuthModal } = useContext(AuthModalContext)
@@ -383,3 +383,5 @@ const Avatar = ({ image }) => {
     </span>
   )
 }
+
+export default UserMenu;

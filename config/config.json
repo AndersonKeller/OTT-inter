@@ -33,5 +33,40 @@
     "backgroundContrastColor": "#1a1a1a",
     "backgroundContrastColor2": "#293989",
     "textColor": "#bec3db"
+  },
+  "klg": {
+    "appName": "KLG",
+    "projectName": "KLG",
+    "clubName": "KLG",
+    "fullClubName": "Club Universidad de Chile",
+    "shortClubName": "KL",
+    "prefixAppName": "KL",
+    "suffixAppName": "G",
+    "supportersAKA": "Universitários",
+    "color": "#D80000",
+    "secondaryColor": "#000",
+    "site": "https://klg.somosgad.com/",
+    "socialNetworks": [
+      {
+        "name": "Facebook",
+        "link": "https://www.facebook.com/ClubUniversidadDeChileOficial"
+      },
+      {
+        "name": "Instagram",
+        "link": "https://instagram.com/udechileoficial"
+      },
+      {
+        "name": "Twitter",
+        "link": "https://www.twitter.com/udechile"
+      }
+    ],
+    "googleAnalytics": "UA-184672645-1",
+    "apiUrl": "https://klg.dowhile.com.br",
+    "lang": "es-CL",
+    "loadingColor": "primary",
+    "backgroundColor": "#000c33",
+    "backgroundContrastColor": "#1a1a1a",
+    "backgroundContrastColor2": "#293989",
+    "textColor": "#bec3db"
   }
 }

@@ -9,7 +9,6 @@ import { ThemeContext } from 'styled-components'
 import Color from 'color'
 import Router from "next/router";
 import apiService from '~/services/api'
-import { date } from 'yup'
 import moment from "moment";
 import PlayerHls from "components/PlayerHsl"
 
@@ -26,7 +25,6 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
   const { openAuthModal } = useContext(AuthModalContext)
   const [isValid, setIsValid] = useState(true)
   const [plan, setPlan] = useState(true)
-
 
 
   useEffect(_ => {
@@ -66,7 +64,6 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
   }, [isValid])
 
 
-
   useEffect(_ => {
 
     if (isPaid && !sub.package_id) {
@@ -78,7 +75,6 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
     } else if (!isPaid && !user) {
       setShowVideo(false)
     }
-
 
 
   }, [isPaid, user, isValid])
@@ -102,9 +98,6 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
   const hls_link = media.movie_links.find(element => {
     return element.movie_link_type_id === hls_type_id
   })
-
-
-
 
 
   let probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
@@ -139,74 +132,75 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
     <div className="player">
       {
         expired ? (
-          <>
-            <img src={image} width="822" height="464" className="img-fluid" />
-            <div className="block-msg text-center">
+            <>
+              <img src={ image } width="822" height="464" className="img-fluid"/>
+              <div className="block-msg text-center">
 
-              <div className="text-block">
-                <p><strong>Actualiza tu información de pago para continuar</strong></p>
-                <p className="d-none d-md-block"><small>No fue posible procesar tu último pago. Actualiza tus datos para seguir viendo La U Play</small></p>
+                <div className="text-block">
+                  <p><strong>Actualiza tu información de pago para continuar</strong></p>
+                  <p className="d-none d-md-block"><small>No fue posible procesar tu último pago. Actualiza tus datos para
+                    seguir viendo La U Play</small></p>
+                </div>
+
+                <Button onClick={ handleAuth }>Actualizar tu pago</Button>
+
+                <div className="bold text-block">
+                  <p>
+                  </p>
+                </div>
               </div>
 
-              <Button onClick={handleAuth}>Actualizar tu pago</Button>
-
-              <div className="bold text-block">
-                <p>
-                </p>
-              </div>
-            </div>
-
-          </>
-        )
+            </>
+          )
           : showVideo && isValid ? (
             (media && media.movie_links && media.movie_links.length && !youtube_link && !hls_link == 1) ? (
-              <div style={{ position: 'relative' }}>
+              <div style={ { position: 'relative' } }>
                 <Player
                   height="100%"
-                  media={media}
-                  poster={image}
-                  user={sub}
-                  style={{ padding: '56.44% 0 0 0', position: 'relative' }}
+                  media={ media }
+                  poster={ image }
+                  user={ sub }
+                  style={ { padding: '56.44% 0 0 0', position: 'relative' } }
                   width="100%"
                 />
               </div>
             ) : youtube_link && !hls_link == 1 ? (
               <div className="embed-responsive embed-responsive-16by9">
                 <iframe
-                  allow={`accelerometer; ${autoPlay ? 'autoplay;' : ''} encrypted-media; gyroscope; picture-in-picture`}
+                  allow={ `accelerometer; ${ autoPlay ? 'autoplay;' : '' } encrypted-media; gyroscope; picture-in-picture` }
                   allowFullScreen
-                  className={`embed-responsive-item`}
+                  className={ `embed-responsive-item` }
                   frameBorder="0"
-                  src={`${youtube_link.url}?${autoPlay ? 'autoplay=1' : ''}`}
+                  src={ `${ youtube_link.url }?${ autoPlay ? 'autoplay=1' : '' }` }
                 ></iframe>
               </div>
             ) : hls_link ? (
-              <div className="embed-responsive embed-responsive-16by9">
+              <div className="embed-responsive embed-responsive-16by9 player-hls">
                 <PlayerHls
-                  url={hls_link.url}
-                  media={media}
-                  autoplay={false}
-                  controls={true}
+                  url={ hls_link.url }
+                  media={ media }
+                  autoplay={ false }
+                  controls={ true }
                   width="100%"
                   height="auto"
                 />
               </div>
 
             ) : (
-                    "Couldn't parse url"
-                  )
+              "Couldn't parse url"
+            )
           ) : user ? (
             <>
-              <img src={image} width="822" height="464" className="img-fluid" />
+              <img src={ image } width="822" height="464" className="img-fluid"/>
               <div className="block-msg text-center">
 
                 <div className="text-block">
                   <p><strong>Este contenido es exclusivo para los suscriptores de algún plan premium</strong></p>
                   <p className="d-none d-md-block"><small>Vuélvete premium y accede a todo el contenido cuando y donde
-                quieras!</small></p>
+                    quieras!</small></p>
                 </div>
 
-                <Button onClick={handleAuth}>{probaGratis}</Button>
+                <Button onClick={ handleAuth }>{ probaGratis }</Button>
 
                 <div className="bold text-block">
                   <p>
@@ -219,38 +213,35 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
             </>
           ) : (
-                <>
-                  <img src={image} width="822" height="464" className="img-fluid" />
-                  <div className="block-msg text-center">
+            <>
+              <img src={ image } width="822" height="464" className="img-fluid"/>
+              <div className="block-msg text-center">
 
-                    <div className="text-block">
-                      <p><strong>
-                        Es necesario registrarse para ver el contenido</strong></p>
+                <div className="text-block">
+                  <p><strong>
+                    Es necesario registrarse para ver el contenido</strong></p>
 
-                    </div>
+                </div>
 
-                    <Button onClick={handleAuth}>{probaGratis}</Button>
+                <Button onClick={ handleAuth }>{ probaGratis }</Button>
 
-                    <div className="bold text-block">
-                      <p>
-                        {/* { alreadyRegistered }
+                <div className="bold text-block">
+                  <p>
+                    {/* { alreadyRegistered }
                 { ' ' }
                 <a className="text-uppercase" href="/login" onClick={ handleLogin }>{ login }</a> */ }
-                      </p>
-                    </div>
-                  </div>
+                  </p>
+                </div>
+              </div>
 
-                </>
+            </>
 
-              )}
-      <style jsx>{`
-        .player {
-          overflow: hidden;
-          position: relative;
-        }
+          ) }
+      <style jsx>{ `
+       
         .block-msg {
           align-items: center;
-          background-color: ${ maskColor};
+          background-color: ${ maskColor };
           bottom: 0;
           flex-direction: column;
           font-size: 14px;

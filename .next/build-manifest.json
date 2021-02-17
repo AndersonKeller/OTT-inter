@@ -29,10 +29,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/media/[slug]/watch": [
+    "/live": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/media/[slug]/watch.js"
+      "static/chunks/pages/live.js"
     ]
   },
   "ampFirstPages": []

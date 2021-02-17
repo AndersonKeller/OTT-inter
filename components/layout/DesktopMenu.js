@@ -106,6 +106,7 @@ const DesktopMenu = ({ data: menus }) => {
               </li>
             )
           }) }
+          <a href="/live" target="_blank" style={{"position": "relative"}}>Live <span className={"rec-label Rec"}></span></a>
         </>
       ) : (
         <li>No se pueden cargar los menús</li>
@@ -190,7 +191,46 @@ const DesktopMenu = ({ data: menus }) => {
         .menu :global(.dropdown-item.active) {
           color: var(--white);
         }
-      ` }</style>
+        
+        .rec-label {
+        
+          position: absolute;
+          top: -17px;
+          right: -15px;
+   
+          width: 10px;
+          height: 10px;
+          font-size: 0;
+          background-color: red;
+          border: 0;
+          border-radius: 35px;
+          margin: 18px;
+          outline: none;
+        }
+        
+        .notRec{
+          background-color: darkred;
+        }
+        
+        .Rec{
+          animation-name: pulse;
+          animation-duration: 1.5s;
+          animation-iteration-count: infinite;
+          animation-timing-function: linear;
+        }
+        
+        @keyframes pulse{
+          0%{
+          box-shadow: 0px 0px 5px 0px rgba(173,0,0,.3);
+          }
+          65%{
+          box-shadow: 0px 0px 5px 7px rgba(173,0,0,.3);
+          }
+          90%{
+          box-shadow: 0px 0px 5px 7px rgba(173,0,0,0);
+          }
+        }
+      `}</style>
     </ul>
   )
 }

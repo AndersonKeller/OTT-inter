@@ -1,4 +1,14 @@
 {
+  "./PlayerHsl": [
+    {
+      "id": "./components/PlayerHsl/PlayerHsl.js",
+      "file": "static/chunks/2.js"
+    },
+    {
+      "id": "./node_modules/react-hls-player/dist/react-hls-player.js",
+      "file": "static/chunks/2.js"
+    }
+  ],
   "./ShakaPlayer": [
     {
       "id": "./components/Player/ShakaPlayer.js",
