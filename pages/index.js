@@ -48,6 +48,9 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
             const { contentable_type: contentableType } = item
             switch (contentableType) {
               case 'categories':
+                if (item.slug == 'live-streaming') {
+                  return <LiveSection api={api} category={item.slug} key={index} idx={index} />
+                }
                 return <HomeCarouselSection api={api} category={item.slug} key={index} idx={index} />
               case 'banners':
                 return showBanner && <BannerSection id={item.contentable_id} key={index} />
@@ -182,11 +185,11 @@ const Cover = ({ error, media }) => {
               {logo && (
                 <div className="row">
                   <div className="col-8 offset-2 col-md-12 offset-md-0">
-                      <picture>
-                        <source srcSet={webp} type="media/webp" />
-                        <source srcSet={png} type="media/png" />
-                        <img src={fallback}  width="200px"/>
-                      </picture>
+                    <picture>
+                      <source srcSet={webp} type="media/webp" />
+                      <source srcSet={png} type="media/png" />
+                      <img src={fallback} width="200px" />
+                    </picture>
                   </div>
                 </div>
               )}
@@ -417,4 +420,66 @@ const BannerSection = ({ id, movie }) => {
       ` }</style>
     </div>
   );
+}
+
+
+const LiveSection = ({ api, category: categorySlug, idx }) => {
+
+  const [category, setCategory] = useState(null)
+  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const { lang } = CONFIG
+
+  useEffect(() => {
+    async function fetchData() {
+      setError(false)
+      setLoading(true)
+      try {
+        const { data } = await api.get(`category/${categorySlug}`)
+        console.log(data);
+        setCategory(data)
+      } catch (error) {
+        const errorMessage = ['es', 'es-CL'].includes(lang) ? 'Error al intentar cargar la categoría'
+          : 'Error trying to load category'
+        setError(errorMessage)
+      }
+      setLoading(false)
+    }
+
+    fetchData()
+  }, [categorySlug])
+
+  // alert(key)
+  return (
+    <>
+      <div className="home-carousel-section live">
+
+        {loading ? (
+          <div className="text-center">
+            <Loading loadingState={loading} />
+          </div>
+        ) : category ? (
+          <CarouselSection category={category} idx={idx} />
+        ) : error && (
+          <div className="text-center">
+            {error}
+          </div>
+        )}
+      </div>
+      <br></br>
+      <style jsx>{`
+        .home-carousel-section {
+            //margin-bottom: 75px;
+            //margin-top: 75px;
+            //padding: 1.5em 0;
+            //overflow: hidden;
+        }
+        @media (min-width: 768px) {
+          .home-carousel-section {
+            //margin-bottom: 55px;
+          }
+        }
+      ` }</style>
+    </>
+  )
 }

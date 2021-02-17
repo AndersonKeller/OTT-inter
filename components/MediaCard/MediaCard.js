@@ -29,10 +29,17 @@ const MediaCard = ({
       return <Chip label={"Gratis"} />
     }
   }
+  let watch = false;
+  if (category.slug == 'live-streaming') {
+    watch = true;
+  }
+
 
   return (
     <div {...{ className }}>
-      <MediaLink {...{ category, media }}>
+
+      <MediaLink {...{ category, media, watch }}>
+
         <a className="media-card text-center">
           {
             user &&

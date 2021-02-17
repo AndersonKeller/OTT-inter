@@ -11,6 +11,7 @@ import Router from "next/router";
 import apiService from '~/services/api'
 import { date } from 'yup'
 import moment from "moment";
+import PlayerHls from "components/PlayerHsl"
 
 export default function BlockedPlayer({ image = '', media, sub = null }) {
   const { user } = useContext(UserContext)
@@ -27,11 +28,14 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
   const [plan, setPlan] = useState(true)
 
 
+
   useEffect(_ => {
 
     (async _ => {
+
       let periodo;
       let op_plan;
+
 
       const packdata = await apiService().get('packages')
       let pack = packdata.data
@@ -62,6 +66,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
   }, [isValid])
 
 
+
   useEffect(_ => {
 
     if (isPaid && !sub.package_id) {
@@ -74,7 +79,10 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
       setShowVideo(false)
     }
 
+
+
   }, [isPaid, user, isValid])
+
 
   const handleAuth = e => {
     e.preventDefault()
@@ -90,6 +98,14 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
   const youtube_link = media.movie_links.find(element => {
     return element.movie_link_type_id === youtube_type_id
   })
+  const hls_type_id = 1
+  const hls_link = media.movie_links.find(element => {
+    return element.movie_link_type_id === hls_type_id
+  })
+
+
+
+
 
   let probaGratis = CONFIG.lang === 'es-CL' ? 'Prueba gratis' : 'Probá Gratis'
 
@@ -143,7 +159,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
           </>
         )
           : showVideo && isValid ? (
-            (media && media.movie_links && media.movie_links.length && !youtube_link) ? (
+            (media && media.movie_links && media.movie_links.length && !youtube_link && !hls_link == 1) ? (
               <div style={{ position: 'relative' }}>
                 <Player
                   height="100%"
@@ -154,7 +170,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
                   width="100%"
                 />
               </div>
-            ) : youtube_link ? (
+            ) : youtube_link && !hls_link == 1 ? (
               <div className="embed-responsive embed-responsive-16by9">
                 <iframe
                   allow={`accelerometer; ${autoPlay ? 'autoplay;' : ''} encrypted-media; gyroscope; picture-in-picture`}
@@ -164,9 +180,21 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
                   src={`${youtube_link.url}?${autoPlay ? 'autoplay=1' : ''}`}
                 ></iframe>
               </div>
+            ) : hls_link ? (
+              <div className="embed-responsive embed-responsive-16by9">
+                <PlayerHls
+                  url={hls_link.url}
+                  media={media}
+                  autoplay={false}
+                  controls={true}
+                  width="100%"
+                  height="auto"
+                />
+              </div>
+
             ) : (
-                  "Couldn't parse url"
-                )
+                    "Couldn't parse url"
+                  )
           ) : user ? (
             <>
               <img src={image} width="822" height="464" className="img-fluid" />
