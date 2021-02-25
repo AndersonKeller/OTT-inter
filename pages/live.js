@@ -1,92 +1,90 @@
 import Head from "next/head";
 import Router from "next/router";
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import Layout from "~/components/layout/Layout";
 import MediaDescription from "~/components/media-description";
 import BlockedPlayer from "~/components/Player/BlockedPlayer";
+import Loading from '../components/Loading/Loading'
+
 import { CONFIG } from "~/config";
 import api from "~/services/api";
+import moment from 'moment';
 
 
-export default class WatchPage extends Component {
-  constructor(props) {
-    super(props);
-    Router.events.on("routeChangeComplete", _ => {
-      this.setState({ player: null });
-      this.setState({
-        player: (
-          <BlockedPlayer
-            image={ this.props.media.thumbnail2_url }
-            media={ this.props.media }
-            sub={ this.props.sub }
-          />
-        )
-      });
-    });
-  }
 
-  state = {
-    player: (
-      <BlockedPlayer
-        image={ this.props.media?.thumbnail2_url }
-        media={ this.props?.media }
-        sub={ this.props.sub }
-      />
-    )
-  };
+const Lives = ({ media, sub, errorCode, layoutProps, execute }) => {
+  let { appName } = CONFIG;
+  let { title: mediaTitle } = media;
+  let message = `No hay transmisión en este momento!!`
+  let pageTitle = `${mediaTitle} < ${appName}`;
+  const [valid, setValid] = useState(execute)
 
-  static async getInitialProps(ctx) {
-    try {
-      const response = await api(ctx).get(
-        `/live`
-      );
 
-      let subscription = null;
-      try {
-        subscription = await api(ctx).get(`subscription`);
-      } catch (e) {
-        console.log(e);
+
+  useEffect(_ => {
+
+    async function lives() {
+
+
+      let now = new Date();
+
+      let response = await api().get(`/live`)
+      now = moment(now).format("YYYY-MM-DD HH:mm:ss");
+      let inicio = moment(response.data.transmission_date).format("YYYY-MM-DD HH:mm:ss");
+      let running = response.data.running;
+      if (now >= inicio && running == 1) {
+        setValid(true)
+
+      } else {
+        setValid(false)
       }
 
 
-      const data = response.data;
-
-      return {media: data, sub: subscription?.data };
-    } catch (error) {
-      const errorCode = 404;
-      return { errorCode };
     }
-  }
+    // this.setState({ valid: next })
 
-  render() {
-    let { appName } = CONFIG;
-    let { title: mediaTitle } = this.props.media;
-    let pageTitle = `${ mediaTitle } < ${ appName }`;
+    setInterval(lives, 8000)
 
-    return (
-      <Layout errorCode={ this.props.errorCode } { ...this.props.layoutProps }>
-        <Head>
-          <title>{ pageTitle }</title>
-        </Head>
-        <div className="container-fluid">
-          <div className="row align-items-center">
-            <div className="col-12 col-lg-12">
-              { this.state.player }
 
-              <div className="play-description-mobile">
-                <MediaDescription { ...{ media: this.props.media } } />
-              </div>
+  }, [])
 
+
+  return (
+    <Layout errorCode={errorCode} {...layoutProps}>
+      <Head>
+        <title>{pageTitle}</title>
+      </Head>
+
+      {valid ? (<div className="container-fluid">
+        <div className="row align-items-center">
+          <div className="col-12 col-lg-12">
+
+            <BlockedPlayer
+              image={media.poster_url}
+              media={media}
+              sub={sub}
+            />
+
+            <div className="play-description-mobile">
+              <MediaDescription {...{ media: media }} />
             </div>
-          </div>
-          <div className="row media-desktop">
-            <div className="col-lg-8">
-              <MediaDescription { ...{ media: this.props.media } } />
-            </div>
+
           </div>
         </div>
+        <div className="row media-desktop">
+          <div className="col-lg-8">
+            <MediaDescription {...{ media: media }} />
 
-        <style jsx>{ `
+          </div>
+        </div>
+      </div>) : (
+          <div className="text-center">
+            {message}
+          </div>
+
+        )
+      }
+      <style jsx>{`
           .play-description-mobile {
           display: none;
           }
@@ -119,7 +117,44 @@ export default class WatchPage extends Component {
             }
           }
         ` }</style>
-      </Layout>
+    </Layout >
+  );
+}
+Lives.getInitialProps = async ctx => {
+
+  try {
+    const response = await api(ctx).get(
+      `/live`
     );
+    let execute;
+    let now = new Date();
+    now = moment(now).format("YYYY-MM-DD HH:mm:ss");
+    let inicio = moment(response.data.transmission_date).format("YYYY-MM-DD HH:mm:ss");
+    let running = response.data.running;
+    if (now >= inicio && running == 1) {
+      execute = true;
+
+    } else {
+      execute = false
+
+    }
+
+    let subscription = null;
+    try {
+      subscription = await api(ctx).get(`subscription`);
+    } catch (e) {
+      console.log(e);
+    }
+
+
+    const data = response.data;
+
+    return { media: data, sub: subscription?.data, execute: execute };
+  } catch (error) {
+    const errorCode = 404;
+    return { errorCode };
   }
 }
+export default Lives
+
+
