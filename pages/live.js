@@ -1,10 +1,14 @@
 import Head from "next/head";
 import Router from "next/router";
+import styled from 'styled-components'
 import React, { Component, useState, useEffect } from "react";
 import Layout from "~/components/layout/Layout";
 import MediaDescription from "~/components/media-description";
 import BlockedPlayer from "~/components/Player/BlockedPlayer";
-import Loading from '../components/Loading/Loading'
+import Carousel from '../components/carousel'
+import H2 from '../components/h2'
+import MediaCard from '../components/MediaCard/MediaCard'
+
 
 import { CONFIG } from "~/config";
 import api from "~/services/api";
@@ -12,12 +16,16 @@ import moment from 'moment';
 
 
 
-const Lives = ({ media, sub, errorCode, layoutProps, execute }) => {
+const Lives = ({ media, sub, errorCode, layoutProps, execute, recordings }) => {
+
   let { appName } = CONFIG;
   let { title: mediaTitle } = media;
   let message = `No hay transmisión en este momento!!`
   let pageTitle = `${mediaTitle} < ${appName}`;
   const [valid, setValid] = useState(execute)
+  const [livesRecordings, setLivesRecordings] = useState(recordings)
+  const [additional, setAdditional] = useState({ is_horizontal: 1 })
+  let titleStreaming = `Mira lo que te perdiste`
 
 
 
@@ -41,7 +49,6 @@ const Lives = ({ media, sub, errorCode, layoutProps, execute }) => {
 
 
     }
-    // this.setState({ valid: next })
 
     setInterval(lives, 8000)
 
@@ -49,42 +56,138 @@ const Lives = ({ media, sub, errorCode, layoutProps, execute }) => {
   }, [])
 
 
+
+  function ree() {
+    if (livesRecordings && livesRecordings.length) {
+      return <Carousel color='background'
+        additional={additional}>
+        {livesRecordings.map((media, key) => (
+          <MediaCard category={additional} key={key} media={media} />
+        ))}
+      </Carousel>
+    } else {
+      <div className="error-message">{emptyMessage}</div>
+    }
+
+  }
+
   return (
-    <Layout errorCode={errorCode} {...layoutProps}>
-      <Head>
-        <title>{pageTitle}</title>
-      </Head>
+    <StylePageLive>
+      <Layout errorCode={errorCode} {...layoutProps}>
+        <Head>
+          <title>{pageTitle}</title>
+        </Head>
 
-      {valid ? (<div className="container-fluid">
-        <div className="row align-items-center">
-          <div className="col-12 col-lg-12">
+        <div className="index__contents">
 
-            <BlockedPlayer
-              image={media.poster_url}
-              media={media}
-              sub={sub}
-            />
-
-            <div className="play-description-mobile">
-              <MediaDescription {...{ media: media }} />
+          <div className="carousel-section">
+            <div className="container-fluid">
+              <H2 className={`carousel-section-title`}>
+                <p > {titleStreaming}</p>
+              </H2>
             </div>
+          </div>
 
+          {ree()}
+          <div class="container-player">
+            {valid ? (
+              <div className="container-fluid">
+                <div className="row align-items-center">
+                  <div className="col-12 col-lg-12">
+
+                    <BlockedPlayer
+                      image={media.poster_url}
+                      media={media}
+                      sub={sub}
+                    />
+
+                    <div className="play-description-mobile">
+                      <MediaDescription {...{ media: media }} />
+                    </div>
+
+                  </div>
+                </div>
+
+                <div className="row media-desktop">
+                  <div className="col-lg-8">
+                    <MediaDescription {...{ media: media }} />
+                  </div>
+                </div>
+              </div>
+            ) : (
+                <div className="text-center">
+                  {message}
+                </div>
+              )
+            }
           </div>
         </div>
-        <div className="row media-desktop">
-          <div className="col-lg-8">
-            <MediaDescription {...{ media: media }} />
 
-          </div>
-        </div>
-      </div>) : (
-          <div className="text-center">
-            {message}
-          </div>
+      </Layout >
+    </StylePageLive>
+  );
+}
+Lives.getInitialProps = async ctx => {
 
-        )
-      }
-      <style jsx>{`
+  try {
+    const response = await api(ctx).get(
+      `/live`
+    );
+    let execute;
+    let now = new Date();
+    now = moment(now).format("YYYY-MM-DD HH:mm:ss");
+    let inicio = moment(response.data.transmission_date).format("YYYY-MM-DD HH:mm:ss");
+    let running = response.data.running;
+    if (now >= inicio && running == 1) {
+      execute = true;
+
+    } else {
+      execute = false
+    }
+
+    let subscription = null;
+    try {
+      subscription = await api(ctx).get(`subscription`);
+    } catch (e) {
+      console.log(e);
+    }
+
+    const response_recordings = await api(ctx).get(`/recordings`);
+    const recordings = response_recordings.data
+
+
+    const data = response.data;
+
+    return { media: data, sub: subscription?.data, execute: execute, recordings };
+  } catch (error) {
+    const errorCode = 404;
+    return { errorCode };
+  }
+}
+
+const StylePageLive = styled.div`
+        .carousel-section :global(.carousel-section-title),
+        .carousel-section .error-message {
+          margin-left: 4%;
+        }
+           .index__contents {
+          position: relative;
+          z-index: 2;
+          padding-bottom: 5em;
+          padding-top: 2em;
+        }
+        .container-player{
+          padding-top:5%;
+        }
+
+        .home-carousel-section:first-child {
+          padding: 3.5em 0;
+        }
+        @media (min-width: 768px) {
+          .index {
+            margin-bottom: 30px;
+          }
+        }
           .play-description-mobile {
           display: none;
           }
@@ -116,45 +219,10 @@ const Lives = ({ media, sub, errorCode, layoutProps, execute }) => {
             display: none;
             }
           }
-        ` }</style>
-    </Layout >
-  );
-}
-Lives.getInitialProps = async ctx => {
 
-  try {
-    const response = await api(ctx).get(
-      `/live`
-    );
-    let execute;
-    let now = new Date();
-    now = moment(now).format("YYYY-MM-DD HH:mm:ss");
-    let inicio = moment(response.data.transmission_date).format("YYYY-MM-DD HH:mm:ss");
-    let running = response.data.running;
-    if (now >= inicio && running == 1) {
-      execute = true;
-
-    } else {
-      execute = false
-
-    }
-
-    let subscription = null;
-    try {
-      subscription = await api(ctx).get(`subscription`);
-    } catch (e) {
-      console.log(e);
-    }
+`
 
 
-    const data = response.data;
-
-    return { media: data, sub: subscription?.data, execute: execute };
-  } catch (error) {
-    const errorCode = 404;
-    return { errorCode };
-  }
-}
 export default Lives
 
 
