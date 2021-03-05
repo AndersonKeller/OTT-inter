@@ -1,3 +1,4 @@
+
 import FormGroup from "~/components/layout/AuthModal/FormGroup";
 import Label from "~/components/Form/Label";
 import Input from "~/components/layout/AuthModal/Input";
@@ -109,91 +110,107 @@ const Address = ({
       : "Ciudad";
 
   const thirdLevelLabel =
-  formData.country_id == chlCountryId ? "Comuna" : "District";
+    formData.country_id == chlCountryId ? "Comuna" : "District";
 
   return (
-    <div className="address">
-      {/* country */}
-      <SelectFormGroup
-        error={error}
-        label="País"
-        loading={loading}
-        list={countries}
-        listMapValue="id"
-        name="country_id"
-        onChange={handleCountryChange}
-        pluralLabel="Países"
-        requireds={requireds}
-        value={formData.country_id}
-      />
+    <>
+      <div className="col-md-6">
+        {/* country */}
+        <SelectFormGroup
+          error={error}
+          label="País"
+          loading={loading}
+          list={countries}
+          listMapValue="id"
+          name="country_id"
+          onChange={handleCountryChange}
+          pluralLabel="Países"
+          requireds={requireds}
+          value={formData.country_id}
+        />
+      </div>
 
       {/* 1st level */}
       {[argCountryId, braCountryId, chlCountryId]
         .map(id => id + "")
         .includes(formData.country_id) && (
-        <SelectFormGroup
-          error={error}
-          label={firstLevelLabel}
-          loading={loading}
-          list={firstLevelList}
-          listMapValue="id"
-          name="address_1st_level"
-          onChange={handleInputChange}
-          pluralLabel={firstLevelPluralLabel}
-          requireds={requireds}
-          value={formData.address_1st_level}
-        />
-      )}
+          <div className="col-md-6">
+            <SelectFormGroup
+              error={error}
+              label={firstLevelLabel}
+              loading={loading}
+              list={firstLevelList}
+              listMapValue="id"
+              name="address_1st_level"
+              onChange={handleInputChange}
+              pluralLabel={firstLevelPluralLabel}
+              requireds={requireds}
+              value={formData.address_1st_level}
+            />
+          </div>
+        )}
+
+
 
       {/* city */}
-      {[braCountryId, chlCountryId].  map(id => id + "").includes(formData.country_id) && (
-        <FormGroup>
-          <Label htmlFor="city">{cityLabel}</Label>
-          <Input
-            id="city"
-            name="city"
-            onChange={handleInputChange}
-            required={requireds}
-            type="text"
-            value={formData.city}
-          />
-          <InvalidFeedback error={error} loading={loading} name="city" />
-        </FormGroup>
+      {[braCountryId, chlCountryId].map(id => id + "").includes(formData.country_id) && (
+        <div className="col-md-6">
+
+          <FormGroup>
+            <Label htmlFor="city">{cityLabel}</Label>
+            <Input
+              id="city"
+              name="city"
+              onChange={handleInputChange}
+              required={requireds}
+              type="text"
+              value={formData.city}
+            />
+            <InvalidFeedback error={error} loading={loading} name="city" />
+          </FormGroup>
+        </div>
       )}
+
+
 
       {/* 3rd level */}
       {[chlCountryId].map(id => id + "").includes(formData.country_id) && (
+        <div className="col-md-6">
+          <FormGroup>
+            <Label htmlFor="address_3rd_level">{thirdLevelLabel}</Label>
+            <Input
+              id="address_3rd_level"
+              name="address_3rd_level"
+              onChange={handleInputChange}
+              required={requireds}
+              type="text"
+              value={formData.address_3rd_level}
+            />
+            <InvalidFeedback
+              error={error}
+              loading={loading}
+              name="address_3rd_level"
+            />
+          </FormGroup>   </div>
+      )}
+
+      <div className="col-md-6">
+
         <FormGroup>
-          <Label htmlFor="address_3rd_level">{thirdLevelLabel}</Label>
+          <Label htmlFor="address">Dirección</Label>
           <Input
-            id="address_3rd_level"
-            name="address_3rd_level"
+            id="address"
+            name="address"
             onChange={handleInputChange}
             required={requireds}
             type="text"
-            value={formData.address_3rd_level}
+            value={formData.address}
           />
-          <InvalidFeedback
-            error={error}
-            loading={loading}
-            name="address_3rd_level"
-          />
+          <InvalidFeedback error={error} loading={loading} name="address" />
         </FormGroup>
-      )}
+      </div>
+    </>
 
-      <FormGroup>
-        <Label htmlFor="address">Dirección</Label>
-        <Input
-          id="address"
-          name="address"
-          onChange={handleInputChange}
-          required={requireds}
-          type="text"
-          value={formData.address}
-        />
-        <InvalidFeedback error={error} loading={loading} name="address" />
-      </FormGroup>
-    </div>
   );
 };
 

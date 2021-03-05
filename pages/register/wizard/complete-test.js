@@ -1,6 +1,8 @@
 import withAuth from "~/components/withAuth";
 import Layout from "~/components/layout/Layout";
 import UserData from "./user-data";
+import PersonalData from "./personal-data/index";
+import Signature from "./signature/index";
 import UserAddress from "./user-address";
 import SubscriptionSuccess from "./subscription-success";
 import React, { useContext, useEffect, useState } from "react";
@@ -83,17 +85,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
     switch (wizardIndex) {
       case 0:
         return (
-          <UserData
-            api={api}
-            layoutProps={layoutProps}
-            handleSubmit={handleSubmit}
-            formData={formData}
-            setFormData={setFormData}
-          />
-        );
-      case 1:
-        return (
-          <UserAddress
+          <PersonalData
             api={api}
             layoutProps={layoutProps}
             handleSubmit={handleSubmit}
@@ -101,6 +93,20 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
             formData={formData}
             setFormData={setFormData}
           />
+
+        );
+      case 1:
+        return (
+
+          <Signature
+            api={api}
+            layoutProps={layoutProps}
+            handleSubmit={handleSubmit}
+            handleFormState={handleFormState}
+            formData={formData}
+            setFormData={setFormData}
+          />
+
         );
       case 2:
         return (
