@@ -21,7 +21,7 @@ const Lives = ({ media, sub, errorCode, layoutProps, execute, recordings }) => {
   let { appName } = CONFIG;
   let { title: mediaTitle } = media;
   let message = `No hay transmisión en este momento!!`
-  let pageTitle = `${mediaTitle} < ${appName}`;
+  let pageTitle = `${mediaTitle ? mediaTitle : 'Live'} < ${appName}`;
   const [valid, setValid] = useState(execute)
   const [livesRecordings, setLivesRecordings] = useState(recordings)
   const [additional, setAdditional] = useState({ is_horizontal: 1 })
@@ -39,19 +39,17 @@ const Lives = ({ media, sub, errorCode, layoutProps, execute, recordings }) => {
       let response = await api().get(`/live`)
       now = moment(now).format("YYYY-MM-DD HH:mm:ss");
       let inicio = moment(response.data.transmission_date).format("YYYY-MM-DD HH:mm:ss");
+      let final = moment(response.data.final_date).format("YYYY-MM-DD HH:mm:ss");
       let running = response.data.running;
-      if (now >= inicio && running == 1) {
+      if (now >= inicio && running == 1 && now <= final) {
         setValid(true)
 
       } else {
         setValid(false)
       }
-
-
     }
 
     setInterval(lives, 8000)
-
 
   }, [])
 
@@ -137,8 +135,10 @@ Lives.getInitialProps = async ctx => {
     let now = new Date();
     now = moment(now).format("YYYY-MM-DD HH:mm:ss");
     let inicio = moment(response.data.transmission_date).format("YYYY-MM-DD HH:mm:ss");
+    let final = moment(response.data.final_date).format("YYYY-MM-DD HH:mm:ss");
+
     let running = response.data.running;
-    if (now >= inicio && running == 1) {
+    if (now >= inicio && running == 1 && now <= final) {
       execute = true;
 
     } else {
