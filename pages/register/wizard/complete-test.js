@@ -1,15 +1,11 @@
 import withAuth from "~/components/withAuth";
 import Layout from "~/components/layout/Layout";
-import UserData from "./user-data";
 import PersonalData from "./personal-data/index";
 import Signature from "./signature/index";
-import UserAddress from "./user-address";
 import SubscriptionSuccess from "./subscription-success";
 import React, { useContext, useEffect, useState } from "react";
 import { IS_PRODUCTION } from "~/constants/constants";
 import Header from "~/components/layout/HeaderCad";
-import Payment from "~/pages/register/wizard/payment";
-import Packages from "./packages";
 import MultiStepIndicator from "~/components/MultiStepIndicator";
 import { STATIC_PATH, TENANT } from "~/constants/constants";
 import LogoApp from "~/components/LogoApp";
@@ -108,36 +104,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
           />
 
         );
-      case 2:
-        return (
-          <Packages
-            api={api}
-            packages={packs}
-            layoutProps={layoutProps}
-            selectPackage={selectPackage}
-            handleSubmit={handleSubmit}
-            handleFormState={handleFormState}
-            formData={formData}
-            setFormData={setFormData}
-          />
-        );
-      case 3:
-        return (
-          <Payment
-            {...{
-              package_id: values.package_id,
-              packages: packs,
-              userData: userData,
-              api,
-              error,
-              requireds,
-              handleSubmit
-            }}
-            handleFormState={handleFormState}
-            formData={formData}
-            setFormData={setFormData}
-          />
-        );
+
       case 4:
         return (
           <SubscriptionSuccess

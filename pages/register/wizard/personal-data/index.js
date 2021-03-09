@@ -175,10 +175,7 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
         is_miembro: formData.is_miembro
       };
       setError();
-      // const res = await api.post(`register/complete-user`, userData);
-
-      const res = await api.post(`register/complete-user-address`, userData);
-
+      const res = await api.post(`register/complete-user`, userData);
 
 
       handleSubmit(1, userData);

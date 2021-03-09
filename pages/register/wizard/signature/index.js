@@ -288,7 +288,7 @@ const Signature = ({
                 token: token
               });
 
-              handleSubmit(4, null);
+              handleSubmit(3, null);
             } catch (error) {
               if (error.response) {
                 const { data, status } = error.response;
@@ -559,7 +559,7 @@ const Signature = ({
                 <p className={"product-name"}>
                   Suscripción -
                {selectedPackage && (<strong>{selectedPackage.name}</strong>)}-
-                                                                                                                                           recurrente
+                                                                                                                                              recurrente
               </p>
               </div>
               <div className={"price-breakdown"}>
