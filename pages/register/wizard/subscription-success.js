@@ -47,7 +47,8 @@ const SubscriptionSuccess = ({ formData, handleFormState }) => {
     if (formData.package_id != 1) {
       return <div>
         <p>
-          Tu plan comenzará a correr desde el día del lanzamiento oficial, mismo tiempo desde el cual podrás disfrutar de
+          Tu plan comenzará a correr desde el día del lanzamiento oficial, mismo tiempo desde el cual podrás disfrutar
+          de
           esta nueva experiencia.
         </p>
 
@@ -70,7 +71,7 @@ const SubscriptionSuccess = ({ formData, handleFormState }) => {
       <div className={ "card-subtitle" }>
 
         <p>
-          Gracias por completar tu suscripción a La U Play en esta etapa.
+          Gracias por completar tu suscripción a <strong>{ CONFIG.appName }</strong> en esta etapa.
         </p>
 
         <br/>
@@ -91,8 +92,8 @@ const SubscriptionSuccess = ({ formData, handleFormState }) => {
             <Button
               color="secondary"
               type="button"
-              style={{ width: "250px" }}
-              onClick={() =>
+              style={ { width: "250px" } }
+              onClick={ () =>
                 Router.push(
                   {
                     pathname: "/"
@@ -101,7 +102,7 @@ const SubscriptionSuccess = ({ formData, handleFormState }) => {
                 )
               }
             >
-              { formData.package_id === 1 ? `Volver al menú principal` : `Ir a ${appName()}`}
+              { formData.package_id === 1 ? `Volver al menú principal` : `Ir a ${ appName() }` }
             </Button>
           </div>
         </div>

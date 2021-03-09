@@ -68,5 +68,41 @@
     "backgroundContrastColor": "#1a1a1a",
     "backgroundContrastColor2": "#293989",
     "textColor": "#bec3db"
+  },
+  "america": {
+    "appName": "América Play",
+    "projectName": "América",
+    "clubName": "América",
+    "fullClubName": "América",
+    "shortClubName": "América",
+    "prefixAppName": "América",
+    "suffixAppName": "Play",
+    "supportersAKA": "Universitários",
+    "color": "#D80000",
+    "secondaryColor": "#000",
+    "site": "https://play.udechile.cl/",
+    "socialNetworks": [
+      {
+        "name": "Facebook",
+        "link": "https://www.facebook.com/ClubUniversidadDeChileOficial"
+      },
+      {
+        "name": "Instagram",
+        "link": "https://instagram.com/udechileoficial"
+      },
+      {
+        "name": "Twitter",
+        "link": "https://www.twitter.com/udechile"
+      }
+    ],
+    "googleAnalytics": "UA-184672645-1",
+    "apiUrl": "https://america.dowhile.com.br",
+    "lang": "es-CL",
+    "loadingColor": "primary",
+    "backgroundColor": "#000",
+    "backgroundContrastColor": "#1a1a1a",
+    "backgroundContrastColor2": "#1a1a1a",
+    "textColor": "#bec3db",
+    "live": false
   }
 }
