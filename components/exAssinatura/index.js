@@ -45,11 +45,11 @@ const ExAssinatura = () => {
         }
 
       } catch (error) {
-        console.log('error')
         console.log(error)
       }
     })();
   }, [])
+
 
   return (
 
@@ -64,7 +64,7 @@ const ExAssinatura = () => {
           <Link
             as="/user/changePlan/pay"
             href={{
-              pathname: "/user/changePlan/pay",
+              pathname: `${plan.amount == "$0" ? '/user/changePlan' : '/user/changePlan/pay'}`,
               query: {
                 package_id: plan.id,
                 required: requireds
