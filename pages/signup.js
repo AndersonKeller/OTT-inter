@@ -8,7 +8,6 @@ import Input from "~/components/layout/AuthModal/Input";
 import Button from "~/components/button";
 import OrEnterWith from "~/components/layout/AuthModal/OrEnterWith";
 import SocialButtons from "~/components/layout/AuthModal/SocialButtons";
-import nookies from "nookies";
 import UserContext from "~/contexts/UserContext";
 import { ThemeContext } from "styled-components";
 import Color from "color";
@@ -23,7 +22,7 @@ import NameProject from '~/components/NameProject/index'
 import Footer from '~/components/layout/Footer'
 
 
-const Signup = ({ }) => {
+const Signup = ({}) => {
 
 
   const handleInputChange = e => {
@@ -57,7 +56,7 @@ const Signup = ({ }) => {
     let provider = e.currentTarget.innerText;
     try {
       // nookies.set({}, 'pkg_int_id', JSON.stringify(packageId), { path: '/' })
-      const res = await api().get(`auth/${provider}`)
+      const res = await api().get(`auth/${ provider }`)
       // console.table(res)
       // console.log(res.data.url)
       window.location = res.data.url
@@ -98,127 +97,128 @@ const Signup = ({ }) => {
   }
 
 
-
   return (
 
-    <Layout header={"hidden"} footer={"hidden"} customClass={"signup-screen"}>
-      <Header />
+    <Layout header={ "hidden" } footer={ "hidden" } customClass={ "signup-screen" }>
+      <Header/>
 
       <div
         className="card-wrapper d-flex align-items-center justify-content-center h-100"
-        style={{
-          backgroundImage: `url('/static/${TENANT}/subs/background.jpeg')`,
-        }}
+        style={ {
+          backgroundImage: `url('/static/${ TENANT }/subs/background.jpeg')`,
+        } }
       >
 
         <div className="card">
 
-          <div className={"card-header text-center"}>
-            <div className="img-logoApp-card"><LogoApp /></div>
+          <div className={ "card-header text-center" }>
+            <div className="img-logoApp-card"><LogoApp/></div>
           </div>
 
           <div className="card-body" style={
             {
-              // backgroundImage: `url('/static/${TENANT}/subs/bg_modal.png')`,
+              backgroundImage: `url('/static/${ TENANT }/subs/bg_modal.png')`,
             }
           }>
-            <h2 className="card-title text-center"><span className={"text-primary"}>¡</span>Únete a {<NameProject />}
-              <span className={"text-primary"}>!</span></h2>
+            <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Únete a { <NameProject/> }
+              <span className={ "text-primary" }>!</span></h2>
 
             <div className="row w-100 justify-content-center">
               <div className="col-md-8 col-sm-10">
-                <form method="post" onSubmit={handleSubmit} style={
-                  {
-                    maxWidth: "480px",
-                    display: "block",
-                    padding: "14px 0px 10px 100px",
-                  }
-                }>
+                <div className="row w-100 justify-content-center">
+                  <div className="col-md-6">
+                    <form method="post" onSubmit={ handleSubmit } style={
+                      {
+                        maxWidth: "480px",
+                        display: "block",
+                        padding: "14px 0px 10px 100px",
+                      }
+                    }>
 
-                  {error && <div className="invalid-feedback">{error.message}</div>}
+                      { error && <div className="invalid-feedback">{ error.message }</div> }
 
-                  <FormGroup>
-                    <Label htmlFor="name" className="text-dark">Nombre completo</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={values.name}
-                      onChange={handleInputChange}
-                      required
-                    // onChange={ handleInputChange }
-                    />
-                    <InvalidFeedback error={error} loading={loading} name="name" />
-                  </FormGroup>
+                      <FormGroup>
+                        <Label htmlFor="name" className="text-dark">Nombre completo</Label>
+                        <Input
+                          id="name"
+                          name="name"
+                          value={ values.name }
+                          onChange={ handleInputChange }
+                          required
+                          // onChange={ handleInputChange }
+                        />
+                        <InvalidFeedback error={ error } loading={ loading } name="name"/>
+                      </FormGroup>
 
-                  <FormGroup>
-                    <Label htmlFor="name" className="text-dark">E-mail</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      name="email"
-                      value={values.email}
-                      onChange={handleInputChange}
-                      required
-                    />
+                      <FormGroup>
+                        <Label htmlFor="name" className="text-dark">E-mail</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          name="email"
+                          value={ values.email }
+                          onChange={ handleInputChange }
+                          required
+                        />
 
-                    <InvalidFeedback error={error} loading={loading} name="email" />
-                  </FormGroup>
+                        <InvalidFeedback error={ error } loading={ loading } name="email"/>
+                      </FormGroup>
 
-                  <FormGroup>
-                    <Label htmlFor="name" className="text-dark">Clave</Label>
-                    <Input
-                      id="password"
-                      name="password"
-                      required
-                      type="password"
-                      value={values.password}
-                      onChange={handleInputChange}
-                    />
-                    <InvalidFeedback error={error} loading={loading} name="password" />
-                  </FormGroup>
+                      <FormGroup>
+                        <Label htmlFor="name" className="text-dark">Clave</Label>
+                        <Input
+                          id="password"
+                          name="password"
+                          required
+                          type="password"
+                          value={ values.password }
+                          onChange={ handleInputChange }
+                        />
+                        <InvalidFeedback error={ error } loading={ loading } name="password"/>
+                      </FormGroup>
 
-                  {/*<div className="already-subscriptor">*/}
-                  {/*<span>{ alreadyRegistered }</span>*/}
-                  {' '}
-                  {/*<a className="bold text-uppercase" href="/login" onClick={ goToLogin }>{ login }</a>*/}
-                  {/*</div>*/}
-                  <OrEnterWith />
-                  <div className="social-buttons">
-                    <SocialButtons socialLogin={socialLogin} />
-                  </div>
-                  <FormGroup>
-                    <label className="terms">
-                      <input
-                        checked={values.terms}
-                        name="terms"
-                        onChange={handleInputChange}
-                        required={true}
-                        type="checkbox"
-                        value={`true`}
-                      />
+                      {/*<div className="already-subscriptor">*/ }
+                      {/*<span>{ alreadyRegistered }</span>*/ }
+                      { ' ' }
+                      {/*<a className="bold text-uppercase" href="/login" onClick={ goToLogin }>{ login }</a>*/ }
+                      {/*</div>*/ }
+                      <OrEnterWith/>
+                      <div className="social-buttons">
+                        <SocialButtons socialLogin={ socialLogin }/>
+                      </div>
+                      <FormGroup>
+                        <label className="terms">
+                          <input
+                            checked={ values.terms }
+                            name="terms"
+                            onChange={ handleInputChange }
+                            required={ true }
+                            type="checkbox"
+                            value={ `true` }
+                          />
 
 
-                      <span className="text-dark" style={{ paddingLeft: "10px" }}>
+                          <span className="text-dark" style={ { paddingLeft: "10px" } }>
                         <Link href="/terminos-y-politicas">
-                          He leído y acepto el contrato</Link> de {CONFIG.projectName}</span>
-                    </label>
-                    <InvalidFeedback error={error} loading={loading} name="terms" />
-                  </FormGroup>
+                          He leído y acepto el contrato</Link> de { CONFIG.projectName }</span>
+                        </label>
+                        <InvalidFeedback error={ error } loading={ loading } name="terms"/>
+                      </FormGroup>
 
-                  <div className="already-subscriptor">
-                    {/* <span>¿Ya estás registrado?</span> */}
-                    {' '}
-                    {/* <a className="bold text-uppercase" href="/login">Inicia sesión</a> */}
+                      <div className="already-subscriptor">
+                        {/* <span>¿Ya estás registrado?</span> */ }
+                        { ' ' }
+                        {/* <a className="bold text-uppercase" href="/login">Inicia sesión</a> */ }
+                      </div>
+
+                      <Button block className="enter-btn" size="sm" type="submit" loading={ loading }
+                              disabled={ loading }>Registrar</Button>
+                    </form>
                   </div>
-
-                  <Button block className="enter-btn" size="sm" type="submit" loading={loading}
-                    disabled={loading}>Registrar</Button>
-                </form>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <style jsx global>{`
+            <style jsx global>{ `
 
         h2.card-title {
           font-weight: normal;
@@ -236,7 +236,7 @@ const Signup = ({ }) => {
         }
 
         .text-primary {
-           color: ${ primaryColor} !important;
+           color: ${ primaryColor } !important;
         }
         .register-confirm {
           padding-top: 50px;
@@ -287,9 +287,11 @@ const Signup = ({ }) => {
       }
     }
       ` }</style>
-      </div>
-      <div>
-        <Footer />
+          </div>
+          <div>
+            <Footer/>
+          </div>
+        </div>
       </div>
 
     </Layout>

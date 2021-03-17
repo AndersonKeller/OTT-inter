@@ -10,6 +10,8 @@ import { CONFIG } from '~/config'
 
 // }
 function NameProject() {
+  return <strong>{CONFIG.appName}</strong>
+
   if (CONFIG.prefixAppName) {
     return <div style={ { display: 'inline-block' } }>
       La <strong className="text-primary">U</strong> { CONFIG.suffixAppName }

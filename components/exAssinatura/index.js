@@ -66,7 +66,7 @@ const ExAssinatura = () => {
             href={{
               pathname: `${plan.amount == "$0" ? '/user/changePlan' : '/user/changePlan/pay'}`,
               query: {
-                package_id: plan.id,
+                package_id: plan?.id,
                 required: requireds
               },
 

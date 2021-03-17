@@ -40,7 +40,8 @@
       border: none;
 
       .card-header {
-        background-color: #000c33;
+        //background-color: #000c33;
+        background-color: var(--background);
         padding: 25px 15px;
         border: none;
         border-radius: 0;
