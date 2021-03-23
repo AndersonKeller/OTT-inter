@@ -80,10 +80,10 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
   }, [isPaid, user, isValid])
 
   const checkUserRegistration = async () => {
-    let res = await apiService().get(`check-user/` + user.id);
-    let usuarioCheck = res.data
 
-    if (usuarioCheck.name && usuarioCheck.email && usuarioCheck.document && usuarioCheck.address && usuarioCheck.country_id) {
+    let usuarioCheck = user
+
+    if (user && usuarioCheck.name && usuarioCheck.email && usuarioCheck.document && usuarioCheck.address && usuarioCheck.country_id) {
       return true;
     }
     return false;
@@ -95,7 +95,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
     if (!sub.package_id || sub.package_id == 1 || expired) {
 
       let userValid = await checkUserRegistration();
-      if (plan.amount == "$0") {
+      if (plan && plan.amount == "$0") {
         userValid ? Router.push('/user/changePlan') : Router.push('/register/wizard/complete-test');
       } else {
         userValid ? Router.push({

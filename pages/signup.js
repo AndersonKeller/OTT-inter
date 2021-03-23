@@ -117,7 +117,7 @@ const Signup = ({}) => {
 
           <div className="card-body" style={
             {
-              backgroundImage: `url('/static/${ TENANT }/subs/bg_modal.png')`,
+              // backgroundImage: `url('/static/${ TENANT }/subs/bg_modal.png')`,
             }
           }>
             <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Únete a { <NameProject/> }
@@ -126,7 +126,7 @@ const Signup = ({}) => {
             <div className="row w-100 justify-content-center">
               <div className="col-md-8 col-sm-10">
                 <div className="row w-100 justify-content-center">
-                  <div className="col-md-6">
+                  <div className="">
                     <form method="post" onSubmit={ handleSubmit } style={
                       {
                         maxWidth: "480px",

@@ -1,18 +1,18 @@
 {
-  "name": "nbplay-app",
+  "name": "lau-app",
   "alias": [
-    "nbplay-app.vercel.app"
+    "lau-app.vercel.app"
   ],
   "scope": "somosgad",
   "version": 2,
   "env": {
-    "TENANT": "nbplay",
-    "API_URL": "https://nbplay.dowhile.com.br"
+    "TENANT": "lau",
+    "API_URL": "https://api.udechile.cl"
   },
   "build": {
     "env": {
       "TENANT": "lau",
-      "API_URL": "https://nbplay.dowhile.com.br"
+      "API_URL": "https://api.udechile.cl"
     }
   },
   "routes": [
