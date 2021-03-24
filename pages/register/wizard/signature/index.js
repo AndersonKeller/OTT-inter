@@ -50,8 +50,9 @@ const Signature = ({
   const [creditCard, setCreditCard] = useState(null);
   const [loading, setLoading] = useState();
   const [error, setError] = useState({ errors: {} });
+  const businessUnitPublicKey = "TEST-5121749c-2a58-4b7d-b98c-9b9932a3a4cc";
 
-  const businessUnitPublicKey = 'APP_USR-fe20d55f-f7d1-49e0-855b-4d5c147ddd0b'
+  // const businessUnitPublicKey = 'APP_USR-fe20d55f-f7d1-49e0-855b-4d5c147ddd0b'
   const [isMercadoPagoReady, setIsMercadoPagoReady] = useState(false)
   const MercadoPago = ready && HAS_WINDOW ? window.Mercadopago : null
   //Set Values
@@ -288,7 +289,7 @@ const Signature = ({
                 token: token
               });
 
-              handleSubmit(3, null);
+              handleSubmit(4, null);
             } catch (error) {
               if (error.response) {
                 const { data, status } = error.response;
