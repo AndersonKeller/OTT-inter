@@ -16,7 +16,7 @@ import withApi from '~/components/withApi'
 import Color from 'color'
 import { TENANT } from "~/constants/constants";
 import Router from "next/router";
-
+import Cookie from '~/components/cookie/index'
 const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, layoutProps }) => {
 
   const { user } = useContext(UserContext)
@@ -36,7 +36,7 @@ const HomePage = ({ api, contents, featuredMedia, featuredMediaError, media, lay
         <meta name="theme-color" content="#ffffff" />
       </Head>
       <div className="index">
-
+        <Cookie />
         {/* cover */}
         <Cover error={featuredMediaError} media={featuredMedia} />
         {/* <Cover media={featuredMedia} /> */}

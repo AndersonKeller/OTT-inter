@@ -4,7 +4,7 @@ import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 
 // components
-import { FkSelect, FkInput } from '~/components/Formik/fields'
+import { FkSelect, FkInput, FkDate } from '~/components/Formik/fields'
 import FormGroup from '~/components/layout/AuthModal/FormGroup'
 import Button from '~/components/button'
 import { CONFIG } from '~/config'
@@ -12,11 +12,9 @@ import api from '~/services/api'
 import { StyleFormData } from '~/components/layout/FormData/index'
 
 
-
 const UserForm = ({ handleSubmit, initialValues, button }) => {
   const [genders, setGenders] = useState([])
   const [countries, setCountries] = useState([])
-
   /* get genders */
   useEffect(_ => {
     (async _ => {
@@ -30,10 +28,12 @@ const UserForm = ({ handleSubmit, initialValues, button }) => {
     (async _ => {
       const { data } = await api().get('countries')
       setCountries(data)
+
     })()
   }, [])
 
   return (
+
     <Formik
       initialValues={initialValues}
       validationSchema={
@@ -66,6 +66,10 @@ const DataForm = ({ isSubmitting, countries, genders, button }) => {
               </FormGroup>
               <FormGroup>
                 <FkInput name="document" label="Documento" />
+              </FormGroup>
+
+              <FormGroup>
+                <FkDate name="data_of_birth" label="Fecha de nacimiento" />
               </FormGroup>
             </div>
           </div>

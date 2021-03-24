@@ -106,7 +106,7 @@ const DesktopMenu = ({ data: menus }) => {
               </li>
             )
           }) }
-          <a href="/live" target="_blank" style={{"position": "relative"}}>Live <span className={"rec-label Rec"}></span></a>
+          {/*<a href="/live" target="_blank" style={{"position": "relative"}}>Live <span className={"rec-label Rec"}></span></a>*/}
         </>
       ) : (
         <li>No se pueden cargar los menús</li>

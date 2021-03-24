@@ -10,10 +10,14 @@ import ImageProfile from '~/pages/user/changeImage/index'
 import ChangePlanPage from '~/pages/user/changePlan'
 import Link from 'next/link'
 import Router, { useRouter } from 'next/router'
-const AccountPage = ({ api, layoutProps, packages, user }) => {
+import ModalLoading from '~/components/Loading/Loading'
+
+const AccountPage = ({ api, layoutProps, packages, user, sub }) => {
 
   const [plan, setPlan] = useState({})
   const [subscription, setSubscription] = useState({})
+  const [statusSubscription, setStatusSubscription] = useState(sub.is_active)
+  const [loading, setLoading] = useState(false)
 
   useEffect(_ => {
     (async _ => {
@@ -34,8 +38,6 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
   }, [])
 
   function changePlan() {
-    console.log('este e o lan atual', plan);
-
     Router.push(
       {
         as: 'user/changePlan',
@@ -44,6 +46,19 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
         //   plan_actual: plan,
         // },
       })
+  }
+
+  const cancelSubscription = async () => {
+
+    let id = { id: subscription.id };
+    setLoading(true)
+    let res = await api.post(`cancel-subscription`, id);
+
+    setStatusSubscription(0);
+    if (res) {
+      setLoading(false)
+
+    }
   }
 
   const packageSection = function () {
@@ -62,7 +77,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
         />
       </div>
     } else {
-      console.log('não tem plan');
+
       return <div></div>
     }
 
@@ -80,10 +95,13 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
           <title className="style-title">Mi Cuenta &lt; {CONFIG.appName}</title>
         </Head>
         <div className="rgpage container-fluid">
+
+
           <div className="row">
             <div className="detail ">
 
               <div className="row">
+
                 <div className="profile-photo">
                   {/* <Link className="link" as="#" href="#">
                   <a className="profile-pic">
@@ -163,6 +181,7 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                   </Link> */ }
                     </div>
                   </div>
+
                   <div className="row">
                     <div className="col col-md text-left">
                       <p className="info">Fecha de
@@ -174,6 +193,17 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                       </Link>
                     </div>
                   </div>
+                  <hr />
+                  <div className="row">
+
+
+                    <div className="col col-md text-left">
+                      <p className="info negrito">Suscripción:</p>
+                      <p className="info">{statusSubscription == 1 ? 'Activo' : 'Inactivo'}</p>
+                    </div>
+                    <ModalLoading loadingState={loading} />
+
+                  </div>
                 </div>
               </div>
               <hr />
@@ -184,17 +214,22 @@ const AccountPage = ({ api, layoutProps, packages, user }) => {
                   </div>
                 </div>
                 <div className="col-md-8">
+
                   <div className="row">
-                    <div className="col col-md-9 text-left">
+                    <div className="col col-md-7 text-left">
                       <PackageRadio
                         plan={{ id: plan.id, name: plan.name, amount: plan.amount, currency: plan.currency }}
                         package_id={plan.id}
 
                       />
                     </div>
-                    <div className="col col-md-3 text-right">
+                    <div className="col col-md-5 text-right">
 
                       {plan.id && (<a className="negrito" onClick={changePlan}> Cambiar plan</a>)}
+
+                      {plan.id && statusSubscription == 1 && (
+                        <a className="negrito" onClick={cancelSubscription}> Cancelar suscripción</a>
+                      )}
 
                     </div>
 
@@ -321,7 +356,17 @@ AccountPage.getInitialProps = async ({ api, user }) => {
   } catch (error) {
     packages = { error }
   }
-  return { packages, user }
+  let sub
+  try {
+    const { data } = await api.get('subscription')
+    sub = data;
+
+  } catch (error) {
+    sub = { error }
+  }
+
+
+  return { packages, user, sub }
 }
 
 

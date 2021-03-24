@@ -1,18 +1,18 @@
 {
-  "name": "lau-app",
+  "name": "america-app",
   "alias": [
-    "lau-app.vercel.app"
+    "america-app.vercel.app"
   ],
   "scope": "somosgad",
   "version": 2,
   "env": {
-    "TENANT": "lau",
-    "API_URL": "https://api.udechile.cl"
+    "TENANT": "america",
+    "API_URL": "https://america.dowhile.com.br"
   },
   "build": {
     "env": {
-      "TENANT": "lau",
-      "API_URL": "https://api.udechile.cl"
+      "TENANT": "america",
+      "API_URL": "https://america.dowhile.com.br"
     }
   },
   "routes": [
