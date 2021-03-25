@@ -11,6 +11,7 @@ import Router from "next/router";
 import apiService from '~/services/api'
 import moment from "moment";
 import PlayerHls from "components/PlayerHsl"
+import { FaDAndD } from 'react-icons/fa'
 
 export default function BlockedPlayer({ image = '', media, sub = null }) {
   const { user } = useContext(UserContext)
@@ -89,15 +90,12 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
     return false;
   }
 
-  const handleAuth = async  e => {
+  //ALTER PLANO
+  const handleAuth =()=> {
 
-    e.preventDefault()
     if (!sub.package_id || sub.package_id == 1 || expired) {
-
-      let userValid = await checkUserRegistration();
-      if (plan && plan.amount == "$0") {
-        userValid ? Router.push('/user/changePlan') : Router.push('/register/wizard/complete-test');
-      } else {
+      let userValid = checkUserRegistration();
+      if(plan && plan.id!=null ) {
         userValid ? Router.push({
           pathname: "/user/changePlan/pay",
           query: {
@@ -105,12 +103,24 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
           },
         }) : Router.push('/register/wizard/complete-test');
 
+      }else{
+          openAuthModal('register')
       }
 
     } else {
       openAuthModal('register')
     }
 
+  }
+  //ALTER PLANO GRATIS
+  const handleAuthFree = ()=> {
+
+    if (!sub.package_id || sub.package_id == 1 || expired) {
+
+       let userValid = checkUserRegistration();
+        userValid ? Router.push('/user/changePlan') : Router.push('/register/wizard/complete-test');
+
+  }
   }
 
   const youtube_type_id = 3
@@ -223,7 +233,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
                     quieras!</small></p>
                 </div>
 
-                <Button onClick={handleAuth}>{probaGratis}</Button>
+                <Button onClick={handleAuthFree}>{probaGratis}</Button>
 
                 <div className="bold text-block">
                   <p>
