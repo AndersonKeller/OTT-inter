@@ -83,10 +83,10 @@ const Signup = ({}) => {
       const userResponse = await api().get('user')
       signIn(userResponse.data, tokenResponse.data, true)
       //Completar cadastro
-      Router.push({
-        pathname: '/subscribe'
-
-      }, '/register/wizard/complete-test')
+      // Router.push({
+      //   pathname: '/subscribe'
+      //
+      // }, '/register/wizard/complete-test')
 
     } catch (error) {
       if (error.response) {

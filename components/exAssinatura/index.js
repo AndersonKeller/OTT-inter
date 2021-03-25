@@ -57,14 +57,14 @@ const ExAssinatura = () => {
 
       {show && (<div className="renovar" >
 
-        <span > Assinatura expirada </span>
+        <span > Subscripcion vencida </span>
 
 
         <div >
           <Link
             as="/user/changePlan/pay"
             href={{
-              pathname: `${plan.amount == "$0" ? '/user/changePlan' : '/user/changePlan/pay'}`,
+              pathname: `${plan.plan_id == "gratis" ? '/user/changePlan' : '/user/changePlan/pay'}`,
               query: {
                 package_id: plan?.id,
                 required: requireds

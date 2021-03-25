@@ -95,7 +95,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
     if (!sub.package_id || sub.package_id == 1 || expired) {
 
       let userValid = await checkUserRegistration();
-      if (plan && plan.amount == "$0") {
+      if (plan && plan.plan_id == "gratis") {
         userValid ? Router.push('/user/changePlan') : Router.push('/register/wizard/complete-test');
       } else {
         userValid ? Router.push({
