@@ -233,7 +233,7 @@ const AccountPage = ({ api, layoutProps, packages, user, sub }) => {
 
                     </div>
 
-                    {packageSection}
+                    {/* {packageSection} */}
 
                     <div className="col col-md-8 text-right vertical-align">
                     </div>

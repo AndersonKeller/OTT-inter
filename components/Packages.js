@@ -93,7 +93,7 @@ export const PackageRadio = ({
 
       <span className="fake-input">
 
-        <div className="suscripcion">{plan.id === 1 ? "Suscripción" : "Premium"}</div>
+      { plan.id &&(<div className="suscripcion">{ plan.id === 1 ? "Suscripción" : "Premium"}</div>)}
         {/* name */}
         <div className="d-block name">{plan.name}</div>
 
