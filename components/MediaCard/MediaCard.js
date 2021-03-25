@@ -30,7 +30,7 @@ const MediaCard = ({
     }
   }
   let watch = false;
-  if (category.slug == 'live-streaming') {
+  if (category && category.slug == 'live-streaming') {
     watch = true;
   }
 
