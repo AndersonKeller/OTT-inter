@@ -79,7 +79,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
   }, [isPaid, user, isValid])
 
-  const checkUserRegistration = async () => {
+  const checkUserRegistration = () => {
 
     let usuarioCheck = user
 
@@ -89,15 +89,12 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
     return false;
   }
 
-  const handleAuth = async  e => {
+  //ALTER PLANO
+  const handleAuth = () => {
 
-    e.preventDefault()
     if (!sub.package_id || sub.package_id == 1 || expired) {
-
-      let userValid = await checkUserRegistration();
-      if (plan && plan.plan_id == "gratis") {
-        userValid ? Router.push('/user/changePlan') : Router.push('/register/wizard/complete-test');
-      } else {
+      let userValid = checkUserRegistration();
+      if (plan && plan.id != null) {
         userValid ? Router.push({
           pathname: "/user/changePlan/pay",
           query: {
@@ -105,12 +102,24 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
           },
         }) : Router.push('/register/wizard/complete-test');
 
+      } else {
+        openAuthModal('register')
       }
 
     } else {
       openAuthModal('register')
     }
 
+  }
+  //ALTER PLANO GRATIS
+  const handleAuthFree = () => {
+
+    if (!sub.package_id || sub.package_id == 1 || expired) {
+
+      let userValid = checkUserRegistration();
+      userValid ? Router.push('/user/changePlan') : Router.push('/register/wizard/complete-test');
+
+    }
   }
 
   const youtube_type_id = 3
@@ -155,66 +164,66 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
     <div className="player">
       {
         expired ? (
-          <>
-            <img src={image} width="822" height="464" className="img-fluid" />
-            <div className="block-msg text-center">
+            <>
+              <img src={ image } width="822" height="464" className="img-fluid"/>
+              <div className="block-msg text-center">
 
-              <div className="text-block">
-                <p><strong>Actualiza tu información de pago para continuar</strong></p>
-                <p className="d-none d-md-block"><small>No fue posible procesar tu último pago. Actualiza tus datos para
+                <div className="text-block">
+                  <p><strong>Actualiza tu información de pago para continuar</strong></p>
+                  <p className="d-none d-md-block"><small>No fue posible procesar tu último pago. Actualiza tus datos para
                     seguir viendo La U Play</small></p>
+                </div>
+
+                <Button onClick={ handleAuth }>Actualizar tu pago</Button>
+
+                <div className="bold text-block">
+                  <p>
+                  </p>
+                </div>
               </div>
 
-              <Button onClick={handleAuth}>Actualizar tu pago</Button>
-
-              <div className="bold text-block">
-                <p>
-                </p>
-              </div>
-            </div>
-
-          </>
-        )
+            </>
+          )
           : showVideo && isValid ? (
             (media && media.movie_links && media.movie_links.length && !youtube_link && !hls_link == 1) ? (
-              <div style={{ position: 'relative' }}>
+              <div style={ { position: 'relative' } }>
                 <Player
                   height="100%"
-                  media={media}
-                  poster={image}
-                  user={sub}
-                  style={{ padding: '56.44% 0 0 0', position: 'relative' }}
+                  media={ media }
+                  poster={ image }
+                  user={ sub }
+                  style={ { padding: '56.44% 0 0 0', position: 'relative' } }
                   width="100%"
                 />
               </div>
             ) : youtube_link && !hls_link == 1 ? (
               <div className="embed-responsive embed-responsive-16by9">
                 <iframe
-                  allow={`accelerometer; ${autoPlay ? 'autoplay;' : ''} encrypted-media; gyroscope; picture-in-picture`}
+                  allow={ `accelerometer; ${ autoPlay ? 'autoplay;' : '' } encrypted-media; gyroscope; picture-in-picture` }
                   allowFullScreen
-                  className={`embed-responsive-item`}
+                  className={ `embed-responsive-item` }
                   frameBorder="0"
-                  src={`${youtube_link.url}?${autoPlay ? 'autoplay=1' : ''}`}
+                  src={ `${ youtube_link.url }?${ autoPlay ? 'autoplay=1' : '' }` }
                 ></iframe>
               </div>
             ) : hls_link ? (
               <div className="embed-responsive embed-responsive-16by9 player-hls">
                 <PlayerHls
-                  url={hls_link.url}
-                  media={media}
-                  autoplay={false}
-                  controls={true}
+                  url={ hls_link.url }
+                  media={ media }
+                  autoplay={ false }
+                  controls={ true }
                   width="100%"
                   height="auto"
                 />
               </div>
 
             ) : (
-                    "Couldn't parse url"
-                  )
+              "Couldn't parse url"
+            )
           ) : user ? (
             <>
-              <img src={image} width="822" height="464" className="img-fluid" />
+              <img src={ image } width="822" height="464" className="img-fluid"/>
               <div className="block-msg text-center">
 
                 <div className="text-block">
@@ -223,7 +232,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
                     quieras!</small></p>
                 </div>
 
-                <Button onClick={handleAuth}>{probaGratis}</Button>
+                <Button onClick={ handleAuthFree }>{ probaGratis }</Button>
 
                 <div className="bold text-block">
                   <p>
@@ -236,35 +245,35 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
             </>
           ) : (
-                <>
-                  <img src={image} width="822" height="464" className="img-fluid" />
-                  <div className="block-msg text-center">
+            <>
+              <img src={ image } width="822" height="464" className="img-fluid"/>
+              <div className="block-msg text-center">
 
-                    <div className="text-block">
-                      <p><strong>
-                        Es necesario registrarse para ver el contenido</strong></p>
+                <div className="text-block">
+                  <p><strong>
+                    Es necesario registrarse para ver el contenido</strong></p>
 
-                    </div>
+                </div>
 
-                    <Button onClick={handleAuth}>{probaGratis}</Button>
+                <Button onClick={ handleAuth }>{ probaGratis }</Button>
 
-                    <div className="bold text-block">
-                      <p>
-                        {/* { alreadyRegistered }
+                <div className="bold text-block">
+                  <p>
+                    {/* { alreadyRegistered }
                 { ' ' }
                 <a className="text-uppercase" href="/login" onClick={ handleLogin }>{ login }</a> */ }
-                      </p>
-                    </div>
-                  </div>
+                  </p>
+                </div>
+              </div>
 
-                </>
+            </>
 
-              )}
-      <style jsx>{`
+          ) }
+      <style jsx>{ `
 
         .block-msg {
           align-items: center;
-          background-color: ${ maskColor};
+          background-color: ${ maskColor };
           bottom: 0;
           flex-direction: column;
           font-size: 14px;
