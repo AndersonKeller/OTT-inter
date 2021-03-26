@@ -16,6 +16,7 @@ import Layout from '~/components/layout/Layout'
 import { PackageRadio } from '~/components/Packages'
 import ChangePlanForm from './form'
 import withAuth from '~/components/withAuth'
+import apiService from '~/services/api'
 
 
 const ChangePlanPage = ({ api, layoutProps, plan_atual, user, packages ,package_id}) => {
@@ -74,14 +75,10 @@ const ChangePlanPage = ({ api, layoutProps, plan_atual, user, packages ,package_
   useEffect(_ => {
     (async _ => {
       try {
-        let plan_atual;
 
-        if (package_id) {
-          plan_atual = packages.items.find(item => item.id == package_id)
-        } else {
-          plan_atual = packages.items.find(item => item.amount == 0);
-        }
-        setPlan(plan_atual)
+      let pack = await apiService().get(`package/${package_id}`)
+        setPlan(pack.data)
+
       } catch (error) {
         console.log(error)
       }
@@ -99,14 +96,14 @@ const ChangePlanPage = ({ api, layoutProps, plan_atual, user, packages ,package_
 
             <h1 className="h2">Tú Plan Actual</h1>
             <div className="col col-md-4 text-left vertical-align" style={{ fontSize: '16px', lineHeight: 1 }}>
-              {plan && (<PackageRadio
+              {plan &&plan.id&& (<PackageRadio
                 readOnly
                 plan={{ id: plan.id, name: plan.name, amount: plan.amount, currency: plan.currency }}
                 package_id={plan.id}
               />)}
             </div>
             <h1 className="h2">Nuevo Plan</h1>
-            {plan && (<ChangePlanForm {...{ api, isPayUReady, packages, plan, POS }} />)}
+            {plan&& plan.id && (<ChangePlanForm {...{ api, isPayUReady, packages, plan, POS }} />)}
 
           </div>
         </div>
@@ -135,7 +132,7 @@ ChangePlanPage.getInitialProps = async ctx => {
     let packagesData = await api.get('packages')
 
     packages = { items: packagesData.data }
-    
+
   } catch (error) {
     packages = { error }
   }

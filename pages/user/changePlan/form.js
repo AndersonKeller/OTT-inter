@@ -61,15 +61,18 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS, plan }) => {
 
   useEffect(_ => {
     function filterByID(obj) {
+
       obj.amount = (obj.amount).replace('$', "");
-      plan.amount = (plan.amount).replace('$', "");
-      if (parseInt(obj.amount) > parseInt(plan.amount)) {
+      obj.amount = (obj.amount).replace('.', "");
+      // plan.amount = (plan.price).replace('$', "");
+      if (parseInt(obj.amount) >parseInt(plan.amount)) {
         return true;
       } else {
         return false;
       }
     }
     let packageAvailable = { items: (packages.items).filter(filterByID) };
+
     setPack(packageAvailable);
   }, [])
 
