@@ -18,7 +18,7 @@ import ChangePlanForm from './form'
 import withAuth from '~/components/withAuth'
 
 
-const ChangePlanPage = ({ api, layoutProps, plan_atual, user, packages }) => {
+const ChangePlanPage = ({ api, layoutProps, plan_atual, user, packages ,package_id}) => {
 
   const [ready, status] = useScript('https://js.paymentsos.com/v2/latest/secure-fields.min.js')
   const [isPayUReady, setIsPayUReady] = useState(false)
@@ -74,13 +74,14 @@ const ChangePlanPage = ({ api, layoutProps, plan_atual, user, packages }) => {
   useEffect(_ => {
     (async _ => {
       try {
-        // const { data: { package_id, ...data } } = await api.get('subscription')
-        // setSubscription(data)
+        let plan_atual;
 
-        console.log('dentro do plan atual', plan_atual, packages)
-
+        if (package_id) {
+          plan_atual = packages.items.find(item => item.id == package_id)
+        } else {
+          plan_atual = packages.items.find(item => item.amount == 0);
+        }
         setPlan(plan_atual)
-
       } catch (error) {
         console.log(error)
       }
@@ -128,27 +129,18 @@ ChangePlanPage.getInitialProps = async ctx => {
 
   const { api } = ctx
   const { data: { package_id, ...data } } = await api.get('subscription')
-  let plan_atual;
-  // get packages
+
   let packages
   try {
     let packagesData = await api.get('packages')
 
     packages = { items: packagesData.data }
+    
   } catch (error) {
     packages = { error }
   }
 
-
-  if (package_id) {
-    plan_atual = packages.items.find(item => item.id == package_id)
-  } else {
-    plan_atual = packages.items.find(item => item.amount == 0);
-  }
-
-
-
-  return { plan_atual, packages }
+  return { packages, package_id }
 }
 
 export default withAuth(ChangePlanPage)

@@ -32,20 +32,13 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
     (async _ => {
 
-      let periodo;
-      let op_plan;
-
-
       const packdata = await apiService().get('packages')
+
       let pack = packdata.data
       let packages = { items: pack }
 
-      if (sub.package_id) {
-        setPlan(packages.items.find(item => item.id == sub.package_id))
-      } else {
-        setPlan(packages.items.find(item => item.amount == 0))
-      }
-
+       const planCurrent = await apiService().get(`subscription-pack/${sub.user_id}`)
+       setPlan(planCurrent.data);
 
       let date_end = moment(sub.ends_at)
       let hj = moment();
@@ -56,7 +49,6 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
           setExpired(true);
         }
       } else {
-        // window.alert('b');
         setIsValid(true)
       }
 
@@ -80,10 +72,9 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
   }, [isPaid, user, isValid])
 
-  const checkUserRegistration = async () => {
+  const checkUserRegistration = () => {
 
     let usuarioCheck = user
-
     if (user && usuarioCheck.name && usuarioCheck.email && usuarioCheck.document && usuarioCheck.address && usuarioCheck.country_id) {
       return true;
     }
@@ -93,9 +84,8 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
   //ALTER PLANO
   const handleAuth =()=> {
 
-    if (!sub.package_id || sub.package_id == 1 || expired) {
       let userValid = checkUserRegistration();
-      if(plan && plan.id!=null ) {
+      if(plan && plan.id!=null && plan.id!=1 || expired==true) {
         userValid ? Router.push({
           pathname: "/user/changePlan/pay",
           query: {
@@ -103,24 +93,18 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
           },
         }) : Router.push('/register/wizard/complete-test');
 
-      }else{
-          openAuthModal('register')
-      }
-
     } else {
       openAuthModal('register')
     }
-
   }
+
   //ALTER PLANO GRATIS
   const handleAuthFree = ()=> {
+      if (!sub.package_id || sub.package_id == 1) {
 
-    if (!sub.package_id || sub.package_id == 1 || expired) {
-
-       let userValid = checkUserRegistration();
-        userValid ? Router.push('/user/changePlan') : Router.push('/register/wizard/complete-test');
-
-  }
+        let userValid = checkUserRegistration();
+          userValid ? Router.push('/user/changePlan') : Router.push('/register/wizard/complete-test');
+    }
   }
 
   const youtube_type_id = 3
