@@ -60,18 +60,27 @@ const pay = withRouter(({ packages, handleSubmit, }) => {
   const [isMercadoPagoReady, setIsMercadoPagoReady] = useState(false)
   const [payMethods, setPayMethods] = useState();
   const [creditCard, setCreditCard] = useState(null);
+    const [selectedPackage, setSelectedPackage] = useState(false);
+
   // // get packages
-
-  let selectedPackage = null;
-  if (packages && package_id) {
-    selectedPackage = packages.items.find(i => i.id == package_id);
-  }
-
 
   const { user } = useContext(UserContext);
   const [error, setError] = useState({
     errors: {}
   });
+
+  useEffect(_ => {
+
+    (async _ => {
+
+   if (packages && package_id) {
+      let pack = await api().get(`package/${package_id}`)
+       setSelectedPackage(pack.data);
+    }
+
+    })();
+
+  },[package_id])
 
 
 
@@ -476,13 +485,13 @@ const pay = withRouter(({ packages, handleSubmit, }) => {
               <div className={"product-name-group"}>
                 <h6>Estás comprando:</h6>
                 <p className={"product-name"}>
-                  Suscripción - <strong>{selectedPackage.name}</strong> recurrente
+                  Suscripción - {selectedPackage&&(<strong>{selectedPackage.name}</strong>)} recurrente
               </p>
               </div>
               <div className={"price-breakdown"}>
                 <div className="checkout-total">
                   <h6>Total</h6>
-                  <p className={"price"}> {selectedPackage.amount}</p>
+                  {selectedPackage&&(<p className={"price"}> {selectedPackage.amount}</p>)}
                 </div>
               </div>
             </div>
