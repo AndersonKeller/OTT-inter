@@ -40,7 +40,7 @@ export function UserProvider({ children }) {
     setUser(user)
 
     if (toComplete) {
-      Router.replace('/register/welcome')
+      Router.replace('/register/wizard/complete-test')
     } else {
       Router.replace('/')
     }
