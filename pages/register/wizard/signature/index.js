@@ -368,7 +368,7 @@ const Signature = ({
           setBlockDiscountFields
         }}
       />)}
-      {selectedPackage && selectedPackage.price != "$0" ? (
+      {selectedPackage && selectedPackage.amount != "$0" ? (
         <div className="row">
 
 
@@ -573,7 +573,7 @@ const Signature = ({
             </div>
 
           </div>
-        </div>) : selectedPackage && selectedPackage.price == "$0" && (
+        </div>) : selectedPackage && selectedPackage.amount == "$0" && (
           <div style={{ marginTop: "100px" }}>
 
             <div className="col-md-12" style={{ marginBottom: "20px" }}>
