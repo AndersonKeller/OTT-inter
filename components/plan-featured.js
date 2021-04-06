@@ -1,5 +1,4 @@
 const planFeatured = ({children,plan}) => {
-  console.log(plan,'rrrir');
 
   return (
     <div className="form-group">
