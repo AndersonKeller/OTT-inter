@@ -101,6 +101,7 @@ const ChangePlanPage = ({ api, layoutProps, plan_atual, user, packages ,package_
                 plan={{ id: plan.id, name: plan.name, amount: plan.amount, currency: plan.currency }}
                 package_id={plan.id}
               />)}
+           
             </div>
             <h1 className="h2">Nuevo Plan</h1>
             {plan&& plan.id && (<ChangePlanForm {...{ api, isPayUReady, packages, plan, POS }} />)}

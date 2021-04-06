@@ -262,6 +262,7 @@ const ChangePlanForm = ({ api, isPayUReady, packages, POS, plan }) => {
           discount,
           supportersDiscount,
         }} />)}
+      
 
 
       {/* payment */}
