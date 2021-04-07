@@ -29,7 +29,8 @@ const Signature = ({
   handleSubmit,
   handleFormState,
   formData,
-  setFormData
+  setFormData,
+  releasedPackages
 }) => {
 
 
@@ -77,7 +78,6 @@ const Signature = ({
     values.paymentMethodId
   );
 
-
   const [payMethods, setPayMethods] = useState();
   // payment methods
   const [paymentMethods, setPaymentMethods] = useState();
@@ -86,6 +86,7 @@ const Signature = ({
   const [cashPaymentMethods, setCashPaymentMethods] = useState();
   //packages
   useEffect(_ => {
+
     (async _ => {
       try {
         const { data } = await api.get('packages')
@@ -108,7 +109,7 @@ const Signature = ({
     if (packages && package_id) {
       let seletPack = packages.items.find(i => i.id == package_id);
       setSelectedPackage(seletPack)
-      console.log('pack', seletPack)
+
 
     }
   }, [packages]);
@@ -224,7 +225,6 @@ const Signature = ({
   //Submit Pagamento
   const submitCredit = async e => {
 
-    console.log('__methoso', values.paymentMethodId)
     e.preventDefault();
     setLoading(true);
     let expirationMonth = "";
@@ -348,11 +348,15 @@ const Signature = ({
   }
 
   return (
-    <div className="register-confirm container text-center responsive">
-      <h2 className="card-title text-center">
+    <div className="register-confirm container text-center responsive active-sig">
+      {/* <h2 className="card-title text-center">
         <span className={"text-primary"}>¡</span>Únete a {<NameProject />}
         <span className={"text-primary"}>!</span>
-      </h2>
+      </h2> */}
+        <div className="col-md-12  complete" >
+            Elige tu plan
+
+               </div>
       <Loadingcar loadingState={!packages} />
       {packages && (<PackagesComponent
         {...{
@@ -590,6 +594,8 @@ const Signature = ({
         )}
 
       <style jsx global={true}>{`
+
+      ${releasedPackages.packages==false?'.active-sig{pointer-events: none;opacity: 0.4;}':''}
         .card {
           min-height: 600px;
         }
