@@ -16,25 +16,28 @@ import UserContext from '~/contexts/UserContext'
 import useWindowDimensions from '~/hooks/useWindowDimensions'
 import api from '~/services/api'
 import Router from "next/router";
+import { Accordion, Card } from 'react-bootstrap'
+import {StyleSection1, StyleSection2, PageStyle, StylePackages,StyleSection4} from '~/components/style-subscription/style'
+
 
 function SubscriptorPage({ layoutProps, mainPackage }) {
 
   const playersName = TENANT === 'river' ? 'Franco Armani' :
     TENANT === 'colocolo' ? 'Valdivia' :
-      TENANT === 'lau' ? 'Walter Damián Montillo' :
-        'Todos los jugadores están'
+    TENANT === 'lau' ? 'Walter Damián Montillo' : 'Todos los jugadores están'
 
   const section2Alt = TENANT === 'river' ? `${playersName} con un trofeo` :
     TENANT === 'coloclo' ? `${playersName} chutando` :
-      TENANT === 'lau' ? 'Walter Damián Montillo en la firma mostrando sua camisa número 10' : null
+    TENANT === 'lau' ? 'Walter Damián Montillo en la firma mostrando sua camisa número 10' : null
 
   const section2Text = CONFIG.lang === 'es-CL' ? 'Vélo donde y cuando quieras.' : 'Mira donde y cuando quieras.'
 
   const section3Text = TENANT === 'river' ? '¡Destacados del club y contenido exclusivo para ver tantas veces como quieras!' :
-    TENANT === 'lau' ? 'Campeones 1994: rompiendo 25 años de maldición' : null
+  TENANT === 'lau' ? 'Campeones 1994: rompiendo 25 años de maldición' : null
 
   return (
     <Layout {...layoutProps} header="closed">
+      <PageStyle>
       <Head>
         <title>Subscriptor &lt; {CONFIG.appName}</title>
       </Head>
@@ -43,71 +46,21 @@ function SubscriptorPage({ layoutProps, mainPackage }) {
         {/* section 1 */}
         <Section1 mainPackage={mainPackage} />
 
-        {/* section 2 */}
-        <SubscriptorSection
-          direction="right"
-          imgAlt={section2Alt}
-          imgHeight="560"
-          imgSrc={`${STATIC_PATH}/subscriptor/section2-img.png`}
-          imgWidth="870"
+          {/* section 2 */}
+         <Section2></Section2>
 
-        >
-          <div style={{ textAlign: "justify" }}>
-            <H2>
-              <span >{playersName} en</span>
-              <div style={{ maxWidth: "60%", padding: " 15px 15px 15px 0px" }}>
-                <AppLogo height={13} verticalAlign={0} />
-              </div>
-            </H2>
-          </div>
-          <SubscriptorSectionText>
-            <p className="aling-text">{section2Text}</p>
-          </SubscriptorSectionText>
-        </SubscriptorSection>
+         {/* Section 3 Packages */}
+         {/* <Packages></Packages> */}
 
-        {/* section 3 */}
-        <SubscriptorSection
-          direction="left"
-          imgAlt=""
-          imgHeight="560"
-          imgSrc={`${STATIC_PATH}/subscriptor/section3-img.png`}
-          imgWidth="840"
-        >
-          <H2>
-            El mejor contenido
-          </H2>
-          <SubscriptorSectionText>
-            <p>{section3Text}</p>
-          </SubscriptorSectionText>
-        </SubscriptorSection>
 
-        {/* packages */}
-        <Packages />
+          {/* Questions */}
+          <Section4></Section4>
+
 
       </div>
-      <style jsx>{`
-        .subscriptor {
-          line-height: 1.5;
-        }
-        .aling-text {
-          text-align: justify;
-        }
-      `}</style>
+    </PageStyle>
     </Layout >
   );
-}
-
-const SubscriptorSectionText = ({ children }) => {
-  return (
-    <div className="subscriptor-section-text">
-      {children}
-      <style jsx>{`
-        .subscriptor-section-text :global(p:only-child) {
-          margin-bottom: 0;
-        }
-      `}</style>
-    </div>
-  )
 }
 
 SubscriptorPage.getInitialProps = async ({ api }) => {
@@ -163,7 +116,7 @@ const Packages = () => {
   const cardHover = Color(theme.colors.backgroundContrast).darken(.15).hsl().string()
 
   return (
-
+<StylePackages cardColor={cardColor} cardHover={cardHover} >
     <section className="prices text-center container-fluid">
       <div className="entries row">
         <div className="col-md-10 offset-md-1 col-xl-12 offset-xl-0">
@@ -218,168 +171,8 @@ const Packages = () => {
 
         </div>
       </div>
-
-      <style jsx>{`
-        .prices {
-          border-top: 1px solid #fff;
-          padding-top: 15px;
-        }
-        @media (min-width: 768px) {
-          .prices {
-            padding-bottom: 95px;
-          }
-        }
-        .cards {
-          font-size: 31px;
-          font-weight: bold;
-          line-height: normal;
-        }
-        .card {
-          background-color: ${cardColor};
-          display: flex;
-          flex-direction: column;
-          margin-bottom: 15px;
-          min-height: calc(100% - 15px);
-          padding: 20px;
-          transition: background-color 1s;
-        }
-        .card:hover {
-          background-color: ${cardHover};
-          transition: background-color .1s;
-        }
-        .time,
-        .value {
-          margin-top: 15px;
-        }
-        .card :global(.btn) {
-          margin-top: 30px;
-        }
-        @media (min-width: 768px) {
-          .prices {
-            border-top: 0;
-          }
-          .cards {
-            padding-right: 15px;
-            padding-left: 15px;
-          }
-          .time,
-          .value {
-            margin-top: 30px;
-          }
-          .value {
-            margin-bottom: 45px;
-          }
-          .card :global(.btn) {
-            margin-top: auto;
-          }
-          .card--free {
-            padding-top: 87px;
-          }
-          .card--free .time {
-            margin-bottom: 45px;
-          }
-        }
-        @media (min-width: 1200px) {
-          .card {
-            padding-right: 30px;
-            padding-left: 30px;
-          }
-        }
-      `}</style>
-
     </section>
-  )
-}
-
-const SubscriptorSection = ({ children, direction = 'right', imgAlt = '', imgHeight, imgSrc, imgWidth }) => {
-  const theme = useContext(ThemeContext)
-  const backgroundColor = Color(theme.colors.background)
-  return (
-    <div className={`subscriptor-section subscriptor-section--${direction} container-fluid text-${direction}`}>
-      <div className="row align-items-center">
-        <div className="subscriptor-section-img-col col-12 d-md-none">
-          <img
-            alt={imgAlt}
-            className="img-fluid w-100 d-block"
-            height={imgHeight}
-            src={imgSrc}
-            width={imgWidth}
-          />
-        </div>
-        <div className={`subscriptor-section-text-col col-md-4 offset-md-${direction === 'left' ? '1' : '7'}`}>
-          {children}
-        </div>
-      </div>
-      <style jsx>{`
-        .subscriptor-section {
-          margin-bottom: 30px;
-        }
-        .aling-text {
-         text-align: justify;
-        }
-        .subscriptor-section-img-col {
-          padding-right: 0;
-          padding-left: 0;
-          position: relative;
-        }
-        .subscriptor-section-img-col::after {
-          background-image: radial-gradient(circle at 50% 50%, ${backgroundColor.fade(1).hsl().string()} 45%, ${backgroundColor.fade(.05).hsl().string()} 95%);
-          background-size: cover;
-          bottom: 0;
-          content: '';
-          left: 0;
-          position: absolute;
-          right: 0;
-          top: 0;
-          z-index: 2;
-        }
-        .subscriptor-section-text-col {
-          padding-top: 15px;
-        }
-        .subscriptor-section-text-col :global(.h2) {
-          margin-bottom: 15px;
-        }
-        .subscriptor-section-text-col :global(.btn) {
-          margin-top: 30px;
-        }
-        @media (min-width: 768px) {
-          .subscriptor-section {
-            margin-bottom: 0;
-          }
-          .subscriptor-section .row {
-            background-image:
-              radial-gradient(circle at ${direction === 'left' ? '85% 50%' : '33% 75%'}, ${backgroundColor.fade(1).hsl().string()} 30%, ${backgroundColor.fade(.05).hsl().string()} 55%),
-              url(${imgSrc});
-            background-position: ${direction === 'left' ? '50% 50%, 100% 50%' : '50% 50%, 0 50%'};
-            background-repeat: no-repeat, no-repeat;
-            background-size: cover, contain;
-            height: 300px;
-          }
-          .subscriptor-section-text-col {
-            padding-top: 0;
-          }
-          .subscriptor-section-text-col :global(.btn) {
-            margin-right: 15px;
-          }
-        }
-        @media (min-width: 992px) {
-          .subscriptor-section .row {
-            height: 530px;
-          }
-          .subscriptor-section--left .subscriptor-section-text-col {
-            padding-right: 4%;
-          }
-        }
-        @media (min-width: 1400px) {
-          .subscriptor-section .row {
-            height: 560px;
-          }
-          .subscriptor-section-text-col :global(.btn) {
-            margin-right: 30px;
-          }
-        }
-      `}</style>
-    </div>
+    </StylePackages>
   )
 }
 
@@ -420,6 +213,9 @@ const Section1 = ({ mainPackage }) => {
 
   const imageWidth = percentage * imageDimensions.width
   const leadText = `¡El ${CONFIG.fullClubName} te da la bienvenida a la primera plataforma digital en su tipo de contenidos exclusivos del Romántico Viajero, ${TENANT === 'river' ? 'del Más Grande' : CONFIG.appName}!`
+  const text_1_Section_1 = `¡ Bienvenido al  ${CONFIG.fullClubName}`
+  const text_2_Section_1 = `Aquí tendrás acceso a ${CONFIG.fullClubName} como nunca imaginaste, estar presente en el futori del Club.`
+  const text_3_Section_1 = `Se parte de la revolución escarlata`
 
   const minPrice = TENANT === 'lau' ? '$1.690' : mainPackage ? '$' + mainPackage.amount : null
   /*
@@ -431,118 +227,143 @@ const Section1 = ({ mainPackage }) => {
 
   const { clubName } = CONFIG
   const theme = useContext(ThemeContext)
+  const { openAuthModal } = useContext(AuthModalContext)
   const backgroundColor = Color(theme.colors.background)
+    const { user } = useContext(UserContext)
+  function finish(){
+
+        if(user) {
+      Router.push({
+          pathname: "/register/wizard/complete-test",
+
+        })
+
+    } else {
+        openAuthModal('register')
+    }
+
+  }
 
   return (
+    <StyleSection1 windowWidth={windowWidth} sectionHeight={sectionHeight} imageWidth={imageWidth}>
     <div className="section1 container-fluid">
-      <div className="row">
-        <div className="col-md-4 offset-md-1">
+      <div className="row container-inicial-sub">
+        <div className="col-md-5">
           <div className="section1__content">
-            <div className="row">
-              <div className="col-4 col-md-6 aling-logo">
-                <ClubLogo alt={`${clubName} Logo`} className="section1__logo" />
-              </div>
+
+            <div className="row ">
             </div>
-            <H2 className="text-uppercase section1__title aling-h2">¡Bienvenidos!</H2>
-            <p>{leadText}</p>
-            {minPrice && (
-              <p>Todo por <big>{minPrice}</big> mensuales.</p>
+            <p>{text_1_Section_1}</p>
+            <p  className="text-featured">{text_2_Section_1}</p>
+            <p>{text_3_Section_1}</p>
+            {user? (<Button onClick={finish} >finalizar registro</Button>):(
+              <Button onClick={finish} >Registrarse</Button>
             )}
           </div>
         </div>
       </div>
-      <style jsx>{`
+
+    </div></StyleSection1>
+  )
+}
 
 
-        @keyframes sliding {
-          0% {
-            transform: translateX(0)
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
 
-        .aling-logo {
-         margin-bottom: 40px;
-        }
-        .section1 {
-          align-items: center;
-          display: flex;
-          font-size: 16px;
-          height: ${sectionHeight + 'px'};
-          line-height: 1.33;
-          margin-bottom: 15px;
-          overflow: hidden;
-          padding-top: 30px;
-          padding-bottom: 30px;
-          position: relative;
-          z-index: 1;
-        }
-        .section1::before {
-          animation: sliding 200s linear infinite normal;
-          background-image: url(${STATIC_PATH}/subscriptor/section1-img.png);
-          background-position: 50% 0;
-          background-size: ${imageWidth + 'px'} 100%;
-          content: '';
-          display: block;
-          height: 100%;
-          left: 0;
-          position: absolute;
-          top: 0;
-          width: ${imageWidth * 10 + 'px'};
-          z-index: -2;
-        }
-        .section1::after {
-          background-image: radial-gradient(circle at 75% 45%, ${backgroundColor.fade(1).hsl().string()} 0%, ${backgroundColor.fade(.1).hsl().string()} 60%, ${backgroundColor.fade(.05).hsl().string()} 110%);
-          background-position: 50% 0;
-          background-size: cover;
-          bottom: 0;
-          content: '';
-          display: block;
-          left: 0;
-          position: absolute;
-          right: 0;
-          top: 0;
-          z-index: -1;
-        }
-        .section1 > .row {
-          width: calc(100% + 30px)
-        }
-        .section1 :global(.section1__logo) {
-          margin-bottom: 15px;
-          margin-left: 30px;
-        }
-        .section1__content :global(.section1__title) {
-          margin-bottom: 10px;
-        }
-        .section1__content p {
-          margin-bottom: 15px;
-        }
-        .section1__content big {
-          font-size: 1.75em;
-        }
-        @media (min-width: 768px) {
-          .section1 {
-            padding-top: 30px;
-            padding-bottom: 30px;
-          }
-        }
-        @media (min-width: 1200px) {
-          .section1 {
-            --headerHeight: 90px;
-            min-height: calc(100vh - var(--headerHeight));
-          }
-        }
-        @media (min-width: 1400px) {
-          .section1 {
-            min-height: 0;
-          }
-          .section1 :global(.section1__logo) {
-            margin-bottom: 45px;
-          }
-        }
-      `}</style>
+const Section2 = () => {
+
+  const { clubName } = CONFIG
+  const theme = useContext(ThemeContext)
+  const backgroundColor = Color(theme.colors.background)
+  const text_1_Section_2 =`Mira contenido totalmente exclusivo, comparte con el  Equipo los  momentos que siempre  quisiste ver o estar.`
+  const text_2_Section_2 =`Mantente al tanto de todas las novedades que el club te traerá`
+  const text_3_Section_2 =`La oportunidad de estar en esta nueva etapa es ahora..`
+
+  return (
+    <StyleSection2>
+    <div className="section1 container-fluid">
+      <div className="row ">
+       <div className="section1__content">
+         <div className="section-2">
+         <div className="container-inicial-sub">
+         <div className="col-md-5 efeito">
+          <img className="" src={`${STATIC_PATH}/subscriptor/section3-img.png`}></img>
+          </div>
+            <div className="col-md-5 ">
+              <p className="text-featured">{text_1_Section_2}</p>
+              <p >{text_2_Section_2}</p>
+              <p>{text_3_Section_2}</p>
+            </div>
+         </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+    </StyleSection2>
+  )
+}
+
+const Section4 = () => {
+  const [faqs ,setFaqs] = useState(
+    [
+    {
+      "id": "1",
+      "question": "¿Qué es América Play?",
+      "answer": "Será la nueva forma que tendrá el Club de relacionarse con sus hinchas, aportando contenidos únicos y oportunidades de momentos que solo estarán disponibles en esta plataforma."
+    },
+    {
+      "id": "1",
+      "question": "¿Qué contenido habrá en America Play?",
+      "answer": "Innovaremos cada vez más y daremos exclusividad a los suscriptores de América Play en contenido que hasta entonces no teníamos oportunidad de compartir."
+     },
+        {
+      "id": "1",
+      "question": "¿Puedo cancelar la suscripción?",
+      "answer": `
+      <p>Sí, puedes cancelar tu suscripción en cualquier momento, pero ya no tendrás la oportunidad de obtener esta oferta otra vez.</p>
+     <p>Esta es una forma de recompensar a quienes nos acompañan desde el principio en nuestra revolución escarlata.</p>
+      `
+     }
+  ]
+  );
+
+
+
+  return (
+    <StyleSection4>
+    <div className="section1 container-fluid">
+      <div className="title-faqs">
+         <p >Preguntas Frecuentes</p>
+      </div>
+      <div className="section2">
+        <div className="card-width">
+           <Accordion>
+            { faqs.map((item, key) => (
+
+              <Card className="faqs-card" key={key}>
+                <div className="header-button">
+                <Accordion.Toggle as={Card.Header} className="faqs-header" eventKey={key}>
+                  <div>
+                  <h5 className="faqs-question">{ item.question }</h5>
+                  </div>
+                </Accordion.Toggle>
+              </div>
+                <Accordion.Collapse eventKey={key}>
+                  <Card.Body>
+                       <div
+                      className="faqs-text"
+                      dangerouslySetInnerHTML={{ __html: item.answer }}
+                    />
+                  </Card.Body>
+                </Accordion.Collapse>
+
+              </Card>
+            )) }
+          </Accordion>
+      </div>
+
+    </div>
+    </div>
+    </StyleSection4>
   )
 }

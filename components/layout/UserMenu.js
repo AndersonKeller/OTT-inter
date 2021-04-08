@@ -112,7 +112,7 @@ const UserMenu = () => {
               <Dropdown.Item as="button"
                 className="dropdown-item-style1"
                 onClick={enter}>Entrar</Dropdown.Item>
-              <Link as={'/subscriptor'} href={TENANT === 'lau' ? "/subscription/subscriptor" : "/signup"}>
+              <Link  href={TENANT === 'lau' ? "/subscriptor" : "/signup"}>
                 <Dropdown.Item className="dropdown-item-style2"
                   href="/signup">Suscripción</Dropdown.Item>
               </Link>
