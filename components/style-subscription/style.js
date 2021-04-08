@@ -7,7 +7,6 @@ import { STATIC_PATH, TENANT } from '~/constants/constants'
 
 
  export  const StyleSection1 = styled.div.attrs((props)=>{
-
     const theme = useContext(ThemeContext)
     props.backgroundColor = Color(theme.colors.background).fade(1).hsl().string();
     props.backgroundColor2 = Color(theme.colors.background).fade(.1).hsl().string();

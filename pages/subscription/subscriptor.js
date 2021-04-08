@@ -17,7 +17,7 @@ import useWindowDimensions from '~/hooks/useWindowDimensions'
 import api from '~/services/api'
 import Router from "next/router";
 import { Accordion, Card } from 'react-bootstrap'
-import {StyleSection1, StyleSection2, PageStyle, StylePackages,StyleSection4} from './style'
+import {StyleSection1, StyleSection2, PageStyle, StylePackages,StyleSection4} from '../../components/style-subscription/style'
 
 
 function SubscriptorPage({ layoutProps, mainPackage }) {
