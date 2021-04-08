@@ -1,5 +1,6 @@
 {
   "lau": {
+    "appNameSubscription": "Club Universidad de Chile",
     "appName": "La U Play",
     "projectName": "La U Play",
     "clubName": "Universidad de Chile",
@@ -70,6 +71,7 @@
     "textColor": "#bec3db"
   },
   "america": {
+    "appNameSubscription": "AMÉRICA DE CALI",
     "appName": "América Play",
     "projectName": "América",
     "clubName": "América",
