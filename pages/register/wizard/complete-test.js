@@ -45,6 +45,8 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
+  const [releasedPackages, setReleasedPackages] = useState({data:true,packages:false});
+
 
   const theme = useContext(ThemeContext);
   const backgroundColor = Color(theme.colors.background)
@@ -53,6 +55,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
 
   useEffect(_ => {
+
     (async () => {
 
       let p;
@@ -78,9 +81,11 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
   };
 
   function renderComponents() {
+
     switch (wizardIndex) {
       case 0:
         return (
+          <>
           <PersonalData
             api={api}
             layoutProps={layoutProps}
@@ -88,20 +93,33 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
             handleFormState={handleFormState}
             formData={formData}
             setFormData={setFormData}
+            setReleasedPackages={setReleasedPackages}
+            releasedPackages = {releasedPackages}
           />
-
-        );
-      case 1:
-        return (
 
           <Signature
-            api={api}
-            layoutProps={layoutProps}
-            handleSubmit={handleSubmit}
-            handleFormState={handleFormState}
-            formData={formData}
-            setFormData={setFormData}
-          />
+              api={api}
+              layoutProps={layoutProps}
+              handleSubmit={handleSubmit}
+              handleFormState={handleFormState}
+              formData={formData}
+              setFormData={setFormData}
+              releasedPackages = {releasedPackages}
+            />
+            </>
+
+        );
+
+        case 1:
+        return (
+            <Signature
+              api={api}
+              layoutProps={layoutProps}
+              handleSubmit={handleSubmit}
+              handleFormState={handleFormState}
+              formData={formData}
+              setFormData={setFormData}
+            />
 
         );
 
@@ -116,6 +134,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
           />
         );
     }
+
   }
 
   return (
@@ -152,8 +171,12 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
             </div>
           </div>
           <div className="card-body">{renderComponents()}</div>
+
         </div>
+
+
       </div>
+
       <style sjx>
         {`
 

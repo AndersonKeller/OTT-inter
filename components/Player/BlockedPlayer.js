@@ -7,10 +7,13 @@ import { AuthModalContext } from '~/contexts/AuthModalContext'
 import { CONFIG } from '~/config'
 import { ThemeContext } from 'styled-components'
 import Color from 'color'
+import ClubLogo from '~/components/LogoClub'
 import Router from "next/router";
 import apiService from '~/services/api'
 import moment from "moment";
 import PlayerHls from "components/PlayerHsl"
+import LogoApp from '../LogoApp'
+
 
 export default function BlockedPlayer({ image = '', media, sub = null }) {
   const { user } = useContext(UserContext)
@@ -232,11 +235,27 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
             <>
               <img src={ image } width="822" height="464" className="img-fluid"/>
               <div className="block-msg text-center">
+                <div className="details">
+                  <div  className="logo-club">
+                  <ClubLogo alt={`${CONFIG.clubName} Logo`} /></div>
+                  UNIVERSIDAD DE CHILE
+                  </div>
+                  <hr></hr>
+                <div>
+                <div className="details">Regístrate en<div className="tamanho"><LogoApp/></div>  para ver este contenido</div>
 
-                <div className="text-block">
-                  <p><strong>
-                    Es necesario registrarse para ver el contenido</strong></p>
+                  <p>Tendrás acceso a:</p><br></br>
+                    <div className="details-msg">
+                      <ul>
+                        <li>Series y documentales originales</li>
+                        <li className="li-A">Transmisiones en vivo</li>
+                      </ul>
+                      <ul>
+                         <li className="li-B">Contenido exclusivo de jugadores</li>
+                         <li>información exclusivo del club</li>
+                      </ul>
 
+                    </div>
                 </div>
 
                 <Button onClick={ handleAuth }>{ probaGratis }</Button>
@@ -254,6 +273,75 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
           ) }
      <style jsx>{ `
+     .logo-club{
+        width:70px;
+        padding: 10px;
+        margin-top: -27px;
+     }
+     hr {
+      margin-top:-15px;
+      height: 2px;
+      background-image: linear-gradient(to left, #3e3973, #7d0017);
+       width: 100%;
+      }
+     }
+     .li-A {
+       text-align: initial;
+       margin-left:71px;
+       padding-top: 20px;
+     }
+     .li-B {
+      text-align: initial;
+      margin-left: 17px;
+      padding-bottom: 20px;
+
+
+     }
+     .details{
+       display:flex;
+       font-weight: 600;
+
+     }
+     .details-msg{
+        font-size:15px;
+       display:flex;
+       justify-content: space-between;
+       text-align: initial;
+
+     }
+     .tamanho{
+      width:160px;
+      padding:0px 14px 4px 16px;
+      margin-top: 1px
+
+     }
+   @media(max-width:600px){
+
+     ul{
+       text-align:center!important;
+       margin:0px!important;
+       padding:0px!important;
+
+     }
+     li{
+       text-align:center!important;
+      margin:0px!important;
+      padding:0px!important;
+      list-style-type:none;
+     }
+
+     hr{
+       -10px;
+     }
+
+     .details-msg{
+        font-size:15px;
+       display:contents;
+
+     }
+
+        }
+
         .block-msg {
           align-items: center;
           background-color: ${ maskColor };

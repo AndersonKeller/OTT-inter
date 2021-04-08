@@ -17,7 +17,7 @@ import Flatpickr from "react-flatpickr";
 import InvalidFeedback from "~/components/Form/InvalidFeedback";
 
 
-const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, formData, setFormData }) => {
+const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, formData, setFormData,setReleasedPackages,releasedPackages }) => {
 
   const formDataHasProperties = formData.hasOwnProperty("country_id")
     && formData.hasOwnProperty("address_1st_level")
@@ -68,11 +68,11 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
   useEffect(
     _ => {
       if (user) {
-        console.log("Primeiro useEffect (componentDidMount)")
+        // console.log("Primeiro useEffect (componentDidMount)")
 
-        console.log(`\n\n user --  ${JSON.stringify(user)} \n\n`);
+        // console.log(`\n\n user --  ${JSON.stringify(user)} \n\n`);
 
-        console.log(`\n\n formData before set ${JSON.stringify(formData)} \n\n`);
+        // console.log(`\n\n formData before set ${JSON.stringify(formData)} \n\n`);
         setDate({
           ...date,
           birthdate: new Date()
@@ -100,7 +100,7 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
           });
         }
 
-        console.log(`\n\n formData after set ${JSON.stringify(formData)} \n\n`);
+        // console.log(`\n\n formData after set ${JSON.stringify(formData)} \n\n`);
 
       }
     },
@@ -110,7 +110,7 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
 
   useEffect(() => {
     if (Object.values(formData).filter(x => x != null).length > 0) {
-      console.log(`\n\n\nAqui o formData -- ${JSON.stringify(formData)}\n\n\n`);
+      // console.log(`\n\n\nAqui o formData -- ${JSON.stringify(formData)}\n\n\n`);
 
       for (let key in formData) {
         if (values.hasOwnProperty(key) && values[key] != null) {
@@ -177,7 +177,8 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
       const res = await api.post(`register/complete-user`, userData);
 
 
-      handleSubmit(1, userData);
+      // handleSubmit(1, userData);
+      setReleasedPackages({data:false,packages:true})
     } catch (error) {
       if (error.response) {
         const { data, status } = error.response;
@@ -196,7 +197,7 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
 
   return (
     <form method="post" onSubmit={submit}>
-      <div className="register-confirm container text-center responsive">
+      <div className="register-confirm container text-center responsive active">
         <h2 className="card-title text-center">
           <span className={"text-primary"}>¡</span>Únete a {<NameProject />}
           <span className={"text-primary"}>!</span>
@@ -396,31 +397,29 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
       <div className="row mt-3">
         <div className="col-md-12">
           <div className="text-center">
-            {/* <Button color="primary" onClick={() => handleFormState(1)}>
-              Volver
-              </Button> */}
             <Button
               color="secondary"
               type="submit"
               disabled={loading}
               loading={loading}
-              style={{ marginLeft: "20px" }}
+              style={{ marginLeft: "20px" ,marginBottom: "20px"}}
             >
-
-              Elige tu plan
+              Salvar
               </Button>
           </div>
         </div>
       </div>
 
       <style jsx global={true}>{`
-      .complete{
+
+        ${releasedPackages.data==false?'.active{pointer-events: none;opacity: 0.4;}':''}
+
+      .complete {
             background: var(--primary);
             color: white;
-                padding: 6px;
-
-    margin-bottom: 22px;
-}
+            padding: 6px;
+            margin-bottom: 22px;
+        }
       
 
         .text-primary {

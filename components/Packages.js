@@ -2,7 +2,8 @@
 import FormGroup from './layout/AuthModal/FormGroup'
 import { memo, useEffect, useState } from 'react'
 import withApi from '~/components/withApi'
-
+import Description from './DescriptionPack'
+import PlanFeatured from "../components/plan-featured"
 // packages component
 const Packages = ({
   error,
@@ -42,26 +43,40 @@ const Packages = ({
   // return
   return (
     <section className="packages">
-      <div className="row gutter-15 packages__list">
+      <div className="row gutter-15  packages__list">
         {rest && rest.map((item, key) => {
           let discount = discounts ? discounts.find(disc => disc.id == item.id) : null
 
           return <div className="col" {...{ key }}>
-            <FormGroup>
+            <PlanFeatured plan={item}>
+            <FormGroup >
               <PackageRadio {...{ onChange, readOnly, discount, package_id, plan: item }} />
             </FormGroup>
-          </div>
+           </PlanFeatured>
+            </div>
+
+
         })}
       </div>
       {validationError && (
         <div className="invalid-feedback">{validationError}</div>
       )}
       <style jsx>{`
+
+          .description {
+            text-align:center;
+          }
+
         .packages {
           margin-bottom: 15px;
         }
         .packages__list {
           margin-bottom: -15px;
+        }
+        @media(max-width:600px){
+          .packages__list{
+            display: contents;
+          }
         }
       ` }</style>
     </section>
@@ -81,6 +96,7 @@ export const PackageRadio = ({
   // plan.amount_with_discount = discount ? Math.round(plan.amount * (1 - discount.pivot.percent)) : 0
 
   return (
+    <>
     <label className={'text-center' + (readOnly ? ' readonly' : '')}>
       <input
         checked={plan.id == package_id}
@@ -117,6 +133,11 @@ export const PackageRadio = ({
       </span>
 
       <style jsx>{`
+      .form-group{
+        background:red!imprtant;
+
+      }
+
         label {
           cursor: pointer;
           display: block;
@@ -132,7 +153,9 @@ export const PackageRadio = ({
           display: block;
           padding: 15px;
           transition: border-color .3s;
-          background-color: #282828;
+          background-color:${plan.is_featured?'#242e50':'#282828'};
+
+
           color: #FFF;
         }
         input:checked + .fake-input {
@@ -174,8 +197,14 @@ export const PackageRadio = ({
           font-weight: bold;
         }
 
+
+
+
       ` }</style>
+
     </label>
+        <Description desc={plan.description} />
+</>
   )
 }
 
