@@ -128,7 +128,7 @@ const Cover = ({ category, media }) => {
             <div className="buttons">
 
               {!user ? (
-                <Link href={TENANT === 'lau' ? "/subscriptor" : "/signup"}>
+                <Link  as={'/subscriptor'}  href={TENANT === 'lau' ? "subscription/subscriptor" : "/signup"}>
                   <Button block={smDown}>{probaGratis}</Button>
                 </Link>
               ) : (
