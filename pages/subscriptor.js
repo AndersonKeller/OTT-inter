@@ -213,9 +213,9 @@ const Section1 = ({ mainPackage }) => {
 
   const imageWidth = percentage * imageDimensions.width
   const leadText = `¡El ${CONFIG.fullClubName} te da la bienvenida a la primera plataforma digital en su tipo de contenidos exclusivos del Romántico Viajero, ${TENANT === 'river' ? 'del Más Grande' : CONFIG.appName}!`
-  const text_1_Section_1 = `¡ Bienvenido al  ${CONFIG.fullClubName}`
-  const text_2_Section_1 = `Aquí tendrás acceso a ${CONFIG.fullClubName} como nunca imaginaste, estar presente en el futori del Club.`
-  const text_3_Section_1 = `Se parte de la revolución escarlata`
+  const text_1_Section_1 = `¡BIENVENIDOS, ESTO ES ${CONFIG.appNameSubscription}`
+  const text_2_Section_1 = `Aquí tendrás acceso ${ TENANT === 'lau'?CONFIG.appNameSubscription:' al mundo Escarlata'} como nunca imaginaste, serás testigo del presente y el futuro del club.`
+  const text_3_Section_1 = `¡Sé parte de la Revolución ${ TENANT === 'lau'?CONFIG.appNameSubscription:'Escarlata'}!`
 
   const minPrice = TENANT === 'lau' ? '$1.690' : mainPackage ? '$' + mainPackage.amount : null
   /*
@@ -256,8 +256,8 @@ const Section1 = ({ mainPackage }) => {
             <p>{text_1_Section_1}</p>
             <p  className="text-featured">{text_2_Section_1}</p>
             <p>{text_3_Section_1}</p>
-            {user? (<Button onClick={finish} >finalizar registro</Button>):(
-              <Button onClick={finish} >Registrarse</Button>
+            {user? (<Button onClick={finish} > FINALIZAR REGISTRO</Button>):(
+              <Button onClick={finish} >REGISTRARSE</Button>
             )}
           </div>
         </div>
@@ -274,9 +274,9 @@ const Section2 = () => {
   const { clubName } = CONFIG
   const theme = useContext(ThemeContext)
   const backgroundColor = Color(theme.colors.background)
-  const text_1_Section_2 =`Mira contenido totalmente exclusivo, comparte con el  Equipo los  momentos que siempre  quisiste ver o estar.`
-  const text_2_Section_2 =`Mantente al tanto de todas las novedades que el club te traerá`
-  const text_3_Section_2 =`La oportunidad de estar en esta nueva etapa es ahora..`
+  const text_1_Section_2 =`Mira contenido totalmente exclusivo, comparte con el equipo todos los momentos que siempre quisiste ver o estar.`
+  const text_2_Section_2 =`Mantente al tanto de todas las novedades que el club te traerá.`
+  const text_3_Section_2 =`La oportunidad de estar en esta nueva etapa es ahora.`
 
   return (
     <StyleSection2>
