@@ -149,6 +149,11 @@ export const StyleSection2 = styled.div.attrs((props)=>{
         width:70%;
 
       }
+      .img-text {
+        flex-direction: column;
+        align-content: center;
+        display: grid;
+      }
      .efeito::before {
            background-image: radial-gradient(circle at 50% 50%, ${ props=>props.backgroundColor} 50%, ${props=>props.backgroundColor3} 95%);
           background-size: cover;

@@ -286,9 +286,9 @@ const Section2 = () => {
          <div className="section-2">
          <div className="container-inicial-sub">
          <div className="col-md-5 efeito">
-          <img className="" src={`${STATIC_PATH}/subscriptor/section3-img.png`}></img>
+          <img className="" src={`${STATIC_PATH}/subscriptor/section2-img.png`}></img>
           </div>
-            <div className="col-md-5 ">
+            <div className="col-md-5 img-text ">
               <p className="text-featured">{text_1_Section_2}</p>
               <p >{text_2_Section_2}</p>
               <p>{text_3_Section_2}</p>
