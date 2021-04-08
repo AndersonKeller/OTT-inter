@@ -17,9 +17,7 @@ import useWindowDimensions from '~/hooks/useWindowDimensions'
 import api from '~/services/api'
 import Router from "next/router";
 import { Accordion, Card } from 'react-bootstrap'
-import faqs from "./questions"
 import {StyleSection1, StyleSection2, PageStyle, StylePackages,StyleSection4} from './style'
-import { FaRocket } from 'react-icons/fa';
 
 
 function SubscriptorPage({ layoutProps, mainPackage }) {
@@ -306,6 +304,29 @@ const Section2 = () => {
 }
 
 const Section4 = () => {
+  const [faqs ,setFaqs] = useState(
+    [
+    {
+      "id": "1",
+      "question": "¿Qué es América Play?",
+      "answer": "Será la nueva forma que tendrá el Club de relacionarse con sus hinchas, aportando contenidos únicos y oportunidades de momentos que solo estarán disponibles en esta plataforma."
+    },
+    {
+      "id": "1",
+      "question": "¿Qué contenido habrá en America Play?",
+      "answer": "Innovaremos cada vez más y daremos exclusividad a los suscriptores de América Play en contenido que hasta entonces no teníamos oportunidad de compartir."
+     },
+        {
+      "id": "1",
+      "question": "¿Puedo cancelar la suscripción?",
+      "answer": `
+      <p>Sí, puedes cancelar tu suscripción en cualquier momento, pero ya no tendrás la oportunidad de obtener esta oferta otra vez.</p>
+     <p>Esta es una forma de recompensar a quienes nos acompañan desde el principio en nuestra revolución escarlata.</p>
+      `
+     }
+  ]
+  );
+
 
 
   return (
@@ -346,12 +367,3 @@ const Section4 = () => {
     </StyleSection4>
   )
 }
-
-
-// Section4.getInitialProps = async ({ api }) => {
-//   // const questions =
-//   // })()
-//   // return { questions}
-// }
-
-// export default withApi(Section4)
