@@ -86,15 +86,15 @@
     "socialNetworks": [
       {
         "name": "Facebook",
-        "link": "https://www.facebook.com/ClubUniversidadDeChileOficial"
+        "link": "https://www.facebook.com/Americadecalisad"
       },
       {
         "name": "Instagram",
-        "link": "https://instagram.com/udechileoficial"
+        "link": "https://www.instagram.com/americadecali/"
       },
       {
         "name": "Twitter",
-        "link": "https://www.twitter.com/udechile"
+        "link": "https://twitter.com/AmericadeCali"
       }
     ],
     "googleAnalytics": "UA-184672645-1",
@@ -140,6 +140,7 @@
     "backgroundColor": "#000c33",
     "backgroundContrastColor": "#1a1a1a",
     "backgroundContrastColor2": "#293989",
+    "socialNetworkColor": "#FFF",
     "textColor": "#bec3db"
   }
 }

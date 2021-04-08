@@ -12,6 +12,7 @@ import ActiveLink from '../ActiveLink'
 import { WHITE } from '~/constants/colors'
 import { ThemeContext } from 'styled-components'
 import packageJson from '~/package.json'
+import { TENANT } from "~/constants/constants";
 
 export default function Footer({ apiVersion, layoutColor }) {
   return (
@@ -109,7 +110,7 @@ const SocialNetworks = ({ className }) => {
     return
   }
   const theme = useContext(ThemeContext)
-  const color = Color(theme.colors.backgroundContrast2).hsl().string()
+  const color = Color(theme.colors.white).hsl().string()
   const colorHover = Color(theme.colors.white).hsl().string()
   return (
     <IconContext.Provider value={{ size: '24px' }}>
@@ -134,7 +135,10 @@ const SocialNetworks = ({ className }) => {
           )
         })}
       </ul>
-      <div className="logo-gad" ><GADLogo /></div>
+      <div className="logo-gad" >
+        <GADLogo />
+        { TENANT == 'america' ? <FuteboleteLogo/> : <div/>}
+      </div>
 
       <style jsx>{`
        @media (max-width: 768px) {
@@ -152,7 +156,7 @@ const SocialNetworks = ({ className }) => {
           margin: 5px 0;
         }
         a {
-          color: ${color};
+          color: #FFF;
           display: block;
           padding: 2.5px;
           transition: color .3s;
@@ -163,7 +167,7 @@ const SocialNetworks = ({ className }) => {
             margin-left: 1px;
             padding: 5px;
           }
-        }
+        
         a:focus,
         a:hover {
           color: ${colorHover};
@@ -187,7 +191,7 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
         <div className="row align-items-center w-100">
 
           <div className="col-12 col-sm-4 text-md-left">
-            <p>{`${appName} @ 2020 - Todos los derechos reservados`}</p>
+            <p>{`${appName} @ 2021 - Todos los derechos reservados`}</p>
           </div>
 
           {/* social icons */}
@@ -209,6 +213,7 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
               </Link></li>
 
               <li className="logo-gad"><GADLogo /></li>
+              { TENANT == 'america' ? <li className="logo-gad"><FuteboleteLogo/></li> : ''}
 
             </ul>
           </div>
@@ -218,7 +223,7 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
         <div className="row align-items-center">
 
           <div className="copyright col-12 text-center">
-            <p>{`${appName} @ 2020`}</p>
+            <p>{`${appName} @ 2021`}</p>
             <p>Todos los derechos reservados</p>
           </div>
 
@@ -239,6 +244,12 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
           <div className="gad-logo col-12 text-center">
             <GADLogo />
           </div>
+
+          { TENANT == 'america' ?
+            <div className="gad-logo col-12 text-center">
+              <FuteboleteLogo />
+            </div>
+            : ''}
 
         </div>
       </div>
@@ -382,7 +393,7 @@ const FooterLink = React.forwardRef(({ children, onClick, href, target }, ref) =
 const GADLogo = _ => {
   return <>
     <a className="signature d-inline-block" href="//somosgad.com" target="_blank">
-      <img alt="GAD_" height="19" src="/static/logos/gad.svg" width="35" />
+      <img alt="GAD_" height="19" src={'/static/' +  TENANT + '/logos/gad.svg'} width="35" />
     </a>
     <style jsx>{`
       img {
@@ -392,6 +403,25 @@ const GADLogo = _ => {
       @media (min-width: 768px) {
         img {
           height: 19px;
+          min-width: 35px;
+        }
+      }
+    `}</style>
+  </>
+}
+const FuteboleteLogo = _ => {
+  return <>
+    <a className="signature d-inline-block" href="//somosgad.com" target="_blank">
+      <img alt="Futebolete" src={'/static/' +  TENANT + '/logos/futebolete.png'} width="90" />
+    </a>
+    <style jsx>{`
+      img {
+        //height: 17px;
+        min-width: 30px;
+      }
+      @media (min-width: 768px) {
+        img {
+          //height: 19px;
           min-width: 35px;
         }
       }

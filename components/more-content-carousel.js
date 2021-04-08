@@ -29,6 +29,7 @@ export default function MoreContentCarousel({ category, uppercase }) {
           // margin-bottom: 30px;
           padding-top: 20px;
           padding-bottom: 25px;
+          overflow: hidden;
         }
         @media (min-width: 768px) {
           .more-content {
