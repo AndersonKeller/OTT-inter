@@ -12,6 +12,7 @@ const theme = {
     background: CONFIG.backgroundColor,
     backgroundContrast: CONFIG.backgroundContrastColor,
     backgroundContrast2: CONFIG.backgroundContrastColor2,
+    socialNetworkColor: CONFIG.socialNetworkColor,
     black: BLACK,
     white: WHITE,
     texts: CONFIG.textColor,

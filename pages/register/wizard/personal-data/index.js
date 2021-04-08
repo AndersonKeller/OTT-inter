@@ -164,7 +164,6 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
         name: formData.name,
         gender_id: formData.gender_id,
         document: formData.document,
-        email: user.email,
         nickname: formData.nickname,
         registration: formData.registration,
         birthdate: date.birthdate,
@@ -416,13 +415,13 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
 
       <style jsx global={true}>{`
       .complete{
-            background: #000c33;
+            background: var(--primary);
             color: white;
                 padding: 6px;
 
     margin-bottom: 22px;
 }
-      }
+      
 
         .text-primary {
           color: ${primaryColor} !important;

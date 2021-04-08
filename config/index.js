@@ -26,6 +26,7 @@ import tenantsConfigs from './config.json'
  * @property {string} backgroundColor - the project's background color.
  * @property {string} backgroundContrastColor - the project's lighter or contrastant color.
  * @property {string} backgroundContrastColor2 - used for secondary buttons and something like that.
+ * @property {string} socialNetworkColor - used for secondary buttons and something like that.
  * @property {string} textColor - main text color.
  */
 /** @type {AppsConfig} */

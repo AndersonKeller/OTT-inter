@@ -292,10 +292,10 @@ const Signup = ({}) => {
       ` }</style>
           </div>
           <div>
-            <Footer/>
           </div>
         </div>
       </div>
+      <Footer/>
 
     </Layout>
 

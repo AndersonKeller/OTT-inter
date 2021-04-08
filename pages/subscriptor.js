@@ -419,7 +419,7 @@ const Section1 = ({ mainPackage }) => {
   const percentage = sectionHeight / imageDimensions.height
 
   const imageWidth = percentage * imageDimensions.width
-  const leadText = `¡El ${CONFIG.fullClubName} te da la bienvenida a la primera plataforma digital en su tipo de contenidos exclusivos del Romántico Viajero, ${TENANT === 'river' ? 'del Más Grande' : CONFIG.appName}!`
+  const leadText = `¡El ${CONFIG.fullClubName} te da la bienvenida a la primera plataforma digital en su tipo de contenidos exclusivos del ${TENANT === 'river' ? 'del Más Grande' : CONFIG.appName}!`
 
   const minPrice = TENANT === 'lau' ? '$1.690' : mainPackage ? '$' + mainPackage.amount : null
   /*
@@ -436,7 +436,7 @@ const Section1 = ({ mainPackage }) => {
   return (
     <div className="section1 container-fluid">
       <div className="row">
-        <div className="col-md-4 offset-md-1">
+        <div className="col-md-3 offset-md-2">
           <div className="section1__content">
             <div className="row">
               <div className="col-4 col-md-6 aling-logo">
@@ -480,21 +480,21 @@ const Section1 = ({ mainPackage }) => {
           z-index: 1;
         }
         .section1::before {
-          animation: sliding 200s linear infinite normal;
+          //animation: sliding 200s linear infinite normal;
           background-image: url(${STATIC_PATH}/subscriptor/section1-img.png);
-          background-position: 50% 0;
-          background-size: ${imageWidth + 'px'} 100%;
+          background-position: 50% 50%;
+          background-size: cover;
           content: '';
           display: block;
           height: 100%;
           left: 0;
           position: absolute;
           top: 0;
-          width: ${imageWidth * 10 + 'px'};
+          width: 100%;
           z-index: -2;
         }
         .section1::after {
-          background-image: radial-gradient(circle at 75% 45%, ${backgroundColor.fade(1).hsl().string()} 0%, ${backgroundColor.fade(.1).hsl().string()} 60%, ${backgroundColor.fade(.05).hsl().string()} 110%);
+          //background-image: radial-gradient(circle at 75% 45%, ${backgroundColor.fade(1).hsl().string()} 0%, ${backgroundColor.fade(.1).hsl().string()} 60%, ${backgroundColor.fade(.05).hsl().string()} 110%);
           background-position: 50% 0;
           background-size: cover;
           bottom: 0;
