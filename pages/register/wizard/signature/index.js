@@ -30,7 +30,10 @@ const Signature = ({
   handleFormState,
   formData,
   setFormData,
-  releasedPackages
+  releasedPackages,
+  setReleasedPackages,
+  setLoadingSubmit,
+  loadingSubmit
 }) => {
 
 
@@ -51,6 +54,7 @@ const Signature = ({
   const [creditCard, setCreditCard] = useState(null);
   const [loading, setLoading] = useState();
   const [error, setError] = useState({ errors: {} });
+  const [subimitFinish, setSubimitFinish] = useState(false);
   // const businessUnitPublicKey = "TEST-5121749c-2a58-4b7d-b98c-9b9932a3a4cc";
   // const businessUnitPublicKey = 'APP_USR-fe20d55f-f7d1-49e0-855b-4d5c147ddd0b'
   const businessUnitPublicKey = 'TEST-4c655652-9ace-4019-93ad-16650f0a29f5'
@@ -194,6 +198,17 @@ const Signature = ({
     }
   };
 
+  useEffect(_ => {
+    (async _ => {
+
+    if(releasedPackages.data==false && releasedPackages.submit==true ){
+
+      subimitFinish==true? Finish(): await submitCredit();
+    }
+
+    })();
+  }, [releasedPackages]);
+
   // get payment methods
   useEffect(_ => {
     const getPaymentMethods = async _ => {
@@ -226,8 +241,21 @@ const Signature = ({
   //Submit Pagamento
   const submitCredit = async e => {
 
-    e.preventDefault();
-    setLoading(true);
+     setSubimitFinish(false)
+
+    if(releasedPackages.packages==false){
+      setLoadingSubmit(true);
+      setReleasedPackages({data:true,packages:false, submit:true});
+      setLoadingSubmit(false);
+
+    //   setTimeout(function(){
+    //   setReleasedPackages({data:true,packages:false, submit:true});
+    //   setLoading(false);
+    //  }, 2000);
+
+    }else{
+      //  e.preventDefault();
+    setLoadingSubmit(true);
     let expirationMonth = "";
     let expirationYear = "";
 
@@ -307,10 +335,13 @@ const Signature = ({
                 setError(error);
               }
             } finally {
+              setLoadingSubmit(false);
               setLoading(false);
             }
 
-            setLoading(false);
+             setLoadingSubmit(false);
+             setLoading(false);
+
           }
         );
         break;
@@ -324,15 +355,22 @@ const Signature = ({
 
           open(res.data.url);
 
-          setLoading(false)
+           setLoadingSubmit(false);
+           setLoading(false);
 
         } catch (e) {
-          setLoading(false);
+
+           setLoadingSubmit(false);
+           setLoading(false);
           console.log(e);
         }
 
         break;
     }
+
+    }
+
+
 
   }
 
@@ -345,7 +383,21 @@ const Signature = ({
 
   //Plan gratis
   function Finish() {
+      setSubimitFinish(true) //HABILITA O FINISH
+      setLoadingSubmit(true);
+        if(releasedPackages.packages==false){
+
+    //   setTimeout(function(){
+    //   setReleasedPackages({data:true,packages:false, submit:true});
+    //   setLoading(false);
+    //  }, 1500);
+    setReleasedPackages({data:true,packages:false, submit:true});
+    setLoadingSubmit(false);
+
+    }else{
     Router.push('/');
+
+    }
   }
 
   return (
@@ -524,8 +576,8 @@ const Signature = ({
                     block
                     color="secondary"
                     type="button"
-                    disabled={loading}
-                    loading={loading}
+                    disabled={loadingSubmit}
+                    loading={loadingSubmit}
                     onClick={submitCredit}
                   >
                     Pagar
@@ -541,8 +593,8 @@ const Signature = ({
                     block
                     color="secondary"
                     type="button"
-                    disabled={loading}
-                    loading={loading}
+                    disabled={loadingSubmit}
+                    loading={loadingSubmit}
                     onClick={submitCredit}
                   >
                     Gerar Boleto
@@ -584,6 +636,8 @@ const Signature = ({
             <div className="col-md-12" style={{ marginBottom: "20px" }}>
               <div className="text-center">
                 <Button color="secondary" type="button"
+                    disabled={loadingSubmit}
+                    loading={loadingSubmit}
                   style={{ width: "250px" }}
                   onClick={() => Finish()}
                 >Ir a la página de inicio</Button>
@@ -596,7 +650,7 @@ const Signature = ({
 
       <style jsx global={true}>{`
 
-      ${releasedPackages.packages==false?'.active-sig{pointer-events: none;opacity: 0.4;}':''}
+      // ${releasedPackages.packages==false?'.active-sig{pointer-events: none;opacity: 0.4;}':''}
         .card {
           min-height: 600px;
         }

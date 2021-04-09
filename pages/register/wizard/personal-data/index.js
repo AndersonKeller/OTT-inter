@@ -15,9 +15,10 @@ import Select from "~/components/Select/Select";
 import Loading from "~/components/Loading/Loading";
 import Flatpickr from "react-flatpickr";
 import InvalidFeedback from "~/components/Form/InvalidFeedback";
+import { toast } from "react-toastify";
 
 
-const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, formData, setFormData,setReleasedPackages,releasedPackages }) => {
+const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, formData, setFormData,setReleasedPackages,releasedPackages,setLoadingSubmit,loadingSubmit }) => {
 
   const formDataHasProperties = formData.hasOwnProperty("country_id")
     && formData.hasOwnProperty("address_1st_level")
@@ -56,6 +57,15 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
   const [discounts, setDiscounts] = useState(false);
   const [blockDiscountFields, setBlockDiscountFields] = useState(false);
   const [error, setError] = useState();
+
+
+  useEffect(_ => {
+    (async _ => {
+    if(releasedPackages.packages==false && releasedPackages.submit==true){
+       await submit();
+    }
+    })();
+  }, [releasedPackages]);
 
 
   useEffect(_ => {
@@ -149,9 +159,9 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
   };
 
   const submit = async e => {
-    e.preventDefault();
+    //  e.preventDefault();
 
-    setLoading(true);
+    setLoadingSubmit(true);
 
     try {
       let userData = {
@@ -178,20 +188,30 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
 
 
       // handleSubmit(1, userData);
-      setReleasedPackages({data:false,packages:true})
+
+      setLoadingSubmit(false);
+
+      setReleasedPackages({data:false,packages:true, submit:true})
+
     } catch (error) {
       if (error.response) {
         const { data, status } = error.response;
         if (status === 422) {
+          toast.error('Revisa tus datos', { delay: 500, autoClose: 5000 });
           setError(data);
+          setLoadingSubmit(false);
+
         }
       } else if (error.request) {
+
         setError(error);
       } else {
         setError(error);
       }
     } finally {
       setLoading(false);
+      setLoadingSubmit(false);
+
     }
   };
 
@@ -394,7 +414,7 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
         </div>
 
       </div>
-      <div className="row mt-3">
+      {/* <div className="row mt-3">
         <div className="col-md-12">
           <div className="text-center">
             <Button
@@ -408,7 +428,7 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
               </Button>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <style jsx global={true}>{`
 
@@ -420,7 +440,7 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
             padding: 6px;
             margin-bottom: 22px;
         }
-      
+
 
         .text-primary {
           color: ${primaryColor} !important;

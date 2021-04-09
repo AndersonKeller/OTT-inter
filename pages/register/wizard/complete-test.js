@@ -45,7 +45,8 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
-  const [releasedPackages, setReleasedPackages] = useState({data:true,packages:false});
+  const [releasedPackages, setReleasedPackages] = useState({data:true,packages:false, submit:false});
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
 
   const theme = useContext(ThemeContext);
@@ -95,6 +96,8 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
             setFormData={setFormData}
             setReleasedPackages={setReleasedPackages}
             releasedPackages = {releasedPackages}
+            setLoadingSubmit={setLoadingSubmit}
+            loadingSubmit={loadingSubmit}
           />
 
           <Signature
@@ -105,6 +108,10 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
               formData={formData}
               setFormData={setFormData}
               releasedPackages = {releasedPackages}
+              setReleasedPackages={setReleasedPackages}
+              setLoadingSubmit={setLoadingSubmit}
+              loadingSubmit={loadingSubmit}
+
             />
             </>
 
