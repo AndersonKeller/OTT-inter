@@ -36,7 +36,7 @@ function SubscriptorPage({ layoutProps, mainPackage }) {
   TENANT === 'lau' ? 'Campeones 1994: rompiendo 25 años de maldición' : null
 
   return (
-    <Layout {...layoutProps} header="closed">
+    <Layout {...layoutProps} subscription={true}>
       <PageStyle>
       <Head>
         <title>Subscriptor &lt; {CONFIG.appName}</title>

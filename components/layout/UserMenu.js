@@ -13,7 +13,7 @@ import * as gtag from '~/lib/gtag'
 import Chevron from '../icons/chevron'
 import { TENANT } from "~/constants/constants";
 
-const UserMenu = () => {
+const UserMenu = ({login_sub}) => {
 
   const { signOut, user } = useContext(UserContext)
   const { closeAuthModal, openAuthModal } = useContext(AuthModalContext)
@@ -112,10 +112,10 @@ const UserMenu = () => {
               <Dropdown.Item as="button"
                 className="dropdown-item-style1"
                 onClick={enter}>Entrar</Dropdown.Item>
-              <Link  href={TENANT === 'lau' ? "/subscriptor" : "/signup"}>
+             {!login_sub&&( <Link  href={TENANT === 'lau' ? "/subscriptor" : "/signup"}>
                 <Dropdown.Item className="dropdown-item-style2"
                   href="/signup">Suscripción</Dropdown.Item>
-              </Link>
+              </Link>)}
               <Dropdown.Divider />
               {/* <Dropdown.Item className="dropdown-item-style3" href="/ajustes">
               <span className="icon">

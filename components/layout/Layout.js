@@ -9,6 +9,7 @@ import CustomError from '~/pages/_error'
 import withApi from '../withApi'
 import Color from "color";
 import { ThemeContext } from "styled-components";
+import HeaderSubscription  from '../HeaderSubscription/index'
 
 const Layout = ({
   media,
@@ -21,7 +22,8 @@ const Layout = ({
   menusError,
   paddingTop = true,
   footer = '',
-  customClass = ''
+  customClass = '',
+  subscription,
 }, ) => {
   const theme = useContext(ThemeContext)
   const primaryColor
@@ -55,7 +57,15 @@ const Layout = ({
   }, [flash_message])
 
   function renderHeader(media) {
-    if (header !== 'hidden') {
+    if(subscription ==true){
+         return <HeaderSubscription {...{
+        closed: header === 'closed',
+        layoutColor,
+        subscripton:true
+
+      }} />
+    }
+    else if (header !== 'hidden' ) {
       return <Header {...{
         closed: header === 'closed',
         layoutColor,
@@ -63,6 +73,7 @@ const Layout = ({
         media
       }} />
     }
+
     paddingTop = false
     return null
   }
