@@ -19,6 +19,8 @@ import { toast } from "react-toastify";
 import PackagesComponent from "~/components/Packages";
 import Router from "next/router";
 import Loadingcar from '~/components/Loading/Loading';
+import { STATIC_PATH, TENANT } from "~/constants/constants";
+
 
 const Signature = ({
   packageslist,
@@ -46,6 +48,8 @@ const Signature = ({
 
   //states
   const [packages, setPackages] = useState(packageslist);
+
+
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [blockDiscountFields, setBlockDiscountFields] = useState(false);
   const { user } = useContext(UserContext);
@@ -94,8 +98,23 @@ const Signature = ({
 
     (async _ => {
       try {
+        let list;
         const { data } = await api.get('packages')
-        setPackages({ items: data })
+        if(TENANT!='lau'){
+           list = data.filter(function(value, index, arr){
+          if(value.plan_id !='gratis'){
+
+            return value
+          };
+         });
+
+         setPackages({ items: list })
+
+        }else{
+        setPackages({ items:data })
+
+        }
+
       } catch (error) {
         packages = { error }
       }
@@ -729,6 +748,7 @@ Signature.getInitialProps = async ({ api }) => {
   try {
     const { data } = await api.get('packages')
     packageslist = { items: data }
+
   } catch (error) {
     packageslist = { error }
   }
