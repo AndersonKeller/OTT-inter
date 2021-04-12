@@ -116,7 +116,7 @@ const HeaderClubLogo = _ => {
         @media (min-width: 768px) {
           .club-logo {
             height: 55px;
-            margin-right: 5px;
+            margin-right: 135px;;
             width: 55px;
           }
         }
@@ -150,7 +150,7 @@ const HeaderAppLogo = ({ closed, media }) => {
         }
         @media (min-width: 768px) {
           .logo {
-            margin-right: ${closed ? 0 : '20px'};
+            margin-right: ${closed ? 0 : '0px'};
           }
         }
       `}</style>

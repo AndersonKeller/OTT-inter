@@ -194,7 +194,7 @@ const Packages = () => {
 const Section1 = ({ mainPackage, user, finish }) => {
 
   const leadText = `¡El ${CONFIG.fullClubName} te da la bienvenida a la primera plataforma digital en su tipo de contenidos exclusivos del Romántico Viajero, ${TENANT === 'river' ? 'del Más Grande' : CONFIG.appName}!`
-  const text_1_Section_1 = `¡BIENVENIDOS, ESTO ES ${CONFIG.appNameSubscription}¡`
+  const text_1_Section_1 = `¡BIENVENIDOS, ESTO ES ${CONFIG.appNameSubscription}!`
   const text_2_Section_1 = `Aquí tendrás acceso ${ TENANT === 'lau'?CONFIG.appNameSubscription:' al mundo Escarlata'} como nunca imaginaste, serás testigo del presente y el futuro del club.`
   const text_3_Section_1 = `¡Sé parte de la Revolución ${ TENANT === 'lau'?CONFIG.appNameSubscription:'Escarlata'}!`
 

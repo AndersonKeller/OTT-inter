@@ -123,12 +123,13 @@ const UserMenu = ({login_sub}) => {
               </span>
               <span>Ajustes</span>
             </Dropdown.Item> */}
+              {!login_sub &&(
               <Dropdown.Item className="dropdown-item-style3" href="/help">
                 <span className="icon">
                   <IoIosHelpCircle size={24} />
                 </span>
-                <span>Ayuda</span>
-              </Dropdown.Item>
+           <span>Ayuda</span>
+              </Dropdown.Item>)}
             </Dropdown.Menu>
           )}
 
