@@ -298,8 +298,8 @@ const pay = withRouter(({ packages, handleSubmit, }) => {
 
       <div className="register-confirm container text-center responsive">
         <h2 className="card-title text-center">
-          <span className={"text-primary"}>¡</span>Únete a {<NameProject />}
-          <span className={"text-primary"}>!</span>
+          <span>¡</span>Únete a {<NameProject />}
+          <span>!</span>
         </h2>
         <div className="row">
           <div className="col-md-6 paymentMethod">
@@ -341,7 +341,7 @@ const pay = withRouter(({ packages, handleSubmit, }) => {
                 <div className="col-12">
                   <FormGroup>
                     <Label htmlFor="cardHolderName">
-                      Nombre impreso en tarjeta
+                      Nombre impreso en la tarjeta
                   </Label>
                     <Input
                       id="cardHolderName"
@@ -354,7 +354,7 @@ const pay = withRouter(({ packages, handleSubmit, }) => {
                 </div>
                 <div className="col-12">
                   <FormGroup>
-                    <Label htmlFor="docNumber">RUT/RUN/DNI asociado a la tarjeta</Label>
+                    <Label htmlFor="docNumber">{TENANT=='america'?'Cédula de Ciudadanía (sin puntos)':'RUT/RUN/DNI asociado a la tarjeta'}</Label>
                     <Input
                       className={"form-control"}
                       onChange={handleInputChange}

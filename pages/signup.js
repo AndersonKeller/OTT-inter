@@ -123,8 +123,8 @@ const Signup = ({}) => {
               // backgroundImage: `url('/static/${ TENANT }/subs/bg_modal.png')`,
             }
           }>
-            <h2 className="card-title text-center"><span className={ "text-primary" }>¡</span>Únete a { <NameProject/> }
-              <span className={ "text-primary" }>!</span></h2>
+            <h2 className="card-title text-center"><span>¡</span>Únete a { <NameProject/> }
+              <span>!</span></h2>
 
             <div className="row w-100 justify-content-center">
               <div className="col-md-8 col-sm-10">

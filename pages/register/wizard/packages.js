@@ -78,9 +78,9 @@ const PackagesDetails = ({
       <form method="post" onSubmit={ submit }>
         <div className="register-confirm container text-center">
           <h2 className="card-title text-center">
-            <span className={ "text-primary" }>¡</span>Únete a{ " " }
+            <span>¡</span>Únete a{ " " }
             { <NameProject/> }
-            <span className={ "text-primary" }>!</span>
+            <span>!</span>
           </h2>
           <div className="card-subtitle d-inline-block">Elige tu plan</div>
           <br></br>

@@ -502,7 +502,8 @@ const Signature = ({
                 </div>
                 <div className="col-12">
                   <FormGroup>
-                    <Label htmlFor="docNumber">RUT/RUN/DNI asociado a la tarjeta</Label>
+                    <Label>{TENANT=='america'?'C.C.':'RUT/RUN/DNI asociado a la tarjeta'} (sin puntos)</Label>
+
                     <Input
                       className={"form-control"}
                       onChange={handleInputChange}

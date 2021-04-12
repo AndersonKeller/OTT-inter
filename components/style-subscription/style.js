@@ -3,11 +3,50 @@ import Color from 'color'
 import { ThemeContext } from 'styled-components'
 import styled from 'styled-components'
 import { STATIC_PATH, TENANT } from '~/constants/constants'
+import useWindowDimensions from '~/hooks/useWindowDimensions'
 
 
 
  export  const StyleSection1 = styled.div.attrs((props)=>{
+
+   const iPhone4Height = 480
+
+  const {
+    height: windowHeight = iPhone4Height,
+    width: windowWidth = 320,
+  } = useWindowDimensions()
+
+  const imageDimensions = { width: 1800, height: 746 }
+
+  const headerHeight = windowWidth >= 768 ? 90 : 75
+
+  const footerHeight = windowWidth >= 768 ? 0 : 65
+
+  const chromeLaptopHeight = 657
+
+  const minHeight = windowWidth >= 1400 ? 0 :
+    windowWidth >= 1200 ? chromeLaptopHeight - headerHeight :
+      iPhone4Height - headerHeight - footerHeight
+
+  const maxHeight = windowWidth >= 1400 ? 740 :
+    windowWidth >= 1200 ? windowHeight :
+      windowWidth >= 992 ? 525 :
+        windowWidth >= 768 ? 450 :
+          windowHeight
+
+  const sectionHeight = Math.max(minHeight,
+    Math.min(maxHeight,
+      windowHeight - headerHeight - footerHeight,
+    ),
+  )
+
+
+  const percentage = sectionHeight / imageDimensions.height
+
+
     const theme = useContext(ThemeContext)
+    props.sectionHeight = sectionHeight
+    props.imageWidth = percentage * imageDimensions.width;
     props.backgroundColor = Color(theme.colors.background).fade(1).hsl().string();
     props.backgroundColor2 = Color(theme.colors.background).fade(.1).hsl().string();
     props.backgroundColor3 = Color(theme.colors.background).fade(.05).hsl().string()
@@ -51,7 +90,7 @@ import { STATIC_PATH, TENANT } from '~/constants/constants'
           animation: sliding 200s linear infinite normal;
           background-image: url(${STATIC_PATH}/subscriptor/section1-img.png);
           background-position: 50% 0;
-           background-size: ${props=>props.imageWidth + 'px'} 100%;
+          background-size: ${props=>props.imageWidth + 'px'} 100%;
           content: '';
           display: block;
           height: 100%;
@@ -60,9 +99,10 @@ import { STATIC_PATH, TENANT } from '~/constants/constants'
           top: 0;
            width: ${props=>props.imageWidth * 10 + 'px'};
           z-index: -2;
+
         }
         .section1::after {
-          background-image:radial-gradient(circle at 75% 45%, ${props=>props.backgroundColor} 0%, ${props=>props.backgroundColor2} 0%, ${props=>props.backgroundColor3} 110%);
+          background-image:radial-gradient(circle at 75% 45%, ${props=>props.backgroundColor} 0%, ${props=>props.backgroundColor2} 0%, ${props=>props.backgroundColor3} 100%);
           background-position: 50% 0;
           background-size: cover;
           bottom: 0;
@@ -167,7 +207,7 @@ export const StyleSection2 = styled.div.attrs((props)=>{
         }
       .text-featured{
         font-weight: 600;
-        font-size: 26px;
+        font-size: 23px;
       }
       .container-inicial-sub{
         font-size: 18px;
@@ -178,6 +218,10 @@ export const StyleSection2 = styled.div.attrs((props)=>{
       }
         .aling-logo {
          margin-bottom: 40px;
+        }
+        .sub-text-section-2{
+          font-size:14px;
+
         }
 
 
@@ -354,7 +398,13 @@ export const PageStyle = styled.div`
       }
 
         .section1{
-         margin-top: 100px;
+          margin: 100px 0px 100px 0px;
+      }
+
+      .button-finish{
+        display:flex;
+        justify-content:center;
+        margin:40px;
       }
 
 

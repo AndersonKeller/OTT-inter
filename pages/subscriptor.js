@@ -21,6 +21,21 @@ import {StyleSection1, StyleSection2, PageStyle, StylePackages,StyleSection4} fr
 
 
 function SubscriptorPage({ layoutProps, mainPackage }) {
+  const { openAuthModal } = useContext(AuthModalContext)
+  const { user } = useContext(UserContext)
+    function finish(){
+
+        if(user) {
+      Router.push({
+          pathname: "/register/wizard/complete-test",
+
+        })
+
+    } else {
+        openAuthModal('register')
+    }
+
+  }
 
   const playersName = TENANT === 'river' ? 'Franco Armani' :
     TENANT === 'colocolo' ? 'Valdivia' :
@@ -44,7 +59,7 @@ function SubscriptorPage({ layoutProps, mainPackage }) {
       <div className="subscriptor">
 
         {/* section 1 */}
-        <Section1 mainPackage={mainPackage} />
+        <Section1  mainPackage={mainPackage}  user={user} openAuthModal={openAuthModal} finish={finish} />
 
           {/* section 2 */}
          <Section2></Section2>
@@ -54,7 +69,7 @@ function SubscriptorPage({ layoutProps, mainPackage }) {
 
 
           {/* Questions */}
-          <Section4></Section4>
+          <Section4  user={user} openAuthModal={openAuthModal} finish={finish} ></Section4>
 
 
       </div>
@@ -176,44 +191,10 @@ const Packages = () => {
   )
 }
 
-const Section1 = ({ mainPackage }) => {
+const Section1 = ({ mainPackage, user, finish }) => {
 
-  const iPhone4Height = 480
-
-  const {
-    height: windowHeight = iPhone4Height,
-    width: windowWidth = 320,
-  } = useWindowDimensions()
-
-  const imageDimensions = { width: 1310, height: 746 }
-
-  const headerHeight = windowWidth >= 768 ? 90 : 75
-
-  const footerHeight = windowWidth >= 768 ? 0 : 65
-
-  const chromeLaptopHeight = 657
-
-  const minHeight = windowWidth >= 1400 ? 0 :
-    windowWidth >= 1200 ? chromeLaptopHeight - headerHeight :
-      iPhone4Height - headerHeight - footerHeight
-
-  const maxHeight = windowWidth >= 1400 ? 740 :
-    windowWidth >= 1200 ? windowHeight :
-      windowWidth >= 992 ? 525 :
-        windowWidth >= 768 ? 450 :
-          windowHeight
-
-  const sectionHeight = Math.max(minHeight,
-    Math.min(maxHeight,
-      windowHeight - headerHeight - footerHeight,
-    ),
-  )
-
-  const percentage = sectionHeight / imageDimensions.height
-
-  const imageWidth = percentage * imageDimensions.width
   const leadText = `¡El ${CONFIG.fullClubName} te da la bienvenida a la primera plataforma digital en su tipo de contenidos exclusivos del Romántico Viajero, ${TENANT === 'river' ? 'del Más Grande' : CONFIG.appName}!`
-  const text_1_Section_1 = `¡BIENVENIDOS, ESTO ES ${CONFIG.appNameSubscription}`
+  const text_1_Section_1 = `¡BIENVENIDOS, ESTO ES ${CONFIG.appNameSubscription}¡`
   const text_2_Section_1 = `Aquí tendrás acceso ${ TENANT === 'lau'?CONFIG.appNameSubscription:' al mundo Escarlata'} como nunca imaginaste, serás testigo del presente y el futuro del club.`
   const text_3_Section_1 = `¡Sé parte de la Revolución ${ TENANT === 'lau'?CONFIG.appNameSubscription:'Escarlata'}!`
 
@@ -227,25 +208,10 @@ const Section1 = ({ mainPackage }) => {
 
   const { clubName } = CONFIG
   const theme = useContext(ThemeContext)
-  const { openAuthModal } = useContext(AuthModalContext)
   const backgroundColor = Color(theme.colors.background)
-    const { user } = useContext(UserContext)
-  function finish(){
-
-        if(user) {
-      Router.push({
-          pathname: "/register/wizard/complete-test",
-
-        })
-
-    } else {
-        openAuthModal('register')
-    }
-
-  }
 
   return (
-    <StyleSection1 windowWidth={windowWidth} sectionHeight={sectionHeight} imageWidth={imageWidth}>
+    <StyleSection1>
     <div className="section1 container-fluid">
       <div className="row container-inicial-sub">
         <div className="col-md-5">
@@ -276,7 +242,7 @@ const Section2 = () => {
   const backgroundColor = Color(theme.colors.background)
   const text_1_Section_2 =`Mira contenido totalmente exclusivo, comparte con el equipo todos los momentos que siempre quisiste ver o estar.`
   const text_2_Section_2 =`Mantente al tanto de todas las novedades que el club te traerá.`
-  const text_3_Section_2 =`La oportunidad de estar en esta nueva etapa es ahora.`
+  const text_3_Section_2 =` La oportunidad de estar en esta nueva etapa es ahora.`
 
   return (
     <StyleSection2>
@@ -290,8 +256,11 @@ const Section2 = () => {
           </div>
             <div className="col-md-5 img-text ">
               <p className="text-featured">{text_1_Section_2}</p>
-              <p >{text_2_Section_2}</p>
-              <p>{text_3_Section_2}</p>
+              <div className="sub-text-section-2">
+              <p >{text_2_Section_2}
+                {text_3_Section_2}</p>
+
+            </div>
             </div>
          </div>
           </div>
@@ -303,7 +272,7 @@ const Section2 = () => {
   )
 }
 
-const Section4 = () => {
+const Section4 = ({ user,finish }) => {
   const [faqs ,setFaqs] = useState(
     [
     {
@@ -360,6 +329,13 @@ const Section4 = () => {
               </Card>
             )) }
           </Accordion>
+          <div className="button-finish">
+
+             {user? (<Button onClick={finish} > FINALIZAR REGISTRO</Button>):(
+              <Button onClick={finish} >REGISTRARSE</Button>
+            )}
+          </div>
+
       </div>
 
     </div>

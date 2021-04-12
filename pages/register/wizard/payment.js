@@ -14,6 +14,8 @@ import { ThemeContext } from "styled-components";
 import Color from "color";
 import NameProject from "~/components/NameProject";
 import { toast } from "react-toastify";
+import {  TENANT } from '~/constants/constants'
+
 
 const Payment = ({
   layoutProps,
@@ -309,7 +311,7 @@ const Payment = ({
   return (
     <div className="register-confirm container text-center responsive">
       <h2 className="card-title text-center">
-        <span className={"text-primary"}>¡</span>Únete a {<NameProject />}
+        <span >¡</span>Únete a {<NameProject />}
         <span className={"text-primary"}>!</span>
       </h2>
       <div className="row">
@@ -365,7 +367,8 @@ const Payment = ({
               </div>
               <div className="col-12">
                 <FormGroup>
-                  <Label htmlFor="docNumber">RUT/RUN/DNI asociado a la tarjeta</Label>
+                  <Label>{TENANT=='america'?'C.C.':'RUT/RUN/DNI asociado a la tarjeta'} (sin puntos)</Label>
+
                   <Input
                     className={"form-control"}
                     onChange={handleInputChange}

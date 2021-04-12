@@ -362,7 +362,7 @@ const UserDataForm = ({ api, layoutProps, handleSubmit, formData, setFormData })
       <div className="register-confirm container text-center">
 
         <h2 className="card-title text-center">
-          <span className={"text-primary"}>¡</span>Únete a {<NameProject />}<span className={"text-primary"}>!</span>
+          <span>¡</span>Únete a {<NameProject />}<span>!</span>
         </h2>
 
         <div className={"card-subtitle"}>

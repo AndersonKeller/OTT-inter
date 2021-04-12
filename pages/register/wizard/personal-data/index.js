@@ -6,6 +6,7 @@ import UserContext from "~/contexts/UserContext";
 import Address from "~/pages/register/wizard/partials/address"
 import Button from "~/components/button";
 import { ThemeContext } from "styled-components";
+import {  TENANT } from '~/constants/constants'
 import Color from "color";
 import NameProject from '~/components/NameProject/index'
 import FormGroup from '~/components/layout/AuthModal/FormGroup'
@@ -219,11 +220,11 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
     <form method="post" onSubmit={submit}>
       <div className="register-confirm container text-center responsive active">
         <h2 className="card-title text-center">
-          <span className={"text-primary"}>¡</span>Únete a {<NameProject />}
-          <span className={"text-primary"}>!</span>
+          <span>¡</span>Únete a {<NameProject />}
+          <span>!</span>
         </h2>
         <div className="card-subtitle d-inline-block">
-          ¡Antes de seguir, queremos saber más de ti!
+          Antes de seguir, queremos saber más de ti
         </div>
 
         <div className="row">
@@ -333,7 +334,9 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
                 </div>
                 <div className="col-md-6">
                   <FormGroup>
-                    <Label htmlFor="document">RUT (sin puntos y con guion)</Label>
+                    <div className="rut">
+                    <Label>{TENANT=='america'?'Cédula de Ciudadanía':'RUT '}</Label>
+                    <Label> (sin puntos y con guion)</Label></div>
                     <Input
                       id="document"
                       name="document"
@@ -434,6 +437,10 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
 
         ${releasedPackages.data==false?'.active{pointer-events: none;opacity: 0.4;}':''}
 
+        .rut{
+          display:flex;
+        }
+
       .complete {
             background: var(--primary);
             color: white;
@@ -461,7 +468,7 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
           font-size: 1.1em;
           font-weight: 500;
           margin-bottom: 2.5em;
-          max-width: 380px;
+          max-width: 415px;
         }
 
         .text-primary {
@@ -525,6 +532,10 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
       .text-primary {
         color: ${primaryColor} !important;
       }
+        @media(max-width: 765px) {
+          .rut{
+            display: inherit;
+          }
 
       `}</style>
     </form >

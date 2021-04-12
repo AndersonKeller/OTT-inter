@@ -164,8 +164,8 @@ const UserAddressForm = ({
     <form method="post" onSubmit={submit}>
       <div className="register-confirm container text-center responsive">
         <h2 className="card-title text-center">
-          <span className={"text-primary"}>¡</span>Únete a {<NameProject />}
-          <span className={"text-primary"}>!</span>
+          <span>¡</span>Únete a {<NameProject />}
+          <span>!</span>
         </h2>
         <div className="card-subtitle d-inline-block">
           Conéctate sin tener que salir de casa
