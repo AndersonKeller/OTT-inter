@@ -23,7 +23,7 @@ if(TENANT =='america'){
     // { slug: 'add', label: 'Mi Lista', href: '/wishlist' },
     // { slug: 'user', label: 'Mi Cuenta', href: '/user/account' },
     // { slug: 'settings', label: 'Configuración', href: '/settings' },
-    { slug: 'help', label: 'Ayuda', href: '/help' },
+    // { slug: 'help', label: 'Ayuda', href: '/help' },
     // { slug: 'info', label: 'Soporte', href: '/soporte' },
     { slug: 'logout', label: 'Salir', href: '/logout', onClick: logout, },
   ]
