@@ -84,7 +84,7 @@ const HeaderSubscription =
           {!closed && (
               //  user
               <div className="menu-sub">
-             <span className="menu-sub-text" >Ingresse aqui</span> <UserMenu  login_sub={true}/></div>
+             <span className="menu-sub-text" >Ingresa aquí</span> <UserMenu  login_sub={true}/></div>
           )}
 
 

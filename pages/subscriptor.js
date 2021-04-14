@@ -20,7 +20,7 @@ import { Accordion, Card } from 'react-bootstrap'
 import {StyleSection1, StyleSection2, PageStyle, StylePackages,StyleSection4} from '~/components/style-subscription/style'
 
 
-function SubscriptorPage({ layoutProps, mainPackage }) {
+export const  SubscriptorPage = ({ layoutProps, mainPackage }) =>{
   const { openAuthModal } = useContext(AuthModalContext)
   const { user } = useContext(UserContext)
     function finish(){
@@ -196,6 +196,7 @@ const Section1 = ({ mainPackage, user, finish }) => {
   const leadText = `¡El ${CONFIG.fullClubName} te da la bienvenida a la primera plataforma digital en su tipo de contenidos exclusivos del Romántico Viajero, ${TENANT === 'river' ? 'del Más Grande' : CONFIG.appName}!`
   const text_1_Section_1 = `¡BIENVENIDOS, ESTO ES ${CONFIG.appNameSubscription}!`
   const text_2_Section_1 = `Aquí tendrás acceso ${ TENANT === 'lau'?CONFIG.appNameSubscription:' al mundo Escarlata'} como nunca imaginaste, serás testigo del presente y el futuro del club.`
+
   const text_3_Section_1 = `¡Sé parte de la Revolución ${ TENANT === 'lau'?CONFIG.appNameSubscription:'Escarlata'}!`
 
   const minPrice = TENANT === 'lau' ? '$1.690' : mainPackage ? '$' + mainPackage.amount : null
@@ -223,7 +224,8 @@ const Section1 = ({ mainPackage, user, finish }) => {
             <p  className="text-featured">{text_2_Section_1}</p>
             <p>{text_3_Section_1}</p>
             {user? (<Button onClick={finish} > FINALIZAR REGISTRO</Button>):(
-              <Button onClick={finish} >REGISTRARSE</Button>
+             <Button onClick={finish} >{TENANT=='america'?'¡Empieza ya!' :'REGISTRARSE'} </Button>
+
             )}
           </div>
         </div>
@@ -240,7 +242,7 @@ const Section2 = () => {
   const { clubName } = CONFIG
   const theme = useContext(ThemeContext)
   const backgroundColor = Color(theme.colors.background)
-  const text_1_Section_2 =`Mira contenido totalmente exclusivo, comparte con el equipo todos los momentos que siempre quisiste ver o estar.`
+  const text_1_Section_2 =`Míralo desde cualquier parte del mundo y mantente informado de todas las novedades que América te traerá.`
   const text_2_Section_2 =`Mantente al tanto de todas las novedades que el club te traerá.`
   const text_3_Section_2 =` La oportunidad de estar en esta nueva etapa es ahora.`
 
@@ -287,7 +289,7 @@ const Section4 = ({ user,finish }) => {
      },
         {
       "id": "1",
-      "question": "¿Puedo cancelar la suscripción?",
+      "question": "¿Cómo puedo cancelar mi suscripción a América Play?",
       "answer": `
       <p>Sí, puedes cancelar tu suscripción en cualquier momento, pero ya no tendrás la oportunidad de obtener esta oferta otra vez.</p>
      <p>Esta es una forma de recompensar a quienes nos acompañan desde el principio en nuestra revolución escarlata.</p>
@@ -331,8 +333,8 @@ const Section4 = ({ user,finish }) => {
           </Accordion>
           <div className="button-finish">
 
-             {user? (<Button onClick={finish} > FINALIZAR REGISTRO</Button>):(
-              <Button onClick={finish} >REGISTRARSE</Button>
+             {user? (<Button onClick={finish} > FINALIZAR REGISTRO}</Button>):(
+              <Button onClick={finish} >{TENANT=='america'?'¡Empieza ya!' :'REGISTRARSE'} </Button>
             )}
           </div>
 
