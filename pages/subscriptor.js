@@ -32,7 +32,10 @@ export const  SubscriptorPage = ({ layoutProps, mainPackage }) =>{
         })
 
     } else {
-        openAuthModal('register')
+            Router.push({
+          pathname: "/signup",
+
+        })
     }
 
   }

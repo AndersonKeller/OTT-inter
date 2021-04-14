@@ -17,8 +17,18 @@ const UserMenu = ({login_sub}) => {
 
   const { signOut, user } = useContext(UserContext)
   const { closeAuthModal, openAuthModal } = useContext(AuthModalContext)
-
-  const loggedMenu = [
+ let loggedMenu =[]
+if(TENANT =='america'){
+  loggedMenu = [
+    // { slug: 'add', label: 'Mi Lista', href: '/wishlist' },
+    // { slug: 'user', label: 'Mi Cuenta', href: '/user/account' },
+    // { slug: 'settings', label: 'Configuración', href: '/settings' },
+    { slug: 'help', label: 'Ayuda', href: '/help' },
+    // { slug: 'info', label: 'Soporte', href: '/soporte' },
+    { slug: 'logout', label: 'Salir', href: '/logout', onClick: logout, },
+  ]
+}else{
+     loggedMenu = [
     { slug: 'add', label: 'Mi Lista', href: '/wishlist' },
     { slug: 'user', label: 'Mi Cuenta', href: '/user/account' },
     // { slug: 'settings', label: 'Configuración', href: '/settings' },
@@ -26,6 +36,8 @@ const UserMenu = ({login_sub}) => {
     // { slug: 'info', label: 'Soporte', href: '/soporte' },
     { slug: 'logout', label: 'Salir', href: '/logout', onClick: logout, },
   ]
+
+}
 
   function getUserName() {
     const nameArray = user.name.split(' ')
