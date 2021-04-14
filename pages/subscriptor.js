@@ -223,6 +223,8 @@ const Section1 = ({ mainPackage, user, finish }) => {
             <p>{text_1_Section_1}</p>
             <p  className="text-featured">{text_2_Section_1}</p>
             <p>{text_3_Section_1}</p>
+             {TENANT=='america'&&( <p> <img src={`${STATIC_PATH}/subscriptor/image-2.png`}/></p>)}
+
             {user? (<Button onClick={finish} > FINALIZAR REGISTRO</Button>):(
              <Button onClick={finish} >{TENANT=='america'?'¡Empieza ya!' :'REGISTRARSE'} </Button>
 
@@ -333,7 +335,7 @@ const Section4 = ({ user,finish }) => {
           </Accordion>
           <div className="button-finish">
 
-             {user? (<Button onClick={finish} > FINALIZAR REGISTRO}</Button>):(
+             {user? (<Button onClick={finish} > FINALIZAR REGISTRO</Button>):(
               <Button onClick={finish} >{TENANT=='america'?'¡Empieza ya!' :'REGISTRARSE'} </Button>
             )}
           </div>

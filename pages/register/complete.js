@@ -454,7 +454,7 @@ const CompleteRegisterForm = ({ api, isPayUReady, packages, POS }) => {
               type="checkbox"
               value={`true`}
             />
-            <span>He leído y acepto <Link href="/terminos-y-politicas">
+            <span>He leído y acepto <Link href={CONFIG.terminosYpoliticas}>
                 <a target="_blank">el contrato</a>
               </Link> de {CONFIG.appName}</span>
           </label>

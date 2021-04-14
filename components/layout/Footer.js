@@ -49,60 +49,62 @@ const NavFooter = ({ className }) => {
   const theme = useContext(ThemeContext)
   const backgroundColor = Color(theme.colors.background).hsl().string()
   const textAndFillColor = Color(theme.colors.texts).hsl().string()
-
-  return (
-    <nav className={classes}>
-      {menu.map((item, key) => (
-        <ActiveLink href={item.href} {...{ key }}>
-          <a>
-            <span className="icon">
-              <ReactSVG src={`/static/icons/${item.icon}.svg`} />
-            </span>
-            {item.label}
-          </a>
-        </ActiveLink>
-      ))}
-      <style jsx>{`
-        .nav-footer {
-          align-items: flex-end;
-          background-color: ${backgroundColor};
-          bottom: 0;
-          box-shadow: 0 0 5px rgba(var(--black-rgb), .9);
-          display: flex;
-          /* font-size: 10px; */
-          font-size: 13px;
-          justify-content: space-evenly;
-          left: 0;
-          line-height: 20px;
-          padding: 10px;
-          position: fixed;
-          z-index: 10;
-          width: 100%;
-        }
-        .nav-footer a {
-          align-items: center;
-          color: ${textAndFillColor};
-          display: flex;
-          flex-direction: column;
-          fill: ${textAndFillColor};
-          text-decoration: none;
-        }
-        .nav-footer a.active {
-          color: var(--white);
-          fill: var(--white);
-        }
-        .nav-footer a .icon {
-          margin-bottom: 5px;
-          width: 20px;
-        }
-        .nav-footer a .icon :global(path),
-        .nav-footer a .icon :global(polygon),
-        .nav-footer a .icon :global(rect) {
-          fill: inherit;
-        }
-      `}</style>
-    </nav>
-  )
+if(TENANT=='america'){ return<></>}
+  else{
+      return (
+        <nav className={classes}>
+          {menu.map((item, key) => (
+            <ActiveLink href={item.href} {...{ key }}>
+              <a>
+                <span className="icon">
+                  <ReactSVG src={`/static/icons/${item.icon}.svg`} />
+                </span>
+                {item.label}
+              </a>
+            </ActiveLink>
+          ))}
+          <style jsx>{`
+            .nav-footer {
+              align-items: flex-end;
+              background-color: ${backgroundColor};
+              bottom: 0;
+              box-shadow: 0 0 5px rgba(var(--black-rgb), .9);
+              display: flex;
+              /* font-size: 10px; */
+              font-size: 13px;
+              justify-content: space-evenly;
+              left: 0;
+              line-height: 20px;
+              padding: 10px;
+              position: fixed;
+              z-index: 10;
+              width: 100%;
+            }
+            .nav-footer a {
+              align-items: center;
+              color: ${textAndFillColor};
+              display: flex;
+              flex-direction: column;
+              fill: ${textAndFillColor};
+              text-decoration: none;
+            }
+            .nav-footer a.active {
+              color: var(--white);
+              fill: var(--white);
+            }
+            .nav-footer a .icon {
+              margin-bottom: 5px;
+              width: 20px;
+            }
+            .nav-footer a .icon :global(path),
+            .nav-footer a .icon :global(polygon),
+            .nav-footer a .icon :global(rect) {
+              fill: inherit;
+            }
+          `}</style>
+        </nav>
+      )
+    }
 }
 
 const SocialNetworks = ({ className }) => {
@@ -167,7 +169,7 @@ const SocialNetworks = ({ className }) => {
             margin-left: 1px;
             padding: 5px;
           }
-        
+
         a:focus,
         a:hover {
           color: ${colorHover};

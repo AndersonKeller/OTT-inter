@@ -202,7 +202,7 @@ const Signup = ({}) => {
 
 
                           <span className="text-dark" style={ { paddingLeft: "10px" } }>
-                        <Link href="/terminos-y-politicas">
+                        <Link   href={CONFIG.terminosYpoliticas}>
                           He leído y acepto el contrato</Link> de { CONFIG.projectName }</span>
                         </label>
                         <InvalidFeedback error={ error } loading={ loading } name="terms"/>

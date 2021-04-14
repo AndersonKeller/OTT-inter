@@ -392,9 +392,7 @@ const PersonalDataForm = ({ api, layoutProps, handleSubmit, handleFormState, for
 
 
             </div>
-            <div className="col-md-12  complete" >
-              Completa los detalles de tu casa
-               </div>
+
             <div className="col-md-12" style={{ padding: 0 }}>
               <div className="row">
 
