@@ -53,15 +53,15 @@ const Signature = ({
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [blockDiscountFields, setBlockDiscountFields] = useState(false);
   const { user } = useContext(UserContext);
-
+ const [packDestaque, setPackDestaque] = useState(null);
   const [cardImg, setCardImg] = useState(null);
   const [creditCard, setCreditCard] = useState(null);
   const [loading, setLoading] = useState();
   const [error, setError] = useState({ errors: {} });
   const [subimitFinish, setSubimitFinish] = useState(false);
-  // const businessUnitPublicKey = "TEST-5121749c-2a58-4b7d-b98c-9b9932a3a4cc";
+  const businessUnitPublicKey = "TEST-5121749c-2a58-4b7d-b98c-9b9932a3a4cc";
   // const businessUnitPublicKey = 'APP_USR-fe20d55f-f7d1-49e0-855b-4d5c147ddd0b'
-  const businessUnitPublicKey = 'TEST-4c655652-9ace-4019-93ad-16650f0a29f5'
+  // const businessUnitPublicKey = 'TEST-4c655652-9ace-4019-93ad-16650f0a29f5'
   const [isMercadoPagoReady, setIsMercadoPagoReady] = useState(false)
   const MercadoPago = ready && HAS_WINDOW ? window.Mercadopago : null
   //Set Values
@@ -123,13 +123,27 @@ const Signature = ({
 
 
   //ChangePackage
+  // const onPackageChange = useCallback(e => {
+
+  //   const package_id = parseInt(e.target.value, 10);
+  //   setFormData({
+  //     ...formData,
+  //     package_id,
+  //   });
+  //   if (packages && package_id) {
+  //     let seletPack = packages.items.find(i => i.id == package_id);
+  //     setSelectedPackage(seletPack)
+
+
+  //   }
+  // }, [packages]);
+
+  //ChangePackage
   const onPackageChange = useCallback(e => {
 
     const package_id = parseInt(e.target.value, 10);
-    setFormData({
-      ...formData,
-      package_id,
-    });
+    setPackDestaque(package_id);
+
     if (packages && package_id) {
       let seletPack = packages.items.find(i => i.id == package_id);
       setSelectedPackage(seletPack)
@@ -137,6 +151,15 @@ const Signature = ({
 
     }
   }, [packages]);
+
+  useEffect(()=>{
+
+      setFormData({
+      ...formData,
+      package_id:packDestaque,
+    });
+
+  },[selectedPackage]);
 
 
 
@@ -669,8 +692,6 @@ const Signature = ({
         )}
 
       <style jsx global={true}>{`
-
-      // ${releasedPackages.packages==false?'.active-sig{pointer-events: none;opacity: 0.4;}':''}
         .card {
           min-height: 600px;
         }
