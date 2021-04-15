@@ -248,7 +248,7 @@ const Section2 = () => {
   const theme = useContext(ThemeContext)
   const backgroundColor = Color(theme.colors.background)
   const text_1_Section_2 =`Míralo desde cualquier parte del mundo y mantente informado de todas las novedades que América te traerá.`
-  const text_2_Section_2 =`Mantente al tanto de todas las novedades que el club te traerá.`
+  const text_2_Section_2 =`Mantente al tanto de todas las novedades que el club tiene para ti . La oportunidad de estar en esta nueva etapa es ahora.`
   const text_3_Section_2 =` La oportunidad de estar en esta nueva etapa es ahora.`
 
   return (

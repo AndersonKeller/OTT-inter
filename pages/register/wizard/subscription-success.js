@@ -2,8 +2,6 @@
 import withAuth from "~/components/withAuth";
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "~/contexts/UserContext";
-
-import { TENANT } from "~/constants/constants";
 import { CONFIG } from "~/config";
 import Color from "color";
 import { ThemeContext } from "styled-components";
@@ -40,7 +38,7 @@ const SubscriptionSuccess = ({ formData, handleFormState }) => {
   );
 
   function appName() {
-    return "La U Play";
+    return CONFIG.appName;
   }
 
   function renderText() {
@@ -80,9 +78,6 @@ const SubscriptionSuccess = ({ formData, handleFormState }) => {
         { renderText() }
 
         <br/>
-
-        <img src={ `/static/${ TENANT }/logos/logo_gray.png` } alt={ CONFIG.appName } width={ 300 }
-             style={ { marginTop: "20px" } }/>
 
       </div>
 
