@@ -39,7 +39,7 @@ export function UserProvider({ children }) {
 
     setUser(user)
 
-    if (toComplete) {
+    if (!user.document) {
       Router.replace('/register/wizard/complete-test')
     } else {
       Router.replace('/')
