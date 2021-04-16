@@ -172,7 +172,7 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
             </>
           )
           : showVideo && isValid ? (
-            (media && media.movie_links && media.movie_links.length && !youtube_link && !hls_link == 1) ? (
+            (media && media.movie_links && media.movie_links.length && !youtube_link) ? (
               <div style={ { position: 'relative' } }>
                 <Player
                   height="100%"
