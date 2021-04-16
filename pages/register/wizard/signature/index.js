@@ -256,7 +256,7 @@ const Signature = ({
     const getPaymentMethods = async _ => {
       const { data } = await api.get("payment-methods");
       const tempList = [];
-      tempList.push(data[0]);
+      tempList.push(data[0],data[1]);
       setPaymentMethods(tempList);
     };
     getPaymentMethods();
@@ -308,8 +308,9 @@ const Signature = ({
 
 
     switch (values.paymentMethodId) {
-      case 1:
-      case 2:
+
+   case 1:
+
         MercadoPago.createToken(
           {
             cardNumber: values.cardNumber,
@@ -387,6 +388,88 @@ const Signature = ({
           }
         );
         break;
+      case 2:
+
+            MercadoPago.createToken(
+          {
+            cardNumber: values.cardNumber,
+            cardholderName: values.cardHolderName,
+            cardExpirationMonth: expirationMonth,
+            cardExpirationYear: expirationYear,
+            securityCode: values.cardSecurityCode,
+            docType: values.docType,
+            docNumber: values.docNumber,
+            email: user.email
+          },
+          async (statusCode, response) => {
+
+            let token = "";
+
+            if (response && response.cause && response.cause.length > 0) {
+              let errors = [];
+              for (let error of response.cause) {
+                if (error.code === "E301") {
+                  errors["cardNumber"] =
+                    "Hay un error con ese número. Digita nuevamente.";
+                }
+                if (error.code === "E302") {
+                  errors["cardSecurityCode"] = "Ingresa el código de seguridad o CVV.";
+                }
+                if (error.code === "316") {
+                  error["cardHolderName"] = "Por favor ingresa un nombre válido.";
+                }
+                if (error.code === "324") {
+                  errors["docType"] = "Confirma tu documento.";
+                }
+                if (error.code === "325" || error.code === "326") {
+                  errors["cardExpirationDate"] = "Ingresa una fecha.";
+                }
+              }
+              setError({
+                errors: errors
+              });
+            }
+
+            try {
+              token = response.id;
+
+              const res = await api.post(`register/subscribe`, {
+                package_id: selectedPackage.id,
+                payment_method_id: values.paymentMethodId,
+                payment_method_code: values.paymentMethodCode,
+                token: token
+              });
+
+              handleSubmit(4, null);
+            } catch (error) {
+              if (error.response) {
+                const { data, status } = error.response;
+
+                MercadoPago.clearSession();
+
+                toast.error(data.message, { delay: 500, autoClose: 5000 });
+
+                if (status === 422) {
+                  setError(data);
+                }
+              } else if (error.request) {
+                setError(error);
+              } else {
+                setError(error);
+              }
+            } finally {
+              setLoadingSubmit(false);
+              setLoading(false);
+            }
+
+             setLoadingSubmit(false);
+             setLoading(false);
+
+          }
+        );
+        break;
+
+
       case 3:
         try {
           const res = await api.post(`register/subscribe`, {
