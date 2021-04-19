@@ -56,8 +56,16 @@ export const  SubscriptorPage = ({ layoutProps, mainPackage }) =>{
   return (
     <Layout {...layoutProps} subscription={true}>
       <PageStyle>
-      <Head>
+
+        <Head>
         <title>Subscriptor &lt; {CONFIG.appName}</title>
+        <link rel="apple-touch-icon" sizes="180x180" href={`/static/${TENANT}/favicon/favicon-180x180.png`} />
+        <link rel="icon" type="image/png" sizes="32x32" href={`/static/${TENANT}/favicon/favicon-32x32.png`} />
+        <link rel="icon" type="image/png" sizes="16x16" href={`/static/${TENANT}/favicon/favicon-16x16.png`} />
+        <link rel="manifest" href={`/static/${TENANT}/favicon/site.webmanifest`} />
+        <link rel="mask-icon" href={`/static/${TENANT}/favicon/safari-pinned-tab.svg`} color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
       </Head>
       <div className="subscriptor">
 
@@ -247,9 +255,11 @@ const Section2 = () => {
   const { clubName } = CONFIG
   const theme = useContext(ThemeContext)
   const backgroundColor = Color(theme.colors.background)
-  const text_1_Section_2 =`Míralo desde cualquier parte del mundo y mantente informado de todas las novedades que América te traerá.`
-  const text_2_Section_2 =`Mantente al tanto de todas las novedades que el club tiene para ti . La oportunidad de estar en esta nueva etapa es ahora.`
-  const text_3_Section_2 =` La oportunidad de estar en esta nueva etapa es ahora.`
+  const text_1_Section_2 =`¡Una plataforma exclusiva para los hinchas escarlatas. Una nueva forma de relacionarse con nuestros fans!
+  Jugadores, protagonistas, transmisiones en vivo, tutoriales, documentales, entrevistas, juegos y mucho más. ¡Todo el club como nunca lo viste! . `
+
+  const text_2_Section_2 =``
+  const text_3_Section_2 =` ¡Mírala donde quieras, desde cualquier parte del mundo. Mantente al tanto de todas las novedades que el Club tiene para tí.`
 
   return (
     <StyleSection2>
@@ -262,10 +272,11 @@ const Section2 = () => {
           <img className="" src={`${STATIC_PATH}/subscriptor/section2-img.png`}></img>
           </div>
             <div className="col-md-5 img-text ">
-              <p className="text-featured">{text_1_Section_2}</p>
+              <p className="text-featured">{text_1_Section_2} </p>
               <div className="sub-text-section-2">
-              <p >{text_2_Section_2}
+              <p >
                 {text_3_Section_2}</p>
+
 
             </div>
             </div>
@@ -285,21 +296,32 @@ const Section4 = ({ user,finish }) => {
     {
       "id": "1",
       "question": "¿Qué es América Play?",
-      "answer": "Será la nueva forma que tendrá el Club de relacionarse con sus hinchas, aportando contenidos únicos y oportunidades de momentos que solo estarán disponibles en esta plataforma."
+      "answer": "Es una plataforma suscripción, bajo el concepto Over The Top (OTT), en la que los aficionados encontrarán diferentes alternativas de contenido audiovisual y de entretenimiento, para transmitirse en instantáneamente videos en dispositivos móviles y web. "
     },
     {
-      "id": "1",
-      "question": "¿Qué contenido habrá en America Play?",
-      "answer": "Innovaremos cada vez más y daremos exclusividad a los suscriptores de América Play en contenido que hasta entonces no teníamos oportunidad de compartir."
+      "id": "2",
+      "question": "¿Qué contenido habrá en América Play?",
+      "answer": "La intimidad del club vista desde ópticas diferentes, tanto de los equipos masculinos y femenino, las canteras, la hinchada, transmisiones en vivo desde los entrenamientos y concentraciones con entrevistas exclusivas, tutoriales, esports, animaciones,entre otros. Muchos momentos únicos que antes no se compartían de manera oficial."
      },
         {
-      "id": "1",
-      "question": "¿Cómo puedo cancelar mi suscripción a América Play?",
+      "id": "3",
+      "question": "¿Cómo me suscribo a América Play?",
       "answer": `
-      <p>Sí, puedes cancelar tu suscripción en cualquier momento, pero ya no tendrás la oportunidad de obtener esta oferta otra vez.</p>
-     <p>Esta es una forma de recompensar a quienes nos acompañan desde el principio en nuestra revolución escarlata.</p>
+        América Play es una plataforma de suscripción, que contará con oferta de planes mensuales, trimestrales, semestrales y anuales. Podrás elegir tu plan a través del  pago con tarjeta de crédito o débito.
       `
-     }
+
+     },
+     {
+      "id": "4",
+      "question": "¿Cuál será el precio de lanzamiento de América Play?",
+      "answer": " Todos los aficionados que se suscriban durante la fase de preventa y lanzamiento, obtendrán un 40 % de descuento en nuestro plan anual de $79.990 . El precio de esta oferta será $49.990 por tiempo limitado ( 7 días ) Adicionalmente, tendrán 2 meses adicionales de America Play. 14 meses por solo $3.571 pesos final. Con el registrado estarán participando por sorteos únicos de experiencia"
+    },
+    {
+      "id": "5",
+      "question": "¿Cómo puedo cancelar mi suscripción en América Play?",
+      "answer": "No está muy clara esa redacción. La respuesta está más enfocada al por qué no cancelar, pero no está respondiendo la pregunta! Hay que hablar primero de las generalidades (qué pasa cuando cancele el plan, reembolso y si son planes largos). Acá es confuso porque se está hablando del plan de la promoción de lanzamiento, el cual es lanzamiento."
+     },
+
   ]
   );
 
