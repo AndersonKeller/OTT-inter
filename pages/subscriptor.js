@@ -316,11 +316,7 @@ const Section4 = ({ user,finish }) => {
       "question": "¿Cuál será el precio de lanzamiento de América Play?",
       "answer": " Todos los aficionados que se suscriban durante la fase de preventa y lanzamiento, obtendrán un 40 % de descuento en nuestro plan anual de $79.990 . El precio de esta oferta será $49.990 por tiempo limitado ( 7 días ) Adicionalmente, tendrán 2 meses adicionales de America Play. 14 meses por solo $3.571 pesos final. Con el registrado estarán participando por sorteos únicos de experiencia"
     },
-    {
-      "id": "5",
-      "question": "¿Cómo puedo cancelar mi suscripción en América Play?",
-      "answer": "No está muy clara esa redacción. La respuesta está más enfocada al por qué no cancelar, pero no está respondiendo la pregunta! Hay que hablar primero de las generalidades (qué pasa cuando cancele el plan, reembolso y si son planes largos). Acá es confuso porque se está hablando del plan de la promoción de lanzamiento, el cual es lanzamiento."
-     },
+
 
   ]
   );
