@@ -256,7 +256,7 @@ const Section2 = () => {
   const theme = useContext(ThemeContext)
   const backgroundColor = Color(theme.colors.background)
   const text_1_Section_2 =`¡Una plataforma exclusiva para los hinchas escarlatas. Una nueva forma de relacionarse con nuestros fans!
-  Jugadores, protagonistas, transmisiones en vivo, tutoriales, documentales, entrevistas, juegos y mucho más. ¡Todo el club como nunca lo viste! . `
+  Jugadores, protagonistas, transmisiones en vivo, tutoriales, documentales, entrevistas, juegos y mucho más. ¡Todo el club como nunca lo viste! `
 
   const text_2_Section_2 =``
   const text_3_Section_2 =` ¡Mírala donde quieras, desde cualquier parte del mundo. Mantente al tanto de todas las novedades que el Club tiene para tí.`
@@ -314,7 +314,7 @@ const Section4 = ({ user,finish }) => {
      {
       "id": "4",
       "question": "¿Cuál será el precio de lanzamiento de América Play?",
-      "answer": " Todos los aficionados que se suscriban durante la fase de preventa y lanzamiento, obtendrán un 40 % de descuento en nuestro plan anual de $79.990 . El precio de esta oferta será $49.990 por tiempo limitado ( 7 días ) Adicionalmente, tendrán 2 meses adicionales de America Play. 14 meses por solo $3.571 pesos final. Con el registrado estarán participando por sorteos únicos de experiencia"
+      "answer": " Todos los aficionados que se suscriban durante la fase de preventa y lanzamiento, obtendrán un 40 % de descuento en nuestro plan anual de $79.990 . El precio de esta oferta será $49.990 por tiempo limitado ( 7 días ) Adicionalmente, tendrán 2 meses adicionales de América Play. 14 meses por solo $3.571 pesos final. Con el registrado estarán participando por sorteos únicos de experiencia"
     },
 
 
