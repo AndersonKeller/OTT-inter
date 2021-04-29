@@ -9,17 +9,46 @@ import api from '../services/api'
 
 const IndexPage= ({  contents, featuredMedia, featuredMediaError,layoutProps} ) =>{
 const { user } = useContext(UserContext)
+const [sub ,setSub] = useState()
+const [loading ,setLoading] = useState(false)
 
-  if(user && TENANT=='lau'){
-     return  <HomePage layoutProps={layoutProps}  api ={api} contents={contents} featuredMedia={featuredMedia} featuredMediaError={featuredMediaError}/>
- }
-    else{
-     if(TENANT=='lau'){return <HomePage layoutProps={layoutProps}  api ={api} contents={contents} featuredMedia={featuredMedia} featuredMediaError={featuredMediaError}/>}
-     return    <SubscriptorPage/>
+  useEffect(_ => {
+
+    if(user){
+
+         api().get(`subscription-last/${user.id}`).then((res) => {
+          if(res){
+          setSub(res.data)
+          setLoading(true);
+          }
+
+         }).catch((e) => {
+             console.log(e)
+          });
+    }else{
+       setLoading(true);
     }
 
+  },[user])
 
+
+  return (
+
+    loading==true &&(
+        user && TENANT=='lau'?(
+          <HomePage layoutProps={layoutProps}  api ={api} contents={contents} featuredMedia={featuredMedia} featuredMediaError={featuredMediaError}/>
+        ): TENANT=='lau' ?(
+          <HomePage layoutProps={layoutProps}  api ={api} contents={contents} featuredMedia={featuredMedia} featuredMediaError={featuredMediaError}/>
+        ):sub && TENANT=='america' && sub.is_active==1 && sub.package_id !=1?(
+          <HomePage layoutProps={layoutProps}  api ={api} contents={contents} featuredMedia={featuredMedia} featuredMediaError={featuredMediaError}/>
+        ):(
+          <SubscriptorPage/>
+        )
+      )
+
+  )
 }
+
 IndexPage.getInitialProps = async ctx => {
   // const { api } = ctx
   const { data: homePage } = await api().get('pages/home');
