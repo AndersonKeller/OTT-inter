@@ -1,12 +1,10 @@
-
-
-import React, { useContext, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import FormGroup from "~/components/layout/AuthModal/FormGroup";
 import Label from "~/components/Form/Label";
 import Input from "~/components/layout/AuthModal/Input";
 import withAuth from "~/components/withAuth";
 import InvalidFeedback from "~/components/Form/InvalidFeedback";
-import { HAS_WINDOW } from "~/constants/constants";
+import { HAS_WINDOW, TENANT } from "~/constants/constants";
 import useScript from "@charlietango/use-script";
 import Select from "~/components/Select/Select";
 import Button from "~/components/button";
@@ -14,29 +12,27 @@ import MaskedInput from "react-text-mask";
 import UserContext from "~/contexts/UserContext";
 import { ThemeContext } from "styled-components";
 import Color from "color";
-import NameProject from "~/components/NameProject";
 import { toast } from "react-toastify";
 import PackagesComponent from "~/components/Packages";
 import Router from "next/router";
 import Loadingcar from '~/components/Loading/Loading';
-import { STATIC_PATH, TENANT } from "~/constants/constants";
 
 
 const Signature = ({
-  packageslist,
-  layoutProps,
-  userData,
-  api,
-  requireds,
-  handleSubmit,
-  handleFormState,
-  formData,
-  setFormData,
-  releasedPackages,
-  setReleasedPackages,
-  setLoadingSubmit,
-  loadingSubmit
-}) => {
+                     packageslist,
+                     layoutProps,
+                     userData,
+                     api,
+                     requireds,
+                     handleSubmit,
+                     handleFormState,
+                     formData,
+                     setFormData,
+                     releasedPackages,
+                     setReleasedPackages,
+                     setLoadingSubmit,
+                     loadingSubmit
+                   }) => {
 
 
   const theme = useContext(ThemeContext);
@@ -53,15 +49,15 @@ const Signature = ({
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [blockDiscountFields, setBlockDiscountFields] = useState(false);
   const { user } = useContext(UserContext);
- const [packDestaque, setPackDestaque] = useState(null);
+  const [packDestaque, setPackDestaque] = useState(null);
   const [cardImg, setCardImg] = useState(null);
   const [creditCard, setCreditCard] = useState(null);
   const [loading, setLoading] = useState();
   const [error, setError] = useState({ errors: {} });
   const [subimitFinish, setSubimitFinish] = useState(false);
-  const businessUnitPublicKey = "TEST-5121749c-2a58-4b7d-b98c-9b9932a3a4cc";
+  // const businessUnitPublicKey = "TEST-5121749c-2a58-4b7d-b98c-9b9932a3a4cc";
   // const businessUnitPublicKey = 'APP_USR-fe20d55f-f7d1-49e0-855b-4d5c147ddd0b'
-  // const businessUnitPublicKey = 'TEST-4c655652-9ace-4019-93ad-16650f0a29f5'
+  const businessUnitPublicKey = 'APP_USR-2c5372da-5e36-4663-a3c5-a27a5f6017ef'
   const [isMercadoPagoReady, setIsMercadoPagoReady] = useState(false)
   const MercadoPago = ready && HAS_WINDOW ? window.Mercadopago : null
   //Set Values
@@ -100,23 +96,24 @@ const Signature = ({
       try {
         let list;
         const { data } = await api.get('packages')
-        if(TENANT!='lau'){
-           list = data.filter(function(value, index, arr){
-          if(value.plan_id !='gratis'){
+        if (TENANT != 'lau') {
+          list = data.filter(function (value, index, arr) {
+            if (value.plan_id != 'gratis') {
 
-            return value
-          };
-         });
+              return value
+            }
+            ;
+          });
 
-         setPackages({ items: list })
+          setPackages({ items: list })
 
-        }else{
-        setPackages({ items:data })
+        } else {
+          setPackages({ items: data })
 
         }
 
       } catch (error) {
-        packages = { error }
+        // packages = { error }
       }
     })();
   }, []);
@@ -152,16 +149,14 @@ const Signature = ({
     }
   }, [packages]);
 
-  useEffect(()=>{
+  useEffect(() => {
 
-      setFormData({
+    setFormData({
       ...formData,
-      package_id:packDestaque,
+      package_id: packDestaque,
     });
 
-  },[selectedPackage]);
-
-
+  }, [selectedPackage]);
 
 
   //SetKeyMercadoPago
@@ -199,10 +194,10 @@ const Signature = ({
       [name]:
         type === "checkbox"
           ? checked
-            ? value === "true"
-              ? true
-              : value
-            : false
+          ? value === "true"
+            ? true
+            : value
+          : false
           : value
     });
   };
@@ -243,10 +238,10 @@ const Signature = ({
   useEffect(_ => {
     (async _ => {
 
-    if(releasedPackages.data==false && releasedPackages.submit==true ){
+      if (releasedPackages.data == false && releasedPackages.submit == true) {
 
-      subimitFinish==true? Finish(): await submitCredit();
-    }
+        subimitFinish == true ? Finish() : await submitCredit();
+      }
 
     })();
   }, [releasedPackages]);
@@ -256,7 +251,7 @@ const Signature = ({
     const getPaymentMethods = async _ => {
       const { data } = await api.get("payment-methods");
       const tempList = [];
-      tempList.push(data[0],data[1]);
+      tempList.push(data[0], data[1]);
       setPaymentMethods(tempList);
     };
     getPaymentMethods();
@@ -274,227 +269,226 @@ const Signature = ({
   let payMethodsHtml = () => {
     {
       payMethods &&
-        payMethods.map((m, key) => {
-          return <div className="col-6 col-md">{m.id}</div>;
-        });
+      payMethods.map((m, key) => {
+        return <div className="col-6 col-md">{ m.id }</div>;
+      });
     }
   };
 
   //Submit Pagamento
   const submitCredit = async e => {
 
-     setSubimitFinish(false)
+    setSubimitFinish(false)
 
-    if(releasedPackages.packages==false){
+    if (releasedPackages.packages == false) {
       setLoadingSubmit(true);
-      setReleasedPackages({data:true,packages:false, submit:true});
+      setReleasedPackages({ data: true, packages: false, submit: true });
       setLoadingSubmit(false);
 
-    //   setTimeout(function(){
-    //   setReleasedPackages({data:true,packages:false, submit:true});
-    //   setLoading(false);
-    //  }, 2000);
+      //   setTimeout(function(){
+      //   setReleasedPackages({data:true,packages:false, submit:true});
+      //   setLoading(false);
+      //  }, 2000);
 
-    }else{
+    } else {
       //  e.preventDefault();
-    setLoadingSubmit(true);
-    let expirationMonth = "";
-    let expirationYear = "";
+      setLoadingSubmit(true);
+      let expirationMonth = "";
+      let expirationYear = "";
 
-    if (values.cardExpirationDate) {
-      expirationMonth = values.cardExpirationDate.split("/")[0];
-      expirationYear = values.cardExpirationDate.split("/")[1];
-    }
+      if (values.cardExpirationDate) {
+        expirationMonth = values.cardExpirationDate.split("/")[0];
+        expirationYear = values.cardExpirationDate.split("/")[1];
+      }
 
 
-    switch (values.paymentMethodId) {
+      switch (values.paymentMethodId) {
 
-   case 1:
+        case 1:
 
-        MercadoPago.createToken(
-          {
-            cardNumber: values.cardNumber,
-            cardholderName: values.cardHolderName,
-            cardExpirationMonth: expirationMonth,
-            cardExpirationYear: expirationYear,
-            securityCode: values.cardSecurityCode,
-            docType: values.docType,
-            docNumber: values.docNumber,
-            email: user.email
-          },
-          async (statusCode, response) => {
-            let token = "";
+          MercadoPago.createToken(
+            {
+              cardNumber: values.cardNumber,
+              cardholderName: values.cardHolderName,
+              cardExpirationMonth: expirationMonth,
+              cardExpirationYear: expirationYear,
+              securityCode: values.cardSecurityCode,
+              docType: values.docType,
+              docNumber: values.docNumber,
+              email: user.email
+            },
+            async (statusCode, response) => {
+              let token = "";
 
-            if (response && response.cause && response.cause.length > 0) {
-              let errors = [];
-              for (let error of response.cause) {
-                if (error.code === "E301") {
-                  errors["cardNumber"] =
-                    "Hay un error con ese número. Digita nuevamente.";
+              if (response && response.cause && response.cause.length > 0) {
+                let errors = [];
+                for (let error of response.cause) {
+                  if (error.code === "E301") {
+                    errors["cardNumber"] =
+                      "Hay un error con ese número. Digita nuevamente.";
+                  }
+                  if (error.code === "E302") {
+                    errors["cardSecurityCode"] = "Ingresa el código de seguridad o CVV.";
+                  }
+                  if (error.code === "316") {
+                    error["cardHolderName"] = "Por favor ingresa un nombre válido.";
+                  }
+                  if (error.code === "324") {
+                    errors["docType"] = "Confirma tu documento.";
+                  }
+                  if (error.code === "325" || error.code === "326") {
+                    errors["cardExpirationDate"] = "Ingresa una fecha.";
+                  }
                 }
-                if (error.code === "E302") {
-                  errors["cardSecurityCode"] = "Ingresa el código de seguridad o CVV.";
-                }
-                if (error.code === "316") {
-                  error["cardHolderName"] = "Por favor ingresa un nombre válido.";
-                }
-                if (error.code === "324") {
-                  errors["docType"] = "Confirma tu documento.";
-                }
-                if (error.code === "325" || error.code === "326") {
-                  errors["cardExpirationDate"] = "Ingresa una fecha.";
-                }
+                setError({
+                  errors: errors
+                });
               }
-              setError({
-                errors: errors
-              });
-            }
 
-            try {
-              token = response.id;
+              try {
+                token = response.id;
 
-              const res = await api.post(`register/subscribe`, {
-                package_id: selectedPackage.id,
-                payment_method_id: values.paymentMethodId,
-                payment_method_code: values.paymentMethodCode,
-                token: token
-              });
+                const res = await api.post(`register/subscribe`, {
+                  package_id: selectedPackage.id,
+                  payment_method_id: values.paymentMethodId,
+                  payment_method_code: values.paymentMethodCode,
+                  token: token
+                });
 
-              handleSubmit(4, null);
-            } catch (error) {
-              if (error.response) {
-                const { data, status } = error.response;
+                handleSubmit(4, null);
+              } catch (error) {
+                if (error.response) {
+                  const { data, status } = error.response;
 
-                MercadoPago.clearSession();
+                  MercadoPago.clearSession();
 
-                toast.error(data.message, { delay: 500, autoClose: 5000 });
+                  toast.error(data.message, { delay: 500, autoClose: 5000 });
 
-                if (status === 422) {
-                  setError(data);
+                  if (status === 422) {
+                    setError(data);
+                  }
+                } else if (error.request) {
+                  setError(error);
+                } else {
+                  setError(error);
                 }
-              } else if (error.request) {
-                setError(error);
-              } else {
-                setError(error);
+              } finally {
+                setLoadingSubmit(false);
+                setLoading(false);
               }
-            } finally {
+
               setLoadingSubmit(false);
               setLoading(false);
+
             }
+          );
+          break;
+        case 2:
 
-             setLoadingSubmit(false);
-             setLoading(false);
+          MercadoPago.createToken(
+            {
+              cardNumber: values.cardNumber,
+              cardholderName: values.cardHolderName,
+              cardExpirationMonth: expirationMonth,
+              cardExpirationYear: expirationYear,
+              securityCode: values.cardSecurityCode,
+              docType: values.docType,
+              docNumber: values.docNumber,
+              email: user.email
+            },
+            async (statusCode, response) => {
 
-          }
-        );
-        break;
-      case 2:
+              let token = "";
 
-            MercadoPago.createToken(
-          {
-            cardNumber: values.cardNumber,
-            cardholderName: values.cardHolderName,
-            cardExpirationMonth: expirationMonth,
-            cardExpirationYear: expirationYear,
-            securityCode: values.cardSecurityCode,
-            docType: values.docType,
-            docNumber: values.docNumber,
-            email: user.email
-          },
-          async (statusCode, response) => {
-
-            let token = "";
-
-            if (response && response.cause && response.cause.length > 0) {
-              let errors = [];
-              for (let error of response.cause) {
-                if (error.code === "E301") {
-                  errors["cardNumber"] =
-                    "Hay un error con ese número. Digita nuevamente.";
+              if (response && response.cause && response.cause.length > 0) {
+                let errors = [];
+                for (let error of response.cause) {
+                  if (error.code === "E301") {
+                    errors["cardNumber"] =
+                      "Hay un error con ese número. Digita nuevamente.";
+                  }
+                  if (error.code === "E302") {
+                    errors["cardSecurityCode"] = "Ingresa el código de seguridad o CVV.";
+                  }
+                  if (error.code === "316") {
+                    error["cardHolderName"] = "Por favor ingresa un nombre válido.";
+                  }
+                  if (error.code === "324") {
+                    errors["docType"] = "Confirma tu documento.";
+                  }
+                  if (error.code === "325" || error.code === "326") {
+                    errors["cardExpirationDate"] = "Ingresa una fecha.";
+                  }
                 }
-                if (error.code === "E302") {
-                  errors["cardSecurityCode"] = "Ingresa el código de seguridad o CVV.";
-                }
-                if (error.code === "316") {
-                  error["cardHolderName"] = "Por favor ingresa un nombre válido.";
-                }
-                if (error.code === "324") {
-                  errors["docType"] = "Confirma tu documento.";
-                }
-                if (error.code === "325" || error.code === "326") {
-                  errors["cardExpirationDate"] = "Ingresa una fecha.";
-                }
+                setError({
+                  errors: errors
+                });
               }
-              setError({
-                errors: errors
-              });
-            }
 
-            try {
-              token = response.id;
+              try {
+                token = response.id;
 
-              const res = await api.post(`register/subscribe`, {
-                package_id: selectedPackage.id,
-                payment_method_id: values.paymentMethodId,
-                payment_method_code: values.paymentMethodCode,
-                token: token
-              });
+                const res = await api.post(`register/subscribe`, {
+                  package_id: selectedPackage.id,
+                  payment_method_id: values.paymentMethodId,
+                  payment_method_code: values.paymentMethodCode,
+                  token: token
+                });
 
-              handleSubmit(4, null);
-            } catch (error) {
-              if (error.response) {
-                const { data, status } = error.response;
+                handleSubmit(4, null);
+              } catch (error) {
+                if (error.response) {
+                  const { data, status } = error.response;
 
-                MercadoPago.clearSession();
+                  MercadoPago.clearSession();
 
-                toast.error(data.message, { delay: 500, autoClose: 5000 });
+                  toast.error(data.message, { delay: 500, autoClose: 5000 });
 
-                if (status === 422) {
-                  setError(data);
+                  if (status === 422) {
+                    setError(data);
+                  }
+                } else if (error.request) {
+                  setError(error);
+                } else {
+                  setError(error);
                 }
-              } else if (error.request) {
-                setError(error);
-              } else {
-                setError(error);
+              } finally {
+                setLoadingSubmit(false);
+                setLoading(false);
               }
-            } finally {
+
               setLoadingSubmit(false);
               setLoading(false);
+
             }
+          );
+          break;
 
-             setLoadingSubmit(false);
-             setLoading(false);
 
+        case 3:
+          try {
+            const res = await api.post(`register/subscribe`, {
+              package_id: selectedPackage.id,
+              payment_method_id: values.paymentMethodId,
+              payment_method_code: values.paymentMethodCode
+            });
+
+            open(res.data.url);
+
+            setLoadingSubmit(false);
+            setLoading(false);
+
+          } catch (e) {
+
+            setLoadingSubmit(false);
+            setLoading(false);
+            console.log(e);
           }
-        );
-        break;
 
-
-      case 3:
-        try {
-          const res = await api.post(`register/subscribe`, {
-            package_id: selectedPackage.id,
-            payment_method_id: values.paymentMethodId,
-            payment_method_code: values.paymentMethodCode
-          });
-
-          open(res.data.url);
-
-           setLoadingSubmit(false);
-           setLoading(false);
-
-        } catch (e) {
-
-           setLoadingSubmit(false);
-           setLoading(false);
-          console.log(e);
-        }
-
-        break;
-    }
+          break;
+      }
 
     }
-
 
 
   }
@@ -508,19 +502,19 @@ const Signature = ({
 
   //Plan gratis
   function Finish() {
-      setSubimitFinish(true) //HABILITA O FINISH
-      setLoadingSubmit(true);
-        if(releasedPackages.packages==false){
+    setSubimitFinish(true) //HABILITA O FINISH
+    setLoadingSubmit(true);
+    if (releasedPackages.packages == false) {
 
-    //   setTimeout(function(){
-    //   setReleasedPackages({data:true,packages:false, submit:true});
-    //   setLoading(false);
-    //  }, 1500);
-    setReleasedPackages({data:true,packages:false, submit:true});
-    setLoadingSubmit(false);
+      //   setTimeout(function(){
+      //   setReleasedPackages({data:true,packages:false, submit:true});
+      //   setLoading(false);
+      //  }, 1500);
+      setReleasedPackages({ data: true, packages: false, submit: true });
+      setLoadingSubmit(false);
 
-    }else{
-    Router.push('/');
+    } else {
+      Router.push('/');
 
     }
   }
@@ -530,14 +524,14 @@ const Signature = ({
       {/* <h2 className="card-title text-center">
         <span className={"text-primary"}>¡</span>Únete a {<NameProject />}
         <span className={"text-primary"}>!</span>
-      </h2> */}
-        <div className="col-md-12  complete" >
-            Elige tu plan
+      </h2> */ }
+      <div className="col-md-12  complete">
+        Elige tu plan
 
-               </div>
-      <Loadingcar loadingState={!packages} />
-      {packages && (<PackagesComponent
-        {...{
+      </div>
+      <Loadingcar loadingState={ !packages }/>
+      { packages && (<PackagesComponent
+        { ...{
           error: packages.error ? packages.error : null,
           items: packages.items ? packages.items : null,
           onChange: onPackageChange,
@@ -548,9 +542,9 @@ const Signature = ({
             && error.errors.package_id,
           discount_id: formData.discount_id,
           setBlockDiscountFields
-        }}
-      />)}
-      {selectedPackage && selectedPackage.amount != "$0" ? (
+        } }
+      />) }
+      { selectedPackage && selectedPackage.amount != "$0" ? (
         <div className="row">
 
 
@@ -562,64 +556,64 @@ const Signature = ({
                 <FormGroup>
                   <Label htmlFor="paymentMethodId" style="margin: 0;">
                     Paga con
-                </Label>
+                  </Label>
                   <Select
                     id="paymentMethodId"
                     name="paymentMethodId"
-                    required={requireds}
-                    onChange={onPaymentChange}
-                    value={values.paymentMethodId}
+                    required={ requireds }
+                    onChange={ onPaymentChange }
+                    value={ values.paymentMethodId }
                   >
                     <option value="0">Seleccione</option>
-                    {paymentMethods &&
-                      paymentMethods.map((paymentMethod, key) => (
-                        <option
-                          key={paymentMethod.id}
-                          state={values.paymentMethodId}
-                          value={paymentMethod.id}
-                        >
-                          {paymentMethod.name}
-                        </option>
-                      ))}
+                    { paymentMethods &&
+                    paymentMethods.map((paymentMethod, key) => (
+                      <option
+                        key={ paymentMethod.id }
+                        state={ values.paymentMethodId }
+                        value={ paymentMethod.id }
+                      >
+                        { paymentMethod.name }
+                      </option>
+                    )) }
                   </Select>
                   <InvalidFeedback
-                    error={error}
-                    loading={loading}
+                    error={ error }
+                    loading={ loading }
                     name="paymentMethodId"
                   />
                 </FormGroup>
               </div>
             </div>
-            {(values.paymentMethodId == 1 || values.paymentMethodId == 2) && (
+            { (values.paymentMethodId == 1 || values.paymentMethodId == 2) && (
               <div className="row">
                 <div className="col-12">
                   <FormGroup>
                     <Label htmlFor="cardHolderName">
                       Nombre impreso en tarjeta
-                  </Label>
+                    </Label>
                     <Input
                       id="cardHolderName"
                       name="cardHolderName"
-                      required={requireds}
+                      required={ requireds }
                       type="text"
-                      onChange={handleInputChange}
+                      onChange={ handleInputChange }
                     />
                   </FormGroup>
                 </div>
                 <div className="col-12">
                   <FormGroup>
-                    <Label>{TENANT=='america'?'C.C.':'RUT/RUN/DNI asociado a la tarjeta'} (sin puntos)</Label>
+                    <Label>{ TENANT == 'america' ? 'C.C.' : 'RUT/RUN/DNI asociado a la tarjeta' } (sin puntos)</Label>
 
                     <Input
-                      className={"form-control"}
-                      onChange={handleInputChange}
+                      className={ "form-control" }
+                      onChange={ handleInputChange }
                       id="docNumber"
                       name="docNumber"
-                      maxLength={20}
+                      maxLength={ 20 }
                     />
                     <InvalidFeedback
-                      error={error}
-                      loading={loading}
+                      error={ error }
+                      loading={ loading }
                       name="docNumber"
                     />
                   </FormGroup>
@@ -627,9 +621,9 @@ const Signature = ({
                 <div className="col-12">
                   <FormGroup>
                     <Label htmlFor="cardNumber">Número de Tarjeta</Label>
-                    <img src={cardImg} className="creditCardBrand" />
+                    <img src={ cardImg } className="creditCardBrand"/>
                     <MaskedInput
-                      mask={[
+                      mask={ [
                         /\d/,
                         /\d/,
                         /\d/,
@@ -646,16 +640,16 @@ const Signature = ({
                         /\d/,
                         /\d/,
                         /\d/
-                      ]}
-                      guide={false}
-                      className={"form-control"}
-                      onChange={handleInputChangeCreditCardNumber}
+                      ] }
+                      guide={ false }
+                      className={ "form-control" }
+                      onChange={ handleInputChangeCreditCardNumber }
                       id="cardNumber"
                       name="cardNumber"
                     />
                     <InvalidFeedback
-                      error={error}
-                      loading={loading}
+                      error={ error }
+                      loading={ loading }
                       name="cardNumber"
                     />
                   </FormGroup>
@@ -665,16 +659,16 @@ const Signature = ({
                   <FormGroup>
                     <Label htmlFor="card-duedate">Expiración</Label>
                     <MaskedInput
-                      mask={[/\d/, /\d/, "/", /\d/, /\d/]}
-                      guide={false}
-                      className={"form-control"}
-                      placeholder={"MM/AA"}
-                      name={"cardExpirationDate"}
-                      onChange={handleInputChange}
+                      mask={ [/\d/, /\d/, "/", /\d/, /\d/] }
+                      guide={ false }
+                      className={ "form-control" }
+                      placeholder={ "MM/AA" }
+                      name={ "cardExpirationDate" }
+                      onChange={ handleInputChange }
                     />
                     <InvalidFeedback
-                      error={error}
-                      loading={loading}
+                      error={ error }
+                      loading={ loading }
                       name="cardExpirationDate"
                     />
                   </FormGroup>
@@ -683,16 +677,16 @@ const Signature = ({
                   <FormGroup>
                     <Label htmlFor="card-cvv">CVV</Label>
                     <MaskedInput
-                      mask={[/\d/, /\d/, /\d/]}
-                      guide={false}
-                      className={"form-control"}
-                      name={"cardSecurityCode"}
-                      onChange={handleInputChange}
-                      placeholder={"***"}
+                      mask={ [/\d/, /\d/, /\d/, /\d/] }
+                      guide={ false }
+                      className={ "form-control" }
+                      name={ "cardSecurityCode" }
+                      onChange={ handleInputChange }
+                      placeholder={ "***" }
                     />
                     <InvalidFeedback
-                      error={error}
-                      loading={loading}
+                      error={ error }
+                      loading={ loading }
                       name="cardSecurityCode"
                     />
                   </FormGroup>
@@ -702,32 +696,32 @@ const Signature = ({
                     block
                     color="secondary"
                     type="button"
-                    disabled={loadingSubmit}
-                    loading={loadingSubmit}
-                    onClick={submitCredit}
+                    disabled={ loadingSubmit }
+                    loading={ loadingSubmit }
+                    onClick={ submitCredit }
                   >
                     Pagar
-                </Button>
+                  </Button>
                 </div>
               </div>
-            )}
+            ) }
 
-            {values.paymentMethodId == 3 && (
-              <div className={"row"}>
+            { values.paymentMethodId == 3 && (
+              <div className={ "row" }>
                 <div className="col-12">
                   <Button
                     block
                     color="secondary"
                     type="button"
-                    disabled={loadingSubmit}
-                    loading={loadingSubmit}
-                    onClick={submitCredit}
+                    disabled={ loadingSubmit }
+                    loading={ loadingSubmit }
+                    onClick={ submitCredit }
                   >
                     Gerar Boleto
-                </Button>
+                  </Button>
                 </div>
               </div>
-            )}
+            ) }
 
 
           </div>
@@ -735,21 +729,21 @@ const Signature = ({
           <div className="col-md-6">
             <div className="product-summary">
               <div className="product-image">
-                {/*<img src="/static/lau/subs/plan_hero.png" alt="" />*/}
+                {/*<img src="/static/lau/subs/plan_hero.png" alt="" />*/ }
               </div>
-              <div className={"product-name-group"}>
+              <div className={ "product-name-group" }>
                 <h6>Estás comprando:</h6>
-                <p className={"product-name"}>
+                <p className={ "product-name" }>
                   Suscripción -
-               {selectedPackage && (<strong>{selectedPackage.name}</strong>)}-
-                                                                                                                                              recurrente
-              </p>
+                  { selectedPackage && (<strong>{ selectedPackage.name }</strong>) }-
+                  recurrente
+                </p>
               </div>
-              <div className={"price-breakdown"}>
+              <div className={ "price-breakdown" }>
                 <div className="checkout-total">
                   <h6>Total</h6>
-                  <p className={"price"}>
-                    {selectedPackage && (selectedPackage.amount)}
+                  <p className={ "price" }>
+                    { selectedPackage && (selectedPackage.amount) }
                   </p>
                 </div>
               </div>
@@ -757,33 +751,33 @@ const Signature = ({
 
           </div>
         </div>) : selectedPackage && selectedPackage.amount == "$0" && (
-          <div style={{ marginTop: "100px" }}>
+        <div style={ { marginTop: "100px" } }>
 
-            <div className="col-md-12" style={{ marginBottom: "20px" }}>
-              <div className="text-center">
-                <Button color="secondary" type="button"
-                    disabled={loadingSubmit}
-                    loading={loadingSubmit}
-                  style={{ width: "250px" }}
-                  onClick={() => Finish()}
-                >Ir a la página de inicio</Button>
-              </div>
+          <div className="col-md-12" style={ { marginBottom: "20px" } }>
+            <div className="text-center">
+              <Button color="secondary" type="button"
+                      disabled={ loadingSubmit }
+                      loading={ loadingSubmit }
+                      style={ { width: "250px" } }
+                      onClick={ () => Finish() }
+              >Ir a la página de inicio</Button>
             </div>
-
-
           </div>
-        )}
 
-      <style jsx global={true}>{`
+
+        </div>
+      ) }
+
+      <style jsx global={ true }>{ `
         .card {
           min-height: 600px;
         }
         .text-primary {
-          color: ${ primaryColor} !important;
+          color: ${ primaryColor } !important;
         }
 
         strong.text-primary {
-          color: ${ primaryColor} !important;
+          color: ${ primaryColor } !important;
         }
 
         h2.card-title {
@@ -805,7 +799,7 @@ const Signature = ({
         }
 
         .text-primary {
-          color: ${ primaryColor} !important;
+          color: ${ primaryColor } !important;
         }
         .register-confirm {
           color: #666666;
