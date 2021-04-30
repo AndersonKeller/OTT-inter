@@ -1,5 +1,6 @@
 {
   "lau": {
+    "mercadoPagoPublicKey": "APP_USR-fe20d55f-f7d1-49e0-855b-4d5c147ddd0b",
     "appNameSubscription": "Club Universidad de Chile",
     "appName": "La U Play",
     "projectName": "La U Play",
@@ -72,6 +73,7 @@
     "textColor": "#bec3db"
   },
   "america": {
+    "mercadoPagoPublicKey": "APP_USR-2c5372da-5e36-4663-a3c5-a27a5f6017ef",
     "appNameSubscription": "AMÉRICA DE CALI",
     "appName": "América Play",
     "projectName": "América",
@@ -98,8 +100,8 @@
         "link": "https://twitter.com/AmericadeCali"
       }
     ],
-    "googleAnalytics": "UA-184672645-1",
-    "apiUrl": "https://america.dowhile.com.br",
+    "googleAnalytics": "G-7K80KLFF66",
+    "apiUrl": "https://america.somosgad.com",
     "lang": "es-CL",
     "loadingColor": "primary",
     "backgroundColor": "#000",

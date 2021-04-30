@@ -1,5 +1,6 @@
 import Error from 'next/error'
 import { STATIC_PATH } from '../constants/constants'
+import { TENANT } from "~/constants/constants";
 import Color from 'color'
 import { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
@@ -21,7 +22,7 @@ export default function Custom404Page() {
           color: ${whiteColor} !important;
         }
         .error > div > div::after {
-          content: url(${STATIC_PATH}/logos/logo-lau.png);
+          content: url(${STATIC_PATH}/logos/logo.png);
           display: block;
           height: auto;
           margin-right: auto;

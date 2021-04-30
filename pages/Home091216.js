@@ -15,53 +15,53 @@ import api from '../services/api'
 import withApi from '~/components/withApi'
 import Color from 'color'
 import { TENANT } from "~/constants/constants";
-import Router from "next/router";
 import Cookie from '~/components/cookie/index'
-const HomePage = ({  contents, featuredMedia, featuredMediaError, media, layoutProps }) => {
+
+const HomePage = ({ contents, featuredMedia, featuredMediaError, media, layoutProps }) => {
 
   const { user } = useContext(UserContext)
   const { appName: pageTitle } = CONFIG
   let [idx, setIdx] = useState(0)
 
   return (
-    <Layout paddingTop={false} {...layoutProps} media={featuredMedia}>
+    <Layout paddingTop={ false } { ...layoutProps } media={ featuredMedia }>
       <Head>
-        <title>{pageTitle}</title>x
-        <link rel="apple-touch-icon" sizes="180x180" href={`/static/${TENANT}/favicon/favicon-180x180.png`} />
-        <link rel="icon" type="image/png" sizes="32x32" href={`/static/${TENANT}/favicon/favicon-32x32.png`} />
-        <link rel="icon" type="image/png" sizes="16x16" href={`/static/${TENANT}/favicon/favicon-16x16.png`} />
-        <link rel="manifest" href={`/static/${TENANT}/favicon/site.webmanifest`} />
-        <link rel="mask-icon" href={`/static/${TENANT}/favicon/safari-pinned-tab.svg`} color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
+        <title>{ pageTitle }</title>x
+        <link rel="apple-touch-icon" sizes="180x180" href={ `/static/${ TENANT }/favicon/favicon-180x180.png` }/>
+        <link rel="icon" type="image/png" sizes="32x32" href={ `/static/${ TENANT }/favicon/favicon-32x32.png` }/>
+        <link rel="icon" type="image/png" sizes="16x16" href={ `/static/${ TENANT }/favicon/favicon-16x16.png` }/>
+        <link rel="manifest" href={ `/static/${ TENANT }/favicon/site.webmanifest` }/>
+        <link rel="mask-icon" href={ `/static/${ TENANT }/favicon/safari-pinned-tab.svg` } color="#5bbad5"/>
+        <meta name="msapplication-TileColor" content="#da532c"/>
+        <meta name="theme-color" content="#ffffff"/>
       </Head>
       <div className="index">
-        <Cookie />
-        {/* cover */}
-        <Cover error={featuredMediaError} media={featuredMedia} />
-        {/* <Cover media={featuredMedia} /> */}
+        <Cookie/>
+        {/* cover */ }
+        <Cover error={ featuredMediaError } media={ featuredMedia }/>
+        {/* <Cover media={featuredMedia} /> */ }
 
-        {/* contents */}
+        {/* contents */ }
         <div className="index__contents">
-          {contents && contents.map((item, index) => {
+          { contents && contents.map((item, index) => {
             const showBanner = (item.is_paid && user || !item.is_paid && !user)
             const { contentable_type: contentableType } = item
             switch (contentableType) {
               case 'categories':
                 if (item.slug == 'live-streaming') {
-                  return <LiveSection api={api} category={item.slug} key={index} idx={index} />
+                  return <LiveSection api={ api } category={ item.slug } key={ index } idx={ index }/>
                 }
-                return <HomeCarouselSection api={api} category={item.slug} key={index} idx={index} />
+                return <HomeCarouselSection api={ api } category={ item.slug } key={ index } idx={ index }/>
               case 'banners':
-                return showBanner && <BannerSection id={item.contentable_id} key={index} />
+                return showBanner && <BannerSection id={ item.contentable_id } key={ index }/>
               case 'movies':
-                return showBanner && <BannerSection movie={item.slug} key={index} />
+                return showBanner && <BannerSection movie={ item.slug } key={ index }/>
             }
-          })}
+          }) }
         </div>
 
       </div>
-      <style jsx>{`
+      <style jsx>{ `
         .index {
           margin-bottom: 75px;
         }
@@ -110,8 +110,8 @@ export default withApi(HomePage)
 
 const CoverImgContent = styled.div`
   background-image:
-    linear-gradient(to bottom, ${props => Color(props.theme.colors.background).fade(1).string()} 80%, ${props => props.theme.colors.background} 100%),
-    url('${props => props.posterUrl}');
+    linear-gradient(to bottom, ${ props => Color(props.theme.colors.background).fade(1).string() } 80%, ${ props => props.theme.colors.background } 100%),
+    url('${ props => props.posterUrl }');
   background-position: 50% 0, 50% 0, 75% 0;
   background-repeat: no-repeat, no-repeat, no-repeat;
   background-size: cover, cover, cover;
@@ -122,8 +122,8 @@ const CoverImgContent = styled.div`
   }
   @media (min-width: 768px) {
     background-image:
-      linear-gradient(to bottom, ${props => Color(props.theme.colors.background).fade(1).string()} 65%, ${props => props.theme.colors.background} 100%),
-      url('${props => props.posterUrl}');
+      linear-gradient(to bottom, ${ props => Color(props.theme.colors.background).fade(1).string() } 65%, ${ props => props.theme.colors.background } 100%),
+      url('${ props => props.posterUrl }');
     background-position: 50% 0, 50% 0, 40% 50%;
     &::before {
       padding-bottom: 80%;
@@ -154,20 +154,20 @@ const Cover = ({ error, media }) => {
   const empezaYa = CONFIG.lang === 'es-CL' ? '¡Vívelo ahora!' : '¡Empieza Ya!'
   return (
 
-    <Link href={media && media.video_file ? `/media/${media.slug}/watch` : '/'} >
+    <Link href={ media && media.video_file ? `/media/${ media.slug }/watch` : '/' }>
 
 
       <div className="cover container-fluid">
 
-        {/* poster backaground banner image */}
+        {/* poster backaground banner image */ }
 
-        {poster_url && (
+        { poster_url && (
           <div className="cover__img row">
             <div className="col p-0">
 
-              <CoverImgContent posterUrl={poster_url}>
+              <CoverImgContent posterUrl={ poster_url }>
 
-                <img alt="" className="d-none" src={poster_url} />
+                <img alt="" className="d-none" src={ poster_url }/>
 
               </CoverImgContent>
 
@@ -179,57 +179,57 @@ const Cover = ({ error, media }) => {
 
 
         <div className="cover__contents row">
-          <div className="col-12 col-md-4 offset-md-1" style={{ height: "100%", marginTop: "30px" }}>
+          <div className="col-12 col-md-4 offset-md-1" style={ { height: "100%", marginTop: "30px" } }>
             <div className="cover__infos">
 
-              {/* logo overlay image */}
-              {logo && (
+              {/* logo overlay image */ }
+              { logo && (
                 <div className="row">
                   <div className="col-8 offset-2 col-md-12 offset-md-0">
                     <picture>
-                      <source srcSet={webp} type="media/webp" />
-                      <source srcSet={png} type="media/png" />
-                      <img src={fallback} width="300px" />
+                      <source srcSet={ webp } type="media/webp"/>
+                      <source srcSet={ png } type="media/png"/>
+                      <img src={ fallback } width="300px"/>
                     </picture>
                   </div>
                 </div>
-              )}
+              ) }
 
-              {/* content's description */}
-              {description && (
+              {/* content's description */ }
+              { description && (
                 <div className="row cover__description">
                   <div className="col-10 offset-1 col-md-12 offset-md-0">
-                    <p className="mb-0">{description}</p>
+                    <p className="mb-0">{ description }</p>
                   </div>
                 </div>
-              )}
+              ) }
 
             </div>
 
-            {/* cta buttons */}
+            {/* cta buttons */ }
             <div className="row justify-content-center justify-content-md-start gutter-15">
-              {!user ? (
+              { !user ? (
                 <div className="col-auto">
                   <Link href="/signup" passHref>
-                    <Button>{empezaYa}</Button>
+                    <Button>{ empezaYa }</Button>
                   </Link>
                 </div>
               ) : <>
-                  <div className="col-auto">
-                    <MediaLink {...{ media }} passHref>
-                      <Button>Mira</Button>
-                    </MediaLink>
-                  </div>
-                  <div className="col-auto">
-                    <WishlistBtn movieId={media.id} />
-                  </div>
-                </>}
+                <div className="col-auto">
+                  <MediaLink { ...{ media } } passHref>
+                    <Button>Mira</Button>
+                  </MediaLink>
+                </div>
+                <div className="col-auto">
+                  <WishlistBtn movieId={ media.id }/>
+                </div>
+              </> }
             </div>
           </div>
 
         </div>
-        {/* styles */}
-        <style jsx>{`
+        {/* styles */ }
+        <style jsx>{ `
         .cover {
           font-size: 12px;
           line-height: 1.4;
@@ -254,7 +254,7 @@ const Cover = ({ error, media }) => {
         .cover__logo::before {
           content: '';
           display: block;
-          padding-bottom: ${ logo ? height * 100 / width + '%' : 0};
+          padding-bottom: ${ logo ? height * 100 / width + '%' : 0 };
         }
         .cover__logo img {
           left: 0;
@@ -286,8 +286,8 @@ const Cover = ({ error, media }) => {
         }
       ` }</style>
 
-      </div >
-    </Link >
+      </div>
+    </Link>
   )
 }
 
@@ -303,7 +303,7 @@ const HomeCarouselSection = ({ api, category: categorySlug, idx }) => {
       setError(false)
       setLoading(true)
       try {
-        const { data } = await api().get(`category/${categorySlug}`)
+        const { data } = await api().get(`category/${ categorySlug }`)
         console.log(data);
         setCategory(data)
       } catch (error) {
@@ -321,20 +321,20 @@ const HomeCarouselSection = ({ api, category: categorySlug, idx }) => {
   return (
     <>
       <div className="home-carousel-section">
-        {loading ? (
+        { loading ? (
           <div className="text-center">
-            <Loading loadingState={loading} />
+            <Loading loadingState={ loading }/>
           </div>
         ) : category ? (
-          <CarouselSection category={category} idx={idx} />
+          <CarouselSection category={ category } idx={ idx }/>
         ) : error && (
           <div className="text-center">
-            {error}
+            { error }
           </div>
-        )}
+        ) }
       </div>
       <br></br>
-      <style jsx>{`
+      <style jsx>{ `
         .home-carousel-section {
             //margin-bottom: 75px;
             //margin-top: 75px;
@@ -360,7 +360,7 @@ const BannerSection = ({ id, movie }) => {
     async function fetchData() {
       setLoading(true)
       try {
-        const { data } = await (id ? api().get(`/banners/${id}`) : api().get(`/movie/${movie}`))
+        const { data } = await (id ? api().get(`/banners/${ id }`) : api().get(`/movie/${ movie }`))
         setBanner(data)
 
       } catch (error) {
@@ -376,36 +376,36 @@ const BannerSection = ({ id, movie }) => {
     <div>
       <div className="section">
 
-        {/* loading */}
+        {/* loading */ }
         <div className="text-center">
-          <Loading loadingState={loading} />
+          <Loading loadingState={ loading }/>
         </div>
 
-        {/* features */}
-        {banner && id &&
-          <a className="sponsor-link" href={banner.link} target="_blank">
-            <Featured img={banner.banner_url} />
+        {/* features */ }
+        { banner && id &&
+        <a className="sponsor-link" href={ banner.link } target="_blank">
+          <Featured img={ banner.banner_url }/>
+        </a>
+        }
+
+        { banner && movie &&
+        <MediaLink media={ banner.movie } passHref>
+          <a>
+            <Featured
+              className="gradient"
+              img={ banner.movie.poster_url }
+            />
           </a>
+        </MediaLink>
         }
 
-        {banner && movie &&
-          <MediaLink media={banner.movie} passHref>
-            <a>
-              <Featured
-                className="gradient"
-                img={banner.movie.poster_url}
-              />
-            </a>
-          </MediaLink>
-        }
-
-        {/* error */}
-        {error && (
+        {/* error */ }
+        { error && (
           <div className="text-center">Error</div>
-        )}
+        ) }
 
       </div>
-      <style jsx>{`
+      <style jsx>{ `
         .sponsor-link {
           color: white !important;
           text-decoration: none;
@@ -436,7 +436,7 @@ const LiveSection = ({ api, category: categorySlug, idx }) => {
       setError(false)
       setLoading(true)
       try {
-        const { data } = await api.get(`category/${categorySlug}`)
+        const { data } = await api.get(`category/${ categorySlug }`)
         console.log(data);
         setCategory(data)
       } catch (error) {
@@ -455,20 +455,20 @@ const LiveSection = ({ api, category: categorySlug, idx }) => {
     <>
       <div className="home-carousel-section live">
 
-        {loading ? (
+        { loading ? (
           <div className="text-center">
-            <Loading loadingState={loading} />
+            <Loading loadingState={ loading }/>
           </div>
         ) : category ? (
-          <CarouselSection category={category} idx={idx} />
+          <CarouselSection category={ category } idx={ idx }/>
         ) : error && (
           <div className="text-center">
-            {error}
+            { error }
           </div>
-        )}
+        ) }
       </div>
       <br></br>
-      <style jsx>{`
+      <style jsx>{ `
         .home-carousel-section {
             //margin-bottom: 75px;
             //margin-top: 75px;

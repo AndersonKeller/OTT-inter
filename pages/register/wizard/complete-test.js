@@ -4,10 +4,9 @@ import PersonalData from "./personal-data/index";
 import Signature from "./signature/index";
 import SubscriptionSuccess from "./subscription-success";
 import React, { useContext, useEffect, useState } from "react";
-import { IS_PRODUCTION } from "~/constants/constants";
+import { IS_PRODUCTION, TENANT } from "~/constants/constants";
 import Header from "~/components/layout/HeaderCad";
 import MultiStepIndicator from "~/components/MultiStepIndicator";
-import { STATIC_PATH, TENANT } from "~/constants/constants";
 import LogoApp from "~/components/LogoApp";
 import { ThemeContext } from "styled-components";
 import Color from "color";
@@ -45,7 +44,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
-  const [releasedPackages, setReleasedPackages] = useState({data:true,packages:false, submit:false});
+  const [releasedPackages, setReleasedPackages] = useState({ data: true, packages: false, submit: false });
   const [loadingSubmit, setLoadingSubmit] = useState(false);
 
 
@@ -87,57 +86,57 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
       case 0:
         return (
           <>
-          <PersonalData
-            api={api}
-            layoutProps={layoutProps}
-            handleSubmit={handleSubmit}
-            handleFormState={handleFormState}
-            formData={formData}
-            setFormData={setFormData}
-            setReleasedPackages={setReleasedPackages}
-            releasedPackages = {releasedPackages}
-            setLoadingSubmit={setLoadingSubmit}
-            loadingSubmit={loadingSubmit}
-          />
+            <PersonalData
+              api={ api }
+              layoutProps={ layoutProps }
+              handleSubmit={ handleSubmit }
+              handleFormState={ handleFormState }
+              formData={ formData }
+              setFormData={ setFormData }
+              setReleasedPackages={ setReleasedPackages }
+              releasedPackages={ releasedPackages }
+              setLoadingSubmit={ setLoadingSubmit }
+              loadingSubmit={ loadingSubmit }
+            />
 
-          <Signature
-              api={api}
-              layoutProps={layoutProps}
-              handleSubmit={handleSubmit}
-              handleFormState={handleFormState}
-              formData={formData}
-              setFormData={setFormData}
-              releasedPackages = {releasedPackages}
-              setReleasedPackages={setReleasedPackages}
-              setLoadingSubmit={setLoadingSubmit}
-              loadingSubmit={loadingSubmit}
+            <Signature
+              api={ api }
+              layoutProps={ layoutProps }
+              handleSubmit={ handleSubmit }
+              handleFormState={ handleFormState }
+              formData={ formData }
+              setFormData={ setFormData }
+              releasedPackages={ releasedPackages }
+              setReleasedPackages={ setReleasedPackages }
+              setLoadingSubmit={ setLoadingSubmit }
+              loadingSubmit={ loadingSubmit }
 
             />
-            </>
+          </>
 
         );
 
-        case 1:
+      case 1:
         return (
-            <Signature
-              api={api}
-              layoutProps={layoutProps}
-              handleSubmit={handleSubmit}
-              handleFormState={handleFormState}
-              formData={formData}
-              setFormData={setFormData}
-            />
+          <Signature
+            api={ api }
+            layoutProps={ layoutProps }
+            handleSubmit={ handleSubmit }
+            handleFormState={ handleFormState }
+            formData={ formData }
+            setFormData={ setFormData }
+          />
 
         );
 
       case 4:
         return (
           <SubscriptionSuccess
-            handleFormState={handleFormState}
-            formData={formData}
-            {...{
+            handleFormState={ handleFormState }
+            formData={ formData }
+            { ...{
               api
-            }}
+            } }
           />
         );
     }
@@ -146,23 +145,23 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
 
   return (
     <Layout
-      header={"hidden"}
-      footer={"show"}
-      customClass={"subscription-screen"}
+      header={ "hidden" }
+      footer={ "show" }
+      customClass={ "subscription-screen" }
     >
-      <Header />
+      <Header/>
 
-      <MultiStepIndicator index={wizardIndex} onClick={handleSubmit} />
+      <MultiStepIndicator index={ wizardIndex } onClick={ handleSubmit }/>
       <div
         className="card-wrapper d-flex align-items-center justify-content-center h-100 responsive"
-        style={{
-          backgroundImage: `url('/static/${TENANT}/subs/background.jpeg')`
-        }}
+        style={ {
+          backgroundImage: `url('/static/${ TENANT }/subs/background.jpeg')`
+        } }
       >
         <div className="card">
           <div
-            className={"card-header text-center"}
-            style={{
+            className={ "card-header text-center" }
+            style={ {
               backgroundColor: backgroundColor,
               padding: "25px 15px",
               border: "none",
@@ -170,14 +169,14 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
               justifyContent: "center",
               display: "flex",
               width: "100%"
-            }}
+            } }
           >
             <div className="img-logoApp-card img">
-              {" "}
-              <LogoApp />
+              { " " }
+              <LogoApp/>
             </div>
           </div>
-          <div className="card-body">{renderComponents()}</div>
+          <div className="card-body">{ renderComponents() }</div>
 
         </div>
 
@@ -185,7 +184,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
       </div>
 
       <style sjx>
-        {`
+        { `
 
         .signup-screen .card-wrapper .card .card-header
         .img-logoApp-card img,
@@ -246,7 +245,7 @@ const CompleteTest = ({ api, layoutProps, packages, user }) => {
         }
       }
 
-      `}
+      ` }
       </style>
     </Layout>
   );

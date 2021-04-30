@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import UserContext from '../contexts/UserContext'
 import withApi from '~/components/withApi'
 import { TENANT } from "~/constants/constants";
-import HomePage from '~/pages/Home'
+import HomePage from '~/pages/Home091216'
 import {SubscriptorPage} from './subscriptor'
 import api from '../services/api'
 
