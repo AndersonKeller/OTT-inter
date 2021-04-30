@@ -49,8 +49,7 @@ const NavFooter = ({ className }) => {
   const theme = useContext(ThemeContext)
   const backgroundColor = Color(theme.colors.background).hsl().string()
   const textAndFillColor = Color(theme.colors.texts).hsl().string()
-if(TENANT=='america'){ return<></>}
-  else{
+
       return (
         <nav className={classes}>
           {menu.map((item, key) => (
@@ -104,7 +103,7 @@ if(TENANT=='america'){ return<></>}
           `}</style>
         </nav>
       )
-    }
+
 }
 
 const SocialNetworks = ({ className }) => {
@@ -202,7 +201,7 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
           </div>
 
           <div className="col-8 col-sm-4 text-md-right aling">
-             {TENANT!='america'&&(  <ul>
+             <ul>
 
               {/* privacy policy */}
               <li><Link href="/privacy" passHref>
@@ -217,7 +216,7 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
               <li className="logo-gad"><GADLogo /></li>
               { TENANT == 'america' ? <li className="logo-gad"><FuteboleteLogo/></li> : ''}
 
-            </ul>)}
+            </ul>
           </div>
         </div>
       </div>
@@ -230,14 +229,14 @@ const TermsAndPoliciesBar = ({ apiVersion, layoutColor }) => {
           </div>
 
           <div className="links col-12">
-           {TENANT!='america'&&( <ul>
+            <ul>
               <li><Link href="/privacy" passHref>
                 <FooterLink>Política de Privacidad</FooterLink>
               </Link></li>
               <li><Link href="/terminos-y-politicas" passHref>
                 <FooterLink>Términos y condiciones</FooterLink>
               </Link></li>
-            </ul>)}
+            </ul>
           </div>
           <div className="col-12 text-center terms-and-policies-bar__social-networks-col">
             <SocialNetworks className="social-networks" />
