@@ -269,7 +269,7 @@ const Section2 = () => {
          <div className="section-2">
          <div className="container-inicial-sub">
          <div className="col-md-5 efeito">
-          <img className="" src={`${STATIC_PATH}/subscriptor/section2-img.png`}></img>
+          <img className="" src={`${STATIC_PATH}/subscriptor/section2-img.jpeg`}></img>
           </div>
             <div className="col-md-5 img-text ">
               <p className="text-featured">{text_1_Section_2} </p>
@@ -313,8 +313,8 @@ const Section4 = ({ user,finish }) => {
      },
      {
       "id": "4",
-      "question": "¿Cuál será el precio de lanzamiento de América Play?",
-      "answer": " Todos los aficionados que se suscriban durante la fase de preventa y lanzamiento, obtendrán un 40 % de descuento en nuestro plan anual de $79.990 . El precio de esta oferta será $49.990 por tiempo limitado ( 7 días ) Adicionalmente, tendrán 2 meses adicionales de América Play. 14 meses por solo $3.571 pesos final. Con el registrado estarán participando por sorteos únicos de experiencia"
+      "question": "¿Cuáles serán los precios de suscripción de  América Play?",
+      "answer": " Los precios de suscripción de América Play son : Mensual $7990 , Semestral $44.990 y Anual $79.990."
     },
 
 

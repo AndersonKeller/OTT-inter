@@ -13,6 +13,7 @@ import apiService from '~/services/api'
 import moment from "moment";
 import PlayerHls from "components/PlayerHsl"
 import LogoApp from '../LogoApp'
+import { TENANT } from "~/constants/constants";
 
 
 export default function BlockedPlayer({ image = '', media, sub = null }) {
@@ -238,7 +239,13 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
                 <div className="details">
                   <div  className="logo-club">
                   <ClubLogo alt={`${CONFIG.clubName} Logo`} /></div>
-                  UNIVERSIDAD DE CHILE
+                      {TENANT=='america'?(
+                        <p class="titulo-time">AMÉRICA PLAY</p>
+                      ):(
+                        <p  class="titulo-time">UNIVERSIDAD DE CHILE</p>
+                      )}
+
+
                   </div>
                   <hr></hr>
                 <div>
@@ -273,6 +280,10 @@ export default function BlockedPlayer({ image = '', media, sub = null }) {
 
           ) }
      <style jsx>{ `
+     .titulo-time{
+       margin-top:-10px;
+     }
+
      .logo-club{
         width:70px;
         padding: 10px;
