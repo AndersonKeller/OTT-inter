@@ -25,7 +25,7 @@ const Lives = ({ media, sub, errorCode, layoutProps, execute, recordings }) => {
   const [valid, setValid] = useState(execute)
   const [livesRecordings, setLivesRecordings] = useState(recordings)
   const [additional, setAdditional] = useState({ is_horizontal: 1 })
-  let titleStreaming = `Mira lo que te perdiste`
+  let titleStreaming = mediaTitle
 
 
 
@@ -77,16 +77,6 @@ const Lives = ({ media, sub, errorCode, layoutProps, execute, recordings }) => {
         </Head>
 
         <div className="index__contents">
-
-          <div className="carousel-section">
-            <div className="container-fluid">
-              <H2 className={`carousel-section-title`}>
-                <p > {titleStreaming}</p>
-              </H2>
-            </div>
-          </div>
-
-          {ree()}
           <div class="container-player">
             {valid ? (
               <div className="container-fluid">

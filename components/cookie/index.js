@@ -27,8 +27,8 @@ const Cookie = () => {
           <CookieConsent
             enableDeclineButton="true"
             location="bottom"
-            declineButtonText="Recusar"
-            buttonText="Aceitar"
+            declineButtonText="Rechazar"
+            buttonText="Aceptar"
             cookieName="myAwesomeCookieName2"
             style={{ background: "rgb(244 249 251 / 38%)", fontSize: "13px" }}
             declineButtonStyle={{ color: "white", fontSize: "13px" }}
@@ -41,7 +41,7 @@ const Cookie = () => {
               changeCookies("N")
             }}
           >
-            Este sitio almacena datos como cookies
+            Almacenamos cookies para mejorar tu experiencia.
           </CookieConsent>
         </>
       ) : ''}
