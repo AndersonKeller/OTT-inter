@@ -53,6 +53,7 @@ const UserMenu = ({login_sub}) => {
     e.preventDefault()
     signOut()
     closeAuthModal()
+    window.location.reload(true);
   }
 
   const theme = useContext(ThemeContext)

@@ -314,7 +314,7 @@ const Section4 = ({ user,finish }) => {
      {
       "id": "4",
       "question": "¿Cuáles serán los precios de suscripción de  América Play?",
-      "answer": " Los precios de suscripción de América Play son : Mensual $7990 , Semestral $44.990 y Anual $79.990."
+      "answer": " Los precios de suscripción de América Play son : Mensual $7.990 , Semestral $44.990 y Anual $79.990."
     },
 
 

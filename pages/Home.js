@@ -189,7 +189,7 @@ const Cover = ({ error, media }) => {
                     <picture>
                       <source srcSet={ webp } type="media/webp"/>
                       <source srcSet={ png } type="media/png"/>
-                      <img src={ fallback } width="300px"/>
+                      <img src={ fallback } width="230px" style={ { marginBottom: "20px" } }/>
                     </picture>
                   </div>
                 </div>
