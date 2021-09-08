@@ -97,13 +97,7 @@ const Signature = ({
         let list;
         const { data } = await api.get('packages')
         if (TENANT != 'lau') {
-          list = data.filter(function (value, index, arr) {
-            if (value.plan_id != 'gratis') {
-
-              return value
-            }
-            ;
-          });
+          list = data
 
           setPackages({ items: list })
 

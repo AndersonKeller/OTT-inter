@@ -1,50 +1,52 @@
-
 import React, { useContext, useEffect, useState } from 'react'
 import UserContext from '../contexts/UserContext'
 import withApi from '~/components/withApi'
 import { TENANT } from "~/constants/constants";
 import HomePage from '~/pages/Home'
-import {SubscriptorPage} from './subscriptor'
+import { SubscriptorPage } from './subscriptor'
 import api from '../services/api'
 
-const IndexPage= ({  contents, featuredMedia, featuredMediaError,layoutProps} ) =>{
-const { user } = useContext(UserContext)
-const [sub ,setSub] = useState()
-const [loading ,setLoading] = useState(false)
+const IndexPage = ({ contents, featuredMedia, featuredMediaError, layoutProps }) => {
+  const { user } = useContext(UserContext)
+  const [sub, setSub] = useState()
+  const [loading, setLoading] = useState(false)
 
   useEffect(_ => {
 
-    if(user){
+    if (user) {
 
-         api().get(`subscription-last/${user.id}`).then((res) => {
-          if(res){
+      api().get(`subscription-last/${ user.id }`).then((res) => {
+        if (res) {
           setSub(res.data)
           setLoading(true);
-          }
+        }
 
-         }).catch((e) => {
-             console.log(e)
-          });
-    }else{
-       setLoading(true);
+      }).catch((e) => {
+        console.log(e)
+      });
+    } else {
+      setLoading(true);
     }
 
-  },[user])
+  }, [user])
 
 
   return (
 
-    loading==true &&(
-        user && TENANT=='lau'?(
-          <HomePage layoutProps={layoutProps}  api ={api} contents={contents} featuredMedia={featuredMedia} featuredMediaError={featuredMediaError}/>
-        ): TENANT=='lau' ?(
-          <HomePage layoutProps={layoutProps}  api ={api} contents={contents} featuredMedia={featuredMedia} featuredMediaError={featuredMediaError}/>
-        ):sub && TENANT=='america' && sub.is_active==1 && sub.package_id !=1?(
-          <HomePage layoutProps={layoutProps}  api ={api} contents={contents} featuredMedia={featuredMedia} featuredMediaError={featuredMediaError}/>
-        ):(
-          <SubscriptorPage/>
-        )
+    loading == true && (
+      user && TENANT == 'lau' ? (
+        <HomePage layoutProps={ layoutProps } api={ api } contents={ contents } featuredMedia={ featuredMedia }
+                  featuredMediaError={ featuredMediaError }/>
+      ) : TENANT == 'lau' ? (
+        <HomePage layoutProps={ layoutProps } api={ api } contents={ contents } featuredMedia={ featuredMedia }
+                  featuredMediaError={ featuredMediaError }/>
+      ) : sub && TENANT == 'america' && sub.is_active == 1 ? (
+        <HomePage layoutProps={ layoutProps } api={ api } contents={ contents } featuredMedia={ featuredMedia }
+                  featuredMediaError={ featuredMediaError }/>
+      ) : (
+        <SubscriptorPage/>
       )
+    )
 
   )
 }

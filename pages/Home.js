@@ -26,7 +26,7 @@ const HomePage = ({ contents, featuredMedia, featuredMediaError, media, layoutPr
   return (
     <Layout paddingTop={ false } { ...layoutProps } media={ featuredMedia }>
       <Head>
-        <title>{ pageTitle }</title>x
+        <title>{ pageTitle }</title>
         <link rel="apple-touch-icon" sizes="180x180" href={ `/static/${ TENANT }/favicon/favicon-180x180.png` }/>
         <link rel="icon" type="image/png" sizes="32x32" href={ `/static/${ TENANT }/favicon/favicon-32x32.png` }/>
         <link rel="icon" type="image/png" sizes="16x16" href={ `/static/${ TENANT }/favicon/favicon-16x16.png` }/>

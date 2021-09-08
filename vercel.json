@@ -7,12 +7,12 @@
   "version": 2,
   "env": {
     "TENANT": "america",
-    "API_URL": "https://america.dowhile.com.br"
+    "API_URL": "https://america.somosgad.com"
   },
   "build": {
     "env": {
       "TENANT": "america",
-      "API_URL": "https://america.dowhile.com.br"
+      "API_URL": "https://america.somosgad.com"
     }
   },
   "routes": [
