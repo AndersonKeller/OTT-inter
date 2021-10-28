@@ -4,6 +4,8 @@ import { TENANT } from "~/constants/constants";
 import Color from 'color'
 import { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
+import LogoApp from '~/components/LogoApp'
+import { TENANT } from '~/constants/constants'
 
 export default function Custom404Page() {
   const theme = useContext(ThemeContext)
@@ -16,17 +18,20 @@ export default function Custom404Page() {
         statusCode={404}
         title='No se pudo encontrar esta página'
       />
+      <div className="logo">
+        <LogoApp height={TENANT === 'lau' ? 30 : TENANT === 'river' ? 22 : 25} />
+      </div>
       <style global jsx>{`
         .error > div {
           background: ${backgroundColor} !important;
           color: ${whiteColor} !important;
+          margin-bottom:5px;
+          padding-bottom:5px;
         }
-        .error > div > div::after {
-          content: url(${STATIC_PATH}/logos/logo.png);
+        .logo {
           display: block;
           height: auto;
           margin-right: auto;
-          margin-top: 15px;
           margin-left: auto;
           max-width: 100%;
           width: 150px;
