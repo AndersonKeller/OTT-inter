@@ -5,7 +5,6 @@ import Color from 'color'
 import { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
 import LogoApp from '~/components/LogoApp'
-import { TENANT } from '~/constants/constants'
 
 export default function Custom404Page() {
   const theme = useContext(ThemeContext)
