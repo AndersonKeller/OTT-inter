@@ -1,0 +1,32 @@
+{
+  "name": "inter-app",
+  "alias": [
+    "inter-app.vercel.app"
+  ],
+  "scope": "somosgad",
+  "version": 2,
+  "env": {
+    "TENANT": "inter",
+    "API_URL": "https://inter.dowhile.com.br"
+  },
+  "build": {
+    "env": {
+      "TENANT": "inter",
+      "API_URL": "https://inter.dowhile.com.br"
+    }
+  },
+  "routes": [
+    {
+      "src": "/fLogin",
+      "dest": "/signup?modal=login&socialProvider=facebook"
+    },
+    {
+      "src": "/gLogin",
+      "dest": "/signup?modal=login&socialProvider=google"
+    },
+    {
+      "src": "/login",
+      "dest": "/signup?modal=login"
+    }
+  ]
+}
