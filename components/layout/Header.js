@@ -18,10 +18,10 @@ import ExAssinatura from '../exAssinatura'
 
 const StyledHeader = styled.header`
   background-color: ${props => props.closed ? 'var(--background)' :
-    props.scrolled ? Color(props.theme.colors.background).fade(.1).string() :
+    props.scrolled ? Color(CONFIG.sidebarColor).fade(.3).string() :
       props.layoutColor === 'white' ? props.theme.colors.background : 'transparent'};
   box-shadow: 0 0 5px rgba(var(--black-rgb), ${props => props.layoutColor !== 'white' && props.scrolled ? '.9' : '0'});
-  color: ${props => props.theme.colors.texts};
+  color: black;
   font-family: var(--sans-serif);
   font-size: 16px;
   font-weight: bold;
@@ -33,7 +33,7 @@ const StyledHeader = styled.header`
   width: 90%;
   z-index: 10;
   @media (min-width: 768px) {
-    padding: 10px 30px;
+    padding: ${ CONFIG.headerStyle === 'sidebar' ? '10px 50px 10px 180px' : '10px 30px'};
   }
 `
 
@@ -97,14 +97,18 @@ const Header =
 
       <StyledHeader closed={closed} layoutColor={layoutColor} scrolled={scrolled} media={media}>
         <nav className="nav">
-          {/* club logo */}
-          {(!closed && (TENANT !== 'lau')) && (
-            <HeaderClubLogo />
+          { ! CONFIG.headerStyle === 'sidebar' && (
+            <>
+              {/* club logo */}
+              {(!closed && (TENANT !== 'lau')) && (
+                <HeaderClubLogo />
+              )}
+
+
+              {/* logo */}
+              <HeaderAppLogo closed={closed} media={media} />
+            </>
           )}
-
-
-          {/* logo */}
-          <HeaderAppLogo closed={closed} media={media} />
 
           {!closed && (
             <>

@@ -34,20 +34,20 @@ const IndexPage = ({ contents, featuredMedia, featuredMediaError, layoutProps })
   return (
 
     loading == true && (
-      user && TENANT == 'lau' ? (
+      // user && (
         <HomePage layoutProps={ layoutProps } api={ api } contents={ contents } featuredMedia={ featuredMedia }
                   featuredMediaError={ featuredMediaError }/>
-      ) : TENANT == 'lau' ? (
-        <HomePage layoutProps={ layoutProps } api={ api } contents={ contents } featuredMedia={ featuredMedia }
-                  featuredMediaError={ featuredMediaError }/>
-      ) : sub && TENANT == 'america' && sub.is_active == 1 ? (
-        <HomePage layoutProps={ layoutProps } api={ api } contents={ contents } featuredMedia={ featuredMedia }
-                  featuredMediaError={ featuredMediaError }/>
-      ) : (
-        <SubscriptorPage/>
+      // ) : TENANT == 'lau' ? (
+      //   <HomePage layoutProps={ layoutProps } api={ api } contents={ contents } featuredMedia={ featuredMedia }
+      //             featuredMediaError={ featuredMediaError }/>
+      // ) : sub && TENANT == 'america' && sub.is_active == 1 ? (
+      //   <HomePage layoutProps={ layoutProps } api={ api } contents={ contents } featuredMedia={ featuredMedia }
+      //             featuredMediaError={ featuredMediaError }/>
+      // ) : (
+      //   <SubscriptorPage/>
+      // )
       )
-    )
-
+    // )
   )
 }
 

@@ -1,18 +1,18 @@
 {
-  "name": "inter-app",
+  "name": "america-app",
   "alias": [
-    "inter-app.vercel.app"
+    "america-app.vercel.app"
   ],
   "scope": "somosgad",
   "version": 2,
   "env": {
-    "TENANT": "inter",
-    "API_URL": "https://inter.dowhile.com.br"
+    "TENANT": "america",
+    "API_URL": "https://america.somosgad.com"
   },
   "build": {
     "env": {
-      "TENANT": "inter",
-      "API_URL": "https://inter.dowhile.com.br"
+      "TENANT": "america",
+      "API_URL": "https://america.somosgad.com"
     }
   },
   "routes": [

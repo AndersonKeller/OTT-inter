@@ -10,6 +10,9 @@ import withApi from '../withApi'
 import Color from "color";
 import { ThemeContext } from "styled-components";
 import HeaderSubscription  from '../HeaderSubscription/index'
+import { CONFIG } from '~/config'
+import Sidebar from './Sidebar'
+
 
 const Layout = ({
   media,
@@ -85,10 +88,17 @@ const Layout = ({
     return null
   }
 
+  const items = [
+    ['soccer-field (1).png', 'link'],
+    ['movie-open-play (1).png', 'link'],
+    ['account (1).png', 'link']
+  ]
+
   return (
     <div className={customClass}>
       <ToastContainer newestOnTop />
 
+      {CONFIG.headerStyle && <Sidebar data={menus} items={items} />}
       {renderHeader(media)}
 
       <main className={!paddingTop ? 'no-padding' : ''}>

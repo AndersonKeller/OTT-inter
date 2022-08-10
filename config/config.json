@@ -156,31 +156,19 @@
     "prefixAppName": "SC",
     "suffixAppName": "Internacional",
     "supportersAKA": "Colorados",
-    "color": "#e30513",
-    "secondaryColor": "#000",
+    "color": "#C43030",
+    "secondaryColor": "#3B2427",
     "site": "https://internacional.com.br/",
-    "socialNetworks": [
-      {
-        "name": "Facebook",
-        "link": "https://pt-br.facebook.com/scinternacional/"
-      },
-      {
-        "name": "Instagram",
-        "link": "https://instagram.com/scinternacional"
-      },
-      {
-        "name": "Twitter",
-        "link": "https://www.twitter.com/scinternacional"
-      }
-    ],
     "googleAnalytics": "UA-184672645-1",
     "apiUrl": "https://inter.dowhile.com.br",
     "lang": "pt-BR",
-    "loadingColor": "primary",
-    "backgroundColor": "#000c33",
-    "backgroundContrastColor": "#1a1a1a",
-    "backgroundContrastColor2": "#293989",
-    "socialNetworkColor": "#FFF",
-    "textColor": "#bec3db"
+    "loadingColor": "#C43030",
+    "backgroundColor": "#FFF",
+    "backgroundContrastColor": "#C43030",
+    "backgroundContrastColor2": "#3B2427",
+    "socialNetworkColor": "#000",
+    "textColor": "#000",
+    "headerStyle": "sidebar",
+    "sidebarColor": "#3B2427"
   }
 }

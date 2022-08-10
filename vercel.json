@@ -1,18 +1,18 @@
 {
-  "name": "america-app",
+  "name": "inter-app",
   "alias": [
-    "america-app.vercel.app"
+    "inter-ott-app.vercel.app"
   ],
-  "scope": "somosgad",
+  "scope": "Imply",
   "version": 2,
   "env": {
-    "TENANT": "america",
-    "API_URL": "https://america.somosgad.com"
+    "TENANT": "inter",
+    "API_URL": "http://e728-138-36-81-242.sa.ngrok.io"
   },
   "build": {
     "env": {
-      "TENANT": "america",
-      "API_URL": "https://america.somosgad.com"
+      "TENANT": "inter",
+      "API_URL": "http://e728-138-36-81-242.sa.ngrok.io"
     }
   },
   "routes": [

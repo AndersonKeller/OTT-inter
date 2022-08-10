@@ -211,7 +211,7 @@ const Cover = ({ error, media }) => {
               { !user ? (
                 <div className="col-auto">
                   <Link href="/signup" passHref>
-                    <Button>{ empezaYa }</Button>
+                    <Button>Assista Agora</Button>
                   </Link>
                 </div>
               ) : <>

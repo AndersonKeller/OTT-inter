@@ -347,7 +347,7 @@ const Avatar = ({ image }) => {
   return (
     <span className={'avatar' + (!image ? ' avatar--empty' : '')}>
       {!image ? (
-        <ReactSVG fallback="Avatar" src="/static/icons/user.svg" wrapper="span" />
+        <ReactSVG fallback="Avatar" style={{color: 'black'}} src="/static/icons/user.svg" wrapper="span" />
       ) : (
           <img alt="Avatar" className="img-fluid" height="30" src={image} width="30" />
         )}

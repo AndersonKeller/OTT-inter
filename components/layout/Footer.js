@@ -116,7 +116,7 @@ const SocialNetworks = ({ className }) => {
   return (
     <IconContext.Provider value={{ size: '24px' }}>
       <ul className={`list-inline ${className} `}>
-        {CONFIG.socialNetworks.map((item, key) => {
+        {CONFIG?.socialNetworks?.map((item, key) => {
           const slug = item.name.toLowerCase()
           if (!['facebook', 'instagram', 'twitter'].includes(slug)) return
           return (
