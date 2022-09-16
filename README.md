@@ -11,13 +11,19 @@ Built with [Next.js](https://nextjs.org/).
 ```sh
 yarn
 ```
-
+or
+```sh
+npm install
+```
 
 ## Develop
 ```sh
 yarn dev
 ```
-
+or
+```sh
+npm run dev
+```
 
 ## Release
 
