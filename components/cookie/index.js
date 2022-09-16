@@ -21,18 +21,17 @@ const Cookie = () => {
   }
   return (
     <>
-
       {(show == null || show == "NI") ? (
         <>
           <CookieConsent
             enableDeclineButton="true"
             location="bottom"
-            declineButtonText="Rechazar"
-            buttonText="Aceptar"
-            cookieName="myAwesomeCookieName2"
+            declineButtonText="Recusar"
+            buttonText="Aceitar"
+            cookieName="myAwesomeCookieName3"
             style={{ background: "rgb(244 249 251 / 38%)", fontSize: "13px" }}
             declineButtonStyle={{ color: "white", fontSize: "13px" }}
-            buttonStyle={{ background: "rgb(34 122 196)", color: "white", fontSize: "13px" }}
+            buttonStyle={{ background: "#D8B973", color: "white", fontSize: "13px" }}
             expires={150}
             onAccept={() => {
               changeCookies("s")
@@ -41,7 +40,7 @@ const Cookie = () => {
               changeCookies("N")
             }}
           >
-            Almacenamos cookies para mejorar tu experiencia.
+            Armazenamos cookies para melhorar a tua experiência.
           </CookieConsent>
         </>
       ) : ''}

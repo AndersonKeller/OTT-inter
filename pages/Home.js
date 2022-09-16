@@ -14,14 +14,16 @@ import { CONFIG } from '../config'
 import api from '../services/api'
 import withApi from '~/components/withApi'
 import Color from 'color'
-import { TENANT } from "~/constants/constants";
+import { TENANT } from "~/constants/constants"
 import Cookie from '~/components/cookie/index'
 
 const HomePage = ({ contents, featuredMedia, featuredMediaError, media, layoutProps }) => {
 
-  const { user } = useContext(UserContext)
+  const { user, autoLogin } = useContext(UserContext)
   const { appName: pageTitle } = CONFIG
   let [idx, setIdx] = useState(0)
+  console.log('autologin: ', autoLogin)
+  console.log('config.autologin: ', CONFIG.isAutoLogin)
 
   return (
     <Layout paddingTop={ false } { ...layoutProps } media={ featuredMedia }>

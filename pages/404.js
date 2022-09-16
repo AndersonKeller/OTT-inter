@@ -15,7 +15,7 @@ export default function Custom404Page() {
     <div className="error">
       <Error
         statusCode={404}
-        title='No se pudo encontrar esta página'
+        title='Não foi possível encontrar esta página'
       />
       <div className="logo">
         <LogoApp height={TENANT === 'lau' ? 30 : TENANT === 'river' ? 22 : 25} />

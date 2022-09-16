@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
-import { createContext, useState } from 'react'
+import { createContext, useState, useEffect, useContext } from 'react'
+import UserContext from '~/contexts/UserContext'
 
 export const AuthModalContext = createContext()
 
@@ -13,6 +14,9 @@ export function AuthModalProvider({ children }) {
   const [ tab, setTab ] = useState(shouldAutoOpen ? modal : 'login')
   const [ tabsHistory, setTabHistory ] = useState([])
   const [ packageId, setPackageId ] = useState()
+  const { shouldAutoLogin } = useContext(UserContext)
+
+  useEffect(() => { if(shouldAutoLogin) openAutoLogin() }, [])
 
   function backTab() {
     if (tabsHistory.length <= 1) {
@@ -56,6 +60,11 @@ export function AuthModalProvider({ children }) {
     }
     return true
   }
+
+  const openAutoLogin = () => {
+    openAuthModal()
+    setTimeout(() => setShow(false), 2000)
+  } 
 
   return (
     <AuthModalContext.Provider value={{...{

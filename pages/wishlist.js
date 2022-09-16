@@ -50,15 +50,15 @@ const WishlistPage = ({layoutProps}) => {
   return (
     <Layout {...layoutProps}>
       <Head>
-        <title>Mi lista &lt; {CONFIG.appName}</title>
+        <title>Minha Lista &lt; {CONFIG.appName}</title>
       </Head>
-      <div className="container-fluid">
+      <div className="container-fluid content">
         <div className="row">
           <div className="col-md-10 offset-md-1">
 
             {/* heading */}
             <header>
-              <h1 className="h2">Mi lista</h1>
+              <h1 className="h2">Minha Lista</h1>
             </header>
 
             {/* loading */}
@@ -101,6 +101,9 @@ const WishlistPage = ({layoutProps}) => {
           header {
             padding-top: 30px;
           }
+        }
+        .content {
+          min-height: 100vh;
         }
       `}</style>
     </Layout>

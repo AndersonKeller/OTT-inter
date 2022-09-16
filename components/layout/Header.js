@@ -33,7 +33,7 @@ const StyledHeader = styled.header`
   width: 90%;
   z-index: 10;
   @media (min-width: 768px) {
-    padding: ${ CONFIG.headerStyle === 'sidebar' ? '10px 50px 10px 180px' : '10px 30px'};
+    padding: ${ CONFIG.headerStyle === 'sidebar' ? '10px 50px 10px 180px' : '10px 15px'};
   }
 `
 
@@ -97,10 +97,10 @@ const Header =
 
       <StyledHeader closed={closed} layoutColor={layoutColor} scrolled={scrolled} media={media}>
         <nav className="nav">
-          { ! CONFIG.headerStyle === 'sidebar' && (
+          {/* { ! CONFIG.headerStyle === 'sidebar' && ( */}
             <>
               {/* club logo */}
-              {(!closed && (TENANT !== 'lau')) && (
+              {(!closed && (TENANT !== 'lau' && TENANT !== 'inter')) && (
                 <HeaderClubLogo />
               )}
 
@@ -108,7 +108,7 @@ const Header =
               {/* logo */}
               <HeaderAppLogo closed={closed} media={media} />
             </>
-          )}
+          {/* )} */}
 
           {!closed && (
             <>
@@ -256,7 +256,7 @@ const HeaderAppLogo = ({ closed, media }) => {
     <h1 className="logo">
       <Link href={media && media.video_file ? `/media/${media.slug}/watch` : '/'} >
         <a>
-          <LogoApp height={TENANT === 'lau' ? 30 : TENANT === 'river' ? 22 : 25} />
+          <LogoApp height={TENANT === 'inter' ? 30 : TENANT === 'river' ? 22 : 25} />
         </a>
       </Link>
 
@@ -275,7 +275,7 @@ const HeaderAppLogo = ({ closed, media }) => {
         }
         @media (min-width: 768px) {
           .logo {
-            margin-right: ${closed ? 0 : '20px'};
+            margin-right: ${closed ? 0 : '2px'};
           }
         }
       `}</style>

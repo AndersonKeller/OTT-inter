@@ -94,7 +94,7 @@ const Sidebar = ({ data: menus, items }) => {
       { items ?  items.map( (it, i) => { return (
                 <>
                   <hr style={{border: '0.01rem solid gray', width: '100%'}} />
-                  <li className="nav-item" key={ i } style={{borderTop: '2px', backgroungColor: (i==1 ? 'red':'transparent') }}>
+                  <li className="nav-item" key={`${i}`} style={{borderTop: '2px', backgroungColor: (i==1 ? 'red':'transparent') }}>
                     <a href={ it[1] } target="_blank">
                       <img src={`/static/inter/${it[0]}` } style={{ filter: 'invert(100%) sepia(0%) saturate(88%) hue-rotate(196deg) brightness(120%) contrast(100%)', width: '25px' }} />
                     </a>

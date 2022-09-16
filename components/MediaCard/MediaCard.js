@@ -20,14 +20,15 @@ const MediaCard = ({
   const theme = useContext(ThemeContext)
   const lightColor = theme.colors.texts
   const whiteColor = theme.colors.white
+  const goldColor = theme.colors.backgroundContrast
   const { is_paid: isPaid } = media
 
   function statusChip() {
-    if (isPaid) {
-      return <Chip label={"Premium"} color={"primary"} />
-    } else {
-      return <Chip label={"Gratis"} />
-    }
+    if (isPaid)
+      return <Chip label="Sócio" color="secondary"  />
+    // } else {
+    //   return <Chip label="Gratis" />
+    // }
   }
   let watch = false;
   if (category && category.slug == 'live-streaming') {

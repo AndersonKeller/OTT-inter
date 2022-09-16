@@ -8,7 +8,7 @@ import { ThemeContext } from 'styled-components'
 function CustomError({ statusCode }) {
   const theme = useContext(ThemeContext)
   const backgroundColor = Color(theme.colors.background).hsl().string()
-  const title = statusCode === 503 ? 'Servidor no disponible' : null
+  const title = statusCode === 503 ? 'Servidor não disponível' : null
   return (
     <div className="error">
       <Error
@@ -21,7 +21,7 @@ function CustomError({ statusCode }) {
           color: #fff !important;
         }
         .error > div > div::after {
-          content: url(${STATIC_PATH}/logos/logo_project@2x.png);
+          content: url(${STATIC_PATH}/logos/logo-app.png);
           display: block;
           height: auto;
           margin-right: auto;

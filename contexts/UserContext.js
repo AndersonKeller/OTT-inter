@@ -6,7 +6,10 @@ import SafeJSONParse from 'json-parse-safe'
 import nookies from 'nookies'
 
 import api from '../services/api'
-import { setAccessToken, removeAccessToken } from '../services/auth'
+import { setAccessToken, removeAccessToken, getAccessToken } from '../services/auth'
+
+import { CONFIG } from '~/config'
+import { isEmpty } from 'lodash'
 
 const UserContext = createContext()
 
@@ -17,7 +20,9 @@ export function UserProvider({ children }) {
   const { user: userString } = nookies.get({}, 'user')
   const userCookie = SafeJSONParse(userString).value
   const [user, setUser] = useState(userCookie)
+  const [shouldAutoLogin] = useState(CONFIG.isAutoLogin && isEmpty(getAccessToken()))
 
+  console.log('access_token:', getAccessToken());
   const signIn = (user, tokenResponse, toComplete = false) => {
 
     const {
@@ -80,7 +85,7 @@ export function UserProvider({ children }) {
   }
 
   return (
-    <UserContext.Provider value={{ ...{ user, signIn, signOut, updateUser } }}>
+    <UserContext.Provider value={{ ...{ user, signIn, signOut, updateUser, shouldAutoLogin } }}>
       {children}
     </UserContext.Provider>
   )

@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "scripts": {
     "build": "next build",
-    "dev": "nodemon server.js",
+    "dev": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon server.js",
     "dev:river": "cross-env TENANT=river yarn dev",
     "dev:dalecacique": "cross-env TENANT=dalecacique yarn dev",
     "docz:dev": "docz dev",
@@ -78,6 +78,7 @@
     "babel-plugin-styled-components": "^1.10.7",
     "docz": "^2.3.1",
     "nodemon": "^2.0.4",
-    "sleep-promise": "^8.0.1"
+    "sleep-promise": "^8.0.1",
+    "vercel": "^27.4.0"
   }
 }

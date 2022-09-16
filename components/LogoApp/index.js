@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import api from '~/services/api'
 import SearchContext from '~/contexts/SearchContext'
+import { TENANT } from "~/constants/constants";
+
 
 
 function LogoApp() {
@@ -9,16 +11,18 @@ function LogoApp() {
   const [images, setImage] = useState([{ id: '1' }]);
 
   useEffect(_ => {
-    (async _ => {
-      const res = await api().get(search ? `/search/${ search }` : '/club/images')
-      setImage(res.data);
-    })();
+    // (async _ => {
+    //   const res = await api().get(search ? `/search/${ search }` : '/club/images')
+    //   setImage(res.data);
+    // })();
   }, [])
   
   return (
 
     <>
-      <img className="img-fluid" src={ ` ${ link }/images/club${ images.image_projeto }` }/>
+      {/* <img className="img-fluid" src={ ` ${ link }/images/club${ images.image_projeto }` }/>
+       */}
+      <img className="img-fluid" src={'/static/' +  TENANT + '/logos/logo-app.png'}/>
 
       <style jsx>{ `
         img {

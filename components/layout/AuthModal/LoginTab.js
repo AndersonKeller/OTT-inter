@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react'
 import UserContext from '../../../contexts/UserContext'
 import api, { baseURL } from '../../../services/api'
-import { CLIENT_ID, CLIENT_SECRET } from '../../../constants/constants'
+import { CLIENT_ID, CLIENT_SECRET, LOGIN_PASS } from '../../../constants/constants'
 import { setAccessToken } from '../../../services/auth'
 import FormGroup from './FormGroup'
 import Input from './Input'
@@ -20,7 +20,7 @@ const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ error, setError ] = useState('')
-  const { signIn } = useContext(UserContext)
+  const { signIn, shouldAutoLogin } = useContext(UserContext)
   const { closeAuthModal, code, socialProvider } = useContext(AuthModalContext)
 
   const providerLogin = async _ => {
@@ -47,10 +47,21 @@ const LoginTab = ({ changeTab, setLoading, socialLogin }) => {
     }
   }
 
-  useEffect(() => { if(code && socialProvider) providerLogin() }, [])
+  useEffect(() => { 
+    if(code && socialProvider) providerLogin()
+
+    if(shouldAutoLogin) {
+      setEmail('dterra@imply.com')
+      setPassword('12341234')
+      handleSubmit()
+      // setEmail('')
+      // setPassword('')
+      // setError('')
+    }
+  }, [])
 
   async function handleSubmit(e) {
-    e.preventDefault()
+    e?.preventDefault()
     setLoading(true)
     document.activeElement.blur()
     try {

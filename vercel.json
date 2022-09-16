@@ -3,16 +3,16 @@
   "alias": [
     "inter-ott-app.vercel.app"
   ],
-  "scope": "Imply",
+  "scope": "imply",
   "version": 2,
   "env": {
     "TENANT": "inter",
-    "API_URL": "http://e728-138-36-81-242.sa.ngrok.io"
+    "API_URL": "https://ottadmin.eleventickets.com"
   },
   "build": {
     "env": {
       "TENANT": "inter",
-      "API_URL": "http://e728-138-36-81-242.sa.ngrok.io"
+      "API_URL": "https://ottadmin.eleventickets.com"
     }
   },
   "routes": [

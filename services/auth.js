@@ -1,6 +1,6 @@
 import nookies from 'nookies'
 
-export const ACCESS_TOKEN_KEY = 'access_token'
+export const ACCESS_TOKEN_KEY = 'access_token_user_id'
 
 export const getAccessToken = ctx => {
   const cookies = nookies.get(ctx, ACCESS_TOKEN_KEY)

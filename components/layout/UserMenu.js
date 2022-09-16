@@ -2,7 +2,7 @@ import Color from 'color'
 import Link from 'next/link'
 import { useContext } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
-import { GoPerson } from 'react-icons/go';
+import { GoPerson, GoDeviceCameraVideo, GoListUnordered, GoSearch } from 'react-icons/go';
 import { IoMdAddCircle, IoIosHelpCircle } from 'react-icons/io';
 import { RiLogoutBoxRLine } from 'react-icons/ri';
 import ReactSVG from 'react-svg'
@@ -18,15 +18,16 @@ const UserMenu = ({login_sub}) => {
   const { signOut, user } = useContext(UserContext)
   const { closeAuthModal, openAuthModal } = useContext(AuthModalContext)
 
-
-
   let   loggedMenu = [
-    { slug: 'add', label: 'Mi Lista', href: '/wishlist' },
-    { slug: 'user', label: 'Mi Cuenta', href: '/user/account' },
+    { slug: 'add', label: 'Minha Lista', href: '/wishlist' },
+    { slug: 'cat', label: 'Categorias', href: '/categories' },
+    { slug: 'search', label: 'Buscar', href: '/movies' },
+    { slug: 'live', label: 'Live', href: '/live' },
+    // { slug: 'user', label: 'Mi Cuenta', href: '/user/account' },
     // { slug: 'settings', label: 'Configuración', href: '/settings' },
-    { slug: 'help', label: 'Ayuda', href: '/help' },
+    // { slug: 'help', label: 'Ayuda', href: '/help' },
     // { slug: 'info', label: 'Soporte', href: '/soporte' },
-    { slug: 'logout', label: 'Salir', href: '/logout', onClick: logout, },
+    // { slug: 'logout', label: 'Salir', href: '/logout', onClick: logout, },
   ]
 
 
@@ -97,6 +98,12 @@ const UserMenu = ({login_sub}) => {
                       <IoMdAddCircle size={24} />
                     ) : slug === 'help' ? (
                       <IoIosHelpCircle size={24} />
+                    ) : slug === 'live' ? (
+                      <GoDeviceCameraVideo size={24} />
+                    ) : slug === 'cat' ? (
+                      <GoListUnordered size={24} />
+                    ) : slug === 'search' ? (
+                      <GoSearch size={24} />
                     ) : slug === 'user' ? (
                       <GoPerson size={24} />
                     ) : slug === 'logout' ? (

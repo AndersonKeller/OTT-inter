@@ -19,6 +19,7 @@ const api = (ctx, signOut) => {
     http.interceptors.request.use(async config => {
       const accessToken = getAccessToken(apiCtx)
       config.headers.Accept = 'application/json'
+      // config.headers['ngrok-skip-browser-warning'] = 'true'
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`
       }

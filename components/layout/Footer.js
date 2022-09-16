@@ -37,11 +37,11 @@ const NavFooter = ({ className }) => {
 
   const { user } = useContext(UserContext)
   const menu = [
-    { icon: 'home', label: 'Inicio', href: '/', },
+    { icon: 'home', label: 'Início', href: '/', },
     // { icon: 'live', label: 'Ahora', },
-    { icon: 'categories', label: 'Categorías', href: '/categories', },
+    { icon: 'categories', label: 'Categorias', href: '/categories', },
     // { icon: 'downloads', label: 'Descargas', href: '/downloads', },
-    { icon: 'add', label: 'Mi Lista', href: user ? '/wishlist' : '/login', },
+    { icon: 'add', label: 'Minha Lista', href: user ? '/wishlist' : '/login', },
     { icon: 'search', label: 'Buscar', href: '/movies', },
     // { icon: 'scan', label: 'Escanear', },
   ]

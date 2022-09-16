@@ -94,7 +94,7 @@ export default class MyDocument extends Document {
                 window.__Insp = window.__Insp || [];
                 __insp.Push(['wid', 1793852315]);
                 var ldinsp = function() {
-                    if (typeof window.__inspld! = "undefined") return;
+                    if (typeof window.__inspld != "undefined") return;
                     window.__inspld = 1;
                     var insp = document.createElement('script');
                     insp.type = 'text / javascript';

@@ -98,14 +98,14 @@ const Layout = ({
     <div className={customClass}>
       <ToastContainer newestOnTop />
 
-      {CONFIG.headerStyle && <Sidebar data={menus} items={items} />}
+      {/* {CONFIG.headerStyle && <Sidebar data={menus} items={items} />} */}
       {renderHeader(media)}
 
       <main className={!paddingTop ? 'no-padding' : ''}>
         {children}
       </main>
 
-      {renderFooter()}
+      {/* {renderFooter()} */}
 
       <AuthModal />
 
