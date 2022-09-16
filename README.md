@@ -1,6 +1,8 @@
 # Dale
 
+
 Built with [Next.js](https://nextjs.org/).
+
 
 **Please keep this project's [CHANGELOG](CHANGELOG.md) updated.**
 
